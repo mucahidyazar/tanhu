@@ -1,0 +1,589 @@
+{
+ "hash": "e66b755f",
+ "seed": 3107,
+ "arm": 1,
+ "songId": "Zxz5R5cqYfs8fkkOQN3a",
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Intro]\n{solo komuz alone, galloping finger strokes, no voice}",
+    "duration_ms": 4616,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless long neck, small carved apricot-wood body",
+     "bare right hand: nail down-strokes, fingertip up-strokes, brushed and flicked, no pick",
+     "unbroken galloping ostinato on every eighth note, 6/8, dotted quarter 52 BPM, 156 strokes per minute",
+     "open D and A strings drone under a one-string melody, the melody moves constantly",
+     "short dry woody decay, each stroke dies within a second, nail click and finger noise clearly audible",
+     "quick knuckle taps on the wooden body between phrases",
+     "D dorian, natural F, natural C",
+     "Central Asian nomad epic song accompaniment",
+     "close-mic'd inside a felt tent, bone-dry, one player, no room sound",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "nylon-string guitar",
+     "steel-string guitar",
+     "fingerstyle guitar",
+     "strummed guitar chords",
+     "oud",
+     "saz",
+     "baglama",
+     "tanbur",
+     "sitar",
+     "tanpura",
+     "banjo",
+     "mandolin",
+     "balalaika",
+     "harp",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "drone pad",
+     "drum kit",
+     "frame drum",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "chord progression",
+     "Western harmony",
+     "major key",
+     "F sharp",
+     "C sharp",
+     "leading tone",
+     "folk ballad",
+     "singer-songwriter",
+     "campfire song",
+     "cinematic score",
+     "pop production",
+     "long sustain",
+     "ringing strings",
+     "reverb",
+     "warm mellow tone",
+     "autotune",
+     "bel canto",
+     "crooning",
+     "pop vibrato",
+     "spoken word",
+     "vocals",
+     "humming"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "One more was counted the dawn that the full moon fell,\n{the komuz gallops on alone}",
+    "duration_ms": 9232,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless long neck, small carved apricot-wood body",
+     "bare right hand: nail down-strokes, fingertip up-strokes, brushed and flicked, no pick",
+     "unbroken galloping ostinato on every eighth note, 6/8, dotted quarter 52 BPM, 156 strokes per minute",
+     "open D and A strings drone under a one-string melody, the melody moves constantly",
+     "short dry woody decay, each stroke dies within a second, nail click and finger noise clearly audible",
+     "quick knuckle taps on the wooden body between phrases",
+     "D dorian, natural F, natural C",
+     "Central Asian nomad epic song accompaniment",
+     "close-mic'd inside a felt tent, bone-dry, one player, no room sound",
+     "solo old male epic bard who sings and plays at the same time, the komuz never stops under the voice",
+     "raw strained chest voice with a guttural raspy throat edge, unpolished, no warmth",
+     "syllabic chant on few notes, one note per syllable, then a long last note falling to D",
+     "each line descends A, G, F, D before its last words",
+     "straight tone, only a short shake on the final note"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "nylon-string guitar",
+     "steel-string guitar",
+     "fingerstyle guitar",
+     "strummed guitar chords",
+     "oud",
+     "saz",
+     "baglama",
+     "tanbur",
+     "sitar",
+     "tanpura",
+     "banjo",
+     "mandolin",
+     "balalaika",
+     "harp",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "drone pad",
+     "drum kit",
+     "frame drum",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "chord progression",
+     "Western harmony",
+     "major key",
+     "F sharp",
+     "C sharp",
+     "leading tone",
+     "folk ballad",
+     "singer-songwriter",
+     "campfire song",
+     "cinematic score",
+     "pop production",
+     "long sustain",
+     "ringing strings",
+     "reverb",
+     "warm mellow tone",
+     "autotune",
+     "bel canto",
+     "crooning",
+     "pop vibrato",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "and the steppe learned his name from the sound of a bell.\n{the komuz gallops on alone}",
+    "duration_ms": 9232,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless long neck, small carved apricot-wood body",
+     "bare right hand: nail down-strokes, fingertip up-strokes, brushed and flicked, no pick",
+     "unbroken galloping ostinato on every eighth note, 6/8, dotted quarter 52 BPM, 156 strokes per minute",
+     "open D and A strings drone under a one-string melody, the melody moves constantly",
+     "short dry woody decay, each stroke dies within a second, nail click and finger noise clearly audible",
+     "quick knuckle taps on the wooden body between phrases",
+     "D dorian, natural F, natural C",
+     "Central Asian nomad epic song accompaniment",
+     "close-mic'd inside a felt tent, bone-dry, one player, no room sound",
+     "solo old male epic bard who sings and plays at the same time, the komuz never stops under the voice",
+     "raw strained chest voice with a guttural raspy throat edge, unpolished, no warmth",
+     "syllabic chant on few notes, one note per syllable, then a long last note falling to D",
+     "each line descends A, G, F, D before its last words",
+     "straight tone, only a short shake on the final note"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "nylon-string guitar",
+     "steel-string guitar",
+     "fingerstyle guitar",
+     "strummed guitar chords",
+     "oud",
+     "saz",
+     "baglama",
+     "tanbur",
+     "sitar",
+     "tanpura",
+     "banjo",
+     "mandolin",
+     "balalaika",
+     "harp",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "drone pad",
+     "drum kit",
+     "frame drum",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "chord progression",
+     "Western harmony",
+     "major key",
+     "F sharp",
+     "C sharp",
+     "leading tone",
+     "folk ballad",
+     "singer-songwriter",
+     "campfire song",
+     "cinematic score",
+     "pop production",
+     "long sustain",
+     "ringing strings",
+     "reverb",
+     "warm mellow tone",
+     "autotune",
+     "bel canto",
+     "crooning",
+     "pop vibrato",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Outro]\n{the komuz gallops alone, then one palm slap on the strings stops it dead, no voice}",
+    "duration_ms": 4616,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless long neck, small carved apricot-wood body",
+     "bare right hand: nail down-strokes, fingertip up-strokes, brushed and flicked, no pick",
+     "unbroken galloping ostinato on every eighth note, 6/8, dotted quarter 52 BPM, 156 strokes per minute",
+     "open D and A strings drone under a one-string melody, the melody moves constantly",
+     "short dry woody decay, each stroke dies within a second, nail click and finger noise clearly audible",
+     "quick knuckle taps on the wooden body between phrases",
+     "D dorian, natural F, natural C",
+     "Central Asian nomad epic song accompaniment",
+     "close-mic'd inside a felt tent, bone-dry, one player, no room sound",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "nylon-string guitar",
+     "steel-string guitar",
+     "fingerstyle guitar",
+     "strummed guitar chords",
+     "oud",
+     "saz",
+     "baglama",
+     "tanbur",
+     "sitar",
+     "tanpura",
+     "banjo",
+     "mandolin",
+     "balalaika",
+     "harp",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "drone pad",
+     "drum kit",
+     "frame drum",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "chord progression",
+     "Western harmony",
+     "major key",
+     "F sharp",
+     "C sharp",
+     "leading tone",
+     "folk ballad",
+     "singer-songwriter",
+     "campfire song",
+     "cinematic score",
+     "pop production",
+     "long sustain",
+     "ringing strings",
+     "reverb",
+     "warm mellow tone",
+     "autotune",
+     "bel canto",
+     "crooning",
+     "pop vibrato",
+     "spoken word",
+     "vocals",
+     "humming"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "{solo",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "komuz",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "alone,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "galloping",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "finger",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "strokes,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "no",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "voice}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "One",
+   "start_ms": 5300,
+   "end_ms": 6380
+  },
+  {
+   "word": "more",
+   "start_ms": 6500,
+   "end_ms": 7020
+  },
+  {
+   "word": "was",
+   "start_ms": 7120,
+   "end_ms": 7580
+  },
+  {
+   "word": "counted",
+   "start_ms": 7700,
+   "end_ms": 8440
+  },
+  {
+   "word": "the",
+   "start_ms": 8520,
+   "end_ms": 8660
+  },
+  {
+   "word": "dawn",
+   "start_ms": 8780,
+   "end_ms": 9340
+  },
+  {
+   "word": "that",
+   "start_ms": 9440,
+   "end_ms": 9640
+  },
+  {
+   "word": "the",
+   "start_ms": 9680,
+   "end_ms": 9820
+  },
+  {
+   "word": "full",
+   "start_ms": 9960,
+   "end_ms": 11000
+  },
+  {
+   "word": "moon",
+   "start_ms": 11120,
+   "end_ms": 12040
+  },
+  {
+   "word": "fell,",
+   "start_ms": 12180,
+   "end_ms": 13860
+  },
+  {
+   "word": "{the",
+   "start_ms": 13860,
+   "end_ms": 13860
+  },
+  {
+   "word": "komuz",
+   "start_ms": 13860,
+   "end_ms": 13860
+  },
+  {
+   "word": "gallops",
+   "start_ms": 13860,
+   "end_ms": 13860
+  },
+  {
+   "word": "on",
+   "start_ms": 13860,
+   "end_ms": 13860
+  },
+  {
+   "word": "alone}",
+   "start_ms": 13860,
+   "end_ms": 13860
+  },
+  {
+   "word": "and",
+   "start_ms": 14020,
+   "end_ms": 14180
+  },
+  {
+   "word": "the",
+   "start_ms": 14260,
+   "end_ms": 14360
+  },
+  {
+   "word": "steppe",
+   "start_ms": 14500,
+   "end_ms": 15580
+  },
+  {
+   "word": "learned",
+   "start_ms": 15720,
+   "end_ms": 16320
+  },
+  {
+   "word": "his",
+   "start_ms": 16340,
+   "end_ms": 16760
+  },
+  {
+   "word": "name",
+   "start_ms": 16900,
+   "end_ms": 17340
+  },
+  {
+   "word": "from",
+   "start_ms": 17460,
+   "end_ms": 17720
+  },
+  {
+   "word": "the",
+   "start_ms": 17780,
+   "end_ms": 17880
+  },
+  {
+   "word": "sound",
+   "start_ms": 18040,
+   "end_ms": 18620
+  },
+  {
+   "word": "of",
+   "start_ms": 18740,
+   "end_ms": 18860
+  },
+  {
+   "word": "a",
+   "start_ms": 18980,
+   "end_ms": 19080
+  },
+  {
+   "word": "bell.",
+   "start_ms": 19200,
+   "end_ms": 21580
+  },
+  {
+   "word": "{the",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "komuz",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "gallops",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "on",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "alone}",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "{the",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "komuz",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "gallops",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "alone,",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "then",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "one",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "palm",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "slap",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "on",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "the",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "strings",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "stops",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "it",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "dead,",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "no",
+   "start_ms": 21580,
+   "end_ms": 21580
+  },
+  {
+   "word": "voice}",
+   "start_ms": 21580,
+   "end_ms": 21580
+  }
+ ],
+ "waveform_visual": null
+}

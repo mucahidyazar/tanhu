@@ -1,0 +1,482 @@
+{
+ "erlik": {
+  "hash": "cee9069287b8684f",
+  "voice": "ZaovTqhD16YvmEG2nDUD",
+  "chars": 47
+ },
+ "tengri": {
+  "hash": "7468873dce13b30d",
+  "voice": "AyUH0Pu6NRwQV6bOdfNx",
+  "chars": 47
+ },
+ "kayra-han": {
+  "hash": "f3924dafe6eb2958",
+  "voice": "0lp4RIz96WD1RUtvEu3Q",
+  "chars": 56
+ },
+ "ulgen": {
+  "hash": "9c7026d3019854fe",
+  "voice": "B52raBK48m23qWYbwchQ",
+  "chars": 52
+ },
+ "yer-sub": {
+  "hash": "866defb3212d80a7",
+  "voice": "7p1Ofvcwsv7UBPoFNcpI",
+  "chars": 46
+ },
+ "od-ana": {
+  "hash": "8725cd6412993a52",
+  "voice": "KFcKSkKkWqMVhCbLkuvh",
+  "chars": 50
+ },
+ "bayanay": {
+  "hash": "30602cdafe44e568",
+  "voice": "qAZH0aMXY8tw1QufPN0D",
+  "chars": 45
+ },
+ "yol-tengrisi": {
+  "hash": "06bdf7fbace069bb",
+  "voice": "lL4hpA5hxNF3ovpnRQT5",
+  "chars": 52
+ },
+ "bay-mattir": {
+  "hash": "2c380e91b01bd751",
+  "voice": "HIGUfNOdjuWQwwapnTRW",
+  "chars": 46
+ },
+ "karas-han": {
+  "hash": "2d9e11f3a4929b1e",
+  "voice": "tZssYepgGaQmegsMEXjK",
+  "chars": 53
+ },
+ "kerey-han": {
+  "hash": "8b0990d5b6239e6a",
+  "voice": "kqVT88a5QfII1HNAEPTJ",
+  "chars": 49
+ },
+ "uchar-han": {
+  "hash": "b9387aab3517538e",
+  "voice": "C5GgjTyGQ2aQx8uMiLh9",
+  "chars": 55
+ },
+ "yabash-han": {
+  "hash": "bb3c48154a6318c7",
+  "voice": "EkK5I93UQWFDigLMpZcX",
+  "chars": 52
+ },
+ "komur-han": {
+  "hash": "f4e1301e7490c7dc",
+  "voice": "Vs5CmVCVJwW4odQS2pVf",
+  "chars": 50
+ },
+ "temir-han": {
+  "hash": "6c301623ae6ec6f3",
+  "voice": "TDTTIZEngvvWARkECefs",
+  "chars": 54
+ },
+ "shingay-han": {
+  "hash": "4ffe81017a1141cd",
+  "voice": "7lJ2JuXZKHyck5zlS7XQ",
+  "chars": 42
+ },
+ "padish": {
+  "hash": "88d652ebc768ae59",
+  "voice": "482uNsgswFPs3grclyBu",
+  "chars": 49
+ },
+ "al-karisi": {
+  "hash": "5398c00d5843f3db",
+  "voice": "wGcFBfKz5yUQqhqr0mVy",
+  "chars": 47
+ },
+ "jinglu": {
+  "hash": "9711e7ee5a4a35a7",
+  "voice": "10NkTYmU7tSz3Kkl3Lex",
+  "chars": 48
+ },
+ "mete": {
+  "hash": "642452d1c2d305bb",
+  "voice": "XALcFq0WF65uNKzmpcZW",
+  "chars": 41
+ },
+ "teoman": {
+  "hash": "87356092b1881fa8",
+  "voice": "KptSjXRPFHt1Dn4BqM8V",
+  "chars": 49
+ },
+ "lan-hatun": {
+  "hash": "46e604aadeb05afc",
+  "voice": "LI283TzJcIwSKqsXiH7u",
+  "chars": 43
+ },
+ "huyan-hatun": {
+  "hash": "4f836f1fe9815b62",
+  "voice": "r1KmysJdVYZjJCm4mL3b",
+  "chars": 46
+ },
+ "gutu": {
+  "hash": "ec1d35eaee4187c7",
+  "voice": "4quIIyCzGDA8dBVvcXKl",
+  "chars": 40
+ },
+ "yanchi": {
+  "hash": "5672ffed572c00b0",
+  "voice": "E4IXevHtHpKGh0bvrPPr",
+  "chars": 40
+ },
+ "yimo": {
+  "hash": "e0787a529d4c2331",
+  "voice": "Qbw4VpyUrHEG7NigKzty",
+  "chars": 44
+ },
+ "yitu": {
+  "hash": "290994d6ce0b6fbb",
+  "voice": "uq0HIbNZKn11Hs5ifEdd",
+  "chars": 44
+ },
+ "bard": {
+  "hash": "21398f858b9fa700",
+  "voice": "BNgbHR0DNeZixGQVzloa",
+  "chars": 64
+ },
+ "mother": {
+  "hash": "d5ccd6d7680331bd",
+  "voice": "DJpgP3rIDYoqtCH3IzV6",
+  "chars": 43
+ },
+ "father": {
+  "hash": "60b94d0aef941141",
+  "voice": "FWipwLM0YqCuwisLprpU",
+  "chars": 47
+ },
+ "older-brother": {
+  "hash": "dddba51d97bcfd58",
+  "voice": "wSqOdjeNqDrHcoK0zorF",
+  "chars": 47
+ },
+ "oktar": {
+  "hash": "83b54978c6b0bd8f",
+  "voice": "ssjFmZl1DgQzRQP3lO5M",
+  "chars": 46
+ },
+ "erka": {
+  "hash": "438368dc90e54886",
+  "voice": "M6N6IdXhi5YNZyZSDe7k",
+  "chars": 43
+ },
+ "dengiz": {
+  "hash": "055c09045325041b",
+  "voice": "sUzXYdokj3o9QQ91yPRF",
+  "chars": 40
+ },
+ "counter": {
+  "hash": "c64d51e10d8dd070",
+  "voice": "S9V0fuqWOqX0i8Kb8ctu",
+  "chars": 44
+ },
+ "tuchi": {
+  "hash": "f6df9bf49fb6aee4",
+  "voice": "6sFKzaJr574YWVu4UuJF",
+  "chars": 54
+ },
+ "shidu": {
+  "hash": "5f295388d87fe2f5",
+  "voice": "AeRdCCKzvd23BpJoofzx",
+  "chars": 47
+ },
+ "nangchi": {
+  "hash": "34d7950be67a333e",
+  "voice": "pO3rCaEbT3xVc0h3pPoG",
+  "chars": 40
+ },
+ "liuli": {
+  "hash": "7e265ab8ff89df27",
+  "voice": "nRQT5qZlz63KgulRymWq",
+  "chars": 46
+ },
+ "tola": {
+  "hash": "7063ac8355db363e",
+  "voice": "hiPC4cjSffoQRpHMhg58",
+  "chars": 46
+ },
+ "eskam": {
+  "hash": "c121b022e9438ac4",
+  "voice": "dcbUcEjFfmgpM8W4YTRG",
+  "chars": 40
+ },
+ "mundzuk": {
+  "hash": "6824ed7faffacc02",
+  "voice": "agL69Vji082CshT65Tcy",
+  "chars": 41
+ },
+ "dulongchi": {
+  "hash": "493f0458a341ee6c",
+  "voice": "V2bPluzT7MuirpucVAKH",
+  "chars": 51
+ },
+ "nan": {
+  "hash": "1862c8aef5bcd0b5",
+  "voice": "yhf80q1381zd2JJQ4tM7",
+  "chars": 47
+ },
+ "moyan": {
+  "hash": "054ab0f69559692a",
+  "voice": "x9leqCOAXOcmC5jtkq65",
+  "chars": 48
+ },
+ "gushi": {
+  "hash": "b7aa5aa228a843f2",
+  "voice": "XBj5fpH7q2hxSxTHFxMp",
+  "chars": 37
+ },
+ "shulu": {
+  "hash": "570a115398946afa",
+  "voice": "kLhAstPcnnPxqzk6gS5i",
+  "chars": 43
+ },
+ "yudan": {
+  "hash": "1205c250dc17470d",
+  "voice": "y2Y5MeVPm6ZQXK64WUui",
+  "chars": 53
+ },
+ "huluzi": {
+  "hash": "e32299e1e77f9e84",
+  "voice": "dEKbODj1fSHsx7xQNNLa",
+  "chars": 35
+ },
+ "sungur": {
+  "hash": "46185af8f55a9b13",
+  "voice": "vveagfomyMCJLZsOPRP2",
+  "chars": 43
+ },
+ "shiushun": {
+  "hash": "f4eefe0ed260a0e5",
+  "voice": "Zc0gviDNs4bl4bcDNdNM",
+  "chars": 41
+ },
+ "ruodi": {
+  "hash": "8ce5a03c72d094b2",
+  "voice": "tFNXkg45n3yC6nHvEn2s",
+  "chars": 51
+ },
+ "dutu": {
+  "hash": "083c00cfe047c2d1",
+  "voice": "YRJMFMoNhLEYl3Nae0G6",
+  "chars": 19
+ },
+ "miro": {
+  "hash": "ee558fcacf9f2239",
+  "voice": "U1nBX3lzKSM937PaYYfk",
+  "chars": 46
+ },
+ "amaga": {
+  "hash": "1287922d374ffef6",
+  "voice": "gDQfVolj9RbmXgumLcOq",
+  "chars": 42
+ },
+ "farnak": {
+  "hash": "df08974342156b5f",
+  "voice": "b3tuFWghbXYRa9Cs9MJf",
+  "chars": 51
+ },
+ "nanay": {
+  "hash": "eb6566f12fe9df17",
+  "voice": "jfD5mm5oPglFjL59x819",
+  "chars": 45
+ },
+ "nanay-son": {
+  "hash": "9869fcbe96b40d7e",
+  "voice": "FiTEbx0xTf88iBe4jAqT",
+  "chars": 40
+ },
+ "palak": {
+  "hash": "4666d5dd55c8c97f",
+  "voice": "S1uaQ66tHSeCjgsWYpGI",
+  "chars": 44
+ },
+ "sak": {
+  "hash": "dba7b00445dac1e8",
+  "voice": "uaXmxAsXACgEChuJxq9s",
+  "chars": 45
+ },
+ "sarva": {
+  "hash": "9ee558c6bed03dc1",
+  "voice": "S9EGwlCtMF7VXtENq79v",
+  "chars": 44
+ },
+ "kantu": {
+  "hash": "e8a65519722c9e15",
+  "voice": "ZgfahluxUmUzBjjL81NN",
+  "chars": 46
+ },
+ "omarg": {
+  "hash": "edc1be703484fe50",
+  "voice": "aVwphcJSEW1eYLC622Ru",
+  "chars": 47
+ },
+ "opia": {
+  "hash": "7bb566c4518cb1be",
+  "voice": "esy0r39YPLQjOczyOib8",
+  "chars": 47
+ },
+ "kebi": {
+  "hash": "bd9bfefa6901f683",
+  "voice": "bwCXcoVxWNYMlC6Esa8u",
+  "chars": 48
+ },
+ "tadun": {
+  "hash": "fc64ee1a86d8d469",
+  "voice": "pHD4qotPFeOAuU1YsFjv",
+  "chars": 39
+ },
+ "nanlou": {
+  "hash": "f7312264eaab5208",
+  "voice": "iB5aLrknrSagc00jivta",
+  "chars": 52
+ },
+ "kunmo": {
+  "hash": "06bcd99ec5fccd50",
+  "voice": "Veg2qijYoJAS8VPKOOmi",
+  "chars": 50
+ },
+ "nandoumi": {
+  "hash": "a20e6d49ee85ef6e",
+  "voice": "dPah2VEoifKnZT37774q",
+  "chars": 50
+ },
+ "nandu": {
+  "hash": "6607214f5d117166",
+  "voice": "gwU7DXdLrTvWCiUTPZG8",
+  "chars": 47
+ },
+ "yuan": {
+  "hash": "a3cf2be2f5554253",
+  "voice": "IsEXLHzSvLH9UMB6SLHj",
+  "chars": 50
+ },
+ "dingling-singer": {
+  "hash": "2028b19940e8f784",
+  "voice": "7NsaqHdLuKNFvEfjpUno",
+  "chars": 54
+ },
+ "loufan-king": {
+  "hash": "d4e618ddcb5e5368",
+  "voice": "ppLqTilh7rH7fbUVlXsf",
+  "chars": 53
+ },
+ "baiyang-king": {
+  "hash": "aafeda46516b4f63",
+  "voice": "jAW0IMxOTz75sgLAYWp6",
+  "chars": 54
+ },
+ "first-emperor": {
+  "hash": "157d49992f32d3aa",
+  "voice": "NxGA8X3YhTrnf3TRQf6Q",
+  "chars": 62
+ },
+ "meng-tian": {
+  "hash": "638e782628763439",
+  "voice": "h6jhtnd8goqWbVME1Cxr",
+  "chars": 50
+ },
+ "qin-kai": {
+  "hash": "af2c39151dabee49",
+  "voice": "X4Lh5Ftnso6JSt25plzX",
+  "chars": 51
+ },
+ "xiang-yu": {
+  "hash": "9a355e00e8517da4",
+  "voice": "WV1q3LPagg6vb034LpdG",
+  "chars": 59
+ },
+ "zang-tu": {
+  "hash": "ac0d8039e7e47372",
+  "voice": "ktrGUw7rURIQyMrQZqCu",
+  "chars": 51
+ },
+ "liu-bang": {
+  "hash": "330126916e946a55",
+  "voice": "507tTFX0IPtqFzGd1CAL",
+  "chars": 71
+ },
+ "empress-lu": {
+  "hash": "581cbc58552cf2a9",
+  "voice": "hbB2qXyS2GMyyZIZyhAH",
+  "chars": 67
+ },
+ "emperor-wen": {
+  "hash": "9d22a5b778dfb958",
+  "voice": "1sAAE3JN5CrenOZF5R0T",
+  "chars": 54
+ },
+ "chen-ping": {
+  "hash": "1b238dfabe0a9a92",
+  "voice": "eoNqkziQgzmLZeatERgP",
+  "chars": 50
+ },
+ "liu-jing": {
+  "hash": "b7842b05ddbaab2a",
+  "voice": "1hR2qVedP7lrOxD8z7OH",
+  "chars": 54
+ },
+ "fan-kuai": {
+  "hash": "9008314d972af015",
+  "voice": "0Eut1K2uVqd2FAP2i4XV",
+  "chars": 63
+ },
+ "ji-bu": {
+  "hash": "0192ca444ef05de7",
+  "voice": "S44KQ3oLFckbxgyKfold",
+  "chars": 67
+ },
+ "guan-ying": {
+  "hash": "5da5e4d396b2c368",
+  "voice": "KgUSWQPFmuiZ5ycRbnty",
+  "chars": 59
+ },
+ "han-envoy-yi": {
+  "hash": "a77b11be14ea1174",
+  "voice": "8RLHSESGti04rjUlInW7",
+  "chars": 63
+ },
+ "han-envoy-jian": {
+  "hash": "194c22d18f63e755",
+  "voice": "ib8aaABAPZQpTo6hx8Jr",
+  "chars": 42
+ },
+ "han-princess": {
+  "hash": "474da435ffc4759b",
+  "voice": "pGAwIQNN9UjOkKxjAyGQ",
+  "chars": 54
+ },
+ "zhao-li": {
+  "hash": "2c97f9aa047ceaca",
+  "voice": "zFvp6tUPOtYKPXFpWJ6V",
+  "chars": 58
+ },
+ "manqiu-chen": {
+  "hash": "4c9b0b4b4dc17bc1",
+  "voice": "AbC8oPOKZtEsnzX1POyd",
+  "chars": 64
+ },
+ "chen-xi": {
+  "hash": "dad34e8230e055d5",
+  "voice": "d3qrd1ge6zWDvUxIeXiH",
+  "chars": 58
+ },
+ "lu-wan": {
+  "hash": "37bef741855cd849",
+  "voice": "PerZoH0r6nxBZXCoIPpv",
+  "chars": 59
+ },
+ "han-ying": {
+  "hash": "e0f9b3f424df7e71",
+  "voice": "atemG3csutMIyK7AbS5c",
+  "chars": 59
+ },
+ "zhonghang-yue": {
+  "hash": "e7026cf40782c6f6",
+  "voice": "Z9hrfEHGU3dykHntWvIY",
+  "chars": 61
+ }
+}

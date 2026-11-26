@@ -1,0 +1,374 @@
+{
+ "hash": "ac41be2b",
+ "seed": 3102,
+ "songId": "764gLnzO4xl758ZTh3Oa",
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Intro]\n{solo dombra alone, slow plucked strokes, no voice}",
+    "duration_ms": 3000,
+    "positive_styles": [
+     "Central Asian steppe folk ballad",
+     "solo Kazakh dombra, two-string long-neck lute, plucked and strummed by the singer",
+     "slow 6/8, dotted quarter 52 bpm",
+     "D dorian",
+     "intimate fireside performance, close and dry, one singer, one instrument",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "drums",
+     "percussion",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "synthesizer",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "pop production",
+     "autotune",
+     "heavy reverb",
+     "spoken word",
+     "vocals"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "The wind took the foal from the mare at the well,",
+    "duration_ms": 9500,
+    "positive_styles": [
+     "Central Asian steppe folk ballad",
+     "solo Kazakh dombra, two-string long-neck lute, plucked and strummed by the singer",
+     "slow 6/8, dotted quarter 52 bpm",
+     "D dorian",
+     "intimate fireside performance, close and dry, one singer, one instrument",
+     "old male bard singing",
+     "deep warm baritone with a slight rasp",
+     "epic oral storytelling song, unhurried, gently melismatic phrase endings"
+    ],
+    "negative_styles": [
+     "drums",
+     "percussion",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "synthesizer",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "pop production",
+     "autotune",
+     "heavy reverb",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "and the steppe learned his name from the sound of a bell.",
+    "duration_ms": 10500,
+    "positive_styles": [
+     "Central Asian steppe folk ballad",
+     "solo Kazakh dombra, two-string long-neck lute, plucked and strummed by the singer",
+     "slow 6/8, dotted quarter 52 bpm",
+     "D dorian",
+     "intimate fireside performance, close and dry, one singer, one instrument",
+     "old male bard singing",
+     "deep warm baritone with a slight rasp",
+     "epic oral storytelling song, unhurried, gently melismatic phrase endings"
+    ],
+    "negative_styles": [
+     "drums",
+     "percussion",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "synthesizer",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "pop production",
+     "autotune",
+     "heavy reverb",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Outro]\n{the dombra plays on alone, the last strum rings out and fades, no voice}",
+    "duration_ms": 4000,
+    "positive_styles": [
+     "Central Asian steppe folk ballad",
+     "solo Kazakh dombra, two-string long-neck lute, plucked and strummed by the singer",
+     "slow 6/8, dotted quarter 52 bpm",
+     "D dorian",
+     "intimate fireside performance, close and dry, one singer, one instrument",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "drums",
+     "percussion",
+     "choir",
+     "backing vocals",
+     "female vocals",
+     "synthesizer",
+     "electric guitar",
+     "bass guitar",
+     "strings section",
+     "orchestra",
+     "pop production",
+     "autotune",
+     "heavy reverb",
+     "spoken word",
+     "vocals"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "{solo",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "dombra",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "alone,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "slow",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "plucked",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "strokes,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "no",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "voice}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "The",
+   "start_ms": 5680,
+   "end_ms": 5760
+  },
+  {
+   "word": "wind",
+   "start_ms": 5820,
+   "end_ms": 6340
+  },
+  {
+   "word": "took",
+   "start_ms": 6460,
+   "end_ms": 6600
+  },
+  {
+   "word": "the",
+   "start_ms": 6640,
+   "end_ms": 6760
+  },
+  {
+   "word": "foal",
+   "start_ms": 6820,
+   "end_ms": 7460
+  },
+  {
+   "word": "from",
+   "start_ms": 7720,
+   "end_ms": 7880
+  },
+  {
+   "word": "the",
+   "start_ms": 7920,
+   "end_ms": 8000
+  },
+  {
+   "word": "mare",
+   "start_ms": 8060,
+   "end_ms": 8900
+  },
+  {
+   "word": "at",
+   "start_ms": 8940,
+   "end_ms": 9040
+  },
+  {
+   "word": "the",
+   "start_ms": 9100,
+   "end_ms": 9180
+  },
+  {
+   "word": "well,",
+   "start_ms": 9260,
+   "end_ms": 11400
+  },
+  {
+   "word": "and",
+   "start_ms": 14580,
+   "end_ms": 14680
+  },
+  {
+   "word": "the",
+   "start_ms": 14700,
+   "end_ms": 14800
+  },
+  {
+   "word": "steppe",
+   "start_ms": 14880,
+   "end_ms": 15180
+  },
+  {
+   "word": "learned",
+   "start_ms": 15300,
+   "end_ms": 15720
+  },
+  {
+   "word": "his",
+   "start_ms": 15740,
+   "end_ms": 15920
+  },
+  {
+   "word": "name",
+   "start_ms": 15980,
+   "end_ms": 16540
+  },
+  {
+   "word": "from",
+   "start_ms": 16660,
+   "end_ms": 16820
+  },
+  {
+   "word": "the",
+   "start_ms": 16860,
+   "end_ms": 16980
+  },
+  {
+   "word": "sound",
+   "start_ms": 17080,
+   "end_ms": 18080
+  },
+  {
+   "word": "of",
+   "start_ms": 18160,
+   "end_ms": 18240
+  },
+  {
+   "word": "a",
+   "start_ms": 18300,
+   "end_ms": 18380
+  },
+  {
+   "word": "bell.",
+   "start_ms": 18440,
+   "end_ms": 20640
+  },
+  {
+   "word": "{the",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "dombra",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "plays",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "on",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "alone,",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "the",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "last",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "strum",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "rings",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "out",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "and",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "fades,",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "no",
+   "start_ms": 20640,
+   "end_ms": 20640
+  },
+  {
+   "word": "voice}",
+   "start_ms": 20640,
+   "end_ms": 20640
+  }
+ ],
+ "waveform_visual": null
+}

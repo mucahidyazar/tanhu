@@ -1,0 +1,665 @@
+# Ses tasarımı ve müzik araştırması
+
+Bu belge cevap #52 (ses belleği), #53 (koro), #56 (seslendirme tavanı) için karar verisi çıkarır; yeni giriş sinemasının, hayvanların (Ek 1) ve açık dünyanın ses planını kurar; dönem çalgılarının kanıt düzeyini yazar; perde başına müzik kimliği önerir. Bağlayıcı karar `decisions.md`'ye geçince geçerlidir. Kod yazılmaz, işler `contract-requests.md`'ye ve fazlara taşınacak iş listesi olarak verilir. Etiketler: [kaynak] kaynağı olan bilgi, [çıkarım] kaynaktan ya da koddan benim çıkarımım, [kurgu] oyun için önerilen uydurma. Tanhu 1 yalnız kopyalanmayacak şeyi bilmek için okundu.
+
+**Hedef Godot'dur.** Oyun Godot 4.7 ile `game/` klasöründe yapılır (`d3/brief.md`). Bu belgedeki WebAudio sayıları, `src/...` ve `tools/*.mjs` yolları Three.js prototipinindir; prototip yalnız tasarım ve ölçüm kaynağıdır. Oyunun uygulaması her bölümün «Godot için» alt bölümündedir (§1.4, §2.3, §3.5, §4, §6.5, §7.5, §8, §9.4, §10.4, §12) ve «Oyuna öneriler»in sonundaki G1–G12 listesindedir. İkisi çelişirse Godot bölümü geçerlidir.
+
+## Özet
+
+1. **#52.** Prototipte tek tablo: hazır ses 48 MiB = müzik 16 + efekt ve ortam 24 + satır penceresi 8. K12'nin 40 MB'ı kalkar, ayrı «toplam tavan» yoktur, toplam havuzların toplamıdır. **Godot'da** ses bellekte sıkıştırılmış durur (WAV QOA, Ogg, MP3); WebAudio'nun 32 bit çözülmüş tamponu yoktur, aynı içerik yaklaşık on kat az yer tutar. Godot tablosu: müzik 16 + efekt ve ortam 8 + seslendirme 2 = 26 MiB, dünya başına, havuzların toplamı (§3.5) [çıkarım].
+2. **#53.** Kural kazanır, biçimi değişir: koro yalnız gök içindir (`tengri`, `dawn`, `crane`). `court` korodan çıkar, kalabalık sesi alır. Godot'da koro ayrı bir müzik katmanıdır (stem), yalnız bu kliplerin `AudioStreamSynchronized`'ında bulunur; birim sınaması kuralı tutar (§4).
+3. **#56.** Tavan kalkar, sayaç kalır. `check-data` düşmez, rapor verir. İzlenen dört sayı: kredi, konuşma süresi, indirilen MB, çekim harcaması. Hangi satırın ses alacağını dört dilimli ilke seçer. Godot'da defter `game/tools/`'ta, satır verisi `game/data/`'dadır (§9.4).
+4. **Sinema.** 95 sn'den ≈295 sn'ye çıkar (`mitoloji.md` sırası + rehinelik): şarkı başta (K19), ozan mit, anlatıcı tarih, doğumda tek kara sessizlik, bütün motif doğumda ilk kez. Prototipte hepsi birden çözülse ≈35 MB ederdi; pencere bunu ≤8 MiB'e indirir. Godot'da sinemanın bütün sesi MP3 olarak ≈1,7 MB'tır, pencere yalnız yükleme sırasıdır (§3.5).
+5. **Kopuz (#55, #57, #58).** Ayrıntı `kopuz.md`'dedir. Bu belgenin eki: «strummed yok» kuralı Tanhu 1'in müzik üreticisi istemlerinden gelmiş, gerçek çalışla çelişir. Batı Kazak tökpe çalışında iki tel birlikte, aşağı yukarı vuruşla çalınır. Yasak olan Batı akorudur.
+6. **Kimlik.** Bugünkü müzik durumu tablosu Tanhu 1'in müzik föyüyle çalgı ve tempo düzeyinde örtüşüyor. Yeni kimlik önerilir, motif ıslıklı oktan türetilir: D↗A yükselişi + A G F D düşüşü.
+7. **Kanıt.** Dönem için en güçlü ses ıslıklı oktur (Shiji 110). Ağız kopuzu bölgede daha eskidir. Hucia ve çekilen tel birkaç yüzyıl sonraki metinlerde Hu halklarına bağlanır. Yaylı çalgı en az 700 yıl sonradır, boğaz sesinin eski kanıtı bulunamadı. İkisi sahnede görünmez.
+8. **Açık dünya.** Altı katman, veriyle sürülen serpinti, iklim başına ≤2 yeni döngü. Müzik «nefes alır»: yaban durumlarında zamanın ≈%35'i. Dinleyici kameradan oyuncuya taşınır (#12).
+9. **Hayvan (Ek 1).** Kaynak-süzgeç sentezi. At kişnemesi iki bağımsız temel frekanstır. Altın kartal aslında az ve ince seslidir, sinema çığlığı başka kuştan gelir. Bütün fauna bankası prototipte ≈4,2 MB, iklim başına ≤2,5 MB; Godot'da QOA ile ≈0,4 MB (§7.5).
+10. **Risk.** Eleven Music şartları Stüdyo Oyunu'nu Enterprise Music dışındaki bütün planlarda dışarıda tutar; Bağımsız Oyun eşiğinin altındaki oyun bu dışlamaya girmez. Bugün sorun değil, izlenmelidir. Şarkı çekimi 900 kredi/dk'dır. Godot'daki `tools/elevenlabs_audio.sh` müzikte `music_v1` ister; ElevenLabs bu modeli 31 Ocak 2027'de kaldıracak (§9.4).
+
+## 1. Bugünkü durum: ölçüm ve iki bulgu
+
+### 1.1 Ölçüm
+
+Saf çalgı işlevleri ve reçete tabloları Node'da ölçüldü; tarayıcı ölçümü değildir [çıkarım]. `phrase` 5 tohum, 240 ölçü koşuldu.
+
+| Kalem | Sayı | Not |
+|---|---|---|
+| Nota bankası, durum başına | `narration` 2,78; `camp` 6,43; `winter_day` 6,46; `tengri` 8,14 MiB | `BANK_BYTES` 8 MiB; `tengri` onu az farkla aşar |
+| Bütün durumların birleşimi | 92 tampon, 24,05 MiB, 414 ms | Nota başına ≤10 ms: bankadan düşen nota ucuza döner |
+| Dron | 2 × 20 sn, stereo, 16 kHz = 5,12 MB | `DRONES_KEPT` 2 |
+| Yankı tepkisi | Ana 1,31; Tengri 1,54; Erlik 1,00 MB | Zincir tepkileri bugün hiçbir havuza yazılmıyor |
+| Efekt reçetelerinin hepsi | 24,78 MB | Yalnız sahnenin istediği pişer |
+| Ortam döngülerinin hepsi | 15,35 MB | 22,05 kHz |
+| Bugünkü 8 ses dosyası | Diskte 1,32 MB, 48 kHz çözülmüş 15,84 MB | 12 kat büyür |
+
+### 1.2 «Strummed yok» kuralının kaynağı
+
+`docs/research/progression.md` Tanhu 1'in «anti-western» dersini yazar: üretici istemine «dombra riffs / strummed», «major», «march» birlikte yazılınca batı müziği çıkmış, ders «plucked yaz» olmuş. Bu bir üretici isteminin dersidir, çalgının kuralı değildir [çıkarım]. Kural `audio.md` §2–§3'e ve `act1.md` §14'e aynen geçmiş; `phrases.js`'in başlığı da onu taşır. Gerçek çalış §5.2'dedir. Kullanıcının «şu anki çok kopuz dombra tarzı değil» cevabının (#57, #58) ana nedeni budur.
+
+### 1.3 Müzik tablosu Tanhu 1 föyüyle örtüşüyor
+
+Genel kural 1 (`d3/register.md`) Tanhu 1'in yalnız ilham olduğunu söyler. Karşılaştırma [kaynak: `progression.md` müzik föyü, `audio.md` §3]:
+
+| Tanhu 1 | Tempo, çalgı | Bugünkü durum | Tempo, çalgı |
+|---|---|---|---|
+| `kamp_gunduz` | 84; çekilen kopuz, hafif çerçeve davul, seyrek yaylı | `winter_day` | 84; aynı üçü |
+| `kamp_gece` | 60; alçak dron, seyrek tel, nefesli düdük | `winter_night` | 60; aynı üçü |
+| `gerilim` | 90/92; susturulmuş tel, ağız kopuzu, yaylı vuruş, ezgisiz | `tension` | 92; aynı |
+| `erlik` | 50/54; E Frigyen, kargıra, sürtünen tel, ters ezgi | `erlik` | 52; aynı |
+| `tengri_sinav` | 64; koro, boğaz ıslığı, kartal gibi yaylı | `tengri` | 64; aynı |
+| `kacis` | 140; 6/8 davullar, hızlı dombra, yaylı | `chase` | 140; aynı |
+
+Dört notalık inen ezgi de Tanhu 1'de ninninin motifidir ve her perdede döner. Notaları orada yazılmamıştır, A G F D bu projenin notalamasıdır [kaynak]. D Dorian ve E Frigyen de ortaktır. Kip kimsenin malı değildir, ama bu birikim «baştan tasarla» cevabıyla (#5) çelişir. Çözüm §12'dedir.
+
+### 1.4 Godot'da bugün
+
+Kaynak: `game/scripts/audio/audio_manager.gd`, `audio_util.gd`, `game/default_bus_layout.tres`, `scripts/camp/campfire.gd`, `scripts/camp/stable.gd`, `scripts/ui/menu_style.gd`, `scripts/settings/game_settings.gd` ve `.godot/imported` dosya boyları (2026-11-04).
+
+| Kalem | Bugün | Not |
+|---|---|---|
+| Veri yolları | `Master`, `Music`, `Ambience`, `SFX` | `Voice` ve yankı yolu yok. Ayarlar dört yolun sesini doğrudan yazar (`GameSettings._set_bus`) |
+| Müzik | Tek `AudioStreamPlayer`, `menu_theme.mp3` (3,60 MB), tween ile açılır | Durum, katman, ölçü sınırında geçiş ve konuşma kısması yok |
+| Ortam | Tek oynatıcı, `night_meadow_loop.wav`: 30 sn, stereo, 44,1 kHz, QOA, 1,07 MB | K12'nin «22 kHz mono» kuralı uygulanmamış |
+| 3B | Ateş `AudioStreamPlayer3D` (`unit_size` 3, `max_distance` 40, `Ambience`); ahırda at (`unit_size` 2,5, `max_distance` 35, `SFX`) | `AudioListener3D` yok: dinleyici etkin `Camera3D`'dir |
+| Arayüz | `ui_click`, `whoosh`; `page_turn`, `ui_deny`, `ui_toast` | Son üçü `menu_style.gd`'ye göre Tanhu 1'in sesleridir |
+| Ozan | Elinde `dombra` modeli ve adı (`camp_npcs.gd`, `chibi_character.gd`, README) | #55: çalgı kopuzdur; ad ve model kod işidir |
+| Yüklü toplam | ≈5,3 MB | İçe aktarılan dokuz dosyanın toplamı (5.304.632 bayt); MP3 ve Ogg dosyası olduğu gibi tutulur (3.602.433 → 3.602.771 bayt) [ölçüm] |
+| Üretim | Menü müziği, ortam, ateş, at ve iki arayüz sesi ElevenLabs'ten (`tools/elevenlabs_audio.sh`, `d3/oyun-durumu.md`) | K28 müzik ve efekti kodla ister, ElevenLabs uçlarına yalnız tasarım isterse izin verir |
+| Sentez | Yok | Prototipin çalgı ve reçete kodu (`src/audio/`) taşınmadı |
+
+**Kamera dinleyicisinin bedeli** [çıkarım; Godot 4.7 kaynağındaki formülle hesap, oyunda ölçülmedi]. Ters uzaklık modelinde kazanç `unit_size / uzaklık`tır; `max_distance` verilince ayrıca `1 − uzaklık / max_distance` ile çarpılır ([audio_stream_player_3d.cpp, 4.7-stable](https://github.com/godotengine/godot/blob/4.7-stable/scene/3d/audio_stream_player_3d.cpp)) [kaynak]. Oyuncu ateşin başındayken kamera 6 m'deyse ateş ≈−11 dB, varsayılan 27 m'de ≈−33 dB duyulur, 40 m'de susar. Yakınlaştırma tekerleği ateşin sesini ≈21 dB oynatır. Çözüm §6.5'teki dinleyicidir.
+
+## 2. Uyarlanabilir müzik: oyunlardan ne alınır
+
+| Oyun | Yöntem [kaynak] | Tanhu'ya [çıkarım] |
+|---|---|---|
+| [Hades](https://gameplay.co/hades-game-music-sound-design-darren-korb-supergiant-games/) | Bölge başına çalma listesi. Savaşta en az davul ve bas, davul savaş bitince çıkar. Gitar ve bas yarı rastgele: ikisi, yalnız bas, hiçbiri; davul da susunca bazen bir an sessizlik olur. Ölçü başında «bölüm kadranı» okunur | `at: 'bar'` bizde var. Eksik olan katman zarı ve davulun savaşa bağlı girip çıkması |
+| [RDR2](https://www.mixonline.com/recording/woody-jackson-and-vox-studios-red-dead-redemption-2) | Üç tür: anlatı, etkileşimli, çevresel. Oyuncunun davranışına tepki. Stem (ayrı kayıt katmanı) sayısı [yapımda 15'ten ≈6'ya inmiş](https://en.wikipedia.org/wiki/Music_of_Red_Dead_Redemption_2), anlatıda tempo ve ton sabit. ≈60 saat yazılmış, oyuncu ≈üçte birini duyar | Üç tür ayrımı bizde de olsun. ≤6 katman yeter. 60 saat kayıt yerine üretken cümle: bizim bütün müziğimiz 24 MiB |
+| [Ghost of Tsushima](https://www.asoundeffect.com/ghost-of-tsushima-sound/) | Keşifte seyrek müzik, doğa önde. Gizlilikte ortam ve foley (giysi, eşya sesi) iner, skor öne çıkar. Savaşta savaş sesleri öne çıkar. Bütün görevleri saran karışım durumları. Dünyada çalan müzik oyuncuyu kampa ve ozana çeker | Tek müzik kuralı yetmez: karışım durumu tablosu gerekir (§8). Sesle çağırma açık dünyanın aracı olur (§6.4) |
+| [Witcher 3](https://gdcvault.com/play/1023012/Slavic-Adaptation-of-Music-in) | Halk malzemesi çağdaş skorla karışır (GDC 2016). [Müziğin çalıp çalmayacağı sahne sahne, diyalog diyalog seçilir; yazımdan önce bütün parçaların listesi çıkar](https://www.gamepressure.com/editorials/it-always-starts-with-the-game-interview-with-witcher-3-composer/zb6c2) | Perde başına ses kimliği ve «burada müzik var mı» listesi |
+| [Diablo IV](https://news.blizzard.com/en-us/article/23731236/diablo-iv-quarterly-updateoctober-2021) | Her seste küçük rastgelelik. Zindan ortamı açık dünyadan bilerek az yoğun. Aynı sesin kopya sınırı, önem sırası, duruma göre karışım. [GDC 2024, «Audio Systems Deep Dive»](https://gdcvault.com/play/1034343/-Diablo-IV-Audio-Systems): konuşma, efekt ve müzik birlikte kısma, canavar sesinde kopya sınırı, otomatik ortam | Yukarıdan bakan kamerada karmaşa asıl düşmandır. Önem sırası (§8) |
+
+Bridgett'in [«Less Music, Now!»](https://doi.org/10.1017/9781108670289.009) bölümü skora fazla yaslanmayı eleştirir ve bazı oyunlarda skorun gerekmeyebileceğini söyler [kaynak: yalnız özet okundu]. Murch [«iki buçuk yasası»](https://transom.org/2005/walter-murch/): aynı türden ≈2,5 katman ayrı duyulur, tür dağılımı dengeliyse en çok beş katman [kaynak]. Tanhu'da aynı anda ≤5 katman, aynı türden ≤2 [çıkarım].
+
+### 2.1 Model
+
+Üç eksen bugünkü API'yle kurulur (`architecture.md` §3.6) [çıkarım]:
+
+| Eksen | Ne yapar | API | Eksik |
+|---|---|---|---|
+| Durum makinesi | Sahne ve saat durumu seçer, sahne önce gelir | `setState`, `app/sounds.js` seçicisi | Müzik türü alanı: `narrative`, `interactive`, `world` |
+| Yatay | Cümle ve durum ölçü sınırında değişir | `at: 'bar'`, `phrase` | Tehlikede hızlı giriş |
+| Dikey | Aynı tempoda katman kazancı | `setLayer`, `setProximity` | `threat` 0–3, katman zarı |
+
+| Geçiş | Kural | Neden |
+|---|---|---|
+| Gündelik ↔ gündelik | Ölçü sınırı, 2–4 sn katman | Bugünkü kural kalır |
+| Tehlike girişi | `at: 'now'` + `drum_hit`, ≤0,3 sn | 52 tempoda ölçü 2,31 sn: ölçü sınırı geç kalır |
+| Tehlike çıkışı | 10 sn tehditsiz, ölçü sınırı, davul önce çıkar | Hades'in davul kuralı |
+| `threat` | 1: gözcü, 2: ≥3 düşman ya da atlı, 3: adlı düşman | [kurgu]. Tsushima'ya atfedilen «üç yoğunluk basamağı»nın kaynağı bulunamadı: [ASE 2020](https://www.asoundeffect.com/ghost-of-tsushima-sound/) sayfasında basamak yoktur, yalnız savaşta müziğin «biraz» yükseldiği yazar |
+| Katman zarı | 8 cümlede bir: tam %50, yalnız tel %30, boş cümle %20 | Hades'in tekrar önleyicisi; `phraseWeights` ile birleşir |
+| Binicilik | At yürürken davul yok, tırısta `frame` ikinci zamanda, dörtnalda `frame` ve `tap`. Tempo değişmez | RDR2'nin sakin sürüş ve kargaşa ayrımı |
+
+### 2.2 Müzik nefesi
+
+Bugünkü ortam durumları sürekli çalar, `rest` cümlesi vardır ama dron hiç susmaz. 60 dakikalık günde (K20) sürekli 6/8 yorar [çıkarım]. Yeni alan: `breath: { on: [90, 150], off: [120, 300] }` (sn, rastgele).
+
+- Yaban durumları (`road_leg`, yeni `wild_day`, `wild_night`): nefes açık, müzik ≈%35. Hepsi [kurgu] sayıdır, kulakla düzelir.
+- Yerleşim (`hold`, `hold_night`): `off: [40, 90]`, müzik ≈%65. Menü ve `camp`: nefes yok, menü değişmez.
+- `off` sırasında dron 8 sn'de söner, ortam +2 dB çıkar. Yeniden giriş olaya bağlanır: şafak, gün batımı, yeni yer, tepe. Olay yoksa süre dolunca.
+
+### 2.3 Godot için
+
+Godot 4.7'nin üç müzik akışı modelin eksenlerini karşılar [kaynak: Godot 4.7 sınıf belgeleri; ayrıntılar 4.7-stable kaynak kodundan]:
+
+| Eksen | Godot | Nasıl |
+|---|---|---|
+| Durum makinesi | [`AudioStreamInteractive`](https://docs.godotengine.org/en/stable/classes/class_audiostreaminteractive.html): klipler ve geçiş tablosu | Dünya başına bir kaynak (kamp, Kışlak, yerleşim). Klip adı müzik durumudur (`camp`, `camp_night`, `tension`, `chase` ...). `AudioManager` aynı dünyada parça değiştirmez, `get_stream_playback()` ile aldığı [`AudioStreamPlaybackInteractive`](https://docs.godotengine.org/en/stable/classes/class_audiostreamplaybackinteractive.html) üstünde `switch_to_clip_by_name(state)` çağırır |
+| Yatay | Geçiş kuralı: `from_time` (`IMMEDIATE`, `NEXT_BEAT`, `NEXT_BAR`, `END`), `to_time`, `fade_mode`, `fade_beats`, isteğe bağlı ara klip (`filler_clip`) | Gündelik ↔ gündelik: `NEXT_BAR`, `FADE_CROSS`, 2–4 vuruş. Tehlike girişi: `IMMEDIATE`, `FADE_CROSS`, 0,25 vuruş (52'de ≈0,29 sn) ve `SFX` yolunda `drum_hit`. Tehlike çıkışı: 10 sn tehditsiz kalınca `NEXT_BAR`; davul katmanı bir ölçü önce söner |
+| Dikey | [`AudioStreamSynchronized`](https://docs.godotengine.org/en/stable/classes/class_audiostreamsynchronized.html): en çok 32 eş zamanlı katman, katman başına `set_sync_stream_volume` | Her klip bir `AudioStreamSynchronized`: dron, tel, davul, koro, yağmur çanı ayrı Ogg. Karıştırıcı katman sesini her karışımda yeniden okur, yani çalarken değiştirilebilir [kaynak: `audio_stream_synchronized.cpp`]; sıçrama olmasın diye değer tween ile küçük adımlarla yürür [çıkarım] |
+| Cümle | [`AudioStreamPlaylist`](https://docs.godotengine.org/en/stable/classes/class_audiostreamplaylist.html): en çok 64 parça, `shuffle`, `loop`, `fade_time` (varsayılan 0,3 sn) | Üretken cümle (A, A', B, boş ölçü) bir katmanın içinde Playlist olur. Ağırlık kopya sayısıyla verilir (A ×3, A' ×2, B ×2, boş ×1); karıştırma her turda sırayı yeniden kurar. `fade_time` 0: cümleler ölçü sınırında uç uca biner [çıkarım] |
+
+Godot'a özgü kurallar [kaynak: 4.7-stable kaynak kodu; uygulama çıkarım]:
+
+1. **Vuruş bilgisi zorunludur.** `NEXT_BEAT` ve `NEXT_BAR` kaynak klibin `bpm`'ini, `NEXT_BAR` ayrıca `bar_beats`'ini okur; `bpm` 0 ise geçiş hemen olur ve `fade_beats` saniye sayılır ([audio_stream_interactive.cpp](https://github.com/godotengine/godot/blob/4.7-stable/modules/interactive_music/audio_stream_interactive.cpp)). Bu alanlar Ogg ve MP3'te vardır, `AudioStreamWAV`'da yoktur ([AudioStreamOggVorbis](https://docs.godotengine.org/en/stable/classes/class_audiostreamoggvorbis.html), [AudioStreamWAV](https://docs.godotengine.org/en/stable/classes/class_audiostreamwav.html)). Müzik Ogg'dur. 6/8, noktalı dörtlük 52: `bpm` 52, `bar_beats` 2, ölçü 2,31 sn.
+2. **Playlist ölçü vermez.** `AudioStreamPlaylist` `bpm`'i ilk parçadan alır ama `bar_beats` döndürmez (0); `AudioStreamSynchronized` ilk sıfır olmayan katmanınkini döndürür. Kural: Synchronized'ın 0. katmanı vuruş bilgisi taşıyan düz Ogg'dur (dron), Playlist katmanları ondan sonra gelir. Yoksa `NEXT_BAR` geçişi beklemeden olur.
+3. **Randomizer müzikte kullanılmaz.** `AudioStreamRandomizer` `bpm` ve vuruş sayısı vermez, uzunluğu ilk çalıştan önce 0'dır; Playlist'e konursa parçanın süresi bilinmez. Yalnız tek seferlik efektlerde kullanılır (§7.5).
+4. **İçe aktarma belgesindeki not eskidir.** [Importing audio samples](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_audio_samples.html) BPM, Beat Count, Bar Beats için «şu an kullanılmıyor, ileride etkileşimli müzik için» der; 4.7 kaynak kodu üçünü de geçişte okur. Birim sınaması bunu oyunda doğrular.
+5. **Müzik nefesi (§2.2).** Yeni kaynak gerekmez: `off` süresinde `AudioManager` dron ve tel katmanlarını 8 sn'de −60 dB'e indirir, `Ambience` yolunun `AudioEffectAmplify`'ını +2 dB açar (§8; oyuncunun ayarı yolun kendi sesinde kalır); `on` gelince aynı yoldan döner. Klip değişmez, ölçü sayımı bozulmaz [çıkarım].
+6. **Kodla üretilen müzik, çalışırken değil önceden.** Godot projesi yalnız GDScript'tir. [`AudioStreamGenerator`](https://docs.godotengine.org/en/stable/classes/class_audiostreamgenerator.html) belgesi bu sınıfın GDScript'te performans sınırına takıldığını yazar, C# ya da GDExtension önerir [kaynak]. Bu yüzden prototipin çalgıları canlı çalmaz: notalar, cümleler ve katmanlar `game/tools/` altındaki bir araçla önceden dosyaya basılır (prototipin `src/audio/` kodu Node'da ya da Python'da), Ogg olarak içe aktarılır; oyunda sentez yoktur [çıkarım]. K28 müzik ve efektin kodla üretilmesini ister; Godot'daki bugünkü sesler ise ElevenLabs'tendir (§1.4). Brif yalnız «Blender ve Meshy çağrılmaz» kuralının Godot'a geçmediğini yazar; K28'in bu yarısının Godot'a geçip geçmediği baş mühendisin kararıdır. Yukarıdaki model iki yolda da aynı çalışır: katman dosyası koddan da ElevenLabs'ten de gelebilir.
+
+## 3. WebAudio sınırları, bellek, önden pişirme
+
+§3.1–§3.4 Three.js prototipinin WebAudio motoru içindir; sayılar, sabitler (`BANK_BYTES`, `BAKE_BUDGET`, `VOICE_BUDGET`) ve yollar oradandır. Oyunun karşılığı §3.5'tir.
+
+### 3.1 Gerçekler
+
+- `AudioBuffer` 32 bit kayan noktalı PCM'dir, her kanal ayrı tutulur. MDN onu ≈45 sn altı parçalar için tarif eder, uzun ses için `MediaElementAudioSourceNode` önerir [kaynak: [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)]. Bellek: 48 kHz mono 192 KB/sn, 22,05 kHz mono 88,2 KB/sn.
+- `decodeAudioData` kaynağı bağlamın hızına örnekler [kaynak: [W3C](https://webaudio.github.io/web-audio-api/)]. Bu yüzden 44,1 kHz mp3 macOS'ta 48 kHz çözülür. 96 kHz aygıtta bellek iki katıdır [çıkarım].
+- Uzun parça medya öğesiyle akar, kısa parça tamponla çalınır [kaynak: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices)]. Motorlarda da aynıdır: FMOD müzik ve konuşmayı akış adayı sayar [kaynak: [Studio guide](https://fmod.com/docs/2.03/api/studio-guide.html), arama özeti], Unity'de `Streaming` RAM'de küçük tampon tutar [kaynak: [AudioClipLoadType](https://docs.unity3d.com/ja/ScriptReference/AudioClipLoadType.html), arama özeti].
+- Kaynak düğümü hız farkını kendisi çevirir. Blink ve WebKit doğrusal çevirir: ucuz, kalitesi düşük [kaynak: [Adenot](https://padenot.github.io/web-audio-perf/), tarihsiz, doğrulanmalı]. Süzülmüş yatakta sorun değil, konuşmada olabilir. Bu yüzden satır bağlam hızında kalır [çıkarım].
+- `ConvolverNode` çok pahalı, HRTF çok pahalı, `equalpower` ucuz, `DynamicsCompressor` ucuz ve 6 ms öngörülü, `GainNode` çok ucuz; yayında düğüm sınırı verilmez [kaynak: Adenot]. Tek paylaşılan yankı ve HRTF'siz panel kararı doğrudur. ≤40 düğüm öz bütçemizdir. Rockstar da gerçek zamanlı sentez ve DSP'yi [GTA V konuşmasında](https://gdcvault.com/play/1020587/The-Sound-of-Grand-Theft) başlık yapar [kaynak: yalnız özet].
+- İşçi iş parçacığı Web Audio çağıramaz [kaynak: Adenot]. Ama çalgılarımız saf `Float32Array`'dir, gerekirse işçiye gider [çıkarım]. Ölçüm ≤10 ms/nota olduğu için şimdilik gerek yok. Canlı DSP için `AudioWorklet` 128 örneklik blokla ses iş parçacığında çalışır [kaynak: [Chrome](https://developer.chrome.com/blog/audio-worklet/)]; bugünkü hiçbir iş onu istemiyor.
+
+### 3.2 #52 için tek tablo
+
+Tarihçe: `architecture.md` §3.6 müzik 16 + efekt 16 + satır 8 = 40 yazar. Karar 31 satırı 16'ya çıkardı, çünkü sinema dokuz satırı birden ön yüklüyordu. Asıl hata ön yüklemenin biçimiydi [çıkarım]. Pencereyle satır yine 8'e iner, açılan 8 MiB açık dünyanın ihtiyacı olan efekt ve ortama geçer. Toplam bugünkü parçaların toplamıyla aynı kalır, 40 yazıp 48 uygulama çelişkisi biter. Masaüstünde 50 MB tek başına risk değildir: `architecture.md` §7'de yalnız MSAA hedefi 83 MB'tır [çıkarım]. Risk sessiz düşmedir, yani havuzun sahneye dar gelmesi.
+
+| Havuz | Tavan | İçerik | Düşme kuralı |
+|---|---|---|---|
+| Müzik (`engine.bytes`) | 16 MiB | Nota bankası 8 MiB, 2 dron ≤5,12 MB, ana yankı 1,31 MB, etkin zincir tepkisi ≤1,54 MB | En eski kullanılan nota; yeniden üretim ≤10 ms |
+| Efekt ve ortam (`BAKE_BUDGET`) | 24 MiB | Sahne seti, saat, hava, yerleşim, fauna, iklim yatakları | Cephe bırakma (K22), sonra en eski; çalan düşmez |
+| Satır penceresi (`VOICE_BUDGET`) | 8 MiB (≈43,7 sn) | Çalan satır + sıradaki 2 satır | Biten satır hemen bırakılır |
+| Akış | 0 PCM | ≥30 sn tek dosya | Tarayıcı yönetir, sayılmaz |
+| **Toplam** | **48 MiB = 50,33 MB** | Havuzların toplamı | Ayrı tavan yok |
+
+Sahne başına en kötü hesap, MB [çıkarım; tarayıcıda ölçülecek]:
+
+| Sahne | Müzik | Efekt, ortam | Satır | Toplam |
+|---|---|---|---|---|
+| Menü | 10,6 | 8,5 | 0 | 19,1 |
+| Bugünkü Yeni Oyun (hepsi çözülü) | 14,3 | 8,5 | 15,8 | 38,6 |
+| Yeni sinema, pencereyle | 16,4 | 9,0 | ≤8,4 | 33,8 |
+| Kamp, dolulu fırtına (K22 + fauna 0,5) | 14,3 | 17,1 | ≤8,4 | 39,8 |
+| Açık dünya, fırtına (taban 8,5 + hava 5,7 + fauna 2,5 + iklim 1,4) | 14,3 | 18,1 | ≤8,4 | 40,8 |
+| Yerleşim, Toy, fırtına (+1,5) | 14,3 | 19,6 | ≤8,4 | 42,3 |
+
+Bugünkü `BAKE_BUDGET` 16,78 MB ile açık dünya satırı sığmaz. 24 MiB ≥%20 pay bırakır. `architecture.md` §7 «Önce ne kesilir» 11. satırı gereksiz kalır.
+
+### 3.3 Satır penceresi
+
+Sinema ≈295 sn'ye çıkınca içindeki konuşma ve şarkı ≈183 sn olur; hepsi birden çözülse ≈35 MB eder, 16 MiB'e de sığmaz. Kural [çıkarım]:
+
+1. `voice.preload` çağrısı «çalan + sıradaki 2»den fazlasını çözmez. Sinema kendi çizelgesini `seconds` alanından kurar, dosya çözülmeden süre bellidir: manifest bu alanı yalnız şarkıda değil bütün satırlarda yazar.
+2. Biten satır `voice.release(id)` ile hemen düşer. Sinema tekrar çalmaz.
+3. ≥30 sn dosya medya öğesiyle akar: `createMediaElementSource` → `amp` → panel ya da `voice` veri yolu. Kısma ve zincir aynı kalır. Süre manifestten, bitiş `ended` olayından. Ağız zarfı için `voice.buffer` yerine önceden yazılmış ağız izi ya da `AnalyserNode`.
+4. Bağlam hızı: `ctx.sampleRate` 48 kHz'i aşarsa bağlam `{ sampleRate: 48000 }` ile yeniden kurulur [kaynak: seçenek W3C'de; karar çıkarım]. Yoksa aygıt havuzu yarıya düşürür.
+5. Zincir tepkileri müzik havuzuna yazılır, zincir sökülünce bırakılır (`voice.js` bugün `irs` içinde sonsuza dek tutar).
+
+### 3.4 Pişirme kuralları
+
+- Oran seçimi: içeriği ≤8 kHz olan her şey 22,05 kHz; tok ve alçak sesler (deve, inek, gürleme) 16 kHz; yalnız tiz atak isteyen (ıslık, kuş, tık) 32 kHz. `sheep`, `dog_bark`, `horse_snort` 32'den 22,05'e inince ≈0,25 MB kazanılır [çıkarım].
+- Motor varsayılanı (`SFX_RATE` 32 kHz) kalır, yeni reçete `sr`'yi açık yazar.
+- Dünya başına ön üretim, K12'nin dilim kuralı (kare başına ≤4 ms) kalır. Serpinti sesi iklim yüklenince pişer, mevsimi gelmeyen pişmez.
+- Aynı tampondan çeşit: `rate` ±%6 ve `use:` (`lamb` = `sheep` × 1,35). Yeni bellek istemeden tür çoğaltılır.
+
+### 3.5 Godot için: bellek, akış ve #52'nin tavanları
+
+**Gerçekler** [kaynak: Godot 4.7 belgeleri; ölçüm: `game/.godot/imported`]:
+
+- WAV bellekte örnek dizisi olarak durur. İçe aktarma üç kip sunar: PCM, IMA ADPCM, Quite OK Audio (QOA, varsayılan). 1 sn 44 kHz mono: PCM 88 KB, IMA ADPCM 22 KB, QOA 17 KB ([Importing audio samples](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_audio_samples.html)) [kaynak]. Oyundaki ateş döngüsü (20 sn, mono, 44,1 kHz, QOA) 357.380 bayt, 17,9 KB/sn tutar [ölçüm].
+- Ogg Vorbis ve MP3 dosya olduğu gibi içe aktarılır, bellekte sıkıştırılmış durur, çalarken çözülür: `AudioStreamOggVorbis.packet_sequence` akışın ham Ogg verisini tutar ([AudioStreamOggVorbis](https://docs.godotengine.org/en/stable/classes/class_audiostreamoggvorbis.html)) [kaynak]; menü parçasının içe aktarılan dosyası kaynakla aynı boydadır [ölçüm]. Ogg 128 kb/sn stereo 16 KB/sn, 96 kb/sn 12 KB/sn tutar (aynı belge). Godot'da «akış» diskten okuma değil, bellekteki sıkıştırılmış veriyi çözmektir [çıkarım].
+- Belge kısa ve sık tekrarlanan efekte WAV, müziğe, konuşmaya ve uzun efekte Ogg önerir; MP3'ün çözümü Ogg'dan ucuzdur [kaynak: aynı belge].
+- WebAudio farkı: prototip her sesi 32 bit kayan noktaya çözer (22,05 kHz mono 88,2 KB/sn). Godot QOA'da aynı ses ≈9 KB/sn'dir, on kat küçük. §1.1'deki bütün efekt reçeteleri (24,78 MB) ve ortam döngüleri (15,35 MB) Godot'da birlikte ≈4 MB eder [çıkarım].
+- Asıl dar boğaz bellek değil, yükleme takılmasıdır. Büyük kaynak `ResourceLoader.load_threaded_request` ile arka planda yüklenir, durumu `load_threaded_get_status` ile karede bir sorulur ([ResourceLoader](https://docs.godotengine.org/en/stable/classes/class_resourceloader.html)) [kaynak].
+- Birkaç saniye sessiz kalan veri yolunu Godot efektleriyle birlikte kendiliğinden kapatır ([Audio buses](https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html)) [kaynak]. Ayrı `Voice` ve yankı yolu boşta yük getirmez.
+
+**#52 için Godot tablosu** [çıkarım; oranlar yukarıdaki belgeden, tavanlar bu belgenin önerisi]:
+
+| Havuz | Biçim | Tavan, dünya başına yüklü | Ne sığar |
+|---|---|---|---|
+| Müzik | Ogg Vorbis; `bpm`, `beat_count`, `bar_beats` dolu (§2.3). Dron ve tel kuru mono 96 kb/sn, yankı veri yolunda | 16 MiB | Mono 96 kb/sn ile ≈23 dk katman; stereo 128 kb/sn ile ≈17 dk |
+| Efekt ve ortam | WAV, QOA. Ortam döngüleri 22,05 kHz mono (K12), tok sesler 16 kHz, tiz atak 32 kHz (§3.4'ün oranları içe aktarmada) | 8 MiB | 22,05 kHz mono ile ≈15 dk; prototipin bütün efekt ve ortamının iki katı |
+| Seslendirme | MP3 `mp3_44100_64` (ElevenLabs'in verdiği biçim, §9.4), olduğu gibi içe aktarılır | 2 MiB | 8 KB/sn ile ≈4 dk; sinemanın bütün sesi ≈1,7 MB |
+| **Toplam** | | **26 MiB** | Havuzların toplamı, ayrı tavan yok |
+
+Aynı Ogg birden çok klipte kullanılırsa bir kez sayılır: Godot aynı yolu tek kaynak olarak yükler ([ResourceLoader](https://docs.godotengine.org/en/stable/classes/class_resourceloader.html), `CACHE_MODE_REUSE`) [kaynak].
+
+**K12'nin Godot karşılığı.** «Ortam döngüleri 22 kHz mono» bir içe aktarma ayarıdır: `force/mono = true`, `force/max_rate = true`, `force/max_rate_hz = 22050`, `compress/mode = 2` (QOA). Bugün `night_meadow_loop.wav` stereo 44,1 kHz'tir; kural uygulanınca 1,07 MB'tan ≈0,27 MB'a iner [çıkarım]. Geniş yatak gerekiyorsa mono döngü dinleyicinin çevresindeki dört `AudioStreamPlayer3D`'de, farklı başlangıç noktasıyla (`play(from_position)`) çalar: Ghost of Yōtei'nin dört mono kaynaklı rüzgâr düzeneğinin karşılığı (§6.1) [çıkarım]. «Sahne başına önceden üretim» Godot'da dünya yüklenirken `load_threaded_request` ile yapılır; «ana iş parçacığını kilitlemez» kuralı böylece tutar.
+
+**Satır penceresi (§3.3) Godot'da.** Sinemanın konuşması ve şarkısı MP3 olarak ≈1,7 MB'tır (155 sn × 8 KB/sn + 27,7 sn × 16 KB/sn): pencere bellek için gerekmez. Kural yükleme içindir: sinema açılırken bütün satırlar `load_threaded_request` ile istenir; oynatıcı yalnız yüklenmiş satırı çalar, yüklenmemişse altyazı akar, ses beklemez. Biten satırın başvurusu bırakılır [çıkarım]. §3.3'ün bağlam hızı maddesi Godot'a geçmez: bellek dosya biçimine bağlıdır, aygıtın hızına bağlı değildir [çıkarım].
+
+**Üretim ve çeşit.** §3.4'ün «pişirme»si Godot'da araç işidir: reçeteler `game/tools/` altında dosyaya basılır, `rate` ±%6 ve çeşitler [`AudioStreamRandomizer`](https://docs.godotengine.org/en/stable/classes/class_audiostreamrandomizer.html) ile yapılır (`random_pitch` 1,06: perde 1/1,06 ile 1,06 arasında, belgeye göre çarpımsal) [kaynak]. Çalışırken küçük bir ses üretmek gerekirse `AudioStreamWAV.data` dinamik üretilmiş PCM tutabilir ([AudioStreamWAV](https://docs.godotengine.org/en/stable/classes/class_audiostreamwav.html)) [kaynak]; GDScript'te örnek örnek döngü pahalı olduğu için yalnız tek seferlik küçük işlerde [çıkarım].
+
+**Ölçüm.** Yeni birim sınaması `tests/unit/test_audio_budget.gd`: her dünyanın ses listesindeki dosyaların `.import` hedeflerini (`dest_files`) okur, içe aktarılan boyları havuzlara göre toplar ve tavanla karşılaştırır; ortam döngülerinde `force/mono` ve `force/max_rate_hz`, müzik kliplerinde `bpm` > 0 ve `bar_beats` > 0 ister. `tools/run_tests.sh` ile başsız koşar. Bugünkü ortam döngüsü bu sınamadan geçmez; ilk iş odur.
+
+## 4. Koro kuralı (#53)
+
+`audio.md` §2 «Yalnız Tengri ve şafak» der; §3 `crane` ve `court`'a da koyar; `crane` kodda da çalar; `choir.js`'in başlığı §2'yi tekrarlar. `court` kodda henüz yok [kaynak: `music-states.js`].
+
+Dönemde topluluk ilahisi için kanıt bulunamadı: Shiji 110'da müzik aleti ya da koro geçmez (§5.1). Koro bütünüyle skor rengidir [çıkarım]. Bu yüzden değeri seyrekliğindedir.
+
+**Önerilen kural.** Koro gökle konuşan andır: gök açılır ya da şafak Tengri'ye bağlanır. Üç durumda çalar: `tengri`, `dawn`, `crane` (bugünkü sinemanın göğe çıkışı; yeni sinema gelince `crane` emekli olur, kural iki duruma iner). Yerleşim ve toplantı kalabalığı koro değildir: `court`'ta `choir` katmanı yoktur, yerine `gathering_crowd` ve hafif boğaz dronu gelir. Bellek de kazanılır: `choir` tek başına 2,6–3,1 MiB tutar (prototip). Kullanım seyrekliği: oynanışta perde başına ≤2 çalış.
+
+**Godot için.** Koro bir müzik katmanıdır: `choir_*.ogg` (kuru, mono, yankı `Reverb` yolunda). Yalnız `tengri` ve `dawn` kliplerinin `AudioStreamSynchronized`'ında bulunur; `crane` yeni sinemaya dek kalır. `court` klibinde koro katmanı yoktur, yerine `gathering_crowd` (ortam) ve hafif boğaz dronu gelir. Godot'da koronun bellek payı küçüktür (60 sn mono 96 kb/sn ≈0,7 MB) [çıkarım]; kuralın gerekçesi bellek değil, seyrekliktir. Kural veriyle tutulur: `tests/unit/test_music_choir.gd` her `AudioStreamInteractive` kaynağının kliplerini gezer, `choir_` ile başlayan katmanı izin listesi (`tengri`, `dawn`, `crane`) dışında bulursa düşer. «Perde başına ≤2 çalış» oynanış sayısıdır, `AudioManager` sayar ve hata ayıklama günlüğüne yazar [çıkarım].
+
+## 5. Dönem çalgıları ve kanıt düzeyi
+
+### 5.1 Tablo
+
+Mete MÖ 234–174. Shiji ≈MÖ 91. Tam metin taramasında Shiji 110'un Hun bölümünde çalgı adı yoktur: `鼓`, `笳` geçmez, `角` yalnız kuşatmanın köşesi anlamındadır [kaynak: [史記/卷110](https://zh.wikisource.org/wiki/史記/卷110)]. [Tsaraam 7 envanteri](https://edspace.american.edu/silkroadjournal/wp-content/uploads/sites/984/2017/09/Investigation-of-a-Xiongnu-Royal-Complex.pdf) ve [Noin-Ula tanıtımı](https://lisa.gerda-henkel-stiftung.de/kurgan_22?nav_id=4678&language=en) metinlerinde de çalgı bulamadım. Hun mezarından kesin çalgı buluntusu: kaynak bulunamadı. Telin bağırsak ya da kıl olması bunu açıklayabilir [çıkarım].
+
+| Ses | En yakın kanıt | Düzey | Oyun kararı |
+|---|---|---|---|
+| Islıklı ok | Shiji 110: 冒頓乃作爲鳴鏑 [kaynak] | Güçlü; olaydan (MÖ 209) ≈120 yıl, Mete'nin ölümünden ≈80 yıl sonra | Ana motifin kaynağı, sahnede görünür |
+| Ağız kopuzu | Shimao'da 20'den çok kemik ağız kopuzu, ≈4.000 yıl ([Xinhua 2018](http://www.xinhuanet.com/english/2018-05/21/c_137195056.htm)) [kaynak]. [Vikipedi](https://en.wikipedia.org/wiki/Jew%27s_harp)'nin «MÖ 3. yy Çin çizimi» satırı: kaynak bulunamadı; gösterdiği [National Geographic yazısı](https://www.nationalgeographic.com/history/article/mysterious-carvings-evidence-human-sacrifice-uncovered-ancient-city-china) çizim anmaz. Hun mezarı bulgusu ikincil ve zayıf ([dükkân sayfası](https://mongolianstore.com/jews-harp/), `kopuz.md` §5) | Bölgede güçlü | Görünür; Hun buluntusu [kurgu] kabul |
+| Arp | [Zagunluq MÖ 5. yy, Pazyryk ≈MÖ 350](https://en.wikipedia.org/wiki/Konghou) [kaynak] | Komşu halklarda orta | Yüeçi ve batı rengi. Yüeçi bağı [çıkarım] |
+| Hucia (胡笳) | §5.3 | Orta; tarihli en eski Hun bağlamı ≈4 yy sonra (Cai Yan, HHS 84). Daha erken görünen Li Ling mektubu 8. yy'da sahte sayıldı | Görünür, Hun ezgi sesi |
+| Boynuz (胡角) | [Jin Shu 23](https://zh.wikisource.org/wiki/晉書/卷023): 胡角者,本以應胡笳之聲 [kaynak] | Orta-zayıf | Görünür, ordu işareti |
+| Çekilen tel (kopuz) | §5.2 | Tür orta, ad geç | Görünür. «Kopuz» adı dönemde [kurgu] |
+| Davul | Shiji anmaz. [古今注](https://zh.wikisource.org/wiki/古今注): 《橫吹》,胡樂也; Hu kökenli askerî müzik, davul Hun'a doğrudan bağlanmıyor. Kam davulu dönem kanıtı: kaynak bulunamadı | Zayıf | Görünür, [kurgu] |
+| Kemik ıslık | Okun ıslık başlığı kemik ve boynuz olabilir ([Kostroma sergisi](https://ar.culture.ru/en/subject/svistyashchaya-strela), 19–20. yy nesne). Ayrı kemik düdük: kaynak bulunamadı | Zayıf | Yalnız çoban işareti, [kurgu]. Tanhu 1'in `kemik_islik` becerisi alınmaz |
+| Uzun düdük (`kaval`) | [Tsuur ailesi](https://en.wikipedia.org/wiki/Tsuur); en eski anılış sözlü Jangar destanında. Tsuur sayfası destanı «14. yy» diye tarihler, [Jangar sayfası](https://en.wikipedia.org/wiki/Epic_of_Jangar) tarih vermez; kesin değil | Zayıf, en az 1.500 yıl sonra | Görünür çoban sesi, [kurgu]. Anadolu adı değişebilir |
+| Boğaz sesi | Dönem kanıtı bulunamadı. [Vikipedi](https://en.wikipedia.org/wiki/Throat_singing)'deki «1960'lar» terimin literatürdeki kullanımıdır ve kaynak işareti ister; uygulamanın yaşını vermez | Yok | Görünmez, skor dronu |
+| Yaylı (`kobuz`, morin huur) | [6. yy Soğd varsayımı, 8–10. yy belge](https://en.wikipedia.org/wiki/Bow_(music)) [kaynak] | Anakronik, ≥700 yıl | Görünmez. §5.4 |
+
+**Sahne kuralı.** Görünen çalgı kanıt tablosuna uyar; duyulan skor serbesttir. K13 kurgu listesi kişi ve kurum içindir, çalgı ona girmez: Destan Kitabı kopuz ve davul için kısa bir dönem notu taşır (`mitoloji.md` öneri 1'in çağ etiketi).
+
+### 5.2 Kopuz: dönem ve çalış (#54, #55, #57, #58)
+
+Tarif, akort, `motor` rolü, `dombra.js` → `kopuz.js` dönüşümü ve Eleven Music planı `docs/research/kopuz.md`'dedir; bu belge onlara uyar. Buradaki ekler şunlardır.
+
+**Dönem.** Shiming, 釋樂器 (≈MS 190–210): 枇杷,本出於胡中,馬上所鼓也. Hu halkından gelen, at üstünde çalınan bir çekilen tel [kaynak: [釋名 卷七](https://zh.wikisource.org/wiki/釋名/卷七), birincil metinde sınandı; tarih [Pipa](https://en.wikipedia.org/wiki/Pipa) sayfasından]. Fu Xuan (3. yy) aynı aleti Vusun'a gelin giden Han prensesine bağlar; sayfa bu anlatının doğruluğunun tartışıldığını not eder [kaynak]. Ad anakroniktir, oyun bilerek kullanır (`kopuz.md` §5). Xiongnu çağından telli buluntu orada da bulunamadı.
+
+**Çalış.** [Dombra sayfası](https://en.wikipedia.org/wiki/Dombra), Daukeyeva 2016'ya dayanarak [kaynak]:
+
+- İki tel; alt tel dron, üst tel ezgi. **Tökpe** (batı): iki tel birlikte, parmaklarla hızlı aşağı yukarı vuruş. **Şertpe** (doğu, orta): tek tek, parmak ucu ve tırnakla, daha yumuşak. İkisinde de gövdeye parmak vuruşu.
+- Küy 2–4 dk'lık solo parçadır, çoğu bir hikâyeye bağlıdır ve hikâye çalmadan önce anlatılır. UNESCO da [konuşulan masalla birlikteliği](https://ich.unesco.org/en/RL/kazakh-traditional-art-of-dombra-kuy-00996) yazar. Bu, sinemanın konuşma bölümlerine biçim verir (§10.1).
+- Komuz perdesiz, üç telli, orta teli en tiz, çekilir ya da vurulur [kaynak: [komuz](https://en.wikipedia.org/wiki/Komuz)]. Tovşuur kıl ya da bağırsak telli, anlatıcıya eşlik eder [kaynak: [Tovshuur](https://en.wikipedia.org/wiki/Tovshuur)].
+
+**Kuralın kökü.** §1.2. Yasak olan el hareketi değil armonidir: `kopuz.md` öneri 6'nın metni geçerlidir. Motor rolünün nota başına 403 kB'ı nota bankasının 8 MiB'ine sığar, en eski kullanılan düşer [çıkarım]. Kamp ezgisinin `center: 69` üst konumu kulakla sınanmalı: tok duyulmazsa `kopuz.md` öneri 7'nin alt konumu (A3) denenir [çıkarım].
+
+### 5.3 Hucia
+
+- [Li Ling'e atfedilen mektup](https://zh.wikisource.org/wiki/答蘇武書) (Wenxuan 41): 胡笳互動,牧馬悲鳴 [kaynak]. Bozkırın gece sesi. Atıf zayıftır: Liu Zhiji (Shitong, 710) mektubun üslubunun Batı Han'a uymadığını, sonradan yazılıp Li Ling'e mal edildiğini söyler: 觀其文體,不類西漢人,殆後來所為,假稱陵作也 [kaynak: [史通 卷十八](https://zh.wikisource.org/wiki/史通/卷十八)]. Mete'ye yakın tanıklık sayılmaz.
+- [Hou Hanshu 84](https://zh.wikisource.org/wiki/後漢書/卷84), Cai Yan'ın (Güney Hunlarda tutsak, ≈195–207) ikinci şiiri: 胡笳動兮邊馬鳴 [kaynak]. Hun bağlamındaki tarihli en eski hucia tanıklığı budur, Mete'den ≈4 yy sonra; derleme 5. yy'dandır. Şiirin atfı bu turda ayrıca sınanmadı.
+- [Jin Shu 62](https://zh.wikisource.org/wiki/晉書/卷062), Liu Kun: 中夜奏胡笳,賊又流涕歔欷. Kuşatanlar ağlar, sabah yeniden çalınınca çekilir [kaynak; 7. yy derlemesi, 4. yy olayı].
+- [Jin Shu 23](https://zh.wikisource.org/wiki/晉書/卷023): boynuz hucia'ya cevap vermek için yapılmıştır [kaynak].
+- Biçim: [Duke notu](https://sites.duke.edu/destinyofrebirth/jia-%E7%AC%B3-nomadic-reed-pipe/) kamış, ağaç ya da kemik, çift dil, keskin ve hüzünlü der, kaynak vermez. [Guan sayfası](https://en.wikipedia.org/wiki/Guan_(instrument)) askerî işaret ve «kaba» ses der, kaynaksız. [Bir makalenin özeti](https://www.researchgate.net/publication/377620992_Research_on_the_Origin_and_Evolution_of_Hu_Jia) Hun bağını verir ama benimseme tarihini bulamaz; tam metin açılmadı.
+
+**Oyun.** Yeni çalgı `hujia`: Geniz sesli çift dil tarifi: testere + iki biçimlendirici (≈1,1 ve 2,6 kHz), atakta 30–60 sent alttan kayış, gürültü. Aralık D4–A5, 3,2 sn, 24 kHz, 8 perde ≈2,4 MB [kurgu; kulakla]. Liu Kun anlatısı doğrudan oynanış kancasıdır: gece uzaktan hucia Hun düşmanının moralini oynatır (`army.md` moral sistemi), [kurgu].
+
+### 5.4 Yaylı ne olur
+
+Yaylı sesi bugün `camp`, `tengri`, `erlik`, `chase`, `dawn`, `home`'da sık duyulur. Silmek yerine:
+
+1. Sahnede yaylı çalgı elde görünmez. `kopuz.md` öneri 10'un ad tablosu kalır (`kıl kobuz`, kimlik `kobuz`), oyma at başı tarifi Mete'nin çağında sahneye çıkmaz.
+2. Skorda kalır, yalnız `tengri` ve `erlik`'te ana renk; öteki durumlarda ezgi sesini `hujia` ve kopuz alır.
+
+## 6. Açık dünyada ortam katmanları
+
+### 6.1 Örnekler
+
+Ghost of Tsushima ortamı veriye bağlar: hangi tür, ne zaman, nerede, ne sıklıkta; elle konan kaynak görev ve tapınağa kalır. Bölge başına tür yoğunluğu değişir, karda EQ ile yutma yapılır [kaynak: [ASE 2020](https://www.asoundeffect.com/ghost-of-tsushima-sound/)]. Ghost of Yōtei sabit döngüleri zayıflık sayar; kuş, böcek ve rüzgâr tek seferliklerini dinleyicinin çevresindeki alt biyomdan seçer, tek rüzgâr düzeneğine bölge (öykü yeri) katmanları ekler, oyuncuyu saran dört mono kaynak kullanır, yakın sesten orta ve uzak sürümler üretir, sinemada sabit konumlu sesi 2B'ye çevirir, gerilimli sinemada kuşları ve ateşi indirir [kaynak: [ASE 2025](https://asoundeffect.com/ghost-of-yotei-game-audio/)]. FMOD'un scatterer'ı aynı işin aracıdır: en az ve en çok aralık ve uzaklık, örneği çayırdaki cırcır [kaynak: [FMOD](https://www.fmod.com/docs/2.03/studio/working-with-instruments.html), arama özeti]. Diablo IV de otomatik ortama geçmiştir (§2).
+
+### 6.2 Tanhu modeli
+
+Bugünkü `ambience.set` ve tek sahip kuralı (K22, `weather.md` §10.4) değişmez [çıkarım]. Liste şöyle kurulur:
+
+| Katman | İçerik | Girdi | Bellek |
+|---|---|---|---|
+| L0 Rüzgâr | Taban döngü + iklim süzgeci (`lp`, `hp`, kazanç) | `windK`, iklim | Var |
+| L1 Yüzey | En çok 2 döngü: `grass_hiss`, `water_reed`, `pine_sough`, `gravel_hiss`, `stream` (6–8 sn) | İklim, suya uzaklık | ≤1,4 MB |
+| L2 Canlı yatağı | `birds_day`, `night_meadow` | Evre, mevsim, `quiet` | Var |
+| L3 Serpinti | Hayvan ve doğa tek seferlikleri (§7) | Evre, mevsim, iklim, hava | ≤2,5 MB |
+| L4 İnsan | `camp_day`, `hold_day`, `camp_army`, `herd_flock` | Yer, nüfus | Var |
+| L5 Hava | `weather.audio.beds` | K22 | ≤5,7 MB |
+
+Serpinti verisi `spec.audio.scatter`, yeni bir `ScatterSystem` okur; kare başına iş ≤0,05 ms, 1 Hz yeter [kurgu]:
+
+```js
+{ id: 'crane_call', climates: ['orkhon', 'steppe_south', 'kerulen'], seasons: ['spring', 'autumn'],
+  phases: ['dawn', 'morning', 'golden'], every: [240, 600], range: [400, 1500], far: true, limit: 1 }
+```
+
+Kurallar: görünmeyen ses oyuncuya ≥150 m (yürüyüp arayınca hayvan bulunamayan yakın ses olmaz); simülasyonda gerçekten hayvan varsa ses ondan çıkar. `far: true` tek `BiquadFilter` ile tizi keser ve yankı gönderimini artırır: Yōtei'nin orta ve uzak sürümünün ucuz karşılığı. Aynı anda ≤2 serpinti (6 düğüm); `sev` ≥3 ya da `kara_boran`'da L3 susar, hava payı boşalır (`audio.md` düğüm bütçesi, tavan 40).
+
+### 6.3 İklimler (`weather.md` §4.1, dokuz satır) [kurgu, kulakla]
+
+| İklim | L0 süzgeç | L1 | Serpinti örneği |
+|---|---|---|---|
+| `orkhon` | Orta | `grass_hiss`, gölde `water_reed` | Turna, tarla kuşu, tarbagan, köpek |
+| `hexi` | `wind_winter` | Buz (`ice_groan`) | Karga, deve, köpek, kurt |
+| `gobi` | hp yüksek | `gravel_hiss` | Deve, kuzgun, gece kurt; en seyrek |
+| `steppe_south` | Orta | `grass_hiss` | Koyun, turna, tarbagan |
+| `kerulen` | Alçak | `grass_hiss`, `stream` | Geyik, turna, kurt |
+| `ordos` | hp orta | `gravel_hiss` | Koyun, deve, tarbagan |
+| `daibei` | Dağ, lp alçak | `pine_sough` | Karga, kurt; kışta kar yutması |
+| `hangai` | Dağ | `pine_sough`, `stream` | Geyik, kartal, tarbagan, kurt |
+| `alashan` | hp yüksek | Kum tıslaması `dust_storm`'dan kısık | Deve; neredeyse boş |
+
+Mevsim: L2 ve L3'ün `seasons` alanı. Saat: altı evre (K20). Hava: `quiet` ve `sev`. Kamp `camp_spring` iğnelidir (K22), cırcır orada kalır; dünyada `night_meadow` Haziran–Eylül. [Dolbear](https://en.wikipedia.org/wiki/Dolbear%27s_law) cırcırı 5–30 °C arasında bağlar [kaynak; sayfada doğruluk uyarısı var]; K1 sıcaklık modellemediği için takvim kullanılır [çıkarım]. 11 Nisan 47°K'de cırcır gerçekte zayıftır, menü kimliği için istisnadır.
+
+### 6.4 Sesle çağırma, dinleyici, uzam
+
+- **Çağırma.** Görevlere gidilerek ilerlenir (Karar Bekleyenler 8). Düşman ordugâhı 300 m'den davul ve `camp_army`, yerleşim `hold_day`, kam yeri ağız kopuzu, ozan kopuz verir. Tsushima'nın dünyada çalan müziği budur [kaynak]. Onun rehber rüzgârı kopyalanmaz.
+- **Dinleyici (#12, #17, K27).** Bugün `AudioListener` kameradadır. Kamera yakınlaşıp uzaklaşınca bütün karışım değişir. Sektörün çözümü zayıflamayı oyuncudan hesaplamaktır: Wwise [Distance Probe](https://www.audiokinetic.com/qa/12743/how-does-distance-probe-interact-with-reverb-volume-unreal), Unreal [dinleyici zayıflama geçersiz kılması](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/FListener) [kaynak: arama özetleri]. `oyun-seviye-tasarimi.md` öneri 9 dinleyiciyi kahraman + 1,5 m'ye, yönü kameranın yatay açısına alır; bu belge aynı sayıyı kullanır. Ekranın solu kulakta da sol kalır, uzaklık oyuncudan okunur. Sinema, menü, oluşturucu kamerada kalır; geçiş 0,5 sn. O öneri en yakın 3 tehdide HRTF ister, «pahalıysa 1» der; Adenot HRTF'yi çok pahalı sayar [kaynak]. Önce ucuz yol denensin: kahramanın arkasındaki kaynağa tek `BiquadFilter` (3 kHz alçak geçiren, −2 dB), ön ve arka böylece ayrılır [çıkarım].
+- **Uzam.** Bugünkü `SENDS` sabittir, 3,4 sn yankı açık bozkırda fazla [çıkarım]. `spec.audio.space`: `steppe` ×0,3, `valley` ×1, `forest` ×0,6, `gorge` ×1 + tek `DelayNode` (180 ms), `inside` ×0,1. Yalnız kazanç, yeni IR yok.
+
+### 6.5 Godot için
+
+| Konu | Godot | Not |
+|---|---|---|
+| Katmanlar L0–L5 | Her katman `AudioManager` altında ayrı `AudioStreamPlayer`; yollar `Ambience`'ın altında: `Amb_Wind`, `Amb_Bed`, `Amb_Weather`, hepsi `Ambience`'a gönderir | K22'nin tek sahibi alt yolların sesini yazar; oyuncunun ayarı üst yolda kalır [çıkarım] |
+| Serpinti L3 | `ScatterSystem` düğümü (1 Hz zamanlayıcı) ve 2 `AudioStreamPlayer3D`'lik havuz. Her türün çeşitleri bir `AudioStreamRandomizer`: `PLAYBACK_RANDOM_NO_REPEATS`, `random_pitch` 1,06, `random_volume_offset_db` 2 | Kaynak oyuncudan ≥150 m'ye konur. `max_polyphony` varsayılanı 1'dir; yeni çalış en eskiyi keser ([AudioStreamPlayer3D](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer3d.html)) [kaynak] |
+| Uzak sürüm (`far`) | `Far` yolu: `AudioEffectLowPassFilter`, yankı payı yüksek | Godot'da kaynak başına yankı gönderimi yoktur, yol değiştirmek ucuz karşılıktır [çıkarım]. Ayrıca `attenuation_filter_cutoff_hz` (5.000 Hz) ve `attenuation_filter_db` (−24 dB) uzak sesin tizini kendiliğinden kısar [kaynak] |
+| Dinleyici (#12, #17, K27) | [`AudioListener3D`](https://docs.godotengine.org/en/stable/classes/class_audiolistener3d.html): `make_current()` ile kameranın dinleyicisini geçersiz kılar [kaynak]. Konum oyuncu + 1,5 m, dönüş yalnız kameranın yatay açısı; `FollowCamera` her kare yazar. Menü, sinema, oluşturucu `clear_current()` ile kameraya döner | §1.4'teki 21 dB'lik oynama kalkar; sola dönen kamerada ses de sola döner. Geçişte dinleyici 0,5 sn'de kamera ile oyuncu arasında kayar [çıkarım] |
+| Ön ve arka | Godot'da HRTF yoktur; stereo çıkışta 3B ses kaydırmadır (sayfada HRTF geçmez, yalnız 5.1 ve 7.1 için SPCAP anılır) [kaynak]. Dinleyicinin arkasındaki kaynakta betik `attenuation_filter_cutoff_hz`'i 3.000 Hz'e, `volume_db`'yi −2 dB'e çeker | Süzgecin derinliği uzaklıkla büyür (`(1 − kazanç) × attenuation_filter_db`, 4.7 kaynak kodu): yakın kaynakta etkisi azdır, kulakla sınanır [çıkarım] |
+| Uzam (`space`) | `Area3D`: `reverb_bus_enabled`, `reverb_bus_name` = `Reverb`, `reverb_bus_amount` bozkır 0,3, vadi 1, orman 0,6, yurt içi 0,1 ([Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html)) [kaynak]. Boğazda `audio_bus_override` ile `AudioEffectDelay` (180 ms) taşıyan `Gorge` yolu | `AudioStreamPlayer3D.area_mask` hangi alanların etki edeceğini seçer [kaynak]. `Reverb` yolunda tek `AudioEffectReverb`, yeni IR yok |
+| Sesle çağırma | Düşman ordugâhı, yerleşim, kam yeri, ozan: `AudioStreamPlayer3D`, `unit_size` ≥20, `max_distance` 300–500 m | Duyulma uzaklığı `unit_size` ve `max_distance` ile kulakla ayarlanır [çıkarım] |
+
+## 7. Hayvan sesleri (Ek 1)
+
+### 7.1 Yöntem
+
+Memeli sesi kaynak-süzgeç modeline iyi oturur: gırtlak kaynağı + ağız ve burun biçimlendiricileri [çıkarım; [Farnell](https://mitpress.mit.edu/9780262014410/designing-sound/) yordamsal ses kitabıdır, sayfa açılmadı]. `sfx.js`'teki `k.voiced` tam budur: f0 eğrisi, kazanç eğrisi, biçimlendiriciler, vibrato, sapma, nefes. Eksik olan ikinci bağımsız kaynaktır: `k.voiced2` ya da aynı `out`'a iki `voiced`. Reçete `render` `OfflineAudioContext`'te pişer, 2–3 değişken, `rate` ±%6 (bugünkü kural). `hayvanlar.md` kataloğu 45 türdür, her tür ayrı reçete almaz: kümeler tampon paylaşır (`use:`, `rate`).
+
+### 7.2 Tablo
+
+Süre ve oran önerisi [kurgu]; Hz'ler kaynak yoksa [çıkarım], kulakla düzelir.
+
+| Tür, kimlik | Bilgi | Reçete | Bellek, MB |
+|---|---|---|---|
+| At `horse_neigh` | Kişneme birbirinin katı olmayan iki temel frekanstır (F0, G0; çift ses). F0 ve enerji dağılımı uyarılmayı, G0 ve süre değerliği taşır; olumlu durumda kişneme kısa, G0 alçaktır. Ölçüm, 267 kişneme: F0 399 ± 99 Hz (52–1.050), G0 1.543 ± 326 Hz (493–3.012) [kaynak: [Briefer 2015](https://www.nature.com/articles/srep09989), tam metin [Europe PMC](https://europepmc.org/article/PMC/PMC4404681)] | F0 ≈300–500 Hz; bugünkü 500–560 Hz ortalamanın üstündedir, yalnız `fear`'de kalır. G0 1,2–1,9 kHz ayrı eğri. İki küme: `calm` kısa, G0 alçak; `fear` uzun, F0 ve G0 yüksek | 2 × 1,5 sn × 2 küme, 22 kHz: 0,53 |
+| Deve `camel_groan` | Akustik sayı: kaynak bulunamadı; sayfa çiftleşme dönemini tarihsiz anar [kaynak: [Bactrian camel](https://en.wikipedia.org/wiki/Bactrian_camel)]. Yük 170–250 kg | F0 80–160 Hz, 20–30 Hz genlik gurultusu, burun biçimlendiricisi | 2 × 2,2 sn, 16 kHz: 0,28 |
+| Koyun `sheep` | Reçete var: f 280–320 Hz, 13 Hz titreme | `lamb` = `rate` 1,35; `goat` daha titrek | 3 × 0,9, 22 kHz: 0,24 + `goat` 0,14 |
+| Sığır `cow_moo` | Bu turda kaynak açılamadı | F0 100–180 Hz, 300–800 Hz biçimlendirici, ağız açılışıyla süpürme. `yak` `rate` 0,8, seyrek | 2 × 1,8, 16 kHz: 0,23 |
+| Eşek `donkey_bray` | Bu turda kaynak açılamadı | İki yönlü soluk, F0 kırılması. `mule`, `kulan` paylaşır; `takhi` `horse_neigh` | 2 × 1,6, 16 kHz: 0,20 |
+| Köpek `dog_bark`, `dog_warn`, `dog_whine` | Köpek ardışık havlar; tehdit alçak ve kısa, oyun ve yavru harmonik [kaynak: [Bark](https://en.wikipedia.org/wiki/Bark_(sound))] | Üç kip. `weather.md` §7.6 «Ku inler» bugün reçetesiz | 0,16 + 0,06 + 0,08 |
+| Kurt `wolf_howl`, `wolf_bark` | Uluma 150–780 Hz, 12'ye dek üstton, 4–5 perde değişimi, ≤130 km²'den duyulur. Ayın fazı etkilemez. Havlama 320–904 Hz, seslenmenin %2,4'ü, tek ve gürültülü [kaynak: [Wolf communication](https://en.wikipedia.org/wiki/Wolf_communication), [Bark](https://en.wikipedia.org/wiki/Bark_(sound))] | Bugünkü uluma aralık içinde. Sürü: 3–5 çalış, 2–6 sn ara, `rate` 0,85–1,15, `far`. Dolunay bağı kurulmaz | 0,56 + 0,06 |
+| Kartal `eagle_call`, `eagle_cry` | Altın kartal az ötüşlüdür, sesi zayıf ve incedir [kaynak: [Golden eagle](https://en.wikipedia.org/wiki/Golden_eagle)]. Medyadaki yırtıcı çığlığı çoğu kez kızıl kuyruklu şahindir [kaynak: [Red-tailed hawk](https://en.wikipedia.org/wiki/Red-tailed_hawk)] | Dünyada `eagle_call` (ince, kısa). Bugünkü `eagle_cry` (2,3–2,5 kHz iniş) yalnız Tengri sinemasında, [kurgu] | 0,09 + 0,26 |
+| Turna `crane_call` | Sarmal soluk borusu, kilometrelerce duyulan boru sesi, ikili çağrı; telli turna daha tiz; Karadeniz'den Moğolistan'a üreme [kaynak: [Crane](https://en.wikipedia.org/wiki/Crane_(bird)), [Demoiselle](https://en.wikipedia.org/wiki/Demoiselle_crane)]. Hz: kaynak bulunamadı | Dar biçimlendirici ≈1 kHz, sert atak, çatlak. Sürü: 8–12 çalış, gökte hareketli kaynak, 3–5 dk. `goose_honk` kısa ve sık | 3 × 1,2, 22 kHz: 0,32 + 0,09 |
+| Maral `stag_bugle`, `deer_bark` | Moğolistan'da Altay wapitisi; çağrı 4 kHz'e dek, gırtlak 150 Hz; kızışma Ağustos–erken kış. Yakın türde böğürme sabah erken ve akşam yoğun [kaynak: [Elk](https://en.wikipedia.org/wiki/Elk), [Red deer](https://en.wikipedia.org/wiki/Red_deer)]. `deer` Maral'dır (`hayvanlar.md`) | İki kaynak: 150 Hz + 1,5–4 kHz ıslık. Ceylan, zeren, sayga `deer_bark`'ı `rate` ile paylaşır | 0,53 + 0,07 |
+| Tarbagan `marmot_whistle` | Ağırlıklı Moğolistan; güzün kış uykusuna hazırlanır [kaynak: [Tarbagan](https://en.wikipedia.org/wiki/Tarbagan_marmot)]. Çağrı sayısı: kaynak bulunamadı | 2–3 kHz kısa ıslık, 32 kHz. `weather.md` §7.6 «tarbagan ıslık çalıp girer» bugün reçetesiz | 0,06 |
+| Karga `crow` | Reçete var | Değişmez | 0,23 |
+
+Toplam: yeni ≈2,5 MB, var olan ≈1,7 MB, banka ≈4,2 MB. İklim başına ≤6 tür + at + köpek ile ≤2,5 MB [çıkarım]. K3 görünen hayvanı sınırlar, görünmeyen serpinti onu bozmaz.
+
+### 7.3 Takvim
+
+| Olay | Takvim | Dayanak |
+|---|---|---|
+| Turna geçişi | İlkbahar, güz; kışın yok (`hayvanlar.md`) | Üreme yerlerine Mart–Mayıs, ayrılış Ağustos–Ekim [kaynak: [Common crane](https://en.wikipedia.org/wiki/Common_crane), Asya'ya özgü değil] |
+| Geyik çağrısı | Ağustos–Ekim, Tan ve Akşam | §7.2 [kaynak] |
+| Tarbagan | İlkbahar–güz, gündüz; kışın yok | [çıkarım] |
+| Deve huysuzluğu | Kış | Ay: kaynak bulunamadı [çıkarım] |
+| Kuzu meleme | İlkbahar (K24 doğum) | `economy.md` sürü takvimi |
+
+### 7.4 Oyuna bağ
+
+- **Av (K24, `weather.md` §8.4).** Geyik çağrısı 400 m'den duyulur, oyuncuya yön verir; `tracking` becerisi aralığı artırmaz, kaynağı haritada işaretler [kurgu].
+- **At bağı.** `calm`/`fear` kümesi atın durumundan okunur: hava ≤1 km gök gürültüsü ya da kurt ≤60 m `fear`, binici dönünce `calm` [kurgu].
+- **Hava işareti (K22).** Fauna, `sev` ≥3 cephede ses kanalı sayılabilir: tarbagan ıslığı, karganın alçak uçuşu; turna ve kaz ses keser (`hayvanlar.md`).
+- **Kopuz gecesi.** `hayvanlar.md`'nin av töresinde ateş başında tek tel kopuz (`motor` 0,2) çalar, müzik nefesi durur [kurgu].
+- **Tekrar.** Aynı kimlik ≥45 sn, aynı tür ≥20 sn aralık; Diablo IV'ün kopya sınırı [kaynak].
+
+### 7.5 Godot için
+
+- §7.2'nin reçeteleri `game/tools/` altında dosyaya basılır: tür başına 2–3 çeşit WAV. İçe aktarmada QOA, `force/mono`, `force/max_rate_hz` 16.000 (deve, sığır, eşek), 22.050 (çoğu), 32.000 (ıslık, kuş, tarbagan). §7.2'nin «Bellek» sütunu prototipin 32 bit tamponudur; QOA'da onda biri kadardır, bütün fauna bankası ≈0,4 MB eder [çıkarım].
+- Tür başına bir `AudioStreamRandomizer` kaynağı (`.tres`): çeşitler ağırlıklı, `PLAYBACK_RANDOM_NO_REPEATS`, `random_pitch` 1,06. Türetilmiş tür (`lamb` = `sheep`) aynı Randomizer'ı oynatıcının `pitch_scale` 1,35'iyle çalar; yeni dosya gerekmez [çıkarım].
+- At iki küme: `horse_calm.tres`, `horse_fear.tres`; durumu `scripts/camp/horse.gd` seçer. Bugünkü ahır sesi (`stable.gd`, `horse_snort.wav`) `calm` kümesinin ilk üyesi olur.
+- Tekrar sınırı (aynı kimlik ≥45 sn, aynı tür ≥20 sn) `ScatterSystem`'de zaman damgasıyla tutulur; Godot'un hazır sınırı yalnız oynatıcı başına `max_polyphony`'dir [çıkarım].
+- Kodla inandırıcı olmayan ses (bebek ağlaması, §10.2) ElevenLabs efekt ucundan gelir (K28); Godot'daki `tools/elevenlabs_audio.sh sfx` (`eleven_text_to_sound_v2`) bu iş içindir.
+
+## 8. Karakter sesi ve karıştırma
+
+Tek örnek: Fracture'da konuşmada her şey −9 dB, 500 ms iniş, 1.000 ms dönüş; başlangıç öne alınabilir; sık ve sert kullanım dikkat dağıtır [kaynak: [Game Developer](https://www.gamedeveloper.com/audio/game-audio-theory-ducking)]. Bugün bizde müzik −6, ortam −3, iki yönde 0,4 sn (`engine.js`). PS4 hedefi −24 LKFS olarak yazılır [kaynak: [Designing Sound](https://designingsound.org/2015/06/04/sulpha-the-new-ps4-mastering-suit), arama özeti]; satırlarımız −18 LUFS (K19). Tarayıcı oyunu başka sekmelerle yan yana duyulur, −18 kalır [çıkarım].
+
+| Durum türü | Müzik | Ortam | Not |
+|---|---|---|---|
+| `narration`, sinema | −3 dB | −3 dB | Müzik zaten alçakta |
+| Gündelik (`camp`, `hold`, `wild_*`) | −6 dB | −3 dB | Bugünkü |
+| `tension`, `muster` | −6 dB | −6 dB | Tsushima'nın gizlilik kuralı |
+| `raid`, `chase` | −9 dB | −6 dB | Konuşma önce gelir |
+
+Kurallar [çıkarım, örneklerden]:
+
+1. İniş 0,3 sn, dönüş 1,0 sn. İniş satırdan 0,15 sn önce: satırın başlangıcı bellidir.
+2. Konuşma boyunca müzik veri yolunda tek tepe süzgeci, 2,2 kHz −3 dB. +1 düğüm, ucuz. Bant çakışması biter.
+3. Önem sırası: ana söz > sistem sözü > kısa çığlık (bark) > serpinti. Aynı anda tek ana satır, çığlık kuyruğa girmez, düşer.
+4. At üstünde konuşma: `hoof_*` ve rüzgâr × (1 − 0,5 × hız oranı). Yōtei'nin yürürken konuşma kuralı [kaynak].
+5. Konuşma 3B ise `ref` 12 m: bu mesafede −6 dB'den aşağı düşmez. §6.4 dinleyicisi olmadan bu sayı anlamsızdır.
+6. Konuşma satırında kopuz sözü izlemez: söz serbest ritimli durur, kopuz boşlukta cevap verir (K5, §10.1). Şarkıda çalgı sürer (`kopuz.md`).
+7. Sinemada sabit konumlu kaynak (ateş) kamera uzaklaşınca 2B'ye 2 sn'de geçer. Yōtei'nin en kötü suçlu dediği durum [kaynak].
+
+**Godot için** [kaynak: Godot 4.7 sınıf belgeleri; uygulama çıkarım]:
+
+- **Yollar.** `default_bus_layout.tres`'e `Voice` (seslendirme), `Reverb` (paylaşılan yankı, `Area3D` hedefi), `Far`, `Gorge` ve `Amb_*` alt yolları eklenir. Ayarlar'a «Seslendirme» kaydırıcısı gelir (`GameSettings`; `audio.md` §1'in beş ayarından eksik olanı).
+- **Kısma, kesin yol.** `Music` ve `Ambience` yollarının 0. yuvasına [`AudioEffectAmplify`](https://docs.godotengine.org/en/stable/classes/class_audioeffectamplify.html) (−80…24 dB). Satırdan 0,15 sn önce `volume_db` tween ile 0,3 sn'de tablodaki değere (−3, −6, −9) iner, satır bitince 1,0 sn'de 0'a döner. Oyuncunun ayarı yolun kendi sesindedir, kısmayla çakışmaz.
+- **Kısma, yan zincir.** [`AudioEffectCompressor`](https://docs.godotengine.org/en/stable/classes/class_audioeffectcompressor.html)'ın `sidechain` alanı `Voice` olunca kompresör o yolun sesiyle tetiklenir; belge bunu seslerin duyulduğu anda müziği ve efekti kısmanın oyun karışımındaki yaygın yolu sayar [kaynak]. Ama saldırı en çok 2.000 µs, bırakma en çok 2.000 ms'dir, satırdan önce başlayamaz ve kısma miktarı sesin gücüne bağlıdır. Ana söz kesin yolla, çığlık ve sistem sözü yan zincirle kısılır.
+- **Konuşma bandı (kural 2).** `Music` yolunda [`AudioEffectEQ10`](https://docs.godotengine.org/en/stable/classes/class_audioeffecteq10.html)'un 2.000 Hz bandı −3 dB, yalnız konuşma boyunca açık (`AudioServer.set_bus_effect_enabled`). EQ10'un bantları sabittir; 2,2 kHz yerine 2 kHz kullanılır.
+- **Önem sırası (kural 3).** Ana söz `Voice` yolundaki tek `AudioStreamPlayer`'dadır (`max_polyphony` 1); çığlıklar ayrı oynatıcıdadır, ana söz çalarken gelen çığlık çalınmaz.
+- **3B'den 2B'ye (kural 7).** Aynı `AudioStreamPlayer3D`'de 2 sn'de `panning_strength` 1'den 0'a iner, `unit_size` büyür ve uzaklık kaybı söner; ikinci oynatıcı gerekmez.
+- **Yüksek ses.** Godot'da yerleşik LUFS ölçeri bulunamadı; −18 LUFS dosyaya basılırken araçta sağlanır.
+
+## 9. Seslendirme: tavansız izleme (#56)
+
+### 9.1 Sayılar
+
+| Kalem | Değer | Kaynak |
+|---|---|---|
+| Plan | Creator 121.000 kredi/ay (22 $); `audio.md` 131.000 yazar, `node tools/voices.mjs me` doğrular | [Fiyatlar](https://elevenlabs.io/pricing) |
+| Devir | Kullanılmayan kredi 2 ay durur, bakiye ≤3 kat | Aynı |
+| Fazla | Sayfa Creator için ≈0,18 $/dk verir («extra minute»). 1.000 karaktere çevirmek [çıkarım]: 1 dk ≈1.000 karakter varsayımı | Aynı, «extra minute» satırından |
+| Konuşma | 1 kredi/karakter; `eleven_v3` satırı sayfadan okunamadı, `tts` `character-cost` başlığını okur | Aynı, `tools/elevenlabs-api.mjs` |
+| Şarkı | 900 kredi/dk. 27 sn'lik çekim ≈405, üç çekim ≈1.215 | Aynı. Site bunu «belgede yok» diyordu |
+| Hepsi tek havuz | Bütün ürünler aynı krediden | Aynı |
+
+133.000 karakter (`act1.md` §17, bütün satırlar) 12 karakter/sn ile 185 dk konuşmadır (Yeni Oyun ölçümü: 676 karakter, 56,4 sn). Maliyet ≈24 $, ≈1,1 ay Creator. II–VI başına 100–150 bin varsayılırsa toplam ≈630–880 bin kredi: Pro bir ay (600 bin, 99 $) ya da birkaç ay Creator [çıkarım; öngörü, tavan değil]. **Para asıl sınır değildir.** Asıl sınırlar metnin oturması, indirilen boyut ve tekrar duymaktır.
+
+Disk: 133.000 karakter mp3 128 kb/sn ile 177 MB, 64 kb/sn mono ile 89 MB [çıkarım]. Dosyalar satır başına iner, açılışta değil. 64 kb/sn'yi `FORMAT` değiştirip kulakla sına.
+
+### 9.2 Hangi satır ses alır
+
+Dört dilim önerilir [çıkarım]. Kısmi ses oyunlarda yaygın pratiktir ama bu turda ayrı kaynak açamadım. Hades'in 21.020 satırı [ikincil bir kaynakta](https://teemo.dev/game-design/hades/systems/audio-design/) üretim yükünün dosya sayısıyla büyüdüğü savıyla verilir.
+
+| Dilim | Ne | İlke |
+|---|---|---|
+| A, hep | Anlatıcı, ozan, tanrılar, sinema, ana görev düğümleri, perde sonu | Öykü buradan yürür |
+| B, düğüm | Yan görevin açılış ve kapanış düğümü, adlı kişinin ilk karşılaşması, oyuncu at üstünde ya da savaşta iken gelen her satır | Göz altyazıda değilken ses şart. Yukarıdan bakan kamerada önem artar |
+| C, havuz | Sistem sözleri: uyarı (`weather.md` §7.3), savaş, kamp. Rol başına olay başına 3–6 çeşit, ≥45 sn aralık | Tekrar eden satır az ve çeşitli olur |
+| D, yazı | İş ve ara sözler, kitap, kart. Mene (K5) | Tekrar duymak yazıdan kötüdür; Mene'nin sessizliği anlamdır |
+
+Tek kural daha: **Bir düğüm içinde aynı konuşmacı sesliden sessize geçmez.** Düğüm ya bütün seslidir ya bütün yazı.
+
+Veri: `line.vo` bugün `true`; `vo: 'A' | 'B' | 'C'` olur, `true` A sayılır. Sonraki perdeler aynı kuralla yazılır, `ACTS`'e eklenince sayaç kendiliğinden görür.
+
+### 9.3 Tavansız izleme
+
+- **Sayaç kalır, hata kalkar.** `tools/check-data.mjs`: `VO_LIMITS` silinir, iki hata satırı raporla değişir. `voBudget()` → `{ chars, byAct, bySpeaker, byTier, seconds, lines }`, süre 12 karakter/sn ya da manifestten.
+- **Defter.** `tools/vo-ledger.jsonl`: her API çağrısına bir satır (tarih, ürün `tts|music|stt`, id, çekim, kredi). Müzik ve Scribe için kredi `/v1/user/subscription` farkından. `voices.mjs ledger`: perde, konuşmacı, ürün toplamı. Çekim harcaması böylece görünür.
+- **Ay sonu karşılaştırma.** `/v1/usage/character-stats` eskimiş, yerine `/v1/workspace/analytics/query/usage-by-product-over-time` önerilir [kaynak: [usage](https://elevenlabs.io/docs/api-reference/usage/get)]. `quota()` zaten `character_count`, `character_limit` okur [kaynak: [subscription](https://elevenlabs.io/docs/api-reference/user/subscription/get)].
+- **Kota kapısı.** Tavan değil, sürpriz önleyici: `gen` başlamadan plan > kalan ise durur, `--over` ister. Hesapta fazla kullanım açık olabilir (`max_credit_limit_extension`).
+- **Metin kilidi.** Perde metni oturmadan A ve B dilimi üretilmez. Taslak gerekirse Flash modeli (0,5–1 kredi) ayrı klasöre, karma aynı kalır, son model üzerine yazar. Değişmeyen satıra kredi harcanmaz kuralı kalır.
+
+Değişecek dosyalar: K5; `audio.md` §5; `act1.md` §14, §17 satır 10; `architecture.md` §4.4, §6.2; `travel.md` (§14 tablosu); `tools/check-data.mjs`; `src/story/vo-lines.js`; site: `sunum/seslendirme.md`, `hikaye/giris-sinemasi.md`, `genel/acik-sorular.md`.
+
+### 9.4 Godot için
+
+| Prototip | Godot | Not |
+|---|---|---|
+| `src/story/vo-lines.js`, `line.vo` | `game/data/vo_lines.json`: satır başına `id`, `act`, `speaker`, `tier` (`A`, `B`, `C`, `D`), `text`, `seconds` | `seconds` dosyadan önce bellidir: sinema çizelgesi dosya yüklenmeden kurulur |
+| `tools/check-data.mjs`, `VO_LIMITS` | `tests/unit/test_vo_budget.gd` | Toplamda düşmez, rapor yazar: karakter perde, konuşmacı ve dilim başına, süre 12 karakter/sn. Yalnız yapı kuralında düşer: bir düğümde aynı konuşmacı sesliden sessize geçemez |
+| `tools/voices.mjs`, `vo-ledger.jsonl` | `tools/elevenlabs_audio.sh`'a `tts` alt komutu ve `tools/vo_ledger.jsonl` | Her API çağrısı bir satır: tarih, ürün (`tts`, `music`, `sfx`, `stt`), id, çekim, kredi. Kredi `/v1/user/subscription` farkından |
+| MP3 128 kb/sn | `output_format=mp3_44100_64`; Godot MP3'ü olduğu gibi içe aktarır, satır başına ≈8 KB/sn | ElevenLabs Ogg Vorbis vermez; PCM ve WAV 44,1 kHz Pro ister ([TTS API](https://elevenlabs.io/docs/api-reference/text-to-speech/convert)) [kaynak]. Godot belgesi konuşmaya Ogg önerir, MP3'ün çözümü daha ucuzdur; yeniden kodlamak kayıp ekler [çıkarım] |
+| Müzik ucu | `tools/elevenlabs_audio.sh music` bugün `model_id: music_v1` ister | ElevenLabs `music_v1`'i eskimiş sayar, 31 Ocak 2027'de kaldırır, `music_v2_5`'i önerir ([Music](https://elevenlabs.io/docs/overview/capabilities/music)) [kaynak]. K19 da `music_v2_5` der; araç güncellenir |
+
+K5 seslendirmeyi İngilizce kurar; Godot oyunu bugün yalnız Türkçedir (`d3/oyun-durumu.md`). Seslendirme dili bu belgenin kararı değildir, baş mühendise kalır. İzleme kuralı dilden bağımsızdır.
+
+## 10. Yeni giriş sineması (Karar Bekleyenler 5, 6)
+
+### 10.1 İlkeler
+
+- **Mit ozanın, tarih anlatıcının.** Ozan ateş başında görünür, anlatıcı görünmez. Görünmeyen ses gücünü kaynağı gizli kaldıkça korur [kaynak: Chion, [akuzmatik ses](https://en.wikipedia.org/wiki/Acousmatic_sound)]. Erlik bu sinemada ses almaz, yüz göstermez: kaynağı I. Perde'de açılır (Donuk Kamp).
+- **Konuşmada küy biçimi.** Ozan konuşur (David), kopuz boşlukta cevap verir (§5.2). K5'in serbest ritimli söz kuralı buna uyar [kaynak ve çıkarım]. Şarkıda çalgı sürer (`kopuz.md` öneri 12).
+- **Şarkı başta.** K19 kalır: yüz planı, ilk kopuz vuruşu, geri çekilme. `act0.bard.song` ≈27,7 sn. «Foal» imgesi Tanhu 1'in kulun ninnisine yakın duruyor, yeni metinde gözden geçirilmeli [çıkarım].
+- **Atlanır.** Esc her an, ikinci oyunda varsayılan atlanır (`mitoloji.md` öneri 2). Atlamada pencere boşalır.
+- **Tanhu 1'den alınmaz.** Doğumda kurt ulumaları, görü, Umay'ın altın kapısı, ayna, ip, ninni («Kulun kulun»), doğan tay, küçük ad. Liste `mitoloji.md` ile aynıdır.
+
+### 10.2 Plan
+
+Sahne sırası `mitoloji.md` öneri 2'dedir, tarih `mete-tarih.md` §2'dedir (27 Eylül MÖ 234), rehinelik metni `story.md`'ye kalır. Burada ses yazılır. Süreler [kurgu]; metin yazılınca satır uçlarına bağlanır (`cine-newgame.js` bugünkü gibi).
+
+| Sahne, sn | Ses önde | Müzik | Geçiş ve sessizlik |
+|---|---|---|---|
+| 0 Ozan, şarkı, 0–30 | Ateş, rüzgâr, `act0.bard.song` | `camp_bard`: dron | İlk vuruşla geri çekilme; ateş 2 sn'de 2B'ye |
+| 1 Su ve iki kaz, 30–50 | Ozan konuşur; su, uzak `goose_honk` | Yeni `myth`: dron `camp`, seyrek tel | Sözler arası ≥1,5 sn kopuz cevabı; keçe pano hışırtısı |
+| 2 Kişi düşer, Ak Ana, 50–65 | Sudan tek kısık kadın sesi | Müzik iner, dron kalır | Tek satır, `tengri` zincirinin kuru hali |
+| 3 Dalış, Erlik, 65–95 | Ozan alçak, kargıra, çamur | `erlik`: `kargyraa_e`, susturulmuş tel, A↘D kayışı | Rüzgâr kesilir. Erlik ses almaz |
+| 4 Yer ve gök, 95–125 | Koro bir kez, hucia, rüzgâr geri gelir | `tengri` | Sinemanın tek korosu (#53) |
+| 5 İlk ölüm, ilk ateş, 125–150 | Ozan; taş vuruşu, `fire_catch` | `erlik` → `myth` | Kıvılcımdan önce 1,5 sn alçak sessizlik |
+| 6 Doğum yurdu, Umay, 150–175 | Keçe, nefes, ateş, tek tel kopuz | `myth`, seyrek | Ninni yok. Al Karısı'nın gölgesinde dron −6 dB, tel susar |
+| 7 MÖ 234, şafak, doğum, 175–205 | Tek uzun nota; ilk ağlama; uzakta güz turnası; anlatıcı tarihi söyler (#1) | Nota 5 sn'de söner; ağlamadan sonra bütün motif (yükseliş + düşüş) ilk kez, kopuzla | **Kara sessizlik 2,5 sn**, yalnız −40 dB rüzgâr. Ozan biter, anlatıcı girer |
+| 8 Çocuk, koyun, 205–230 | Koyun, oyuncak yay, tarbagan, sözsüz çocuk sesi | Yeni `childhood`: major pentatonik, kopuz hızlanır | Müzik sözden önce iner. Shiji: 兒能騎羊,引弓射鳥鼠 |
+| 9 Rehinelik, 230–290 | Tek at, `bell_step`, kapıda `notch`, her baş bir tık; anlatıcı | Önce yok, sonra `narration` | Son satır yalnız rüzgâr üstünde |
+| Kararma, 290–295 | Rüzgâr söner | Yok | 1 sn tam sessizlik, sonra `creator` |
+
+Toplam ≈295 sn. Konuşma ≈155 sn: ozan ≈85 sn, ≈1.020 karakter; anlatıcı ≈70 sn, ≈840 karakter; Ak Ana tek satır. Şarkı: `kopuz.md`'nin 4–8 çekimi ≈1.700–3.300 kredi. Hepsi en çok ≈5.200 kredi [çıkarım]. Ağlama için `newborn_cry` reçetesi denenir; kodla inandırıcı olmazsa K28 ElevenLabs efekt ucuna izin verir (tek dosya, tek çekim).
+
+### 10.3 Karışım ve bellek
+
+- Konuşma −18 LUFS. Müzik sözle aynı anda en çok dron ve seyrek tel, boşlukta kopuz +6 dB çıkar. Kısma −3 dB (§8).
+- Ozanın sesi yüz planında 3B, geri çekilirken 2 sn'de 2B. Bugün şarkı ozanın konumundan gelir, uzak kamerada kısılır (K19).
+- Anlatıcı hep 2B, yankı az. Ozan ateşin yanında: `space: valley`. Erlik bölümünde ozanın sesi −3 dB ve 800 Hz altı +2 dB, tek süzgeç.
+- Pencere (§3.3) ≤8 MiB. Nota bankası `narration` 2,78, `erlik` 1,49, `tengri` 8,14, yeni iki durum ≈3 MiB: en eski kullanılan düşerek 8 MiB'te döner, yeniden üretim ≤10 ms. `test/cine.test.js`'in 70–100 sn sınırı yeni süreye çekilir.
+
+### 10.4 Godot için
+
+- Sinema bir `AnimationPlayer`'dır: ses izi (`Animation.TYPE_AUDIO`) satırları ve şarkıyı her iki tür `AudioStreamPlayer`'da zamanlar, kamera ve altyazı aynı animasyondadır ([Animation](https://docs.godotengine.org/en/stable/classes/class_animation.html)) [kaynak; kullanım çıkarım]. Süreler `vo_lines.json`'un `seconds` alanından gelir.
+- Bütün satırlar ve şarkı (≈1,7 MB, §3.5) sinema açılırken `load_threaded_request` ile istenir; yüklenmeyen satırda altyazı akar. Pencere bellek için gerekmez.
+- Müzik durumları (`camp_bard`, `myth`, `erlik`, `tengri`, `childhood`, `narration`) kamp dünyasının `AudioStreamInteractive`'inde klip olur; sahne geçişi animasyondaki yöntem izinden `switch_to_clip_by_name` çağırır. Koro yalnız `tengri` klibindedir (§4).
+- Dinleyici sinemada kameradadır (§6.5). Ozanın sesi yüz planında ozanın `AudioStreamPlayer3D`'sinden gelir, geri çekilirken 2 sn'de 2B'ye geçer (§8, Godot).
+- Kara sessizlik (§11): `Music`, `Ambience`, `SFX` yollarının `AudioEffectAmplify`'ı −60 dB'e iner, rüzgâr −40 dB'te kalır; `Master`'a dokunulmaz.
+- Sınama: `tests/unit/test_cine.gd`; süre ≈295 sn, satırların `seconds` toplamı, koronun tek çalışı.
+
+## 11. Sessizlik
+
+Murch: sessizlik eksik sesin olasılığını çağırmalı; ona birden düşülmez, kademeli inilir; çok güçlü bir araçtır [kaynak: [Transom](https://transom.org/2005/walter-murch/)]. Hades'te tel katmanları rastgele susar, davul da susunca bazen bir an sessizlik olur [kaynak]. Breath of the Wild'ın ana temasında bilerek bırakılan boşluk için [bir haber](https://zeldauniverse.net/2017/06/15/the-composer-of-breath-of-the-wilds-main-theme-gives-details-on-its-creation-and-purpose/) vardır; besteci söyleşisini bulamadım, sayfa açılmadı [zayıf]. Tanhu için üç sessizlik [çıkarım]:
+
+| Tür | Tanım | Sıklık |
+|---|---|---|
+| Müziksizlik | Müzik yok, dünya var. §2.2 nefesi | Yabanda zamanın ≈%65'i |
+| Alçak sessizlik | Müzik yok, L3 ve L4 yok, rüzgâr −40 dB. Önce 3–5 sn katman sökülür | Perde başına ≤4 |
+| Kara sessizlik | Her şey ≈0, ≤4 sn | Perde başına ≤1, oyun boyunca ≈8. Doğum, baba, «toprak» kararı, son kart |
+
+Dijital sıfır yerine −60 dB rüzgâr kuyruğu: sessizlik «ses gitti» hatası gibi duyulmaz. Ses kapalı uyarısı tetiklenmez.
+
+## 12. Perde başına müzik kimliği
+
+Perde adları `d3/brief.md`'dedir (#5): I Çan, II Ok Neyi Gösterirse, III Boş Toprak, IV Borç, V Dört Renk, VI Sayım. İlk taslağın tema adlarından üçü (Rehinelik, Islık, Beyaz Dağ) Tanhu 1'in perde adlarına (Rehine, Islıklı Ok, Ak Dağ) denk düştüğü için bırakıldı. V'in adı Shiji 110'un dört renk atından gelir; Tanhu 1'in `dort_renk` müziği ve «dört renk» görüsü de aynı satırdan beslenir. Ad brifindir; ses Tanhu 1'in dört tını fikrini almaz. Tablo [kurgu]dur, tarih satırları Shiji'dendir (`settlement.md` §2.2, K25). Tanhu 1'in dört tını, onlar halinde davul, taç giyme korosu, kuşatma sisi fikirleri kullanılmaz.
+
+**Motif.** Tek kaynak ıslıklı oktur, oyunun en güçlü dönem kanıtı. `whistling_arrow` 2,4 → 3,6 kHz'dir: 3/2, tam beşli. Motif: **yükseliş D↗A (kayış) + düşüş A G F D**. Düşüş bugünkü dört notadır, kod ve sınama korunur; anlamı ninni değil, okun yere inişidir. Erlik'in ters motifi yerine A↘D kargıra kayışı [kurgu].
+
+| Perde | Görünen ses | Skor | Nabız, kip | Motif | Yok | İmza |
+|---|---|---|---|---|---|---|
+| I Çan (210, Hexi) | Yüeçi arpı, çerçeve davul; Mete'nin ağız kopuzu; çan, çentik | Dron, uzak hucia | 58, 72; E Frigyen ağır | Düşüş D'ye varmaz: A G F | Müzikte çekilen kopuz, kaçış gecesine dek; dünyada bir kez at üstünde görülür (`kopuz.md` öneri 11) | Çan ve çentik ölçüyü tutar |
+| II Ok Neyi Gösterirse (209) | Islıklı ok, tüngür, tam vuruşlu kopuz | Alçak dron, ezgi az | 96; D Dorian | Yalnız yükseliş | Yumuşak nefesli | Sınama başına ıslık sayısı artar: 1, 10, 100, hepsi; ardından kara sessizlik |
+| III Boş Toprak (208) | Boynuz, kopuz; Elçi Yurdu'nda hiçbir şey | Uzun dron | 54 → 126; D Dorian | Yükseliş, uzun ara, düşüş: ilk kez bütün | Davul, savaşa dek | Üç istek üç dron; toprak kararında davul girer |
+| IV Borç (205–203) | Kopuz, arp, hucia birlikte | Heterofoni, akor yok | 72; pentatonik ve Dorian | Her boy motifi kendi süsüyle | Koro | Katılan boy bir ses ekler (yerleşim kademesi). Kışlak'a dönüşte I. Perde'nin çanı ve arpı geri gelir; borç ödenince I'in yarım düşüşü (A G F) D'ye varır |
+| V Dört Renk (201–200) | Han çanları, davulları uzakta; Hun tarafı az | Çevreleyen stereo dron | 44; E Frigyen | Motif tek tek notalara dağılır | Kopuz ezgisi | 乃解圍之一角: dron bir yandan açılır, o yandan çıkılır |
+| VI Sayım (198–174) | Tek tel kopuz, tek başına | Seyrek dron | 50; D Dorian | Bütün, yavaş, D'de çözülür | Davul, koro | Sayımda her baş bir tık: I'de rehineyi sayan tık, burada Mete halkını sayar. Son kartta müzik yok, rüzgâr ve tek tel |
+
+**Uygulama.** 6 × 21 durum yazılmaz. `ACT_COLOR[act] = { lead, add, drumK, restK, motif }` ortam ve görev durumlarının üstüne biner: `hold`, `road_leg`, `wild_*`, `muster`. Sahneye özel 1–2 durum perdeye eklenir. Yeni çalgılar: `hujia`, `harp` (Karplus-Strong, 1,2 sn, 10 tel ≈1,15 MB), `horn` (≈0,3 MB), Han `bell` var. Hepsi nota bankasında, en eski kullanılan düşer. Müzik havuzu büyümez. Baideng'in iki yanlı dronu `StereoPanner` ya da kanal kazancıyla: +1 düğüm.
+
+**I. Perde.** `act1.md` §14 ve `music-states.js`'in Kışlak satırları buna göre yeniden yazılır. Kod bu turda değişmez; iş Faz 9–10'a yazılır. K11 dikey dilimi bekletilmez: önce kopuz düzeltmesi ve `hujia`, sonra renkler.
+
+**Godot için.** Perde rengi bir kaynaktır: `game/data/music/act_<n>.tres` (`lead`, `add`, `drum_db`, `rest_copies`, `motif_clip`). Perde değişince `AudioManager` dünyanın `AudioStreamInteractive`'indeki Synchronized katmanlarının sesini ve cümle Playlist'lerindeki boş cümle kopyasını buna göre kurar; 6 × 21 klip yazılmaz. `hujia`, `harp`, `horn` araçla basılan Ogg katmanlarıdır. Synchronized'da katman başına kaydırma yoktur [kaynak: sınıf belgesinde yalnız ses düzeyi var]: Baideng'in iki yanlı dronu solda ve sağda ayrı basılmış iki stereo katmandır, bir yanın sesi açılınca o yan açılır [çıkarım]. İş Godot'da İlerleme sayfasına girer (`d3/brief.md`).
+
+## Oyuna öneriler
+
+1–23 prototipin diliyle yazıldı (WebAudio sabitleri, `src/` ve `tools/*.mjs`). Godot oyunundaki karşılıkları listenin sonundaki G1–G12'dir; çelişirse G geçerlidir.
+
+1. **#52.** K12 yeniden yazılır: «Ortam döngüleri 22 kHz mono; hazır ses 48 MiB: müzik 16, efekt ve ortam 24, satır penceresi 8; toplam havuzların toplamıdır.» `BAKE_BUDGET` 24 MiB, `VOICE_BUDGET` 8 MiB (öneri 2 bitmeden inmez), `BANK_BYTES` 8 MiB kalır. `architecture.md` §3.6, §7 satır 11, §8 karar 31, `audio.md` §4, `weather.md` §10.1, W19 eşikleri düzelir. K12 ile açık çelişki, bilerek.
+2. **#52.** Satır penceresi: «çalan + sıradaki 2», biten satır hemen bırakılır, manifest her satıra `seconds`, ≥30 sn dosya medya öğesiyle akar. Sınama: 295 sn sinemada `voice.bytes` ≤8 MiB, hiçbir satır çalarken yeniden inmez.
+3. **#52.** `ctx.sampleRate` >48 kHz ise bağlam 48 kHz kurulur. Zincir tepkileri müzik havuzuna yazılır, sökülünce bırakılır. `__tanhu.audio.memory()` dört sayı verir: müzik, fırın, satır, toplam.
+4. **#53.** `audio.md` §2: «Koro gök içindir: `tengri`, `dawn`, `crane`.» §3 `court` satırı: «davul ve tüngür, boğaz dronu, `gathering_crowd`; koro yok.» `choir.js` başlığı `crane`'i de anar. `crane` kodu değişmez. Oynanışta perde başına ≤2 çalış.
+5. **#56.** K5 yeniden yazılır: «EN, `eleven_v3`. Tavan yok; sayaç ve defter tutulur. Dört dilim A, B, C, D. Mene sessiz. Kopuz sözü izlemez; konuşmada kopuz boşlukta cevap verir.» K5'in eski metnindeki «Kobuz» telli çalgıyı kastediyordu; #54 ve #55'ten sonra telli çalgı kopuz, «kobuz» yalnız yaylıdır. `VO_LIMITS` silinir. K5 ile açık değişiklik, kullanıcı kararı.
+6. **#56.** `vo: 'A' | 'B' | 'C'`, `voBudget()` `bySpeaker`, `byTier`, `seconds` verir. Düğüm içinde sesliden sessize geçiş `check-data` uyarısıdır. `tools/vo-ledger.jsonl` ve `voices.mjs ledger`. `gen` plan > kalan ise `--over` ister. Metin kilidi olmadan A ve B üretilmez.
+7. **#56.** İndirme izlenir: perde başına MB. `FORMAT` 64 kb/sn mono kulakla sınanır; 133.000 karakterde 177 → 89 MB.
+8. **#55, #57, #58.** `kopuz.md` öneri 6–9 uygulanır. Bu belgenin eki: kural Tanhu 1 istem dersinden gelmiştir, bütün izleri silinir (`audio.md` §2–§3, `act1.md` §14, `phrases.js` başlığı). Sinemanın konuşma bölümünde kopuz boşlukta cevap verir (K5).
+9. **#54, #55.** Ad tablosu `kopuz.md` öneri 10: telli kopuz, yaylı kıl kobuz. Kimlik `kobuz` kalır.
+10. **#54, #55.** Sahne kuralı: görünen çalgı §5.1'e uyar. Kıl kobuz ve boğaz sesi kimsenin elinde görünmez. Kopuz ve davul için Destan Kitabı'nda dönem notu (K13 listesine girmez). `kemik_islik` becerisi alınmaz.
+11. **#55.** `hujia` (≈2,4 MB), `harp` (≈1,15 MB), `horn` (≈0,3 MB) `audio.md` §2'ye girer. Ezgi sesi `hujia`, yaylı yalnız `tengri` ve `erlik`'te ana renk.
+12. **#5.** `music-states.js` tablosu §12'ye göre yeniden yazılır; Tanhu 1'den gelen 84, 60, 92, 64, 140 değerleri terk edilir. `ACT_COLOR` ile perde rengi. Tanhu 1 ile örtüşme kalkar.
+13. **#5.** Motif D↗A + A G F D. `tier_up`, `level_up`, `craft_done` düşüşü kullanır; yükseliş yalnız ıslıklı ok sahnelerinde.
+14. **#14.** Açık dünyada `breath` alanı. Yaban %35, yerleşim %65 müzik. Yeniden giriş şafak, gün batımı, yeni yer, tepe. Menü ve `camp` dışında. Müzik türü alanı `narrative | interactive | world`. Tehlike girişi `at: 'now'` + `drum_hit`, ≤0,3 sn; çıkış 10 sn; `threat` 0–3; katman zarı 8 cümlede bir; tek anda ≤5 katman.
+15. **#14.** `spec.audio`: iklim süzgeci, ≤2 L1 döngü (≤1,4 MB), `scatter` (`ScatterSystem`, 1 Hz), `space`. Yeni döngüler `grass_hiss`, `pine_sough`, `gravel_hiss`, `stream`.
+16. **#12, #17, K27.** `setListener(camera, focus)`: konum kahraman + 1,5 m (`oyun-seviye-tasarimi.md` öneri 9), yön kamera. Arkadaki kaynağa tek süzgeç; HRTF ölçüme kalır. Sinema, menü, oluşturucu kamerada. Sınama: yakınlaştırma uçlarında adım sesi ±1,5 dB. K27'ye ek, çelişki yok.
+17. **Ek 1, #14.** `sfx/fauna.js`: §7.2 reçeteleri, `k.voiced2`. Banka ≈4,2 MB, iklim başına ≤2,5 MB. `weather.md` §7.6'nın reçetesiz işaretleri (`marmot_whistle`, `dog_whine`) kapanır. Kimlikler `hayvanlar.md` öneri 1–2 ve `fauna.md` ile hizalanır.
+18. **Ek 1, #14.** At iki küme `calm`, `fear`. Kurt ay bağı yok. Kartalda `eagle_call` dünyada, `eagle_cry` yalnız Tengri sineması. Görünmeyen ses ≥150 m. Aynı kimlik ≥45 sn.
+19. **#56.** Durum türü başına kısma tablosu (§8); iniş 0,3, dönüş 1,0, 0,15 sn önden; 2,2 kHz −3 dB; önem sırası; atta `hoof_*` kısma. `engine.js` `DUCK`.
+20. **#1, #5, #8, Karar Bekleyenler 5 ve 6.** §10.2 planı `mitoloji.md` sahnelerine oturur: ≈295 sn, şarkı başta, ozan mit, anlatıcı tarih, yeni durumlar `myth`, `childhood`, koro tek çalış. `test/cine.test.js` sınırı güncellenir. En çok ≈5.200 kredi. Tanhu 1 listesi (§10.1) denetlenir. Doğumda anlatıcı MÖ 234'ü kesin tarih gibi söyler.
+21. **#5, #8.** Kara sessizlik perde başına ≤1, ≤4 sn, −60 dB kuyruk. `music.silence(seconds)` çağrısı: katmanları 3–5 sn'de söker. Sinema `cine` satırı olur.
+22. **#55, #57, #58.** Eleven Music şartları (K19, K28) kayda geçer: Creator «yalnız bireysel kullanım»; Stüdyo Oyunu Enterprise Music dışındaki bütün planlarda dışarıda; Bağımsız Oyun sayılmak için iki koşul: oyunun ilk satıştan beri birikimli geliri 500 bin $'ın altında ve geliştiricinin son mali yıldaki bütün oyun geliri 1 milyon $'ın altında [kaynak: [Music Terms](https://elevenlabs.io/music-terms), §4.8]. Eşik geçilirse 60 gün içinde Stüdyo Oyunu'na izin veren plana (yalnız Enterprise Music) geçilir ya da çıktı oyundan çıkar; o güne dek dağıtılmış kopyalar kalabilir (§4.7). Kodla müziğe etkisi yok. Yayın öncesi bir kez hukuken okunmalı.
+23. **#12, #14.** `SENDS` sabit olmaktan çıkar: bozkır ×0,3, vadi ×1, boğaz + tek `DelayNode` 180 ms, yurt içi ×0,1. Yeni IR yok.
+
+### Godot karşılıkları (G1–G12)
+
+- **G1 (#52, öneri 1).** K12'nin Godot metni: «Ses bellekte sıkıştırılmış durur. Dünya başına yüklü ses en çok 26 MiB: müzik (Ogg) 16, efekt ve ortam (WAV, QOA) 8, seslendirme (MP3 64 kb/sn) 2; toplam havuzların toplamıdır. Ortam döngüleri 22,05 kHz mono içe aktarılır. Büyük kaynak arka planda yüklenir.» `tests/unit/test_audio_budget.gd` tutar (§3.5). İlk iş `night_meadow_loop.wav`'ın içe aktarmasıdır.
+- **G2 (#52, öneri 2–3).** Satır penceresi Godot'da yükleme kuralıdır: sinema açılırken bütün satırlar `load_threaded_request` ile istenir, yüklenmeyen satırda altyazı akar, biten satır bırakılır. Bağlam hızı ve zincir tepkisi maddeleri Godot'a geçmez.
+- **G3 (#53, öneri 4).** `choir_*.ogg` yalnız `tengri` ve `dawn` kliplerinde (`crane` yeni sinemaya dek). `court`'ta koro yok, `gathering_crowd` ve boğaz dronu var. `tests/unit/test_music_choir.gd` (§4).
+- **G4 (#56, öneri 5–7).** Tavan yok. `game/data/vo_lines.json` (`tier`, `seconds`); `tests/unit/test_vo_budget.gd` rapor verir, toplamda düşmez; `tools/elevenlabs_audio.sh tts` ve `tools/vo_ledger.jsonl`; çıktı `mp3_44100_64`; müzik ucu `music_v1`'den `music_v2_5`'e geçer (§9.4).
+- **G5 (#5, #14, öneri 12–14).** Müzik durumları dünya başına bir `AudioStreamInteractive`; katmanlar `AudioStreamSynchronized`, cümleler kopya ağırlıklı `AudioStreamPlaylist`. Bütün müzik Ogg, `bpm`, `beat_count`, `bar_beats` dolu; Synchronized'ın 0. katmanı düz Ogg. `AudioManager.play_music(state)` aynı dünyada `switch_to_clip_by_name` olur. Geçiş tablosu ve müzik nefesi §2.3'tedir. Katmanlar prototipin çalgı kodundan araçla basılır.
+- **G6 (#12, #17, K27, öneri 16).** `AudioListener3D`: oyuncu + 1,5 m, yön kameranın yatay açısı; menü, sinema, oluşturucu `clear_current()` ile kamerada. Sınama: kamera 6 m'den 40 m'ye giderken oyuncunun yanındaki ateş ±1,5 dB içinde kalır (bugün ≈21 dB oynar ve 40 m'de susar).
+- **G7 (#14, öneri 15 ve 23).** Ortam katmanları `Amb_*` alt yolları; serpinti `ScatterSystem` ve tür başına `AudioStreamRandomizer`; uzam `Area3D` yankı yolu (`Reverb`, `reverb_bus_amount`) ve `Gorge` yolu; ön ve arka için betikle süzgeç (§6.5).
+- **G8 (Ek 1, öneri 17–18).** Fauna `game/tools/` ile WAV basılır, QOA, tür başına oran; Randomizer çeşitleri; at `horse_calm` ve `horse_fear` (F0, G0 değerleri §7.2'deki ölçümden) (§7.5).
+- **G9 (#56, öneri 19).** `Voice` yolu ve «Seslendirme» ayarı. Ana sözde müzik ve ortam `AudioEffectAmplify` tween'iyle kısılır (0,15 sn önden, 0,3 sn iniş, 1,0 sn dönüş); çığlıkta ve sistem sözünde `AudioEffectCompressor` yan zinciriyle (`sidechain` = `Voice`). `Music`'te EQ10'un 2 kHz bandı konuşmada −3 dB (§8).
+- **G10 (Karar Bekleyenler 5, 6, öneri 20–21).** Sinema `AnimationPlayer`'ın ses izleriyle kurulur; satırlar arka planda yüklenir; kara sessizlik `Music`, `Ambience`, `SFX` yollarının Amplify'ıyla −60 dB; `tests/unit/test_cine.gd` (§10.4).
+- **G11 (#54, #55, #57, #58, öneri 8–11).** Godot'da ozanın çalgısı bugün `dombra` adını ve modelini taşır (`asset_plan.json`, `camp_npcs.gd`, `chibi_character.gd`, README); ad, model ve metin «kopuz» olur (`kopuz.md`). `hujia`, `harp`, `horn` ve kopuz sesleri araçla basılan Ogg katmanlarıdır.
+- **G12 (Tanhu 1).** Godot'daki üç arayüz sesi (`page_turn`, `ui_deny`, `ui_toast`) `menu_style.gd`'ye göre Tanhu 1'dendir. Genel kural 1 adları, kadroyu, nesneleri ve satırları sayar, sesleri açıkça saymaz. Kalıp kalmayacakları baş mühendisin kararıdır; değişirse yerlerine `game/tools/` ile ya da ElevenLabs efekt ucuyla üç yeni ses basılır.
+
+## Belirsizlikler
+
+- **Arama kotası.** WebSearch kotası tur ortasında doldu (oturumda paylaşılan 200 çağrı). Kopuz çalışı, hayvanlar, sinema ve ElevenLabs bölümleri sonrasında doğrudan sayfa okumayla yazıldı. Bu yüzden Altay kay destan söyleyişi, Kazak jırav geleneği, deve ve inek akustiği, Hun dönemi ağız kopuzu raporu derinleştirilemedi. İstenirse kota açılınca sürdürülür.
+- **Açılamayan sayfalar.** ctext.org otomatik erişimi yasaklıyor, saygı gösterildi; Çince satırlar zh.wikisource'tandır. Shiming satırı ilk turda Vikipedi'den alınmıştı, 2026-11-04 doğrulamasında zh.wikisource 釋名 卷七'de sınandı. Briefer 2015 Nature'da açılmadı, Europe PMC'deki tam metinden sınandı; Hz değerleri artık ölçümdür (§7.2). allaboutbirds, Audiokinetic blog, ResearchGate, Rolling Stone, Hollywood Reporter, FMOD belgesi okunamadı. «Arama özeti» yazan kaynakların tam metni görülmedi.
+- **Godot sayıları.** QOA, Ogg ve MP3 boyları içe aktarılan dosyalardan ölçüldü; çalışırken bellek ölçülmedi. Playlist ve Synchronized'ın ölçü sınırındaki davranışı, katman sesinin çalarken değişmesi, içe aktarma belgesindeki «kullanılmıyor» notunun eskiliği ve 3B uzaklık formülü 4.7-stable kaynak kodundan okundu; oyunda sınanmadı. §3.5'in tavanları (16, 8, 2 MiB) öneridir, ilk birim sınaması ölçer. Godot'da yerleşik ses belleği monitörü bulunamadı.
+- **Vikipedi düzeyi.** Dombra, komuz, yaylı, hayvan bilgileri çoğunlukla Vikipedi üzerinden, altındaki akademik kaynak adıyla. Komuz sayfasının 4. yy ve MÖ 6000 iddiaları kaynaksız ya da zayıf, kullanılmadı.
+- **Sayılar.** Bellek ve sahne tabloları hesaptır, tarayıcıda ölçülmedi. Yerleşim ve açık dünya henüz yok. Bütün sentez tarifleri kulakla sınanmadı; kullanıcı kulağı son sözdür.
+- **Kredi.** Sayfa Creator için 121.000 der, `audio.md` 131.000. `eleven_v3` kredi oranı sayfadan okunamadı. Hesap planı eski olabilir.
+- **Komşu belgelerle fark.** `kopuz.md` kıl kobuzu at başıyla görsel tarif eder, burada Mete'nin çağında elde görünmez. `oyun-seviye-tasarimi.md` HRTF ister, burada önce ucuz süzgeç. Godot 4.7'de yerleşik HRTF bulunamadı (§6.5); oyunda bu fark ucuz süzgeç lehine kapanır, eklenti gerekirse karar baş mühendisin. Yüeçi ile arp bağı, Hun davulu [kurgu] kabuldür.
+- **Doğum sesi.** Kodla bebek ağlaması tekinsiz duyulabilir. ElevenLabs efekt ucu K28'de açıktır, fiyatı bu turda okunmadı.
+- **Kullanıcıya gösterilecekler.** Yaylı sesi görünmez skor rengi olarak bu yüzden kaldı: kullanıcı onu seviyor olabilir. #5 yalnız perde adlarını soruyor gibi de okunabilir, örtüşme tablosu (§1.3) gösterilmeli, karar onundur. Sinema ≈5 dk ilk açılış için uzundur: sahne 1–2 birleşebilir.
+
+## Kaynaklar
+
+- **Proje belgeleri:** `docs/design/d3/register.md`, `docs/design/decisions.md` (K5, K12, K19, K28), `docs/design/audio.md`, `docs/design/architecture.md` §3.6, §7, §8 karar 31, `docs/design/weather.md` §4.1, §7.6, §10, `docs/design/act0-text.md`, `docs/design/act1.md` §14, §17, `docs/design/settlement.md` §2.2, `docs/research/progression.md`, komşu araştırmalar `docs/research/kopuz.md`, `docs/research/mitoloji.md`, `docs/research/hayvanlar.md`, `docs/research/mete-tarih.md`, `docs/research/oyun-seviye-tasarimi.md`.
+- **Godot projesi (`game/`):** `scripts/audio/audio_manager.gd`, `scripts/audio/audio_util.gd`, `default_bus_layout.tres`, `project.godot`, `scripts/camp/campfire.gd`, `scripts/camp/stable.gd`, `scripts/ui/menu_style.gd`, `scripts/settings/game_settings.gd`, `scripts/player/follow_camera.gd`, `tools/elevenlabs_audio.sh`, `tools/asset_plan.json`, `tests/unit/test_audio_util.gd`, `.godot/imported` dosya boyları.
+- **Godot 4.7 belgeleri:** [AudioStreamInteractive](https://docs.godotengine.org/en/stable/classes/class_audiostreaminteractive.html), [AudioStreamPlaybackInteractive](https://docs.godotengine.org/en/stable/classes/class_audiostreamplaybackinteractive.html), [AudioStreamSynchronized](https://docs.godotengine.org/en/stable/classes/class_audiostreamsynchronized.html), [AudioStreamPlaylist](https://docs.godotengine.org/en/stable/classes/class_audiostreamplaylist.html), [AudioStreamRandomizer](https://docs.godotengine.org/en/stable/classes/class_audiostreamrandomizer.html), [AudioStreamOggVorbis](https://docs.godotengine.org/en/stable/classes/class_audiostreamoggvorbis.html), [AudioStreamWAV](https://docs.godotengine.org/en/stable/classes/class_audiostreamwav.html), [AudioStreamGenerator](https://docs.godotengine.org/en/stable/classes/class_audiostreamgenerator.html), [AudioStreamPlayer](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer.html), [AudioStreamPlayer3D](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer3d.html), [AudioListener3D](https://docs.godotengine.org/en/stable/classes/class_audiolistener3d.html), [Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html), [AudioEffectCompressor](https://docs.godotengine.org/en/stable/classes/class_audioeffectcompressor.html), [AudioEffectAmplify](https://docs.godotengine.org/en/stable/classes/class_audioeffectamplify.html), [AudioEffectEQ10](https://docs.godotengine.org/en/stable/classes/class_audioeffecteq10.html), [Animation](https://docs.godotengine.org/en/stable/classes/class_animation.html), [ResourceLoader](https://docs.godotengine.org/en/stable/classes/class_resourceloader.html), [Importing audio samples](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_audio_samples.html), [Audio buses](https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html).
+- **Godot 4.7-stable kaynak kodu:** [audio_stream_interactive.cpp](https://github.com/godotengine/godot/blob/4.7-stable/modules/interactive_music/audio_stream_interactive.cpp), [audio_stream_synchronized.cpp](https://github.com/godotengine/godot/blob/4.7-stable/modules/interactive_music/audio_stream_synchronized.cpp), [audio_stream_playlist.cpp](https://github.com/godotengine/godot/blob/4.7-stable/modules/interactive_music/audio_stream_playlist.cpp), [audio_stream.cpp](https://github.com/godotengine/godot/blob/4.7-stable/servers/audio/audio_stream.cpp), [audio_stream_player_3d.cpp](https://github.com/godotengine/godot/blob/4.7-stable/scene/3d/audio_stream_player_3d.cpp).
+- **Prototip kodu:** `src/audio/music-states.js`, `src/audio/music.js`, `src/audio/voice.js`, `src/audio/sfx.js`, `src/audio/ambience.js`, `src/audio/instruments/dombra.js`, `src/audio/sfx/world.js`, `src/audio/sfx/horse.js`, `src/story/vo-lines.js`, `tools/check-data.mjs`, `tools/elevenlabs-api.mjs`, `tools/voices.mjs`.
+- **Hades:** [Gameplay](https://gameplay.co/hades-game-music-sound-design-darren-korb-supergiant-games/), [Voxgroovy](https://www.voxgroovy.is/archives/13829), [teemo.dev, ikincil](https://teemo.dev/game-design/hades/systems/audio-design/).
+- **Red Dead Redemption 2:** [Mix](https://www.mixonline.com/recording/woody-jackson-and-vox-studios-red-dead-redemption-2), [Vikipedi](https://en.wikipedia.org/wiki/Music_of_Red_Dead_Redemption_2).
+- **Ghost:** [Tsushima, A Sound Effect](https://www.asoundeffect.com/ghost-of-tsushima-sound/), [Yōtei, A Sound Effect](https://asoundeffect.com/ghost-of-yotei-game-audio/).
+- **Witcher 3:** [GDC Vault](https://gdcvault.com/play/1023012/Slavic-Adaptation-of-Music-in), [Gamepressure](https://www.gamepressure.com/editorials/it-always-starts-with-the-game-interview-with-witcher-3-composer/zb6c2).
+- **Diablo IV:** [Blizzard, Ekim 2021](https://news.blizzard.com/en-us/article/23731236/diablo-iv-quarterly-updateoctober-2021), [GDC Vault](https://gdcvault.com/play/1034343/-Diablo-IV-Audio-Systems).
+- **Öteki oyunlar:** [GTA V, GDC Vault](https://gdcvault.com/play/1020587/The-Sound-of-Grand-Theft), [Breath of the Wild teması, Zelda Universe, arama özeti](https://zeldauniverse.net/2017/06/15/the-composer-of-breath-of-the-wilds-main-theme-gives-details-on-its-creation-and-purpose/).
+- **Kuram ve karışım:** [Bridgett, «Less Music, Now!», 2021](https://doi.org/10.1017/9781108670289.009), [Murch, Transom](https://transom.org/2005/walter-murch/), [Akuzmatik ses (Chion), Vikipedi](https://en.wikipedia.org/wiki/Acousmatic_sound), [Ducking, Game Developer](https://www.gamedeveloper.com/audio/game-audio-theory-ducking), [PS4 mastering, Designing Sound, arama özeti](https://designingsound.org/2015/06/04/sulpha-the-new-ps4-mastering-suit).
+- **Motorlar (arama özetleri):** [Distance Probe, Audiokinetic](https://www.audiokinetic.com/qa/12743/how-does-distance-probe-interact-with-reverb-volume-unreal), [FListener, Unreal](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/FListener), [FMOD Instruments](https://www.fmod.com/docs/2.03/studio/working-with-instruments.html), [FMOD Studio Guide](https://fmod.com/docs/2.03/api/studio-guide.html), [Unity AudioClipLoadType](https://docs.unity3d.com/ja/ScriptReference/AudioClipLoadType.html).
+- **Web Audio:** [AudioBuffer, MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer), [createBuffer, MDN](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBuffer), [Best practices, MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices), [MediaElementAudioSourceNode, MDN](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode), [W3C](https://webaudio.github.io/web-audio-api/), [Adenot](https://padenot.github.io/web-audio-perf/), [Audio Worklet, Chrome](https://developer.chrome.com/blog/audio-worklet/).
+- **ElevenLabs:** [Fiyatlar](https://elevenlabs.io/pricing), [Music Terms](https://elevenlabs.io/music-terms), [Music belgesi](https://elevenlabs.io/docs/overview/capabilities/music), [TTS API, çıktı biçimleri](https://elevenlabs.io/docs/api-reference/text-to-speech/convert), [Subscription API](https://elevenlabs.io/docs/api-reference/user/subscription/get), [Usage API](https://elevenlabs.io/docs/api-reference/usage/get).
+- **Dönem metinleri (Vikikaynak):** [史記 卷110](https://zh.wikisource.org/wiki/史記/卷110), [晉書 卷023](https://zh.wikisource.org/wiki/晉書/卷023), [晉書 卷062](https://zh.wikisource.org/wiki/晉書/卷062), [答蘇武書](https://zh.wikisource.org/wiki/答蘇武書), [古今注](https://zh.wikisource.org/wiki/古今注), [釋名 卷七](https://zh.wikisource.org/wiki/釋名/卷七), [後漢書 卷84](https://zh.wikisource.org/wiki/後漢書/卷84), [史通 卷十八](https://zh.wikisource.org/wiki/史通/卷十八).
+- **Telli çalgılar:** [Pipa (Shiming, Fu Xuan)](https://en.wikipedia.org/wiki/Pipa), [Dombra (Daukeyeva 2016)](https://en.wikipedia.org/wiki/Dombra), [Dombra küyü, UNESCO](https://ich.unesco.org/en/RL/kazakh-traditional-art-of-dombra-kuy-00996), [Komuz](https://en.wikipedia.org/wiki/Komuz), [Kobyz](https://en.wikipedia.org/wiki/Kobyz), [Morin khuur](https://en.wikipedia.org/wiki/Morin_khuur), [Tovshuur](https://en.wikipedia.org/wiki/Tovshuur), [Bow (Bachmann, Turnbull, Halfpenny)](https://en.wikipedia.org/wiki/Bow_(music)); hepsi Vikipedi, UNESCO hariç.
+- **Üflemeli, ağız kopuzu, arp, ses:** [Jaw harp](https://en.wikipedia.org/wiki/Jaw_harp), [Xinhua 2018, Shimao](http://www.xinhuanet.com/english/2018-05/21/c_137195056.htm), [National Geographic 2020, Shimao](https://www.nationalgeographic.com/history/article/mysterious-carvings-evidence-human-sacrifice-uncovered-ancient-city-china), [Epic of Jangar](https://en.wikipedia.org/wiki/Epic_of_Jangar), [Mongolian Store, zayıf](https://mongolianstore.com/jews-harp/), [Konghou](https://en.wikipedia.org/wiki/Konghou), [Throat singing](https://en.wikipedia.org/wiki/Throat_singing), [Tsuur](https://en.wikipedia.org/wiki/Tsuur), [Guan](https://en.wikipedia.org/wiki/Guan_(instrument)), [Jia, Duke Kunshan](https://sites.duke.edu/destinyofrebirth/jia-%E7%AC%B3-nomadic-reed-pipe/), [Hu Jia makalesi, yalnız özet](https://www.researchgate.net/publication/377620992_Research_on_the_Origin_and_Evolution_of_Hu_Jia).
+- **Ok ve arkeoloji:** [Islıklı ok, Kostroma, Artefact](https://ar.culture.ru/en/subject/svistyashchaya-strela), [Miniaev ve Sakharovskaia, Tsaraam 7, The Silk Road](https://edspace.american.edu/silkroadjournal/wp-content/uploads/sites/984/2017/09/Investigation-of-a-Xiongnu-Royal-Complex.pdf), [Noin-Ula, Gerda Henkel Stiftung](https://lisa.gerda-henkel-stiftung.de/kurgan_22?nav_id=4678&language=en).
+- **Hayvanlar (Vikipedi):** [Wolf communication](https://en.wikipedia.org/wiki/Wolf_communication), [Bark](https://en.wikipedia.org/wiki/Bark_(sound)), [Golden eagle](https://en.wikipedia.org/wiki/Golden_eagle), [Red-tailed hawk](https://en.wikipedia.org/wiki/Red-tailed_hawk), [Crane](https://en.wikipedia.org/wiki/Crane_(bird)), [Demoiselle crane](https://en.wikipedia.org/wiki/Demoiselle_crane), [Common crane](https://en.wikipedia.org/wiki/Common_crane), [Elk](https://en.wikipedia.org/wiki/Elk), [Red deer](https://en.wikipedia.org/wiki/Red_deer), [Tarbagan marmot](https://en.wikipedia.org/wiki/Tarbagan_marmot), [Bactrian camel](https://en.wikipedia.org/wiki/Bactrian_camel), [Dolbear's law](https://en.wikipedia.org/wiki/Dolbear%27s_law).
+- **At kişnemesi:** [Briefer ve ark. 2015, Scientific Reports](https://www.nature.com/articles/srep09989); Nature sayfası açılmadı, tam metin [Europe PMC PMC4404681](https://europepmc.org/article/PMC/PMC4404681)'den okundu.
+- **Açılamayanlar:** [Farnell, Designing Sound, MIT Press](https://mitpress.mit.edu/9780262014410/designing-sound/), [FMOD Instruments](https://www.fmod.com/docs/2.03/studio/working-with-instruments.html) (sayfa boş geldi).
+
+## Doğrulama
+
+**Tarih:** 2026-11-04. Şüpheci okuma: belge baştan sona okundu, yazarın kaynaklarına güvenilmedi. **55 iddia** bağımsız kaynakla sınandı: Çince birincil metin (zh.wikisource ham metninde karakter araması), Europe PMC tam metni, ElevenLabs'in fiyat, şart ve API sayfaları, oyun söyleşileri, Vikipedi'nin gösterdiği alt kaynaklar, belgedeki hesapların yeniden yapılması. Godot karşılıkları için 19 Godot 4.7 sınıf ve kılavuz sayfası, 5 kaynak dosyası (4.7-stable) okundu; Godot projesinin ses betikleri, veri yolu düzeni ve içe aktarılan dosya boyları ölçüldü.
+
+**Doğru çıkanlar, değiştirilmedi:** Shiji 110'da 鼓 ve 笳 geçmez, 角 yalnız kuşatmanın köşesidir; 冒頓乃作爲鳴鏑, 兒能騎羊, 乃解圍之一角; Jin Shu 23 ve 62, 古今注, 答蘇武書 ve Shiming satırları; Fu Xuan ile Vusun prensesi; konghou ve yay tarihleri; kurt, köpek, kartal, şahin, turna, maral, kızıl geyik, tarbagan, deve, Dolbear bilgileri; Briefer 2015'in F0 ve G0 bulgusu; Murch'ün katman ve sessizlik sözleri; RDR2 sayıları; Fracture kısması; PS4 −24 LKFS; Witcher 3 GDC 2016; Diablo IV 2021 ve GDC 2024; Ghost of Yōtei maddeleri; Bridgett DOI; MDN'nin 45 sn'si; ElevenLabs Creator 121.000 kredi ve 22 $, Pro 600.000 kredi ve 99 $, iki ay devir ve 3 kat bakiye, Eleven Music 900 kredi/dk, usage ucunun eskimesi ve subscription alanları; dombra, komuz, tovşuur çalışı; §1.3'ün Tanhu 1 örtüşme tablosu; sinema, kredi, disk ve bellek hesapları.
+
+**Düzeltilenler:**
+
+1. Islıklı okun tanıklık çağı: «≈80 yıl» Mete'nin ölümüne göredir; olaydan (MÖ 209) Shiji'ye (≈MÖ 91) ≈120 yıldır (§5.1).
+2. Ağız kopuzunun «MÖ 3. yy Çin çizimi» Vikipedi kökenli zincirleme hatadır: gösterilen National Geographic yazısı çizimi anmaz, kaynak bulunamadı; Shimao'nun yaşı Xinhua 2018'e bağlandı (§5.1).
+3. Boğaz sesinin «literatür 1960'lardan» kaydı terimin kullanımıdır ve kaynaksızdır; uygulamanın yaşı değildir (§5.1).
+4. Tsuur'un «14. yy destanı» tarihi kesin değildir; Jangar sözlü ve tarihsiz bir destandır (§5.1).
+5. Hucia: Li Ling mektubu Liu Zhiji'nin Shitong'unda (710) sahte sayılır, kaynak eklendi; Hun bağlamındaki tarihli en eski tanıklık Cai Yan'ın şiiridir (HHS 84), Mete'den ≈4 yy sonra; «1–5 yy» aralığı bununla değişti (§5.1, §5.3).
+6. Tsushima'ya atfedilen «üç yoğunluk basamağı» kaynakta yoktur; `threat` basamakları [kurgu] oldu (§2.1).
+7. Hades'te her «hiçbiri» seçimi sessizlik doğurmaz; davul da susunca bazen bir an sessizlik olur (§2, §11).
+8. Diablo IV'ün zindan ortamı «sakin» değil, açık dünyadan «az yoğun»dur; Witcher 3'te müzik listesi «en baştan» değil, sahne sahne ve yazımdan önce çıkar (§2).
+9. Ghost of Yōtei'nin rüzgârı bölge başına ayrı düzenek değil, tek düzeneğe eklenen bölge katmanıdır (§6.1).
+10. At kişnemesine Briefer 2015'in ölçümü eklendi (F0 399 ± 99 Hz, G0 1.543 ± 326 Hz); bugünkü 500–560 Hz F0 ortalamanın üstündedir, `fear` kümesine kaldı (§7.2).
+11. ElevenLabs'in fazla kullanım fiyatı sayfada dakika başınadır; 1.000 karaktere çevirmek [çıkarım] oldu (§9.1).
+12. Eleven Music şartları: Stüdyo Oyunu yalnız Creator'da değil, Enterprise Music dışındaki bütün planlarda dışarıdadır; Bağımsız Oyun eşikleri «altında»dır ve geliştirici eşiği son mali yıla göredir; eşik aşılırsa geçilecek plan yalnız Enterprise Music'tir (Özet 10, öneri 22).
+13. Öneri 5'te K5'in yeni metnindeki «Kobuz sözü izlemez» «Kopuz» oldu; telli çalgı kopuz, kobuz yalnız yaylıdır (#54, #55).
+14. §12'nin tema adları `d3/brief.md`'nin perde adlarına çevrildi; Rehinelik, Islık ve Beyaz Dağ Tanhu 1'in Rehine, Islıklı Ok ve Ak Dağ adlarına denk düşüyordu. IV ve VI'nın imzası brifin anlamına (Borç, Sayım) bağlandı (#5).
+15. «Shiming Vikipedi'den» ve «Briefer açılmadı» notları kalktı; ikisi birincil metinden sınandı (Belirsizlikler).
+
+**Godot için yeniden kurulanlar:** §1.4 bugünkü ses düzeni ve kamera dinleyicisinin bedeli (yakınlaştırmada ateş ≈21 dB oynar); §2.3 `AudioStreamInteractive`, `AudioStreamSynchronized`, `AudioStreamPlaylist` ile müzik modeli ve dört tuzak; §3.5 #52'nin Godot tablosu (müzik 16, efekt ve ortam 8, seslendirme 2, toplam 26 MiB), K12'nin içe aktarma karşılığı, pencerenin yükleme kuralına dönmesi, bütçe sınaması; §4 koronun (#53) veriyle tutulması; §6.5 yollar, serpinti, `AudioListener3D`, HRTF'siz ön ve arka, `Area3D` uzamı; §7.5 fauna; §8 Amplify ve yan zincirli kısma; §9.4 seslendirme (#56) verisi, defter, `mp3_44100_64`, `music_v1`'in kalkışı; §10.4 sinema; §12 perde rengi kaynağı; G1–G12.
+
+**Açık kalanlar:** Godot tavanları ve kaynak kodundan okunan davranışlar oyunda ölçülmedi. Baş mühendise kalanlar: K28'in «müzik ve efekt kodla üretilir» yarısının Godot'a geçip geçmediği (Godot'un bugünkü sesleri ElevenLabs'tendir), Tanhu 1'in üç arayüz sesinin kalıp kalmayacağı, seslendirme dili (K5 İngilizce, oyun Türkçe), V'in brifteki adı «Dört Renk»in Tanhu 1'in «dört renk» görüsüyle örtüşmesi (ikisi de Shiji 110'dan). Kaynağı açılamayanlar: Cai Yan şiirinin atfı, FMOD scatterer sayfası, Hun mezarında çalgı buluntusu.

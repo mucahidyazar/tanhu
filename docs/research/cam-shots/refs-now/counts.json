@@ -1,0 +1,24 @@
+{
+ "meshes": 218,
+ "points": 828,
+ "sprites": 0,
+ "lights": 6,
+ "vertices": 2306967,
+ "instanced": {
+  "v3723": 71,
+  "v1397": 300,
+  "v401": 1000,
+  "v48": 10950,
+  "v24": 0,
+  "v108": 0
+ },
+ "lists": {
+  "obstacles": 30,
+  "softContacts": 4,
+  "solids": 75,
+  "rooms": 4,
+  "horses": 2,
+  "updaters": 10
+ },
+ "ground": -2933.3409
+}

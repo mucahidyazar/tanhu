@@ -1,0 +1,37 @@
+[
+ {
+  "file": "hereka_1_heather_faith.mp3",
+  "voice_id": "49d0YOOn2K0LVSBCkZ0q",
+  "name": "Heather Faith",
+  "accent": "american",
+  "description": "Warm, steady mid-low female voice with subtle rasp and grounded authority. Emotionally nuanced, restrained, and authentic. Intimate without fragility; strong without theatrics."
+ },
+ {
+  "file": "hereka_2_kaisa.mp3",
+  "voice_id": "2Yg0KQ858zsEJOsoPmT2",
+  "name": "Kaisa - Strong and authoritative",
+  "accent": "standard",
+  "description": "A powerful, resonant voice of a middle-aged Finnish woman. She speaks with a commanding, steady presence and a mature Nordic accent that conveys deep confidence, experience, and grounded strength."
+ },
+ {
+  "file": "hereka_3_eden.mp3",
+  "voice_id": "M8391pS6bItq6N4ptCRa",
+  "name": "Eden - Warm tone storyteller",
+  "accent": "american",
+  "description": "Eden is a warm, deep, and slightly raspy voice crafted for storytelling. She brings emotion, intimacy, and depth to every script, making her perfect for romance, narration, dramatic reads, and character-driven content. Eden’s tone is smooth, expressive, and cinematic — ideal for creators who want a "
+ },
+ {
+  "file": "hereka_4_camilla.mp3",
+  "voice_id": "IU69j3wyvZEJus9nCIiG",
+  "name": "Camilla Montgomery",
+  "accent": "american",
+  "description": "She has a warm, rich, alto voice. A little husky. Very clear diction and dramatic interpretation.  Mid pacing, ideal for characters that need that retro movie star flavor."
+ },
+ {
+  "file": "hereka_5_tess.mp3",
+  "voice_id": "4BAlflaQyhIcCfHiEI7x",
+  "name": "Tess - Direct and Grounded",
+  "accent": "british",
+  "description": "A calm, velvety voice that flows easily. It has an intimate yet expansive quality, perfect for setting the mood in a trailer or a dramatic opening."
+ }
+]
