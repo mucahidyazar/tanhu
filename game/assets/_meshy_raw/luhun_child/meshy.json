@@ -1,0 +1,21 @@
+{
+  "id": "luhun_child",
+  "tasks": {
+    "model": {
+      "id": "01a1b4f1-8c09-723d-abb3-014b809cbdf2",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b4f4-eb50-72ec-a6a6-4a7711a70bc9",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

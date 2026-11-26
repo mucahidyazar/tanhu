@@ -1,0 +1,13 @@
+{
+  "id": "stool",
+  "tasks": {
+    "model": {
+      "id": "01a17481-0629-7195-9e7d-e2dd3b6fd4c3",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

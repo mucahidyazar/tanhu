@@ -1,0 +1,22 @@
+{
+  "id": "kujul",
+  "name": "kujul",
+  "role": "npc",
+  "file": "kujul.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/kujul/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/kujul (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.75,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "kujul_walk.res",
+    "run": "kujul_run.res"
+  },
+  "description": "Kujul, the master smith of Iron Tooth aged forty-nine: dark weathered skin, topknot and full beard, a dark leather apron over a charcoal-grey coat with rust borders, a fur-lined dark vest, a rust headband, heavy boots.",
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  }
+}

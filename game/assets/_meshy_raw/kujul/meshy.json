@@ -1,0 +1,30 @@
+{
+  "id": "kujul",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-cfc0-772a-8c40-5368540a8027",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b6-92ca-7572-97b2-3cbfb8e883a0",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "rig2": {
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "note": "E19 onayı «İkisini yenile, 10» (2026-11-08): ilk iskelet sınamadan geçmedi",
+      "id": "01a1ba8d-0dd9-7503-9f94-18f18452fcc5",
+      "consumed_credits": 5
+    }
+  }
+}

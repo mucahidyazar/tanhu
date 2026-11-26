@@ -1,0 +1,704 @@
+{
+ "updated": "2026-11-06",
+ "rule": "E7.5 ve K89: bu klasördeki her varlık ücretsiz bir kanaldan geçici olarak alındı. Hepsi işaretlidir ve duruma göre sonra Meshy ile (model ve doku), ElevenLabs ya da kodla (ses) yeniden üretilebilir. Oyuna giren her dosya buradaki bir kayda bağlıdır (usedIn); tests/unit/test_free_assets.gd bunu denetler. Alanlar: path, oyuna alınıp assets/_free/<kind>/<id>/'ye taşınan varlığın yolu (assets/_free'ye göre; kullanılmayanınki stagingPath); usedIn, kullanıldığı «sahne:düğüm yolu» (o düğüm free_asset meta verisini taşır); catalog, yerini tuttuğu Varlıklar kataloğu satırları (docs/assets/catalog.json'da aynı satırın free alanı). Meshy modeli gelen varlığın kaydı silinmez: usedIn ve catalog boşalır, replaceLater false olur, replacedBy modelin dosyasını, regenWith modelin geldiğini yazar; dosyası yerinde kalır çünkü model yokken (dosya eksik ya da MeshyProp.models_enabled kapalı) kurulan kodla çizim onu kullanır: fallbackIn o «sahne:düğüm» yollarıdır (test_free_assets modelsiz kurulumda denetler; usage.jsonl'un aynı satırları yedek satırıdır). Aynı kural motion-studio videosu gelen varlıkta da geçerlidir (K93: replacedBy .ogv; video henüz yoksa keçe yedeği oynar, yedek CineVideo.enabled kapalıyken denetlenir). usage.jsonl her işin eklediği kullanım satırlarıdır; denetim onları buraya birleştirir.",
+ "assets": [
+  {
+   "id": "withered_grass",
+   "name": "Withered Grass (withered_grass)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/withered_grass",
+   "license": "CC0 1.0",
+   "author": "Charlotte Baglioni",
+   "path": "texture/withered_grass/",
+   "sizeMB": 14.49,
+   "plannedUse": "Ordos güz otlağının kuru, solgun sarı otu: childhood_ordos zemini ve doğumun dış planı (birth-world, birth-scene). 2K diff, nor_gl, rough.",
+   "usedIn": [
+    "scenes/maps/childhood_ordos.tscn:Ground/Terrain"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "grass_ground",
+   "name": "Grass Ground (grass_ground)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/grass_ground",
+   "license": "CC0 1.0",
+   "author": "Charlotte Baglioni",
+   "stagingPath": "_staging/polyhaven/grass_ground/",
+   "sizeMB": 11.28,
+   "plannedUse": "Kuru ot ile toprağın karıştığı otlak geçişi; yurt çevresinden açık otlağa (birth-world). 2K.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "dry_ground_rocks",
+   "name": "Dry Ground Rocks (dry_ground_rocks)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/dry_ground_rocks",
+   "license": "CC0 1.0",
+   "author": "Rob Tuytel",
+   "path": "texture/dry_ground_rocks/",
+   "sizeMB": 2.55,
+   "plannedUse": "Avlunun ve sayım hattının çiğnenmiş, çakıllı kuru toprağı (birth-world, birth-scene). 1K.",
+   "usedIn": [
+    "scenes/maps/childhood_ordos.tscn:Ground/Trampled"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "gravelly_sand",
+   "name": "Gravelly Sand (gravelly_sand)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/gravelly_sand",
+   "license": "CC0 1.0",
+   "author": "Dario Barresi",
+   "stagingPath": "_staging/polyhaven/gravelly_sand/",
+   "sizeMB": 2.87,
+   "plannedUse": "Ordos'un kumlu, çakıllı yerleri ve Sarı Irmak'a inen yamaç (birth-world). 1K.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "burned_ground_01",
+   "name": "Burned Ground 01 (burned_ground_01)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/burned_ground_01",
+   "license": "CC0 1.0",
+   "author": "Rob Tuytel",
+   "path": "texture/burned_ground_01/",
+   "sizeMB": 1.72,
+   "plannedUse": "Ocak çevresinin küllü, yanık toprağı; köz ışığındaki yurt içi (birth-scene). 1K.",
+   "usedIn": [
+    "scenes/maps/childhood_ordos.tscn:Places/LanYurt/Hearth/Ash"
+   ],
+   "catalog": [
+    "hearth_stones"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "dirt",
+   "name": "Dirt (dirt)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/dirt",
+   "license": "CC0 1.0",
+   "author": "Charlotte Baglioni",
+   "path": "texture/dirt/",
+   "sizeMB": 2.19,
+   "plannedUse": "Yurt içinin keçe halı altında kalan sıkışmış toprak tabanı (birth-scene). 1K.",
+   "usedIn": [
+    "scenes/maps/childhood_ordos.tscn:Places/LanYurt/Floor",
+    "scenes/cine/prologue_birth.tscn:Props/Mound"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "fabric034",
+   "name": "Fabric 034, keçe (Fabric034)",
+   "kind": "texture",
+   "source": "ambientCG",
+   "url": "https://ambientcg.com/view?id=Fabric034",
+   "license": "CC0 1.0",
+   "author": "Lennart Demes (ambientCG)",
+   "path": "texture/fabric034/",
+   "sizeMB": 20.46,
+   "plannedUse": "Gri, boyanabilir keçe tabanı: mit sinemasının keçe aplike panoları (myth-panels; shaders/felt.gdshader için lif normali ve yüksekliği), parça renkleri gölgelendiricide. 2K Color, NormalGL, Roughness, Displacement; zip'ten çıkarıldı.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_myth.tscn:Strip/Band",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel1",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel2",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel3",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel4",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel5",
+    "scenes/cine/prologue_myth.tscn:Strip/Panel6",
+    "scenes/cine/prologue_birth.tscn:PanelLayer/View/Viewport/Stage/Panel8"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "regenWith": "Mit sineması videoya döndü (K93; assets/cine/video/myth.ogv ve assets/cine/video/childhood.ogv, motion-studio): yeniden üretim gerekmez; yalnız video yokken (dosya eksik ya da CineVideo.enabled kapalı) keçe panolarda kullanılır (fallbackIn)",
+   "replacedBy": "assets/cine/video/myth.ogv"
+  },
+  {
+   "id": "polar_fleece",
+   "name": "Polar Fleece (polar_fleece)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/polar_fleece",
+   "license": "CC0 1.0",
+   "author": "colormass, Rico Cilliers",
+   "stagingPath": "_staging/polyhaven/polar_fleece/",
+   "sizeMB": 2.2,
+   "plannedUse": "Krem doğal keçe görünümü: doğum yurdunun keçe duvarı, örtü ve döşek yakın planda (birth-scene). 1K, 1024 × 1017: içe aktarmadan önce 1024²'ye getirilir.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "fabric044",
+   "name": "Fabric 044, dokuma yün (Fabric044)",
+   "kind": "texture",
+   "source": "ambientCG",
+   "url": "https://ambientcg.com/view?id=Fabric044",
+   "license": "CC0 1.0",
+   "author": "Lennart Demes (ambientCG)",
+   "path": "texture/fabric044/",
+   "sizeMB": 4.28,
+   "plannedUse": "Balıksırtı dokuma, boyasız yün kumaş: kundak, battaniye, yatak örtüsü; kundak yer tutucusu (birth-scene). 1K.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Swaddle"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "replacedBy": "assets/props/swaddled_baby/swaddled_baby.glb",
+   "regenWith": "Meshy modeli geldi (assets/props/swaddled_baby/swaddled_baby.glb, E7.6): yeniden üretim gerekmez; yalnız model yokken kodla kundakta kullanılır (fallbackIn)"
+  },
+  {
+   "id": "hessian_380",
+   "name": "Hessian 380 (hessian_380)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/hessian_380",
+   "license": "CC0 1.0",
+   "author": "colormass, Rico Cilliers",
+   "stagingPath": "_staging/polyhaven/hessian_380/",
+   "sizeMB": 2.98,
+   "plannedUse": "Kaba kenevir ya da çuval bezi: çuval, heybe astarı, kaba örtü (birth-scene). 1K.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "curly_teddy_natural",
+   "name": "Curly Teddy Natural (curly_teddy_natural)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/curly_teddy_natural",
+   "license": "CC0 1.0",
+   "author": "colormass, Rico Cilliers",
+   "path": "texture/curly_teddy_natural/",
+   "sizeMB": 2.06,
+   "plannedUse": "Kıvırcık yün: koyun postu, beşik ve yatak döşeği (birth-scene). 1K, 1024 × 1009: 1024²'ye getirilir.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Cradle/Bedding"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "replacedBy": "assets/props/cradle/cradle.glb",
+   "regenWith": "Meshy modeli geldi (assets/props/cradle/cradle.glb, E7.6): yeniden üretim gerekmez; yalnız model yokken kodla beşiğin döşeğinde kullanılır (fallbackIn)"
+  },
+  {
+   "id": "leather007",
+   "name": "Leather 007 (Leather007)",
+   "kind": "texture",
+   "source": "ambientCG",
+   "url": "https://ambientcg.com/view?id=Leather007",
+   "license": "CC0 1.0",
+   "author": "Lennart Demes (ambientCG)",
+   "path": "texture/leather007/",
+   "sizeMB": 3.34,
+   "plannedUse": "Eskimiş koyu kahve deri: terki, kayış, beşik bağı, ok kılıfı (birth-scene). 1K.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Cradle/Straps"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "replacedBy": "assets/props/cradle/cradle.glb",
+   "regenWith": "Meshy modeli geldi (assets/props/cradle/cradle.glb, E7.6): yeniden üretim gerekmez; yalnız model yokken kodla beşiğin kayışlarında kullanılır (fallbackIn)"
+  },
+  {
+   "id": "rough_wood",
+   "name": "Rough Wood (rough_wood)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/rough_wood",
+   "license": "CC0 1.0",
+   "author": "Rob Tuytel",
+   "path": "texture/rough_wood/",
+   "sizeMB": 1.55,
+   "plannedUse": "Yıpranmış ham ahşap: kerege ve uuk sırıkları, kapı çerçevesi, sayıcının çentik çubuğu (birth-scene). 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/TallyStick"
+   ],
+   "catalog": [
+    "notch_stick"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy-retexture ya da gpt-image-2"
+  },
+  {
+   "id": "wood_table_worn",
+   "name": "Wood Table Worn (wood_table_worn)",
+   "kind": "texture",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/wood_table_worn",
+   "license": "CC0 1.0",
+   "author": "Dimitrios Savva, Rico Cilliers",
+   "path": "texture/wood_table_worn/",
+   "sizeMB": 2.16,
+   "plannedUse": "Kızılımsı, eskimiş ahşap: kodla kurulacak beşik yer tutucusu (cradle) ve sandık (birth-scene). 1K.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Cradle/Frame"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "replacedBy": "assets/props/cradle/cradle.glb",
+   "regenWith": "Meshy modeli geldi (assets/props/cradle/cradle.glb, E7.6): yeniden üretim gerekmez; yalnız model yokken kodla beşiğin çerçevesinde kullanılır (fallbackIn)"
+  },
+  {
+   "id": "wooden_bowl_01",
+   "name": "Wooden Bowl 01 (wooden_bowl_01)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/wooden_bowl_01",
+   "license": "CC0 1.0",
+   "author": "Oliver Harries",
+   "path": "model/wooden_bowl_01/",
+   "sizeMB": 1.82,
+   "plannedUse": "Oyma ahşap kase, 31 cm, 14.122 üçgen (eşya hedefi ≤8k: Decimate gerekir); yurt içi kap kacak (birth-scene). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Kitchen/BowlLarge"
+   ],
+   "catalog": [
+    "bowl"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "wooden_bowl_02",
+   "name": "Wooden Bowl 02 (wooden_bowl_02)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/wooden_bowl_02",
+   "license": "CC0 1.0",
+   "author": "Kuutti Siitonen",
+   "path": "model/wooden_bowl_02/",
+   "sizeMB": 2.51,
+   "plannedUse": "Küçük oyma kase, 13 cm, 4.666 üçgen; kap kacak (birth-scene). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Kitchen/BowlSmall"
+   ],
+   "catalog": [
+    "bowl"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "carved_wooden_plate",
+   "name": "Carved Wooden Plate (carved_wooden_plate)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/carved_wooden_plate",
+   "license": "CC0 1.0",
+   "author": "Jan Martens",
+   "path": "model/carved_wooden_plate/",
+   "sizeMB": 1.56,
+   "plannedUse": "Oyma ahşap tabak, 27 cm, 2.112 üçgen; kap kacak (birth-scene). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Kitchen/Plate"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "wooden_spoon",
+   "name": "Wooden Spoon (wooden_spoon)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/wooden_spoon",
+   "license": "CC0 1.0",
+   "author": "Ronnie Barter",
+   "path": "model/wooden_spoon/",
+   "sizeMB": 1.97,
+   "plannedUse": "Ahşap kepçe, 28 cm, 6.576 üçgen; kazan başında kap kacak (birth-scene). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Kitchen/Spoon"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "stone_fire_pit",
+   "name": "Stone Fire Pit (stone_fire_pit)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/stone_fire_pit",
+   "license": "CC0 1.0",
+   "author": "Sebastian Platen",
+   "path": "model/stone_fire_pit/",
+   "sizeMB": 2.54,
+   "plannedUse": "Taş halkalı, küllü ocak çukuru, 1,45 m, 3.887 üçgen (yurt ocağı için ≈0,5–0,6 ölçek): Lan Hatun'un yurdunun ocağı (birth-scene). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Hearth/FirePit"
+   ],
+   "catalog": [
+    "hearth_stones"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "moon_rock_02",
+   "name": "Moon Rock 02 (moon_rock_02)",
+   "kind": "model",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/moon_rock_02",
+   "license": "CC0 1.0",
+   "author": "Rico Cilliers, Greg Zaal, Jenelle van Heerden",
+   "path": "model/moon_rock_02/",
+   "sizeMB": 1.52,
+   "plannedUse": "Yuvarlak, açık renk taş, 25 cm, 3.304 üçgen: üç ocak taşı (hearth_stones; döndürme ve ölçekle kodla dizilir). glTF 1K.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Props/Hearth/Stone0",
+    "scenes/cine/prologue_birth.tscn:Props/Hearth/Stone1",
+    "scenes/cine/prologue_birth.tscn:Props/Hearth/Stone2"
+   ],
+   "catalog": [
+    "hearth_stones"
+   ],
+   "replaceLater": true,
+   "regenWith": "meshy"
+  },
+  {
+   "id": "composite_bow",
+   "name": "Low Poly Composite Bow (composite bow.obj / .fbx)",
+   "kind": "model",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/low-poly-composite-bow",
+   "license": "CC0 1.0",
+   "author": "tbbk",
+   "path": "model/composite_bow/",
+   "sizeMB": 0.1,
+   "plannedUse": "Çift kavisli bileşik yay (yay ve kiriş, ≈1.080 üçgen, dokusuz): Hereka'nın beşiğe astığı küçük ok-yay (cradle_bow, 3:28,9; birth-scene). Ölçek yeniden verilir; OBJ+MTL ve FBX zip'ten çıkarıldı, .blend alınmadı.",
+   "usedIn": [],
+   "fallbackIn": [
+    "scenes/cine/prologue_birth.tscn:Props/CradleBow/Bow"
+   ],
+   "catalog": [],
+   "replaceLater": false,
+   "replacedBy": "assets/props/cradle_bow/cradle_bow.glb",
+   "regenWith": "Meshy modeli geldi (assets/props/cradle_bow/cradle_bow.glb, E7.6): yeniden üretim gerekmez; yalnız model yokken kodla çizilen beşik yayında kullanılır (fallbackIn)"
+  },
+  {
+   "id": "qwantani_dawn_puresky",
+   "name": "Qwantani Dawn, Pure Sky (qwantani_dawn_puresky)",
+   "kind": "hdri",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/qwantani_dawn_puresky",
+   "license": "CC0 1.0",
+   "author": "Greg Zaal, Jarod Guest",
+   "stagingPath": "_staging/polyhaven/qwantani_dawn_puresky/",
+   "sizeMB": 4.26,
+   "plannedUse": "Gün doğmadan önceki şafak: 05:50 içeride ışık örneğinin ortam ve yansıma kaynağı, renk başvurusu (birth-light). 2K HDR.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "kendi gökyüzü gölgelendiricisi (sky.gdshader) ya da elle seçim"
+  },
+  {
+   "id": "qwantani_sunrise_puresky",
+   "name": "Qwantani Sunrise, Pure Sky (qwantani_sunrise_puresky)",
+   "kind": "hdri",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/qwantani_sunrise_puresky",
+   "license": "CC0 1.0",
+   "author": "Greg Zaal, Jarod Guest",
+   "path": "hdri/qwantani_sunrise_puresky/",
+   "sizeMB": 4.19,
+   "plannedUse": "Güneş ufukta: 06:03 dış ışık örneği, Teoman'ın güne eğildiği plan (birth-light). 2K HDR.",
+   "usedIn": [
+    "scenes/maps/childhood_ordos.tscn:WorldEnvironment"
+   ],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "kendi gökyüzü gölgelendiricisi (sky.gdshader) ya da elle seçim"
+  },
+  {
+   "id": "qwantani_moonrise_puresky",
+   "name": "Qwantani Moonrise, Pure Sky (qwantani_moonrise_puresky)",
+   "kind": "hdri",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/qwantani_moonrise_puresky",
+   "license": "CC0 1.0",
+   "author": "Greg Zaal, Jarod Guest",
+   "stagingPath": "_staging/polyhaven/qwantani_moonrise_puresky/",
+   "sizeMB": 4.92,
+   "plannedUse": "Ufka yakın ay ve ay ışığı: batıda batmamış dolunayın konumu ve parıltısı için başvuru (birth-light). 2K HDR.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "kendi gökyüzü gölgelendiricisi (sky.gdshader) ya da elle seçim"
+  },
+  {
+   "id": "plains_sunset",
+   "name": "Plains Sunset (plains_sunset)",
+   "kind": "hdri",
+   "source": "Poly Haven",
+   "url": "https://polyhaven.com/a/plains_sunset",
+   "license": "CC0 1.0",
+   "author": "Dimitrios Savva, Jarod Guest",
+   "stagingPath": "_staging/polyhaven/plains_sunset/",
+   "sizeMB": 6.74,
+   "plannedUse": "Kuru sarı otlu düz ova, alçak güneş: Ordos güz otlağının renk ve ışık başvurusu, aynalanınca şafak (birth-world). 2K HDR.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "kendi gökyüzü gölgelendiricisi (sky.gdshader) ya da elle seçim"
+  },
+  {
+   "id": "fireplace_loop",
+   "name": "Fireplace Sound Loop (fire.wav)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/fireplace-sound-loop",
+   "license": "CC0 1.0",
+   "author": "pagdev",
+   "path": "sound/fireplace_loop/fire.wav",
+   "sizeMB": 10.32,
+   "plannedUse": "Köz ve odun ateşi döngüsü (29,3 sn, 44,1 kHz stereo): doğum yurdunun ocağı (birth-scene), amb_fire_loop adayı; oyuna girerken 22,05 kHz mono QOA (audio-import).",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/YurtFire"
+   ],
+   "catalog": [
+    "amb_yurt_inside"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "fire_crackling",
+   "name": "Fire Crackling (fire-1.wav)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/fire-crackling",
+   "license": "CC0 1.0",
+   "author": "antumdeluge",
+   "path": "sound/fire_crackling/fire-1.wav",
+   "sizeMB": 0.25,
+   "plannedUse": "Köz çıtırtısı tek atımları: ateş başı sessizliği (0c) ve yurt içi ocak (prologue-camp-scene, birth-scene).",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/EmberCrackle"
+   ],
+   "catalog": [
+    "amb_yurt_inside"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "catching_fire",
+   "name": "Catching Fire (flame_0.ogg)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/catching-fire",
+   "license": "CC0 1.0",
+   "author": "themightyglider (kaynak: qubodup, Freesound 159725, CC0)",
+   "stagingPath": "_staging/opengameart/catching-fire/flame_0.ogg",
+   "sizeMB": 0.01,
+   "plannedUse": "fire_catch: 2:21,7'de kıvılcımın tutuşması (myth-audio). Kaynağı büyü efekti olduğundan kulakla sınanır, uymazsa kodla basılır.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "wind_loop",
+   "name": "wind1 (wind1.wav)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/wind1",
+   "license": "CC0 1.0",
+   "author": "lukerustltd",
+   "path": "sound/wind_loop/wind1.wav",
+   "sizeMB": 5.29,
+   "plannedUse": "PureData ile sentezlenmiş 60 sn rüzgâr döngüsü: amb_wind_steppe tabanı; −40 dB alçak sessizlik ve doğumdaki −60 dB rüzgâr kuyruğu (prologue-camp-scene, birth-scene).",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/YurtWind"
+   ],
+   "catalog": [
+    "amb_yurt_inside"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "sheep_baa",
+   "name": "Sheep Baa (sheep_baa.flac)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/sheep-baa",
+   "license": "CC0 1.0",
+   "author": "antumdeluge (kaynak: mikewest, Freesound 414342, CC0)",
+   "path": "sound/sheep_baa/sheep_baa.flac",
+   "sizeMB": 0.05,
+   "plannedUse": "Koyun meleme: doğum sahnesinin uzak sürüsü ve sayım hattı (birth-scene).",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/Sheep"
+   ],
+   "catalog": [
+    "sfx_animals"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "lamb_baa",
+   "name": "Baby Animals Sounds Pack: Baa.ogg (kuzu)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/baby-animals-sounds-pack",
+   "license": "CC0 1.0",
+   "author": "technopeasant (kaynak: swiftoid, «Lamb and Mother», Freesound 182509, CC0)",
+   "path": "sound/lamb_baa/Baa.ogg",
+   "sizeMB": 0.03,
+   "plannedUse": "Kuzu meleme, doğum sahnesinin uzak sürüsü (birth-scene); zip'ten çıkarıldı.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/Lamb"
+   ],
+   "catalog": [
+    "sfx_animals"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "horse_whinny",
+   "name": "Baby Animals Sounds Pack: Whinny.ogg (at)",
+   "kind": "sound",
+   "source": "OpenGameArt",
+   "url": "https://opengameart.org/content/baby-animals-sounds-pack",
+   "license": "CC0 1.0",
+   "author": "technopeasant (kaynak: foxen10, «Horse_Whinny», Freesound 149024, CC0)",
+   "path": "sound/horse_whinny/Whinny.ogg",
+   "sizeMB": 0.04,
+   "plannedUse": "At kişnemesi: sayım hattının atlıları (birth-scene), sfx_horses adayı; zip'ten çıkarıldı.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Sounds/Horse"
+   ],
+   "catalog": [
+    "sfx_horses"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "newborn_cry",
+   "name": "Crying newborn baby (Crying_newborn_baby.ogg)",
+   "kind": "sound",
+   "source": "Wikimedia Commons",
+   "url": "https://commons.wikimedia.org/wiki/File:Crying_newborn_baby.ogg",
+   "license": "CC0 1.0",
+   "author": "the_yura (asıl: Freesound 211528, «Crying newborn baby child 2.WAV», CC0)",
+   "stagingPath": "_staging/wikimedia/crying_newborn_baby/Crying_newborn_baby.ogg",
+   "sizeMB": 0.51,
+   "plannedUse": "newborn_cry: 3:18,3'teki ilk ağlama (birth-scene); kodla basılan ağlamanın ve kredili ElevenLabs efektinin yerine kredisiz seçenek, kulak onayı gerekir. 23,1 sn.",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "crane_call_1",
+   "name": "Grus grus (Grus_grus.ogg)",
+   "kind": "sound",
+   "source": "Wikimedia Commons",
+   "url": "https://commons.wikimedia.org/wiki/File:Grus_grus.ogg",
+   "license": "CC0 1.0",
+   "author": "Vladislav Petrovich Volkov (Волков Владислав Петрович)",
+   "path": "sound/crane_call_1/Grus_grus.ogg",
+   "sizeMB": 0.28,
+   "plannedUse": "crane_call: uçan 22 turnalık sürünün çağrışması; doğumda güneye geçen turnalar (birth-scene). Arka planda sabit tonlu çizgiler var, süzgeçle temizlenir.",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Cranes/CallAlt"
+   ],
+   "catalog": [
+    "sfx_prologue"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "crane_call_2",
+   "name": "Gervės (Gerves.ogg)",
+   "kind": "sound",
+   "source": "Wikimedia Commons",
+   "url": "https://commons.wikimedia.org/wiki/File:Gerv%C4%97s.ogg",
+   "license": "CC0 1.0",
+   "author": "Hugo.arg",
+   "path": "sound/crane_call_2/Gerves.ogg",
+   "sizeMB": 0.34,
+   "plannedUse": "crane_call ikinci çekimi: turna (Grus grus) ötüşü, 35,8 sn (birth-scene).",
+   "usedIn": [
+    "scenes/cine/prologue_birth.tscn:Cranes/Call"
+   ],
+   "catalog": [
+    "sfx_prologue"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "geese_distant",
+   "name": "Geese Honking, distant (Geese_Honking_distant.ogg)",
+   "kind": "sound",
+   "source": "Wikimedia Commons",
+   "url": "https://commons.wikimedia.org/wiki/File:Geese_Honking_(distant).ogg",
+   "license": "Kamu malı (ABD federal hükümeti eseri)",
+   "author": "U.S. Fish and Wildlife Service",
+   "path": "sound/geese_distant/Geese_Honking_distant.ogg",
+   "sizeMB": 0.04,
+   "plannedUse": "goose_honk: 1. panodaki uzak kaz sesi (myth-audio); tür Kanada kazı, uzakta ayırt edilmez.",
+   "usedIn": [
+    "scenes/cine/prologue_myth.tscn:GooseHonk"
+   ],
+   "catalog": [
+    "sfx_prologue"
+   ],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  },
+  {
+   "id": "geese_close",
+   "name": "Geese Honking, loud (Geese_Honking_loud.ogg)",
+   "kind": "sound",
+   "source": "Wikimedia Commons",
+   "url": "https://commons.wikimedia.org/wiki/File:Geese_Honking_(loud).ogg",
+   "license": "Kamu malı (ABD federal hükümeti eseri)",
+   "author": "U.S. Fish and Wildlife Service",
+   "stagingPath": "_staging/wikimedia/geese_honking_loud/Geese_Honking_loud.ogg",
+   "sizeMB": 0.11,
+   "plannedUse": "goose_honk yakın çeşidi: boz kaz (Anser anser, Avrasya türü); süzülüp uzaklaştırılarak 1. panoda (myth-audio).",
+   "usedIn": [],
+   "catalog": [],
+   "replaceLater": true,
+   "regenWith": "elevenlabs (efekt ucu) ya da kod (bake_music.gd)"
+  }
+ ]
+}

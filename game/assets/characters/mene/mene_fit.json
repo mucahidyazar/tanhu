@@ -1,0 +1,16 @@
+{
+  "_aciklama": "scripts/character/character_fit_tool.gd ile ölçüldü. ground_offset: rol oynarken modelin dikey kaydırması (metre; baldır ve ayakların en alt noktası zemine değsin). clip_speed: yürüme/koşma klibinin ayak kaymayan doğal hızı (m/s). shoulder_drop: kalkık görünen omuzların ShoulderRelax ile indirildiği açı (derece).",
+  "clip_speed": {
+    "run": 3.59,
+    "walk": 1.04
+  },
+  "ground_offset": {
+    "idle": 0.026,
+    "run": 0.0,
+    "sit": 0.018,
+    "walk": -0.007
+  },
+  "head_height": 1.081,
+  "height": 1.3,
+  "shoulder_drop": 18.0
+}

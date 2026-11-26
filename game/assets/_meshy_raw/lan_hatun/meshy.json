@@ -1,0 +1,28 @@
+{
+  "id": "lan_hatun",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/lan_hatun.png",
+  "polycount": 50000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-aae3-70b8-a4e8-de4340fc150b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 42,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1abdf-8608-726c-9fed-45e91195e60b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

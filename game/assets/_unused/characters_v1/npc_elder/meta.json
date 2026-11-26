@@ -1,0 +1,147 @@
+{
+  "id": "npc_elder",
+  "role": "campfire NPC: the old storyteller",
+  "file": "npc_elder.glb",
+  "concept_image": "res://assets/_reference/concepts/npc_elder.png",
+  "tasks": {
+    "image_task_id": "01a17255-f5d6-757a-ade3-30dce987a53c",
+    "model_task_id": "01a17256-d814-74e5-8991-6a1087015b9e",
+    "rig_task_id": "01a17258-42c2-771d-9bdd-5494e98b585d",
+    "anim_task_id": "01a17258-b3be-77f6-82a9-3923da17701d"
+  },
+  "generation": {
+    "concept": {
+      "ai_model": "gpt-image-2",
+      "aspect_ratio": "1:1",
+      "remove_background": true
+    },
+    "model": {
+      "ai_model": "meshy-7.1",
+      "pose_mode": "t-pose",
+      "texture_resolution": "2k",
+      "enable_pbr": false,
+      "should_remesh": true,
+      "target_polycount": 30000,
+      "topology": "triangle"
+    },
+    "rig": {
+      "height_meters": 1.3
+    },
+    "animation": {
+      "action_ids": [
+        363
+      ],
+      "action_names": [
+        "Sit Cross-legged on Floor"
+      ]
+    }
+  },
+  "credits_spent": {
+    "concept_image": 12,
+    "model": 30,
+    "rig": 5,
+    "animation": 3,
+    "total": 50
+  },
+  "animation_clips": [
+    "Armature|Sit_Cross_Legged_on_Floor|baselayer"
+  ],
+  "clip_roles": [
+    "sit"
+  ],
+  "clip_details": [
+    {
+      "name": "Armature|Sit_Cross_Legged_on_Floor|baselayer",
+      "role": "sit",
+      "duration_s": 2.533,
+      "notes": "Seated cross-legged on the floor for the whole clip (Hips stays about 2.7 cm above the origin at every key; first and last keys match), so it can loop as a seated idle. Origin is at floor level under the character."
+    }
+  ],
+  "glb_stats": {
+    "size_bytes": 5231668,
+    "skins": 1,
+    "joints": 24,
+    "meshes": 1,
+    "materials": 1,
+    "images": 1,
+    "texture_size": [
+      2048,
+      2048
+    ],
+    "triangles": 30475,
+    "vertices": 35386,
+    "mesh_bounds_min": [
+      -0.565,
+      0,
+      -0.182
+    ],
+    "mesh_bounds_max": [
+      0.565,
+      1.3,
+      0.182
+    ],
+    "armature_root_scale": [
+      0.01,
+      0.01,
+      0.01
+    ],
+    "joint_names": [
+      "Hips",
+      "Spine02",
+      "Spine01",
+      "Spine",
+      "neck",
+      "Head",
+      "head_end",
+      "headfront",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftHand",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightHand",
+      "LeftUpLeg",
+      "LeftLeg",
+      "LeftFoot",
+      "LeftToeBase",
+      "RightUpLeg",
+      "RightLeg",
+      "RightFoot",
+      "RightToeBase"
+    ]
+  },
+  "free_walk_run_urls": {
+    "note": "Signed Meshy URLs returned by the rig task (free walking + running, separate files with skin). They expire around 2026-10-28T09:16Z.",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Walking_withSkin.glb?Expires=1793178963&Signature=ftVdzBKs4NlWOwkB6Ulh6~q4C56CADX4We4wCaH101FUxYFGja1kX1g9IeUTsErPCbSJdsopsss3g1356itYEXxD9GsfL2x8rf5oZMghJKgjZBvb3lMRbSLW7p8kw9uNuOb4NHkzx3vGb4H6U~fiwM0laafUaZJrLICOv31FWoG27BdwE4sPiCPSlHTiq~a8~6AkshmRsC2-DrHRJIrZ8LYfMHJgBg3ZmgvmM9EMxqmuwz4HFg3SuO0~kavYUls1TRAYzHD55WcD7E3gHWUJsxpQnFZ5Z7b-JHJfue6LgL4CXhqRd7kBRJ6LpAjF0BGiJoHNq2~w7WLUYUDj0VQoSA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Walking_withSkin.fbx?Expires=1793178963&Signature=XllThvhpjrPpaVj1JodoNgejB~c8W1HPR-F26qEaITiRqDAZXz3ehrLMo4GyAmXm~79UCLMzsgXXax5BcZS2uio2frdjpAVK7mLeVMuz2aWGudS1TmKdwXryRmLgEoQ-qt~ggOsj9bFrGyd58HQRzWfbmT3N73OBmpiqE9oWy0LN222LTw5eDAqeHbNfwgt38grmIZsSH80L2GeLgN8kGQV2-xrmTlbZmHhBIRzNuOqaiObntRC0d-rRrqemIO5l8l16Q8sFnWKG~NJDxq~zrOYrzc08lx0LYijSGXsTvllKBnbFSfdgL4gWU8g23y1vS~-dn3NvONKuP0zLdS8mrA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Walking_withSkin_armature.glb?Expires=1793178963&Signature=QCZLt9g4lP77A8eavO~dU8c4q5YoRZFotWCeIWx6x686Y091iibn5iIYRBZy1rG48QfO9j2TUMfGOZ1-cEOvYODwcz8ZfhNpiNnRduDJV5kcgcfROa1wxDQApUyv27E9F7y4Jaqi29T0BYX400NvtRdASoBBjtFjN2JgIPYuDnMRtOU-pXmHNNVHZDa56Y8FDX3htrvG50seq-KyDoAPAkKFPNGOv5dux3xhFOIdx9pv87YFrzmgb2eSGDD-jTo0pcUdOUcmPVVmJECszs8aaF3784zslpNJbBDO9n-33ocZp73FqqtIqIBUdgjTXuzKMgwDmv-97PiJXhOyBWt-1Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Running_withSkin.glb?Expires=1793178963&Signature=Sk2e0lrB1S7M4r7Wd4l92bQ6Oi96rkRlVF~GUiSlsCc3E68uNRJpBjkQji3qsIEwQwXAXFN3WOALGkYNtiSwu1SSX028Fs4fvAmV1Rklvjs-Pkdm~cHYEQucQz6VlhYOlh-kmOPB-IXIvAYEeBTSJBpv-ntt0yY6j9OdSJXXuZGpjVIwZymzSpibupnTHalM4ychPq19nLhmVN0pRdQG1ez1smOkfs7hsdzJnmlbHw~r2AdTn5-ZOWykt9QknDc-wcItcNn3OEHw65R6BMOCFezd31Sdj3Thy1A8OxMsuX3PwNBMBqnKowSEn1D4qFv1vGAmjV8OL2lwucxaO5l4Kg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Running_withSkin.fbx?Expires=1793178963&Signature=biOLsIhHXjPaBQaioxC9p9r7wlBosfIEw4--MOy4u8WqiiUL-DLgDNjP5mum6R5PLHv6V25HKZaXx4~46zV46TSiV68YDiCJ8uo9UqE0p~6QXP538yrXwo2Yp2a-wosaomrwpCcaSqa0ypxcnUA3HmVNb2h3JAttC4gV-803zQkgBH7KEfRmNi8NCV61OQ6idw2emnIL0amLy-fAUzvZE2ZUfjlpeehBwdk1jaTIgKFR4SXaXjAGPFjyu~lxOYO-wshEZNbTKYR130hBFR~DnElkVoXbwpc~uRjZTqNSUV-1c2NzLSo51vF5YBhBwajQO7hnr9kz6yJ6SGYAhxoB8g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-42c2-771d-9bdd-5494e98b585d/output/Animation_Running_withSkin_armature.glb?Expires=1793178963&Signature=j2AyXk3BdwkyVjAN3gmatG2Rrz02icHqrwnRJ9Zrc2WE7Awf9WKPF5fEBGLzAqwENSMj-cpyRu-9ZSPLyq6~OYl9eSC3AUTO94klrpMal0Q-Rd3fvRD7VCeJtNrhwkOthpGLtz-XMERExq0wUxdrWneP7EVDsEEFoUFzxnZC0vSK7Kqmf2~jcL00~5GKsun5k1pib-NSxIa7QMwFTKA86XBBVk~ehfS9oHZJkWNEbMS0TV8OyAFjwFLQSpRiPl~dD3TJ3k0SbpbjU90grb6wjBMq3f-HmS5yy7PEzZ6ikZxiiawgkmql6jXHfPdtk1lisJmFnztMdmRntoYqTk1MgA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "note": "Median pixel values sampled from the concept image (lit areas unless marked shadow).",
+    "hair_beard": "#b09f90",
+    "hair_beard_highlight": "#c0ac99",
+    "eyebrows": "#b5a38c",
+    "hair_side_shadow": "#867a6a",
+    "skin": "#edb585",
+    "skin_cheek_blush": "#de9c71",
+    "eyes": "#323231",
+    "eye_highlight": "#ffffff",
+    "hat_felt": "#edcea8",
+    "hat_brim_shadow": "#c3a787",
+    "hat_medallion": "#8f7c67",
+    "feather": "#f3e7d7",
+    "coat": "#4b4c50",
+    "coat_trim": "#857665",
+    "inner_shirt": "#82674a",
+    "belt_leather": "#6f4c33",
+    "trousers": "#554a3e",
+    "boots": "#756453",
+    "boot_fur_cuffs": "#9f886f"
+  },
+  "visual_notes": "Chibi elder (head about 1/3 of height) with a long warm-gray beard and mustache, bushy gray eyebrows, gray side hair, peach skin with rosy cheeks, dark charcoal eyes with white highlights. Round cream felt hat with a small brown medallion and a white feather plume. Long dark slate-gray wrap coat (only a faint cool tint) with taupe embroidered trim on the lapel, cuffs and hem, a brown inner shirt, brown leather belt with a hanging strap, dark brown-gray trousers, taupe-brown boots with fur cuffs. Hands empty."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "hero_f",
+  "tasks": {
+    "model": {
+      "id": "01a17471-4c92-771d-a893-76c88933794a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a17476-3c38-7570-84a9-c3dc3075cede",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "anim_243": {
+      "id": "01a17477-443c-70a7-a503-565d464f64ce",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    }
+  }
+}

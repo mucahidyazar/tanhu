@@ -1,0 +1,21 @@
+{
+  "id": "mete_child",
+  "tasks": {
+    "model": {
+      "id": "01a1b4f1-8bf7-71b1-a658-5e790f19d549",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b4f4-cd0a-7288-9620-df063ba0aa74",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

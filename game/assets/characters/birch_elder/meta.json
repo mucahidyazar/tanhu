@@ -1,0 +1,20 @@
+{
+  "id": "birch_elder",
+  "name": "Kayın Obalı yaşlı",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "elder",
+    "tint": "#8d8478",
+    "scale": 0.95,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (elder) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/birch_elder/birch_elder.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.62,
+  "clip_roles": [],
+  "story": "Kayın Obası'nın yaşlısı: obanın ateşinin başında ellerini ısıtır.",
+  "variety": {
+    "body": "male",
+    "age": "elder",
+    "style": []
+  }
+}

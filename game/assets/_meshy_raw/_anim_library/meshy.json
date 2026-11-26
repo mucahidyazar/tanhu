@@ -1,0 +1,440 @@
+{
+  "id": "_anim_library",
+  "tasks": {
+    "rig": {
+      "id": "01a1abd1-1250-74c3-a5b8-dcd1f5acbd9e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5,
+      "preceding_tasks": 0
+    },
+    "motion_ground_warm_hands": {
+      "id": "01a1abd1-bf9d-71fb-857c-64de6921061a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_hug_knees": {
+      "id": "01a1abd1-cae1-72a4-bb79-e4c5ba41849f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_kneel_heels": {
+      "id": "01a1abd1-d257-742f-b28b-64c3c7f304a2",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_lean_back": {
+      "id": "01a1abd1-da41-721d-9269-da5aad94638d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_one_knee": {
+      "id": "01a1abd1-e2a9-7275-aea2-777f56cd9af3",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_eat_bowl": {
+      "id": "01a1abd1-ea5a-7685-9fe2-402974f48928",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_mend": {
+      "id": "01a1abd1-f285-74a2-a372-2dc96ed4137a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_side_sit": {
+      "id": "01a1abd1-fab8-75ed-a97f-945b3845cad0",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "motion_ground_doze": {
+      "id": "01a1abd2-033a-754d-b43b-f09571d14f14",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/text-to-motion",
+      "retries": 0,
+      "planned_credits": 10,
+      "progress": 100,
+      "consumed_credits": 10,
+      "preceding_tasks": 0
+    },
+    "anim_batch_01": {
+      "id": "01a1abd4-115d-7009-92e5-5237ed0aba35",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        246,
+        247,
+        249,
+        251,
+        252,
+        336,
+        338,
+        47,
+        36,
+        12
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_02": {
+      "id": "01a1abd4-17ee-70fa-a987-e87dd9dbe066",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        31,
+        2,
+        599,
+        1,
+        30,
+        115,
+        121,
+        566,
+        114,
+        341
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_03": {
+      "id": "01a1abd4-1d67-76b4-b215-377f72a95832",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        553,
+        37,
+        560,
+        552,
+        551,
+        118,
+        14,
+        15,
+        16,
+        539
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_04": {
+      "id": "01a1abd4-2327-77ac-95b2-90a38bb742ef",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        530,
+        532,
+        533,
+        534,
+        535,
+        536,
+        537,
+        538,
+        509,
+        362
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_05": {
+      "id": "01a1abd4-293c-7768-951e-c01b09d03af5",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        32,
+        33,
+        364,
+        268,
+        343,
+        307,
+        354,
+        355,
+        356,
+        358
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_06": {
+      "id": "01a1abd4-2e64-70bc-90e5-24cc7edf7e92",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        300,
+        57,
+        58,
+        60,
+        359,
+        299,
+        302,
+        305,
+        344,
+        345
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_07": {
+      "id": "01a1abd4-343a-76a4-8d65-4791abbe7f20",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        346,
+        347,
+        348,
+        350,
+        351,
+        352,
+        353,
+        365,
+        3,
+        52
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_08": {
+      "id": "01a1abd4-3ca4-7012-aba5-5e882a630c17",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        53,
+        360,
+        56,
+        308,
+        309,
+        310,
+        311,
+        313,
+        314,
+        25
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_09": {
+      "id": "01a1abd4-42e6-74c1-934c-1a8504c62bb4",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        317,
+        409,
+        267,
+        269,
+        270,
+        264,
+        265,
+        266,
+        370,
+        271
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "anim_batch_10": {
+      "id": "01a1abd4-48a3-70dd-9d46-8ee2dfb0d762",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 30,
+      "action_ids": [
+        284,
+        276,
+        274,
+        277,
+        278,
+        283,
+        342,
+        41,
+        290,
+        28
+      ],
+      "progress": 100,
+      "consumed_credits": 30,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_warm_hands": {
+      "id": "01a1abd9-949f-7142-9501-ac8ca5eb654b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_hug_knees": {
+      "id": "01a1abd9-9b87-7024-bd1d-4b2a150a6f8e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_kneel_heels": {
+      "id": "01a1abd9-a363-7636-bb18-573f1645084e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_lean_back": {
+      "id": "01a1abd9-aadf-76e2-83b4-4792929876ec",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_one_knee": {
+      "id": "01a1abd9-b77d-7724-84d9-b977b9b05fcf",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_eat_bowl": {
+      "id": "01a1abd9-beb9-761b-93fc-f5ed3935ec6e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_mend": {
+      "id": "01a1abd9-c6d6-7468-9823-373d9745c471",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_side_sit": {
+      "id": "01a1abd9-cd83-7150-a756-95ec70892d24",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "motion_anim_ground_doze": {
+      "id": "01a1abd9-de8b-7545-8438-83cdcc347b4f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "progress": 100,
+      "consumed_credits": 3,
+      "preceding_tasks": 0
+    },
+    "anim_batch_11": {
+      "id": "01a1b4f2-4d87-70d9-ace1-93b236970200",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "action_ids": [
+        226
+      ],
+      "consumed_credits": 3,
+      "progress": 100
+    },
+    "anim_batch_12": {
+      "id": "01a1b7b6-0e79-76e0-aa63-754a4f60f6a8",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "retries": 0,
+      "planned_credits": 3,
+      "action_ids": [
+        466
+      ],
+      "progress": 100,
+      "consumed_credits": 3
+    }
+  },
+  "account": "MESHY3_API_KEY"
+}

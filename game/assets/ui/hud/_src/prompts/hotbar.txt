@@ -1,0 +1,8 @@
+Game UI sprite sheet in EXACTLY the style of the reference HUD hotbar (painterly fantasy RPG; navy blue enamel with a soft glossy highlight, thin gold rim, polished silver-white cloud ornaments). Draw these separate elements, widely spaced, on a perfectly flat solid magenta #FF00FF background (no shadow, no gradient, no texture on the background):
+1) Two identical EMPTY hexagonal skill slots with rounded corners (flat top and bottom, pointed left and right sides), navy blue enamel inside with a glossy top highlight, thin gold rim. Completely empty inside: no icon, no plus sign, no number.
+2) One EMPTY round button: navy blue enamel disc with a glossy highlight and a gold rim, empty inside.
+3) One small dark round counter badge: near-black navy disc with a thin gold rim, empty.
+4) A silver-white Chinese cloud-scroll end ornament pointing LEFT (the curl that sits at the left end of the hotbar in the reference) and a mirrored one pointing RIGHT.
+5) One long thin horizontal experience bar frame: rounded ends, thin gold rim, EMPTY dark navy interior (no blue fill), about 30 times longer than it is tall.
+6) One glossy sky-blue bar fill strip with rounded ends (the experience fill of the reference), same height as the bar interior, no frame.
+No text, no letters, no numbers anywhere. Flat front view, clean edges.

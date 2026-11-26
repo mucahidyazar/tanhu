@@ -1,0 +1,83 @@
+{
+  "id": "hunter_m_bun",
+  "role": "player body type 1, hairstyle \"topknot\"; also reused as the sitting warrior NPC",
+  "body_type": 1,
+  "hairstyle": "topknot",
+  "glb": "res://assets/characters/hunter_m_bun/hunter_m_bun.glb",
+  "concept_image": "res://assets/_reference/concepts/hunter_m_bun.png",
+  "style_reference": "res://assets/_reference/hunter_style.png",
+  "tasks": {
+    "concept_image_task_id": "01a17255-eb3d-705a-ac26-16e1219f688d",
+    "model_task_id": "01a17257-0060-7031-8910-24520bc6d374",
+    "rig_task_id": "01a17258-b78a-724b-bf6c-b9e7df98b8db",
+    "animation_task_id": "01a17259-0fc9-73bc-b44a-0c94570980eb"
+  },
+  "generation": {
+    "concept_image": "gpt-image-2 image-to-image, 1:1, remove_background, 1 attempt (passed quality gate)",
+    "model": "meshy-7.1 image-to-3d, t-pose, textured 2k base color (no PBR), remesh triangle 30000, glb",
+    "rig": "meshy auto-rig, height_meters 1.3",
+    "animation_action_ids": [0, 613, 659, 363],
+    "credits_spent": 59
+  },
+  "animation_clips": ["Idle", "Casual_Walk_inplace", "run_fast_3_inplace", "Sit_Cross_Legged_on_Floor"],
+  "clip_roles": ["idle", "walk", "run", "sit"],
+  "clip_map": {
+    "idle": "Idle",
+    "walk": "Casual_Walk_inplace",
+    "run": "run_fast_3_inplace",
+    "sit": "Sit_Cross_Legged_on_Floor"
+  },
+  "clip_details": {
+    "Idle": {"duration_s": 4.0, "loop": true, "notes": "standing idle, hips stay in place"},
+    "Casual_Walk_inplace": {"duration_s": 4.13, "loop": true, "notes": "in place, move the root from code"},
+    "run_fast_3_inplace": {"duration_s": 0.73, "loop": true, "notes": "single fast run cycle, in place"},
+    "Sit_Cross_Legged_on_Floor": {"duration_s": 2.5, "loop": true, "notes": "seated loop, not a stand-to-sit transition: hips stay constant at about 0.02 m above the model origin, so place the node on the floor"}
+  },
+  "mesh_stats": {
+    "height_m": 1.3,
+    "arm_span_m": 1.08,
+    "depth_m": 0.4,
+    "triangles": 30598,
+    "vertices": 48343,
+    "skins": 1,
+    "joints": 24,
+    "meshes": 1,
+    "materials": 1,
+    "images": 1,
+    "texture": "single 2k JPEG base color (Material_0_baseColor), metallic 0, roughness 0.55, double sided",
+    "armature": "Meshy humanoid rig, Armature node scale 0.01 (cm units), root bone Hips",
+    "origin": "at the feet (mesh min Y = 0)"
+  },
+  "free_rig_animations": {
+    "expires_utc": "2026-10-28T09:16:36Z",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Walking_withSkin.glb?Expires=1793178996&Signature=bVd1UfKtz-HEcAPjVV6D1Cc5fDlJyLChfrUzdozDpf9vURl8Q2kKmNGaa6L3O~IfYWNKAXwvco42kHKvuD7LGQL0aa-Vevkhvg6hQeF4YkHmeCeEhGlvdHDs9NgBt9YDG1qnZfzANUpPR7LKVJ~0fOKk2yPv5qNtO1jv6Lg0eKOYsMawVFfVHW-6nzOE2Y458TZUM~lgM~ZuqSN9iwwoNnCQyt28lkw3B4JYA~qflBKcMAI9VZ7mCOc~QCMk81HLEVS7kBjbCizEWZ1IR162uN0NxDAfdf60qgitQVjxIyvvUv-MSeV8QLcI05H3uYVthfWFFwNhoCgeCUQcFWHq7Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Running_withSkin.glb?Expires=1793178996&Signature=BwNHNYOyNWGPhQmJLdlyFYysjRoc8eRkwTF~pCegDSlkXyvIL6cqIIbTXQ9HwKTTXi-t3b24I7Wn2tgHyx61nTFOsMkhGISvc~S0Abllqj7tBCbVkaXzaOJ2WhcPCcn4ph0gXK0fwovIJ9ELPJCpfGdBPjH8WN6KPP4l-e5PQv4N-xoJaP9gEiSLLUpOSeGdHtxG6sU5VZJwFsAXV72OKb4WxnXHBLIVa-fIHUynJ4eIilhx1Y2NVPQw0riCIPbqznTQMhkYpwigXMPMFDHqrCL2FxZrvYFxZ35UZYFKp-vQFHWIbSSvBJtACFhQtwg8EkDyAxQVbpMEUpWWRVTmFg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Walking_withSkin.fbx?Expires=1793178996&Signature=WZkoswPZwWYj71d~N-Q-kdRze0aXRT4jo4MSaruvbz7qE2J4pUGprUUryibf8k2q25fnqMr7Pd7kuYICu94RKh9iuUCSrpfhB3~R~1ezhwSlrukyeCCeYvOuFPuDKRyGJc8zvnyZ-oNIjBikdJRviMPBAWJu~ikGXYjWkc3l80jxAn3N1dfLV3E20-SO-3KhVuyuswYR3m2227BAfpR~d6k7cQhOplAiGdJOz0wBMMMpS2P04ehehgMUejDHBj4BcOUt0MeYrYuUFDeAzlbeWHLKCZeVa4rTQc-8vrb97jVuBiX5cIiAQ2EpW8b-QyTYVupQghyUQ91Ioh4W8cte9w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Running_withSkin.fbx?Expires=1793178996&Signature=LaH7ovf6ZqeGX7a0W94yR751CLs1ntOUAQR9UU0HKJwS-L9jBFfgHrxI2nu9wwGmBWzqSZsVPhkgEEWKBtZOKGWeX6SimCGiUJD6XYRUMDnNA~Lr32QfwVd7qaGjG6gUqo-OqwqP44dIUzpmYuEUSVrilHNdT4gu6I9ULmYo~QvhXOE5vq~XVqXGGKflbEajuonzVElQX4ZqHqjlvrAkdq3uQ5Fw8Gw-WHwg~ZIfb8MhAwCauoQp-9XRPHHLMw3XuT8mOyJqGbJC4cxRV855htlowAjJ~x06nVaWf8vn0kgIoC2cXSYsgFIgQyA7gaHoNZHgkZNudZkSqWdWPO736w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Walking_withSkin_armature.glb?Expires=1793178996&Signature=d~FLIhbNcVODkStTwcW2biJ7BBMCZF4rVOcHRtpquY6LC5-PUW3kwZEW49PJivmVC97LuKsiRpac-4BYxNzFlB8alN9y1R9t~OLQ3TwMl-1bexGM3pPxMzJ1230-oLEZqHuHQrpnDO8~Z7aCT1cbAaWr0UsUcB0s77Ff6gZ0rqPFoAqMHHjw7Wsn6HMpiu-k9vRTGtkMe9j70mXCVV-WC7NNINMXyAACTJa-BRhlF8i~8rhDkEZAtQwIDi-OLePkASEkIxhQzSVKafeZVkp4Zei6IA8BS2tz~WbkslcZp00iU7-3TGdryEUSIbXge8piryXvaDB4Z3CxkjiwDkEwGg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Animation_Running_withSkin_armature.glb?Expires=1793178996&Signature=D-QWiwiH9~oABuwbkx29Ko2mLRgh~9WIGhKZETR~zlZDaAayFELjDAYERI817SMLjSBAa5w1Ld-M1Um5Z1HjlYy0noWufVayZ0A4nh-~DKVzMZDx8VsKMLEvcLN5hEUXQs0JbbiaoPfFsioOKHSCRuedfQg1myH~3Ak~HTJIl6IUMdn0bca2j8LyyKGabEscia9JFKL5ikfYyabSGlU16kOqMSfJIFkxxd8V0caXHz9C1P-CKaMtaLoxzF-Wmrwy3DdaX4c6AT07ZVpqIDsQsicg46VLciS9VhpxDk2bM5qUOR4XtAzh0wFkNXKmaQgknHSbm~LgLxsbIe6soP2zJg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "rigged_character_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-b78a-724b-bf6c-b9e7df98b8db/output/Character_output.glb?Expires=1793178996&Signature=Ng22j9salEjgw0rQxm5ecBNov8xWsI128LKf3GR8UAsfcnohzynD8pV64wILKIJ3fXNkuXtiEAkBLqto5E9~CJcZbBGnvH7z6MTXt6-eeXR3UTj1-E4WLGOgc4X6x1cEMInX1kxlBeMihpxDIX9ucP0qP5GzVHZZW3HjO2i04qQY8qaEcqo-dKQC-bsSOuTUrsQG85THqMSl1asNeh~FNVG3RylXW3J0pqjk1m20y6Ao2d7tRFYyxzdC0ouT8pM7BjV-sWn1JeVt8K9lyoltSXMDQN9rI9ovdFQpD2Lc6Xy8hiP3l8VZIoRIIceEncGILfPCOiiWHPW9pEIJ2NW4Qw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "_source": "median pixel colors sampled from the concept image (sRGB hex)",
+    "hair": "#3f3b39",
+    "hair_note": "jet-black topknot bun with a dark tie band and loose strands framing the face; painted as a soft dark charcoal",
+    "skin": "#e5b38c",
+    "eyes": "#423d3b",
+    "eyes_note": "large very dark gray-brown eyes with small white highlights",
+    "cape": "#aa2f28",
+    "sash": "#b3322b",
+    "tunic": "#e9dfd2",
+    "tunic_trim": "#4b4743",
+    "clasp": "#736a63",
+    "bracers": "#5b5753",
+    "trousers": "#4b4743",
+    "boots": "#4d4945"
+  },
+  "notes": [
+    "Matches the hunter_style.png reference: chibi proportions with the head about one third of the height, soft painterly look, same outfit (red cape with dark round clasp, white wide-sleeved tunic with a dark hem band, red sash with a hanging tail, dark gray bracers, charcoal baggy trousers, dark gray boots).",
+    "The cape is a wide separate shell skinned to the shoulders and arms. Expect some stretching of the cape when the arms swing in walk and run.",
+    "Godot auto-imported the GLB with default settings (hunter_m_bun.glb.import, extracted hunter_m_bun_Material_0_baseColor.jpg). The clips import as non-looping by default, so set the loop mode for idle, walk, run and sit in the import settings or in code.",
+    "Free walk/run rig URLs are signed and expire on 2026-10-28. The merged GLB already contains the walk and run clips."
+  ]
+}

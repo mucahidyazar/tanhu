@@ -1,0 +1,321 @@
+{
+ "portrait_ring": {
+  "center": [
+   207.1,
+   176.2
+  ],
+  "inner_radius": 151.2,
+  "size": [
+   420,
+   371
+  ]
+ },
+ "map_ring": {
+  "center": [
+   358.1,
+   348.0
+  ],
+  "inner_radius": 285.4,
+  "size": [
+   720,
+   678
+  ]
+ },
+ "bar_frame": {
+  "size": [
+   900,
+   91
+  ],
+  "channel_x": [
+   22,
+   887
+  ],
+  "channel_y": [
+   16,
+   89
+  ]
+ },
+ "bar_fill_red": {
+  "size": [
+   640,
+   96
+  ]
+ },
+ "bar_fill_green": {
+  "size": [
+   640,
+   96
+  ]
+ },
+ "slot_square": {
+  "size": [
+   127,
+   128
+  ]
+ },
+ "badge_level": {
+  "size": [
+   140,
+   139
+  ]
+ },
+ "quest_rule": {
+  "size": [
+   900,
+   127
+  ]
+ },
+ "quest_banner": {
+  "size": [
+   130,
+   160
+  ]
+ },
+ "marker_diamond": {
+  "size": [
+   125,
+   128
+  ]
+ },
+ "marker_arrow": {
+  "size": [
+   108,
+   112
+  ]
+ },
+ "marker_pin": {
+  "size": [
+   100,
+   128
+  ]
+ },
+ "cloud_right": {
+  "size": [
+   180,
+   89
+  ]
+ },
+ "slot_hex": {
+  "size": [
+   200,
+   175
+  ]
+ },
+ "button_round": {
+  "size": [
+   176,
+   173
+  ]
+ },
+ "badge_count": {
+  "size": [
+   64,
+   62
+  ]
+ },
+ "cloud_left": {
+  "size": [
+   180,
+   89
+  ]
+ },
+ "xp_frame": {
+  "size": [
+   1400,
+   57
+  ],
+  "channel_x": [
+   12,
+   1397
+  ],
+  "channel_y": [
+   11,
+   54
+  ]
+ },
+ "xp_fill": {
+  "size": [
+   790,
+   67
+  ]
+ },
+ "inv_panel": {
+  "size": [
+   1096,
+   1301
+  ]
+ },
+ "inv_pill": {
+  "size": [
+   480,
+   126
+  ]
+ },
+ "inv_pill_hot": {
+  "size": [
+   480,
+   140
+  ]
+ },
+ "inv_label": {
+  "size": [
+   380,
+   100
+  ]
+ },
+ "inv_ribbon": {
+  "size": [
+   720,
+   116
+  ]
+ },
+ "inv_motif": {
+  "size": [
+   96,
+   95
+  ]
+ },
+ "icon_coins": {
+  "size": [
+   120,
+   93
+  ]
+ },
+ "icon_weight": {
+  "size": [
+   104,
+   120
+  ]
+ },
+ "icon_mortar": {
+  "size": [
+   116,
+   120
+  ]
+ },
+ "icon_swap": {
+  "size": [
+   117,
+   102
+  ]
+ },
+ "icon_trash": {
+  "size": [
+   98,
+   120
+  ]
+ },
+ "inv_select": {
+  "size": [
+   200,
+   200
+  ]
+ },
+ "body_mete_child": {
+  "size": [
+   277,
+   760
+  ]
+ },
+ "body_child": {
+  "size": [
+   284,
+   760
+  ]
+ },
+ "icon_sword": {
+  "size": [
+   137,
+   144
+  ]
+ },
+ "icon_shield": {
+  "size": [
+   141,
+   144
+  ]
+ },
+ "icon_bow": {
+  "size": [
+   139,
+   144
+  ]
+ },
+ "icon_boot": {
+  "size": [
+   143,
+   144
+  ]
+ },
+ "icon_herb": {
+  "size": [
+   132,
+   144
+  ]
+ },
+ "icon_potion": {
+  "size": [
+   100,
+   144
+  ]
+ },
+ "icon_bag": {
+  "size": [
+   144,
+   127
+  ]
+ },
+ "icon_book": {
+  "size": [
+   144,
+   92
+  ]
+ },
+ "icon_map": {
+  "size": [
+   144,
+   110
+  ]
+ },
+ "icon_toy_bow": {
+  "size": [
+   133,
+   144
+  ]
+ },
+ "icon_lark": {
+  "size": [
+   144,
+   77
+  ]
+ },
+ "icon_mouse": {
+  "size": [
+   144,
+   95
+  ]
+ },
+ "map_ring_large": {
+  "center": [
+   596.9,
+   579.4
+  ],
+  "inner_radius": 475.2,
+  "size": [
+   1200,
+   1129
+  ]
+ },
+ "portrait_mete_child": {
+  "size": [
+   360,
+   360
+  ]
+ },
+ "portrait_child": {
+  "size": [
+   360,
+   360
+  ]
+ }
+}

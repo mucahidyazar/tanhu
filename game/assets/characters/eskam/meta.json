@@ -1,0 +1,22 @@
+{
+  "id": "eskam",
+  "name": "eskam",
+  "role": "npc",
+  "file": "eskam.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/eskam/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/eskam (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.66,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "eskam_walk.res",
+    "run": "eskam_run.res"
+  },
+  "description": "Eskam, an elderly Xiongnu envoy: grey beard, fur hat, a heavy dark winter coat with brocade trim, a sash and a travelling bag.",
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "elder"
+  }
+}

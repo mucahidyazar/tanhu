@@ -1,0 +1,13 @@
+{
+  "id": "fence",
+  "tasks": {
+    "model": {
+      "id": "01a17482-665b-7132-ad6e-f0d00162bc57",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

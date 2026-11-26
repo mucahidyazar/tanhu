@@ -1,0 +1,47 @@
+{
+  "id": "hereka_young",
+  "tasks": {
+    "retexture_v1": {
+      "id": "01a1abe8-2d25-7630-9aff-c95934458148",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/retexture",
+      "retries": 0,
+      "planned_credits": 15,
+      "progress": 100,
+      "consumed_credits": 15,
+      "note": "yalnız metin; yüz soluk çıktı, kullanılmadı"
+    },
+    "retexture_v2": {
+      "id": "01a1abf0-7c07-7514-b292-46c9dec6992d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/retexture",
+      "planned_credits": 15,
+      "style": "image: assets/_concepts/hereka_young.png",
+      "progress": 100,
+      "consumed_credits": 15,
+      "note": "konsept görseli stil; yüz yine soluk, kullanılmadı"
+    },
+    "model": {
+      "id": "01a1abf5-a35a-72ae-8c86-8a0ae1f7e0d8",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "progress": 100,
+      "consumed_credits": 40,
+      "preceding_tasks": 0
+    },
+    "rig": {
+      "id": "01a1abf9-524e-7672-b293-534f16a6fcea",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5,
+      "preceding_tasks": 0
+    }
+  },
+  "account": "MESHY2_API_KEY",
+  "variant_of": "hereka",
+  "account_model": "MESHY2_API_KEY",
+  "input_image": "game/assets/_concepts/hereka_young.png"
+}

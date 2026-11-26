@@ -1,0 +1,18 @@
+{
+  "id": "erka",
+  "name": "Erka",
+  "role": "npc",
+  "file": "erka.glb",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_woman",
+    "tint": "#d8c8a8",
+    "scale": 1.0,
+    "note": "K89 yer tutucusu (B, roam-camp-life): Göl Obası'nın üçüncü yurdunu kuran ustalardan; crowd_hun_woman modeli ×1.0 ve renk çarpanıyla (StandIn). Meshy modeli (meshy-final) assets/characters/erka/erka.glb olarak gelince yer tutucu kendiliğinden kalkar."
+  },
+  "height_m": 1.66,
+  "clip_roles": [],
+  "story": "structures.md §10.1, §11; time.md §8.3: camp3'ü Oktar, Erka ve Dengiz kurar (K83). Yalnız Serbest Gez'de görünür.",
+  "description": "Keçe Ustası ve Otacı / Felt Master and Healer, ≈44 yaşında (structures.md §10.1): uzun saçlı, açık kaftan, kızıl başörtü.",
+  "variety": {"body": "female", "age": "adult", "style": ["work"]}
+}

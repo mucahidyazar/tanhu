@@ -1,0 +1,13 @@
+{
+  "id": "firewood",
+  "tasks": {
+    "model": {
+      "id": "01a1747e-f6e4-7754-bd0e-fe8aa42ad731",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "mene",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-b780-705a-9c0a-422938215c0f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b6-0162-7481-8004-264c09ab8b53",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

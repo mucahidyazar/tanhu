@@ -1,0 +1,28 @@
+{
+  "id": "crowd_hun_rider",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/crowd_hun_rider.png",
+  "polycount": 50000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-e428-7379-bcf2-58e35ad99825",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 4,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1abec-324b-7454-a415-7e97d806618b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

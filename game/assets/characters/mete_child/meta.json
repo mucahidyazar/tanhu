@@ -1,0 +1,22 @@
+{
+  "id": "mete_child",
+  "name": "mete_child",
+  "role": "npc",
+  "file": "mete_child.glb",
+  "status": "meshy",
+  "concept_image": "assets/_concepts/mete_child.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/mete_child (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 1.1,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "mete_child_walk.res",
+    "run": "mete_child_run.res"
+  },
+  "description": "Mete as a five-year-old Xiongnu boy: round sun-browned face, dark hair in a short topknot with two small braids, a little cream felt coat with a red border and a fur collar, dark trousers and felt boots. Child proportions.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "crowd_hun_rider",
+  "name": "Hun atlısı",
+  "role": "npc",
+  "file": "crowd_hun_rider.glb",
+  "status": "meshy",
+  "concept_image": "assets/_concepts/crowd_hun_rider.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/crowd_hun_rider (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.74,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "crowd_hun_rider_walk.res",
+    "run": "crowd_hun_rider_run.res"
+  },
+  "description": "A Xiongnu rider of the Tanhu's ten: lean young face, topknot, a short brown leather coat over a red-bordered tunic, a hide lamellar vest, a wide belt with bronze plaques, dark trousers, tall leather boots.",
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {"body": "male", "age": "adult", "style": ["warrior"]}
+}

@@ -1,0 +1,21 @@
+{
+  "id": "gutu",
+  "tasks": {
+    "model": {
+      "id": "01a1b8eb-0904-73f7-b783-accde32e97e6",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b8ee-dddb-75c7-98f1-854cde31542b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

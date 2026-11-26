@@ -1,0 +1,29 @@
+{
+  "id": "palak",
+  "name": "palak",
+  "role": "npc",
+  "file": "palak.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/palak/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/palak (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.8,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "palak_walk.res",
+    "run": "palak_run.res"
+  },
+  "description": "Palak, the Yuezhi chief of the watch aged forty-seven: full beard, weathered face, a round fur cap, a dark-red coat with ochre borders under a brown leather lamellar vest, a scabbard belt, tall boots.",
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {
+    "body": "male",
+    "age": "adult",
+    "style": [
+      "warrior"
+    ]
+  }
+}

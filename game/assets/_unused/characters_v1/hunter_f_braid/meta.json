@@ -1,0 +1,90 @@
+{
+  "id": "hunter_f_braid",
+  "role": "Player body type 2, hairstyle 'braids' (girl hunter with two long dark-brown braids).",
+  "body_type": 2,
+  "hairstyle": "braids",
+  "file": "hunter_f_braid.glb",
+  "concept_image": "res://assets/_reference/concepts/hunter_f_braid.png",
+  "tasks": {
+    "concept_image_task_id": "01a17255-e874-778a-93dd-ebc981feae53",
+    "model_task_id": "01a17256-d1fb-7713-ae3e-4d63dc1cf33f",
+    "rig_task_id": "01a17258-91b0-740d-b561-3201613e4bbd",
+    "animation_task_id": "01a17259-0b10-738c-a72a-d07af41f7d64"
+  },
+  "generation": {
+    "concept_model": "gpt-image-2 (image-to-image, style ref hunter_style.png, 1:1, background removed)",
+    "model": "meshy-7.1 image-to-3d, t-pose, textured 2k, no PBR, remesh triangle 30000",
+    "rig_height_meters": 1.3,
+    "animation_action_ids": [0, 613, 659],
+    "credits_spent": 56
+  },
+  "animation_clips": ["Idle", "Casual_Walk_inplace", "run_fast_3_inplace"],
+  "clip_roles": ["idle", "walk", "run"],
+  "clip_role_map": {
+    "idle": "Idle",
+    "walk": "Casual_Walk_inplace",
+    "run": "run_fast_3_inplace"
+  },
+  "clip_durations_s": {
+    "Idle": 4.0,
+    "Casual_Walk_inplace": 4.133,
+    "run_fast_3_inplace": 0.733
+  },
+  "model_stats": {
+    "file_size_bytes": 5641016,
+    "height_m": 1.3,
+    "arm_span_m": 1.18,
+    "bind_pose_bbox_m": {
+      "min": [-0.591, 0.0, -0.218],
+      "max": [0.591, 1.3, 0.218]
+    },
+    "facing": "+Z (glTF front; headfront and toe joints are on +Z), feet at y = 0",
+    "vertices": 44587,
+    "triangles": 30704,
+    "meshes": 1,
+    "skins": 1,
+    "joints": 24,
+    "materials": 1,
+    "images": 1,
+    "texture": "Material_0_baseColor (2048x2048 JPEG, base color only, metallic 0, roughness 0.55, double sided)",
+    "armature_root_scale": 0.01,
+    "skeleton": ["Hips", "Spine02", "Spine01", "Spine", "neck", "Head", "head_end", "headfront", "LeftShoulder", "LeftArm", "LeftForeArm", "LeftHand", "RightShoulder", "RightArm", "RightForeArm", "RightHand", "LeftUpLeg", "LeftLeg", "LeftFoot", "LeftToeBase", "RightUpLeg", "RightLeg", "RightFoot", "RightToeBase"]
+  },
+  "free_rig_animations": {
+    "note": "Signed Meshy URLs returned by the rig task (separate files, not needed in-game because walk/run are bundled in hunter_f_braid.glb). They expire around 2026-10-28T09:16Z.",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Walking_withSkin.glb?Expires=1793178986&Signature=nvjGDz7O5dLDEDamMcU~XxDwHN~0kFIHSI7YtJcf9i7G1y1WSHWUvb8wOiKu37M5q6hRcTOsT1GBVMudaFpgB6NqmvA0SNEnDW8wwY0R1473d1c4PnJGhi4lw3~htfsVg7bqq-j4AuGcgr2ox6NlXj~I3aNwF9rWS-ec29z2jlxrBXXpMhb5t0snUTZeklzD9St4JGnpSBneFa2~FkB58WWzrHwAwLicfVsq5BnDwa5CZ6vHL8lzoTgxYpRLG6h8QBd~DmzYawQ~xwps68SGQmgxMken~BvxNGtLyzL041HrWR1otapmF4uMLieLFILDInpfUildWuTGvv6LfqNi2w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Running_withSkin.glb?Expires=1793178986&Signature=Xc9zanS932l7AgjnB716mqOn-0bc3nGoYItd8RORS-YSwEECd0BrwsCO~TTIJsgFiNwoUWZmdgGCDDwFM8484LXePK9BxrTU0ARW8ZvwHAc1A4y6t0G~KuM8E7O9abpPjkLnjL9FPsYVvqcZTmVDw2Ab0E19Z-gFW5vZZU7~aJQajdnJzTst9wuELt4ucF6AcWGvl2Nn7nfDvQhjiVfjQFQ0hxV5jOZRv90Wr9PcZbbL9Uf~0Ojxx512mW2Hz0GtdQGJnC13Q1Wo1tI2~zNXH6wii0Kgr5~L9Heb31l-YLBNblg1VNQD3BJ1Z~GfzlZ-d0j7t31BUFDnxjzYKpg1IA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Walking_withSkin.fbx?Expires=1793178986&Signature=FEl-6b~mKbwlAP~y5l0L2KYS8IzqavBtdOcBxAzxSvK~8Au4GvJtqfRIFEvGJPWctyGMnkROy-qsuHg-~EO-cT4w7ezmpv0Y~se1zjjFIi3NT2yprerU~2m0oHpdI1cWDKY8u8WcTwclLUaKRYOoTHxbb9YcAiejA4ohxORK9QjfiOCBkUdu3ZoabDdrZFw1~2UoDGelAipbnyXH05L2LGB3dQcWweqFQy073sqoe1goBLq2Fc-ME5i~-hiw~skZNlMDnFIuaAxcVbcz3L~m41rTDyng5MkB0fQ9gIKUV7WyVvad~U1Ms3TSoJglAf6OjnPLFWtsncrqRzrjcwlINQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Running_withSkin.fbx?Expires=1793178986&Signature=C~JZencQm9kBXQvS4yx4PbJ2oMg2sQkRZbQmFM~3tB9hbNIp-EOxdw22pwqigt0kMucJPUPyUb0pk92KjICHgARM2EaIW2SXsmpL9PnnWmsbKL2kkWBFOK1ZwxiFFh9gy8Vpg4Q8ZEglX-bBoUsXLON1gDXWM0bMKgq53pLBRQrVxFLM2uZWyI9Qa8MIh0ZLf49qqhuYqPTBo71e1pt7-pMrb90MvwmsJxWlTp3Aav49pAiRTe6V2VhQnMlN6fJ6Wm8SDWYP2XsCUOz1m8tJH5rBCy0ncLzLqMFA-M7Ev0m1siKOjJt6-1mSSa5ywrgH~BRMIs-wPdO9wf~DW8clSg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Walking_withSkin_armature.glb?Expires=1793178986&Signature=ByS4HGy9-iM1bT1OrHNsPpSnJlS4z3E1syDrRVjXDR8Jz3lQoDhKVNf5f4lxW~f5GyUoFdEOF02viWb0VI7jpqfFlWU7N7KZYePRa~86GMPgMavOSv7aAbjvpP4l4Q7KW2bJ2odkY1OjcP3j03S2xHVckZ8JXGNwutDGkf7YUa49EfgPh-MP8KH1KQlSrDrnz23NrqBilpvZjwPHu5GkhzR0NbnxFs5e~W8HGgmlGRmfEgzdXjrfNkUXwCS~q1PznYmPdedYvjivuvPgn9IZT6csb8-R0jPXQCE5Q1MjiCtPNkwCAzlbC9M5lY9f6W6F4gdBcJmkl89rU2HuYypH~Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-91b0-740d-b561-3201613e4bbd/output/Animation_Running_withSkin_armature.glb?Expires=1793178986&Signature=Ow55JCJFiduCRovMSKMvILg1fodF2A2u8lu4YX-sZsqmNkUhDZZY0oK6WmfmgqkbRCLmVEmGYoivVzst6ZKsdbENPDDNEwgj~tRr5rmGtr2wUdvLL48p4XaDmTwanqH9r4W5zTgzyFb~rfkOziQYM99qrNIBl6rKnSC~SfQh3e~CP~FDgkrXcX8KkIrqRQthIqt28t7oogXDIwE5nRBGWFq7x3pnOZPYK823cVwerifzs788p9bKEQrUcHlAKxomnSlEDhXfHFHJeRP1r6mcxqwYEPdGCi~Er5fRrK5EWO-FGetCTyUkkk90pJcDJKjPyIqC~X9lij35aQFILKomSA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "note": "Median colors sampled from the concept image (soft painterly shading, so values are mid-tones).",
+    "hair": "#554641",
+    "hair_braids": "#4d3d37",
+    "hair_description": "dark warm brown, soft side-swept bangs, two thick braids hanging in front of the shoulders to the chest",
+    "braid_ties": "#a2372f",
+    "skin": "#e6b58f",
+    "skin_hands": "#e3b28c",
+    "skin_neck_shadow": "#d4a17a",
+    "eyes": "#3e3c3a",
+    "eyes_description": "large very dark brown-charcoal eyes with small white highlights",
+    "cape": "#a0342c",
+    "cape_shadow": "#872d26",
+    "sash": "#a5362e",
+    "tunic": "#e8dfd4",
+    "tunic_description": "warm off-white wide-sleeved tunic with a dark gray hem band",
+    "tunic_hem_band": "#5b5753",
+    "bracers": "#585350",
+    "trousers": "#494442",
+    "boots": "#504b48",
+    "clasp": "#6a6562"
+  },
+  "notes": [
+    "Concept accepted on the first try: single character, full body with about 50-110 px margin, clean T-pose (arms horizontal), front-facing, symmetrical, transparent background, chibi proportions (head about 0.3 of height), style closely matches hunter_style.png.",
+    "Walk and run clips are in-place (no root motion); drive movement from code.",
+    "run_fast_3_inplace is a short 0.73 s cycle; set loop on idle/walk/run in the Godot import settings.",
+    "The red cape and both braids are part of the single skinned mesh (no cloth or hair bones), so they follow the spine, neck and arm weights; the cape hangs behind the arms in the bind pose."
+  ]
+}

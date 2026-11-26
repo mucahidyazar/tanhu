@@ -1,0 +1,11 @@
+{
+ "source": "assets/_meshy_raw/kopuz/kopuz.glb",
+ "note": "K60 üç tel ister, ağda dört tel izi vardı: C'nin altı ile B'nin üstü çıktı, B'nin altı ve C'nin üstü ortaya taşındı; kuyruğun dört düğümü kaldı.",
+ "triangles_before": 19302,
+ "triangles_removed": 139,
+ "triangles_loose": 0,
+ "triangles_caps": 26,
+ "openings_capped": 4,
+ "vertices_moved": 765,
+ "triangles_after": 19189
+}

@@ -1,0 +1,29 @@
+{
+  "id": "atsho",
+  "name": "atsho",
+  "role": "npc",
+  "file": "atsho.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/atsho/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/atsho (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.64,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "atsho_walk.res",
+    "run": "atsho_run.res"
+  },
+  "description": "Atsho, the Yuezhi fire keeper, a woman of thirty-four: soft hoarse face, hair under a tall dark felt cap, a long cream felt robe with gold-ochre borders, soot on her hands, felt boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {
+    "body": "female",
+    "age": "adult",
+    "style": [
+      "ceremony"
+    ]
+  }
+}

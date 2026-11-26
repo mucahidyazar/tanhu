@@ -1,0 +1,28 @@
+{
+  "id": "hereka",
+  "via": "meshy MCP",
+  "input_image": "docs/assets/encyclopedia/hereka/pose.png",
+  "polycount": 50000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-c1fb-7389-a622-63162e9fa393",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 11,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1abe6-d9c6-74ad-8f83-8b6f48c86360",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

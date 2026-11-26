@@ -1,0 +1,13 @@
+{
+  "id": "bucket",
+  "tasks": {
+    "model": {
+      "id": "01a1747d-2118-7429-8359-486b85e7f0b5",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

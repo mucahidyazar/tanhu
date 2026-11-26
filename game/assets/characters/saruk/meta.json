@@ -1,0 +1,20 @@
+{
+  "id": "saruk",
+  "name": "Saruk Ebe",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "hereka",
+    "tint": "#b9a78c",
+    "scale": 0.97,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (hereka) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/saruk/saruk.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.56,
+  "clip_roles": [],
+  "story": "Kayın Obası'nın kımızcısı ve ebesi; yaşlı, kısık sesli ve şakacı (story.md §3 «Göl Obası'nda üç gün», K110). Önsöz'ün günleri.",
+  "variety": {
+    "body": "female",
+    "age": "elder",
+    "style": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "atsho",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-c81d-7592-9e2e-2df6c820ff4e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b4-7213-727c-90a8-8a0f88a6e0f2",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "rig2": {
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "note": "E19 onayı «İkisini yenile, 10» (2026-11-08): ilk iskelet sınamadan geçmedi",
+      "id": "01a1ba8d-02ed-74bf-b633-3a70034c317d",
+      "consumed_credits": 5
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "mother",
+  "name": "Anne",
+  "role": "npc",
+  "file": "mother.glb",
+  "concept_image": "assets/_concepts/mother.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/mother (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.65,
+  "clip_roles": [
+    "sit"
+  ],
+  "extra_clips": {
+    "walk": "mother_walk.res",
+    "run": "mother_run.res"
+  },
+  "description": "A Hun mother in her thirties with a warm kind face, long black hair in two braids under a small embroidered felt cap, wearing a long red felt robe with white fur trim at the collar and cuffs and ornate cream-and-red embroidered borders over a long cream dress, a woven belt, soft felt boots.",
+  "variety": {"body": "female", "age": "adult", "style": []}
+}

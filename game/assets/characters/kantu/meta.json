@@ -1,0 +1,27 @@
+{
+  "id": "kantu",
+  "name": "kantu",
+  "role": "npc",
+  "file": "kantu.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/kantu/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/kantu (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.6,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "kantu_walk.res",
+    "run": "kantu_run.res"
+  },
+  "description": "Kantu, an old Yuezhi carter woman of sixty-one: grey hair under a brown fur hat, a lined loud face, a brown felt coat with dark borders under a fur-lined leather vest, fur boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {
+    "body": "female",
+    "age": "elder",
+    "style": []
+  }
+}

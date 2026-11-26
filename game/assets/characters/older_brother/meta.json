@@ -1,0 +1,30 @@
+{
+  "id": "older_brother",
+  "name": "Ağabey",
+  "role": "npc",
+  "file": "older_brother.glb",
+  "status": "meshy",
+  "stand_in": {
+    "model": "father",
+    "tint": "#8090b0",
+    "scale": 0.95,
+    "note": "K89 yer tutucusu: Baba'nın modeli ×0,95 ve soğuk, koyu renk çarpanıyla (StandIn, scripts/character/stand_in.gd). Ateş başında CampNpcs/OlderBrother düğümündedir; Meshy modeli (meshy-final) assets/characters/older_brother/older_brother.glb olarak gelince yer tutucu kendiliğinden kalkar."
+  },
+  "height_m": 1.75,
+  "clip_roles": [],
+  "story": "story.md §8.3: Çocuğun ağabeyi, Tanhu'nun atlısı; Godot'daki eski mete kaydının yerine (K37). Önsöz, Ev, II.",
+  "description": "A young Hun horseman of about twenty, lively and quick, a dark top-knot with two long braids, a brown leather coat with a fur shoulder collar and studded shoulder pads over a cream tunic with red Greek-key borders, a wide belt with bronze animal plaques and a red sash, leather bracers, dark baggy trousers and tall brown boots. The bow and quiver are not on the mesh: the bow is a separate prop (bow).",
+  "concept_image": "assets/_concepts/older_brother.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/older_brother (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "extra_clips": {
+    "walk": "older_brother_walk.res",
+    "run": "older_brother_run.res"
+  },
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {"body": "male", "age": "adult", "style": ["warrior"]}
+}

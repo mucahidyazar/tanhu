@@ -1,0 +1,29 @@
+{
+  "id": "elder",
+  "tasks": {
+    "model": {
+      "id": "01a17478-522e-724c-8a94-27eecea07b2f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1747d-78ce-752c-a2fa-b214523286ee",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "anim_363": {
+      "id": "01a1747e-7eef-7531-8b84-14274fef096b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    }
+  }
+}

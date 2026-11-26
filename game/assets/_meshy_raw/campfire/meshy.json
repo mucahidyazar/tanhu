@@ -1,0 +1,13 @@
+{
+  "id": "campfire",
+  "tasks": {
+    "model": {
+      "id": "01a1747b-c16b-76b6-8824-d08174a167c0",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

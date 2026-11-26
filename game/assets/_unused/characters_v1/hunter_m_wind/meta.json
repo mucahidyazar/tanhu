@@ -1,0 +1,80 @@
+{
+  "id": "hunter_m_wind",
+  "role": "player",
+  "body_type": 1,
+  "hairstyle": "windswept",
+  "description": "Chibi hunter boy: white windswept spiky hair, red cape with dark round clasp, cream-white wide-sleeved tunic with red sash, dark gray bracers, charcoal baggy trousers, dark gray boots.",
+  "file": "hunter_m_wind.glb",
+  "concept_image": "assets/_reference/concepts/hunter_m_wind.png",
+  "style_reference": "assets/_reference/hunter_style.png",
+  "created": "2026-10-25",
+  "tasks": {
+    "image_task_id": "01a17255-eee3-7313-9417-e344d0f1b8e9",
+    "image_ai_model": "gpt-image-2",
+    "model_task_id": "01a17256-d234-71cd-ab58-db26b13a2633",
+    "model_ai_model": "meshy-7.1",
+    "rig_task_id": "01a17258-7a92-7422-9819-3061eecd8ab8",
+    "anim_task_id": "01a17258-f41e-75a8-a7cd-ae8ff16a044a"
+  },
+  "credits_spent": 56,
+  "animation_action_ids": [
+    0,
+    613,
+    659
+  ],
+  "animation_clips": [
+    "Idle",
+    "Casual_Walk_inplace",
+    "run_fast_3_inplace"
+  ],
+  "clip_roles": [
+    "idle",
+    "walk",
+    "run"
+  ],
+  "clip_map": {
+    "idle": "Idle",
+    "walk": "Casual_Walk_inplace",
+    "run": "run_fast_3_inplace"
+  },
+  "clip_durations_s": {
+    "Idle": 4.0,
+    "Casual_Walk_inplace": 4.133,
+    "run_fast_3_inplace": 0.733
+  },
+  "clips_in_place": true,
+  "model_stats": {
+    "file_size_bytes": 5142920,
+    "triangles": 30509,
+    "meshes": 1,
+    "materials": 1,
+    "images": 1,
+    "skins": 1,
+    "joints": 24,
+    "height_m": 1.3,
+    "t_pose_width_m": 1.115,
+    "material_note": "Material_0: unlit-looking base color JPEG texture, metallic 0, roughness 0.55, double sided; armature root node scaled 0.01"
+  },
+  "free_rig_animations": {
+    "note": "Free walking/running clips returned by the rig task as separate files; signed URLs expire around 2026-10-28.",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-7a92-7422-9819-3061eecd8ab8/output/Animation_Walking_withSkin.glb?Expires=1793178980&Signature=oe8czZJJNYgfT9hAd5B0I8yzimiwc1LM8KZjpFOoG~X0wDyNkPhGqC4KGs6WcLGNWs19NulmU1P0o87vBC-9ejhWwUjQ5389jFLElvanocZMYnSeBOp0n986U~n0ginQ9l0cGf4evEakZ9pvo5MAr~XOuoHD80HXJgxReeJriptlv9i6uisNliJiPw2~ppxnYL5SFYpgTrUtOWdH7u6~iOGXvLV1omQ0766QeOpWs2UkF8G26SGCd3SWtS9i4xq0YUv7HJk8P9MAssy9kbiJRvDOPB6xjS1FPvabUrSd6CKupfRaFIgDI4jeK3XlQ0TRBp3IbK6c93uUzw8s~zz1lA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-7a92-7422-9819-3061eecd8ab8/output/Animation_Walking_withSkin.fbx?Expires=1793178980&Signature=bjHo4prC6IhBiZfnkQQU3H7obsZ9TnJmwWOP8oax~u1Kz53XK~vJGW57PtTTbTXNgUvLqRX1NgnfukIdrd81sz4PHxPz2RLIjaah0ihnzgCD3nlWiTCLD5LkZUhGl~GBZXuj14OfyN1dg5yQSCamK7NIOvyavzDghal6DDWsb2qHFs7L5HIlHTOjxvoCna75oG7eHmYMOPr4vq3HDVStokJB39oewtfHEWNiAz9~kxopD09nUW4GFDbmbA0QT7N3u5SZqRCNoa4y0Aq5d3oacUpfIEafQa1Lk5HbqU8ZYtLtbJI~F~MLBFqs7-KhGoTFl6Lp1encCoym8u6~XpjHEw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-7a92-7422-9819-3061eecd8ab8/output/Animation_Running_withSkin.glb?Expires=1793178980&Signature=XwrePFdqy7grwdf3q1h9ogKOoNXETZ3GZzEJv~ElKzsDujd0CtrrDvzv0-Ka9PWyPNRaTl28-vKjNBOcd3WGanIKpnVEb67ae1DKKLF-~xxedX85wrpo60KXRa0T0DObdTCoAaFvGoaEEFgnsHFTqcSuhelmPHRGE2VDMqWZ1Uhihy-pmb0wczbqLLSJhh4vdVinamfjfxM2BtUS-aoUJ5Qu2a~cQ6mYl1QPnREeGnqAF5zx8x2v3pzUQcMm8pviA96SotyJkpy-5OEGm6TfsKta6gAJl94XDdOKlZnid4myFkzzvCJusJY4EgOTJKyCKP-ZHftnNlr~SNjH2pDFog__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-7a92-7422-9819-3061eecd8ab8/output/Animation_Running_withSkin.fbx?Expires=1793178980&Signature=Z0Q9DmpOAT4Llqhj6ca9XCS4cGLWK7HZAHqBEXAZLTDT4u3qYEJgUfC4lKg5P7~VOab4thfka5DmsvbBDTe3tyydHf3GZ7evBnPdLeGtX9T1M0CArPH-HJHoWfxOkfkwXHyzu9pfVOJuWcivWQ90CzkU2s9tLcZZz7YXc-9y2jrlToSI~-l3LphTx0S1uJaj54dzFrwerOCjSGyl9k0L-5NhhhmmVUTe06iNN6Ge9Ntn2fa7BVgXTv65xmiZ~t5HGbcX7AyTqpTsFpk2Tefswb9Oj6951x9Ga3Fcd706Br9uZhPrjT8P4hBEXyZhH-2b1594B5rpEmQjoCUdSg4HlA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "hair": "#f4e2d0",
+    "skin": "#f8c8a2",
+    "eyes": "#4e443e",
+    "cape": "#ba3429",
+    "cape_shadow": "#8d2d23",
+    "sash": "#c0362a",
+    "tunic": "#f2e3d2",
+    "bracers": "#59504b",
+    "trousers": "#4f4640",
+    "boots": "#554d47",
+    "clasp": "#7c6e67",
+    "dark_trim": "#5a524d"
+  },
+  "color_notes": "Median colors sampled from the concept image. Hair is a warm off-white/cream (not pure white); skin is warm peach; eyes are dark warm gray-brown with small white highlights; cape is a saturated warm red (shadowed inner panels darker), sash a slightly brighter red; tunic and sleeves cream-white with a dark gray hem stripe and dark collar; bracers, trousers and boots are dark warm charcoal grays; clasp is a medium-dark gray."
+}

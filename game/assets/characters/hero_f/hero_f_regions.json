@@ -1,0 +1,13 @@
+{
+  "hair_base": "#181412",
+  "skin_base": "#c38e6c",
+  "eye_base": "#231a18",
+  "mode": "gerçekçi",
+  "pixels": {
+    "hair": 483232,
+    "skin": 151539,
+    "eye": 9233,
+    "sclera": 0
+  },
+  "note": "tools/bake_regions.py ile üretildi; _regions.png R=saç G=ten B=göz; _regions2.png R=göz akı (tene boyanır)"
+}

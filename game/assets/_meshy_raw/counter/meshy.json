@@ -1,0 +1,28 @@
+{
+  "id": "counter",
+  "via": "meshy MCP",
+  "input_image": "docs/assets/encyclopedia/counter/pose.png",
+  "polycount": 50000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-c97f-70f2-b325-82a2712c8e3f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 6,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1abe7-3fe9-7758-8781-892c8f29848c",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

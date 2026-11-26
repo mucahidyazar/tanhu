@@ -1,0 +1,19 @@
+{
+  "id": "kopuz",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/kopuz.png",
+  "polycount": 20000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-eccd-7079-8384-004705968ed7",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 4,
+      "consumed_credits": 40
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

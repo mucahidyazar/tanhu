@@ -1,0 +1,13 @@
+{
+  "id": "boulder_b",
+  "tasks": {
+    "model": {
+      "id": "01a17483-5130-7356-9412-a1c0a1fe0c26",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "saddlebags",
+  "tasks": {
+    "model": {
+      "id": "01a17481-b638-742b-94d4-6e16f2f5b556",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

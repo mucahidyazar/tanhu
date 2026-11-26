@@ -1,0 +1,21 @@
+{
+  "id": "farnak",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-98ea-710b-9716-6cba786f0c8a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b3-9cd2-70d0-a91b-6fe76ab92fb6",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

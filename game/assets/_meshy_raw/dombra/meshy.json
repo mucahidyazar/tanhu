@@ -1,0 +1,13 @@
+{
+  "id": "dombra",
+  "tasks": {
+    "model": {
+      "id": "01a17485-9bad-7522-bab7-0b48777a28de",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

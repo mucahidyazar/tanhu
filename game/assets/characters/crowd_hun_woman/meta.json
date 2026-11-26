@@ -1,0 +1,23 @@
+{
+  "id": "crowd_hun_woman",
+  "name": "Hun kadını",
+  "role": "npc",
+  "file": "crowd_hun_woman.glb",
+  "status": "meshy",
+  "concept_image": "assets/_concepts/crowd_hun_woman.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/crowd_hun_woman (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.62,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "crowd_hun_woman_walk.res",
+    "run": "crowd_hun_woman_run.res"
+  },
+  "description": "A Xiongnu herding woman in her thirties: braided black hair under a small felt cap, a long dun felt robe with a red border, a woven belt, felt boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {"body": "female", "age": "adult", "style": []}
+}

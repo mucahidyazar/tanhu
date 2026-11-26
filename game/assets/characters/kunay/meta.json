@@ -1,0 +1,20 @@
+{
+  "id": "kunay",
+  "name": "Künay",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_woman",
+    "tint": "#d9b8a0",
+    "scale": 1.0,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (crowd_hun_woman) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/kunay/kunay.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.62,
+  "clip_roles": [],
+  "story": "Kayın Obası'nın genç anası, Saruk'un torunu; 8 Nisan MÖ 209 gecesi tipide doğurur (K110). Önsöz'ün günleri.",
+  "variety": {
+    "body": "female",
+    "age": "adult",
+    "style": []
+  }
+}

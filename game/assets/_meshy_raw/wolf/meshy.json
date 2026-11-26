@@ -1,0 +1,13 @@
+{
+  "id": "wolf",
+  "tasks": {
+    "model": {
+      "id": "01a1b9f2-00ea-732e-a3c1-0c8f4017fb4f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mother",
+  "tasks": {
+    "model": {
+      "id": "01a17476-b74e-76e5-bd6c-843cd7d363d1",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1747b-3583-7274-9a54-9add3833f250",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "anim_363": {
+      "id": "01a1747c-1298-723d-a9aa-d8f51e2663e4",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    }
+  }
+}

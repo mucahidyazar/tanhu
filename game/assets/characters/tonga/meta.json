@@ -1,0 +1,20 @@
+{
+  "id": "tonga",
+  "name": "Tonga",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_rider",
+    "tint": "#a59684",
+    "scale": 0.98,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (crowd_hun_rider) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/tonga/tonga.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.71,
+  "clip_roles": [],
+  "story": "Künay'ın eşi, kısa sözlü genç adam; tipi gecesi atlarla döner (K110). Önsöz'ün günleri.",
+  "variety": {
+    "body": "male",
+    "age": "young",
+    "style": []
+  }
+}

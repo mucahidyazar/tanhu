@@ -1,0 +1,22 @@
+{
+  "id": "yanchi_child",
+  "name": "yanchi_child",
+  "role": "npc",
+  "file": "yanchi_child.glb",
+  "status": "meshy",
+  "concept_image": "assets/_concepts/yanchi_child.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/yanchi_child (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 1.08,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "yanchi_child_walk.res",
+    "run": "yanchi_child_run.res"
+  },
+  "description": "Yanchi as a five-year-old Xiongnu girl: lively grin, two short black braids tied with red cord, a small ochre felt coat with a red border, felt boots. Child proportions.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

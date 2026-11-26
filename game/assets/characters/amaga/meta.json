@@ -1,0 +1,27 @@
+{
+  "id": "amaga",
+  "name": "amaga",
+  "role": "npc",
+  "file": "amaga.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/amaga/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/amaga (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.68,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "amaga_walk.res",
+    "run": "amaga_run.res"
+  },
+  "description": "Amaga, the Yuezhi head of the winter camp, a widow of fifty-eight: dry stern face, long grey hair under a dark-red crown-shaped felt hat, a long wine-red felt robe with gold-ochre borders and a fur-lined over-robe, a belt with small gold plaques, felt boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {
+    "body": "female",
+    "age": "elder",
+    "style": []
+  }
+}

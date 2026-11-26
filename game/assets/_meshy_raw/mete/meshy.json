@@ -1,0 +1,45 @@
+{
+  "id": "mete",
+  "tasks": {
+    "model": {
+      "id": "01a17466-8898-76b7-90a8-8ea9450a9b97",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1746e-f4c0-7180-adef-fe39f30534b4",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    },
+    "anim_243": {
+      "id": "01a1746f-faf4-7106-b8de-d6450004751e",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    },
+    "anim_244": {
+      "id": "01a176c7-c11c-73db-a221-be0424c8f49c",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    },
+    "anim_363": {
+      "id": "01a176c8-50b8-70be-bb63-8118bbb1b42b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/animations",
+      "planned_credits": 3,
+      "retries": 0,
+      "consumed_credits": 3
+    }
+  }
+}

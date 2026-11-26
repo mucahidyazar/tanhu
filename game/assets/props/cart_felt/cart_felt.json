@@ -1,0 +1,72 @@
+{
+ "id": "cart_felt",
+ "generated_by": "tools/cart_body.py",
+ "doc": "Başlangıç dingil ortasının altındaki zemindir (y = 0); +z ön (okların ucu), +x arabanın solu. Tekerlekler kodladır: merkezleri (±wheel_track, wheel_radius, 0), dingil x ekseninde (DepartCart._build_wheel). MeshyProp ile konursa taban zemine indirilmez: gövdenin en alçak noktası clearance_m yüksekliğindedir.",
+ "forward": [
+  0.0,
+  0.0,
+  1.0
+ ],
+ "up": [
+  0.0,
+  1.0,
+  0.0
+ ],
+ "scale_from_raw": 1.98133,
+ "yaw_deg": -90.0,
+ "wheel_radius": 0.72,
+ "wheel_track": 0.92,
+ "axle": [
+  0.0,
+  0.72,
+  0.0
+ ],
+ "axle_stub_x": 0.974,
+ "axle_stub_skew_z": 0.005,
+ "axle_stub_skew_raw_z": 0.1968,
+ "bed": {
+  "min": [
+   -0.8611,
+   1.1664,
+   -0.7339
+  ],
+  "max": [
+   0.8202,
+   1.3643,
+   1.6076
+  ]
+ },
+ "bed_top_m": 1.3643,
+ "cover_top_m": 2.3299,
+ "clearance_m": 0.4833,
+ "shaft_tips": {
+  "L": [
+   0.6474,
+   0.5591,
+   3.0195
+  ],
+  "R": [
+   -0.6223,
+   0.5561,
+   3.0235
+  ]
+ },
+ "hitch": [
+  0.0,
+  0.5576,
+  3.3235
+ ],
+ "box": {
+  "min": [
+   -0.9809,
+   0.4833,
+   -0.7454
+  ],
+  "max": [
+   0.985,
+   2.3299,
+   3.0235
+  ]
+ },
+ "triangles": 20211
+}

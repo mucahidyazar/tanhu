@@ -1,0 +1,21 @@
+{
+  "id": "ardoksha",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-a7b9-74be-989f-95f663f76f5d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b3-d472-764e-9b4c-df5b3859ebfd",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

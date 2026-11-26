@@ -1,0 +1,22 @@
+{
+  "id": "luhun_child",
+  "name": "luhun_child",
+  "role": "npc",
+  "file": "luhun_child.glb",
+  "status": "meshy",
+  "concept_image": "assets/_concepts/luhun_child.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/luhun_child (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 1.15,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "luhun_child_walk.res",
+    "run": "luhun_child_run.res"
+  },
+  "description": "Luhun as a six-year-old Xiongnu boy: gentle shy face, short hair, a grey-blue felt coat with a sheepskin collar, felt boots. Child proportions.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

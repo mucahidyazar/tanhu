@@ -1,0 +1,41 @@
+{
+  "id": "lan_hatun",
+  "name": "Lan Hatun",
+  "role": "npc",
+  "file": "lan_hatun.glb",
+  "status": "meshy",
+  "stand_in": {
+    "model": "mother",
+    "tint": "#f4e2d0",
+    "scale": 0.96,
+    "headwear": {
+      "shape": "cap",
+      "color": "#e3d3b8",
+      "band": "#9c2a1e",
+      "radius": 0.1,
+      "height": 0.1,
+      "drop": 0.05
+    },
+    "note": "K89 yer tutucusu: Ana'nın modeli ×0,96, açık sıcak ton ve krem keçe başlık, kızıl bant (StandIn; CineActor). prologue_birth.tscn'de Actors/LanHatun; Meshy modeli (meshy-final: insan 45, kullanıcı onayı) assets/characters/lan_hatun/lan_hatun.glb olarak gelince yer tutucu kalkar."
+  },
+  "node_path": "scenes/cine/prologue_birth.tscn:Actors/LanHatun",
+  "age": 18,
+  "height_m": 1.58,
+  "clip_roles": [],
+  "story": "story.md §4–§5, §8.2: Teoman'ın genç hatunu, Mete'nin anası; doğumu kendi yurdunda yapar (köz ışığı, keregeyi tutan el). Çocukluk'ta oğlunu sayıma yollar.",
+  "description": "A young Hun noblewoman of about eighteen, gentle and proud, long dark hair in two braids with bronze beads, a cream felt cap with a red patterned band and a small red pompom, a cream felt robe with a white fur collar and red Greek-key borders, a woven red belt with bronze discs and tassels, soft felt boots.",
+  "concept_image": "assets/_concepts/lan_hatun.png",
+  "encyclopedia_images": "docs/assets/encyclopedia/lan-hatun/",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/lan_hatun (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "extra_clips": {
+    "walk": "lan_hatun_walk.res",
+    "run": "lan_hatun_run.res"
+  },
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {"body": "female", "age": "adult", "style": ["graceful"]}
+}

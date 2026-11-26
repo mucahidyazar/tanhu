@@ -1,0 +1,21 @@
+{
+  "id": "mete",
+  "name": "Mete",
+  "role": "player",
+  "file": "mete.glb",
+  "concept_image": "assets/_concepts/mete.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/mete (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.82,
+  "clip_roles": [
+    "idle"
+  ],
+  "extra_clips": {
+    "walk": "mete_walk.res",
+    "run": "mete_run.res",
+    "sit": "mete_sit.res"
+  },
+  "description": "(done) Mete, a young Hun warrior archer: top-knot with long braids, goatee, red fur-trimmed cape with gold brooch, dark lamellar armor over beige tunic with red Greek-key borders, red sash with bronze belt plates, leather bracers, dark trousers, tall brown boots.",
+  "variety": {"body": "male", "age": "adult", "style": []}
+}

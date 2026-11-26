@@ -1,0 +1,13 @@
+{
+  "id": "cauldron",
+  "tasks": {
+    "model": {
+      "id": "01a1747f-e0c5-71b1-9938-9eafbae0d034",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

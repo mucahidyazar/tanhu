@@ -1,0 +1,20 @@
+{
+  "id": "boru",
+  "name": "Börü",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "luhun_child",
+    "tint": "#c9a27e",
+    "scale": 1.08,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (luhun_child) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/boru/boru.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.24,
+  "clip_roles": [],
+  "story": "Saruk Ebe'nin torunu, sekiz yaşında, hızlı konuşan oğlan; tipide Çocuk'un eşlikçisi, şildede güreş rakibi (K110). Önsöz'ün günleri.",
+  "variety": {
+    "body": "child",
+    "age": "child",
+    "style": []
+  }
+}

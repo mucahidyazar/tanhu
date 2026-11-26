@@ -1,0 +1,21 @@
+{
+  "id": "palak",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-bfb0-70a7-b3a3-7a49a3b9113d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b4-168b-7785-8974-e7522a17946b",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+	"atlas_px": [
+		2048,
+		2048
+	],
+	"cell_m": [
+		1.10000002384186,
+		2.20000004768372
+	],
+	"cell_px": [
+		128,
+		256
+	],
+	"cols": 16,
+	"dirs": 8,
+	"doc": "Dailin kalabalığının kart atlası (tools/bake_crowd_cards.gd; CrowdCards okur). Hücre index = varyant × (yön × kare) + kare × yön + yön, satır satır cols sütun; yön 0 kamera önde, artan yön kamera kişinin soluna (atan2(x, z) artar). Hücre cell_m metre, ayak alttan pivot oranında; kamera eğimi elevation_deg. walk_cycle_m: yürüyüş klibinin bir döngüsünde alınan yol (m).",
+	"elevation_deg": 40.0,
+	"frames": [
+		"idle",
+		"walk0",
+		"walk1",
+		"walk2",
+		"walk3"
+	],
+	"id": "dailin_cards",
+	"pivot": 0.18,
+	"rows": 8,
+	"variants": [
+		"crowd_hun_man",
+		"crowd_hun_woman",
+		"crowd_hun_rider"
+	],
+	"walk_cycle_m": {
+		"crowd_hun_man": 1.504,
+		"crowd_hun_rider": 1.525,
+		"crowd_hun_woman": 1.504
+	}
+}

@@ -1,0 +1,28 @@
+{
+  "id": "older_brother",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/older_brother.png",
+  "polycount": 50000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-b8fb-70cc-b976-fa51dc7480e4",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 21,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1abe4-0b80-76ec-a2c9-294fd09c05ee",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "retries": 0,
+      "planned_credits": 5,
+      "progress": 100,
+      "consumed_credits": 5
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

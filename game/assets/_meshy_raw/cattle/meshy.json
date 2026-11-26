@@ -1,0 +1,13 @@
+{
+  "id": "cattle",
+  "tasks": {
+    "model": {
+      "id": "01a1b9f2-185c-7639-b464-da96eb2b1cca",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

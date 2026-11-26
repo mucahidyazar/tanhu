@@ -1,0 +1,13 @@
+{
+  "id": "weapon_rack",
+  "tasks": {
+    "model": {
+      "id": "01a17482-6706-7273-a329-449bab84944f",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

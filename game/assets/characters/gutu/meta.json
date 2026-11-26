@@ -1,0 +1,22 @@
+{
+  "id": "gutu",
+  "name": "gutu",
+  "role": "npc",
+  "file": "gutu.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/gutu/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/gutu (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 0.8,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "gutu_walk.res",
+    "run": "gutu_run.res"
+  },
+  "description": "Gutu, a Xiongnu toddler of about one year: round cheeks, a small padded felt coat and a fur cap. Toddler proportions.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "child"
+  }
+}

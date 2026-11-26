@@ -1,0 +1,124 @@
+{
+ "id": "cattle",
+ "generated_by": "tools/blender/quadruped_rig.py",
+ "forward": [
+  0.0,
+  0.0,
+  1.0
+ ],
+ "up": [
+  0.0,
+  1.0,
+  0.0
+ ],
+ "length_m": 2.0,
+ "shoulder_m": 1.3149,
+ "height_m": 1.3916,
+ "width_m": 0.6974,
+ "saddle_y": 1.1124,
+ "saddle_z": 0.0,
+ "saddle_bone": "Spine",
+ "head_dir": [
+  0.0,
+  -0.6529,
+  0.7574
+ ],
+ "nose": [
+  0.0,
+  1.02,
+  1.21
+ ],
+ "deform_bones": 30,
+ "bones": [
+  "Root",
+  "Hips",
+  "Spine",
+  "Chest",
+  "Belly",
+  "Neck1",
+  "Neck2",
+  "Neck3",
+  "Head",
+  "EarL",
+  "EarR",
+  "Tail1",
+  "Tail2",
+  "Tail3",
+  "Tail4",
+  "FrontUpperL",
+  "FrontLowerL",
+  "FrontCannonL",
+  "FrontHoofL",
+  "FrontUpperR",
+  "FrontLowerR",
+  "FrontCannonR",
+  "FrontHoofR",
+  "HindUpperL",
+  "HindLowerL",
+  "HindCannonL",
+  "HindHoofL",
+  "HindUpperR",
+  "HindLowerR",
+  "HindCannonR",
+  "HindHoofR"
+ ],
+ "clips": {
+  "idle": {
+   "length_s": 8.0,
+   "loop": true
+  },
+  "graze": {
+   "length_s": 10.0,
+   "loop": true
+  },
+  "walk": {
+   "length_s": 0.95,
+   "loop": true,
+   "speed_mps": 1.0,
+   "stride_m": 0.95,
+   "duty": 0.6,
+   "phases": {
+    "HindL": 0.0,
+    "FrontL": 0.25,
+    "HindR": 0.5,
+    "FrontR": 0.75
+   }
+  },
+  "trot": {
+   "length_s": 0.4571,
+   "loop": true,
+   "speed_mps": 3.5,
+   "stride_m": 1.6,
+   "duty": 0.36,
+   "phases": {
+    "HindL": 0.0,
+    "FrontR": 0.0,
+    "HindR": 0.5,
+    "FrontL": 0.5
+   }
+  },
+  "gallop": {
+   "length_s": 0.4,
+   "loop": true,
+   "speed_mps": 6.0,
+   "stride_m": 2.4,
+   "duty": 0.26,
+   "phases": {
+    "HindL": 0.0,
+    "HindR": 0.1,
+    "FrontL": 0.38,
+    "FrontR": 0.5
+   }
+  }
+ },
+ "far": {
+  "path": "cattle_far.glb",
+  "triangles": 1499
+ },
+ "tail_bones": [
+  "Tail1",
+  "Tail2",
+  "Tail3",
+  "Tail4"
+ ]
+}

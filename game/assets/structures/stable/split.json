@@ -1,0 +1,72 @@
+{
+ "source": "assets/_meshy_raw/stable/stable.glb",
+ "boxes": [
+  [
+   -0.615,
+   -0.4,
+   0.46,
+   0.615,
+   -0.29,
+   0.72
+  ],
+  [
+   0.205,
+   -0.66,
+   0.46,
+   0.335,
+   -0.29,
+   0.72
+  ],
+  [
+   -0.335,
+   -0.66,
+   0.46,
+   -0.205,
+   -0.29,
+   0.72
+  ]
+ ],
+ "rule": "centroid",
+ "seed": null,
+ "inside": {
+  "triangles": 1412,
+  "vertices": 2852,
+  "connected_groups": 1,
+  "aabb_min": [
+   -0.619585,
+   -0.61799,
+   0.536895
+  ],
+  "aabb_max": [
+   0.620448,
+   -0.314247,
+   0.623394
+  ],
+  "center": [
+   0.000432,
+   -0.466118,
+   0.580144
+  ]
+ },
+ "outside": {
+  "triangles": 42174,
+  "vertices": 79555,
+  "connected_groups": 1,
+  "aabb_min": [
+   -0.951627,
+   -0.635845,
+   -0.725303
+  ],
+  "aabb_max": [
+   0.943244,
+   0.625269,
+   0.738139
+  ],
+  "center": [
+   -0.004192,
+   -0.005288,
+   0.006418
+  ]
+ },
+ "_aciklama": "Ahırın önü açıldı (2026-11-07, üç yanı kapalı ahır): ham modelin ön bağlama korkuluğu ve onu taşıyan iki kısa direk kesildi (kutular model uzayında, ağırlık merkezi kuralı), oyun kopyası kalan gövdeden tools/glb_prepare.py ile yazıldı. Ham dosya değişmedi. Komut: python3 tools/glb_split_region.py assets/_meshy_raw/stable/stable.glb <korkuluk.glb> <gövde.glb> --box=-0.615,-0.40,0.46,0.615,-0.29,0.72 --box=0.205,-0.66,0.46,0.335,-0.29,0.72 --box=-0.335,-0.66,0.46,-0.205,-0.29,0.72 --rule=centroid; python3 tools/glb_prepare.py <gövde.glb> assets/structures/stable/stable.glb. Yan duvarlar kodladır (scripts/camp/stable.gd)."
+}

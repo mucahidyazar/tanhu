@@ -1,0 +1,21 @@
+{
+  "id": "eskam",
+  "tasks": {
+    "model": {
+      "id": "01a1b8eb-0ada-76f4-b2d6-22faee328908",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b8ef-06f0-71ea-aa07-d222827749e8",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

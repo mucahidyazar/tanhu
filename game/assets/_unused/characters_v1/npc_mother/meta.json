@@ -1,0 +1,99 @@
+{
+  "id": "npc_mother",
+  "role": "campfire NPC: the young mother",
+  "file": "npc_mother.glb",
+  "concept_image": "assets/_reference/concepts/npc_mother.png",
+  "source": "Meshy AI (API, via MCP)",
+  "task_ids": {
+    "concept_image": "01a17255-ced2-761a-a318-6346a3cf7b6a",
+    "model": "01a17256-bafb-700e-93f2-0606ae042dbc",
+    "rig": "01a17258-0387-7275-9ff1-09527af2c44c",
+    "animation": "01a17258-881c-77b9-a77a-2086271ecb3c"
+  },
+  "generation": {
+    "image_model": "gpt-image-2",
+    "model": "meshy-7.1",
+    "pose_mode": "t-pose",
+    "texture_resolution": "2k",
+    "pbr": false,
+    "remesh_target_polycount": 30000,
+    "topology": "triangle",
+    "rig_height_m": 1.3
+  },
+  "animation_clips": [
+    "Armature|Sit_Cross_Legged_on_Floor|baselayer"
+  ],
+  "clip_roles": [
+    "sit"
+  ],
+  "clip_role_map": {
+    "sit": "Armature|Sit_Cross_Legged_on_Floor|baselayer"
+  },
+  "animation_details": [
+    {
+      "role": "sit",
+      "meshy_action_id": 363,
+      "meshy_name": "Sit Cross-legged on Floor",
+      "meshy_category": "DailyActions/Transitioning",
+      "clip": "Armature|Sit_Cross_Legged_on_Floor|baselayer",
+      "duration_s": 2.533,
+      "channels": 66,
+      "loopable": true,
+      "note": "Despite Meshy's 'Transitioning' category this is a seated idle: hips stay ~0.02 m above origin for the whole clip and first/last frames match, so it can loop."
+    }
+  ],
+  "glb_stats": {
+    "size_bytes": 5752972,
+    "skins": 1,
+    "joints": 24,
+    "meshes": 1,
+    "materials": 1,
+    "images": 1,
+    "image_format": "image/jpeg",
+    "triangles": 31126,
+    "vertices": 35551,
+    "height_m": 1.3,
+    "arm_span_m": 1.114,
+    "up_axis": "+Y",
+    "facing": "+Z",
+    "armature_node_scale": 0.01
+  },
+  "placement": {
+    "sit_clip_mesh_min_y_m": -0.129,
+    "recommended_y_offset_when_sitting_m": 0.13,
+    "sit_clip_head_top_y_m": 0.699,
+    "sit_clip_footprint_m": {
+      "x": [-0.225, 0.226],
+      "z": [-0.121, 0.376]
+    },
+    "note": "In the sit clip the legs and seat sink ~13 cm below the node origin. Raise the model ~0.13 m so she sits on the ground. Legs point forward along +Z. Godot's forward is -Z, so rotate 180 degrees around Y when using look_at()."
+  },
+  "free_rig_animations": {
+    "urls_expire_at": "2026-10-28T09:15:48Z",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Walking_withSkin.glb?Expires=1793178948&Signature=gjlPszNVMIv~hhkXdxStkxmsh1v4n40ZMJ8x1IN1CLconDDNYjH2LmSZRwhZd-7pxccrad2Ml9pul7SVKyHG1ZK6cSLwXavmukCnuhAtayOXYJhio6jB1gKG2IpjzvWRibqkc27a3AgtTjD2XRRf5kKnzrko1tiOECDHPoNLLP8UKXUAB1lkEaBUtwI4njh0EL1zZQvgWoQIqVnq7vzghsYzYXjHQ8QdlK6xdhiKOLsgopn20jlWJ6z-Xkqz5d~fZyP4VbV~hYZ63olzG0kfSqJI0~1DblYeyIetdIsEEnL64WhE1NloRLy3jzcVTyKM6zy9Yx6atNY7IfXwkIXBDw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Walking_withSkin.fbx?Expires=1793178948&Signature=N3fsuXJ2RM8Tsu1LIDVbLtxi1lKsB9EakfEg6lViNkkphXkHaBvjaWZoiyIBblcPzvPdcC32LOQj9DQND2gG6vUAUxhGnPFRfJTSBabdkmG2y2dDvj02jaYHnYOkw5pYj9TSZDDf2yU-ZpLsquRcoK6f9JUAF0vEqh1e5WmnQv0mpUoY8zfNbbYHGVoR3CR5TpOnXf-b-mJvodCJsGHTFROjnC0zixH1ZagGCx7Ah6Gk1F9ww3rDQN5EuNBcocZ4JYWwY2DMhOk-qHXLTr0dU-0z1jmvf2qaMX3XZePUrUaR~KaqBPdh6nNUdXujGJeOtFYXMftIbc6EexJvoSqtQg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Walking_withSkin_armature.glb?Expires=1793178948&Signature=Zr73MfsTpf21~~evUUikLPM5UI7vtQbOQ-V~2Ve7sKCXiYDwGlhI228bUK~-QqQi2Nr5Bg0xXXiFLLZmemAJjfcXVKukHXOuLUjd7t8gRi30q6mzQx3tNjwDMnHGAekrDVJk-aXQ8PVCCEs8I6RcXUmoAQQjl7R-DM393IjWyPqMP-v62UY7tl3GEKeNBZ3SybjoVPWil04ax69j51fE5SEHqk2m2u5rU-OzdG3wvMUb~buAfivGthJ~2eis03hexPT89gluq658UuEQG3U0e5HH-VkyFYfA13k-yzPfkEOS86PGXQfWdGfbmI-W0CxXu8l7LwgHm2uj577ZJI4UkQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Running_withSkin.glb?Expires=1793178948&Signature=HkkmdWZoFgz29ZjD1Avi5ShNmjDHyTE0NTNDXbsNhpknT6srHya0jmzKbhA4V6fig0YCguUnaHGf-3-uZ4NunmPAOyhY5Wnm0t0xSUt~mECJP3LYgB1S7hNkIXJ9mqjeqw3mVi9bmSVpiV1~zsrjEXz2vu6biT-XEjjiwzM-6tr9R34MuWViHcXk3xg4wGlFMFwiCI6I7BAxEpI7CYa5PSodqcbVqQiaT7SodVkMqwGjE8Xy3bKFCcR3vzAVhHinhEZBflU8cIOXkfZNkTundTaSPt3iIo03YgbIlqlav6o9lNhMloXUzpoB6J70EMzh69zHCMoyRJxgKGL4~n0M0w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Running_withSkin.fbx?Expires=1793178948&Signature=oZsl0f-TZNwp2l51Ur-ezCDNWZXBLVRssU7xoEi-eR6qhfIxHEARFv7cwOqtdyzrUzVJc5no~dUEx7vUrq3gP7FRbN1i~PuU-kBRNfhUdUJfbojlwM52i1~D~vK9R5p36RGH8GVWyzW75n0rJDS4c81oQNEmwjlvnukLX2JeCZwwy75-SXZ1xX37T~kst7icdAXDh21~y1Dn2s9544GeG-4nCwdasDOetEIQWPLHA1oNHwJ8G~SaHMZNywU~JYTsZw8Q1rB7djZoujiTw1KKvQHf-PBMiGWXcEW-whGvjO7y5LhjUnnU74ob2OsiLBB4O3PyY~ZAv6qpFTWKrGErug__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17258-0387-7275-9ff1-09527af2c44c/output/Animation_Running_withSkin_armature.glb?Expires=1793178948&Signature=ERQjw2-Eip371upd3xqel2n3Lld0DDdmACSejZ~72G2JzQpe4glS7FKjRA2deR5NtP1iLDjuJ7Bh~76wdBqEOzbFL1dqHZx5LgIDmpoK3N2E8WQO9TWoFCBRgp2SwlsLe964BfCYqDAuM5nP70gByG08NUC-LdzAw14PKosjFWfhfufBjE1PmO1J6FPs6U-UP-XFXMvslmmrMYzQtnNYrz4PFgoEs~Rgzok-L04qIDOysuTrMWO7nC3w59Ywsl9LY8pgEL6paCOUsyTdcxR-kfrEbBcvW4QE-nmbksDj8SVpjTzb3sae-tvVKVSElb9ZadlT0BCk2V1XQSKAyvzUNg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "hair": "#604331",
+    "hair_shadow_braid": "#4c392a",
+    "skin": "#ecb17b",
+    "cheek_blush": "#d28860",
+    "eyes": "#443123",
+    "coat_rose_red": "#bb6450",
+    "coat_shadow": "#9e5948",
+    "fur_trim_cream": "#e4c5a6",
+    "embroidery_gold": "#bf7e58",
+    "embroidery_cream_stripes": "#dfb891",
+    "sash_olive_brown": "#7f5935",
+    "skirt_cream_beige": "#c8a17a",
+    "skirt_hem_band": "#cc9a79",
+    "trousers_khaki": "#bc9f7c",
+    "boots_tan": "#986c42"
+  },
+  "color_notes": "Median pixel samples from the concept image. Its warm studio light shifts everything slightly warm. Summary: medium-dark brown hair in a low side-braided bun with soft bangs, warm peach skin, dark brown eyes, rose-red (dusty brick-rose) Kazakh-style coat with cream fur trim on collar, cuffs and hem, gold-tan zigzag embroidery bands, olive-brown sash tied in a bow at the front, cream skirt, khaki puffy trousers, tan fur-topped boots.",
+  "credits_spent": 50
+}

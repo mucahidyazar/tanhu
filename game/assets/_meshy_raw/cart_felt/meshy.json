@@ -1,0 +1,13 @@
+{
+  "id": "cart_felt",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b3-e60e-710f-8c80-1670983f6d1a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

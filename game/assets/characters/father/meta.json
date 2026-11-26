@@ -1,0 +1,20 @@
+{
+  "id": "father",
+  "name": "Baba",
+  "role": "npc",
+  "file": "father.glb",
+  "concept_image": "assets/_concepts/father.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/father (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.84,
+  "clip_roles": [
+    "sit"
+  ],
+  "extra_clips": {
+    "walk": "father_walk.res",
+    "run": "father_run.res"
+  },
+  "description": "A strong Hun man in his forties with a full dark beard and a top-knot of dark hair, warm friendly eyes, wearing a brown leather coat with a thick fur collar and fur cuffs over a dark tunic with red borders, a wide leather belt with bronze plates, dark trousers and tall leather boots.",
+  "variety": {"body": "male", "age": "adult", "style": []}
+}

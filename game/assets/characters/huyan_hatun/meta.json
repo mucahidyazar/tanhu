@@ -1,0 +1,22 @@
+{
+  "id": "huyan_hatun",
+  "name": "huyan_hatun",
+  "role": "npc",
+  "file": "huyan_hatun.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/huyan-hatun/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/huyan_hatun (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 1.62,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "huyan_hatun_walk.res",
+    "run": "huyan_hatun_run.res"
+  },
+  "description": "Huyan Hatun, Teoman's young favourite wife: an elegant Xiongnu noblewoman in a rich red winter coat with fur trim and gold ornaments.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

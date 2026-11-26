@@ -1,0 +1,7 @@
+Game UI sprite sheet in EXACTLY the style of the reference HUD quest tracker (painterly fantasy RPG; polished silver-white metal with pale-blue shading, navy blue, gold). Draw these separate elements, widely spaced, on a perfectly flat solid magenta #FF00FF background (no shadow, no gradient, no texture on the background):
+1) The quest header ornament: a silver-white Chinese cloud-scroll curl on the left end, then a long thin straight horizontal silver rod, ending on the right with a small sprig of three green leaves on a twig. Very wide and thin, like the line under the quest title in the reference.
+2) A vertical hanging pennant banner: navy blue cloth with a thin gold border and a swallowtail (notched) bottom, with a small gold diamond emblem with a dark center in its middle, hanging from a small silver rod.
+3) A gold diamond quest marker: a square rotated 45 degrees, gold rim, dark inner diamond, small gold center.
+4) A white map arrow (player marker): a clean white arrowhead pointing up with a slight notch at the back and a soft grey shading on one half.
+5) An empty navy blue quest marker pin for the world: a gold diamond on top of a short downward-pointing gold tip.
+No text, no letters, no numbers anywhere. Flat front view, clean edges.

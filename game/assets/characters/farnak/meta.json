@@ -1,0 +1,29 @@
+{
+  "id": "farnak",
+  "name": "farnak",
+  "role": "npc",
+  "file": "farnak.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/farnak/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/farnak (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.86,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "farnak_walk.res",
+    "run": "farnak_run.res"
+  },
+  "description": "Farnak, a Yuezhi horse archer of twenty-five: laughing eyes, stubble, a pointed Saka-style ochre felt hood with red trim, a short dark-red coat with gold-ochre borders under a fur-trimmed leather vest, dark trousers, tall boots.",
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {
+    "body": "male",
+    "age": "adult",
+    "style": [
+      "warrior"
+    ]
+  }
+}

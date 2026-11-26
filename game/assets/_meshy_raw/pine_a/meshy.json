@@ -1,0 +1,13 @@
+{
+  "id": "pine_a",
+  "tasks": {
+    "model": {
+      "id": "01a17484-b068-70d0-8016-5949bb6f2633",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

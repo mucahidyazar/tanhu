@@ -1,0 +1,18 @@
+{
+  "id": "oktar",
+  "name": "Oktar",
+  "role": "npc",
+  "file": "oktar.glb",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_man",
+    "tint": "#b09070",
+    "scale": 1.02,
+    "note": "K89 yer tutucusu (B, roam-camp-life): Göl Obası'nın üçüncü yurdunu kuran ustalardan; crowd_hun_man modeli ×1.02 ve renk çarpanıyla (StandIn). Meshy modeli (meshy-final) assets/characters/oktar/oktar.glb olarak gelince yer tutucu kendiliğinden kalkar."
+  },
+  "height_m": 1.74,
+  "clip_roles": [],
+  "story": "structures.md §10.1, §11; time.md §8.3: camp3'ü Oktar, Erka ve Dengiz kurar (K83). Yalnız Serbest Gez'de görünür.",
+  "description": "Dülger / Carpenter, ≈52 yaşında (structures.md §10.1): sakallı, tepe saçlı, kahverengi kaftan, kızıl kuşak.",
+  "variety": {"body": "male", "age": "adult", "style": ["work"]}
+}

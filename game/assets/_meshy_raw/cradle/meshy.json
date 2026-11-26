@@ -1,0 +1,19 @@
+{
+  "id": "cradle",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/cradle.png",
+  "polycount": 30000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-f481-73b1-96d4-9d13888b3f04",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 6,
+      "consumed_credits": 40
+    }
+  },
+  "account": "MESHY2_API_KEY"
+}

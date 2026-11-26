@@ -1,0 +1,23 @@
+{
+  "id": "lan_woman_b",
+  "name": "Lan soyundan kadın (2)",
+  "role": "npc",
+  "file": "lan_woman_b.glb",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_woman",
+    "tint": "#a29384",
+    "scale": 1.006,
+    "note": "K89 yer tutucusu: Hun kadınının modeli (crowd_hun_woman) ×1,006 (1,63 m) ve koyu, soluk ton (StandIn; CineActor); modelin keçe başlığını taşır, öteki Lan kadınından renk çarpanı ve oturuşla ayrılır; köz ışığında oturur. Kodla baş örtüsü denendi (2026-11-06), gerçek boyda başı top gibi örtüp gözleri kapattı, kaldırıldı. prologue_birth.tscn'de Actors/LanWomanB. Kendi modeli planlı değildir; kalabalığın Hun kadını ağı gösterilir."
+  },
+  "replace_with": "yok: kendi modeli planlı değil, yer tutucusu crowd_hun_woman (E7.6)",
+  "node_path": "scenes/cine/prologue_birth.tscn:Actors/LanWomanB",
+  "age": 30,
+  "height_m": 1.63,
+  "clip_roles": [
+    "sit"
+  ],
+  "story": "story.md §4: doğumda Lan Hatun'un yanındaki Lan soyundan iki kadından biri.",
+  "description": "A Hun woman of the Lan clan of about thirty, a dark red wool kerchief over long braids, a brown felt robe, a woven red sash, felt boots.",
+  "variety": {"body": "female", "age": "adult", "style": ["graceful"]}
+}

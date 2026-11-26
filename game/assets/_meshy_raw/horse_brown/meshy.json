@@ -1,0 +1,13 @@
+{
+  "id": "horse_brown",
+  "tasks": {
+    "model": {
+      "id": "01a17477-a20b-73fb-97cc-2bc596b480e1",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

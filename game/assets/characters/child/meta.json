@@ -1,0 +1,20 @@
+{
+  "id": "child",
+  "name": "Çocuk",
+  "role": "npc",
+  "file": "child.glb",
+  "concept_image": "assets/_concepts/child.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/child (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.2,
+  "clip_roles": [
+    "sit"
+  ],
+  "extra_clips": {
+    "walk": "child_walk.res",
+    "run": "child_run.res"
+  },
+  "description": "A cheerful Hun girl of about seven years with a round face, two short dark braids, a cream felt tunic with red embroidered borders, a small red vest with fur trim, dark trousers and little felt boots. Child proportions.",
+  "variety": {"body": "child", "age": "child", "style": []}
+}

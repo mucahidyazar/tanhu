@@ -1,0 +1,98 @@
+{
+  "id": "npc_father",
+  "role": "campfire NPC: the bearded father",
+  "glb": "npc_father.glb",
+  "concept_image": "assets/_reference/concepts/npc_father.png",
+  "height_meters": 1.3,
+  "tasks": {
+    "image_task_id": "01a17255-fc41-755a-a827-8ea10f383a69",
+    "model_task_id": "01a17257-aa05-751a-88fd-f76a964a6119",
+    "rig_task_id": "01a17259-4265-76a1-9d83-df3fbf26f071",
+    "anim_task_id": "01a17259-b9d1-7629-8645-585a3b982a6a"
+  },
+  "generation": {
+    "image_model": "gpt-image-2",
+    "model": "meshy-7.1",
+    "pose_mode": "t-pose",
+    "texture_resolution": "2k",
+    "pbr": false,
+    "remesh": {
+      "target_polycount": 30000,
+      "topology": "triangle"
+    },
+    "animation_action_ids": [
+      363
+    ],
+    "credits_spent": 50
+  },
+  "animation_clips": [
+    "Armature|Sit_Cross_Legged_on_Floor|baselayer"
+  ],
+  "clip_roles": [
+    "sit"
+  ],
+  "clip_details": [
+    {
+      "name": "Armature|Sit_Cross_Legged_on_Floor|baselayer",
+      "role": "sit",
+      "meshy_action_id": 363,
+      "meshy_action_name": "Sit Cross-legged on Floor",
+      "meshy_sub_category": "Transitioning",
+      "duration_seconds": 2.533
+    }
+  ],
+  "glb_contents": {
+    "skins": 1,
+    "joints": 24,
+    "meshes": 1,
+    "materials": 1,
+    "images": 1,
+    "vertices": 28111,
+    "triangles": 31113,
+    "bind_pose_bbox_m": {
+      "min": [
+        -0.63,
+        0.0,
+        -0.199
+      ],
+      "max": [
+        0.63,
+        1.3,
+        0.199
+      ]
+    }
+  },
+  "free_basic_animations": {
+    "note": "Signed Meshy URLs from the rig task; they expire around 2026-10-28T09:17Z. Download them before then if they are needed.",
+    "walking_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Walking_withSkin.glb?Expires=1793179029&Signature=he~YXI-RMF9JgP-d7EVpbBewGHfo1tKVsyOZ-NdguXo-qaHoeuoaM0jlBUeqGZX3K1xwNVpYbdxC6Ek7spJq2iVDcuuij9SkFSxCys6xCf2NFHKYd7JzdghkOXgEy2Dne5sB2sVSR9zQr3Kxx2WXoIr6f5OwsuUNlnO83aj7kDB1ffVfVjnqGw73ctgmLn6xZhLRIWKSfgwWk3E65qHchIgdcAzpGUrYkp1t2FabmcF9RlzW~YdeRtXrtH79UNB88DJAfpVw3UAv6eiWeTySgtoCpXaWiObYOqz82fi3dbKVBIbH82s5ie6vpbt15YAaQKL5x1cTlmykQZvg2LlZZQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Running_withSkin.glb?Expires=1793179029&Signature=Q4ThJ~1L9qgNoRz4vySsh8xntFp2df5462cBeOWf2CQQAcKZq2gl-plYto9qatmTSpcPKCJxAwWBE5-5wx5v7xg7ebsqDFOXJd6z6bU--koajv67olGE9-CIbEViNugpWd0jlH9U~MQrid7YPlu81hOcfj1AAq7IWiYv2XQmZBjrSujNMf3vfgkvjJ4si3AHOzGLv4K4YcV63~9IHXhUXnkpO1Kw3k4CZfj4KtZ1jnGKtyAlIi9ZXbQ1O3cF86GncHEzcapibc6LZCREaCqALyh~EHn6jxX2X7u5x~sRo5hbY~VHB51i7BwkJd0h5WH3RHq2JDsH82zxTm1nP1Vxdw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Walking_withSkin.fbx?Expires=1793179029&Signature=STwg69jdG36Dwh6I8AekJ9tIoCVgInnqzO1dlvI~puqIocelI3LXWtqU1Vzmt54Fk2UAY7YLt1vM388f8F2HsKeqK8xs-czP-9eL3m57SGgPFzLTtsuFgwSUoO6l~JOrEZa7R4ZiyOFAtX6-5cBN2RvqYlyQQkHwmhQyaZe060FJ83LUG9PYw2tWdQgop8qxM7pne6RAl6ZpWUKq8jespKwzOY-8Tg12rUc~0ZqULCIEaHdLl-RYo6tXQSB26GKfexeqKNuDEY89xop77ao35O5qqGTmYoenaYTbjcn4KxCjFfq8BpsCBHCQONS2gmKfsj6g5P0CbLeCEK-fn6KF3Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_fbx_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Running_withSkin.fbx?Expires=1793179029&Signature=qGg2WgmDx6nFirX95gRaVT6QnDH-PgI2RveffZxrIG0nSuec48qXconWUJIcDtBPrCeD6QpufyzWH911fBpI9e0ikGgW3EXN~Cxlwrfp8MxLFyqFlfVvwGMi5aziehwIYVQ96qGYGz~JB2dPvHOPAX4o1nDR4R4bjhKLVVHulHvg9Tk0cpP5erTy9nMs3pTovy0avd4nhIzt9Tqds~dY3bis-~jKTtYp0sEfEzs9z-kFi2~MgoMKogh4dw6K2V7xa44KP~Kx5i3Rg09xRFfCo1rN2FCyRoIDDrMbJkrxulDKazsp2FjhbLaYgzPMFjo2U3Ipjv8vtS~nyveYSBmslg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "walking_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Walking_withSkin_armature.glb?Expires=1793179029&Signature=SzDeFUOzMXFYkYhzx~JJuw3l0ro3-m9dn-gnUWaElzCTDQp6ggQJrFOloZ5X5Cv12PiSMMsDybiFrwETZGZ83QwqcI6wO9FcmTIbkSZQimglkCSAynckzYeJ~iRxgOuiac0gHrPtgEHei4GO6s8Mrt8X543-CpKOJCySBuoPfJN-hv3SYoo7iVXdrSLefk9jC1t5qbHrsLpvPbqR~CPR4nsFtiCUX5AZ~yHlHg8Dlzah19wHk1NoN~p3jxI~nOzh1T7tmXNqgZHN0Ae1Vg7u86qyyEDo~f7nMdyixrMI~Kp-EXNvaBtwDiKiIwLY0ftltlHi7BVDDGFZbQmms1gtWg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "running_armature_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Animation_Running_withSkin_armature.glb?Expires=1793179029&Signature=njSekcMddvasZIVdbOU-9PnzIdIB4FV5B8L~orAFl7RXMILikcwPlvPjrsisxCWO~WSKAbxepUDUJyO0S1-5QOp8mzc752x~~o8ToEddtPKPhv0txJjZ3~tjiKmsIuhNPvbgBvMLOnER2XttVGUhXPQ~4ZinEjSUfZXQmnMU7l6bu7Btiuz7B~r73SbsM862en4M7Q11O6Q~J9eqxEWXbYfHvODDAkO4i3k75TyMnJ~EwZVpELkGTBXp8g-qMyMsFF0l-HNEmQdllN9dA3Uy5hIzORKgGHrv8mvZpsd0uHzwb0GC5RZJe6WBv7a2uSx5y3FCpztfK~8fx96XVWgkIQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "rigged_character_glb_url": "https://assets.meshy.ai/51e11d08-8a43-4952-9606-bc31382851ed/tasks/01a17259-4265-76a1-9d83-df3fbf26f071/output/Character_output.glb?Expires=1793179029&Signature=OdRwGCW-l6hRANajBxS4r4iJfIs2Q8nbdufSs0azj4T~oicpwhsOlKxstXY-75AiXRXFufkJRr5npj3kQwG1ErDs01pXnO-Idbvebmr3GSwA4Rv1F5Y1b4-Dc8yrRMifsrE3pm~LjACevs3MA2XnGKD2MWTOpESMfUgoLZTOpryAeXw7iHwtNqm~c6Qx5LA7YTa6LPFMV2MzOCELh75GtebysZl8fqpZUeUke~d9LhKRWqnTzLEzUkccG8Ts6iOZJkTmuCZNTas-hcB~bI9HGdX25Mq5TejtJb178vJSRlWJ5FkL1zHgX~BrIXK5I8OnsfL4qizGotdqcUgW9nMO9g__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "colors": {
+    "note": "Hex values estimated by sampling patch medians in the concept image (warm, soft studio lighting baked in).",
+    "hair": "#4b3322",
+    "beard_mustache": "#4f3420",
+    "skin_tone": "#e5925a",
+    "eyes": "#362a1f",
+    "tunic_main": "#7a4e2d",
+    "tunic_shadow": "#5e3e26",
+    "tunic_trim_embroidery": "#9b6c42",
+    "sleeve_cuffs": "#c29263",
+    "fur_collar_sheepskin": "#ddb282",
+    "belt_leather": "#3e291a",
+    "belt_buckle_bronze": "#a06a2c",
+    "topknot_band": "#9b622f",
+    "trousers": "#503726",
+    "boots": "#503723"
+  },
+  "notes": [
+    "Concept accepted on the first try: single character, full body with 40-69 px margin, clean T-pose, front-facing, transparent background, chibi proportions (head about 1/3 of height).",
+    "Fur collar came out cream/beige sheepskin rather than pure white; this matches the original campfire reference.",
+    "Buckle is a bronze knot-pattern medallion; topknot is held by a bronze/leather band.",
+    "Sit clip is Meshy preset 363 'Sit Cross-legged on Floor' (sub-category Transitioning, 2.53 s): it likely goes from standing into the cross-legged sit, so for an idle campfire pose play it once and hold the last frame (or loop only its tail)."
+  ]
+}

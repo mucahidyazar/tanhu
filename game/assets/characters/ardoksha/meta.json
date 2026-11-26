@@ -1,0 +1,22 @@
+{
+  "id": "ardoksha",
+  "name": "ardoksha",
+  "role": "npc",
+  "file": "ardoksha.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/ardoksha/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/ardoksha (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "height_m": 1.6,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "ardoksha_walk.res",
+    "run": "ardoksha_run.res"
+  },
+  "description": "Ardoksha, the Yuezhi keeper of the stores, a heavy-set woman of fifty-two: counting eyes, a dark-red head band, an ochre-brown felt robe with dark-red borders, a wide leather belt with tally cords, felt boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

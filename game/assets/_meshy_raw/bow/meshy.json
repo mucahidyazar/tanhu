@@ -1,0 +1,13 @@
+{
+  "id": "bow",
+  "tasks": {
+    "model": {
+      "id": "01a17485-d640-7798-a406-896d37d39787",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

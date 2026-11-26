@@ -1,0 +1,21 @@
+{
+  "id": "yanchi",
+  "tasks": {
+    "model": {
+      "id": "01a1b8eb-0863-7100-b4ac-6637060d713d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b8ee-3742-7631-9a26-fae77955472d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

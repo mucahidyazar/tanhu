@@ -1,0 +1,13 @@
+{
+  "id": "deer",
+  "tasks": {
+    "model": {
+      "id": "01a1b9f1-f47b-7447-ba12-6d5f28334a12",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

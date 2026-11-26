@@ -1,0 +1,40 @@
+{
+  "id": "counter",
+  "name": "Sayıcı",
+  "role": "npc",
+  "file": "counter.glb",
+  "status": "meshy",
+  "stand_in": {
+    "model": "elder",
+    "tint": "#b4aca2",
+    "scale": 0.97,
+    "headwear": {
+      "shape": "cap",
+      "color": "#6b6258",
+      "band": "#4a3a2c",
+      "radius": 0.1,
+      "height": 0.07,
+      "drop": 0.05
+    },
+    "note": "K89 yer tutucusu: Ozan'ın (elder) modeli ×0,97, gri ton ve keçe külah (StandIn; CineActor). prologue_birth.tscn'de Actors/Counter; elinde çentik çubuğu (ücretsiz doku rough_wood). Meshy modeli gelince assets/characters/counter/counter.glb."
+  },
+  "node_path": "scenes/cine/prologue_birth.tscn:Actors/Counter",
+  "age": 60,
+  "height_m": 1.65,
+  "clip_roles": [],
+  "story": "story.md §4–§5: Dailin'in sayım hattında sayıcı; doğumda Hereka'nın «Bir eklendi.» sözüyle çubuğa çentik atar (Önsöz 3:22,0). Çocukluk'ta çocukları sayar («Yenen de sayılır.»).",
+  "description": "An old Hun tally-keeper, thin grey braids under a rust felt cap, a thin white goatee, a long tan felt robe with brown patterned borders, a red sash with a bundle of notched wooden tally sticks and a leather pouch at the belt, baggy trousers and laced felt boots.",
+  "concept_image": "../docs/assets/encyclopedia/counter/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/counter (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "extra_clips": {
+    "walk": "counter_walk.res",
+    "run": "counter_run.res"
+  },
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {"body": "male", "age": "elder", "style": []}
+}

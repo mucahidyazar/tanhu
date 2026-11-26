@@ -1,0 +1,19 @@
+{
+  "id": "swaddled_baby",
+  "via": "meshy MCP",
+  "input_image": "game/assets/_concepts/swaddled_baby.png",
+  "polycount": 20000,
+  "tasks": {
+    "model": {
+      "id": "01a1ab89-fd11-7025-b181-dc156ecdab64",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "progress": 100,
+      "preceding_tasks": 162,
+      "consumed_credits": 40
+    }
+  },
+  "account": "MESHY1_API_KEY"
+}

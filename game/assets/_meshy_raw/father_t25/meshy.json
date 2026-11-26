@@ -1,0 +1,26 @@
+{
+  "id": "father_t25",
+  "via": "doğrudan API (MCP o sırada yanıt vermedi)",
+  "account": "MESHY4_API_KEY",
+  "input_image": "game/assets/_concepts/father.png",
+  "polycount": 30000,
+  "note": "t2.5 denemesi; oyuna takılı değil, assets/characters'ta yok",
+  "tasks": {
+    "model": {
+      "id": "01a1b1ef-dc5b-737c-a2f1-5b8473d70e9c",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 15,
+      "retries": 0,
+      "consumed_credits": 15
+    },
+    "rig": {
+      "id": "01a1b1f2-b72c-7710-a66a-ca1024a08050",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

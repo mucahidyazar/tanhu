@@ -1,0 +1,21 @@
+{
+  "id": "huyan_hatun",
+  "tasks": {
+    "model": {
+      "id": "01a1b8eb-090c-73f1-9f74-f34884e2dd60",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b8ee-d99b-7726-a059-00d4c04024c9",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

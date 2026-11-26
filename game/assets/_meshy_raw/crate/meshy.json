@@ -1,0 +1,13 @@
+{
+  "id": "crate",
+  "tasks": {
+    "model": {
+      "id": "01a1747e-f640-746a-b846-92a1b5ecbd59",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "camel",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b3-da47-70c4-aa1b-08613c4bee08",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

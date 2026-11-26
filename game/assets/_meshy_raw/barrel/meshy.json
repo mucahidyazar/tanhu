@@ -1,0 +1,13 @@
+{
+  "id": "barrel",
+  "tasks": {
+    "model": {
+      "id": "01a1747c-aca7-72d2-8e82-a58d3c901f97",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

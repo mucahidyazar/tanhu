@@ -1,0 +1,24 @@
+{
+  "note": "tools/bake_dye_mask.py ile üretildi (K58); _dye.png R=pelerin G=zırh levhası B=gömlek; _dye2.png R=kuşak, önlük ve şeritler",
+  "size": 2048,
+  "cape": {
+    "base": "#6c2624",
+    "lum": 0.05817,
+    "pixels": 754165
+  },
+  "plate": {
+    "base": "#484141",
+    "lum": 0.05786,
+    "pixels": 133790
+  },
+  "tunic": {
+    "base": "#b3906c",
+    "lum": 0.31788,
+    "pixels": 289256
+  },
+  "trim": {
+    "base": "#682623",
+    "lum": 0.05561,
+    "pixels": 145740
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "hereka_young",
+  "name": "Hereka (39 yaşında)",
+  "role": "npc",
+  "file": "hereka_young.glb",
+  "status": "meshy",
+  "stand_in": {
+    "model": "mother",
+    "tint": "#a8826a",
+    "scale": 0.98,
+    "headwear": {
+      "shape": "band",
+      "color": "#8e3324",
+      "radius": 0.105,
+      "height": 0.05,
+      "drop": 0.07
+    },
+    "note": "K89 yer tutucusu: Ana'nın modeli ×0,98, koyu toprak tonu ve kızıl alın bağı (StandIn; CineActor, scripts/cine/cine_actor.gd). prologue_birth.tscn'de Actors/Hereka; kendi modeli (E7.9) assets/characters/hereka_young/hereka_young.glb varken yer tutucu gösterilmez, kayıt yedek olarak durur."
+  },
+  "node_path": "scenes/cine/prologue_birth.tscn:Actors/Hereka",
+  "age": 39,
+  "height_m": 1.62,
+  "clip_roles": [],
+  "story": "story.md §4, §8.4: ebe, Önsöz'de (27 Eylül MÖ 234) 39 yaşında; doğumda konuşan tek kişi («Bir eklendi.» / «One more.»; seslendirme konuşmacı kimliği hereka); eşi yurdun yanına gömer, beşiğe küçük ok-yay asar. Yıllar sonra Yüeçilere tutsak düşer, I. Perde'de Çukur'un ebesidir: o yaşlı hâli ayrı modeldir (assets/characters/hereka). Bu model konseptten üretildi (E7.9); yaşlı ağa Retexture iki kez denendi, yüz soluk çıktı, kullanılmadı.",
+  "description": "A Hun midwife of about forty, calm and capable, weathered warm face, long dark hair in two braids under a red patterned felt headband, wearing a brown felt robe with red Greek-key borders, a red sash and a leather belt with bronze discs, a small herb pouch and a bronze knife, baggy trousers and laced felt boots.",
+  "concept_image": "assets/_concepts/hereka_young.png",
+  "encyclopedia_images": "docs/assets/encyclopedia/hereka/",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/hereka_young (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "extra_clips": {
+    "walk": "hereka_young_walk.res",
+    "run": "hereka_young_run.res"
+  },
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {"body": "female", "age": "adult", "style": ["ceremony"]}
+}

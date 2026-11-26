@@ -1,0 +1,160 @@
+{
+ "id": "horse_white",
+ "generated_by": "tools/blender/quadruped_rig.py",
+ "forward": [
+  0.0,
+  0.0,
+  1.0
+ ],
+ "up": [
+  0.0,
+  1.0,
+  0.0
+ ],
+ "length_m": 2.3,
+ "shoulder_m": 1.493,
+ "height_m": 1.794,
+ "width_m": 0.6969,
+ "saddle_y": 1.3382,
+ "saddle_z": -0.04,
+ "saddle_bone": "Spine",
+ "head_dir": [
+  0.0,
+  -0.738,
+  0.6748
+ ],
+ "nose": [
+  0.0,
+  1.29,
+  1.19
+ ],
+ "deform_bones": 34,
+ "bones": [
+  "Root",
+  "Hips",
+  "Spine",
+  "Chest",
+  "Belly",
+  "Neck1",
+  "Neck2",
+  "Neck3",
+  "Head",
+  "EarL",
+  "EarR",
+  "Tail1",
+  "Tail2",
+  "Tail3",
+  "Tail4",
+  "Tail5",
+  "Mane1",
+  "Mane2",
+  "Mane3",
+  "FrontUpperL",
+  "FrontLowerL",
+  "FrontCannonL",
+  "FrontHoofL",
+  "FrontUpperR",
+  "FrontLowerR",
+  "FrontCannonR",
+  "FrontHoofR",
+  "HindUpperL",
+  "HindLowerL",
+  "HindCannonL",
+  "HindHoofL",
+  "HindUpperR",
+  "HindLowerR",
+  "HindCannonR",
+  "HindHoofR"
+ ],
+ "clips": {
+  "idle": {
+   "length_s": 8.0,
+   "loop": true
+  },
+  "graze": {
+   "length_s": 10.0,
+   "loop": true
+  },
+  "walk": {
+   "length_s": 0.9375,
+   "loop": true,
+   "speed_mps": 1.6,
+   "stride_m": 1.5,
+   "duty": 0.6,
+   "phases": {
+    "HindL": 0.0,
+    "FrontL": 0.25,
+    "HindR": 0.5,
+    "FrontR": 0.75
+   }
+  },
+  "trot": {
+   "length_s": 0.575,
+   "loop": true,
+   "speed_mps": 4.0,
+   "stride_m": 2.3,
+   "duty": 0.36,
+   "phases": {
+    "HindL": 0.0,
+    "FrontR": 0.0,
+    "HindR": 0.5,
+    "FrontL": 0.5
+   }
+  },
+  "gallop": {
+   "length_s": 0.3714,
+   "loop": true,
+   "speed_mps": 10.5,
+   "stride_m": 3.9,
+   "duty": 0.24,
+   "phases": {
+    "HindL": 0.0,
+    "HindR": 0.1,
+    "FrontL": 0.38,
+    "FrontR": 0.5
+   }
+  },
+  "jump": {
+   "length_s": 1.4,
+   "loop": false,
+   "times": {
+    "lift": 0.18,
+    "run_start": 0.24,
+    "takeoff": 0.38,
+    "touchdown": 0.88,
+    "hind_down": 1.02
+   },
+   "ground_mps": 2.0,
+   "legs": {
+    "FrontL": [
+     0.15,
+     0.91
+    ],
+    "FrontR": [
+     0.18,
+     0.88
+    ],
+    "HindL": [
+     0.38,
+     1.005
+    ],
+    "HindR": [
+     0.389,
+     1.035
+    ]
+   }
+  }
+ },
+ "mane_bones": [
+  "Mane1",
+  "Mane2",
+  "Mane3"
+ ],
+ "tail_bones": [
+  "Tail1",
+  "Tail2",
+  "Tail3",
+  "Tail4",
+  "Tail5"
+ ]
+}

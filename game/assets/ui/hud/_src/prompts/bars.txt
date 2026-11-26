@@ -1,0 +1,7 @@
+Game UI sprite sheet in EXACTLY the style of the reference HUD (painterly fantasy RPG; polished silver-white metal with pale-blue shading, navy blue enamel, gold trim). Draw these separate elements, widely spaced, all on a perfectly flat solid magenta #FF00FF background (no shadow, no gradient, no texture on the background):
+1) Two identical long horizontal resource bar frames, like the health and stamina bars of the reference: rounded silver-white rim, the inside is an EMPTY dark navy-charcoal channel (no red or green fill), the right end is a pointed arrow tip with a small gold chevron. Each bar about 8 times longer than it is tall.
+2) One red glossy bar fill strip (rounded ends, warm crimson, soft highlight along the top), same height as the inside channel, no frame.
+3) One olive-green glossy bar fill strip (rounded ends, soft highlight), no frame.
+4) Two small empty square status slots: rounded squares, navy blue enamel with a glossy top, thin gold rim, empty inside.
+5) One empty round level badge: navy blue enamel disc with a gold rim, empty inside.
+No text, no letters, no numbers anywhere. Flat front view, clean edges.

@@ -1,0 +1,26 @@
+{
+  "id": "hereka",
+  "name": "Hereka",
+  "role": "npc",
+  "file": "hereka.glb",
+  "age": 63,
+  "height_m": 1.6,
+  "clip_roles": [],
+  "story": "story.md §8.4, act1.md §3: I. Perde'de, MÖ 210 kışında 63 yaşında, Çukur'un ebesi (K38): dişsizdir, sesi çakıl gibidir; 27 Eylül MÖ 234'te Mete'yi doğurtan ebedir, Çukur'da onu tanır. IV. Perde'de (Haziran MÖ 205) Çukur'a dönüşte adları sayar. Temel ağ budur; Önsöz'ün 39 yaşı ayrı modeldir (assets/characters/hereka_young, E7.9).",
+  "description": "Hereka at sixty-three, the toothless midwife of the Hollow: long white hair under a rust-red head band, deeply lined face, a worn brown felt robe with rust borders, felt boots.",
+  "encyclopedia_images": "docs/assets/encyclopedia/hereka/",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/hereka/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/hereka (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "extra_clips": {
+    "walk": "hereka_walk.res",
+    "run": "hereka_run.res"
+  },
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  },
+  "variety": {"body": "female", "age": "elder", "style": ["ceremony"]}
+}

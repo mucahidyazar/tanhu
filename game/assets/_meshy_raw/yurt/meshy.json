@@ -1,0 +1,13 @@
+{
+  "id": "yurt",
+  "tasks": {
+    "model": {
+      "id": "01a17479-773a-72c2-828a-98e98f70fd3a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

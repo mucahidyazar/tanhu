@@ -1,0 +1,5 @@
+Game item icon sheet in EXACTLY the painterly style of the icons in the reference HUD (soft painterly rendering, warm light from the upper left, gentle outline). Draw each icon separately, widely spaced in a neat 4 by 3 grid, every icon about the same size, on a perfectly flat solid magenta #FF00FF background (no shadow, no gradient, no texture, no frames, no slots behind the icons):
+row 1: a short steel sword with a brown leather grip and bronze guard pointing to the upper right; a round wooden shield with a copper rim and a steel boss; a small wooden recurve bow with its string, diagonal; a tan leather boot.
+row 2: a green-gold herb sprig (wild sage) with several leaves; an orange round clay potion flask with a cork; a brown leather satchel backpack with a strap and buckle; an open book with cream pages.
+row 3: a folded parchment map with faded green and red marks; a small child's toy bow made of a bent stick and twine; a dead small brown lark bird lying on its side; a small grey field mouse.
+No text, no letters, no numbers. Clean edges, each icon fully separated from the others.

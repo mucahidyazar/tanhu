@@ -1,0 +1,21 @@
+{
+  "id": "nanay",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-9fd2-704d-b5cd-a140be5c961a",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b4-202a-77d7-8ae3-faec88e7ae16",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

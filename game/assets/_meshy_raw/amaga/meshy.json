@@ -1,0 +1,21 @@
+{
+  "id": "amaga",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-909d-77e0-bef6-89a5b602cefe",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b5-5d51-7190-bf82-07cff1b7a877",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

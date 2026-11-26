@@ -1,0 +1,20 @@
+{
+  "id": "hero_f",
+  "name": "Kadın kahraman",
+  "role": "player",
+  "file": "hero_f.glb",
+  "concept_image": "assets/_concepts/hero_f.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/hero_f (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.68,
+  "clip_roles": [
+    "idle"
+  ],
+  "extra_clips": {
+    "walk": "hero_f_walk.res",
+    "run": "hero_f_run.res"
+  },
+  "description": "A young Hun woman warrior archer of about twenty, heroic and kind, the female counterpart of the warrior in the reference: long dark hair in two thick braids with small bronze beads, a red felt headband, a crimson felt riding coat with a fur-trimmed collar and red Greek-key borders over a beige tunic, a dark leather lamellar vest, a red sash with round bronze belt plates, leather bracers, dark trousers and tall brown leather boots.",
+  "variety": {"body": "female", "age": "adult", "style": []}
+}

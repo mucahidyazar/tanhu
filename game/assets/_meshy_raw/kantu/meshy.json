@@ -1,0 +1,21 @@
+{
+  "id": "kantu",
+  "tasks": {
+    "model": {
+      "id": "01a1b9b0-b058-7181-8a10-5dcf2797fca0",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    },
+    "rig": {
+      "id": "01a1b9b4-308f-7289-8713-00a32414589d",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/rigging",
+      "planned_credits": 5,
+      "retries": 0,
+      "consumed_credits": 5
+    }
+  }
+}

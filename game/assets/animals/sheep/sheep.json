@@ -1,0 +1,104 @@
+{
+ "id": "sheep",
+ "generated_by": "tools/blender/quadruped_rig.py",
+ "forward": [
+  0.0,
+  0.0,
+  1.0
+ ],
+ "up": [
+  0.0,
+  1.0,
+  0.0
+ ],
+ "length_m": 1.2638,
+ "shoulder_m": 0.75,
+ "height_m": 0.9812,
+ "width_m": 0.4712,
+ "saddle_y": 0.7069,
+ "saddle_z": 0.03,
+ "saddle_bone": "Spine",
+ "head_dir": [
+  0.0,
+  -0.2216,
+  0.9751
+ ],
+ "nose": [
+  0.0,
+  0.815,
+  0.625
+ ],
+ "deform_bones": 29,
+ "bones": [
+  "Root",
+  "Hips",
+  "Spine",
+  "Chest",
+  "Belly",
+  "Neck1",
+  "Neck2",
+  "Neck3",
+  "Head",
+  "EarL",
+  "EarR",
+  "Tail1",
+  "Tail2",
+  "Tail3",
+  "FrontUpperL",
+  "FrontLowerL",
+  "FrontCannonL",
+  "FrontHoofL",
+  "FrontUpperR",
+  "FrontLowerR",
+  "FrontCannonR",
+  "FrontHoofR",
+  "HindUpperL",
+  "HindLowerL",
+  "HindCannonL",
+  "HindHoofL",
+  "HindUpperR",
+  "HindLowerR",
+  "HindCannonR",
+  "HindHoofR"
+ ],
+ "clips": {
+  "idle": {
+   "length_s": 6.0,
+   "loop": true
+  },
+  "graze": {
+   "length_s": 9.0,
+   "loop": true
+  },
+  "walk": {
+   "length_s": 0.7818,
+   "loop": true,
+   "speed_mps": 1.1,
+   "stride_m": 0.86,
+   "duty": 0.55,
+   "phases": {
+    "HindL": 0.0,
+    "FrontL": 0.25,
+    "HindR": 0.5,
+    "FrontR": 0.75
+   }
+  },
+  "run": {
+   "length_s": 0.476,
+   "loop": true,
+   "speed_mps": 2.5,
+   "stride_m": 1.19,
+   "duty": 0.38,
+   "phases": {
+    "HindL": 0.0,
+    "FrontR": 0.0,
+    "HindR": 0.5,
+    "FrontL": 0.5
+   }
+  }
+ },
+ "far": {
+  "path": "sheep_far.glb",
+  "triangles": 1300
+ }
+}

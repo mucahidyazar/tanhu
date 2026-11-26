@@ -1,0 +1,22 @@
+{
+  "id": "yanchi",
+  "name": "yanchi",
+  "role": "npc",
+  "file": "yanchi.glb",
+  "status": "meshy",
+  "concept_image": "../docs/assets/encyclopedia/yanchi/pose.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/yanchi (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 2048,
+  "height_m": 1.6,
+  "clip_roles": [],
+  "extra_clips": {
+    "walk": "yanchi_walk.res",
+    "run": "yanchi_run.res"
+  },
+  "description": "Yanchi at twenty-one, Mete's beloved wife: a young Xiongnu woman with two long black braids, an ochre felt coat with red borders, a sheepskin collar and felt boots.",
+  "clip_donors": {
+    "idle": "hero_f",
+    "sit": "mother"
+  }
+}

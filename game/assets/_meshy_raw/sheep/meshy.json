@@ -1,0 +1,13 @@
+{
+  "id": "sheep",
+  "tasks": {
+    "model": {
+      "id": "01a1b4f1-8b75-7746-b085-160c398e42a7",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "stable",
+  "tasks": {
+    "model": {
+      "id": "01a1747a-6359-732b-9586-f26f5f10c7d6",
+      "status": "SUCCEEDED",
+      "endpoint": "/openapi/v1/image-to-3d",
+      "planned_credits": 40,
+      "retries": 0,
+      "consumed_credits": 40
+    }
+  }
+}

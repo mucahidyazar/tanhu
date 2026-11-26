@@ -1,0 +1,41 @@
+{
+  "id": "teoman",
+  "name": "Teoman",
+  "role": "npc",
+  "file": "teoman.glb",
+  "status": "meshy",
+  "stand_in": {
+    "model": "father",
+    "tint": "#c08a7a",
+    "scale": 1.0,
+    "headwear": {
+      "shape": "fur_hat",
+      "color": "#8a6e52",
+      "top": "#7a1c18",
+      "radius": 0.125,
+      "height": 0.13,
+      "drop": 0.06
+    },
+    "note": "K89 yer tutucusu: Baba'nın modeli ×1,0, koyu kızıl ton ve kızıl tepeli kürk börk (StandIn; CineActor). prologue_birth.tscn'de Actors/Teoman; eğilişi CineBow (scripts/cine/cine_bow.gd). Meshy modeli (meshy-final: insan 45, kullanıcı onayı) assets/characters/teoman/teoman.glb olarak gelince yer tutucu kalkar."
+  },
+  "node_path": "scenes/cine/prologue_birth.tscn:Actors/Teoman",
+  "age": 28,
+  "height_m": 1.84,
+  "clip_roles": [],
+  "story": "story.md §4, §8.2: Tanhu, Mete'nin babası; Önsöz'de ≈28 yaşında. Şafakta otağından çıkar, doğan güne eğilir (SJ 110 單于朝出營，拜日之始生).",
+  "description": "A Hun ruler of about thirty, strong and stern, short dark beard, braided hair under a fur-trimmed hat with a red crown, a dark red felt robe with gold animal-style embroidery and a fur collar, a wide leather belt with gold plaques, leather bracers, dark trousers and tall leather boots.",
+  "concept_image": "assets/_concepts/teoman.png",
+  "encyclopedia_images": "docs/assets/encyclopedia/teoman/",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/teoman (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 1024,
+  "extra_clips": {
+    "walk": "teoman_walk.res",
+    "run": "teoman_run.res"
+  },
+  "clip_donors": {
+    "idle": "mete",
+    "sit": "father"
+  },
+  "variety": {"body": "male", "age": "adult", "style": ["proud"]}
+}

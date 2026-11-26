@@ -1,0 +1,18 @@
+{
+  "id": "dengiz",
+  "name": "Dengiz",
+  "role": "npc",
+  "file": "dengiz.glb",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_man",
+    "tint": "#a89878",
+    "scale": 0.9,
+    "note": "K89 yer tutucusu (B, roam-camp-life): Göl Obası'nın üçüncü yurdunu kuran ustalardan; crowd_hun_man modeli ×0.9 ve renk çarpanıyla (StandIn). Meshy modeli (meshy-final) assets/characters/dengiz/dengiz.glb olarak gelince yer tutucu kendiliğinden kalkar."
+  },
+  "height_m": 1.62,
+  "clip_roles": [],
+  "story": "structures.md §10.1, §11; time.md §8.3: camp3'ü Oktar, Erka ve Dengiz kurar (K83). Yalnız Serbest Gez'de görünür.",
+  "description": "Çırak / Apprentice, 15 yaşında (structures.md §10.1): kısa saçlı, kısa kaftan.",
+  "variety": {"body": "male", "age": "young", "style": ["work"]}
+}

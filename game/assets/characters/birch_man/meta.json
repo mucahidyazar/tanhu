@@ -1,0 +1,20 @@
+{
+  "id": "birch_man",
+  "name": "Kayın Obalı adam",
+  "role": "npc",
+  "status": "stand_in",
+  "stand_in": {
+    "model": "crowd_hun_man",
+    "tint": "#b79c7a",
+    "scale": 1.0,
+    "note": "E21 (K110) yer tutucusu: var olan modelin (crowd_hun_man) yeniden boyanmış hâli (StandIn; CineActor). Yeni Meshy modeli yoktur (e21-brief: «Yeni kişilerin modeli var olandan gelir»); kendi modeli gelirse assets/characters/birch_man/birch_man.glb eklenir, kod değişmez."
+  },
+  "height_m": 1.72,
+  "clip_roles": [],
+  "story": "Kayın Obası'nın adamı: sabah yolda Göl Obası'na çıkarken Çocuk'la karşılaşır (act0.milk.road_man).",
+  "variety": {
+    "body": "male",
+    "age": "adult",
+    "style": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "elder",
+  "name": "Yaşlı ozan",
+  "role": "npc",
+  "file": "elder.glb",
+  "concept_image": "assets/_concepts/elder.png",
+  "style_reference": "assets/_reference/style_mete.png",
+  "source": "assets/_meshy_raw/elder (8K doku, Ultra geometri, meshy-7.1)",
+  "game_texture_size": 4096,
+  "height_m": 1.7,
+  "clip_roles": [
+    "sit"
+  ],
+  "extra_clips": {
+    "walk": "elder_walk.res",
+    "run": "elder_run.res"
+  },
+  "description": "An old Hun storyteller in his seventies with a long white beard and moustache, kind smiling eyes, a white felt kalpak hat with a white feather, a long dark blue-grey robe with silver-grey fur trim and woven geometric borders, a leather belt, soft leather boots.",
+  "variety": {"body": "male", "age": "elder", "style": []}
+}

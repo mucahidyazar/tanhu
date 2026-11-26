@@ -1,0 +1,9 @@
+Game UI sprite sheet in EXACTLY the painterly style of the reference inventory window. Draw these separate elements, widely spaced, on a perfectly flat solid magenta #FF00FF background (no shadow, no gradient, no texture on the background):
+1) A wide dark brown leather pill button with a thin gold rim, EMPTY (no text, no icon), about 4 times wider than tall.
+2) The same pill button in its highlighted state: lighter rim with a soft warm gold glow, EMPTY.
+3) A dark rounded pill label like the coin and weight labels of the reference, EMPTY, about 4 times wider than tall.
+4) A navy blue ribbon banner that fades out to the right, like the item name ribbon of the reference, EMPTY, about 5 times wider than tall.
+5) A faint four-petal cross motif in muted blue-grey, like the empty inventory slot motif of the reference, alone.
+6) A small stack of gold coins icon; a small grey weight sack icon; a small mortar and pestle icon; a small two-arrows swap icon in cream; a small cream trash bin icon.
+7) A soft glowing golden square selection frame with rounded corners, EMPTY inside (only the glowing frame).
+No text, no letters, no numbers. Flat front view, clean edges.
