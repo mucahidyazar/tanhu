@@ -1,0 +1,12 @@
+{
+  "id": "water_reed",
+  "kind": "ambience",
+  "instrument": "water",
+  "seconds": 16,
+  "fold": 2,
+  "seed": 6141,
+  "rate": 22050,
+  "loop": true,
+  "source": "code",
+  "note": "Sazlık su döngüsü (audio.md §4 «Ortam döngüleri»): mit sinemasının ilk panolarında su («Önce su vardı»); 1:20,9'da rüzgârla birlikte kesilir. 22,05 kHz mono QOA, ileri döngü. Kulak onayı bekler."
+}

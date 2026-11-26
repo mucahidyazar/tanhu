@@ -1,0 +1,14 @@
+{
+	"id": "act0.depart.mete_count",
+	"take": 0,
+	"seed": 3707260629,
+	"hash": "dcf84ed516ea",
+	"model": "eleven_v3",
+	"voice": "XALcFq0WF65uNKzmpcZW",
+	"seconds": 0.88,
+	"words": [
+		{"w": "I'll", "t0": 0.0, "t1": 0.16},
+		{"w": "count", "t0": 0.213, "t1": 0.48},
+		{"w": "them.", "t0": 0.528, "t1": 0.88}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"id": "act0.storm.arrive",
+	"take": 0,
+	"seed": 4252503923,
+	"hash": "fd780f7366a1",
+	"model": "eleven_v3",
+	"voice": "VNHNa6nN6yJdVF3YRyuF",
+	"seconds": 2.16,
+	"words": [
+		{"w": "Embers!", "t0": 0.0, "t1": 0.8},
+		{"w": "Bring", "t0": 0.867, "t1": 1.2},
+		{"w": "them", "t0": 1.232, "t1": 1.36},
+		{"w": "here,", "t0": 1.408, "t1": 1.8},
+		{"w": "quick.", "t0": 1.833, "t1": 2.16}
+	]
+}

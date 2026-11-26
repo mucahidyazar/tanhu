@@ -1,0 +1,15 @@
+{
+	"id": "act0.hearth.grow",
+	"take": 0,
+	"seed": 394006421,
+	"hash": "177c0f95c24d",
+	"model": "eleven_v3",
+	"voice": "FWipwLM0YqCuwisLprpU",
+	"seconds": 1.36,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.16},
+		{"w": "light's", "t0": 0.213, "t1": 0.56},
+		{"w": "reached", "t0": 0.61, "t1": 0.96},
+		{"w": "us.", "t0": 1.04, "t1": 1.36}
+	]
+}

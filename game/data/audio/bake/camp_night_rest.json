@@ -1,0 +1,11 @@
+{
+  "id": "camp_night_rest",
+  "kind": "music",
+  "instrument": "rest",
+  "tempo": 46,
+  "bars": 2,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "46'da iki ölçülük boş cümle."
+}

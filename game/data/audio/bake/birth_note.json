@@ -1,0 +1,22 @@
+{
+  "id": "birth_note",
+  "kind": "music",
+  "instrument": "hujia",
+  "rows": [
+    [
+      0,
+      192,
+      "A4",
+      0.8
+    ]
+  ],
+  "humanize": false,
+  "tempo": 52,
+  "bars": 16,
+  "mode": "d_dorian",
+  "seed": 2342,
+  "rate": 22050,
+  "loop": true,
+  "source": "code",
+  "note": "birth klibinin note katmanı: 12. satırın ardından tek uzun nota, 5 sn'de söner (story.md §3 satır 7b). Hucia'nın tek, uzun A4'ü (dronun beşlisi); 16 ölçü sürer, katman −80 dB'te bekler, satır bitince açılır ve söner (data/cine/prologue_birth.json). Dosyanın ortası duyulur: satırın sonu klibin ≈19–21. saniyesine düşer, döngünün başı ve sonu duyulmaz. Kulak onayı bekler."
+}

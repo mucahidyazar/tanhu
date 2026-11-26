@@ -1,0 +1,32 @@
+{
+	"version": 1,
+	"source": "K58, K101; story.md §7.4; progression.md §6.2; sanat-animasyon.md öneri 3 ve 4",
+	"doc": "Pelerin boyası ve kılık renkleri: tek kaynak. Oyun pelerin rengini yalnız buradan alır (CharacterOptions.cape_tint(eşya, boya)); oluşturucunun önizlemesi ve oyundaki Mete aynı yolu kullanır (CharacterAvatar, character_toon.gdshader dye_mask). tools/palette_compare.py --cape aynı dosyayı okur. Sıra oluşturucunun «Boya» satırının sırasıdır; ilk boya varsayılandır. Boyanabilir pelerin (dye: true) seçilen boyayı taşır; boyanmayan pelerin kendi rengindedir (color). Kaftan pelerini boyamaz: kılığın plate, tunic ve trim renkleri pelerine dokunmaz, kılığın kendi pelerin rengi yoktur. Soğuk bant (OKLCH ton 190–300°, doygunluk ≥0,05) kalabalık giysisinde yasak, adlı kişide serbesttir (CharacterOptions.crowd_garment_allowed).",
+	"dyes": [
+		{"id": "lake_blue", "name": "Göl Mavisi", "name_en": "Lake Blue", "color": "#216e94"},
+		{"id": "sky", "name": "Gök", "name_en": "Sky", "color": "#3a78a8"},
+		{"id": "indigo", "name": "Çivit", "name_en": "Indigo", "color": "#34508a"},
+		{"id": "deep_indigo", "name": "Koyu Çivit", "name_en": "Deep Indigo", "color": "#2b3f66"},
+		{"id": "violet", "name": "Menekşe", "name_en": "Violet", "color": "#5f4a96"}
+	],
+	"cold_band": {"hue_min": 190.0, "hue_max": 300.0, "chroma_min": 0.05},
+	"capes": {
+		"cape_hostage": {"name": "Kışlak Pelerini", "name_en": "Winter Camp Cape", "dye": true},
+		"dyed_cape": {"name": "Boyalı Pelerin", "name_en": "Dyed Cape", "dye": true},
+		"war_cape": {"name": "Kızıl Pelerin", "name_en": "Red Cape", "color": "#a8321f"},
+		"wolf_pelt": {"name": "Kurt Postu", "name_en": "Wolf Pelt", "color": "#6a5f52"},
+		"palak_fur": {"name": "Palak'ın Kürkü", "name_en": "Palak's Fur", "color": "#4a3a2a"},
+		"snow_cloak": {"name": "Kar Pelerini", "name_en": "Snow Cloak", "color": "#d8d4c8"}
+	},
+	"outfits": {
+		"hostage_coat": {
+			"name": "Kışlak Kaftanı",
+			"name_en": "Winter Camp Coat",
+			"doc": "Rehine kılığı (METE_HOSTAGE): zırh sade deriye, gömlek solgun yüne, kırmızı kuşak ve şeritler yün kahvesine döner. Pelerin rengi kılıktan gelmez.",
+			"plate": "#46372b",
+			"tunic": "#a89a82",
+			"trim": "#5d4a3a"
+		}
+	},
+	"start": {"outfit": "hostage_coat", "cape": "cape_hostage"}
+}

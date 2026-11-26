@@ -1,0 +1,19 @@
+{
+	"id": "act0.bone.call",
+	"take": 0,
+	"seed": 1353243373,
+	"hash": "50a8daedfad6",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.8,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "moon's", "t0": 0.128, "t1": 0.4},
+		{"w": "coming", "t0": 0.446, "t1": 0.72},
+		{"w": "up!", "t0": 0.8, "t1": 1.04},
+		{"w": "Let's", "t0": 1.2, "t1": 1.84},
+		{"w": "play", "t0": 1.872, "t1": 2.0},
+		{"w": "white", "t0": 2.04, "t1": 2.24},
+		{"w": "bone!", "t0": 2.336, "t1": 2.8}
+	]
+}

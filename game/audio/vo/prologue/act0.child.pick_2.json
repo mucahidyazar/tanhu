@@ -1,0 +1,12 @@
+{
+	"id": "act0.child.pick_2",
+	"take": 0,
+	"seed": 4082780551,
+	"hash": "f35a4987f226",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 1.04,
+	"words": [
+		{"w": "Two.", "t0": 0.0, "t1": 1.04}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"id": "act0.child.count_stick",
+	"take": 0,
+	"seed": 2271536666,
+	"hash": "8764e61a2f3b",
+	"model": "eleven_v3",
+	"voice": "S9V0fuqWOqX0i8Kb8ctu",
+	"seconds": 4.96,
+	"words": [
+		{"w": "Hereka's", "t0": 0.0, "t1": 0.72},
+		{"w": "notches.", "t0": 0.82, "t1": 3.32},
+		{"w": "Seven.", "t0": 3.567, "t1": 4.96}
+	]
+}

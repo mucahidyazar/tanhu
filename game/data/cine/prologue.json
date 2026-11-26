@@ -1,0 +1,14 @@
+{
+	"id": "prologue",
+	"title": "Önsöz «Kopuz Söyler» (K68; story.md §3–§4, godot.md §3.6, audio.md §3; Yol Haritası opening-cinematic): üç segment sırayla, saniyeler Yeni Oyun'a basıştan. Kamp ve şarkı (0:00,0–0:38,9; kamp dünyası, menü kamerası geri çekilir, şarkı kamera durunca 0:06,0'da, sonra 3 sn alçak sessizlik, 2 sn kararma, 1 sn kara), mit sineması (0:38,9–3:22,2; ozanın ilk sözü karada, sonra parşömen videosu, yoksa keçe panolar; kendi SubViewport'unda, overlay; K93), doğum ve Çocukluk'a geçiş (3:22,2–4:18,7; childhood_ordos dünyasında 3B, son 10 sn geçiş). Süreler tahminle; satırlar gerçek seconds'larıyla uzayınca ya da kısalınca sonraki her işaret aynı payla kayar. Kamp dünyası kara ekranda bırakılır (camp_end-1.0: kararma bitti, ekran kara). childhood_ordos mit sineması başlarken arka planda istenir, pano 6'nın başında opak görüntünün altında örneklenir (ilk karesi önceden çizilir); doğum mit sinemasının son 1,5 sn'sinde közden gerçek köze çakışır (segmentin crossfade_in'i). Bitince ya da basılı Esc'te kara perdeden Çocukluk açılır (end: childhood; K99: Yeni Oyun'un sırası data/story/new_game.json'dadır, main.gd sürer). Hedef 4 dk 19 sn ± 15 sn: mit E13 ile yeniden yazıldı, K68'in 3 dk 45 sn'si kalktı (test_cine_prologue.gd).",
+	"end": "childhood",
+	"target": {"total": 259, "tolerance": 15},
+	"segments": [
+		{"file": "res://data/cine/prologue_camp.json"},
+		{"file": "res://data/cine/prologue_myth.json"},
+		{"file": "res://data/cine/prologue_birth.json", "preload_at": "myth", "instantiate_at": "myth:panel_6"}
+	],
+	"events": [
+		{"id": "release_camp", "t": "camp_end-1.0", "type": "release_camp"}
+	]
+}

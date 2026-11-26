@@ -1,0 +1,779 @@
+{
+ "tool": "tools/song/song_measure.mjs",
+ "decision": "K75",
+ "date": "2026-11-07",
+ "takesDir": "../docs/research/bard-takes",
+ "thresholds": {
+  "bounds": {
+   "words": 23,
+   "onset": [
+    3,
+    6
+   ],
+   "gap": 6,
+   "length": [
+    22,
+    32
+   ],
+   "polyphony": 3
+  },
+  "counted": {
+   "strokesPerSec": 2,
+   "hfShare": 0.08,
+   "decayDb": 4,
+   "levelGapDb": 12,
+   "fNatural": 0.7
+  }
+ },
+ "polyphonyMethod": {
+  "size": 4096,
+  "pad": 2,
+  "hop": 1024,
+  "fmin": 55,
+  "fmax": 700,
+  "top": 5000,
+  "harmonics": 16,
+  "tolCents": 35,
+  "step": 0.125,
+  "alpha": 27,
+  "beta": 320,
+  "comp": 0.5,
+  "floorQ": 0.3,
+  "floorHz": 40,
+  "floorFrac": 0.1,
+  "promDb": 8,
+  "rangeDb": 50,
+  "gateDb": 35,
+  "hitFrac": 0.3,
+  "minHits": 2,
+  "minHitsRelated": 3,
+  "rho": 0.2,
+  "rhoRelated": 0.3,
+  "subRatio": 0.5,
+  "maxPoly": 8,
+  "voteFrames": 2,
+  "voteNeed": 3,
+  "sections": "giriş, dize arası, çıkış (sözden önce 0,7 sn soluk, sözcükten sonra 0,25 sn kuyruk düşülür)",
+  "variants": {
+   "hop512": {
+    "hop": 512,
+    "voteFrames": 4,
+    "voteNeed": 5
+   },
+   "vote70ms": {
+    "voteFrames": 3,
+    "voteNeed": 4
+   },
+   "peak10dB": {
+    "promDb": 10
+   },
+   "fmin80": {
+    "fmin": 80
+   }
+  }
+ },
+ "strokeGridMethod": {
+  "min": 0.25,
+  "max": 0.65,
+  "step": 0.0005,
+  "tol": 0.035
+ },
+ "calibration": {
+  "western_strum": 4.29,
+  "kopuz_drone_melody": 2.33,
+  "kopuz_control_d": 2.46
+ },
+ "separation": {
+  "available": true,
+  "backend": "demucs",
+  "model": "htdemucs_ft (Demucs 4.1.0, uv --offline, Python 3.12) + librosa.pyin 1.0.0",
+  "reason": ""
+ },
+ "control": {
+  "gapDb": 5,
+  "kopuz": "audio/gen/_wav/kopuz_control_d.wav",
+  "takes": {
+   "3101": {
+    "expected": "major",
+    "found": "major",
+    "fNatural": 0.145,
+    "frames": 1279,
+    "ok": true,
+    "kopuzGainDb": 11.33
+   },
+   "3103": {
+    "expected": "dorian",
+    "found": "dorian",
+    "fNatural": 0.807,
+    "frames": 1141,
+    "ok": true,
+    "kopuzGainDb": 9.46
+   }
+  },
+  "ran": true,
+  "passed": true
+ },
+ "takes": [
+  {
+   "seed": 3104,
+   "file": "../docs/research/bard-takes/3104.mp3",
+   "lead": 0.863,
+   "fits": true,
+   "misses": [],
+   "bounds": {
+    "words": {
+     "value": 23,
+     "ok": true,
+     "sung": "One more was counted the dawn that the full moon fell, and the steppe learned his name from the sound of a bell."
+    },
+    "onset": {
+     "value": 3.917,
+     "ok": true
+    },
+    "gap": {
+     "value": 4.8,
+     "ok": true
+    },
+    "length": {
+     "value": 26.853,
+     "ok": true
+    },
+    "polyphony": {
+     "value": 2.39,
+     "ok": true,
+     "frames": 356,
+     "analyzed": 397,
+     "total": 644,
+     "range": [
+      1.92,
+      2.39
+     ],
+     "variants": {
+      "hop512": 2.27,
+      "vote70ms": 1.99,
+      "peak10dB": 1.92,
+      "fmin80": 3.05
+     },
+     "sections": [
+      {
+       "name": "giriş",
+       "from": 0.91,
+       "to": 4.08,
+       "mean": 1.72,
+       "frames": 29,
+       "pitches": {
+        "D4": 27,
+        "G#4": 9,
+        "D3": 6,
+        "F5": 5,
+        "C#5": 3
+       }
+      },
+      {
+       "name": "dize arası",
+       "from": 9.81,
+       "to": 13.66,
+       "mean": 2.51,
+       "frames": 151,
+       "pitches": {
+        "B4": 68,
+        "D4": 61,
+        "G#4": 40,
+        "C#2": 36,
+        "F#4": 24,
+        "D3": 17,
+        "E5": 17,
+        "G#3": 16
+       }
+      },
+      {
+       "name": "çıkış",
+       "from": 19.43,
+       "to": 27.62,
+       "mean": 2.4,
+       "frames": 176,
+       "pitches": {
+        "B4": 67,
+        "G#4": 45,
+        "D4": 38,
+        "F4": 37,
+        "E5": 32,
+        "C#3": 29,
+        "G#3": 26,
+        "C#2": 22
+       }
+      }
+     ]
+    }
+   },
+   "counted": {
+    "strokesPerSec": {
+     "value": 2.12,
+     "ok": true
+    },
+    "hfShare": {
+     "value": 0.09745,
+     "ok": true
+    },
+    "decayDb": {
+     "value": 7.8,
+     "ok": true
+    },
+    "levelGapDb": {
+     "value": 6.2,
+     "ok": true
+    }
+   },
+   "passed": 4,
+   "total": 4,
+   "info": {
+    "fNatural": {
+     "class": "sayılan",
+     "value": null,
+     "mode": null,
+     "status": "ölçülemedi: F ya da F♯ 30 kareden az: kulakla"
+    },
+    "motif": {
+     "value": false,
+     "lines": [
+      {
+       "found": false,
+       "notes": "A A# D C# D C"
+      },
+      {
+       "found": false,
+       "notes": "D# D B A# C B C# D"
+      }
+     ],
+     "status": "bulunamadı"
+    },
+    "vocal": {
+     "frames": 192,
+     "tuningCents": 24,
+     "histogram": {
+      "C": 27,
+      "C#": 20,
+      "D": 61,
+      "D#": 12,
+      "E": 0,
+      "F": 0,
+      "F#": 0,
+      "G": 0,
+      "G#": 0,
+      "A": 39,
+      "A#": 14,
+      "B": 19
+     },
+     "reason": ""
+    },
+    "strokeGrid": {
+     "class": "bilgi",
+     "period": 0.3989,
+     "strokesPerSec": 2.507,
+     "anchor": 2.299,
+     "first": 2.31,
+     "last": 22.616,
+     "lastGrid": 22.641,
+     "strokes": 59,
+     "onGrid": 43,
+     "share": 0.73,
+     "rmsMs": 16
+    }
+   },
+   "score": 0.78
+  },
+  {
+   "seed": 3105,
+   "file": "../docs/research/bard-takes/3105.mp3",
+   "lead": 0.861,
+   "fits": true,
+   "misses": [],
+   "bounds": {
+    "words": {
+     "value": 23,
+     "ok": true,
+     "sung": "One more was counted the dawn that the full moon fell, and the steppe learned his name from the sound of a bell."
+    },
+    "onset": {
+     "value": 4.039,
+     "ok": true
+    },
+    "gap": {
+     "value": 0.76,
+     "ok": true
+    },
+    "length": {
+     "value": 26.855,
+     "ok": true
+    },
+    "polyphony": {
+     "value": 1.5,
+     "ok": true,
+     "frames": 88,
+     "analyzed": 170,
+     "total": 351,
+     "range": [
+      1.08,
+      1.58
+     ],
+     "variants": {
+      "hop512": 1.58,
+      "vote70ms": 1.47,
+      "peak10dB": 1.08,
+      "fmin80": 1.75
+     },
+     "sections": [
+      {
+       "name": "giriş",
+       "from": 0.91,
+       "to": 4.2,
+       "mean": 1.14,
+       "frames": 49,
+       "pitches": {
+        "A#4": 13,
+        "D#2": 12,
+        "D2": 6,
+        "D#5": 5,
+        "G#3": 5,
+        "D5": 3,
+        "C#3": 3,
+        "G3": 3
+       }
+      },
+      {
+       "name": "çıkış",
+       "from": 22.59,
+       "to": 27.62,
+       "mean": 1.95,
+       "frames": 39,
+       "pitches": {
+        "D5": 21,
+        "C5": 9,
+        "D4": 7,
+        "G3": 7,
+        "D#4": 7,
+        "D#5": 5,
+        "F#4": 5,
+        "C#5": 5
+       }
+      }
+     ]
+    }
+   },
+   "counted": {
+    "strokesPerSec": {
+     "value": 2.98,
+     "ok": true
+    },
+    "hfShare": {
+     "value": 0.07946,
+     "ok": false
+    },
+    "decayDb": {
+     "value": 26.6,
+     "ok": true
+    },
+    "levelGapDb": {
+     "value": 11.6,
+     "ok": true
+    }
+   },
+   "passed": 3,
+   "total": 4,
+   "info": {
+    "fNatural": {
+     "class": "sayılan",
+     "value": null,
+     "mode": null,
+     "status": "ölçülemedi: F ya da F♯ 30 kareden az: kulakla"
+    },
+    "motif": {
+     "value": false,
+     "lines": [
+      {
+       "found": false,
+       "notes": "C C# C A# C# C C# C A# B C B A# A F# A B C D C A# B C"
+      },
+      {
+       "found": false,
+       "notes": "D# B C# C C# C A# B C A# C A# A B C B C B C B C A# F# B"
+      }
+     ],
+     "status": "bulunamadı"
+    },
+    "vocal": {
+     "frames": 1120,
+     "tuningCents": 27,
+     "histogram": {
+      "C": 519,
+      "C#": 47,
+      "D": 12,
+      "D#": 46,
+      "E": 0,
+      "F": 0,
+      "F#": 4,
+      "G": 8,
+      "G#": 0,
+      "A": 208,
+      "A#": 120,
+      "B": 156
+     },
+     "reason": ""
+    },
+    "strokeGrid": {
+     "class": "bilgi",
+     "period": 0.283,
+     "strokesPerSec": 3.534,
+     "anchor": 1.732,
+     "first": 1.741,
+     "last": 22.361,
+     "lastGrid": 22.391,
+     "strokes": 63,
+     "onGrid": 50,
+     "share": 0.79,
+     "rmsMs": 16
+    }
+   },
+   "score": 2.48
+  },
+  {
+   "seed": 3106,
+   "file": "../docs/research/bard-takes/3106.mp3",
+   "lead": 0.364,
+   "fits": true,
+   "misses": [],
+   "bounds": {
+    "words": {
+     "value": 23,
+     "ok": true,
+     "sung": "One more was counted the dawn that the full moon fell, and the steppe learned his name from the sound of a bell."
+    },
+    "onset": {
+     "value": 4.716,
+     "ok": true
+    },
+    "gap": {
+     "value": 4.86,
+     "ok": true
+    },
+    "length": {
+     "value": 27.352,
+     "ok": true
+    },
+    "polyphony": {
+     "value": 2.34,
+     "ok": true,
+     "frames": 459,
+     "analyzed": 571,
+     "total": 671,
+     "range": [
+      1.7,
+      2.34
+     ],
+     "variants": {
+      "hop512": 2.29,
+      "vote70ms": 2,
+      "peak10dB": 1.7,
+      "fmin80": 2.51
+     },
+     "sections": [
+      {
+       "name": "giriş",
+       "from": 0.41,
+       "to": 4.38,
+       "mean": 1.66,
+       "frames": 124,
+       "pitches": {
+        "G3": 63,
+        "A#4": 47,
+        "C5": 31,
+        "C2": 9,
+        "D#5": 9,
+        "C#4": 7,
+        "A3": 7,
+        "C#3": 6
+       }
+      },
+      {
+       "name": "dize arası",
+       "from": 10.27,
+       "to": 14.18,
+       "mean": 2.82,
+       "frames": 157,
+       "pitches": {
+        "G#4": 61,
+        "A4": 54,
+        "C5": 48,
+        "D5": 47,
+        "A#2": 25,
+        "F3": 19,
+        "F#3": 18,
+        "C#4": 18
+       }
+      },
+      {
+       "name": "çıkış",
+       "from": 19.67,
+       "to": 27.62,
+       "mean": 2.4,
+       "frames": 178,
+       "pitches": {
+        "G#4": 45,
+        "F#3": 33,
+        "D#5": 33,
+        "B2": 28,
+        "A4": 25,
+        "C#5": 24,
+        "C5": 24,
+        "G3": 23
+       }
+      }
+     ]
+    }
+   },
+   "counted": {
+    "strokesPerSec": {
+     "value": 3.74,
+     "ok": true
+    },
+    "hfShare": {
+     "value": 0.10619,
+     "ok": true
+    },
+    "decayDb": {
+     "value": 19.5,
+     "ok": true
+    },
+    "levelGapDb": {
+     "value": 5,
+     "ok": true
+    }
+   },
+   "passed": 4,
+   "total": 4,
+   "info": {
+    "fNatural": {
+     "class": "sayılan",
+     "value": null,
+     "mode": null,
+     "status": "ölçülemedi: F ya da F♯ 30 kareden az: kulakla"
+    },
+    "motif": {
+     "value": false,
+     "lines": [
+      {
+       "found": false,
+       "notes": "D C# D C# D D# F E F E C D C# D C# C C# D C# D"
+      },
+      {
+       "found": false,
+       "notes": "C D# A# A C# C C# E D# D C# C D C# C C# D# C"
+      }
+     ],
+     "status": "bulunamadı"
+    },
+    "vocal": {
+     "frames": 443,
+     "tuningCents": 15,
+     "histogram": {
+      "C": 77,
+      "C#": 156,
+      "D": 100,
+      "D#": 53,
+      "E": 24,
+      "F": 4,
+      "F#": 0,
+      "G": 0,
+      "G#": 0,
+      "A": 4,
+      "A#": 19,
+      "B": 6
+     },
+     "reason": ""
+    },
+    "strokeGrid": {
+     "class": "bilgi",
+     "period": 0.295,
+     "strokesPerSec": 3.389,
+     "anchor": 0.297,
+     "first": 0.302,
+     "last": 24.776,
+     "lastGrid": 24.786,
+     "strokes": 92,
+     "onGrid": 52,
+     "share": 0.57,
+     "rmsMs": 19
+    }
+   },
+   "score": 0.25
+  },
+  {
+   "seed": 3107,
+   "file": "../docs/research/bard-takes/3107.mp3",
+   "lead": 0.996,
+   "fits": true,
+   "misses": [],
+   "bounds": {
+    "words": {
+     "value": 23,
+     "ok": true,
+     "sung": "One more was counted the dawn that the full moon fell, and the steppe learned his name from the sound of a bell."
+    },
+    "onset": {
+     "value": 4.304,
+     "ok": true
+    },
+    "gap": {
+     "value": 0.16,
+     "ok": true
+    },
+    "length": {
+     "value": 26.72,
+     "ok": true
+    },
+    "polyphony": {
+     "value": 1.63,
+     "ok": true,
+     "frames": 136,
+     "analyzed": 260,
+     "total": 396,
+     "range": [
+      1.31,
+      1.68
+     ],
+     "variants": {
+      "hop512": 1.68,
+      "vote70ms": 1.32,
+      "peak10dB": 1.31,
+      "fmin80": 1.72
+     },
+     "sections": [
+      {
+       "name": "giriş",
+       "from": 1.05,
+       "to": 4.6,
+       "mean": 1.58,
+       "frames": 76,
+       "pitches": {
+        "B3": 33,
+        "F4": 21,
+        "E2": 19,
+        "C4": 12,
+        "D3": 9,
+        "D#2": 8,
+        "D#5": 7,
+        "A3": 4
+       }
+      },
+      {
+       "name": "çıkış",
+       "from": 21.83,
+       "to": 27.62,
+       "mean": 1.68,
+       "frames": 60,
+       "pitches": {
+        "E2": 21,
+        "D5": 12,
+        "E5": 11,
+        "C#4": 10,
+        "A#3": 8,
+        "B4": 5,
+        "G#4": 5,
+        "A4": 4
+       }
+      }
+     ]
+    }
+   },
+   "counted": {
+    "strokesPerSec": {
+     "value": 2.76,
+     "ok": true
+    },
+    "hfShare": {
+     "value": 0.03455,
+     "ok": false
+    },
+    "decayDb": {
+     "value": 17.8,
+     "ok": true
+    },
+    "levelGapDb": {
+     "value": 22.1,
+     "ok": false
+    }
+   },
+   "passed": 2,
+   "total": 4,
+   "info": {
+    "fNatural": {
+     "class": "sayılan",
+     "value": null,
+     "mode": null,
+     "status": "ölçülemedi: F ya da F♯ 30 kareden az: kulakla"
+    },
+    "motif": {
+     "value": false,
+     "lines": [
+      {
+       "found": false,
+       "notes": "G# A# B C C# D D# D C# C B C# C C# A# B A# B A# G# C# C D C C# C B A# A A#"
+      },
+      {
+       "found": false,
+       "notes": "C B D# D C# C B C C# C A# B D# D C# C B D# E"
+      }
+     ],
+     "status": "bulunamadı"
+    },
+    "vocal": {
+     "frames": 888,
+     "tuningCents": 31,
+     "histogram": {
+      "C": 173,
+      "C#": 151,
+      "D": 109,
+      "D#": 96,
+      "E": 13,
+      "F": 1,
+      "F#": 0,
+      "G": 0,
+      "G#": 16,
+      "A": 12,
+      "A#": 134,
+      "B": 183
+     },
+     "reason": ""
+    },
+    "strokeGrid": {
+     "class": "bilgi",
+     "period": 0.2886,
+     "strokesPerSec": 3.465,
+     "anchor": 1.772,
+     "first": 1.8,
+     "last": 17.961,
+     "lastGrid": 17.936,
+     "strokes": 21,
+     "onGrid": 12,
+     "share": 0.57,
+     "rmsMs": 21
+    }
+   },
+   "score": 2.52
+  }
+ ],
+ "ranking": [
+  3106,
+  3104,
+  3105,
+  3107
+ ],
+ "polyphony3106": {
+  "value": 2.34,
+  "ok": true,
+  "range": [
+   1.7,
+   2.34
+  ]
+ }
+}

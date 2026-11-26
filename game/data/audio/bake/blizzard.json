@@ -1,0 +1,64 @@
+{
+  "id": "blizzard",
+  "kind": "ambience",
+  "instrument": "wind",
+  "seconds": 12.0,
+  "fold": 2.0,
+  "seed": 4511,
+  "rate": 22050,
+  "loop": true,
+  "top_hz": 7000,
+  "rms": 0.16,
+  "bands": [
+    {
+      "f": 260.0,
+      "q": 0.5,
+      "gain": [
+        0.7,
+        1.0
+      ],
+      "points": 5
+    },
+    {
+      "f": 1100.0,
+      "q": 1.0,
+      "sweep": [
+        700.0,
+        1600.0
+      ],
+      "gain": [
+        0.5,
+        1.0
+      ],
+      "points": 9
+    },
+    {
+      "f": 820.0,
+      "q": 8.0,
+      "sweep": [
+        600.0,
+        950.0
+      ],
+      "gain": [
+        0.1,
+        0.35
+      ],
+      "points": 7
+    },
+    {
+      "f": 4200.0,
+      "q": 0.8,
+      "sweep": [
+        3000.0,
+        6000.0
+      ],
+      "gain": [
+        0.3,
+        0.6
+      ],
+      "points": 9
+    }
+  ],
+  "note": "Tipi ve Kara Boran (audio.md §4 «Hava sesi»: blizzard 1; taban rüzgâr söner): yoğun kar tıslaması, kabaran bora, uluma. Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

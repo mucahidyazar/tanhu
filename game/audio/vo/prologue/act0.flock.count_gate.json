@@ -1,0 +1,20 @@
+{
+	"id": "act0.flock.count_gate",
+	"take": 0,
+	"seed": 210348678,
+	"hash": "0c89aa866ce4",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 3.52,
+	"words": [
+		{"w": "Let's", "t0": 0.0, "t1": 0.24},
+		{"w": "count", "t0": 0.28, "t1": 0.48},
+		{"w": "them.", "t0": 0.528, "t1": 0.8},
+		{"w": "Drive", "t0": 0.947, "t1": 1.68},
+		{"w": "them", "t0": 1.712, "t1": 1.84},
+		{"w": "between", "t0": 1.9, "t1": 2.32},
+		{"w": "the", "t0": 2.36, "t1": 2.48},
+		{"w": "two", "t0": 2.54, "t1": 2.72},
+		{"w": "stones.", "t0": 2.811, "t1": 3.52}
+	]
+}

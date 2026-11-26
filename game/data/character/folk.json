@@ -1,0 +1,95 @@
+{
+	"id": "folk",
+	"doc": "Kodla kişi üreticisinin verisi (Yol Haritası folk-generator; scripts/character/folk.gd, Folk; act1.md §3, army.md §7.3, godot.md §4.5). Tek iskelet: her kişi var olan Meshy modellerinden birinin ağıyla ve klip kütüphanesiyle (K90, K91) oynar; kendi modeli olan adlı kişi (Amaga, Farnak…) kendi modelindedir. Görünüş tohumdan çıkar: aynı tohum her çalıştırmada aynı kişiyi verir. Halk (peoples) ten, saç, giysi, kenar şeridi ve başlık renklerini; rol (roles) halkın, bedenin ve giysinin ağırlıklarını; adlı kişi (named) act1.md §3'ün Folk tanımını taşır. Üç yüzü vardır: tam kişi (T0, CharacterAvatar: modelin ağı, bölge maskesiyle ten ve saç, giysi boyası cloth_color; maskesi olmayan modelde StandIn'in renk çarpanı), kalabalığın kuklası (T1 ve T2, CrowdPuppet: başlık biçimi ve palet), kart (T3, CrowdField'in atlası: aynı palet). Renkler sRGB onaltılıdır. models: kalabalık modellerinin ölçüsü (tools/bake_regions.py --size 1024 ve tools/bake_folk_cloth.py; giysinin doğrusal ortalama parlaklığı ve boyanın parlaklık bandı). Başlık türleri act1.md §3'ündür; kuklada üç biçime iner (puppet_hats): cap (Saka'nın sivri keçe başlığı), fur (yuvarlak kürk ve keçe başlık), bare (başı açık ya da bant, örtü). Kredi: 0 (Meshy yok, K89).",
+	"models": {
+		"crowd_hun_man": {"body": "male", "height_m": 1.72, "cloth_lum": 0.11535, "band": [0.04421, 0.10053], "base": "#755742"},
+		"crowd_hun_woman": {"body": "female", "height_m": 1.62, "cloth_lum": 0.10788, "band": [0.02186, 0.06746], "base": "#705541"},
+		"crowd_hun_rider": {"body": "male", "height_m": 1.74, "cloth_lum": 0.07055, "band": [0.02864, 0.04133], "base": "#5d4537"}
+	},
+	"bodies": {
+		"doc": "Bedenin tam kişi modeli (T0). Çocuk ve yaşlı tam kişi olmaz: kuklada kalır (kendi kalabalık modeli yoktur; Göl Obası'nın adlı modelleri başkasına giydirilmez).",
+		"male": "crowd_hun_man",
+		"female": "crowd_hun_woman",
+		"warrior": "crowd_hun_rider"
+	},
+	"cloth_strength": 0.82,
+	"puppet_hats": {"saka": "cap", "crown": "fur", "fur": "fur", "kam": "fur", "bork": "fur", "band": "bare", "veil": "bare", "none": "bare"},
+	"heights": {
+		"doc": "Boy aralığı (m) bedene göre; yaşlı yetişkinin ×0,97'si, çocuk yaşına göre (6–11 yaş).",
+		"male": [1.63, 1.81],
+		"female": [1.53, 1.68],
+		"child": [1.08, 1.38]
+	},
+	"build": [0.92, 1.12],
+	"peoples": {
+		"yuezhi": {
+			"name": {"tr": "Yüeçi", "en": "Yuezhi"},
+			"skin": ["#c99a72", "#c4946b", "#d0a27a", "#bd8c66"],
+			"hair": ["#2a1d16", "#241912", "#33241a", "#14100e"],
+			"elder_hair": ["#8d857a", "#b8b0a4", "#a39a8e"],
+			"coat": ["#6b2130", "#7a2f3a", "#5a1f2a", "#9c7a3c", "#b07a2a", "#c9a24f", "#8a6a4a", "#8a7a5a", "#d9b26a", "#e6dcc4"],
+			"coat_weights": [3, 3, 2, 2, 2, 1, 2, 2, 1, 1],
+			"trim": ["#c9a24f", "#c8962e", "#6b2130", "#5a1f2a", "#b07a2a", "#4a2c1a"],
+			"boots": ["#3b2a1e", "#4a3322", "#2e2018"],
+			"hats": {"male": {"saka": 3, "fur": 2, "band": 2, "none": 1}, "female": {"veil": 3, "band": 3, "fur": 1}, "child": {"band": 3, "none": 2, "fur": 1}},
+			"hat_color": ["#b8862d", "#a07a2a", "#5a1f2a", "#7a2f3a", "#8a3a3a", "#3a2a20", "#5a4a36"]
+		},
+		"hun": {
+			"name": {"tr": "Hun", "en": "Xiongnu"},
+			"skin": ["#b98a62", "#b2835c", "#c09168", "#a97f5c"],
+			"hair": ["#1d1612", "#17110e", "#241a14"],
+			"elder_hair": ["#d8d0c2", "#9a9288", "#7d756b"],
+			"coat": ["#6a4a34", "#8d7a5a", "#6e5a44", "#7a6a50", "#5c4a38", "#8a3f2a", "#4a4038"],
+			"coat_weights": [3, 2, 3, 2, 2, 1, 1],
+			"trim": ["#8a3f2a", "#6a4a34", "#5a4632", "#b8862d"],
+			"boots": ["#3b2a1e", "#2a2018", "#4a3a2a"],
+			"hats": {"male": {"none": 3, "fur": 2, "band": 2}, "female": {"band": 3, "fur": 1, "none": 1}, "child": {"none": 3, "band": 1}},
+			"hat_color": ["#4a3a2a", "#3a2a20", "#8a3f2a", "#b8862d", "#6e5a44"]
+		},
+		"qiang": {
+			"name": {"tr": "Çiang", "en": "Qiang"},
+			"skin": ["#a97f5c", "#a27856", "#b08560"],
+			"hair": ["#14100e", "#26201b", "#1a1512"],
+			"elder_hair": ["#8a8278", "#a8a094"],
+			"coat": ["#5a5040", "#4a4038", "#2e2a2b", "#5e5446"],
+			"coat_weights": [3, 3, 1, 2],
+			"trim": ["#8a6a3a", "#7a3b26", "#6a5238"],
+			"boots": ["#2e2a2b", "#3b2a1e"],
+			"hats": {"male": {"band": 3, "none": 2}, "female": {"band": 3, "none": 1}, "child": {"none": 2, "band": 1}},
+			"hat_color": ["#8a6a3a", "#7a3b26", "#5a5040"]
+		},
+		"wusun": {
+			"name": {"tr": "Usun", "en": "Wusun"},
+			"skin": ["#c29a78"],
+			"hair": ["#2a211b"],
+			"elder_hair": ["#9a9288"],
+			"coat": ["#5e6a4a", "#4a5240"],
+			"coat_weights": [1, 1],
+			"trim": ["#a88445"],
+			"boots": ["#3b2a1e"],
+			"hats": {"male": {"bork": 1}, "female": {"band": 1}, "child": {"none": 1}},
+			"hat_color": ["#8a7c62"]
+		}
+	},
+	"roles": {
+		"doc": "Kalabalığın rolleri: halk ağırlıkları, beden ağırlıkları (male, female, child, elder), yaş aralığı, giysi (role özgü renk listesi halkınkinin yerine geçer), gölge (shade: kirli, solgun giysi) ve tam kişinin modeli (model: bedenin yerine).",
+		"townsfolk": {"peoples": {"yuezhi": 1}, "bodies": {"male": 4, "female": 4, "child": 1.4, "elder": 0.8}, "age": [18, 52]},
+		"guard": {"peoples": {"yuezhi": 1}, "bodies": {"male": 1}, "age": [19, 44], "model": "crowd_hun_rider", "coat": ["#5a1f2a", "#6e2a2a", "#7a2f3a", "#5a4632"], "trim": ["#b07a2a", "#b98a2f", "#c8962e"], "hats": {"male": {"saka": 3, "fur": 2}}, "style": ["warrior"]},
+		"captive": {"peoples": {"hun": 4, "qiang": 1}, "bodies": {"male": 5, "female": 2, "elder": 1.2}, "age": [16, 50], "shade": [0.72, 0.9], "hats": {"male": {"none": 4, "band": 1}, "female": {"band": 2, "none": 1}}},
+		"builder": {"peoples": {"yuezhi": 1}, "bodies": {"male": 1}, "age": [22, 45], "coat": ["#8a6a4a", "#9c7a3c", "#6a4a34"], "hats": {"male": {"band": 2, "none": 1, "saka": 1}}}
+	},
+	"named": {
+		"doc": "Kendi Meshy modeli olmayan adlı kişiler (act1.md §3'ün Folk tanımları; kendi modeli olanlar models'ta değildir, Folk.person kendi modelini verir). build ve height_m verilmezse tohumdan.",
+		"uldin": {"people": "hun", "body": "male", "age": 36, "build": 1.12, "height_m": 1.78, "coat": "#6a4a34", "trim": "#8a3f2a", "hat": {"kind": "none"}, "style": ["warrior"]},
+		"berik": {"people": "hun", "body": "male", "age": 19, "build": 0.92, "height_m": 1.69, "coat": "#8d7a5a", "trim": "#6a4a34", "hat": {"kind": "band", "color": "#b8862d"}},
+		"omarg": {"people": "yuezhi", "body": "male", "age": 34, "build": 1.12, "height_m": 1.8, "coat": "#6e2a2a", "trim": "#b98a2f", "hat": {"kind": "saka", "color": "#a07a2a"}, "model": "crowd_hun_rider", "style": ["warrior"]},
+		"sak": {"people": "yuezhi", "body": "male", "age": 20, "coat": "#7a2f3a", "trim": "#b07a2a", "hat": {"kind": "saka", "color": "#b8862d"}, "model": "crowd_hun_rider", "style": ["warrior"]},
+		"opia": {"people": "yuezhi", "body": "female", "age": 33, "skin": "#d4a57c", "hair": "#14100e", "coat": "#8a7a5a", "trim": "#5a4630", "hat": {"kind": "veil", "color": "#8a7a5a"}},
+		"nandu": {"people": "wusun", "body": "male", "age": 40, "coat": "#5e6a4a", "trim": "#a88445", "hat": {"kind": "bork", "color": "#8a7c62"}, "model": "crowd_hun_rider"},
+		"yuan": {"people": "qiang", "body": "male", "age": 30, "hair": "#14100e", "coat": "#5a5040", "trim": "#8a6a3a", "hat": {"kind": "band", "color": "#8a6a3a"}},
+		"sarva": {"people": "yuezhi", "body": "female", "age": 18, "coat": "#b07a2a", "trim": "#6b2130", "hat": {"kind": "band", "color": "#6b2130"}},
+		"tola": {"people": "hun", "body": "male", "age": 17, "build": 0.9, "coat": "#7a6a50", "trim": "#5a4632", "hat": {"kind": "none"}},
+		"builder_a": {"people": "yuezhi", "body": "male", "age": 31, "coat": "#8a6a4a", "trim": "#4a2c1a", "hat": {"kind": "band", "color": "#5a1f2a"}},
+		"builder_b": {"people": "yuezhi", "body": "male", "age": 26, "coat": "#9c7a3c", "trim": "#5a1f2a", "hat": {"kind": "saka", "color": "#a07a2a"}}
+	}
+}

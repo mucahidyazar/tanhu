@@ -1,0 +1,46 @@
+{
+	"verses": [
+		{
+			"id": "ocak_basinda",
+			"title": "Ocak Başında",
+			"if": "",
+			"text": "Ay doğdu bozkırın üstüne, gümüş aktı çimenlere;\nİki yurt, bir ocak, beş can oturdu ateş önüne.\nYaşlı ozan kopuzu aldı, kor uyandı külünden;\n“Dinleyin,” dedi, “bu gece destan akar dilimden.”"
+		},
+		{
+			"id": "ilk_adim",
+			"title": "İlk Adım",
+			"if": "ilk_gezinti",
+			"text": "Bir yiğit kalktı ocaktan, ayağı toprağa değdi;\nÇimen eğildi önünde, patika ona yol verdi.\nAy yukarıdan baktı, rüzgâr kulağına eğildi:\n“Kamp senin, gece senin; yürü,” dedi. Yürüdü."
+		},
+		{
+			"id": "atesin_sozu",
+			"title": "Ateşin Sözü",
+			"if": "ates_basi",
+			"text": "Ateşin başına vardı, alev yüzünü ısıttı;\nKıvılcımlar göğe ağdı, her biri bir yıldız tuttu.\nAna kazanı karıştırdı, çocuk dizine yaslandı;\nOzan teline dokundu, bütün kamp sese boyandı."
+		},
+		{
+			"id": "ahirda_iki_at",
+			"title": "Ahırda İki At",
+			"if": "ahir_ziyaret",
+			"text": "Ahırın önüne vardı, iki at başın kaldırdı;\nDoru toprağı eşeledi, Akbulut yelesin savurdu.\nSaman koktu, eyer koktu, uzak yolların tozu;\nAtlar dedi: “Gün doğsun, bekler bizi bozkırın ucu.”"
+		},
+		{
+			"id": "taslarin_dili",
+			"title": "Taşların Dili",
+			"if": "yosunlu_kaya || kaya_kumesi",
+			"text": "Yosun bağlamış kayaya elini koydu yolcu;\nTaş soğuktu, taş sessizdi, taş bilirdi bu yolu.\nKaç kervan geçti önünden, kaç ocak yandı söndü;\nTaş susar ama unutmaz: hepsini bağrına gömdü."
+		},
+		{
+			"id": "gole_bakan_yamac",
+			"title": "Göle Bakan Yamaç",
+			"if": "gol_yamaci",
+			"text": "Yamacın ucuna vardı, aşağıda göl parladı;\nAy suya indi yıkandı, adacıklar uykuya daldı.\nVadinin dibinde sis vardı, ötede köy ışıkları;\nYolcu dedi: “Dünya geniş; ocağım yine burası.”"
+		},
+		{
+			"id": "gece_biterken",
+			"title": "Gece Biterken",
+			"if": "ates_basi && ahir_ziyaret && gol_yamaci",
+			"text": "Ocağı gördü, atı gördü, gölü gördü yamaçtan;\nGece döndü kampın üstünde, ağır ağır, yavaştan.\nOzan son telini çekti, kor kızardı, yıldız kaydı;\nDestan burada bitmedi: şafakta yine yol açıldı."
+		}
+	]
+}

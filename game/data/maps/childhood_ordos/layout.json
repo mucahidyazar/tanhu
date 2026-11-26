@@ -1,0 +1,506 @@
+{
+	"id": "childhood_ordos",
+	"version": 1,
+	"doc": "Çocukluk'un küçük dünyası (story.md §4–§5; godot.md §3.6, §4.2–§4.4). Ordos, Sarı Irmak kıvrımının içinde Teoman'ın güz otlağı, Dailin'in toplandığı yer; Önsöz'ün doğumu (27 Eylül MÖ 234 şafağı) burada 3B oynar. Koordinatlar metredir: x doğu, z güney (−z kuzey), y yukarı; kapı yönü pusula azimutudur (0 kuzey, 90 doğu). Bütün kapılar doğuya bakar (Göktürk ve Vuhuan tanığı, mitoloji.md öneri 20). OrdosWorld (scripts/maps/ordos_world.gd) okur; zeminin biçimi OrdosGround'dadır (scripts/maps/ordos_ground.gd). Çocukluk'un yerleri \"childhood\" bölümündedir (ağıl, yarış yolu, sürü, küçük av, oynanış sınırları): ChildhoodSite okur; doğum yalnız bozkırı okur (childhood.ground ve childhood.scatter: yükselti, zemin maskesi, kaya, çalı, çakıl; aynı otlak); var olan kimlikler değişmez. Kamera noktaları çekim önerisidir (prologue_birth seçer).",
+	"lat": 39.0,
+	"center": [0.0, 0.0],
+	"size": [220.0, 160.0],
+	"seeds": {"ground": 2341, "grass": 77},
+	"ground": {
+		"cell": 2.0,
+		"far": 3000.0,
+		"growth": 1.18,
+		"near_amplitude": 0.5,
+		"near_wavelength": 40.0,
+		"east_drop": 12.0,
+		"east_drop_from": 80.0,
+		"east_drop_to": 620.0,
+		"hill_amplitude": 14.0,
+		"hill_from": 140.0,
+		"hill_to": 1100.0
+	},
+	"river": {
+		"doc": "Sarı Irmak: kamptan ≈680 m doğuda, vadinin içinde; kamptan ufukta dar bir su şeridi (şafakta güneşin parıltısı).",
+		"x": 680.0,
+		"meander": 45.0,
+		"wavelength": 1900.0,
+		"width": 70.0,
+		"bank": 45.0,
+		"depth": 2.6,
+		"water_level": -13.6
+	},
+	"places": {
+		"lan_yurt": {
+			"doc": "Lan Hatun'un yurdu, doğumun yeri. İçi kerege, keçe, toprak taban; ortada ocak (üç taş, köz).",
+			"kind": "birth_yurt",
+			"at": [0.0, 0.0],
+			"radius": 3.1,
+			"door_az": 90.0,
+			"felt": [0.93, 0.85, 0.7],
+			"interior_light": 2.2,
+			"hearth": {"at": [0.0, 0.0], "light_energy": 1.3, "light_range": 4.5}
+		},
+		"teoman_otag": {
+			"doc": "Teoman'ın otağı: büyük yurt, damgalı keçe ve kapı yanında işlemeli kumaş. Teoman şafakta buradan çıkar, doğan güne eğilir.",
+			"kind": "yurt",
+			"at": [-10.0, -22.0],
+			"radius": 4.4,
+			"door_az": 90.0,
+			"felt": [0.96, 0.9, 0.78],
+			"emblem_angle": 40.0,
+			"hanging_angle": -38.0
+		},
+		"kin_yurt_a": {"doc": "Lan soyunun yurdu.", "kind": "yurt", "at": [-24.0, 9.0], "radius": 3.0, "door_az": 92.0, "felt": [0.9, 0.82, 0.68]},
+		"kin_yurt_b": {"doc": "Boyların yurdu (Dailin'e gelenler).", "kind": "yurt", "at": [-31.0, -13.0], "radius": 3.2, "door_az": 96.0, "felt": [0.92, 0.86, 0.74], "smoke": false},
+		"kin_yurt_c": {"doc": "Boyların yurdu.", "kind": "yurt", "at": [5.0, -42.0], "radius": 3.0, "door_az": 86.0, "felt": [0.88, 0.8, 0.66]}
+	},
+	"flats": [
+		{"at": [0.0, 0.0], "r": 4.4, "blend": 3.0},
+		{"at": [-10.0, -22.0], "r": 5.8, "blend": 3.5},
+		{"at": [-24.0, 9.0], "r": 4.2, "blend": 3.0},
+		{"at": [-31.0, -13.0], "r": 4.4, "blend": 3.0},
+		{"at": [5.0, -42.0], "r": 4.2, "blend": 3.0},
+		{"a": [30.0, -17.0], "b": [30.0, 15.0], "r": 1.8, "blend": 2.5}
+	],
+	"trampled": {
+		"doc": "Çiğnenmiş toprak: daireler [x, z, yarıçap] (avlu, kapı önleri, beşik ve gömü yeri, sayıcının yeri), izler [ax, az, bx, bz, genişlik].",
+		"soft": 1.2,
+		"circles": [
+			[10.0, -7.0, 8.0],
+			[4.6, 0.2, 2.2],
+			[-4.0, -22.0, 2.6],
+			[4.8, 2.7, 0.9],
+			[3.9, -2.7, 0.9],
+			[31.0, -17.8, 1.6]
+		],
+		"trails": [
+			[3.6, 0.0, 28.5, -2.0, 2.2],
+			[-5.0, -21.5, 6.0, -12.0, 1.8],
+			[28.6, -17.5, 28.6, 15.5, 3.0],
+			[-21.0, 9.0, -6.0, 3.0, 1.4],
+			[-28.0, -12.5, -13.0, -18.0, 1.4]
+		]
+	},
+	"counting_line": {
+		"doc": "Sayım hattı: kuzeyden güneye kazık sırası ve ip; sayıcı kuzey ucunda (markers.counter). Hereka kapıdan buraya seslenir: «Bir eklendi.»",
+		"from": [30.0, -16.0],
+		"to": [30.0, 14.0],
+		"stakes": 11,
+		"height": 1.05,
+		"sag": 0.12,
+		"seed": 31
+	},
+	"markers": {
+		"counter": [31.2, -17.8],
+		"line_north": [30.0, -16.0],
+		"line_south": [30.0, 14.0],
+		"cradle": [4.8, 2.7],
+		"burial": [3.9, -2.7],
+		"lan_door": [3.4, 0.0],
+		"teoman_door": [-5.0, -22.0]
+	},
+	"grass": {
+		"doc": "Doğumun sarı güz otu (OrdosWorld, Ground/Grass): kampın ve sayım hattının çevresinde, kenara doğru seyrek; çiğnenmiş toprakta ve yurtların altında yok; bozkırın maskesine uyar (doğumun maskesi: çakılda ve kumda seyrek, koyu otlukta sık ve uzun). Sıklığı ve boyu Çocukluk'unkiyle aynı aileden (aynı otlak); 25–40 m'lik uzak kadrajın bütününü tutsun diye 70–110 m'de söner. Çocukluk'un otu kendi bölümündedir (childhood.grass).",
+		"seed": 77,
+		"center": [8.0, -6.0],
+		"radius": 82.0,
+		"count": 36000,
+		"chunk": 20.0,
+		"tall_share": 0.3,
+		"short_height": [0.22, 0.38],
+		"tall_height": [0.5, 0.8],
+		"wind_strength": 0.09,
+		"fade_start": 70.0,
+		"fade_end": 110.0
+	},
+	"childhood": {
+		"doc": "Çocukluk'un oynanış yerleri (story.md §5; Yol Haritası childhood-world, childhood-herd; K98: oyun içi kadraj uzak ve yüksek, eğim 38°, görüş 36°, 22–40 m). Çocukluk'a özgü olanlar (ağıl, sürü, küçük av, yarış yolu ve taşı, sayım hattının bezleri, kampın eşyaları, izler, Çocukluk'un otu ve zemin maskesi) ChildhoodSite'ın ayrı düğümündedir ve yalnız OrdosWorld.set_childhood_mode(true) ile görünür. Bozkırın kendisi (ground: yükselti ve zemin maskesi; scatter: kaya, çalı, çakıl) aynı otlaktır (MÖ 234 ile MÖ 228): doğum da okur, doğumun maskesinde Çocukluk'un izleri ve izlere bağlı patikalar yoktur (ground.birth_tracks doğumun patikalarıdır). Lan Hatun'un kapısından ağılın kapısına ≈40 m iz, kapıdan taşa 40 m yarış yolu, sürü hattın batı yüzünde kuzeye yürür, sayıcının önünde sayılır. 40 m kadrajda (odak [27, 20], kuzeye bakış) yurt, ağıl, yarış yolu, taş ve sayım hattı aynı karededir. Bütün kapılar doğuya bakar.",
+		"walk_area": {"doc": "Yürünür alan: PlayerController'ın oyun alanı dairesi (play_area_center, play_area_radius, play_area_soft_edge). E21: extra [x, z, yarıçap] daireleri birleşime katılır (PlayerController.play_area_extra): göle giden geniş koridor, gölün çevresi (su dahil; en derin bölgeyi akıntı tutar), Ebe Obası'na kuruyan dere boyunca koridor ve obanın çevresi.", "center": [26.0, 10.0], "radius": 58.0, "soft_edge": 3.0,
+			"extra": [
+				[64.0, 28.0, 36.0], [104.0, 28.0, 36.0], [144.0, 28.0, 36.0], [184.0, 28.0, 36.0], [224.0, 26.0, 36.0], [264.0, 26.0, 36.0], [298.0, 26.0, 36.0],
+				[336.0, 32.0, 34.0], [360.0, -12.0, 40.0], [364.0, 44.0, 42.0], [346.0, -44.0, 28.0], [352.0, 84.0, 30.0], [396.0, 10.0, 26.0],
+				[14.0, -42.0, 32.0], [36.0, -76.0, 30.0], [44.0, -114.0, 30.0], [42.0, -154.0, 30.0], [38.0, -194.0, 30.0], [32.0, -234.0, 30.0], [26.0, -272.0, 30.0],
+				[18.0, -322.0, 46.0]
+			]},
+		"camera_bounds": {"doc": "Oynanış kamera sınırı (x, z): yürünür alanın kutusu + 28 m: 22 ve 28 m kadraj sınıra değmez, 40 m kadraj kenarda içeri çekilir (OrdosWorld.clamp_camera_transform). E21: Kamışlı Göl'e ve Ebe Obası'na dek büyür.", "min": [-60.0, -396.0], "max": [460.0, 128.0]},
+		"markers": {
+			"child_start": [5.0, 1.0],
+			"lan_stand": [4.6, -1.5],
+			"pen_gate": [24.8, 26.0],
+			"pen_inside": [20.5, 26.0],
+			"old_sheep": [14.0, 24.0],
+			"fast_sheep": [19.0, 29.5],
+			"race_start": [25.8, 26.0],
+			"race_stone": [52.0, -2.5],
+			"meadow": [54.0, 22.0],
+			"line_start": [28.7, 16.2],
+			"count_point": [28.4, -16.0],
+			"children_at_line": [26.4, -14.5],
+			"frame_center": [27.0, 20.0],
+			"lan_bed": [-0.25, 1.35],
+			"lan_bed_mother": [-0.3, -1.3],
+			"lan_yurt_in": [1.7, 0.0],
+			"bone_post": [18.0, 4.0],
+			"bone_field": [46.0, 10.0],
+			"flock_gather": [36.0, 30.0],
+			"flock_way_1": [84.0, 30.0],
+			"flock_way_2": [160.0, 30.0],
+			"flock_way_3": [240.0, 27.0],
+			"lake_view": [300.0, 25.0],
+			"lake_center": [368.0, 20.0],
+			"lake_beach": [338.0, 30.0],
+			"lake_shallow": [349.0, 28.0],
+			"lake_wade": [354.0, 27.0],
+			"lake_swim": [358.5, 24.0],
+			"lake_deepest": [370.0, 20.0],
+			"lake_reeds": [350.0, -18.0],
+			"white_stone": [356.5, 4.0],
+			"stone_shore": [344.0, 4.0],
+			"lake_mud": [343.0, -32.0],
+			"lake_fox": [332.0, -43.0],
+			"lake_graze": [334.0, 46.0],
+			"lake_drink": [344.0, 34.0],
+			"noon_rest": [333.0, 39.0],
+			"count_stone_a": [318.0, 23.6],
+			"count_stone_b": [318.0, 28.4],
+			"count_gate": [318.0, 26.0],
+			"count_after": [300.0, 26.0],
+			"ebe_center": [16.0, -324.0],
+			"hereka_yurt": [20.0, -326.0],
+			"hereka_door": [24.2, -326.0],
+			"ebe_yurt_a": [4.0, -336.0],
+			"ebe_yurt_b": [32.0, -342.0],
+			"ebe_dogs": [22.0, -307.0],
+			"ebe_call": [22.0, -294.0],
+			"ebe_fire": [14.0, -316.0],
+			"dry_stream_south": [40.0, -52.0],
+			"dry_stream_north": [26.0, -286.0]
+		},
+		"pen": {
+			"doc": "Lan Hatun'un ağılı: yuvarlak çit (kazık ve örgü), kapı doğuya. Duvarı RingWall'dur (oyuncu ve koyun aynı duvara çarpar). Altı düzdür (flats).",
+			"at": [16.0, 26.0],
+			"radius": 8.0,
+			"thickness": 0.3,
+			"gate_az": 90.0,
+			"gate_width": 2.4,
+			"height": 1.02,
+			"posts": 26,
+			"seed": 47,
+			"props": [
+				{"kind": "hay", "at": [10.2, 22.0], "radius": 0.85},
+				{"kind": "trough", "at": [9.6, 29.2], "yaw": 62.0, "length": 1.9, "radius": 0.8}
+			]
+		},
+		"flats": [
+			{"at": [16.0, 26.0], "r": 9.0, "blend": 3.0},
+			{"at": [52.0, -2.5], "r": 2.2, "blend": 3.0},
+			{"at": [20.0, -326.0], "r": 5.2, "blend": 3.0},
+			{"at": [4.0, -336.0], "r": 4.8, "blend": 3.0},
+			{"at": [32.0, -342.0], "r": 4.8, "blend": 3.0}
+		],
+		"props": {
+			"doc": "Kampın eşyaları (CampProp, Meshy modelleri assets/props): yalnız Çocukluk'ta; yurtların arasında gündelik hayat. kind CampProp.Kind adıdır, yaw derece.",
+			"items": [
+				{"kind": "TRIPOD_POT", "at": [9.0, -4.0], "yaw": 20.0},
+				{"kind": "WOOD_PILE", "at": [12.6, -0.8], "yaw": 70.0},
+				{"kind": "SADDLE_BAGS", "at": [6.8, -4.6], "yaw": 160.0},
+				{"kind": "STOOL", "at": [7.6, -2.0], "yaw": 40.0},
+				{"kind": "DRYING_RACK", "at": [15.4, -11.4], "yaw": 100.0},
+				{"kind": "SPEAR_RACK", "at": [-4.2, -26.8], "yaw": 90.0},
+				{"kind": "BUCKET", "at": [10.6, 30.6], "yaw": 0.0}
+			]
+		},
+		"lake": {
+			"doc": "Kamışlı Göl (E21, K110; yalnız Çocukluk'un yüzünde: ChildhoodSite.merged_spec ekler, doğumun bozkırında yok; story.md §5 «İki yeni gün»; docs/design/d3/e21-childhood-api.md §4): ağılın ≈350 m doğusunda, Sarı Irmak'ın eski yatağında kalmış sazlı göl. line eski yatağın orta çizgisidir (kuzeyden güneye), half_width kıyı çizgisine uzaklık (göl ≈48 × 180 m); bank kıyının sudan yükseldiği pay (rise m), blend doğal yüzeye karışma; profile kıyıdan içeri metre → derinlik (kumlu sığ kıyı dizden aşağı 0–6 m, bel 6–10 m, yüzme 10 m'den içeri), ortada depth; deep_core orta çizgiye bu kadar yakın yer en derin bölgedir (girilmez, akıntı geri iter). Seviye level_at noktasının yükseltisiz yüzünden level_drop aşağıdadır: bütün yüzler (doğum, Çocukluk, düzenin yalın yüzü) aynı seviyeyi bulur. OrdosGround oyar, OrdosWorld suyunu kurar (Lake: kampın gölünün water.gdshader'ı), ChildhoodSite sazlığını, balçığını ve ak taşını kurar.",
+			"line": [[360.0, -46.0], [370.0, -14.0], [372.0, 20.0], [366.0, 54.0], [354.0, 84.0]],
+			"half_width": 24.0,
+			"bank": 10.0,
+			"blend": 24.0,
+			"rise": 0.55,
+			"depth": 2.4,
+			"profile": [[0.0, 0.05], [6.0, 0.4], [10.0, 0.8], [16.0, 1.6]],
+			"deep_core": 7.5,
+			"level_at": [346.0, 28.0],
+			"level_drop": 0.25,
+			"water": {"deep_color": [0.16, 0.2, 0.18], "shallow_color": [0.42, 0.44, 0.34], "reflection_horizon": [0.86, 0.84, 0.74], "reflection_zenith": [0.42, 0.54, 0.72], "glint_color": [1.0, 0.9, 0.7], "glint_energy": 4.0, "ripple_strength": 0.22}
+		},
+		"lake_site": {
+			"doc": "E21: Kamışlı Göl'ün kıyısı (ChildhoodLake; yalnız Çocukluk'ta): sazlık (kıyının sığında ve kıyıda; yükseklik m, rüzgârla eğilir), sazın dibinde balçık (kuzu burada saplanır; parlak ıslak toprak), ak taş (sazlığın dibinde, yüzme derinliğinde; dalışla alınır), ördekler (gölün ortasında yüzer, yaklaşılınca açılır), iki sayım taşı (ikindi sayımı: sürü aralarından geçirilir), ılgın kuşağı (gölün önünde: «Göl ötede, ılgınların ardında»; yolun geçtiği yerde aralık).",
+			"reeds": {"seed": 515, "count": 1300, "zones": [[350.0, -18.0, 13.0], [347.0, -36.0, 9.0], [352.0, -2.0, 7.0], [376.0, 62.0, 9.0], [388.0, -24.0, 10.0], [392.0, 34.0, 8.0]], "height": [1.25, 2.05], "inset": [-3.0, 7.0]},
+			"mud": {"patches": [[343.0, -32.0, 3.4], [340.0, -27.0, 2.2]], "color": [0.17, 0.13, 0.09]},
+			"white_stone": {"at": [356.5, 4.0], "radius": 0.2, "glow": [1.0, 0.98, 0.9]},
+			"ducks": {"count": 6, "seed": 77, "center": [376.0, 34.0], "radius": 12.0, "flee": 14.0},
+			"count_stones": {"a": [318.0, 23.6], "b": [318.0, 28.4], "size": [0.5, 0.95, 0.4], "seed": 318},
+			"tamarisks": {"seed": 616, "count": 64, "line": [[286.0, -34.0], [290.0, 0.0], [294.0, 22.0], [290.0, 50.0], [284.0, 80.0]], "width": 18.0, "gaps": [[278.0, 24.0, 5.5], [286.0, 24.3, 5.5], [294.0, 24.7, 5.5], [302.0, 25.0, 5.5]], "size": [1.4, 2.6]}
+		},
+		"ebe": {
+			"doc": "E21: Ebe Obası (ağılın ≈350 m kuzeyinde; Ç2'nin «Ebenin Çetelesi»): üç yurt (kodla kurulan yurt: StructureKit, uzaklık kademesi; Hereka'nınki açık, içi kurulur), iki köpeğin yeri, açık ocak, kurut sergisi. Kişileri ve köpekleri Ç2 kurar.",
+			"yurts": [
+				{"id": "hereka_yurt", "kind": "yurt", "at": [20.0, -326.0], "facing": 90.0, "open": true, "style": "hun"},
+				{"id": "ebe_yurt_a", "kind": "yurt", "at": [4.0, -336.0], "facing": 96.0, "style": "hun"},
+				{"id": "ebe_yurt_b", "kind": "yurt_small", "at": [32.0, -342.0], "facing": 84.0, "style": "hun"}
+			],
+			"fire": {"at": [14.0, -316.0]},
+			"props": [
+				{"kind": "DRYING_RACK", "at": [27.0, -318.0], "yaw": 80.0},
+				{"kind": "TRIPOD_POT", "at": [12.0, -318.0], "yaw": 10.0},
+				{"kind": "WOOD_PILE", "at": [10.0, -326.0], "yaw": 40.0}
+			]
+		},
+		"far": {
+			"doc": "E21: ufuk (yalnız Çocukluk'ta, kadrajın ötesinde): Dailin'e gelen boyların ocak dumanları (≈0,7–1,5 km; uzak, soluk, rüzgârla eğilir) ve uzak atlı kümeleri (yürüyerek sayıma gelir; ufukta seçilen noktalar), güneye geçen turnalar (sürü yoldayken bir kez), bağlama direği (Ak Kemik).",
+			"smokes": [[-620.0, 380.0, 34.0], [-880.0, -140.0, 40.0], [-460.0, -760.0, 30.0], [140.0, 1150.0, 36.0], [-1100.0, 420.0, 44.0], [560.0, -900.0, 32.0]],
+			"riders": [
+				{"from": [-900.0, 300.0], "to": [-260.0, 140.0], "count": 7, "speed": 2.2},
+				{"from": [300.0, -1100.0], "to": [80.0, -420.0], "count": 5, "speed": 2.0},
+				{"from": [-700.0, -700.0], "to": [-200.0, -180.0], "count": 6, "speed": 2.1}
+			],
+			"cranes": {"from": [520.0, -620.0], "to": [-320.0, 760.0], "height": 70.0, "count": 13, "speed": 11.0},
+			"post": {"at": [18.0, 4.0], "height": 1.5}
+		},
+		"race": {"doc": "Yarış yolu: ağılın önünden taşa 40 m; kenarında küçük taş yığınları (cairns: yolun boyundaki oran).", "path": [[25.8, 26.0], [37.4, 18.5], [52.0, -2.5]], "width": 1.3, "cairns": [0.16, 0.34, 0.52, 0.7, 0.86]},
+		"stone": {"doc": "Yarışın taşı: dikili, çocuktan çok uzun; 40 m kadrajdan okunur.", "at": [52.0, -2.5], "radius": 0.85, "size": [0.72, 1.12, 0.44], "seed": 212},
+		"line_flags": {"doc": "Sayım hattının kazıklarında bez (yalnız Çocukluk): yukarıdan hat okunsun.", "every": 1, "length": 0.42, "width": 0.16},
+		"paths": {
+			"doc": "Çiğnenmiş iz (Doğumun çiğnenmiş toprağına eklenir; OrdosGround dizi sınırları: 12 daire, 12 iz): yurttan ağıla (home ≈40 m), yarış yolu (race.path), sürünün çayıra yolu. ChildhoodSite.merged_spec parçalara böler.",
+			"home": {"points": [[3.6, 1.0], [8.0, 14.0], [23.0, 15.0], [25.4, 24.6]], "width": 1.3},
+			"herd": {"points": [[26.5, 26.2], [42.0, 25.0]], "width": 1.7}
+		},
+		"trampled": {
+			"doc": "Ağılın içi, kapı önü, taşın dibi. look: gün ışığında toprağın boyası, iz kenarı daha az dalgalı.",
+			"circles": [[16.0, 26.0, 8.3], [26.2, 26.0, 2.6], [52.0, -2.5, 2.2]],
+			"look": {"edge_noise": 0.7, "base_color": [0.6, 0.5, 0.37], "sunny_color": [0.68, 0.58, 0.43], "dark_color": [0.53, 0.44, 0.31]}
+		},
+		"grass": {
+			"doc": "Çocukluk'un otu (doğumun otunun yerine görünür): çayırı da kaplar; ağılda, izlerde, kısa otlu lekelerde yok; zemin maskesine uyar (çakılda ve kumda seyrek, koyu otlukta sık ve uzun).",
+			"seed": 78,
+			"center": [26.0, 10.0],
+			"radius": 92.0,
+			"count": 46000,
+			"chunk": 20.0,
+			"tall_share": 0.3,
+			"short_height": [0.22, 0.38],
+			"tall_height": [0.5, 0.8],
+			"wind_strength": 0.09,
+			"fade_start": 70.0,
+			"fade_end": 110.0
+		},
+		"grass_zones": {
+			"doc": "E21: Çocukluk'un otunun ek daireleri (çayırın dairesinin dışında kalanı): göle giden yol, gölün kıyısı, obaya giden kuruyan dere ve Ebe Obası. Her daire kendi tohumuyla, öncekilerin içine ot koymaz; sıklık count / alandır (çayırınki ≈1,7/m²; yollarda seyrek). Ot suda ve sazın içinde çıkmaz.",
+			"zones": [
+				{"center": [104.0, 28.0], "radius": 46.0, "count": 8200, "seed": 81},
+				{"center": [184.0, 28.0], "radius": 46.0, "count": 7600, "seed": 82},
+				{"center": [262.0, 26.0], "radius": 46.0, "count": 7600, "seed": 83},
+				{"center": [348.0, 30.0], "radius": 64.0, "count": 17000, "seed": 84},
+				{"center": [348.0, -40.0], "radius": 36.0, "count": 5600, "seed": 85},
+				{"center": [32.0, -80.0], "radius": 42.0, "count": 6800, "seed": 86},
+				{"center": [40.0, -160.0], "radius": 42.0, "count": 6200, "seed": 87},
+				{"center": [32.0, -240.0], "radius": 42.0, "count": 6200, "seed": 88},
+				{"center": [18.0, -318.0], "radius": 50.0, "count": 9800, "seed": 89}
+			]
+		},
+		"ground": {
+			"doc": "Yukarıdan okunan zemin (ChildhoodGround): kademe (scarps: yüzü dik, sırtı uzun; height metre, width yüzün eni, back sırtın boyu, side yükselen yan), tepecik (hills: x, z, yarıçap, yükseklik), kuru dere (gullies), hafif dalga (undulation). Yurtların ve sayım hattının çevresi sakin kalır (quiet): doğumun yerleri ve kişileri yükseltiden etkilenmez. Maske: bare toprak (noise), kum (dere ve çorak), çakıl (yüz, tepe, kaya öbeği), koyu otluk; patikalar (tracks Çocukluk'un, birth_tracks doğumun: sayım hattından ve yurtlardan bozkıra). Doğumun bozkırı ve Çocukluk aynı yükseltiyi okur (OrdosWorld.steppe, ChildhoodSite.ground).",
+			"area": {"min": [-120.0, -115.0], "max": [150.0, 125.0]},
+			"area_e21": {"doc": "E21 (K110): Çocukluk'un geniş ızgarası (kamp, Kamışlı Göl, Ebe Obası); ChildhoodSite kendi bantlarında pişirir. area doğumun ve kampındır (OrdosWorld doğumla birlikte pişirir).", "min": [-120.0, -392.0], "max": [432.0, 125.0]},
+			"dense": {"doc": "E21: Çocukluk'un ağının 2 m'lik sık ızgarası (dünya dikdörtgeni): kamp, Kamışlı Göl ve Ebe Obası; göle ve obaya giden yolda hücre 4 m (x_coarse, z_coarse: [alt, üst, hücre]); dışı 3 km'ye dek seyrek. Doğumun bozkırı bugünkü ızgaradır.", "min": [-120.0, -390.0], "max": [432.0, 120.0], "x_coarse": [[124.0, 292.0, 4.0]], "z_coarse": [[-300.0, -116.0, 4.0]]},
+			"step": 1.0,
+			"seed": 613,
+			"undulation": {"amplitude": 0.32, "wavelength": 13.0},
+			"quiet": {"place_margin": 7.0, "place_fade": 10.0, "line_margin": 5.0, "line_fade": 8.0,
+				"extra": [[20.0, -326.0, 9.0, 10.0], [4.0, -336.0, 8.0, 10.0], [32.0, -342.0, 8.0, 10.0], [318.0, 26.0, 6.0, 8.0]]},
+			"scarps": [
+				{"points": [[66.0, -46.0], [62.0, -30.0], [70.0, -14.0], [66.0, 2.0], [76.0, 14.0], [80.0, 36.0], [72.0, 58.0]], "height": 2.3, "width": 3.2, "back": 26.0, "side": 1.0},
+				{"points": [[36.0, -44.0], [46.0, -34.0], [58.0, -32.0]], "height": 1.5, "width": 2.8, "back": 16.0, "side": -1.0},
+				{"points": [[-30.0, 34.0], [-14.0, 37.0], [0.0, 44.0], [20.0, 47.0], [40.0, 56.0], [64.0, 58.0]], "height": 2.0, "width": 3.2, "back": 24.0, "side": 1.0},
+				{"points": [[-58.0, -44.0], [-44.0, -28.0], [-46.0, -6.0], [-38.0, 16.0]], "height": 2.2, "width": 3.0, "back": 22.0, "side": -1.0},
+				{"points": [[44.0, 6.0], [50.0, 8.0], [58.0, 6.0], [64.0, -2.0]], "height": 1.1, "width": 2.4, "back": 12.0, "side": -1.0},
+				{"points": [[47.0, -40.0], [48.0, -24.0], [43.0, -14.0], [46.0, -4.0], [43.0, 8.0], [46.0, 20.0], [42.0, 32.0], [36.0, 41.0]], "height": 1.6, "width": 2.6, "back": 18.0, "side": -1.0},
+				{"points": [[-6.0, 20.0], [-2.0, 30.0], [-4.0, 42.0], [4.0, 56.0]], "height": 1.4, "width": 2.6, "back": 14.0, "side": 1.0}
+			],
+			"scarps_e21": [
+				{"points": [[150.0, -30.0], [176.0, -16.0], [206.0, -22.0], [236.0, -12.0]], "height": 1.6, "width": 3.0, "back": 18.0, "side": -1.0},
+				{"points": [[160.0, 66.0], [196.0, 78.0], [232.0, 70.0], [262.0, 82.0]], "height": 1.8, "width": 3.2, "back": 20.0, "side": 1.0},
+				{"points": [[-24.0, -150.0], [-10.0, -190.0], [-18.0, -232.0], [-6.0, -270.0]], "height": 2.0, "width": 3.2, "back": 22.0, "side": -1.0},
+				{"points": [[74.0, -130.0], [86.0, -176.0], [76.0, -222.0], [88.0, -262.0]], "height": 1.7, "width": 3.0, "back": 18.0, "side": 1.0}
+			],
+			"hills": [
+				[52.0, -2.5, 8.5, 1.5],
+				[66.0, -18.0, 11.0, 3.2],
+				[40.0, -24.0, 7.0, 1.6],
+				[-22.0, 28.0, 9.0, 2.0],
+				[6.0, 52.0, 8.0, 2.2],
+				[46.0, 44.0, 7.0, 1.3],
+				[74.0, 40.0, 9.0, 2.0],
+				[-38.0, -24.0, 8.0, 2.4]
+			],
+			"hills_e21": [
+				[124.0, -6.0, 10.0, 1.6],
+				[214.0, 52.0, 12.0, 1.9],
+				[270.0, -18.0, 11.0, 1.5],
+				[406.0, -30.0, 14.0, 2.2],
+				[408.0, 86.0, 12.0, 1.8],
+				[-16.0, -300.0, 12.0, 2.4],
+				[62.0, -350.0, 14.0, 2.0],
+				[70.0, -200.0, 10.0, 1.6],
+				[-4.0, -110.0, 10.0, 1.5]
+			],
+			"gullies": [
+				{"points": [[42.0, -50.0], [44.0, -36.0], [38.0, -18.0], [42.0, -6.0], [38.0, 8.0], [41.0, 20.0], [36.0, 34.0], [30.0, 42.0], [14.0, 42.0], [-6.0, 52.0], [-20.0, 72.0]], "depth": 0.9, "width": 2.8, "bank": 3.0}
+			],
+			"gullies_e21": [
+				{"doc": "E21: kuruyan dere (Ebenin Çetelesi'nin yolu): kampın deresinden kuzeye, Ebe Obası'nın doğusundan geçer.", "points": [[42.0, -50.0], [48.0, -82.0], [42.0, -120.0], [48.0, -160.0], [40.0, -200.0], [34.0, -240.0], [30.0, -272.0], [34.0, -300.0], [44.0, -330.0], [52.0, -372.0]], "depth": 0.8, "width": 3.4, "bank": 3.2}
+			],
+			"pale_pans": [[58.0, 34.0, 7.0], [-12.0, 24.0, 6.0], [18.0, -28.0, 5.5], [150.0, 46.0, 9.0], [252.0, 4.0, 8.0], [10.0, -200.0, 7.0], [60.0, -290.0, 6.0]],
+			"birth_tracks": [
+				[[28.6, -8.0], [36.0, -12.0], [40.0, -24.0]],
+				[[28.6, 14.0], [33.0, 21.0], [40.0, 26.0], [52.0, 29.0]],
+				[[-27.0, 12.0], [-34.0, 20.0], [-46.0, 26.0]]
+			],
+			"tracks": [
+				[[28.0, 26.0], [34.0, 30.0], [46.0, 33.0], [60.0, 30.0]],
+				[[8.0, 14.0], [-4.0, 22.0], [-16.0, 26.0]],
+				[[52.0, -2.5], [60.0, -8.0], [66.0, -18.0]],
+				[[28.6, -8.0], [36.0, -12.0], [40.0, -24.0]],
+				[[14.0, 40.0], [16.0, 36.0]],
+				[[42.0, 25.0], [52.0, 12.0], [58.0, 8.0]],
+				[[60.0, 30.0], [72.0, 30.0], [74.0, 40.0]],
+				{"doc": "E21: göle giden sürü yolu (ılgınların arasından).", "points": [[60.0, 30.0], [84.0, 30.0], [120.0, 27.0], [160.0, 30.0], [200.0, 25.0], [240.0, 27.0], [278.0, 24.0], [300.0, 25.0], [322.0, 27.0], [338.0, 30.0]], "width": 1.7},
+				{"doc": "E21: obaya giden yol (kuruyan derenin batı kıyısı).", "points": [[6.0, -6.0], [18.0, -30.0], [34.0, -56.0], [40.0, -84.0], [36.0, -120.0], [42.0, -160.0], [34.0, -200.0], [28.0, -240.0], [24.0, -270.0], [22.0, -294.0], [21.0, -318.0]], "width": 1.3},
+				{"doc": "E21: obanın içi.", "points": [[21.0, -318.0], [14.0, -330.0], [6.0, -334.0]], "width": 1.0}
+			]
+		},
+		"scatter": {
+			"doc": "Kaya öbekleri, çalı (ChildhoodScatter): öbekler [x, z, yarıçap, adet, en küçük, en büyük]; kademe yüzünde ve tepede kendiliğinden. Büyük kayalar çarpışır (solid_from metre). Doğumda da aynı yerde durur (OrdosWorld: Ground/Rocks, Ground/Shrubs).",
+			"seed": 730,
+			"solid_from": 0.55,
+			"rock_clusters": [
+				[33.0, -3.0, 3.5, 7, 0.3, 1.1],
+				[46.0, 12.0, 3.0, 6, 0.25, 0.9],
+				[6.0, 12.0, 2.4, 4, 0.2, 0.6],
+				[-7.0, 33.0, 4.0, 8, 0.3, 1.3],
+				[34.0, 42.0, 3.5, 7, 0.3, 1.2],
+				[62.0, 40.0, 4.0, 8, 0.3, 1.4],
+				[58.0, -18.0, 5.0, 9, 0.4, 1.8],
+				[66.0, -18.0, 6.0, 12, 0.5, 2.2],
+				[40.0, -24.0, 3.5, 7, 0.3, 1.2],
+				[18.0, -16.0, 2.2, 4, 0.2, 0.6],
+				[-28.0, -2.0, 3.5, 7, 0.3, 1.2],
+				[74.0, 24.0, 3.5, 6, 0.3, 1.1],
+				[6.0, 52.0, 5.0, 10, 0.4, 1.8],
+				[-38.0, -24.0, 5.0, 10, 0.4, 1.8],
+				[80.0, 2.0, 4.0, 7, 0.3, 1.4]
+			],
+			"rock_clusters_e21": [
+				[118.0, 44.0, 4.0, 7, 0.3, 1.3],
+				[176.0, 8.0, 3.5, 6, 0.3, 1.1],
+				[232.0, 48.0, 4.0, 8, 0.3, 1.4],
+				[262.0, 6.0, 3.0, 5, 0.25, 0.9],
+				[318.0, 60.0, 4.0, 7, 0.3, 1.2],
+				[324.0, -22.0, 3.5, 6, 0.3, 1.1],
+				[60.0, -92.0, 4.0, 7, 0.3, 1.3],
+				[20.0, -140.0, 3.5, 6, 0.3, 1.1],
+				[58.0, -186.0, 4.0, 8, 0.3, 1.4],
+				[16.0, -226.0, 3.5, 6, 0.3, 1.1],
+				[-2.0, -296.0, 4.0, 8, 0.3, 1.5],
+				[46.0, -306.0, 3.0, 5, 0.25, 0.9]
+			],
+			"shrubs": {"count": 420, "cluster_share": 0.55, "radius": 92.0,
+				"zones": [[124.0, 28.0, 44.0, 70], [204.0, 26.0, 44.0, 64], [262.0, 26.0, 36.0, 40], [328.0, 44.0, 40.0, 50], [40.0, -100.0, 40.0, 60], [40.0, -180.0, 40.0, 56], [30.0, -260.0, 40.0, 52], [18.0, -320.0, 46.0, 54]]},
+			"pebbles": {"count": 420, "radius": 86.0}
+		},
+		"herd": {
+			"doc": "Sürü (HerdField, HerdSim): 40 koyun tek MultiMesh. Çayırda otlar; sayımda rotada tek sıra yürür, count_at noktasında sayılır, after'a yayılır.",
+			"kind": "sheep",
+			"count": 40,
+			"seed": 410,
+			"lead_speed": 1.3,
+			"release_cadence": 0.6,
+			"meadow": {"center": [54.0, 22.0], "radius": 12.0},
+			"line": {
+				"route": [[33.0, 19.5], [28.7, 16.2], [28.6, -8.0], [28.4, -16.0], [27.0, -21.0], [22.0, -27.0]],
+				"count_at": 3,
+				"speed": 2.4,
+				"cadence": 0.7,
+				"after": {"center": [20.0, -31.0], "radius": 8.5}
+			}
+		},
+		"game": {
+			"doc": "Küçük av (SmallGameField): tür, sayı, kısa otlu ev lekeleri [x, z, yarıçap], inler [x, z]. Çocuk yayıyla vurulur; tarbagan ve kum faresi inine kaçar, kuş başka lekeye uçar.",
+			"seed": 91,
+			"groups": [
+				{"kind": "lark", "count": 5, "patches": [[41.0, 31.0, 4.5], [52.0, 38.0, 4.0], [64.0, 37.0, 4.0]]},
+				{"kind": "gerbil", "count": 3, "patches": [[33.0, 33.0, 3.0], [38.0, 38.0, 2.5]], "holes": [[33.8, 33.6], [37.6, 38.2]], "mound": 0.2},
+				{"kind": "partridge", "count": 6, "patches": [[60.0, -8.0, 5.0], [48.0, -16.0, 4.5]]},
+				{"kind": "marmot", "count": 3, "patches": [[72.0, 10.0, 5.0], [73.0, 26.0, 4.0]], "holes": [[70.8, 11.2], [74.6, 8.8], [72.6, 25.4]], "mound": 0.55},
+				{"kind": "crow", "count": 4, "patches": [[20.0, 8.0, 3.0], [40.0, 4.0, 3.5], [6.0, 32.0, 3.0]]}
+			]
+		},
+		"crowd": {
+			"doc": "Dailin'in kalabalığı (story.md §5 «uzaktaki sayım kalabalığı kart kademesindedir»; army.md §7.1 T3; CrowdPlan, CrowdCards): sayım hattının çevresinde, uzakta, kişi başına 2 üçgenlik kart (atlas: tools/bake_crowd_cards.gd). Öbekler: hattın doğusunda atlıların yolunu açık bırakan şerit, sayıcının kuzeydoğusu, otağın önü, sürünün kuzeyi. Toplanma oyunun saatiyledir: early payı baştan yerindedir, ötekiler gather.from–gather.to arasında çıkış noktalarından (yurtlar, dünyanın kıyısı; via: dolanma) yürüyerek gelir. keep_clear: atlıların yolu, sürünün rotası ve sayım sonrası diski, çocukların ve sayıcının yeri, sayım ipi (a–b doğrusu, r yarıçap).",
+			"seed": 228,
+			"atlas": "res://assets/crowd/dailin_cards.json",
+			"gather": {"from": "09:50", "to": "10:52", "early": 0.2},
+			"walk_speed": [1.1, 1.45],
+			"scale": [0.94, 1.05],
+			"min_gap": 0.95,
+			"variants": [0.42, 0.34, 0.24],
+			"keep_clear": [
+				{"a": [40.0, 27.0], "b": [35.0, 13.0], "r": 3.4},
+				{"a": [35.0, 13.0], "b": [34.2, 0.0], "r": 3.4},
+				{"a": [34.2, 0.0], "b": [34.0, -14.5], "r": 3.4},
+				{"a": [34.0, -14.5], "b": [34.4, -26.0], "r": 3.4},
+				{"a": [34.4, -26.0], "b": [35.5, -40.0], "r": 3.4},
+				{"a": [35.5, -40.0], "b": [31.0, -54.0], "r": 3.4},
+				{"a": [31.0, -54.0], "b": [18.0, -66.0], "r": 3.4},
+				{"a": [33.0, 19.5], "b": [28.7, 16.2], "r": 2.4},
+				{"a": [28.7, 16.2], "b": [28.4, -16.0], "r": 2.4},
+				{"a": [28.4, -16.0], "b": [22.0, -27.0], "r": 2.4},
+				{"a": [20.0, -31.0], "r": 10.0},
+				{"a": [26.4, -14.5], "r": 6.0},
+				{"a": [31.2, -17.8], "r": 2.6},
+				{"a": [30.0, -17.0], "b": [30.0, 15.0], "r": 2.2}
+			],
+			"groups": [
+				{"id": "east_lane", "count": 58, "rect": {"center": [40.4, -13.5], "size": [5.6, 25.0]}, "face": [30.0, -13.5], "face_spread_deg": 24.0, "early": 0.15,
+					"origins": [{"at": [96.0, -18.0], "via": [[58.0, -12.0]]}, {"at": [96.0, -28.0], "via": [[60.0, -22.0]]}], "origin_spread": 6.0},
+				{"id": "north_end", "count": 36, "disc": {"center": [44.6, -36.0], "radius": 6.0}, "face": [31.2, -17.8], "face_spread_deg": 22.0,
+					"origins": [[80.0, -72.0], [92.0, -56.0]], "origin_spread": 6.0},
+				{"id": "otag", "count": 32, "rect": {"center": [2.0, -24.0], "size": [12.0, 10.0]}, "face": [30.0, -14.0], "face_spread_deg": 30.0, "early": 0.35,
+					"origins": [{"at": [-31.0, -13.0], "via": [[-15.0, -13.5], [-3.0, -17.0]]}, {"at": [-24.0, 9.0], "via": [[-8.0, -10.0]]}, [5.0, -42.0]], "origin_spread": 2.0},
+				{"id": "north_west", "count": 24, "rect": {"center": [17.0, -44.5], "size": [14.0, 5.0]}, "face": [28.0, -18.0], "face_spread_deg": 24.0, "early": 0.25,
+					"origins": [[-6.0, -72.0], [5.0, -42.0]], "origin_spread": 3.0}
+			]
+		}
+	},
+	"colors": {
+		"ground": [0.55, 0.48, 0.32],
+		"ground_sunny": [0.63, 0.55, 0.36],
+		"ground_dark": [0.45, 0.4, 0.28],
+		"trampled_tint": [0.54, 0.46, 0.34],
+		"trampled": [0.62, 0.5, 0.36],
+		"trampled_light": [0.72, 0.6, 0.44],
+		"trampled_edge": [0.5, 0.4, 0.28],
+		"grass_mid_color": [0.7, 0.58, 0.33],
+		"grass_tip_color": [0.88, 0.78, 0.52],
+		"grass_sun_color": [0.92, 0.74, 0.38],
+		"grass_deep_color": [0.5, 0.43, 0.27],
+		"shadow_tint": [0.62, 0.68, 0.84],
+		"river_deep": [0.32, 0.26, 0.18],
+		"river_shallow": [0.5, 0.42, 0.3],
+		"river_horizon": [0.95, 0.74, 0.58],
+		"river_zenith": [0.36, 0.44, 0.66],
+		"river_glint": [1.0, 0.84, 0.62]
+	},
+	"cameras": {
+		"inside_hearth": {"doc": "7a: yurdun içi, köz ışığı, döşek ve kerege.", "pos": [-1.5, 1.25, 1.2], "look_at": [0.6, 0.45, -0.8], "fov": 55.0},
+		"inside_threshold": {"doc": "7a: içeriden kapıya; eşikten giren gölge ocak taşında durur.", "pos": [-2.0, 0.95, -0.6], "look_at": [3.2, 0.55, 0.15], "fov": 50.0},
+		"lan_door": {"doc": "7c: yurdun kapısı, kımıltı yok.", "pos": [11.0, 1.7, 4.0], "look_at": [3.1, 1.1, 0.0], "fov": 45.0},
+		"teoman_bow_east": {"doc": "7b: Teoman otağından çıkar, doğan güne eğilir (omzunun üstünden doğuya bakış).", "pos": [-5.2, 1.75, -20.8], "look_at": [40.0, 1.0, -23.5], "fov": 50.0},
+		"moon_west": {"doc": "7b: batıda dolunay ufukta, otağın yanında.", "pos": [6.0, 1.5, -16.0], "look_at": [-60.0, 4.0, -18.0], "fov": 48.0},
+		"counting_line": {"doc": "7d: Hereka kapıdan sayım hattına seslenir (kapının önünden doğuya).", "pos": [3.9, 1.7, 0.7], "look_at": [30.0, 1.0, -1.5], "fov": 45.0},
+		"line_notch": {"doc": "7d: sayıcı çubuğa çentik atar.", "pos": [34.0, 1.5, -14.5], "look_at": [31.0, 1.0, -17.6], "fov": 40.0},
+		"burial_cradle": {"doc": "7e: Hereka eşi gömer, beşiğe ok-yay asar; turnalar güneye geçer.", "pos": [10.0, 2.3, 4.5], "look_at": [3.8, 0.5, -0.4], "fov": 50.0},
+		"wide_dawn": {"doc": "Kuruluş planı: kamp, avlu, sayım hattı, doğuda ırmak.", "pos": [-34.0, 7.0, 26.0], "look_at": [12.0, 0.0, -6.0], "fov": 45.0}
+	}
+}

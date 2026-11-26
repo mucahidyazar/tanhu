@@ -1,0 +1,19 @@
+{
+	"id": "act0.wrestle.saruk",
+	"take": 0,
+	"seed": 3315654143,
+	"hash": "c5a0ddffdcd8",
+	"model": "eleven_v3",
+	"voice": "VNHNa6nN6yJdVF3YRyuF",
+	"seconds": 3.84,
+	"words": [
+		{"w": "Who", "t0": 0.0, "t1": 0.16},
+		{"w": "falls", "t0": 0.227, "t1": 0.56},
+		{"w": "gets", "t0": 0.624, "t1": 0.88},
+		{"w": "up.", "t0": 0.96, "t1": 1.52},
+		{"w": "Who", "t0": 1.62, "t1": 1.92},
+		{"w": "gets", "t0": 1.968, "t1": 2.16},
+		{"w": "up,", "t0": 2.24, "t1": 2.8},
+		{"w": "laughs.", "t0": 2.857, "t1": 3.84}
+	]
+}

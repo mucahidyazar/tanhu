@@ -1,0 +1,20 @@
+{
+	"id": "kislak",
+	"doc": "Kışlak'ın ses profili (map.json «audio»; MapSoundscape kurar; audio.md §3 «Saate bağlı durum», §4 «Ortamın saati», «Kışlak»; act1.md §14; K20, K22, K59; Yol Haritası kislak-ambience). act perdenin rengidir (data/music/act_1.tres: arp, hucia, kaval, ağız kopuzu; kopuz yok). bank dünyanın müzik bankasıdır; states gündelik müziğin saatidir: day Sabah, Öğle, İkindi; evening Tan ile night_from'a (22:30) dek Akşam ve Gece; night 22:30'dan Tan'a. Sahne müziği çalarken (gündelik olmayan durum) saat müziğe dokunmaz. beds Ambience yolunun döngüleridir: gain doğrusal kazançtır (audio.md §4: wind_winter gündüz 0,6, gece 0,45), ref_db 1 kazancın dB'si; wind havanın windK'sıyla çarpılır, quiet karın ve sisin yutmasıyla, snow kar yağarken ya da kar örtüsünde kabarır, phases yalnız o evrelerde (ice_groan Tan ve Gece), line yakınlığıyla (Buz Kolu: full_m'de tam, zero_m'de sessiz). weather_beds havanın verdiği döngülerden Kışlak'ta basılmış olanlardır (blizzard: Tipi ve Kara Boran; wind_gale: fırtına); hava taban rüzgârı söndürürse wind_winter iner. emitters 3B döngülerdir: Yol Kemikleri (act1.md §4 RB01–RB14) bone_hum'u rüzgârla çalar; en yakın players kemik çalar (canlı ses oynatıcısı ≤40), onarılan direk 120 m'den duyulur (range), onarılmamış ×unrepaired; Kara Boran'dan önce kazanç yükselir (signs_db; işaret kanalı, weather.md §7.1). Kışlak'ta gök gürültüsü ve yağmur sesi yoktur (hexi kışı).",
+	"act": 1,
+	"bank": "kislak",
+	"states": {"day": "winter_day", "evening": "winter_evening", "night": "winter_night", "night_from": "22:30"},
+	"ref_db": -10.0,
+	"beds": [
+		{"id": "wind_winter", "gain": 0.6, "night_gain": 0.45, "wind": true, "base_wind": true},
+		{"id": "snow_drift", "gain": 0.35, "wind": true, "snow": true, "quiet": true},
+		{"id": "ice_groan", "gain": 0.55, "phases": ["dawn", "night"], "quiet": true,
+			"line": [[-450.0, -205.0], [-200.0, -190.0], [-50.0, -190.0], [140.0, -155.0], [320.0, -205.0], [500.0, -230.0], [760.0, -260.0], [950.0, -300.0]], "full_m": 90.0, "zero_m": 320.0}
+	],
+	"weather_beds": ["blizzard", "wind_gale"],
+	"emitters": [
+		{"id": "bone_hum", "db": -9.0, "unit": 9.0, "range": 120.0, "players": 2, "unrepaired": 0.35, "signs_db": 6.0, "wind": true,
+			"points": [[40.0, -92.0], [111.0, -137.0], [170.0, -195.0], [221.0, -261.0], [281.0, -321.0], [341.0, -379.0], [401.0, -438.0], [457.0, -500.0], [503.0, -570.0], [550.0, -640.0], [264.0, -150.0], [381.0, -176.0], [494.0, -227.0], [420.0, -308.0]],
+			"ids": ["RB01", "RB02", "RB03", "RB04", "RB05", "RB06", "RB07", "RB08", "RB09", "RB10", "RB11", "RB12", "RB13", "RB14"]}
+	]
+}

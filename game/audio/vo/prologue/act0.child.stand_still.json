@@ -1,0 +1,20 @@
+{
+	"id": "act0.child.stand_still",
+	"take": 0,
+	"seed": 2032003447,
+	"hash": "791de97712ad",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 3.68,
+	"words": [
+		{"w": "Stand", "t0": 0.0, "t1": 0.32},
+		{"w": "still.", "t0": 0.387, "t1": 0.8},
+		{"w": "If", "t0": 1.013, "t1": 1.44},
+		{"w": "you", "t0": 1.46, "t1": 1.52},
+		{"w": "wiggle,", "t0": 1.58, "t1": 2.24},
+		{"w": "he", "t0": 2.293, "t1": 2.4},
+		{"w": "counts", "t0": 2.446, "t1": 2.72},
+		{"w": "you", "t0": 2.76, "t1": 2.88},
+		{"w": "twice.", "t0": 2.987, "t1": 3.68}
+	]
+}

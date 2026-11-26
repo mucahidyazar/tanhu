@@ -1,0 +1,185 @@
+{
+ "_aciklama": "4. referansın kamerası: assets/_reference/menu_camp.png (1672x941) kadrajına uydurulmuştur; kamera yaw=0 (-Z'ye bakar), ateş dünya merkezinde. 'layout' noktaları bu kameradan geri izdüşürüldü (tools/menu_backproject.py), kamp, kaya ve çam yerleri onlardan gelir; bu yüzden position, pitch_deg ve vfov_deg_16_9 referansın kamerası olarak kalır. Oyundaki menü kamerası 2026-11-07'de K98 ile taşındı (uzak ve yüksek kadraj): 'menu_k98'.",
+ "position": [
+  0.27328455366770443,
+  8.38671875,
+  13.863396528893901
+ ],
+ "yaw_deg": 0.0,
+ "pitch_deg": -23.347656250000018,
+ "vfov_deg_16_9": 41.75781249999957,
+ "menu_k98": {
+  "_aciklama": "Oyundaki menü kamerası (scenes/main.tscn → MenuCamera; K98, docs/media/review/kadraj_referans.webp): yaw 0, ateşe 26,4 m, ateş karede soldan %58, yukarıdan %60; yurtlar ve ahır aynı karede, ufuk yok.",
+  "position": [
+   -2.5,
+   17.55,
+   19.56
+  ],
+  "yaw_deg": 0.0,
+  "pitch_deg": -38.0,
+  "vfov_deg_16_9": 36.0,
+  "fire_distance": 26.4
+ },
+ "image_size": [
+  1672,
+  941
+ ],
+ "layout": {
+  "yurt_left": [
+   -6.180817398349093,
+   -4.313456983318683
+  ],
+  "yurt_right": [
+   6.643222920442767,
+   -7.256209345565464
+  ],
+  "ahır_zemin_merkezi": [
+   13.76,
+   -14.65
+  ],
+  "ahır_sol_ön": [
+   10.27,
+   -13.83
+  ],
+  "ahır_sağ_ön": [
+   16.33,
+   -13.83
+  ],
+  "kaya_R1": [
+   -8.19,
+   1.38
+  ],
+  "kaya_R2": [
+   -3.87,
+   3.08
+  ],
+  "kaya_R3": [
+   1.05,
+   5.11
+  ],
+  "kaya_R4": [
+   5.82,
+   2.08
+  ],
+  "kaya_R5": [
+   4.53,
+   3.33
+  ],
+  "kaya_R6": [
+   -4.9,
+   4.52
+  ],
+  "kaya_R7": [
+   -12.81,
+   -6.73
+  ],
+  "kaya_R8": [
+   -2.12,
+   -15.96
+  ],
+  "kaya_R9": [
+   6.94,
+   -23.43
+  ],
+  "kaya_R10": [
+   12.23,
+   -33.66
+  ],
+  "kaya_R11": [
+   -3.66,
+   -11.74
+  ],
+  "kaya_R12": [
+   6.72,
+   5.17
+  ],
+  "patikaA_0": [
+   0.44,
+   1.16
+  ],
+  "patikaA_1": [
+   2.1,
+   2.55
+  ],
+  "patikaA_2": [
+   3.45,
+   3.88
+  ],
+  "patikaA_3": [
+   4.14,
+   5.23
+  ],
+  "patikaB_0": [
+   5.49,
+   -4.16
+  ],
+  "patikaB_1": [
+   7.11,
+   -1.49
+  ],
+  "patikaB_2": [
+   9.51,
+   -2.09
+  ],
+  "patikaB_3": [
+   12.48,
+   -5.16
+  ],
+  "patikaB_4": [
+   14.2,
+   -9.67
+  ],
+  "patikaB_5": [
+   14.68,
+   -13.05
+  ],
+  "anne": [
+   -1.71,
+   -0.78
+  ],
+  "çocuk": [
+   -1.24,
+   -0.38
+  ],
+  "baba": [
+   -0.72,
+   -1.34
+  ],
+  "mete": [
+   0.89,
+   -1.34
+  ],
+  "yaşlı": [
+   2.35,
+   -0.65
+  ],
+  "çam_sol_üst": [
+   -16.65,
+   -13.83
+  ],
+  "çam_sol_orta": [
+   -10.71,
+   -1.06
+  ],
+  "çam_sol_alt": [
+   -6.05,
+   4.73
+  ],
+  "çam_sağ_orta": [
+   11.09,
+   -1.06
+  ],
+  "çam_sağ_alt": [
+   6.77,
+   4.73
+  ],
+  "çam_arka_sol": [
+   -11.03,
+   -21.86
+  ],
+  "çam_arka_sağ": [
+   8.13,
+   -27.65
+  ]
+ }
+}

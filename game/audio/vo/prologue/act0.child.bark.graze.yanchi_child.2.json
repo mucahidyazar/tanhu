@@ -1,0 +1,16 @@
+{
+	"id": "act0.child.bark.graze.yanchi_child.2",
+	"take": 0,
+	"seed": 363303605,
+	"hash": "15a792b50a5b",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.52,
+	"words": [
+		{"w": "Did", "t0": 0.0, "t1": 0.16},
+		{"w": "your", "t0": 0.176, "t1": 0.24},
+		{"w": "sheep", "t0": 0.293, "t1": 0.56},
+		{"w": "fall", "t0": 0.624, "t1": 0.88},
+		{"w": "asleep?", "t0": 0.96, "t1": 1.52}
+	]
+}

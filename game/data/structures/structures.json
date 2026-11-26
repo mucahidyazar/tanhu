@@ -1,0 +1,1095 @@
+{
+	"version": 3,
+	"source": "docs/design/d2/labour-model.json v3 (2026-11-04): defs, settlement, sizes; structures.md §2.4, §3.1, §3.6, §4.1–§4.6",
+	"doc": "Yapıların emek tablosu (Labour okur): work adımın tek el payıdır (İD) ve her ekipte aynıdır; slots adımda aynı anda görünen eldir, hızı sınırlamaz; crewMax (defs) ya da max (settlement) yapının el tavanıdır, katsayı en çok law.build.coefMax (8) ağırlıkta durur. Adım bayrakları: felt keçe adımı, tall uzun iş, lattice kerege (hava tablosu), child false Çocuk sayılmaz, workIfEmber köz yığındaysa emek, rawWork ham teslimin eklediği zanaat emeği (rawRole ustası gerekir). settlement satırları: same türünün adım sırası ve bayrakları, work dizisi payları ezer, drop çıkar, add sona eklenir, stepSlots görünen eli (dizin ya da kimlik) ezer; work dizisi yoksa adımlar türünkidir. crewPer uzunluk ya da pano başına bir el demektir (çit, ağıl, çevre çiti), crewMax üst sınırdır. sizes K51 boylarıdır (Küçük Yurt, Hane Yurdu, Otağ): one tek el emeği (İD), baseRealMin tek el süresi (gerçek dk), crewMax el tavanı; realMin ve dismantleRealMin d2 modelinin K50 tablosudur (yalnız iz ve sınama için, Labour hesaplar). Sayılar d2/labour-model.json v3 ile aynıdır (tests/unit/test_labour.gd karşılaştırır).",
+	"sizes": {
+		"s": {
+			"kind": "yurt_small",
+			"name": {
+				"tr": "Küçük Yurt",
+				"en": "Small Yurt"
+			},
+			"scale": 0.7,
+			"kanat": 4,
+			"uuk": 24,
+			"workK": 0.4,
+			"one": 576,
+			"baseRealMin": 24,
+			"crewMax": 6,
+			"realMin": {
+				"1": 24,
+				"2": 18,
+				"3": 13.5,
+				"4": 10.13,
+				"5": 7.59,
+				"6": 5.7
+			},
+			"dismantleRealMin": {
+				"1": 8.4,
+				"2": 6.3,
+				"3": 4.73,
+				"4": 3.54,
+				"5": 2.66,
+				"6": 1.99
+			},
+			"hp": 216,
+			"pools": [0, 20, 32, 25, 40, 20, 64, 15],
+			"padR": 5.95,
+			"footR": 4.9,
+			"walkR": 4.5,
+			"kit": "yurt_kit_s",
+			"kitLoad": 38,
+			"siteLoad": 58,
+			"wool": 6,
+			"rawWorkIS": 18,
+			"tone": 0.78,
+			"tier": 1,
+			"layouts": ["ev"]
+		},
+		"m": {
+			"kind": "yurt",
+			"name": {
+				"tr": "Hane Yurdu",
+				"en": "Household Yurt"
+			},
+			"scale": 1,
+			"kanat": 6,
+			"uuk": 48,
+			"workK": 1,
+			"one": 1440,
+			"baseRealMin": 60,
+			"crewMax": 8,
+			"realMin": {
+				"1": 60,
+				"2": 45,
+				"3": 33.75,
+				"4": 25.31,
+				"5": 18.98,
+				"6": 14.24,
+				"7": 10.68,
+				"8": 8.01
+			},
+			"dismantleRealMin": {
+				"1": 21,
+				"2": 15.75,
+				"3": 11.81,
+				"4": 8.86,
+				"5": 6.64,
+				"6": 4.98,
+				"7": 3.74,
+				"8": 2.8
+			},
+			"hp": 420,
+			"pools": [0, 40, 60, 50, 80, 40, 120, 30],
+			"padR": 8.5,
+			"footR": 7.05,
+			"walkR": 6.42,
+			"kit": "yurt_kit",
+			"kitLoad": 59,
+			"siteLoad": 89,
+			"wool": 12,
+			"rawWorkIS": 28,
+			"tone": 1,
+			"tier": 1,
+			"layouts": ["ev", "konuk", "ambar", "otag", "han", "silah", "otaci", "bolmeli"]
+		},
+		"l": {
+			"kind": ["otag", "beg_otag"],
+			"name": {
+				"tr": "Otağ",
+				"en": "Great Yurt"
+			},
+			"scale": 1.4,
+			"kanat": 8,
+			"uuk": 48,
+			"workK": 2.5,
+			"one": 3600,
+			"baseRealMin": 150,
+			"crewMax": 12,
+			"coefMax": 8,
+			"realMin": {
+				"1": 150,
+				"2": 112.5,
+				"3": 84.38,
+				"4": 63.28,
+				"5": 47.46,
+				"6": 35.6,
+				"7": 26.7,
+				"8": 20.02,
+				"12": 20.02
+			},
+			"dismantleRealMin": {
+				"1": 52.5,
+				"2": 39.38,
+				"3": 29.53,
+				"4": 22.15,
+				"5": 16.61,
+				"6": 12.46,
+				"7": 9.34,
+				"8": 7.01,
+				"12": 7.01
+			},
+			"hp": 843,
+			"pools": [0, 79, 126, 98, 160, 80, 240, 60],
+			"padR": 11.9,
+			"footR": 9.9,
+			"walkR": 9,
+			"kit": "otag_kit",
+			"kitLoad": 109,
+			"siteLoad": 159,
+			"wool": 36,
+			"rawWorkIS": 50,
+			"tone": 1.12,
+			"fence": {
+				"r": 16,
+				"lengthM": 100,
+				"gatesMax": 2
+			},
+			"tier": [3, 4],
+			"layouts": ["otag", "han"]
+		}
+	},
+	"defs": {
+		"yurt": {
+			"crewMax": 8,
+			"craft": "home",
+			"ig": 1,
+			"one": 1440,
+			"size": "m",
+			"steps": [
+				{
+					"id": "y_site",
+					"stage": 0,
+					"work": 81,
+					"slots": 8,
+					"help": ["help_tamp", "help_water"]
+				},
+				{
+					"id": "y_bosaga",
+					"stage": 1,
+					"work": 81,
+					"slots": 6,
+					"parts": {
+						"door_frame": 1
+					},
+					"rawWork": 360,
+					"help": ["help_carry"]
+				},
+				{
+					"id": "y_kerege",
+					"stage": 2,
+					"work": 146,
+					"slots": 8,
+					"lattice": true,
+					"parts": {
+						"kerege_set": 1
+					},
+					"rawWork": 720,
+					"rawRole": "cr_carpenter",
+					"help": ["help_hold"]
+				},
+				{
+					"id": "y_bag",
+					"stage": 2,
+					"work": 48,
+					"slots": 8,
+					"help": ["help_tie"]
+				},
+				{
+					"id": "y_tunduk",
+					"stage": 3,
+					"work": 171,
+					"slots": 6,
+					"tall": true,
+					"help": ["help_heave"]
+				},
+				{
+					"id": "y_uuk",
+					"stage": 4,
+					"work": 290,
+					"slots": 8,
+					"tall": true,
+					"parts": {
+						"uuk_set": 1
+					},
+					"rawWork": 480,
+					"help": ["help_carry", "help_log"]
+				},
+				{
+					"id": "y_liner",
+					"stage": 5,
+					"work": 113,
+					"slots": 8,
+					"parts": {
+						"chiy": 1
+					},
+					"rawWork": 120,
+					"help": ["help_carry"]
+				},
+				{
+					"id": "y_tuurduk",
+					"stage": 6,
+					"work": 129,
+					"slots": 8,
+					"felt": true,
+					"help": ["help_hold"]
+				},
+				{
+					"id": "y_uzuk",
+					"stage": 6,
+					"work": 146,
+					"slots": 8,
+					"felt": true,
+					"help": ["help_pull"]
+				},
+				{
+					"id": "y_kolan",
+					"stage": 7,
+					"work": 113,
+					"slots": 8,
+					"help": ["help_tie"]
+				},
+				{
+					"id": "y_esik",
+					"stage": 7,
+					"work": 21,
+					"slots": 4,
+					"felt": true,
+					"child": false
+				},
+				{
+					"id": "y_sirdak",
+					"stage": 7,
+					"work": 81,
+					"slots": 8,
+					"felt": true,
+					"help": ["help_carry"]
+				},
+				{
+					"id": "y_ocak",
+					"stage": 7,
+					"work": 20,
+					"slots": 1,
+					"child": false,
+					"workIfEmber": 6,
+					"help": ["help_ember"]
+				}
+			]
+		},
+		"stable": {
+			"crewMax": 6,
+			"craft": "wood",
+			"ig": 1.5,
+			"one": 2160,
+			"steps": [
+				{
+					"id": "st_site",
+					"stage": 0,
+					"work": 140,
+					"slots": 6
+				},
+				{
+					"id": "st_posts",
+					"stage": 1,
+					"work": 340,
+					"slots": 4
+				},
+				{
+					"id": "st_walls",
+					"stage": 2,
+					"work": 510,
+					"slots": 6
+				},
+				{
+					"id": "st_beams",
+					"stage": 3,
+					"work": 405,
+					"slots": 4,
+					"tall": true
+				},
+				{
+					"id": "st_roof",
+					"stage": 4,
+					"work": 765,
+					"slots": 6
+				}
+			]
+		},
+		"fence": {
+			"crewMax": 8,
+			"craft": "home",
+			"per": "m",
+			"steps": [
+				{
+					"id": "f_stakes",
+					"stage": 0,
+					"work": 7.2,
+					"slots": "seg2m"
+				},
+				{
+					"id": "f_rails",
+					"stage": 1,
+					"work": 3.6,
+					"slots": "seg2m"
+				}
+			],
+			"crewPer": {
+				"m": 2
+			}
+		},
+		"pen": {
+			"crewMax": 8,
+			"craft": "home",
+			"per": "m",
+			"steps": [
+				{
+					"id": "p_line",
+					"stage": 0,
+					"work": 1.5,
+					"slots": "seg5m"
+				},
+				{
+					"id": "p_wattle",
+					"stage": 1,
+					"work": 20,
+					"slots": "panel",
+					"per": "unit"
+				},
+				{
+					"id": "p_gate",
+					"stage": 1,
+					"work": 50,
+					"slots": 2,
+					"per": "once"
+				}
+			],
+			"crewPer": {
+				"m": 5,
+				"panel": 1
+			}
+		},
+		"cart": {
+			"crewMax": 4,
+			"craft": "wood",
+			"ig": 0.3,
+			"one": 432,
+			"steps": [
+				{
+					"id": "c_axle",
+					"stage": 1,
+					"work": 165,
+					"slots": 4,
+					"parts": {
+						"wheel_pair": 1,
+						"tag:wood": 1,
+						"iron_bar": 1
+					},
+					"rawWork": 600,
+					"rawRole": ["cr_cartwright", "cr_carpenter"]
+				},
+				{
+					"id": "c_bed",
+					"stage": 1,
+					"work": 120,
+					"slots": 4
+				},
+				{
+					"id": "c_hoops",
+					"stage": 1,
+					"work": 40,
+					"slots": 2
+				},
+				{
+					"id": "c_tilt",
+					"stage": 1,
+					"work": 75,
+					"slots": 4,
+					"felt": true
+				},
+				{
+					"id": "c_yoke",
+					"stage": 1,
+					"work": 32,
+					"slots": 2
+				}
+			]
+		},
+		"tent": {
+			"crewMax": 4,
+			"craft": "home",
+			"ig": 0.15,
+			"one": 216,
+			"steps": [
+				{
+					"id": "t_stakes",
+					"stage": 0,
+					"work": 36,
+					"slots": 4
+				},
+				{
+					"id": "t_poles",
+					"stage": 1,
+					"work": 72,
+					"slots": 4
+				},
+				{
+					"id": "t_cover",
+					"stage": 2,
+					"work": 108,
+					"slots": 4,
+					"felt": true
+				}
+			]
+		},
+		"tent_night": {
+			"crewMax": 2,
+			"craft": "home",
+			"ig": 0.03,
+			"one": 43.2,
+			"steps": [
+				{
+					"id": "tn_stakes",
+					"stage": 0,
+					"work": 7.2,
+					"slots": 2
+				},
+				{
+					"id": "tn_pole",
+					"stage": 1,
+					"work": 14.4,
+					"slots": 2
+				},
+				{
+					"id": "tn_cover",
+					"stage": 2,
+					"work": 21.6,
+					"slots": 2,
+					"felt": true
+				}
+			]
+		},
+		"hut": {
+			"crewMax": 4,
+			"craft": "home",
+			"ig": 0.5,
+			"one": 720,
+			"steps": [
+				{
+					"id": "h_ground",
+					"stage": 0,
+					"work": 60,
+					"slots": 4
+				},
+				{
+					"id": "h_frame",
+					"stage": 1,
+					"work": 220,
+					"slots": 4
+				},
+				{
+					"id": "h_walls",
+					"stage": 2,
+					"work": 240,
+					"slots": 4
+				},
+				{
+					"id": "h_roof",
+					"stage": 3,
+					"work": 200,
+					"slots": 4
+				}
+			]
+		},
+		"shed": {
+			"crewMax": 4,
+			"craft": "wood",
+			"ig": 0.6,
+			"one": 864,
+			"steps": [
+				{
+					"id": "sh_footing",
+					"stage": 0,
+					"work": 60,
+					"slots": 4
+				},
+				{
+					"id": "sh_posts",
+					"stage": 1,
+					"work": 180,
+					"slots": 4
+				},
+				{
+					"id": "sh_beams",
+					"stage": 2,
+					"work": 198,
+					"slots": 4,
+					"tall": true
+				},
+				{
+					"id": "sh_brush",
+					"stage": 3,
+					"work": 200,
+					"slots": 4
+				},
+				{
+					"id": "sh_thatch",
+					"stage": 4,
+					"work": 226,
+					"slots": 4
+				}
+			]
+		},
+		"granary": {
+			"crewMax": 6,
+			"craft": "wood",
+			"ig": 0.8,
+			"one": 1152,
+			"steps": [
+				{
+					"id": "sh_footing",
+					"stage": 0,
+					"work": 80,
+					"slots": 6
+				},
+				{
+					"id": "sh_posts",
+					"stage": 1,
+					"work": 240,
+					"slots": 6
+				},
+				{
+					"id": "sh_beams",
+					"stage": 2,
+					"work": 264,
+					"slots": 4,
+					"tall": true
+				},
+				{
+					"id": "sh_brush",
+					"stage": 3,
+					"work": 266,
+					"slots": 6
+				},
+				{
+					"id": "sh_thatch",
+					"stage": 4,
+					"work": 302,
+					"slots": 6
+				}
+			]
+		},
+		"tower": {
+			"crewMax": 6,
+			"craft": "wood",
+			"ig": 1.5,
+			"one": 2160,
+			"steps": [
+				{
+					"id": "tw_base",
+					"stage": 0,
+					"work": 300,
+					"slots": 6
+				},
+				{
+					"id": "tw_braces",
+					"stage": 1,
+					"work": 660,
+					"slots": 4,
+					"tall": true
+				},
+				{
+					"id": "tw_platform",
+					"stage": 2,
+					"work": 660,
+					"slots": 4,
+					"tall": true
+				},
+				{
+					"id": "tw_rail",
+					"stage": 3,
+					"work": 540,
+					"slots": 4,
+					"tall": true
+				}
+			]
+		},
+		"tower_gate": {
+			"craft": "wood",
+			"ig": 1.5,
+			"script": true,
+			"same": "tower"
+		},
+		"bridge": {
+			"crewMax": 8,
+			"craft": "wood",
+			"ig": 2,
+			"one": 2880,
+			"steps": [
+				{
+					"id": "br_footing",
+					"stage": 0,
+					"work": 360,
+					"slots": 6
+				},
+				{
+					"id": "br_piles",
+					"stage": 1,
+					"work": 720,
+					"slots": 6
+				},
+				{
+					"id": "br_stringers",
+					"stage": 2,
+					"work": 600,
+					"slots": 6
+				},
+				{
+					"id": "br_deck",
+					"stage": 3,
+					"work": 480,
+					"slots": 8
+				},
+				{
+					"id": "br_lashings",
+					"stage": 4,
+					"work": 300,
+					"slots": 6
+				},
+				{
+					"id": "br_rails",
+					"stage": 5,
+					"work": 420,
+					"slots": 6
+				}
+			]
+		},
+		"rack": {
+			"crewMax": 1,
+			"craft": "home",
+			"hold": true,
+			"steps": [
+				{
+					"id": "rk_broken",
+					"stage": 0,
+					"work": 0,
+					"slots": 1
+				},
+				{
+					"id": "rk_rack",
+					"stage": 1,
+					"work": 3.2,
+					"slots": 1
+				}
+			]
+		},
+		"road_bone": {
+			"crewMax": 1,
+			"craft": "home",
+			"hold": true,
+			"steps": [
+				{
+					"id": "rb_broken",
+					"stage": 0,
+					"work": 0,
+					"slots": 1
+				},
+				{
+					"id": "rb_pole",
+					"stage": 1,
+					"work": 8,
+					"slots": 1
+				}
+			]
+		}
+	},
+	"settlement": {
+		"yurt_small": {
+			"craft": "home",
+			"ig": 0.4,
+			"one": 576,
+			"max": 6,
+			"size": "s",
+			"scale": 0.7,
+			"kanat": 4,
+			"same": "yurt",
+			"workK": 0.4,
+			"work": [32.4, 32.4, 58.4, 19.2, 68.4, 116, 45.2, 51.6, 58.4, 45.2, 8.4, 32.4, 8],
+			"stepSlots": {
+				"y_bosaga": 4,
+				"y_tunduk": 4,
+				"y_esik": 3,
+				"y_ocak": 1
+			},
+			"layout": "ev",
+			"name": {
+				"tr": "Küçük Yurt",
+				"en": "Small Yurt"
+			}
+		},
+		"otag": {
+			"craft": "home",
+			"ig": 2.5,
+			"one": 3600,
+			"max": 12,
+			"coefMax": 8,
+			"size": "l",
+			"scale": 1.4,
+			"kanat": 8,
+			"same": "yurt",
+			"workK": 2.5,
+			"work": [202.5, 202.5, 365, 120, 427.5, 725, 282.5, 322.5, 365, 282.5, 52.5, 202.5, 50],
+			"stepSlots": {
+				"y_bosaga": 9,
+				"y_tunduk": 9,
+				"y_esik": 6,
+				"y_ocak": 1
+			},
+			"layout": {
+				"day": "otag",
+				"feast": "han"
+			},
+			"name": {
+				"tr": "Tanhu Otağı",
+				"en": "The Tanhu's Great Yurt"
+			}
+		},
+		"beg_otag": {
+			"craft": "home",
+			"ig": 2.5,
+			"one": 3600,
+			"max": 12,
+			"coefMax": 8,
+			"size": "l",
+			"scale": 1.4,
+			"kanat": 8,
+			"same": "yurt",
+			"workK": 2.5,
+			"work": [202.5, 202.5, 365, 120, 427.5, 725, 282.5, 322.5, 365, 282.5, 52.5, 202.5, 50],
+			"stepSlots": {
+				"y_bosaga": 9,
+				"y_tunduk": 9,
+				"y_esik": 6,
+				"y_ocak": 1
+			},
+			"layout": {
+				"day": "otag",
+				"feast": "han"
+			},
+			"name": {
+				"tr": "Bey Otağı",
+				"en": "Lord's Great Yurt"
+			},
+			"tier": 4,
+			"perZoneMax": 3
+		},
+		"store_yurt": {
+			"craft": "home",
+			"ig": 0.99,
+			"one": 1420,
+			"max": 8,
+			"same": "yurt",
+			"drop": ["y_ocak"],
+			"size": "m",
+			"layout": "ambar"
+		},
+		"cmd_yurt": {
+			"craft": "home",
+			"ig": 1,
+			"one": 1440,
+			"max": 8,
+			"same": "yurt",
+			"size": "m",
+			"layout": "silah"
+		},
+		"envoy_yurt": {
+			"craft": "home",
+			"ig": 1,
+			"one": 1440,
+			"max": 8,
+			"same": "yurt",
+			"size": "m",
+			"layout": "konuk"
+		},
+		"healer_yurt": {
+			"craft": "home",
+			"ig": 1,
+			"one": 1440,
+			"max": 8,
+			"same": "yurt",
+			"size": "m",
+			"layout": "otaci"
+		},
+		"armoury": {
+			"craft": "home",
+			"ig": 1.2,
+			"one": 1728,
+			"max": 8,
+			"same": "yurt",
+			"drop": ["y_ocak"],
+			"add": {
+				"id": "y_raf",
+				"stage": 7,
+				"work": 308,
+				"slots": 4
+			},
+			"size": "m",
+			"layout": "silah"
+		},
+		"fletchery": {
+			"craft": "home",
+			"ig": 1.2,
+			"one": 1728,
+			"max": 8,
+			"same": "yurt",
+			"drop": ["y_ocak"],
+			"add": {
+				"id": "y_raf",
+				"stage": 7,
+				"work": 308,
+				"slots": 4
+			},
+			"size": "m",
+			"layout": "silah"
+		},
+		"supply_depot": {
+			"craft": "home",
+			"ig": 1.5,
+			"one": 2160,
+			"max": 8,
+			"same": "yurt",
+			"drop": ["y_ocak"],
+			"add": {
+				"id": "y_seki",
+				"stage": 7,
+				"work": 740,
+				"slots": 8
+			},
+			"size": "m",
+			"layout": "ambar"
+		},
+		"felt_yard": {
+			"craft": "home",
+			"ig": 0.5,
+			"one": 720,
+			"max": 6,
+			"work": [144, 216, 216, 144]
+		},
+		"tannery": {
+			"craft": "home",
+			"ig": 0.4,
+			"one": 576,
+			"max": 4,
+			"work": [173, 230, 173]
+		},
+		"wood_shop": {
+			"craft": "wood",
+			"ig": 0.8,
+			"one": 1152,
+			"max": 6,
+			"same": "granary",
+			"work": [80, 240, 264, 266, 302],
+			"stepSlots": {
+				"2": 4
+			}
+		},
+		"smithy": {
+			"craft": "earth",
+			"ig": 1.5,
+			"one": 2160,
+			"max": 6,
+			"work": [540, 756, 432, 432]
+		},
+		"kiln": {
+			"craft": "earth",
+			"ig": 0.6,
+			"one": 864,
+			"max": 4,
+			"work": [259, 432, 173]
+		},
+		"grain_pit": {
+			"craft": "earth",
+			"ig": 0.3,
+			"one": 432,
+			"max": 4,
+			"work": [302, 130]
+		},
+		"well": {
+			"craft": "earth",
+			"ig": 1,
+			"one": 1440,
+			"max": 3,
+			"work": [864, 432, 144]
+		},
+		"field": {
+			"craft": "earth",
+			"ig": 0.5,
+			"one": 720,
+			"max": 6,
+			"perPlot": true,
+			"seasonWorkIG": 1,
+			"work": [432, 288]
+		},
+		"pit_house": {
+			"craft": "earth",
+			"ig": 2,
+			"one": 2880,
+			"max": 6,
+			"work": [1008, 576, 720, 576]
+		},
+		"rampart": {
+			"craft": "earth",
+			"ig": 0.5,
+			"one": 720,
+			"max": 8,
+			"per10m": true,
+			"work": [324, 396]
+		},
+		"granary_tower": {
+			"craft": "wood",
+			"ig": 2,
+			"one": 2880,
+			"max": 6,
+			"tall": true,
+			"work": [432, 720, 720, 576, 432]
+		},
+		"watch_tower": {
+			"craft": "wood",
+			"ig": 1.5,
+			"one": 2160,
+			"max": 4,
+			"same": "tower",
+			"tall": true
+		},
+		"treasury": {
+			"craft": "wood",
+			"ig": 1.2,
+			"one": 1728,
+			"max": 6,
+			"work": [173, 432, 518, 432, 173]
+		},
+		"rampart_gate": {
+			"craft": "wood",
+			"ig": 1.5,
+			"one": 2160,
+			"max": 6,
+			"work": [432, 648, 648, 432]
+		},
+		"palisade": {
+			"craft": "wood",
+			"ig": 0.1,
+			"one": 144,
+			"max": 8,
+			"per10m": true,
+			"workPerM": [9.6, 4.8],
+			"crewPer": {
+				"m": 2
+			}
+		},
+		"horse_line": {
+			"craft": "home",
+			"ig": 0.08,
+			"one": 115,
+			"max": 4,
+			"per20m": true,
+			"work": [69, 46]
+		},
+		"training_ground": {
+			"craft": "home",
+			"ig": 0.6,
+			"one": 864,
+			"max": 8,
+			"work": [432, 259, 173]
+		},
+		"gathering_ground": {
+			"craft": "home",
+			"ig": 0.4,
+			"one": 576,
+			"max": 8,
+			"work": [230, 230, 116]
+		},
+		"barter_ground": {
+			"craft": "home",
+			"ig": 0.5,
+			"one": 720,
+			"max": 6,
+			"work": [216, 288, 216]
+		},
+		"sky_pole": {
+			"craft": "wood",
+			"ig": 0.6,
+			"one": 864,
+			"max": 6,
+			"tall": true,
+			"work": [432, 302, 130]
+		},
+		"outpost": {
+			"craft": ["home", "wood"],
+			"ig": 0.4,
+			"one": 576,
+			"max": 4,
+			"work": {
+				"tent": [36, 72, 108],
+				"tower_low": [60, 120, 120, 60]
+			}
+		},
+		"banner_pole": {
+			"craft": "home",
+			"ig": 0.028,
+			"one": 40,
+			"max": 2,
+			"tall": true,
+			"work": [8, 24, 8]
+		},
+		"lantern_post": {
+			"craft": "home",
+			"one": 10,
+			"max": 1,
+			"hold": true,
+			"holdRealSec": 25
+		},
+		"cart_felt": {
+			"craft": "wood",
+			"ig": 0.4,
+			"one": 576,
+			"max": 4,
+			"same": "cart",
+			"workK": 1.3333,
+			"work": [220, 160, 53, 100, 43]
+		},
+		"cart_high": {
+			"craft": "wood",
+			"ig": 0.6,
+			"one": 864,
+			"max": 4,
+			"same": "cart",
+			"workK": 2,
+			"work": [330, 240, 80, 150, 64]
+		},
+		"cart_war": {
+			"craft": "wood",
+			"ig": 1,
+			"one": 1440,
+			"max": 6,
+			"same": "cart",
+			"workK": 3.3333,
+			"work": [550, 400, 133, 250, 107],
+			"stepSlots": {
+				"2": 3,
+				"4": 3
+			}
+		},
+		"wagon_felt": {
+			"craft": "wood",
+			"ig": 1.2,
+			"one": 1728,
+			"max": 6,
+			"same": "cart",
+			"workK": 4,
+			"work": [660, 480, 160, 300, 128],
+			"stepSlots": {
+				"2": 3,
+				"4": 3
+			}
+		}
+	}
+}

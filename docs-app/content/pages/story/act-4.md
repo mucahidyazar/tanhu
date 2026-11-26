@@ -1,0 +1,293 @@
+---
+title: 'IV. Perde: Borç'
+order: 53
+status: tasarim
+summary: "1 Haziran MÖ 205–22 Eylül MÖ 203: Tanhu Mete sayıldığı Kışlak vadisine ordusuyla döner, I. Perde'nin borçlarını öder, Yüeçi'yi yok etmeden batıya sürer, Loufan ile Baiyang'ı katar ve babasının yitirdiği Ordos'u doğduğu otlakta Dailin'le geri sayar."
+sources:
+  - docs/design/story.md
+  - docs/design/decisions.md
+  - docs/design/act1.md
+  - docs/design/companions.md
+  - docs/design/settlement.md
+  - docs/design/army.md
+  - docs/design/progression.md
+  - docs/design/fauna.md
+  - docs/design/economy.md
+  - docs/design/travel.md
+  - docs/design/weather.md
+  - docs/design/audio.md
+  - docs/design/godot.md
+  - docs/design/d3/oyun-durumu.md
+  - docs/research/mete-tarih.md
+  - docs/research/mitoloji.md
+---
+
+## Özet
+
+IV. Perde «Borç / The Debt» 1 Haziran MÖ 205'te açılır, 22 Eylül MÖ 203'te biter (`dayN` 2.682–3.525). [Mete](/encyclopedia/mete) 28–30 yaşındadır, 15 Haziran MÖ 209'dan beri Tanhu'dur. Perde iki dilimdir. A dilimi Hexi'de, Mete'nin rehine olarak sayıldığı Kışlak vadisinin yaz hâlindedir (1–17 Haziran 205). B dilimi iki yıl sonradır: Lung-çeng ve Ordos (24 Haziran–22 Eylül 203). Arada ≈40 sn'lik bir iç Kronik akar. Oyuncu I. Perde'de verdiği beş antı ve kefillerin çetele yarımlarını öder, Yüeçi'yi yok etmeden batıya sürer, Loufan ve Baiyang krallarını katar ve babasının Meng Tian'a yitirdiği Ordos'u kendi doğduğu otlakta Dailin'le geri sayar.
+
+**Tek cümle.** I'de kazandığı her güven borca dönmüştü: Mete önce borçları öder, sonra babasının yitirdiği toprağı geri sayar.
+
+**Ad.** «Borç» [K32](/docs/source/design/decisions#k32)'dir: I. Perde'de güven borca dönmüştü; IV'te borçlar ödenir, Kışlak'a dönülür.
+
+**Boyut.** 14 ana görev (ortalama taban 178 XP, `xpScale` 3,5: 8.722 XP), 15 yan görev, ≈12 XP'li keşif durağı, üç yeni iç harita; seviye 12–14. Perdenin bütün XP'si 14.400'dür. Perde son görevle biter, sayaç yoktur; K25'in 14 günü yalnız tasarım ölçüsüdür ([K42](/docs/source/design/decisions#k42), [K43](/docs/source/design/decisions#k43)).
+
+> [!NOT]
+> «Oyun Metenin tutsaklığından itibaren açık dünya olacak ve gta rdr Witcher Diablo tarzı görevlere giderek senaryoyu ilerleteceğiz»
+
+Tasarım bu yöndedir ([K43](/docs/source/design/decisions#k43)): IV, I. Perde'nin kısıtlı vadisine açık dünyanın içinden döner. Kızıl Kazık yerindedir ama artık sınır değildir. Ana görev Görevler'de (`J`) iç haritayı ve kişiyi yazar, yolu oyuncu seçer; yan görev önce söylentidir, haritada 160 m'lik soluk bir halka olarak görünür, varınca kesinleşir.
+
+## Perdenin sorusu
+
+- **Soru.** Borç kime ödenir?
+- **Fiil.** Ödemek. Her bölüm bir fiil öğretir: Çocukluk'ta nişan almak, I'de taşımak ve güven kazanmak, II'de buyurmak, III'te vermek ya da vermemek, IV'te ödemek.
+- **Öncül.** Mete sayıldığı vadiye ordusuyla döner. I'de kazandığı güven borca dönmüştü: çetele yarımları, antlar, adlar. Önce borçlar ödenir, sonra babanın yitirdiği toprak geri sayılır. Sıra Shiji 110'undur: önce Yüeçi, sonra Loufan ve Baiyang, sonra Ordos (既歸，西擊走月氏，南并樓煩、白羊河南王).
+- **Önce ver, sonra al.** I'de Mete'nin kurduğu yurt IV'te yırtık durur, onarılmaz: kimi borç ödenmez.
+- **Yankı.** Palak bu kez orduyu sayar. Çocukluk'un sayıcısı «Yenen de sayılır» demişti; Mete Ordos'ta «Toprak da sayılır» der. Müzikte I'in yarım düşüşü (A G F) ilk kez D'ye varır.
+
+## Tarih ve takvim
+
+Takvim tek sayaçtır ([K33](/docs/source/design/decisions#k33)). Mete 27 Eylül MÖ 234'te doğdu: 1 Haziran 205'te 28, 22 Eylül 203'te 30 yaşındadır.
+
+| Tarih (MÖ) | `dayN` | Ay | Olay |
+|---|---|---|---|
+| 1 Haziran 205 | 2.682 | Yeni ay (%2) | Perde açılır: ordu yazın Kışlak vadisindedir |
+| 1–4 Haziran 205 | 2.682–2.685 | | A dilimi: Vadi, Çeteleler, üç kol açılır |
+| 14–17 Haziran 205 | 2.695–2.698 | 17'si dolunay | Adak, Batı Yolu: Yüeçi batıya çekilir; Gök Dağı eteğinde Beşinci Ay Sunusu (Lung-çeng günü) |
+| 18 Haziran 205–24 Haziran 203 | | | İç Kronik, 738 gün |
+| 24–25 Haziran 203 | 3.435–3.436 | 25'i dolunay | Lung-çeng'de büyük toplantı: Loufan ve Baiyang katılır |
+| 21–23 Ağustos 203 | 3.493–3.495 | 23'ü dolunay | Ordos'a giriş: Meng Tian'ın aldığı topraklar döner |
+| 22 Eylül 203 | 3.525 | Dolunay (Dailin) | Ordos'ta Dailin, son görev |
+
+- **Oynanan günler.** 14: 1–4 ve 14–17 Haziran 205; 24–25 Haziran, 21–23 Ağustos ve 22 Eylül 203. Aradaki günler serbesttir. Kollar erken biterse son görevin kapısı saati tablodaki güne atlatır; oyuncu o günü geçtiyse sahne günü değil yılı ve mevsimi söyler ([K33](/docs/source/design/decisions#k33)).
+- **Toplantılar ([K56](/docs/source/design/decisions#k56)).** [Lung-çeng](/encyclopedia/longcheng) bu perdede iki kez oynanır: 17 Haziran 205'te Mete Hexi'dedir, Beşinci Ay Sunusu Gök Dağı eteğinde yapılır; 25 Haziran 203'te büyük toplantı Lung-çeng'dedir. [Dailin](/encyclopedia/dailin) bir kez, Ordos'ta oynanır; yerleşimin sayımı değildir. Toplantı günü akın yazılmaz ([K55](/docs/source/design/decisions#k55)).
+- **Hava.** İki Lung-çeng gününde tören saati açıktır, törenden sonra gök gürültüsü serbesttir. Dailin boyunca hava açık, rüzgâr ≤3 m/sn'dir ([weather.md §6.4](/docs/source/design/weather#6-4-sonraki-perde-kancalari)).
+
+## Açılış
+
+- **III → IV Kroniği.** 1 Ekim 208'den 1 Haziran 205'e 973 gün, ≈53 sn akar. Vuhuan her yıl haraç verir; Ç'in yıkılır, Çu ile Han savaşı başlar; üç Kış Toplantısı ve üç Dailin geçer. Göl Obası'nın ozanı ölür, kopuzu ocağın Çocuğuna kalır ([K79](/docs/source/design/decisions#k79)). Anlatıcı: «Ç'in düştü, Han ile Çu birbirini yiyordu. Bozkır üç güz sayıldı.» Kronik Kararı Tunghu'dan gelenlerin başıdır: «Kendi beyleri» (o haneler Gönül +5) ya da «Bir Hun beyi» (Korku +1). Yerleşim 22 haneyle açılır. Kronik'in bütünü [Perde Arası: Akan Kronik](/docs/story/chronicle) sayfasındadır.
+- **Dönüş.** III–VI'da ilk oynanan görev Dönüş'tür; IV'te Dönüş önce Kışlak'adır, iç Kronik'ten sonra yurda. Kışlak yazın boştur, yurtlar yazlıktadır (冬溫夏涼，宜畜牧); Ambar, Çukur, Kızıl Kazık ve Mete'nin yırtık yurdu yerindedir. [Palak](/encyclopedia/palak) orduyu sayar: «On bine dek saydım, sonra bıraktım.» / «I counted to ten thousand, then I stopped.»
+- **Haritanın adı.** Oyuncuya «Kışlak, Yaz / The Winter Camp in Summer» yazılır: vadi yanık değildir, yanık olan I'in Sazlık halkalarıdır.
+
+## Ana görev zinciri
+
+Kalıp K43'tür: iki açılış görevi (Vadi, Çeteleler), aynı anda açılan üç kol ve üç kapanış görevi (Lung-çeng, Ordos ve son görev Ordos'ta Dailin). Kol A Çukur, Ad İpi ve Eve Yol'dur; Kol B Nanay'ın Ocağı, Çan ve Yırtık Keçe; Kol C Amaga, Adak ve Batı Yolu. Kollar serbest sırayla oynanır, biri bitince ötekilerin satırı değişir; her kol en az bir kez yerleşim ya da ordugâh dışına çıkarır. Görev puanı veren iki görev Çukur ve Batı Yolu'dur.
+
+| # | Görev | Gün | Yer | Ne olur |
+|---|---|---|---|---|
+| 1 | Vadi / The Valley | 1 Haziran 205 | Kışlak, Yaz | Dönüş: boş Kışlak, yazlıktaki yurtlar; Palak orduyu sayar |
+| 2 | Çeteleler / The Tallies | 1–2 Haziran | Kışlak, Yaz | Kefillerin adları okunur; elde kalan her yarım sahibine götürülür. Eşleşen çetele bir borcun kapanışıdır: Kut +1, perdede en çok 2 |
+| 3 | Çukur / The Hollow (Kol A) | serbest | Çukur | [Hereka](/encyclopedia/hereka) yaşar. Mete adları sayar: Bilinen Adlar ≥16 ise ant tutulur (Kut +2), değilse sayım yarıda kalır (Kut −2). Hereka: «Şimdi sen say.» / «Now you count.» |
+| 4 | Ad İpi / The Name Cord | serbest | Çukur'un kuzey çiti | Ölenlerin düğümleri; höyüksüz mezarlar bulunur; Yoğ Aşı ya da sessiz veda |
+| 5 | Eve Yol / The Road Home | serbest | Menzil ağı | Kurtulan Hunlar doğuya kervanla gider; yol I'in Menzil'leridir |
+| 6 | Nanay'ın Ocağı / Nanay's Hearth (Kol B) | serbest | Nanay'ın yurdu | Kâse Antı: ordunun eli o ocağa değmez, iş kolları ve otlak payı o yurdu atlar, ocağa uzanan atlı durdurulur. [Farnak](/encyclopedia/farnak)'ın ve [Nanay](/encyclopedia/nanay)'ın durumu okunur; Nanay'ın beş yaşında [bir oğlu](/encyclopedia/nanay-son) vardır. Nanay: «Çatı akmıyor.» / «The roof doesn't leak.» |
+| 7 | Çan / The Bell | serbest | Kışlak'ın doğu yamacı | [Mene](/encyclopedia/mene) on dört yaşındadır. Çan Mene'de kaldıysa sesi yaklaşır: I'de uzaklaşmıştı. [Kantu](/encyclopedia/kantu)'nun yazgısı okunur; El Antı'nın sınavı Batı Yolu'nun güzergâhıdır |
+| 8 | Yırtık Keçe / The Torn Felt | serbest | Mete'nin yurdu | Yurt onarılmaz. Ocağı ilk kez yakılır, Eve Yol'a çıkacaklar bir gece orada yatar: I'in «henüz kimseyi ısıtmadı» sözü kapanır. Kül Borcu açıksa Sazlık'ın soğuk ocak halkaları sayılır; bu ocak bir kez sönmüş ocak sayısını 1 düşürür |
+| 9 | Amaga / Amaga (Kol C) | 14 Haziran'a dek | Gök Dağı yazlığı | Gece gizli çıkış (≤8 nöbetçi, [K44](/docs/source/design/decisions#k44)). Yol Antı: «Ay dolana dek batı yolu açık.» / «The western road is open until the moon is full.» [Amaga](/encyclopedia/amaga): «Önce yol verdin. Bunu da sayarım.» / «You gave the road first. I will count that too.» |
+| 10 | Adak / The Offering | 15–16 Haziran | Geyik Taşları | Yüeçi Kralı [Miro](/encyclopedia/miro) beşinci ay sunusu için [Adak Aygırı](/encyclopedia/offering-stallion)'nı ister: «Beş bahar bekledi. Tanrımızın payını ver.» / «He has waited five springs. Give our god his share.» Mete önce ata bakarsa (`G` basılı 4 sn) Aygır Antı tutulur; sonra Ver ya da Verme |
+| 11 | Batı Yolu / The West Road | 17 Haziran | Kışlak ağzı, Hey Irmağı | Dolunay (月盛壯則攻戰). Yol verildiyse Yüeçi sürüleri batıya akar, kalanlar ıslıkla sürülür; yok edilmezler. Güzergâh seçilir: kuzey sırtı, ırmak yolu ya da Mene'nin çatısının üstünden geçen kısa yol. [Atşo](/encyclopedia/atsho) kutlu ateşi bir köz kabında batıya taşır, II'de Mete'nin babasının közünü taşıdığı gibi. Gök Dağı eteğinde Beşinci Ay Sunusu (1 at, 2 kımız) |
+| 12 | Lung-çeng / Longcheng | 24–25 Haziran 203 | Tanhu Ordusu, Lung-çeng | İç Kronik'ten sonra yurtta Dönüş ve armağan kervanı (≥200 öğün, 10 at, Hazine ≥200 Kıymet); büyük toplantı. [Loufan Kralı](/encyclopedia/loufan-king) ve [Baiyang Kralı](/encyclopedia/baiyang-king) katılır: «Okumuz senin olsun, otumuz bizim kalsın.» / «Let our bows be yours and our grass stay ours.» At ve deve yarışı |
+| 13 | Ordos / The Ordos | 21–23 Ağustos 203 | Ordos | Baiyang beyiyle gizli görüşme (≤8 nöbetçi). [Meng Tian](/encyclopedia/meng-tian)'ın aldığı toprak Chaona ve Fushi'ye dek geri alınır; eski Ç'in seddi sınırdır (故河南塞). Yunyang'ın altın insanı geri gelmez: söylentidir |
+| 14 | Ordos'ta Dailin / The Dailin in the Ordos | 22 Eylül 203 | Ordos, Mete'nin doğduğu otlak | Son görev |
+
+```varlik
+tally_farnak, tally_ardoksha, tally_kantu, tally_atsho, tally_amaga
+deer_stone, offering_stallion, nanay_son, miro
+```
+
+## Son görev ve perde sonu
+
+- **Son Görev Kapısı.** Son görev yalnız üç kol bitince açılır. Kart: «Bu yol perdeyi kapatır. Sonra {y} yıl geçer.» / «This road closes the act. Then {y} years will pass.» Açık yan görevler listelenir; `Yola Çık` ya da `Daha Değil`; kartta saat durur. Son görev açıldıktan sonra 3., 6. ve 9. günde kişiler sabırsızlanır, bedel yoktur.
+- **Ordos'ta Dailin.** Sayım Mete'nin doğduğu otlakta, babasının Dailin yerinde yapılır; bu bir kezliktir. Loufan ve Baiyang Hun diye sayılır, sayım çetelesine son çentik toprağa atılır. Mete: «Toprak da sayılır.» / «Land is counted too.» Müzikte I'in yarım düşüşü ilk kez D'ye varır. Perde kartı gelir.
+- **Sonra.** Dünya açık kalır: iç haritalar, Plan Kipi, Defter, süren yan görevler, av, inşa. Yeni ana görev açılmaz, takvim akar. «Kronik'e bırak / Leave it to the Chronicle» perde kartında, duraklatma kitabında ve Mete'nin her ocağında durur ([K42](/docs/source/design/decisions#k42)).
+
+## Yan görev aileleri
+
+Beş aile etkindir: Elçi, Yol, Hane, Töre, Av. Ordu ailesi dinlenir, çünkü ordunun işi ana görevlerdedir. 15 yan görev 3.668 XP verir. Açık yan görev sessizce düşmez: sonraki perdede sürer, Kronik'te sonuç satırı olur ya da listede «Kapanır» yazar.
+
+| Aile | Görevler |
+|---|---|
+| Elçi | Loufan Okçuları / The Loufan Archers (kralın koşulu: kendi otlağı); Ak Koyun / The White Sheep (Baiyang'ın adı, sürü sayımı); Çiang Tuzcusu / The Qiang Salt Trader (yak kervanı) |
+| Yol | Kereste Yolu / The Timber Road (Tanhu Kampı–Hangay yolu); Batı Menzilleri / The Western Stations (I'in Menzil'leri); Altın İnsan / The Golden Man (Yunyang söylentisi) |
+| Hane | Armağan Haneleri / Gift Households (Divan; Huyan, Lan ve ilk kez [Xubu](/encyclopedia/xubu-clan) soyu: 其後有須卜氏); Kuyu / The Well; Lan Hatun'un Defteri / Lady Lan's Ledger (yaşlanan Kâhya sayımını Yimo'ya öğretir) |
+| Töre | Palak'ın Borcu / Palak's Debt; Kantu'nun Arabası / Kantu's Cart (Kantu'nun ve Opia'nın yazgısı); Ocak Kamı / The Hearth Kam (Dangyu gelir, Otacı Yurdu kurulur) |
+| Av | İlk Kuş / The First Bird (kuşçu Sungur, doğan); Sürek / The Battue (sürek avı); İrbis / The Snow Leopard (Gök Dağı) |
+
+## Seçimler ve sonuçları
+
+**I. Perde'nin beş antı burada okunur** ([act1.md §16](/docs/source/design/act1#16-sonraki-perdelere-kancalar)). Tutulan ant Kut +1, bozulan Kut −1 yazar; Hereka'nın antı ±2'dir. Antların toplamı Sonsöz'ün Son Sayım kartında okunur: «Beş anttan {k}'i tutuldu.»
+
+| Ant | Kime, I'deki söz | IV'te nerede, nasıl okunur |
+|---|---|---|
+| Adlar | Hereka: «Adlarınızı sayarak döneceğim.» | Çukur: Bilinen Adlar ≥16 ister (Kut +2 / −2) |
+| Kâse | Farnak: «Ocağına el kaldırmayacağım.» | Nanay'ın Ocağı: ordunun eli Nanay'ın ocağına değmez |
+| El | Mene, el diliyle: «Islık senin çatının üstünden geçmeyecek.» | Batı Yolu: yol Mene'nin çatısının üstünden geçmez; kısa güzergâh antı bozar |
+| Yol | Amaga: «Bu kampa atlı dönersem önce yol veririm.» | Amaga ve Batı Yolu: yol dolunaydan önce verilir; erken vuruş antı bozar |
+| Aygır | Adak Aygırı: «Bir gün senden vazgeçmem istenirse, önce sana bakacağım.» | Adak: önce bakış tutar; Ver'de Yüeçi sunar, sonrası boş bir yulardır; Verme'de aygır kalır ve VI'nın son sayımında soyundan bir tay geçer |
+
+Antlardan başka I'in bayrakları da okunur: hangi çetele yarımının geri verildiği, Palak'ın borcu, Çukur'da ve [Omarg](/encyclopedia/omarg)'la görülenler, Farnak'ın ve Nanay'ın durumu, Kantu'nun, çanın ve [Opia](/encyclopedia/opia)'nın yazgısı, Sazlık'tan kurtulanlar ve yaralılar, Kışlak'ın baharında kaç can kaldığı, yurdun yeri ve aşaması. Adı Erlik'e verilen kişinin hanesi tek satır söyler.
+
+| Seçim | Nerede | Sonuç |
+|---|---|---|
+| Ver ya da Verme | Adak | Yukarıdaki Aygır satırı |
+| Güzergâh | Batı Yolu | Kuzey sırtı ya da ırmak yolu El Antı'nı tutar; Mene'nin çatısının üstünden kısa yol bozar |
+| Yoğ Aşı ya da sessiz veda | Ad İpi | Ölenlerin uğurlanışı |
+| Kışlak'tan gelenler | Yenilenlerin seçimi | 3–6 hane Yüeçi yurtlarıyla gelir ([K51](/docs/source/design/decisions#k51)); adlılar bayraklarına göre gelir: Nanay ve oğlu, Kantu ile Mene, Opia |
+| Dangyu: yurt mu, yol mu | Ocak Kamı'ndan sonra | Yurtta Otacı Yurdu'nun ustasıdır, yolda partidedir; seçim her zaman değişir |
+| Lan Hatun'un yoğu | IV → V Kroniği | «Yoğ Aşı»: bir Toy bedeli, Gönül +2; «Sade gömü», onun dileği: «Sayın beni, ağlamayın.» / «Count me, and do not weep.»: Kut +1 |
+
+## Açılan sistemler
+
+| Sistem | IV'teki yüzü | Sayfa |
+|---|---|---|
+| Toy Yeri (4. kademe) | ≥22 hane, ortalama Gönül ≥50 ve Tanhu Otağı, Elçi Yurdu, Gök Direği, Toy Alanı, Tahıl Ambarı, ≥1 Gözcü Kulesi ayaktayken açılır. Hane tavanı 50, Çekim tabanı günde 0,9 hane. Hazine, Kuyu, Otacı Yurdu, Bey Otağı ve Ordu Arabası açılır; Avlu Toplantısı Toy Alanı'nda yapılır | [Obadan Hanlığa](/docs/settlement/encampment) |
+| Hane | 22 → ≈45: Loufan ve Baiyang 6–10, armağan 2–4 (soy başına, en çok üç soy), Kışlak'tan 3–6, kurtulanlar, Çekim ≤6 | [Haneler ve Kâhya](/docs/settlement/households) |
+| Hazine | Mal Kıymet'le sayılır, Defter'de terazi ve «≈{n} kabuk» görünür. Girer: ganimetin Tanhu payı, takas kârı, Yargı'nın el koyması, kabuk. Çıkar: armağan, Lung-çeng kervanı, Toy'da saçı. Başarılı akında kabuk dahil %30'u gider; Mete'nin kesesi güvendedir | [Hanlık Merkezi](/docs/settlement/court) |
+| Ordu | Üç tümen; ıslığa uyan 10.000; yanında gezen en çok 100 atlı. Ordugâh Binlik'tir (400 yerleşik). Sefer kamp yerleri Ordos'ta iki, Kışlak, Yaz'da bir (eski Ak Otlak) ([K47](/docs/source/design/decisions#k47)) | [Ordu](/docs/gameplay/army) |
+| Akın ([K55](/docs/source/design/decisions#k55)) | Yalnız ay penceresinde: 16–18 Haziran 205 ve 24–26 Haziran 203. Güç (yerleşime / ordugâha) başta 10 / 6 (Yüeçi, Loufan, Baiyang); Yüeçi sürülünce (17 Haziran 205) 6 / 4; Loufan ve Baiyang katılınca (25 Haziran 203) 0. Yerleşime en çok 2, ordugâha en çok 1 akın | [Ordugâh ve Kervan](/docs/settlement/war-camp-caravans) |
+| Kervanlar | Lung-çeng armağan kervanı; Tanhu Kampı–Hangay yolunda kereste kervanı; Çiang yak kervanı | [Yolculuk](/docs/world/travel) |
+| Para ve satıcı | Demirci Ocağı'nda tunç kabuk: usta 1 tunç hurdadan 1 İS'te 3 kabuk döker ([K48](/docs/source/design/decisions#k48)). Yüeçi ve Saka malı: kalay, firuze, tunç; Saka ve Hexi vahası satıcısı kabuğu ×0,6 alır, üstü vermez; Tahıl Çuvalı vahadadır ([K49](/docs/source/design/decisions#k49)) | [Para ve Satıcılar](/docs/economy/money-traders) |
+| Hayvanlar ([K65](/docs/source/design/decisions#k65)) | Yeni türler sülün, eşek, yak, sayga, taki, kar leoparı, akbaba, doğan; yük eşeği 20 Yük taşır. Kuşhane ve doğan: kuşçu Sungur genç bir dişi doğan verir, eğitim 3 oyun günüdür; doğan 350 m yarıçapta sürü ve birlik lekesini haritaya düşürür, yuva tutmaz | [Hayvanlar](/docs/world/animals) |
+| Gizlilik | Amaga'nın gizli çıkışı ve Baiyang beyiyle görüşme, ≤8 nöbetçi; yakalanma yeniden yükleme değildir | [Dövüş](/docs/gameplay/combat) |
+| Beceriler | 14 beceri açılır; stat tavanı 10; perde sonunda birikimli beceri puanı 21 | [Seviye ve Gelişim](/docs/gameplay/progression) |
+
+```varlik
+treasury, well, healer_yurt, beg_otag, cart_war, mews
+yurt_loufan, otag_loufan, yurt_baiyang, otag_baiyang, otag_yuezhi, yurt_saka
+falcon, yak, donkey, pheasant, saiga, takhi, snow_leopard, vulture, pack_saddle_donkey
+skill_wagon_ring, skill_ground_ear, skill_saddle_sleep, skill_herd_voice, skill_arrow_rain, skill_sound_shot, skill_whirl_cut
+skill_name_keeper, skill_kurultay_voice, skill_dread_name, skill_sky_witness, skill_lead_remount, skill_lead_relay, skill_lead_appoint
+```
+
+## Yoldaşlar
+
+Açık çekirdek en çok 7'dir, konuk yoktur; doğan yuva tutmaz ([K70](/docs/source/design/decisions#k70), [K71](/docs/source/design/decisions#k71)). II'den [Uldın](/encyclopedia/uldin), [Berik](/encyclopedia/berik) ve bağışlandıysa [Luhun](/encyclopedia/luhun), III'ten [Mijia](/encyclopedia/mijia) gelebilir. Kişisel görev adımı onay verir, XP vermez; son adım onay +2'dir ([K88](/docs/source/design/decisions#k88)). Sistemin bütünü [Yoldaşlar](/docs/gameplay/companions) sayfasındadır.
+
+| Yoldaş | Nasıl katılır | IV'teki kişisel adım |
+|---|---|---|
+| [Dangyu](/encyclopedia/dangyu), 52, ocak kamı ve otacı | A dilimi, Ocak Kamı ile; Otacı Yurdu kurulunca sorar: «Yurtta mı kalayım, yolda mı?» / «Shall I stay at the yurt, or on the road?» | Al Karısı, 1: yerleşimin «Loğusa boğuluyor» olayında yanındaysa loğusa kendiliğinden kurtulur (onay +1) |
+| Berik, 24 | İkinci yolu: I'de Kışlak'ta kaldıysa Vadi'de orada bulunur, onayı ≥1 ise katılır | Görmediği Ev, 2: Sarva'yı ister. Ardokşa'nın çetelesi bırakıldıysa Ardokşa izin verir, [Sarva](/encyclopedia/sarva) Yüklü Hane olarak gelir ([K53](/docs/source/design/decisions#k53); +1); bırakılmadıysa Berik gece kaçırmayı önerir: kabul edilirse Korku +1 ve onay +1, reddedilirse onay −1 |
+| Mijia | «Sürüsüz» yolu: III'te gelmediyse Vuhuan haraç kervanıyla gelir: «Sürümüzü saydın.» / «You counted our herd.» | Kızıl Dağ, 2: Vuhuan'a çekilenlerin haracını yarıya indirmek (Kronik'te yılda 20 yerine 10 deri; Kut +1, onay +1) ya da indirmemek (−1) |
+| [Loufan okçusu](/encyclopedia/loufan-archer), 31, keskin nişancı | B dilimi: Lung-çeng'de (25 Haziran 203) ya da Loufan Okçuları'nda | Bakış, 1: Guangwu'yu, [Xiang Yu](/encyclopedia/xiang-yu)'nun bakışından kaçışını anlatır; o güne dek seçkin düşmanın yüzüne bakınca 2 sn donar. 2: Ordos'ta Dailin'de sayıcı adını sorar: «Loufan bir halktır.» / «Loufan is a people.» Mete üç lakaptan birini verir: Kiriş / Bowstring, Gez / Nock, Temren / Arrowhead (+1) |
+| [Kozı](/encyclopedia/kozi), 30, at terbiyecisi ve Ordos kılavuzu | B dilimi: Ak Koyun'da; o yapılmadıysa Ordos görevinin başında kendiliğinden | Meng Tian'ın Kazıkları, 1: ailesinin ırmak otlağındaki dört Ç'in sınır kazığı sökülür (keşif durağı; +1). 2: Ordos'ta Dailin'de ailesinin atları kendi otlağında sayılır (+1; sürüye 2 Ordos kısrağı) |
+| Uldın | II'den | Sekiz Kış, 2: Çukur'da Palak'ı ister. Kan: göz yumulur, ekran dışı; Korku +2, Palak'ın Borcu kapanır, Uldın +2, Dangyu ve Luhun −1. Güreş: Demir Diş'in güreş yerinde; Uldın kazanırsa Palak Çukur'un sayım çetelesini ona verir; Kut +1, onay +1. Bırak: −2, «Baban da böyle unutmuştu.» / «Your father forgot like this too.» |
+| Luhun | II'den, bağışlandıysa | Gergin Yay, 2 (III ya da IV): yerleşimde usta görevlendirilirse Jiyu'ya yay öğretir; üç oyun günü çalışınca adım biter |
+
+- **Zorunlu ve yasak.** Çukur'da Uldın (varsa) zorunludur. Amaga'nın gizli çıkışında en çok 1 yoldaş izler. Ordos görevinde Kozı zorunludur, Baiyang beyine kılavuzdur; yanında en çok 1 kişi gider. Ordos'ta Dailin'de Loufan okçusu ve Kozı (varsa) sayılır. Zorunlu kişi partide değilse sahne onu 3 sn karartmayla getirir.
+- **İkililer.** Loufan – Uldın «Kaçan / The One Who Ran»: kaçmanın utancı ile kaçmanın töresi (不羞遁走). Kozı – Loufan «Irmak Otlağı / The River Grass»: Ordos'un iki halkı, aynı ırmak otlağı. İkisi de çatışmadır.
+
+```varlik
+portrait_dangyu, portrait_loufan_archer, portrait_kozi, portrait_berik, portrait_uldin, portrait_mijia, portrait_luhun
+```
+
+## Kişiler
+
+Kışlak'ın kişileri I. Perde'dendir ([I. Perde: Çan](/docs/story/act-1)); IV'te bayraklarıyla dönerler. Kadronun bütünü [Kadro](/docs/story/cast) sayfasındadır.
+
+| Kişi | Kim | IV'te |
+|---|---|---|
+| Mete, 28–30 | Tanhu | Kışlak'a ordusuyla döner, borçları öder, Ordos'u sayar |
+| [Yimo](/encyclopedia/yimo) | Mete'nin hatunu | Lan Hatun sayımını ona öğretir; 14 Eylül 205'te Yitu'yu doğurur (Kronik) |
+| [Lan Hatun](/encyclopedia/lan-hatun) | Mete'nin anası, yerleşimin Kâhya'sı | Yaşlanır; 16 Kasım 203'te ölür (IV → V Kroniği), Yimo Kâhya olur |
+| Hereka | Çukur'un ebesi; 234'te Mete'yi doğurtan ebe | Yaşar; adların sayımını bekler |
+| Palak | Nöbet başı | Orduyu sayar; Palak'ın Borcu |
+| Farnak, Nanay ve oğlu | Atlı okçu ile keçe ustası; oğul beş yaşında | Farnak'ın I'deki yazgısı Nanay'ın ocağında okunur |
+| Mene, Kantu | Duymayan çoban kızı (14) ve ninesi | Çan; Kantu'nun Arabası |
+| Amaga | Kışlak başı | Gök Dağı yazlığında; Yol Antı |
+| Atşo | Ateş bekçisi | Kutlu ateşi köz kabında batıya taşır |
+| Miro | Yüeçi Kralı, Amaga'nın kardeşi | Adak Aygırı'nı ister; 17 Haziran 205'te batıya sürülür, yok edilmez |
+| Loufan Kralı, Baiyang Kralı | Ordos'un iki kralı | 25 Haziran 203'te katılırlar; ağır, pazarlıkçı |
+| [Sungur](/encyclopedia/sungur) | Kuşçu, Altay'dan konuk usta | İlk Kuş ile doğanı ve Kuşhane'yi getirir |
+| [Liuli](/encyclopedia/liuli), 9 | Xubu hanesinin kızı | Armağan haneleriyle gelir; VI'da Dangyu'nun ardılı olur |
+| [Çocuk](/encyclopedia/child), ≈11–13 | Önsöz'ün dinleyicisi | Mete'nin ocağının genç ozanıdır |
+| [Erlik](/encyclopedia/erlik) | Borcun sahibi | Yalnız sayısı vardır: Kül Borcu ve Sazlık'ın soğuk ocakları |
+
+```varlik
+portrait_palak, portrait_hereka, portrait_farnak, portrait_nanay, portrait_mene, portrait_kantu, portrait_amaga, portrait_atsho, portrait_opia, portrait_sarva
+portrait_miro, portrait_loufan_king, portrait_baiyang_king, portrait_sungur, portrait_liuli, liuli_child, hereka
+crowd_loufan_rider, crowd_loufan_woman, crowd_baiyang_man, crowd_baiyang_woman
+```
+
+## Mekânlar
+
+| Yer | Ne | Görevler |
+|---|---|---|
+| Kışlak, Yaz (`hexi_ash`) | I'in Kışlağı, yaz hâliyle: Ambar, Çukur ve kuzey çiti, Kızıl Kazık, Mete'nin yurdu, doğu yamacı, Nanay'ın yurdu, Kışlak ağzı ve Hey Irmağı | 1–8, 11 |
+| Gök Dağı yazlığı | Vadinin güneyi (祁連, 一名天山): Geyik Taşları, Adak Ağılı | 9, 10, İrbis |
+| Lung-çeng (`longcheng`) | Beşinci ayın toplantı yeri | 12 |
+| Tanhu Ordusu (`tanhu_ordu`) | Mete'nin yerleşimi, Toy Yeri; B dilimi buradan açılır | 12, Hane ailesi |
+| Ordos (`ordos`) | İki sefer kamp yeri, ırmak otlağı, Ç'in sınır kazıkları, eski Ç'in seddi, Mete'nin doğduğu otlak | 13, 14 |
+
+Uzak Yollar'ın ilk geçişinde anlatıcı tek cümle söyler; söylenen İngilizcedir, Türkçesi altyazıdır ([K84](/docs/source/design/decisions#k84)). Satırlar taslaktır, II'nin metin kilidinde kesinleşir:
+
+- Lung-çeng yolu: «To Longcheng, where the Hun gather in the fifth month to honour their ancestors.» / «Lung-çeng'e: Hun beşinci ayda orada toplanır, atalarını anar.»
+- Ordos yolu: «Over the Yin Mountains and down to the Ordos, the grass where Mete was born.» / «Yin Dağları'nı aşıp Ordos'a, Mete'nin doğduğu otlağa.»
+- Ordos'tan Kışlak'a: «West past the Helan range and the Alashan sands, back to the winter camp.» / «Helan'ı ve Alaşan kumunu geçip batıya, Kışlak'a dönüş.» Yol Antı bu yolda okunur.
+- Kışlak'tan Tanhu Kampı'na: «North by the Hei River, over Alashan and the Gobi: the way he once fled home.» / «Hey Irmağı boyunca kuzeye, Alaşan ve Gobi'yi aşarak: bir zaman kaçıp döndüğü yol.»
+
+## Mit, ozan ve müzik
+
+- **Mitoloji anı ([K35](/docs/source/design/decisions#k35)).** Gök Dağı Hun dilinde göktür. Beşinci Ay Sunusu ile Yüeçi'nin at sunusu aynı taşlarda, aynı dolunayda yapılır: oyun at sunusunu iki halkın ortak töresi olarak okur. Sunu 1 at ve 2 kımızdır: Gönül +3, moral +5, Kut +1, perde başına bir. Altın insan söylentisi ve [Kılıç Tanrısı](/encyclopedia/jinglu) Gök Dağı'na bağlanır. Ocak kamı Dangyu'dur.
+- **Ocağın ozanı ([K79](/docs/source/design/decisions#k79)).** Göl Obası'nın ozanı (K106) III → IV Kroniği'nde ölmüştür, kopuzu ocağın Çocuğundadır. IV'ten Mete'nin ocağında Çocuk genç ozan olarak çalar; Ozan'a Anlattır, Ozan Dostu becerisi ve Kopuz Gecesi onu okur. Modeli yüzü Çocuk modelinden türeyen yeni bir varlıktır.
+- **Perde rengi ([K59](/docs/source/design/decisions#k59)).** Kopuz, Yüeçi arpı ve hucia birlikte çalar: heterofoni, akor yok. Nabız 72; pentatonik ve Dorian. Her boy motifi kendi süsüyle çalar, katılan boy bir ses ekler. Koro yoktur. Kışlak'a dönüşte I'in çanı ve arpı geri gelir; borç ödenince I'in yarım düşüşü (A G F) ilk kez D'ye varır ([audio.md §3](/docs/source/design/audio#3-muzik-durumlari)).
+
+## Akan Kronik'e geçiş
+
+| Geçiş | Gün, süre | Olaylar | Anlatıcının satırı | Kronik Kararı |
+|---|---|---|---|---|
+| IV içi | 18 Haziran 205 → 24 Haziran 203; 738 gün, ≈40 sn | 14 Eylül 205'te Yimo'dan Yitu doğar (Dailin günü); 205 ve 204 Dailin'i; 6 Haziran 204 Lung-çeng'i; Çu ile Han savaşı sürer; Lan Hatun yaşlanır | «Yüeçi batıda yol aldı. Yimo bir oğul doğurdu, adını Yitu koydular.» / «The Yuezhi rode on into the west. Yimo bore a son, and they named him Yitu.» | Yok; hane tabanı değişmez |
+| IV → V | 22 Eylül 203 → 20 Kasım 201; 789 gün, ≈43 sn | 21 Ekim 203 Yan ve Dai'ye akın; 16 Kasım 203 Lan Hatun ölür, Yimo Kâhya olur; 28 Şubat 202 Han kurulur; 15 Haziran 202 kuzeyin beş halkı boyun eğer (Hunyü, Çüşe, Dingling, Gekun, Şinli); 30 Ekim 201 Han Xin Mayi'de teslim olur | «Lan Hatun kışın ilk günü öldü. Han tahtındaki Liu Bang kuzeye baktı.» / «Lady Lan died on the first day of winter. Liu Bang, on the Han throne, looked north.» | Lan Hatun'un yoğu (yukarıda); V 45 haneyle açılır |
+
+Süre `T = clamp(gün / 91,25 × 5 sn, 30, 90)` formülüdür; `E` basılı ×4 hızlandırır, Esc atlar. İki koşunun toplamı ≈83 sn'dir: K42'nin IV → V için yazdığı 89 sn IV'ün başından hesaplanmıştı, formül esastır. Akan Kronik'te parti donar: yoldaki, görevdeki ve subay olan yerinde kalır, tarihli kişisel adım Kronik'e düşer. Sonraki perde: [V. Perde: Dört Renk](/docs/story/act-5).
+
+## Tarih ile kurgu
+
+Oyuncuya her şey kesin tarihle söylenir; ayrım bu belgede ve Destan notunda kalır ([K33](/docs/source/design/decisions#k33), [K13](/docs/source/design/decisions#k13)).
+
+| | IV'te |
+|---|---|
+| Kaynakta | Sıra: önce Yüeçi batıya sürülür, sonra Loufan ve Baiyang katılır, sonra Meng Tian'ın aldığı topraklar Chaona ve Fushi'ye dek döner (SJ 110). Lung-çeng'in beşinci ay toplantısı ve sunusu (五月，大會蘢城，祭其先、天地、鬼神); Loufan ve Baiyang'ın katılışının ayı (五月). Gök Dağı'nın adı. Xubu soyu. Loufan okçusunun Xiang Yu'nun bakışından kaçışı (SJ 7) |
+| Oyunun seçimi | Yüeçi seferinin yılı (205) ve günleri; 1 Haziran 205 açılışı; Ordos'ta Dailin'in günü (22 Eylül 203) ve yeri. Eski dizi Loufan'ı Yüeçi'den önce koyuyordu ve Tanhu 1'in IV'üne denk düşüyordu; Shiji 110'un sırası alındı |
+| Kurgu | Kışlak'ın bütün kişileri, Miro, Dangyu, Kozı, Sungur, Liuli, Yimo; Loufan okçusunun adı ve Hun'a geçişi; Yitu'nun doğum günü; Lan Hatun'un ölümü; Göl Obası'nın ozanının ölümü; beş ant ve çeteleler. Loufan Kralı ve Baiyang Kralı tarihî makamdır, adları yoktur. Hereka, Uldın ve Berik adları sonraki Hunlardandır, Destan bunu not eder |
+| Söylenti | Yunyang'ın altın insanı: rivayet şerhtedir, Suoyin «doğru olmayabilir» der |
+| Mitoloji | Beşinci Ay Sunusu, Kılıç Tanrısı, Kül Borcu; kurgu listesine girmez |
+
+## Tanhu 1'den fark
+
+Tanhu 1'in IV'ündeki yanan kamp alınmadı: haritanın eski «Yanık Kışlak» adı bu yüzden «Kışlak, Yaz» oldu. Aygır Antı Tanhu 1'deki gibi bin li'lik ata bağlanmaz, Yüeçi'nin Adak'ında okunur. Lan Hatun'un ölümü Kronik'in bir satırıdır; ölüm döşeği sahnesi ve ayna parçası yoktur.
+
+## Oyunda şu an
+
+> [!DURUM]
+> Oyunda: IV. Perde yok. Godot'da bugün menü, gece kampı, karakter oluşturucu, kayıt, ayarlar, Destan Kitabı, Serbest Gez ve takip kamerası var. Perdeler, görev ve diyalog, saat ve takvim (gece sabittir), hava, yerleşim, ordu, atlas, yoldaş partisi ve Kışlak dünyası yok; Kışlak'ın yaz hâli, Lung-çeng ve Ordos da yok. Meshy modeli olan kişiler Mete, yaşlı Hereka ve yedi yaşındaki Çocuktur; genç ozan, Kışlak'ın öteki kişileri ve IV'ün yoldaşları için model yok. Prototipte denendi: saat, hava, emek yasası, atlas ve yapı aşamaları; Godot'a taşınmadı ([oyun-durumu.md](/docs/source/design/d3/game-state)).
+
+## Yol Haritası
+
+Perdenin dört fazı ve 18 maddesi Yol Haritası'ndan canlı gelir. Önkoşul III'ün son fazıdır (`act-3-p4`); sıra Toy Yeri, üç harita ve iki dilim, ana zincir, yan aileler ve Kronik'tir.
+
+```ilerleme
+act-4
+```
+
+## Doğrulanacaklar
+
+- Doğrulanacak: IV'ün akın sırası (10 / 6, 6 / 4, 0) ve Kâhya'nın şantiye kuralı econ-sim'in resmî koşusunda sınanır ([Yol Haritası](/roadmap#item-econ-sim-run)).
+- Doğrulanacak: iç Kronik'in ≈40 sn'si ve iki dilimin takvimi ileri yürütmesi ([Yol Haritası](/roadmap#item-inner-chronicle)).
+- Doğrulanacak: yedi açık çekirdekle partinin düzeni, yetişmesi, onay sıklığı ve rol etkileri (perde başına ganimet ve takas farkı ≤%5) ([Yol Haritası](/roadmap#item-party-tuning)).
+- Doğrulanacak: heterofoni ve düşüşün D'ye varışı kulakla; ana görev satırları metin kilidinden sonra seslendirilir ([Yol Haritası](/roadmap#item-act4-sound)).
+
+Kullanıcının onayını bekleyenler [Karar Bekleyenler](/docs/general/pending-decisions) sayfasındadır: Çocuğun sesi ve genç ozan modeli (insan sınıfı model 45 Meshy kredisi; IV'ten önce), Hereka'nın sesi ve modeli, Atşo'nun sesi, IV'ün yoldaşlarının sesi ve üretimi.
+
+## Kaynaklar
+
+- [story.md §2](/docs/source/design/story#2-zaman-cizelgesi-1), [§11.3](/docs/source/design/story#11-3-iv-perde-borc-the-debt), [§13](/docs/source/design/story#13-perde-arasi-akan-kronik), [§14](/docs/source/design/story#14-kisiler-ii-vi-21-38-44), [§8.4](/docs/source/design/story#8-4-kislak-i-perde-ve-iv-un-donusu)
+- [act1.md §16](/docs/source/design/act1#16-sonraki-perdelere-kancalar)
+- [settlement.md §2.2](/docs/source/design/settlement#2-2-perde-perde), [§4.1](/docs/source/design/settlement#4-1-tablo), [§12.5](/docs/source/design/settlement#12-5-hazine)
+- [army.md §2](/docs/source/design/army#2-olcek); `companions.md` §1.3, §2.2 ve §2.3 (yoldaşlar tek tek, perde perde açık yoldaş, zorunlu ve yasak sahneler)
+- [progression.md §1.2](/docs/source/design/progression#1-2-perde-xp-butcesi), [§5.3](/docs/source/design/progression#5-3-olay-degerleri)
+- [fauna.md §5.2](/docs/source/design/fauna#5-2-dogan-ve-kartal), [§9](/docs/source/design/fauna#9-perde-perde-acilis), [economy.md §8.6](/docs/source/design/economy#8-6-perde-perde-ekonomi), [travel.md](/docs/source/design/travel), [audio.md §3](/docs/source/design/audio#3-muzik-durumlari)
+- [godot.md §9.8](/docs/source/design/godot#9-8-iv-perde-borc-act-4)
+- [mete-tarih.md](/docs/source/research/mete-history), [mitoloji.md](/docs/source/research/mythology)
+- [decisions.md](/docs/source/design/decisions): K13, K25, K32, K33, K35, K42–K44, K47–K49, K51, K53, K55, K56, K59, K65, K70, K71, K79, K84, K88
+
+İlgili sayfalar: [III. Perde: Boş Toprak](/docs/story/act-3), [V. Perde: Dört Renk](/docs/story/act-5), [Hikâye Omurgası](/docs/story/spine), [Açık Dünya ve Görevler](/docs/gameplay/open-world-quests).

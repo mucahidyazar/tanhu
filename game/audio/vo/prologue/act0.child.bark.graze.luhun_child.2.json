@@ -1,0 +1,15 @@
+{
+	"id": "act0.child.bark.graze.luhun_child.2",
+	"take": 0,
+	"seed": 564978779,
+	"hash": "21ace45b7478",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.44,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "old", "t0": 0.14, "t1": 0.32},
+		{"w": "one's", "t0": 0.36, "t1": 0.56},
+		{"w": "hungry.", "t0": 0.629, "t1": 1.44}
+	]
+}

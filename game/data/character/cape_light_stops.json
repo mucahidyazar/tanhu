@@ -1,0 +1,235 @@
+{
+	"doc": "Pelerin okunurluğunun ışık durakları (v3, 2026-11-08): oyunun altı ışık durağı (data/time/light_stops.json; night, dawn, morning, noon, golden, dusk) ana kampın ölçüm dakikalarında (light_stops.json probe: 11 Nisan MÖ 209) ve gece ateş başı. Değerler LightStops.probe_sample'dan çözülür (scenes/dev/cape_lineup.tscn --export-stops; test_light_stops.gd dosyanın durakları izlediğini sınar): ışığın gücü durağın değeri × ışık kaynağının çarpanıdır (k: tanda ve akşamda güneş ufukta 0,35, gece ay batık 0,55, gündüz 1), ışığın azimutu ve yüksekliği gerçek güneşten (≥15°), ayın yerinden ya da gök yönünden (az 160°, 55°) gelir. Ortam yalnız renktir (ambient_sky 0): kampta gece göğü %55 karışır, o da aynı koyu mavidir; tanın ve akşamın gölge dolgusu (ambient_color) soğuktur (K101). grade: night ya da world (ColorGrade; durağın gece payı). fire: ateşin karakterden uzaklığı (m) ile OmniLight3D'si (campfire.gd; titreme ortalaması 1). tools/palette_compare.py --cape ve scenes/dev/cape_lineup.tscn bu dosyayı okur. v2 (K101) ölçümü sun-light gelmeden önce kampın gecesi, ateşi, Çocukluk'un Ordos sabahı ve gün ortası ile tablonun tan, ikindi ve akşamıyla yapılmıştı (history).",
+	"history": [
+		{
+			"at": "2026-11-08",
+			"note": "K101: kamp gecesi ve ateşi (sahneden), Ordos 08:40 ve 11:00, tablonun tan, ikindi ve akşamı (Ordos oranıyla); P1 en kötü 0,068 (Koyu Çivit), P4 Göl Mavisi en kötü 0,065 (tan ve akşam, 40 m).",
+			"version": 2.0
+		}
+	],
+	"light_stops": "res://data/time/light_stops.json",
+	"source": "K58, K101; sanat-animasyon.md öneri 4 (P1, P4); time.md §5.3; godot.md §8.5; Yol Haritası sun-light",
+	"stops": [
+		{
+			"grade": "night",
+			"id": "night",
+			"k20": "night",
+			"light_azimuth": 160.0,
+			"light_elevation": 55.0,
+			"light_k": 0.55,
+			"light_stop": "night",
+			"minute": "23:00",
+			"name": "Gece (kamp, ay batık) (23:00)",
+			"s": 0.0,
+			"sample": {
+				"ambient_color": [
+					0.3,
+					0.38,
+					0.66
+				],
+				"ambient_energy": 0.5,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.0,
+				"light_color": [
+					0.66,
+					0.75,
+					1.0
+				],
+				"light_energy": 0.231,
+				"saturation": 1.12
+			}
+		},
+		{
+			"fire": {
+				"color": [
+					1.0,
+					0.74,
+					0.42
+				],
+				"distance": 2.6,
+				"energy": 3.3,
+				"range": 8.0
+			},
+			"grade": "night",
+			"id": "night_fire",
+			"k20": "night",
+			"light_azimuth": 160.0,
+			"light_elevation": 55.0,
+			"light_k": 0.55,
+			"light_stop": "night",
+			"minute": "23:00",
+			"name": "Gece, ateş başı (23:00)",
+			"s": 0.0,
+			"sample": {
+				"ambient_color": [
+					0.3,
+					0.38,
+					0.66
+				],
+				"ambient_energy": 0.5,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.0,
+				"light_color": [
+					0.66,
+					0.75,
+					1.0
+				],
+				"light_energy": 0.231,
+				"saturation": 1.12
+			}
+		},
+		{
+			"grade": "world",
+			"id": "dawn",
+			"k20": "dawn",
+			"light_azimuth": 76.17,
+			"light_elevation": 15.29,
+			"light_k": 0.3464,
+			"light_stop": "dawn",
+			"minute": "05:10",
+			"name": "Tan (05:10)",
+			"s": 0.9929,
+			"sample": {
+				"ambient_color": [
+					0.4986,
+					0.5587,
+					0.7494
+				],
+				"ambient_energy": 0.361,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.139,
+				"light_color": [
+					0.9976,
+					0.7062,
+					0.5445
+				],
+				"light_energy": 0.1627,
+				"saturation": 1.0009
+			}
+		},
+		{
+			"grade": "world",
+			"id": "morning",
+			"k20": "morning",
+			"light_azimuth": 97.36,
+			"light_elevation": 16.78,
+			"light_k": 1.0,
+			"light_stop": "morning",
+			"minute": "07:07",
+			"name": "Sabah (07:07)",
+			"s": 1.9961,
+			"sample": {
+				"ambient_color": [
+					0.6096,
+					0.6775,
+					0.8157
+				],
+				"ambient_energy": 0.4506,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.0255,
+				"light_color": [
+					1.0,
+					0.8856,
+					0.7209
+				],
+				"light_energy": 1.2001,
+				"saturation": 1.0
+			}
+		},
+		{
+			"grade": "world",
+			"id": "noon",
+			"k20": "noon",
+			"light_azimuth": 174.22,
+			"light_elevation": 49.94,
+			"light_k": 1.0,
+			"light_stop": "noon",
+			"minute": "11:45",
+			"name": "Öğle (11:45)",
+			"s": 3.0,
+			"sample": {
+				"ambient_color": [
+					0.671,
+					0.723,
+					0.843
+				],
+				"ambient_energy": 0.509,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 0.974,
+				"light_color": [
+					1.0,
+					0.9451,
+					0.8471
+				],
+				"light_energy": 1.542,
+				"saturation": 1.0
+			}
+		},
+		{
+			"grade": "world",
+			"id": "golden",
+			"k20": "golden",
+			"light_azimuth": 216.16,
+			"light_elevation": 44.74,
+			"light_k": 1.0,
+			"light_stop": "golden",
+			"minute": "13:40",
+			"name": "İkindi (13:40)",
+			"s": 4.0,
+			"sample": {
+				"ambient_color": [
+					0.636,
+					0.694,
+					0.833
+				],
+				"ambient_energy": 0.471,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.042,
+				"light_color": [
+					1.0,
+					0.7961,
+					0.5412
+				],
+				"light_energy": 1.41,
+				"saturation": 1.0
+			}
+		},
+		{
+			"grade": "world",
+			"id": "dusk",
+			"k20": "dusk",
+			"light_azimuth": 281.71,
+			"light_elevation": 15.5,
+			"light_k": 0.3459,
+			"light_stop": "dusk",
+			"minute": "18:38",
+			"name": "Akşam (18:38)",
+			"s": 5.006,
+			"sample": {
+				"ambient_color": [
+					0.4491,
+					0.5192,
+					0.7495
+				],
+				"ambient_energy": 0.3807,
+				"ambient_sky": 0.0,
+				"contrast": 1.05,
+				"exposure": 1.159,
+				"light_color": [
+					0.998,
+					0.6243,
+					0.4309
+				],
+				"light_energy": 0.2013,
+				"saturation": 1.0007
+			}
+		}
+	],
+	"version": 3
+}

@@ -1,0 +1,19 @@
+{
+	"id": "act0.hearth.strike",
+	"take": 0,
+	"seed": 265034832,
+	"hash": "0fcc1c507a64",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 4.16,
+	"words": [
+		{"w": "Here.", "t0": 0.0, "t1": 1.04},
+		{"w": "Strike", "t0": 1.131, "t1": 1.68},
+		{"w": "the", "t0": 1.72, "t1": 1.84},
+		{"w": "white", "t0": 1.907, "t1": 2.24},
+		{"w": "stone", "t0": 2.333, "t1": 2.8},
+		{"w": "on", "t0": 2.987, "t1": 3.36},
+		{"w": "the", "t0": 3.38, "t1": 3.44},
+		{"w": "black.", "t0": 3.547, "t1": 4.16}
+	]
+}

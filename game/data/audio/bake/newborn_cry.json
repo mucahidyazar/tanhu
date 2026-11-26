@@ -1,0 +1,12 @@
+{
+  "id": "newborn_cry",
+  "kind": "sfx",
+  "instrument": "cry",
+  "seconds": 6.5,
+  "distance": 0.55,
+  "seed": 2344,
+  "rate": 32000,
+  "loop": false,
+  "source": "code",
+  "note": "İlk ağlama (Önsöz 3:18,3; story.md §3 satır 7d, audio.md §4 «Önsöz ekleri»): önce kodla basılır (scripts/audio/synth/cry.gd), kulakla sınanır (K61). İnandırıcı değilse ücretsiz kayıt (newborn_cry: Wikimedia Commons «Crying newborn baby», the_yura, CC0; bugün _staging'de) kaynağa geçer: karşılaştırma adayı audio/gen/_wav/newborn_cry_free.wav (tarifi birth_cry_free.json); o da olmazsa ElevenLabs efekt ucundan tek dosya, kredi önce sorulur. Kulak onayı bekler."
+}

@@ -1,0 +1,178 @@
+{
+  "id": "dog_warn",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.55,
+  "rate": 22050,
+  "seed": 7181,
+  "loop": false,
+  "source": "code",
+  "note": "Köpeğin uyarısı (ses-tasarimi.md §7.2: tehdit alçak ve kısa): kurt kampa yaklaşınca (FaunaDirector «warn»). Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              300
+            ],
+            [
+              0.06,
+              330
+            ],
+            [
+              0.2,
+              240
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.01,
+              1
+            ],
+            [
+              0.12,
+              0.7
+            ],
+            [
+              0.22,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              600,
+              3,
+              1
+            ],
+            [
+              1300,
+              4,
+              0.45
+            ]
+          ],
+          "breath": 0.45,
+          "jitter": 30,
+          "growl": 0.4,
+          "growl_rate": 40,
+          "burst": 0.4,
+          "burst_hz": 900
+        },
+        {
+          "t": 0.24,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              120
+            ],
+            [
+              0.25,
+              110
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              0.6
+            ],
+            [
+              0.22,
+              0.4
+            ],
+            [
+              0.28,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              450,
+              2,
+              1
+            ],
+            [
+              1000,
+              3,
+              0.3
+            ]
+          ],
+          "breath": 0.4,
+          "jitter": 20,
+          "growl": 0.8,
+          "growl_rate": 32
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              280
+            ],
+            [
+              0.05,
+              310
+            ],
+            [
+              0.18,
+              230
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.01,
+              1
+            ],
+            [
+              0.12,
+              0.7
+            ],
+            [
+              0.2,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              620,
+              3,
+              1
+            ],
+            [
+              1250,
+              4,
+              0.45
+            ]
+          ],
+          "breath": 0.5,
+          "jitter": 30,
+          "growl": 0.45,
+          "growl_rate": 38,
+          "burst": 0.45,
+          "burst_hz": 950
+        }
+      ]
+    }
+  ]
+}

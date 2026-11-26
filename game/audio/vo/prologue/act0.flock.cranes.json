@@ -1,0 +1,15 @@
+{
+	"id": "act0.flock.cranes",
+	"take": 0,
+	"seed": 1918832025,
+	"hash": "725f0d99868c",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 2.64,
+	"words": [
+		{"w": "Cranes!", "t0": 0.0, "t1": 0.64},
+		{"w": "They're", "t0": 0.8, "t1": 1.6},
+		{"w": "going", "t0": 1.627, "t1": 1.76},
+		{"w": "south.", "t0": 1.853, "t1": 2.64}
+	]
+}

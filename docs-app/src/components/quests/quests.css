@@ -1,0 +1,1264 @@
+/* Görevler sayfası (/quests): sayılar, süzgeçler, sekmeler, perde bölümleri, ana zincir, kartlar, yoldaş merdiveni.
+   Genel CSS'tir: bu projede Turbopack'in «*.css» kuralı CSS Modüllerini de genel işler (sınıf adı karılmaz), bu yüzden
+   her sınıf «qst-» öneklidir; Tailwind'in ve sitenin sınıflarıyla çakışmaz. Renkler ve yazı tipleri sitenin
+   değişkenlerinden (globals.css); yeni yazı tipi yok. */
+
+/* Odak rengi. Açık temada --ring (#bb9150) zemine karşı 2,45:1, kart yüzeyine karşı 2,65:1 kalır; WCAG 1.4.11 en az 3:1
+   ister. Bronz koyulaştırılır (#715733 dolayı: zeminde 5,75:1, kartta 6,23:1). Koyu temada --ring yeterlidir (10,23:1).
+   Sayfanın bütün odak çizgileri, arama kutusunun odak kenarı ve bağla gelinen kartın çerçevesi bunu kullanır. */
+.qst-page {
+  --qst-focus: color-mix(in oklab, var(--ring) 55%, var(--foreground));
+}
+.dark .qst-page {
+  --qst-focus: var(--ring);
+}
+
+.qst-intro {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.qst-intro li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+.qst-intro li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6em;
+  width: 0.34em;
+  height: 0.34em;
+  background: var(--bronze);
+  transform: rotate(45deg);
+}
+.qst-intro b {
+  font-weight: 700;
+}
+.qst-intro a,
+.qst-panel-note a,
+.qst-side-note a,
+.qst-counts-note a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--bronze) 70%, transparent);
+  text-underline-offset: 0.17em;
+}
+.qst-intro a:focus-visible,
+.qst-panel-note a:focus-visible,
+.qst-side-note a:focus-visible,
+.qst-counts-note a:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.qst-code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--muted);
+  padding: 0.05em 0.3em;
+  border-radius: 0.25em;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Sayılar ---------- */
+.qst-overview {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.2);
+  background: var(--card);
+  padding: 0.9rem 1rem 0.75rem;
+}
+.qst-totals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1.4rem;
+}
+.qst-totals > p {
+  margin: 0;
+  color: var(--muted-foreground);
+}
+.qst-totals b {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--foreground);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.qst-totals .qst-status-tally {
+  font-size: 0.875rem;
+  margin-left: auto;
+}
+.qst-counts {
+  width: 100%;
+  margin-top: 0.6rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.qst-counts th,
+.qst-counts td {
+  padding: 0.32rem 0.5rem;
+  border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  text-align: right;
+  vertical-align: baseline;
+}
+.qst-counts th:first-child {
+  padding-left: 0;
+  text-align: left;
+}
+.qst-counts td:last-child {
+  padding-right: 0;
+}
+.qst-counts thead th {
+  border-top: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-counts tbody th {
+  font-weight: 500;
+}
+.qst-count-link {
+  display: inline-block;
+  min-width: 1.75rem;
+  padding: 0.05rem 0.2rem;
+  border-radius: calc(var(--radius) * 0.6);
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--bronze) 60%, transparent);
+  text-underline-offset: 0.17em;
+}
+.qst-count-link:hover {
+  background: var(--accent);
+  text-decoration-color: var(--primary);
+}
+.qst-count-link:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 1px;
+}
+.qst-zero {
+  color: var(--muted-foreground);
+}
+.qst-counts-note {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+}
+.qst-counts-note + .qst-counts-note {
+  margin-top: 0.15rem;
+}
+
+/* ---------- Süzgeçler ---------- */
+.qst-filters {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1.25rem;
+}
+.qst-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+.qst-filter-label {
+  min-width: 2.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-chips {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.qst-chip {
+  position: relative;
+  display: inline-flex;
+}
+/* Radyo düğmesi görünmez ama odaklanır; ok tuşlarıyla seçim tarayıcının. */
+.qst-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.qst-chip > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.875rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.qst-chip:hover > span {
+  background: var(--accent);
+}
+.qst-chip input:checked + span {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 12%, var(--card));
+  box-shadow: inset 0 0 0 1px var(--primary);
+  font-weight: 700;
+}
+.qst-chip input:focus-visible + span {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-chip-count {
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.qst-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 28rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 0 0.65rem;
+  color: var(--muted-foreground);
+}
+/* Kutunun kendi çizgisi yok (input outline: none): odak 1 px kenar ve 1 px gölgeyle 2 px'lik koyu bir çerçevedir. */
+.qst-search:focus-within {
+  border-color: var(--qst-focus);
+  box-shadow: 0 0 0 1px var(--qst-focus);
+}
+.qst-search > svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+.qst-search input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 0.5rem 0;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+.qst-search input::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* ---------- Sekmeler ---------- */
+.qst-tablist {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 1.5rem;
+}
+.qst-tab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  padding: 0.55rem 0.95rem 0.45rem;
+  color: var(--muted-foreground);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.qst-tab:first-child {
+  padding-left: 0.2rem;
+}
+.qst-tab:hover {
+  color: var(--foreground);
+}
+.qst-tab[aria-selected="true"] {
+  border-bottom-color: var(--bronze);
+  color: var(--foreground);
+  font-weight: 700;
+}
+.qst-tab:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: -2px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.qst-tab-count {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.qst-panel {
+  container-type: inline-size;
+  padding-top: 0.25rem;
+}
+.qst-panel-note {
+  margin: 1rem 0 0;
+  font-size: 0.92rem;
+  color: var(--muted-foreground);
+}
+.qst-side-tools {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.qst-side-note {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+/* Sonuç satırı */
+.qst-result-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+.qst-result-bar > p {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.qst-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+.qst-text-button {
+  border: 0;
+  background: none;
+  padding: 0.15rem 0;
+  color: var(--primary);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--bronze) 60%, transparent);
+  text-underline-offset: 0.17em;
+  cursor: pointer;
+}
+.qst-text-button:hover {
+  text-decoration-color: var(--primary);
+}
+.qst-text-button:focus-visible,
+.qst-action-button:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- Perde bölümleri ---------- */
+.qst-act {
+  margin-top: 1.75rem;
+}
+.qst-act-head {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.qst-act-toggle {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.15rem 0.6rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  padding: 0 0 0.35rem;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.qst-act-toggle:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.qst-act-chevron {
+  align-self: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--bronze);
+  transition: transform 0.15s ease;
+}
+.qst-act-toggle[aria-expanded="false"] .qst-act-chevron {
+  transform: rotate(-90deg);
+}
+.qst-act-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+}
+.qst-act-meta {
+  font-size: 0.875rem;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+/* Başlık uzun, XP'li özet de uzun: dar panelde özet başlığın altına iner, başlık sütunu daralıp satırlara bölünmez. */
+@container (max-width: 44rem) {
+  .qst-act-toggle {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .qst-act-meta {
+    grid-column: 2;
+    white-space: normal;
+  }
+}
+.qst-act-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--muted-foreground);
+}
+.qst-act-question {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+.qst-act-body {
+  margin-top: 0.9rem;
+}
+
+/* Ana zincir: dikey ray, her görevde bir düğüm. Düğüm durumu renkle ve dolgusuyla söyler; kartta durum yazılıdır. */
+.qst-branch + .qst-branch {
+  margin-top: 1.1rem;
+}
+.qst-chain-note {
+  margin: 0 0 0.8rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+.qst-branch-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-branch-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.qst-chain-list {
+  --rail: 0.45rem;
+  --gutter: 1.5rem;
+  --node: 0.62rem;
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0 0 var(--gutter);
+  list-style: none;
+}
+.qst-chain-list::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: var(--rail);
+  width: 2px;
+  background: var(--border);
+}
+.qst-chain-item {
+  position: relative;
+}
+.qst-chain-item::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 1.05rem;
+  left: calc(var(--rail) + 1px - var(--gutter) - var(--node) / 2);
+  width: var(--node);
+  height: var(--node);
+  transform: rotate(45deg);
+  border: 1.5px solid var(--bronze);
+  background: var(--background);
+}
+.qst-chain-item[data-status="playable"]::before {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+.qst-chain-item[data-status="in-progress"]::before {
+  background: linear-gradient(135deg, var(--bronze) 50%, var(--background) 50%);
+}
+
+/* Yan ve yoldaş görevleri: aileye göre kart ızgarası */
+.qst-family + .qst-family {
+  margin-top: 1.25rem;
+}
+.qst-family-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+.qst-family-title > span {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.qst-grid {
+  display: grid;
+  gap: 0.75rem;
+  align-items: start;
+}
+@container (min-width: 44rem) {
+  .qst-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Aile tablosu: açılır bölüm; dar ekranda satırlar alt alta, yana kaydırma yok. */
+.qst-families {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.qst-families > summary {
+  padding: 0.5rem 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qst-families > summary::marker {
+  color: var(--bronze);
+}
+.qst-families > summary:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+.qst-families table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+.qst-families th,
+.qst-families td {
+  border-top: 1px solid var(--border);
+  padding: 0.42rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+.qst-families thead th {
+  background: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+.qst-families tbody th {
+  font-weight: 700;
+}
+.qst-family-en {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+@media (max-width: 40rem) {
+  .qst-families table,
+  .qst-families tbody,
+  .qst-families tr,
+  .qst-families th,
+  .qst-families td {
+    display: block;
+  }
+  .qst-families thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .qst-families tr {
+    border-top: 1px solid var(--border);
+    padding: 0.4rem 0;
+  }
+  .qst-families th,
+  .qst-families td {
+    border: 0;
+    padding: 0.1rem 0.85rem;
+  }
+  .qst-families td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: 700;
+    color: var(--muted-foreground);
+  }
+}
+
+/* ---------- Kart ---------- */
+.qst-card {
+  container-type: inline-size;
+  position: relative;
+  min-width: 0;
+  scroll-margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 0.75rem 1rem 0.6rem;
+}
+/* Dar ekranda üst çubuk yapışık: kart onun altında kalmasın. */
+@media (max-width: 63.98rem) {
+  .qst-card,
+  .qst-tablist {
+    scroll-margin-top: 4.25rem;
+  }
+}
+.qst-card[data-target] {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-card[data-flash="a"] {
+  animation: qst-flash-a 1.8s ease-out;
+}
+.qst-card[data-flash="b"] {
+  animation: qst-flash-b 1.8s ease-out;
+}
+@keyframes qst-flash-a {
+  from {
+    background: color-mix(in oklab, var(--ring) 30%, var(--card));
+  }
+  to {
+    background: var(--card);
+  }
+}
+@keyframes qst-flash-b {
+  from {
+    background: color-mix(in oklab, var(--ring) 30%, var(--card));
+  }
+  to {
+    background: var(--card);
+  }
+}
+.qst-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+}
+.qst-id {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.qst-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: calc(var(--radius) * 0.6);
+  padding: 0.05rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.qst-status[data-status="playable"] {
+  background: color-mix(in oklab, var(--primary) 12%, transparent);
+  color: var(--primary);
+}
+.qst-status[data-status="in-progress"] {
+  background: color-mix(in oklab, var(--bronze) 22%, transparent);
+  color: color-mix(in oklab, var(--bronze) 55%, var(--foreground));
+}
+.qst-status[data-status="design"] {
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+.qst-title {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+.qst-title:focus {
+  outline: none;
+}
+.qst-title:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.qst-title-en {
+  margin-left: 0.25rem;
+  font-size: 0.92rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.qst-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.75rem;
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.qst-xp {
+  border: 1px solid color-mix(in oklab, var(--bronze) 50%, transparent);
+  border-radius: calc(var(--radius) * 0.6);
+  background: color-mix(in oklab, var(--bronze) 12%, var(--card));
+  padding: 0 0.4rem;
+  color: var(--foreground);
+  font-weight: 700;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.qst-meta-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.qst-no-xp {
+  border: 1px dashed var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  padding: 0 0.4rem;
+  font-size: 0.8rem;
+}
+.qst-xp-inline {
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--bronze) 16%, transparent);
+  padding: 0 0.15rem;
+  font-weight: 700;
+}
+
+/* Adımı boş görev: başka belgedeki tanım cümlesi ya da «yalnız adı yazılı» notu. */
+.qst-description {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.qst-bare-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.86rem;
+  color: var(--muted-foreground);
+}
+
+/* Alanlar: dar kartta etiket üstte, geniş kartta solda. */
+.qst-fields {
+  display: grid;
+  gap: 0.1rem 0.9rem;
+  margin: 0.55rem 0 0;
+}
+.qst-fields dt {
+  padding-top: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-fields dd {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+@container (min-width: 34rem) {
+  .qst-fields {
+    grid-template-columns: 8.75rem minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+  .qst-fields dt {
+    padding-top: 0.25rem;
+  }
+  .qst-fields dd {
+    margin: 0;
+  }
+}
+.qst-clamp2,
+.qst-clamp3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.qst-clamp2 {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+.qst-clamp3 {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+.qst-steps {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+.qst-steps li + li {
+  margin-top: 0.2rem;
+}
+.qst-steps li::marker {
+  color: var(--bronze);
+}
+.qst-step-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+.qst-step-meta > strong {
+  color: var(--foreground);
+}
+.qst-step-text {
+  display: block;
+}
+.qst-step-detail {
+  display: block;
+  margin: 0.2rem 0 0;
+  border-left: 2px solid var(--border);
+  padding-left: 0.6rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+  overflow-wrap: break-word;
+}
+.qst-more-note {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+}
+
+.qst-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.5rem;
+  margin-top: 0.5rem;
+}
+.qst-row-label {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.qst-flags,
+.qst-related {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.qst-flag {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--muted);
+  padding: 0 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.qst-related {
+  gap: 0.25rem 0.85rem;
+  font-size: 0.875rem;
+}
+.qst-related-kind {
+  color: var(--muted-foreground);
+}
+.qst-qlink {
+  border-radius: 2px;
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--bronze) 60%, transparent);
+  text-underline-offset: 0.17em;
+}
+.qst-qlink:hover {
+  text-decoration-color: var(--primary);
+}
+.qst-qlink:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-qlink code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  overflow-wrap: anywhere;
+}
+
+/* Başka belgelerde anılma: bağ (belge ve bölüm) ve kısa alıntı. */
+.qst-mentions {
+  margin-top: 0.5rem;
+}
+.qst-mentions > ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+.qst-mention-text {
+  display: block;
+  color: var(--muted-foreground);
+  overflow-wrap: break-word;
+}
+.qst-mention-text.qst-clamp2 {
+  display: -webkit-box;
+}
+
+.qst-raw {
+  margin-top: 0.65rem;
+}
+.qst-raw pre {
+  margin: 0.3rem 0 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.qst-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  margin-top: 0.6rem;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+}
+.qst-more-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  padding: 0.1rem 0.6rem 0.1rem 0.45rem;
+  color: var(--foreground);
+  font: inherit;
+  cursor: pointer;
+}
+.qst-more-button:hover {
+  background: var(--accent);
+}
+.qst-more-button:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-more-button > svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  transition: transform 0.15s ease;
+}
+.qst-more-button[aria-expanded="true"] > svg {
+  transform: rotate(180deg);
+}
+.qst-foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 1rem;
+  margin-left: auto;
+}
+.qst-progress-links {
+  color: var(--muted-foreground);
+}
+.qst-progress-links .qst-source-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.qst-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 2px;
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--bronze) 60%, transparent);
+  text-underline-offset: 0.17em;
+}
+.qst-source-link:hover {
+  text-decoration-color: var(--primary);
+}
+.qst-source-link:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-source-link > svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.qst-source-doc {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted-foreground);
+}
+
+/* Yoldaş merdiveni: üç adım, eşik ve zaman; seçili perdedeki adım işaretlenir. */
+.qst-ladder {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.qst-ladder > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.9rem minmax(0, 1fr);
+  gap: 0.6rem;
+}
+.qst-ladder > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 1.9rem;
+  bottom: -0.55rem;
+  left: calc(0.95rem - 1px);
+  width: 2px;
+  background: var(--border);
+}
+.qst-rung {
+  display: grid;
+  width: 1.9rem;
+  height: 1.9rem;
+  place-items: center;
+  border: 1.5px solid var(--bronze);
+  border-radius: 50%;
+  background: var(--card);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.qst-ladder > li[data-current] .qst-rung {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 14%, var(--card));
+}
+.qst-rung-body {
+  min-width: 0;
+}
+.qst-rung-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.1rem 0.5rem;
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+.qst-rung-head > strong {
+  font-size: 0.85rem;
+  color: var(--foreground);
+}
+.qst-tag {
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--muted);
+  padding: 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.qst-ladder > li[data-current] .qst-tag {
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+.qst-threshold {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  padding: 0 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+.qst-rung-text {
+  margin: 0.1rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  overflow-wrap: break-word;
+}
+
+/* ---------- Boş sonuç ve uyarılar ---------- */
+.qst-empty {
+  margin-top: 1.25rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 1rem 1.15rem;
+}
+.qst-empty > h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.qst-empty > p {
+  margin: 0.35rem 0 0;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.qst-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.qst-empty-actions:empty {
+  display: none;
+}
+.qst-action-button {
+  min-height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  padding: 0.25rem 0.75rem;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.qst-action-button:hover {
+  background: var(--accent);
+}
+
+.qst-warnings {
+  margin-top: 3rem;
+  border: 1px solid color-mix(in oklab, var(--call-acik) 40%, transparent);
+  border-left: 3px solid var(--call-acik);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--call-acik) 7%, var(--card));
+  padding: 0.6rem 0.9rem 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.qst-warnings > h2 {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--call-acik);
+}
+.qst-warnings ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+.qst-warnings li {
+  overflow-wrap: break-word;
+}
+.qst-warnings li + li {
+  margin-top: 0.15rem;
+}
+.qst-warnings details {
+  margin-top: 0.35rem;
+}
+.qst-warnings summary {
+  cursor: pointer;
+  color: var(--muted-foreground);
+}
+.qst-warnings summary:focus-visible {
+  outline: 2px solid var(--qst-focus);
+  outline-offset: 2px;
+}
+.qst-generated {
+  margin: 0.75rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+}
+
+/* Telefon: sekmeler üç eşit sütun, sayı adın altında. */
+@media (max-width: 40rem) {
+  .qst-tablist {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .qst-tab,
+  .qst-tab:first-child {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0.5rem 0.25rem 0.4rem;
+    font-size: 0.92rem;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .qst-totals .qst-status-tally {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+  .qst-filter-label {
+    flex-basis: 100%;
+  }
+  .qst-act-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qst-card[data-flash] {
+    animation: none;
+  }
+  .qst-card[data-target] {
+    background: color-mix(in oklab, var(--ring) 10%, var(--card));
+  }
+  .qst-act-chevron,
+  .qst-more-button > svg {
+    transition: none;
+  }
+}

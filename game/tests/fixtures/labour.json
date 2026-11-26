@@ -1,0 +1,5977 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/labour.mjs",
+		"proto": ["src/game/labour.js"],
+		"proto_sha": {
+			"src/game/labour.js": "b041c0fbecc9e76e62119f605a710b4300b5abb5"
+		},
+		"kind": "math",
+		"tol": 1e-9,
+		"note": "Yalnız değişmeyen hesaplar (K29): tezgâh eff, ağırlık ve ustalık, ekip seçimi (W, baş, önder, usta, Mete, ham pay), K_gece, K_tok, K_hava, taşıma, dayCapacity ve restWindow. İnşaat, söküm ve onarım T(n) ile işler (K50), fikstüre girmez. dayCapacity girdisindeki classAt [[başı, sonu, sınıf], …] tablosudur (gün dakikası, [başı, sonu)); tabloda olmayan dakika «day»."
+	},
+	"constants": {
+		"DAY": 1440,
+		"REAL_S_PER_MIN": 2.5,
+		"B": 0.9,
+		"SITE_MAX": 8,
+		"NO_USTA": 0.7,
+		"LEAD_W": 0.75,
+		"ROLE_W": {
+			"usta": 1,
+			"hand": 1,
+			"apprentice": 0.75,
+			"elder": 0.5,
+			"child": 0.5,
+			"mete": 1
+		},
+		"MASTER_W_MAX": 1.25,
+		"ROLE_USTA": {
+			"usta": "own",
+			"hand": "home",
+			"apprentice": "none",
+			"elder": "own",
+			"child": "none",
+			"mete": "home"
+		},
+		"CRAFT_OF": {
+			"cr_carpenter": "wood",
+			"cr_cartwright": "wood",
+			"cr_bowyer": "wood",
+			"cr_smith": "earth",
+			"cr_earth": "earth"
+		},
+		"NIGHT": {
+			"lit": 1,
+			"day": 1,
+			"dim": 0.7,
+			"dark": 0.4,
+			"torchDarkHours": 4,
+			"fireLightPad": 4,
+			"dayLevel": 0.5,
+			"dimLevel": 0.25
+		},
+		"FED": {
+			"ok": 1,
+			"low": 0.85,
+			"hungry": 0.7,
+			"lowBelow": 35,
+			"hungryBelow": 15
+		},
+		"REPAIR": {
+			"raise": 0.8,
+			"patch": 0.6,
+			"burnt": 1.25,
+			"rerun": 0.8,
+			"tearStitch": 4
+		},
+		"DISMANTLE": 0.35,
+		"HAUL": {
+			"vLoaded": 1.4,
+			"vEmpty": 1.9,
+			"handleS": 8,
+			"cap": {
+				"adult": 20,
+				"apprentice": 14,
+				"child": 6
+			},
+			"selfR": 150,
+			"cart": {
+				"handleS": 30,
+				"speed": 6.8,
+				"capFelt": 60
+			}
+		},
+		"QUICK_RAISE": 1.4285714285714286,
+		"CAP": {
+			"build": 24,
+			"herd": 24,
+			"workshopLit": 16
+		},
+		"WINDOW": {
+			"camp": [360, 1320],
+			"kislak": [420, 1380],
+			"summer": [330, 1290],
+			"winter": [420, 1380]
+		},
+		"WEATHER": {
+			"clear": {
+				"k": 1
+			},
+			"cloud": {
+				"k": 1
+			},
+			"overcast": {
+				"k": 1
+			},
+			"fog": {
+				"k": 1
+			},
+			"wind": {
+				"k": 1
+			},
+			"drizzle": {
+				"k": 1,
+				"felt": 0.9
+			},
+			"rain": {
+				"k": 0.85,
+				"felt": 0.7
+			},
+			"sleet": {
+				"k": 0.85,
+				"felt": 0.7
+			},
+			"downpour": {
+				"k": 0.5,
+				"felt": 0,
+				"hold": ["felt"]
+			},
+			"thunderstorm": {
+				"k": 0.5,
+				"felt": 0,
+				"hold": ["felt", "tall"]
+			},
+			"dry_storm": {
+				"k": 0.9,
+				"felt": 1,
+				"hold": ["tall"]
+			},
+			"gale": {
+				"k": 0.9,
+				"felt": 0,
+				"lattice": 0.8,
+				"hold": ["felt"]
+			},
+			"snow": {
+				"k": 0.9,
+				"felt": 0.9
+			},
+			"heavy_snow": {
+				"k": 0.7,
+				"felt": 0.7
+			},
+			"hail": {
+				"k": 0,
+				"felt": 0,
+				"hold": ["all"]
+			},
+			"blizzard": {
+				"k": 0,
+				"felt": 0,
+				"hold": ["all"]
+			},
+			"kara_boran": {
+				"k": 0,
+				"felt": 0,
+				"hold": ["all"]
+			},
+			"dust_storm": {
+				"k": 0,
+				"felt": 0,
+				"hold": ["all"]
+			}
+		},
+		"RESUME_MIN": 15
+	},
+	"cases": [
+		{
+			"id": "eff/NaN",
+			"fn": "eff",
+			"in": ["nan"],
+			"out": 0
+		},
+		{
+			"id": "eff/-1",
+			"fn": "eff",
+			"in": [-1],
+			"out": 0
+		},
+		{
+			"id": "eff/0",
+			"fn": "eff",
+			"in": [0],
+			"out": 0
+		},
+		{
+			"id": "eff/0.25",
+			"fn": "eff",
+			"in": [0.25],
+			"out": 0.25
+		},
+		{
+			"id": "eff/0.5",
+			"fn": "eff",
+			"in": [0.5],
+			"out": 0.5
+		},
+		{
+			"id": "eff/0.75",
+			"fn": "eff",
+			"in": [0.75],
+			"out": 0.75
+		},
+		{
+			"id": "eff/1",
+			"fn": "eff",
+			"in": [1],
+			"out": 1
+		},
+		{
+			"id": "eff/1.25",
+			"fn": "eff",
+			"in": [1.25],
+			"out": 1.2339662821723287
+		},
+		{
+			"id": "eff/1.5",
+			"fn": "eff",
+			"in": [1.5],
+			"out": 1.4618503175453759
+		},
+		{
+			"id": "eff/1.75",
+			"fn": "eff",
+			"in": [1.75],
+			"out": 1.6838102217492383
+		},
+		{
+			"id": "eff/2",
+			"fn": "eff",
+			"in": [2],
+			"out": 1.9
+		},
+		{
+			"id": "eff/2.5",
+			"fn": "eff",
+			"in": [2.5],
+			"out": 2.315665285790838
+		},
+		{
+			"id": "eff/2.75",
+			"fn": "eff",
+			"in": [2.75],
+			"out": 2.5154291995743145
+		},
+		{
+			"id": "eff/3",
+			"fn": "eff",
+			"in": [3],
+			"out": 2.7099999999999995
+		},
+		{
+			"id": "eff/3.25",
+			"fn": "eff",
+			"in": [3.25],
+			"out": 2.8995126885595863
+		},
+		{
+			"id": "eff/4",
+			"fn": "eff",
+			"in": [4],
+			"out": 3.4390000000000005
+		},
+		{
+			"id": "eff/5",
+			"fn": "eff",
+			"in": [5],
+			"out": 4.0951
+		},
+		{
+			"id": "eff/6",
+			"fn": "eff",
+			"in": [6],
+			"out": 4.68559
+		},
+		{
+			"id": "eff/7",
+			"fn": "eff",
+			"in": [7],
+			"out": 5.2170309999999995
+		},
+		{
+			"id": "eff/8",
+			"fn": "eff",
+			"in": [8],
+			"out": 5.6953279000000006
+		},
+		{
+			"id": "eff/9",
+			"fn": "eff",
+			"in": [9],
+			"out": 6.12579511
+		},
+		{
+			"id": "eff/10",
+			"fn": "eff",
+			"in": [10],
+			"out": 6.513215599000001
+		},
+		{
+			"id": "eff/12",
+			"fn": "eff",
+			"in": [12],
+			"out": 7.175704635190001
+		},
+		{
+			"id": "eff/20",
+			"fn": "eff",
+			"in": [20],
+			"out": 8.78423345409431
+		},
+		{
+			"id": "eff/100",
+			"fn": "eff",
+			"in": [100],
+			"out": 9.999734386011127
+		},
+		{
+			"id": "weightOf/0",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "usta"
+				}
+			],
+			"out": 1
+		},
+		{
+			"id": "weightOf/1",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "hand"
+				}
+			],
+			"out": 1
+		},
+		{
+			"id": "weightOf/2",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "apprentice"
+				}
+			],
+			"out": 0.75
+		},
+		{
+			"id": "weightOf/3",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "elder"
+				}
+			],
+			"out": 0.5
+		},
+		{
+			"id": "weightOf/4",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "child"
+				}
+			],
+			"out": 0.5
+		},
+		{
+			"id": "weightOf/5",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "mete"
+				}
+			],
+			"out": 1
+		},
+		{
+			"id": "weightOf/6",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "guest"
+				}
+			],
+			"out": 1
+		},
+		{
+			"id": "weightOf/7",
+			"fn": "weightOf",
+			"in": [
+				{}
+			],
+			"out": 1
+		},
+		{
+			"id": "weightOf/8",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "usta",
+					"w": 1.25
+				}
+			],
+			"out": 1.25
+		},
+		{
+			"id": "weightOf/9",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "usta",
+					"w": 1.4
+				}
+			],
+			"out": 1.25
+		},
+		{
+			"id": "weightOf/10",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "hand",
+					"w": -0.5
+				}
+			],
+			"out": 0
+		},
+		{
+			"id": "weightOf/11",
+			"fn": "weightOf",
+			"in": [
+				{
+					"role": "child",
+					"w": 0.6
+				}
+			],
+			"out": 0.6
+		},
+		{
+			"id": "isMaster/0",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta"
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/1",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/2",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/3",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/4",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta"
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/5",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_carpenter"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/6",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_carpenter"]
+				},
+				"wood"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/7",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_carpenter"]
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/8",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_carpenter"]
+				},
+				["wood", "earth"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/9",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_carpenter"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/10",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_felter"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/11",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_felter"]
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/12",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_felter"]
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/13",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_felter"]
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/14",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_felter"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/15",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["wood"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/16",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["wood"]
+				},
+				"wood"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/17",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["wood"]
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/18",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["wood"]
+				},
+				["wood", "earth"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/19",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["wood"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/20",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_smith", "cr_bowyer"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/21",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_smith", "cr_bowyer"]
+				},
+				"wood"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/22",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_smith", "cr_bowyer"]
+				},
+				"earth"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/23",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_smith", "cr_bowyer"]
+				},
+				["wood", "earth"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/24",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "usta",
+					"crafts": ["cr_smith", "cr_bowyer"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/25",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand"
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/26",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/27",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/28",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/29",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand"
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/30",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand",
+					"crafts": ["cr_carpenter"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/31",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand",
+					"crafts": ["cr_carpenter"]
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/32",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand",
+					"crafts": ["cr_carpenter"]
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/33",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand",
+					"crafts": ["cr_carpenter"]
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/34",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "hand",
+					"crafts": ["cr_carpenter"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/35",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "apprentice",
+					"crafts": ["cr_carpenter"]
+				},
+				"home"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/36",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "apprentice",
+					"crafts": ["cr_carpenter"]
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/37",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "apprentice",
+					"crafts": ["cr_carpenter"]
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/38",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "apprentice",
+					"crafts": ["cr_carpenter"]
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/39",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "apprentice",
+					"crafts": ["cr_carpenter"]
+				},
+				["home", "wood"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/40",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder",
+					"crafts": ["cr_earth"]
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/41",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder",
+					"crafts": ["cr_earth"]
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/42",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder",
+					"crafts": ["cr_earth"]
+				},
+				"earth"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/43",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder",
+					"crafts": ["cr_earth"]
+				},
+				["wood", "earth"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/44",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder",
+					"crafts": ["cr_earth"]
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/45",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder"
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/46",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/47",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/48",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/49",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "elder"
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/50",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "child"
+				},
+				"home"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/51",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "child"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/52",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "child"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/53",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "child"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/54",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "child"
+				},
+				["home", "wood"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/55",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "mete"
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/56",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "mete"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/57",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "mete"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/58",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "mete"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/59",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "mete"
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/60",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "guest"
+				},
+				"home"
+			],
+			"out": true
+		},
+		{
+			"id": "isMaster/61",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "guest"
+				},
+				"wood"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/62",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "guest"
+				},
+				"earth"
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/63",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "guest"
+				},
+				["wood", "earth"]
+			],
+			"out": false
+		},
+		{
+			"id": "isMaster/64",
+			"fn": "isMaster",
+			"in": [
+				{
+					"role": "guest"
+				},
+				["home", "wood"]
+			],
+			"out": true
+		},
+		{
+			"id": "crewOn/camp3",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					},
+					{
+						"id": "erka",
+						"role": "usta",
+						"crafts": ["cr_felter"]
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 3,
+				"W": 2.75,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/camp3_child",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					},
+					{
+						"id": "erka",
+						"role": "usta",
+						"crafts": ["cr_felter"]
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					},
+					{
+						"id": "child",
+						"role": "child"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 4,
+				"W": 3.25,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/camp3_child_esik",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 4,
+					"child": false
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					},
+					{
+						"id": "erka",
+						"role": "usta",
+						"crafts": ["cr_felter"]
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					},
+					{
+						"id": "child",
+						"role": "child"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 3,
+				"W": 2.75,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/nine_hands_max8",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					},
+					{
+						"id": "h3",
+						"role": "hand"
+					},
+					{
+						"id": "h4",
+						"role": "hand"
+					},
+					{
+						"id": "h5",
+						"role": "hand"
+					},
+					{
+						"id": "h6",
+						"role": "hand"
+					},
+					{
+						"id": "h7",
+						"role": "hand"
+					},
+					{
+						"id": "h8",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 8,
+				"W": 8,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/twelve_hands_max12",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 12
+				},
+				[
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					},
+					{
+						"id": "h3",
+						"role": "hand"
+					},
+					{
+						"id": "h4",
+						"role": "hand"
+					},
+					{
+						"id": "h5",
+						"role": "hand"
+					},
+					{
+						"id": "h6",
+						"role": "hand"
+					},
+					{
+						"id": "h7",
+						"role": "hand"
+					},
+					{
+						"id": "h8",
+						"role": "hand"
+					},
+					{
+						"id": "h9",
+						"role": "hand"
+					},
+					{
+						"id": "h10",
+						"role": "hand"
+					},
+					{
+						"id": "h11",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 12,
+				"W": 12,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/named_master",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "nanay",
+						"role": "usta",
+						"w": 1.25
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					},
+					{
+						"id": "h3",
+						"role": "hand"
+					},
+					{
+						"id": "h4",
+						"role": "hand"
+					},
+					{
+						"id": "h5",
+						"role": "hand"
+					},
+					{
+						"id": "h6",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 8,
+				"W": 8.25,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/heavy_first",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 2
+				},
+				[
+					{
+						"id": "child",
+						"role": "child"
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					},
+					{
+						"id": "big",
+						"role": "usta",
+						"w": 1.25
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 2,
+				"W": 2.25,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/child_alone",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "child",
+						"role": "child"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 1,
+				"W": 0.5,
+				"lead": false,
+				"usta": false,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/elder_alone",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "old",
+						"role": "elder"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 1,
+				"W": 0.5,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/elder_alone_wood",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "old",
+						"role": "elder"
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 1,
+				"W": 0.5,
+				"lead": false,
+				"usta": false,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/apprentice_alone_wood",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 1,
+				"W": 0.75,
+				"lead": true,
+				"usta": false,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/hands_wood_no_master",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 6
+				},
+				[
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 3,
+				"W": 3,
+				"lead": true,
+				"usta": false,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/carpenter_wood",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 6
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 3,
+				"W": 3,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/raw_kerege_no_carpenter",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8,
+					"rawRole": "cr_carpenter"
+				},
+				[
+					{
+						"id": "erka",
+						"role": "usta",
+						"crafts": ["cr_felter"]
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 2,
+				"W": 1.75,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": false
+			}
+		},
+		{
+			"id": "crewOn/raw_kerege_carpenter",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8,
+					"rawRole": "cr_carpenter"
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					},
+					{
+						"id": "dengiz",
+						"role": "apprentice"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 2,
+				"W": 1.75,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/raw_axle_either",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 4,
+					"rawRole": ["cr_cartwright", "cr_carpenter"]
+				},
+				[
+					{
+						"id": "oktar",
+						"role": "usta",
+						"crafts": ["cr_carpenter"]
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 1,
+				"W": 1,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/raw_apprentice_cannot",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 4,
+					"rawRole": "cr_carpenter"
+				},
+				[
+					{
+						"id": "a",
+						"role": "apprentice",
+						"crafts": ["cr_carpenter"]
+					}
+				],
+				"wood"
+			],
+			"out": {
+				"heads": 1,
+				"W": 0.75,
+				"lead": true,
+				"usta": false,
+				"mete": false,
+				"raw": false
+			}
+		},
+		{
+			"id": "crewOn/mete_and_hands",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "mete",
+						"role": "mete"
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					},
+					{
+						"id": "h3",
+						"role": "hand"
+					},
+					{
+						"id": "h4",
+						"role": "hand"
+					},
+					{
+						"id": "h5",
+						"role": "hand"
+					},
+					{
+						"id": "h6",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 8,
+				"W": 8,
+				"lead": true,
+				"usta": true,
+				"mete": true,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/zero_max",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 0
+				},
+				[
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 0,
+				"W": 0,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/default_max",
+			"fn": "crewOn",
+			"in": [
+				{},
+				[
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					},
+					{
+						"id": "h2",
+						"role": "hand"
+					},
+					{
+						"id": "h3",
+						"role": "hand"
+					},
+					{
+						"id": "h4",
+						"role": "hand"
+					},
+					{
+						"id": "h5",
+						"role": "hand"
+					},
+					{
+						"id": "h6",
+						"role": "hand"
+					},
+					{
+						"id": "h7",
+						"role": "hand"
+					},
+					{
+						"id": "h8",
+						"role": "hand"
+					},
+					{
+						"id": "h9",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 8,
+				"W": 8,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/empty",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[],
+				"home"
+			],
+			"out": {
+				"heads": 0,
+				"W": 0,
+				"lead": false,
+				"usta": false,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/zero_weight_skipped",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 8
+				},
+				[
+					{
+						"id": "z",
+						"role": "hand",
+						"w": 0
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					}
+				],
+				"home"
+			],
+			"out": {
+				"heads": 1,
+				"W": 1,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "crewOn/multi_craft",
+			"fn": "crewOn",
+			"in": [
+				{
+					"max": 6
+				},
+				[
+					{
+						"id": "old",
+						"role": "elder",
+						"crafts": ["cr_smith"]
+					},
+					{
+						"id": "h0",
+						"role": "hand"
+					},
+					{
+						"id": "h1",
+						"role": "hand"
+					}
+				],
+				["wood", "earth"]
+			],
+			"out": {
+				"heads": 3,
+				"W": 2.5,
+				"lead": true,
+				"usta": true,
+				"mete": false,
+				"raw": true
+			}
+		},
+		{
+			"id": "nightK/lit",
+			"fn": "nightK",
+			"in": ["lit"],
+			"out": 1
+		},
+		{
+			"id": "nightK/day",
+			"fn": "nightK",
+			"in": ["day"],
+			"out": 1
+		},
+		{
+			"id": "nightK/dim",
+			"fn": "nightK",
+			"in": ["dim"],
+			"out": 0.7
+		},
+		{
+			"id": "nightK/dark",
+			"fn": "nightK",
+			"in": ["dark"],
+			"out": 0.4
+		},
+		{
+			"id": "nightK/dusk",
+			"fn": "nightK",
+			"in": ["dusk"],
+			"out": 1
+		},
+		{
+			"id": "nightK/null",
+			"fn": "nightK",
+			"in": [null],
+			"out": 1
+		},
+		{
+			"id": "fedK/100/null",
+			"fn": "fedK",
+			"in": [100, null],
+			"out": 1
+		},
+		{
+			"id": "fedK/35/null",
+			"fn": "fedK",
+			"in": [35, null],
+			"out": 1
+		},
+		{
+			"id": "fedK/34.999/null",
+			"fn": "fedK",
+			"in": [34.999, null],
+			"out": 0.85
+		},
+		{
+			"id": "fedK/15/null",
+			"fn": "fedK",
+			"in": [15, null],
+			"out": 0.85
+		},
+		{
+			"id": "fedK/14.999/null",
+			"fn": "fedK",
+			"in": [14.999, null],
+			"out": 0.7
+		},
+		{
+			"id": "fedK/0/null",
+			"fn": "fedK",
+			"in": [0, null],
+			"out": 0.7
+		},
+		{
+			"id": "fedK/null/null",
+			"fn": "fedK",
+			"in": [null, null],
+			"out": 1
+		},
+		{
+			"id": "fedK/NaN/null",
+			"fn": "fedK",
+			"in": ["nan", null],
+			"out": 1
+		},
+		{
+			"id": "fedK/x/null",
+			"fn": "fedK",
+			"in": ["x", null],
+			"out": 1
+		},
+		{
+			"id": "fedK/50/1",
+			"fn": "fedK",
+			"in": [50, 1],
+			"out": 1
+		},
+		{
+			"id": "fedK/10/0.9",
+			"fn": "fedK",
+			"in": [10, 0.9],
+			"out": 0.9
+		},
+		{
+			"id": "fedK/100/0.7",
+			"fn": "fedK",
+			"in": [100, 0.7],
+			"out": 0.7
+		},
+		{
+			"id": "weatherK/clear/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/clear/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"clear"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/cloud/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"cloud"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/overcast/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"overcast"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/fog/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"fog"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/wind/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"wind"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/drizzle/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"drizzle"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/rain/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"rain"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.85,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/sleet/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"sleet"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/downpour/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/downpour/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/downpour/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/downpour/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/downpour/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/downpour/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/downpour/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/downpour/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"downpour"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0.5,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/thunderstorm/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"thunderstorm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_rain"
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/dry_storm/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"dry_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "tall",
+				"reason": "lightning"
+			}
+		},
+		{
+			"id": "weatherK/gale/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/gale/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_wind"
+			}
+		},
+		{
+			"id": "weatherK/gale/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/gale/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_wind"
+			}
+		},
+		{
+			"id": "weatherK/gale/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0.8,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/gale/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_wind"
+			}
+		},
+		{
+			"id": "weatherK/gale/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0.8,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/gale/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"gale"
+			],
+			"out": {
+				"k": 0,
+				"hold": "felt",
+				"reason": "felt_wind"
+			}
+		},
+		{
+			"id": "weatherK/snow/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/snow/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"snow"
+			],
+			"out": {
+				"k": 0.9,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/heavy_snow/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"heavy_snow"
+			],
+			"out": {
+				"k": 0.7,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/hail/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/hail/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"hail"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/blizzard/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"blizzard"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/kara_boran/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"kara_boran"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/dust_storm/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"dust_storm"
+			],
+			"out": {
+				"k": 0,
+				"hold": "all",
+				"reason": "storm"
+			}
+		},
+		{
+			"id": "weatherK/unknown/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/unknown/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				"unknown"
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/0",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": false
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/1",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": false
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/2",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": false
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/3",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": false
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/4",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": false,
+					"lattice": true
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/5",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": false,
+					"lattice": true
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/6",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": false,
+					"tall": true,
+					"lattice": true
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "weatherK/null/7",
+			"fn": "weatherK",
+			"in": [
+				{
+					"felt": true,
+					"tall": true,
+					"lattice": true
+				},
+				null
+			],
+			"out": {
+				"k": 1,
+				"hold": null,
+				"reason": null
+			}
+		},
+		{
+			"id": "haulCap/0",
+			"fn": "haulCap",
+			"in": ["adult"],
+			"out": 20
+		},
+		{
+			"id": "haulCap/1",
+			"fn": "haulCap",
+			"in": ["apprentice"],
+			"out": 14
+		},
+		{
+			"id": "haulCap/2",
+			"fn": "haulCap",
+			"in": ["child"],
+			"out": 6
+		},
+		{
+			"id": "haulCap/3",
+			"fn": "haulCap",
+			"in": ["cart"],
+			"out": 60
+		},
+		{
+			"id": "haulCap/4",
+			"fn": "haulCap",
+			"in": [
+				{
+					"cart": true
+				}
+			],
+			"out": 60
+		},
+		{
+			"id": "haulCap/5",
+			"fn": "haulCap",
+			"in": [
+				{
+					"cart": true,
+					"cap": 80
+				}
+			],
+			"out": 80
+		},
+		{
+			"id": "haulCap/6",
+			"fn": "haulCap",
+			"in": [
+				{
+					"cap": 28
+				}
+			],
+			"out": 28
+		},
+		{
+			"id": "haulCap/7",
+			"fn": "haulCap",
+			"in": [28],
+			"out": 28
+		},
+		{
+			"id": "haulCap/8",
+			"fn": "haulCap",
+			"in": ["unknown"],
+			"out": 20
+		},
+		{
+			"id": "haulTrip/-5/adult",
+			"fn": "haulTrip",
+			"in": [-5, "adult"],
+			"out": 8
+		},
+		{
+			"id": "haulTrip/-5/cart",
+			"fn": "haulTrip",
+			"in": [-5, "cart"],
+			"out": 30
+		},
+		{
+			"id": "haulTrip/0/adult",
+			"fn": "haulTrip",
+			"in": [0, "adult"],
+			"out": 8
+		},
+		{
+			"id": "haulTrip/0/cart",
+			"fn": "haulTrip",
+			"in": [0, "cart"],
+			"out": 30
+		},
+		{
+			"id": "haulTrip/25/adult",
+			"fn": "haulTrip",
+			"in": [25, "adult"],
+			"out": 39.015037593984964
+		},
+		{
+			"id": "haulTrip/25/cart",
+			"fn": "haulTrip",
+			"in": [25, "cart"],
+			"out": 37.35294117647059
+		},
+		{
+			"id": "haulTrip/50/adult",
+			"fn": "haulTrip",
+			"in": [50, "adult"],
+			"out": 70.03007518796993
+		},
+		{
+			"id": "haulTrip/50/cart",
+			"fn": "haulTrip",
+			"in": [50, "cart"],
+			"out": 44.705882352941174
+		},
+		{
+			"id": "haulTrip/100/adult",
+			"fn": "haulTrip",
+			"in": [100, "adult"],
+			"out": 132.06015037593986
+		},
+		{
+			"id": "haulTrip/100/cart",
+			"fn": "haulTrip",
+			"in": [100, "cart"],
+			"out": 59.411764705882355
+		},
+		{
+			"id": "haulTrip/150/adult",
+			"fn": "haulTrip",
+			"in": [150, "adult"],
+			"out": 194.09022556390977
+		},
+		{
+			"id": "haulTrip/150/cart",
+			"fn": "haulTrip",
+			"in": [150, "cart"],
+			"out": 74.11764705882354
+		},
+		{
+			"id": "haulTrip/151/adult",
+			"fn": "haulTrip",
+			"in": [151, "adult"],
+			"out": 195.3308270676692
+		},
+		{
+			"id": "haulTrip/151/cart",
+			"fn": "haulTrip",
+			"in": [151, "cart"],
+			"out": 74.41176470588235
+		},
+		{
+			"id": "haulTrips/-1/adult",
+			"fn": "haulTrips",
+			"in": [-1, "adult"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/-1/apprentice",
+			"fn": "haulTrips",
+			"in": [-1, "apprentice"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/-1/child",
+			"fn": "haulTrips",
+			"in": [-1, "child"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/-1/cart",
+			"fn": "haulTrips",
+			"in": [-1, "cart"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/-1/0",
+			"fn": "haulTrips",
+			"in": [-1, 0],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/0/adult",
+			"fn": "haulTrips",
+			"in": [0, "adult"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/0/apprentice",
+			"fn": "haulTrips",
+			"in": [0, "apprentice"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/0/child",
+			"fn": "haulTrips",
+			"in": [0, "child"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/0/cart",
+			"fn": "haulTrips",
+			"in": [0, "cart"],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/0/0",
+			"fn": "haulTrips",
+			"in": [0, 0],
+			"out": 0
+		},
+		{
+			"id": "haulTrips/1/adult",
+			"fn": "haulTrips",
+			"in": [1, "adult"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/1/apprentice",
+			"fn": "haulTrips",
+			"in": [1, "apprentice"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/1/child",
+			"fn": "haulTrips",
+			"in": [1, "child"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/1/cart",
+			"fn": "haulTrips",
+			"in": [1, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/1/0",
+			"fn": "haulTrips",
+			"in": [1, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/6/adult",
+			"fn": "haulTrips",
+			"in": [6, "adult"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/6/apprentice",
+			"fn": "haulTrips",
+			"in": [6, "apprentice"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/6/child",
+			"fn": "haulTrips",
+			"in": [6, "child"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/6/cart",
+			"fn": "haulTrips",
+			"in": [6, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/6/0",
+			"fn": "haulTrips",
+			"in": [6, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/20/adult",
+			"fn": "haulTrips",
+			"in": [20, "adult"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/20/apprentice",
+			"fn": "haulTrips",
+			"in": [20, "apprentice"],
+			"out": 2
+		},
+		{
+			"id": "haulTrips/20/child",
+			"fn": "haulTrips",
+			"in": [20, "child"],
+			"out": 4
+		},
+		{
+			"id": "haulTrips/20/cart",
+			"fn": "haulTrips",
+			"in": [20, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/20/0",
+			"fn": "haulTrips",
+			"in": [20, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/21/adult",
+			"fn": "haulTrips",
+			"in": [21, "adult"],
+			"out": 2
+		},
+		{
+			"id": "haulTrips/21/apprentice",
+			"fn": "haulTrips",
+			"in": [21, "apprentice"],
+			"out": 2
+		},
+		{
+			"id": "haulTrips/21/child",
+			"fn": "haulTrips",
+			"in": [21, "child"],
+			"out": 4
+		},
+		{
+			"id": "haulTrips/21/cart",
+			"fn": "haulTrips",
+			"in": [21, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/21/0",
+			"fn": "haulTrips",
+			"in": [21, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/58/adult",
+			"fn": "haulTrips",
+			"in": [58, "adult"],
+			"out": 3
+		},
+		{
+			"id": "haulTrips/58/apprentice",
+			"fn": "haulTrips",
+			"in": [58, "apprentice"],
+			"out": 5
+		},
+		{
+			"id": "haulTrips/58/child",
+			"fn": "haulTrips",
+			"in": [58, "child"],
+			"out": 10
+		},
+		{
+			"id": "haulTrips/58/cart",
+			"fn": "haulTrips",
+			"in": [58, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/58/0",
+			"fn": "haulTrips",
+			"in": [58, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/59/adult",
+			"fn": "haulTrips",
+			"in": [59, "adult"],
+			"out": 3
+		},
+		{
+			"id": "haulTrips/59/apprentice",
+			"fn": "haulTrips",
+			"in": [59, "apprentice"],
+			"out": 5
+		},
+		{
+			"id": "haulTrips/59/child",
+			"fn": "haulTrips",
+			"in": [59, "child"],
+			"out": 10
+		},
+		{
+			"id": "haulTrips/59/cart",
+			"fn": "haulTrips",
+			"in": [59, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/59/0",
+			"fn": "haulTrips",
+			"in": [59, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/60/adult",
+			"fn": "haulTrips",
+			"in": [60, "adult"],
+			"out": 3
+		},
+		{
+			"id": "haulTrips/60/apprentice",
+			"fn": "haulTrips",
+			"in": [60, "apprentice"],
+			"out": 5
+		},
+		{
+			"id": "haulTrips/60/child",
+			"fn": "haulTrips",
+			"in": [60, "child"],
+			"out": 10
+		},
+		{
+			"id": "haulTrips/60/cart",
+			"fn": "haulTrips",
+			"in": [60, "cart"],
+			"out": 1
+		},
+		{
+			"id": "haulTrips/60/0",
+			"fn": "haulTrips",
+			"in": [60, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/61/adult",
+			"fn": "haulTrips",
+			"in": [61, "adult"],
+			"out": 4
+		},
+		{
+			"id": "haulTrips/61/apprentice",
+			"fn": "haulTrips",
+			"in": [61, "apprentice"],
+			"out": 5
+		},
+		{
+			"id": "haulTrips/61/child",
+			"fn": "haulTrips",
+			"in": [61, "child"],
+			"out": 11
+		},
+		{
+			"id": "haulTrips/61/cart",
+			"fn": "haulTrips",
+			"in": [61, "cart"],
+			"out": 2
+		},
+		{
+			"id": "haulTrips/61/0",
+			"fn": "haulTrips",
+			"in": [61, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/89/adult",
+			"fn": "haulTrips",
+			"in": [89, "adult"],
+			"out": 5
+		},
+		{
+			"id": "haulTrips/89/apprentice",
+			"fn": "haulTrips",
+			"in": [89, "apprentice"],
+			"out": 7
+		},
+		{
+			"id": "haulTrips/89/child",
+			"fn": "haulTrips",
+			"in": [89, "child"],
+			"out": 15
+		},
+		{
+			"id": "haulTrips/89/cart",
+			"fn": "haulTrips",
+			"in": [89, "cart"],
+			"out": 2
+		},
+		{
+			"id": "haulTrips/89/0",
+			"fn": "haulTrips",
+			"in": [89, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/146/adult",
+			"fn": "haulTrips",
+			"in": [146, "adult"],
+			"out": 8
+		},
+		{
+			"id": "haulTrips/146/apprentice",
+			"fn": "haulTrips",
+			"in": [146, "apprentice"],
+			"out": 11
+		},
+		{
+			"id": "haulTrips/146/child",
+			"fn": "haulTrips",
+			"in": [146, "child"],
+			"out": 25
+		},
+		{
+			"id": "haulTrips/146/cart",
+			"fn": "haulTrips",
+			"in": [146, "cart"],
+			"out": 3
+		},
+		{
+			"id": "haulTrips/146/0",
+			"fn": "haulTrips",
+			"in": [146, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulTrips/159/adult",
+			"fn": "haulTrips",
+			"in": [159, "adult"],
+			"out": 8
+		},
+		{
+			"id": "haulTrips/159/apprentice",
+			"fn": "haulTrips",
+			"in": [159, "apprentice"],
+			"out": 12
+		},
+		{
+			"id": "haulTrips/159/child",
+			"fn": "haulTrips",
+			"in": [159, "child"],
+			"out": 27
+		},
+		{
+			"id": "haulTrips/159/cart",
+			"fn": "haulTrips",
+			"in": [159, "cart"],
+			"out": 3
+		},
+		{
+			"id": "haulTrips/159/0",
+			"fn": "haulTrips",
+			"in": [159, 0],
+			"out": "inf"
+		},
+		{
+			"id": "haulWork/58/25/adult",
+			"fn": "haulWork",
+			"in": [58, 25, "adult"],
+			"out": 46.81804511278195
+		},
+		{
+			"id": "haulWork/58/50/adult",
+			"fn": "haulWork",
+			"in": [58, 50, "adult"],
+			"out": 84.03609022556391
+		},
+		{
+			"id": "haulWork/58/100/adult",
+			"fn": "haulWork",
+			"in": [58, 100, "adult"],
+			"out": 158.47218045112783
+		},
+		{
+			"id": "haulWork/58/150/adult",
+			"fn": "haulWork",
+			"in": [58, 150, "adult"],
+			"out": 232.9082706766917
+		},
+		{
+			"id": "haulWork/58/50/cart",
+			"fn": "haulWork",
+			"in": [58, 50, "cart"],
+			"out": 17.88235294117647
+		},
+		{
+			"id": "haulWork/89/25/adult",
+			"fn": "haulWork",
+			"in": [89, 25, "adult"],
+			"out": 78.03007518796993
+		},
+		{
+			"id": "haulWork/89/50/adult",
+			"fn": "haulWork",
+			"in": [89, 50, "adult"],
+			"out": 140.06015037593986
+		},
+		{
+			"id": "haulWork/89/100/adult",
+			"fn": "haulWork",
+			"in": [89, 100, "adult"],
+			"out": 264.1203007518797
+		},
+		{
+			"id": "haulWork/89/150/adult",
+			"fn": "haulWork",
+			"in": [89, 150, "adult"],
+			"out": 388.18045112781954
+		},
+		{
+			"id": "haulWork/89/50/cart",
+			"fn": "haulWork",
+			"in": [89, 50, "cart"],
+			"out": 35.76470588235294
+		},
+		{
+			"id": "haulWork/159/25/adult",
+			"fn": "haulWork",
+			"in": [159, 25, "adult"],
+			"out": 124.84812030075189
+		},
+		{
+			"id": "haulWork/159/50/adult",
+			"fn": "haulWork",
+			"in": [159, 50, "adult"],
+			"out": 224.09624060150378
+		},
+		{
+			"id": "haulWork/159/100/adult",
+			"fn": "haulWork",
+			"in": [159, 100, "adult"],
+			"out": 422.59248120300754
+		},
+		{
+			"id": "haulWork/159/150/adult",
+			"fn": "haulWork",
+			"in": [159, 150, "adult"],
+			"out": 621.0887218045112
+		},
+		{
+			"id": "haulWork/159/50/cart",
+			"fn": "haulWork",
+			"in": [159, 50, "cart"],
+			"out": 53.64705882352941
+		},
+		{
+			"id": "haulWork/146/25/adult",
+			"fn": "haulWork",
+			"in": [146, 25, "adult"],
+			"out": 124.84812030075189
+		},
+		{
+			"id": "haulWork/146/50/adult",
+			"fn": "haulWork",
+			"in": [146, 50, "adult"],
+			"out": 224.09624060150378
+		},
+		{
+			"id": "haulWork/146/100/adult",
+			"fn": "haulWork",
+			"in": [146, 100, "adult"],
+			"out": 422.59248120300754
+		},
+		{
+			"id": "haulWork/146/150/adult",
+			"fn": "haulWork",
+			"in": [146, 150, "adult"],
+			"out": 621.0887218045112
+		},
+		{
+			"id": "haulWork/146/50/cart",
+			"fn": "haulWork",
+			"in": [146, 50, "cart"],
+			"out": 53.64705882352941
+		},
+		{
+			"id": "haulWork/0/50/adult",
+			"fn": "haulWork",
+			"in": [0, 50, "adult"],
+			"out": 0
+		},
+		{
+			"id": "haulWork/30/40/obj",
+			"fn": "haulWork",
+			"in": [
+				30,
+				40,
+				{
+					"cap": 28
+				}
+			],
+			"out": 46.09924812030075
+		},
+		{
+			"id": "dayCapacity/build_lit",
+			"fn": "dayCapacity",
+			"in": ["build", null, true],
+			"out": 24
+		},
+		{
+			"id": "dayCapacity/build_lit_work",
+			"fn": "dayCapacity",
+			"in": ["build", null, true, "work"],
+			"out": 24
+		},
+		{
+			"id": "dayCapacity/herd",
+			"fn": "dayCapacity",
+			"in": ["herd"],
+			"out": 24
+		},
+		{
+			"id": "dayCapacity/workshop_lit",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"window": [360, 1320]
+				},
+				true
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/build_rest_lit_kislak",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"window": [420, 1380]
+				},
+				true,
+				"rest"
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/build_no_info",
+			"fn": "dayCapacity",
+			"in": ["build"],
+			"out": 24
+		},
+		{
+			"id": "dayCapacity/produce_no_info",
+			"fn": "dayCapacity",
+			"in": ["produce"],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/camp_pinned",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 47.35,
+					"dec": 7.4223,
+					"window": [360, 1320]
+				}
+			],
+			"out": 14.258335809757465
+		},
+		{
+			"id": "dayCapacity/hexi_day1",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 38.9,
+					"dec": -22.064477922501133,
+					"window": [420, 1380]
+				}
+			],
+			"out": 12.548113879170447
+		},
+		{
+			"id": "dayCapacity/class_day",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"window": [360, 1320],
+					"classAt": [
+						[0, 1440, "day"]
+					]
+				}
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/class_dark",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"window": [360, 1320],
+					"classAt": [
+						[0, 1440, "dark"]
+					]
+				}
+			],
+			"out": 6.399999999999921
+		},
+		{
+			"id": "dayCapacity/class_dim_morning",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"classAt": [
+						[0, 720, "dim"],
+						[720, 1440, "day"]
+					]
+				}
+			],
+			"out": 20.399999999999906
+		},
+		{
+			"id": "dayCapacity/class_mixed_rest",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"window": [420, 1380],
+					"classAt": [
+						[0, 480, "dark"],
+						[480, 1080, "day"],
+						[1080, 1200, "dim"],
+						[1200, 1440, "lit"]
+					]
+				},
+				false,
+				"rest"
+			],
+			"out": 14.800000000000091
+		},
+		{
+			"id": "dayCapacity/night_window_text",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": 0,
+					"window": ["20:00", "04:00"]
+				}
+			],
+			"out": 3.2
+		},
+		{
+			"id": "dayCapacity/polar_day",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 80,
+					"dec": 23.44,
+					"window": [360, 1320]
+				}
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/polar_night",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 80,
+					"dec": -23.44
+				}
+			],
+			"out": 9.6
+		},
+		{
+			"id": "dayCapacity/outdoor_winter",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": -21.46785891698521,
+					"window": [420, 1380]
+				}
+			],
+			"out": 12.413599758397671
+		},
+		{
+			"id": "dayCapacity/build_unlit_winter",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": -21.46785891698521,
+					"window": [420, 1380]
+				}
+			],
+			"out": 15.72130169657343
+		},
+		{
+			"id": "dayCapacity/build_rest_winter",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": -21.46785891698521,
+					"window": [420, 1380]
+				},
+				false,
+				"rest"
+			],
+			"out": 12.413599758397671
+		},
+		{
+			"id": "dayCapacity/workshop_lit_winter",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": -21.46785891698521,
+					"window": [420, 1380]
+				},
+				true
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/outdoor_spring",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": 8.946795323050482,
+					"window": [330, 1290]
+				}
+			],
+			"out": 14.556137825814103
+		},
+		{
+			"id": "dayCapacity/build_unlit_spring",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": 8.946795323050482,
+					"window": [330, 1290]
+				}
+			],
+			"out": 18.112275651628206
+		},
+		{
+			"id": "dayCapacity/build_rest_spring",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": 8.946795323050482,
+					"window": [330, 1290]
+				},
+				false,
+				"rest"
+			],
+			"out": 14.556137825814103
+		},
+		{
+			"id": "dayCapacity/workshop_lit_spring",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": 8.946795323050482,
+					"window": [330, 1290]
+				},
+				true
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/outdoor_summer",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": 21.703676777423844,
+					"window": [330, 1290]
+				}
+			],
+			"out": 15.153382629425266
+		},
+		{
+			"id": "dayCapacity/build_unlit_summer",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": 21.703676777423844,
+					"window": [330, 1290]
+				}
+			],
+			"out": 19.306765258850533
+		},
+		{
+			"id": "dayCapacity/build_rest_summer",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": 21.703676777423844,
+					"window": [330, 1290]
+				},
+				false,
+				"rest"
+			],
+			"out": 15.153382629425266
+		},
+		{
+			"id": "dayCapacity/workshop_lit_summer",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": 21.703676777423844,
+					"window": [330, 1290]
+				},
+				true
+			],
+			"out": 16
+		},
+		{
+			"id": "dayCapacity/outdoor_autumn",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": -9.132937737001665,
+					"window": [420, 1380]
+				}
+			],
+			"out": 12.95389695110449
+		},
+		{
+			"id": "dayCapacity/build_unlit_autumn",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": -9.132937737001665,
+					"window": [420, 1380]
+				}
+			],
+			"out": 16.707793902208977
+		},
+		{
+			"id": "dayCapacity/build_rest_autumn",
+			"fn": "dayCapacity",
+			"in": [
+				"build",
+				{
+					"lat": 43.5,
+					"dec": -9.132937737001665,
+					"window": [420, 1380]
+				},
+				false,
+				"rest"
+			],
+			"out": 12.95389695110449
+		},
+		{
+			"id": "dayCapacity/workshop_lit_autumn",
+			"fn": "dayCapacity",
+			"in": [
+				"produce",
+				{
+					"lat": 43.5,
+					"dec": -9.132937737001665,
+					"window": [420, 1380]
+				},
+				true
+			],
+			"out": 16
+		},
+		{
+			"id": "restWindow/camp/null",
+			"fn": "restWindow",
+			"in": ["camp", null],
+			"out": [360, 1320]
+		},
+		{
+			"id": "restWindow/kislak/null",
+			"fn": "restWindow",
+			"in": ["kislak", null],
+			"out": [420, 1380]
+		},
+		{
+			"id": "restWindow/camp/winter",
+			"fn": "restWindow",
+			"in": ["camp", "winter"],
+			"out": [360, 1320]
+		},
+		{
+			"id": "restWindow/own_camp/summer",
+			"fn": "restWindow",
+			"in": ["own_camp", "summer"],
+			"out": [330, 1290]
+		},
+		{
+			"id": "restWindow/own_seat/autumn",
+			"fn": "restWindow",
+			"in": ["own_seat", "autumn"],
+			"out": [420, 1380]
+		},
+		{
+			"id": "restWindow/own_seat/spring",
+			"fn": "restWindow",
+			"in": ["own_seat", "spring"],
+			"out": [330, 1290]
+		},
+		{
+			"id": "restWindow/own_seat/winter",
+			"fn": "restWindow",
+			"in": ["own_seat", "winter"],
+			"out": [420, 1380]
+		},
+		{
+			"id": "restWindow/road/null",
+			"fn": "restWindow",
+			"in": ["road", null],
+			"out": [420, 1380]
+		}
+	]
+}

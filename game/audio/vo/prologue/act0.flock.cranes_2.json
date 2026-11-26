@@ -1,0 +1,16 @@
+{
+	"id": "act0.flock.cranes_2",
+	"take": 0,
+	"seed": 1903153516,
+	"hash": "716fd16c484e",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.44,
+	"words": [
+		{"w": "One", "t0": 0.0, "t1": 0.16},
+		{"w": "day", "t0": 0.22, "t1": 0.4},
+		{"w": "we'll", "t0": 0.453, "t1": 0.72},
+		{"w": "go", "t0": 0.773, "t1": 0.88},
+		{"w": "too.", "t0": 1.0, "t1": 1.44}
+	]
+}

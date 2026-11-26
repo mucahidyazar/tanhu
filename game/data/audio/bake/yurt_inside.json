@@ -1,0 +1,19 @@
+{
+  "id": "yurt_inside",
+  "kind": "ambience",
+  "instrument": "ember",
+  "role": "yurt",
+  "fire": "assets/_free/sound/fireplace_loop/fire.wav",
+  "fire_start": 4.0,
+  "wind": "assets/_free/sound/wind_loop/wind1.wav",
+  "wind_start": 12.0,
+  "fire_db": -3,
+  "wind_db": -9,
+  "seconds": 16,
+  "fold": 2,
+  "seed": 2350,
+  "rate": 22050,
+  "loop": true,
+  "source": "code",
+  "note": "Yurdun içi (audio.md §4 «Ortam döngüleri» yurt_inside; Önsöz 7a): köze inmiş ocağın yumuşak uğultusu (fireplace_loop: OpenGameArt «Fireplace Sound Loop», pagdev, CC0; 2,6 kHz alçak geçiren) ve keçe duvarın ardındaki rüzgâr (wind_loop: OpenGameArt «wind1», lukerustltd, CC0; 450 Hz alçak geçiren: keçe tizi yutar). 22,05 kHz mono QOA, ileri döngü. Kulak onayı bekler."
+}

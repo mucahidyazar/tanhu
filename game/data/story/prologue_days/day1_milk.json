@@ -1,0 +1,450 @@
+{
+	"id": "milk",
+	"title": {
+		"tr": "Süt",
+		"en": "Milk"
+	},
+	"doc": "Önsöz «Süt» (8 Nisan MÖ 209 sabahı; K110; story.md §3 «Göl Obası'nda üç gün»; e21-atmosphere.md «Süt»; Ö1). Künay'ın vakti yakın: kımız ona güç verir, Saruk Ebe'nin sabası aç kaldı. Ana Çocuk'u uyandırır, iki tulum kısrak sütünü omuz sırığına asar; Çocuk yolu iner (yokuş, orman, açık vadi), derenin sığ geçidinden taştan taşa yavaş geçer, Kayın Obası'nda süt sabaya dökülür, saba yirmi kez çalkalanır (vuruşta E; kaçan vuruş cezasız). Koşunca süt çalkalanır ve damlar, geçitte hızlı basınca damlar: dökülen pay Saruk'un sözünü seçer (full: ≤%12, spilt). Börü ve Saruk konuşur, Künay kapıda soluklandırır; eve dönüş kararmayla kısalır, Ana kokladığı elleri söyler. Göl Obası'nda herkes işindedir: Ana kısrakları sağar, Baba keçe onarır, Ağabey atların başında, ozan kapısında kopuzunu kurar, ustalar obada; Kayın Obası'nda bir kadın kurut serer, Börü atların arasında oynar, Künay kapıda oturur.",
+	"clock": {
+		"start": "06:20",
+		"seconds_per_minute": 2.5
+	},
+	"player": {
+		"at": "gol_family_bed",
+		"pose": "sleep",
+		"yaw_deg": 0
+	},
+	"family_yurt": "open",
+	"weather": {
+		"type": "clear",
+		"snow": 0.0,
+		"mist": 0.55
+	},
+	"music": "mus_prologue_day",
+	"beds": [
+		{
+			"id": "amb_camp_spring_day",
+			"at": "gol_center",
+			"radius": 80
+		},
+		{
+			"id": "amb_birch_camp_day",
+			"at": "birch_center",
+			"radius": 60
+		},
+		{
+			"id": "amb_stream",
+			"at": "ford",
+			"radius": 28
+		}
+	],
+	"cast": {
+		"mother": {
+			"at": "gol_family_bedside",
+			"face": "gol_family_bed",
+			"work": "kneel"
+		},
+		"father": {
+			"at": "gol_felt",
+			"face": "gol_fire",
+			"work": "felt"
+		},
+		"older_brother": {
+			"at": "gol_horse_line",
+			"face": "gol_milking",
+			"work": "stand"
+		},
+		"bard": {
+			"at": "gol_bard_door",
+			"face": "gol_fire",
+			"work": "kopuz"
+		},
+		"oktar": {
+			"at": [
+				3.6,
+				-10.2
+			],
+			"face": "gol_woodpile",
+			"work": "carve"
+		},
+		"erka": {
+			"at": [
+				-11.0,
+				3.4
+			],
+			"face": "gol_fire",
+			"work": "kurut"
+		},
+		"dengiz": {
+			"at": [
+				15.6,
+				-12.2
+			],
+			"face": "gol_horse_line",
+			"work": "pick"
+		},
+		"birch_man": {
+			"at": [
+				-120,
+				122
+			],
+			"face": "gol_center",
+			"work": "stand"
+		},
+		"saruk": {
+			"at": "saba_stand",
+			"face": "birch_gate",
+			"work": "stand"
+		},
+		"birch_woman": {
+			"at": [
+				-244.6,
+				181.6
+			],
+			"face": "kurut_rack",
+			"work": "kurut"
+		},
+		"boru": {
+			"at": [
+				-234.6,
+				195.0
+			],
+			"face": "horse_tether",
+			"walk": [
+				[
+					-233.4,
+					194.4
+				],
+				[
+					-233.8,
+					200.6
+				],
+				[
+					-238.8,
+					201.2
+				],
+				[
+					-239.0,
+					193.4
+				]
+			],
+			"speed": 2.1,
+			"loop": true
+		},
+		"kunay": {
+			"at": "kunay_door",
+			"face": [
+				-239.0,
+				222.0
+			],
+			"work": "hug_knees"
+		},
+		"birch_elder": {
+			"at": [
+				-248.6,
+				199.6
+			],
+			"face": "birch_fire",
+			"work": "warm"
+		},
+		"dog_birch": {
+			"at": [
+				-246.0,
+				196.2
+			],
+			"face": "birch_fire"
+		},
+		"horse_birch_a": {
+			"at": [
+				-237.6,
+				195.2
+			],
+			"face": [
+				-234,
+				195
+			],
+			"coat": "#6b4026"
+		},
+		"horse_birch_b": {
+			"at": [
+				-237.4,
+				199.0
+			],
+			"face": [
+				-234,
+				199
+			],
+			"coat": "#c8c0b0"
+		}
+	},
+	"steps": [
+		{
+			"id": "wake",
+			"kind": "wake",
+			"lines": [
+				"act0.milk.wake"
+			],
+			"by": "mother",
+			"delay": 1.4,
+			"objective": {
+				"tr": "Uyan",
+				"en": "Wake up"
+			}
+		},
+		{
+			"id": "mother_out",
+			"kind": "cast",
+			"actions": [
+				{
+					"id": "mother",
+					"walk": [
+						"gol_family_in",
+						"gol_family_door",
+						"gol_milk_pole"
+					],
+					"speed": 1.15,
+					"work": "stand",
+					"face": "gol_family_door"
+				}
+			]
+		},
+		{
+			"id": "out",
+			"kind": "reach",
+			"target": "gol_milk_pole",
+			"radius": 2.4,
+			"objective": {
+				"tr": "Ana'nın ardından dışarı çık",
+				"en": "Follow Mother outside"
+			},
+			"hint": {
+				"tr": "Kapı ateşe bakar.",
+				"en": "The door faces the fire."
+			}
+		},
+		{
+			"id": "task",
+			"kind": "say",
+			"objective": {
+				"tr": "Ana'yı dinle",
+				"en": "Listen to Mother"
+			},
+			"lines": [
+				{
+					"line": "act0.milk.task",
+					"by": "mother"
+				},
+				{
+					"line": "act0.milk.why",
+					"by": "mother",
+					"after": 0.2
+				}
+			]
+		},
+		{
+			"id": "yoke",
+			"kind": "interact",
+			"target": "gol_milk_pole",
+			"reach": 2.0,
+			"label": {
+				"tr": "Sırığı omuzla",
+				"en": "Shoulder the yoke"
+			},
+			"objective": {
+				"tr": "Sırığı omzuna al",
+				"en": "Take the yoke on your shoulders"
+			},
+			"carry": "milk_yoke",
+			"clip": "bend_over_pick_up_m",
+			"settle_s": 1.0
+		},
+		{
+			"id": "mother_milk",
+			"kind": "cast",
+			"actions": [
+				{
+					"id": "mother",
+					"walk": [
+						"gol_family_door",
+						[
+							7.0,
+							-6.6
+						],
+						"gol_milking"
+					],
+					"speed": 1.1,
+					"work": "milk",
+					"face": "gol_horse_line"
+				}
+			]
+		},
+		{
+			"id": "carry",
+			"kind": "milk_carry",
+			"target": "saba_stand",
+			"radius": 2.6,
+			"ford": "ford",
+			"ford_radius": 3.4,
+			"objective": {
+				"tr": "Sütü Kayın Obası'na götür",
+				"en": "Take the milk to Birch Camp"
+			},
+			"hint": {
+				"tr": "Koşarsan süt çalkalanır. Geçitte taştan taşa yavaş bas.",
+				"en": "Run and the milk sloshes over. Step slowly from stone to stone at the ford."
+			},
+			"call_line": "act0.milk.ana_call",
+			"call_after_m": 9.0,
+			"road_man": {
+				"id": "birch_man",
+				"line": "act0.milk.road_man",
+				"near": 7.0,
+				"walk_to": "gol_road_start"
+			},
+			"greet": {
+				"line": "act0.milk.greet",
+				"near_point": "birch_gate",
+				"near": 14.0
+			},
+			"arrive_line": "act0.milk.arrive",
+			"full_line": "act0.milk.full",
+			"spilt_line": "act0.milk.spilt",
+			"full_max": 0.12
+		},
+		{
+			"id": "churn",
+			"kind": "milk_churn",
+			"target": "saba_stand",
+			"saba": "saba",
+			"strokes": 20,
+			"beat_s": 1.05,
+			"window_s": 0.32,
+			"objective": {
+				"tr": "Sütü sabaya dök",
+				"en": "Pour the milk into the churn"
+			},
+			"churn_objective": {
+				"tr": "Sabayı çalkala",
+				"en": "Churn the kumis"
+			},
+			"hint": {
+				"tr": "Sopa inerken E.",
+				"en": "Press E as the stick comes down."
+			},
+			"churn_line": "act0.milk.churn",
+			"done_line": "act0.milk.churn_done"
+		},
+		{
+			"id": "talk",
+			"kind": "say",
+			"objective": {
+				"tr": "Saruk'u dinle",
+				"en": "Listen to Saruk"
+			},
+			"lines": [
+				{
+					"line": "act0.milk.boru",
+					"by": "boru"
+				},
+				{
+					"line": "act0.milk.saruk_reply",
+					"by": "saruk",
+					"after": 0.2
+				},
+				{
+					"line": "act0.milk.saruk_kunay",
+					"by": "saruk",
+					"after": 0.3
+				}
+			]
+		},
+		{
+			"id": "kunay",
+			"kind": "reach",
+			"target": "kunay_door",
+			"radius": 2.8,
+			"objective": {
+				"tr": "Künay'ın yanına git",
+				"en": "Go to Kunay"
+			},
+			"hint": {
+				"tr": "Künay yurdunun kapısında oturuyor.",
+				"en": "Kunay is sitting at her door."
+			},
+			"approach_line": {
+				"line": "act0.milk.kunay_door",
+				"near": 7.0
+			}
+		},
+		{
+			"id": "kunay_talk",
+			"kind": "say",
+			"lines": [
+				{
+					"line": "act0.milk.kunay_kick",
+					"by": "kunay"
+				}
+			]
+		},
+		{
+			"id": "home_road",
+			"kind": "reach",
+			"target": "ford_east",
+			"radius": 4.0,
+			"objective": {
+				"tr": "Eve dön",
+				"en": "Go home"
+			},
+			"hint": {
+				"tr": "Yol geçitten yukarı, Göl Obası'na.",
+				"en": "The road climbs from the ford to Lake Camp."
+			}
+		},
+		{
+			"id": "home_cut",
+			"kind": "fade",
+			"to": 1.0,
+			"seconds": 0.9
+		},
+		{
+			"id": "home_place",
+			"kind": "place",
+			"at": "gol_family_door",
+			"face": "gol_family_yurt",
+			"clock": "09:10",
+			"actions": [
+				{
+					"id": "mother",
+					"at": "gol_milk_pole",
+					"face": "gol_family_door",
+					"work": "stand"
+				},
+				{
+					"id": "birch_man",
+					"hide": true
+				}
+			]
+		},
+		{
+			"id": "home_open",
+			"kind": "fade",
+			"to": 0.0,
+			"seconds": 0.9
+		},
+		{
+			"id": "home",
+			"kind": "say",
+			"lines": [
+				{
+					"line": "act0.milk.home",
+					"by": "mother"
+				}
+			]
+		},
+		{
+			"id": "rest",
+			"kind": "wait",
+			"seconds": 1.5
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"id": "act0.hearth.full",
+	"take": 0,
+	"seed": 3084619948,
+	"hash": "b7db90ac9123",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 1.92,
+	"words": [
+		{"w": "Now", "t0": 0.0, "t1": 0.32},
+		{"w": "it's", "t0": 0.4, "t1": 0.64},
+		{"w": "ready.", "t0": 0.707, "t1": 1.2}
+	]
+}

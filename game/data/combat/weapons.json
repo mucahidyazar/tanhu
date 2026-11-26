@@ -1,0 +1,39 @@
+{
+	"version": 1,
+	"doc": "Yaylar ve oklar (progression.md §7.2, §7.3; architecture.md §3.10; godot.md §3 «Dövüş»). Weapons (scripts/sim/combat/weapons.gd) okur; BowDraw ve Projectiles kullanır. Yay: dmg hasar, pull Bilek eşiği (0: okumaz), draw çekiş süresi (sn), spread yayılma (derece, tam koni), range menzil (m), sta atış başına stamina, load Yük, arrow oku, speed okun hızı (m/sn; oyuncak ok taş hızında, 14 m menzile ≈0,7 sn), arc yay yüksekliği katsayısı (tepe = arc × yatay uzaklık), min_draw bundan az gerilen kiriş bırakılmaz (kısa tıklama bu orana gerip atar), steady tam gerildikten sonra yayılmanın yarıya indiği süre (sn), hold_max kol yorulur, bu kadar tutulunca kendiliğinden bırakır (sn), cooldown sonraki çekişe kalan süre (sn), min_aim ayağının dibine atmaz (m), lock nişan noktasına bu kadar yakın hedef kilitlenir (m). Ok: mul yay hasarı çarpanı, pen zırh delme, sdmg yapıya taban, tag saldırı etiketi, blunt küt ok saplanmaz, seker ve yatar, drift rüzgârın yan ivme katsayısı (a = drift × rüzgâr), length okun boyu (m; Godot'nun çocuk ölçeğinde, kavram görseli arrow_toy).",
+	"bows": {
+		"toy_bow": {
+			"tr": "Oyuncak Yay",
+			"en": "Toy Bow",
+			"dmg": 1.0,
+			"pull": 0,
+			"draw": 0.4,
+			"spread": 6.0,
+			"range": 14.0,
+			"sta": 1.0,
+			"load": 0.3,
+			"arrow": "arrow_toy",
+			"speed": 22.0,
+			"arc": 0.06,
+			"min_draw": 0.2,
+			"steady": 1.0,
+			"hold_max": 6.0,
+			"cooldown": 0.15,
+			"min_aim": 1.6,
+			"lock": 1.6
+		}
+	},
+	"arrows": {
+		"arrow_toy": {
+			"tr": "Küt Ok",
+			"en": "Blunt Arrow",
+			"mul": 1.0,
+			"pen": 0.0,
+			"sdmg": 0.5,
+			"tag": "toy_arrow",
+			"blunt": true,
+			"drift": 0.25,
+			"length": 0.52
+		}
+	}
+}

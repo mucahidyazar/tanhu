@@ -1,0 +1,17 @@
+{
+	"id": "act0.milk.home",
+	"take": 0,
+	"seed": 1010561639,
+	"hash": "3c3bf267e49c",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 3.44,
+	"words": [
+		{"w": "Your", "t0": 0.0, "t1": 0.16},
+		{"w": "hands", "t0": 0.227, "t1": 0.56},
+		{"w": "smell", "t0": 0.613, "t1": 0.88},
+		{"w": "of", "t0": 0.933, "t1": 1.04},
+		{"w": "milk.", "t0": 1.136, "t1": 1.6},
+		{"w": "Good.", "t0": 1.936, "t1": 3.44}
+	]
+}

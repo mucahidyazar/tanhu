@@ -1,0 +1,19 @@
+{
+	"id": "act0.storm.dusk",
+	"take": 0,
+	"seed": 3182526141,
+	"hash": "bdb17ebd7858",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 2.96,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "wind's", "t0": 0.144, "t1": 0.48},
+		{"w": "turned.", "t0": 0.56, "t1": 1.12},
+		{"w": "There'll", "t0": 1.2, "t1": 1.68},
+		{"w": "be", "t0": 1.707, "t1": 1.76},
+		{"w": "a", "t0": 1.8, "t1": 1.84},
+		{"w": "blizzard", "t0": 1.92, "t1": 2.4},
+		{"w": "tonight.", "t0": 2.46, "t1": 2.96}
+	]
+}

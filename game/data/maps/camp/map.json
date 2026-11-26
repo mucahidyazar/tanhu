@@ -1,0 +1,11 @@
+{
+	"id": "camp",
+	"kind": "camp",
+	"doc": "Kamp dünyası (godot.md §4.1, §4.2; K37, K41, K106): menünün arka planı ve Serbest Gez. Göl Obası: Göl Vadisi'nde rastgele bir oba, hikâyenin dışında (K106), gece. Bellekte tek dünya durur: iç haritaya girerken bırakılır (statik önbellekler boşalır), dönüşte WorldHost onu karartma altında yeniden kurar (≤2 sn, K63, K64). Arazi, çayır ve orman tools/bake_map.gd ile pişmiştir (baked/*.res); kurulumda yüklenen varlıklar baked/preload.json'dadır, WorldHost arka planda önceden ister.",
+	"title": {"tr": "Göl Obası", "en": "Lake Camp"},
+	"subtitle": {"tr": "Bozkırda bir kamp", "en": "A camp on the steppe"},
+	"scene": "res://scenes/world/world.tscn",
+	"pin": [103.1, 47.35],
+	"bakes": ["terrain", "meadow", "forest"],
+	"preload_file": "res://data/maps/camp/baked/preload.json"
+}

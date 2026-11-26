@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/cine/prologue_birth.gd" id="1_birth"]
+[ext_resource type="Script" path="res://scripts/cine/cine_actor.gd" id="2_actor"]
+[ext_resource type="Script" path="res://scripts/cine/crane_flock.gd" id="3_cranes"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/stone_fire_pit/stone_fire_pit_1k.gltf" id="4_pit"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/moon_rock_02/moon_rock_02_1k.gltf" id="5_rock"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/wooden_bowl_01/wooden_bowl_01_1k.gltf" id="6_bowl1"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/wooden_bowl_02/wooden_bowl_02_1k.gltf" id="7_bowl2"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/carved_wooden_plate/carved_wooden_plate_1k.gltf" id="8_plate"]
+[ext_resource type="PackedScene" path="res://assets/_free/model/wooden_spoon/wooden_spoon_1k.gltf" id="9_spoon"]
+[ext_resource type="Texture2D" path="res://assets/_free/texture/rough_wood/rough_wood_diff_1k.jpg" id="15_stick"]
+[ext_resource type="Texture2D" path="res://assets/_free/texture/dirt/dirt_diff_1k.jpg" id="16_dirt"]
+[ext_resource type="PackedScene" path="res://assets/characters/lan_hatun/lan_hatun.glb" id="17_lan_hatun"]
+[ext_resource type="PackedScene" path="res://assets/characters/hereka_young/hereka_young.glb" id="18_hereka_young"]
+[ext_resource type="PackedScene" path="res://assets/characters/crowd_hun_woman/crowd_hun_woman.glb" id="19_hun_woman"]
+[ext_resource type="PackedScene" path="res://assets/characters/teoman/teoman.glb" id="20_teoman"]
+[ext_resource type="PackedScene" path="res://assets/characters/counter/counter.glb" id="21_counter"]
+[ext_resource type="PackedScene" path="res://assets/props/cradle/cradle.glb" id="22_cradle"]
+[ext_resource type="PackedScene" path="res://assets/props/cradle_bow/cradle_bow.glb" id="23_cradle_bow"]
+[ext_resource type="PackedScene" path="res://assets/props/swaddled_baby/swaddled_baby.glb" id="24_swaddled_baby"]
+
+[node name="PrologueBirth" type="Node3D"]
+script = ExtResource("1_birth")
+preloaded = Array[Resource]([ExtResource("4_pit"), ExtResource("5_rock"), ExtResource("6_bowl1"), ExtResource("7_bowl2"), ExtResource("8_plate"), ExtResource("9_spoon"), ExtResource("15_stick"), ExtResource("16_dirt"), ExtResource("17_lan_hatun"), ExtResource("18_hereka_young"), ExtResource("19_hun_woman"), ExtResource("20_teoman"), ExtResource("21_counter"), ExtResource("22_cradle"), ExtResource("23_cradle_bow"), ExtResource("24_swaddled_baby")])
+
+[node name="Camera" type="Camera3D" parent="."]
+fov = 50.0
+near = 0.05
+far = 3500.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Actors" type="Node3D" parent="."]
+
+[node name="LanHatun" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "lan_hatun"
+build_on_ready = false
+pose = &"sit"
+
+[node name="Hereka" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "hereka_young"
+build_on_ready = false
+pose = &"sit"
+
+[node name="LanWomanA" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "lan_woman_a"
+build_on_ready = false
+pose = &"sit"
+
+[node name="LanWomanB" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "lan_woman_b"
+build_on_ready = false
+pose = &"sit"
+
+[node name="Teoman" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "teoman"
+build_on_ready = false
+
+[node name="Counter" type="Node3D" parent="Actors"]
+script = ExtResource("2_actor")
+character_id = "counter"
+build_on_ready = false
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Cranes" type="Node3D" parent="."]
+script = ExtResource("3_cranes")
+spacing = 2.2
+bird_scale = 0.8
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="EmberCrackle" type="Node" parent="Sounds"]
+metadata/free_asset = "fire_crackling"
+
+[node name="YurtFire" type="Node" parent="Sounds"]
+metadata/free_asset = "fireplace_loop"
+
+[node name="YurtWind" type="Node" parent="Sounds"]
+metadata/free_asset = "wind_loop"
+
+[node name="Sheep" type="Node" parent="Sounds"]
+metadata/free_asset = "sheep_baa"
+
+[node name="Lamb" type="Node" parent="Sounds"]
+metadata/free_asset = "lamb_baa"
+
+[node name="Horse" type="Node" parent="Sounds"]
+metadata/free_asset = "horse_whinny"

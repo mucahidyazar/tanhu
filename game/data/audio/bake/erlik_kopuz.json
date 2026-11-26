@@ -1,0 +1,18 @@
+{
+  "id": "erlik_kopuz",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "mute": true,
+  "tempo": 52,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "density": 0.2,
+  "phrase": "A",
+  "position": "upper",
+  "seed": 5255,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "erlik: kopuz yalnız mute (motor 0,2), sözün altında. Önsöz'ün Erlik panosu, erlik durumu (audio.md §3: E Frigyen 52, kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

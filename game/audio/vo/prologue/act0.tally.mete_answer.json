@@ -1,0 +1,14 @@
+{
+	"id": "act0.tally.mete_answer",
+	"take": 0,
+	"seed": 4089981514,
+	"hash": "f3c82a4ae45c",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 1.12,
+	"words": [
+		{"w": "She", "t0": 0.0, "t1": 0.24},
+		{"w": "counted", "t0": 0.29, "t1": 0.64},
+		{"w": "me.", "t0": 0.72, "t1": 1.12}
+	]
+}

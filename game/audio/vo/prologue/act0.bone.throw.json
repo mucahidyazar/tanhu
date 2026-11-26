@@ -1,0 +1,17 @@
+{
+	"id": "act0.bone.throw",
+	"take": 0,
+	"seed": 3214891793,
+	"hash": "bf9f5b119d66",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 2.96,
+	"words": [
+		{"w": "White", "t0": 0.0, "t1": 0.24},
+		{"w": "bone,", "t0": 0.384, "t1": 1.04},
+		{"w": "lie", "t0": 1.24, "t1": 1.84},
+		{"w": "in", "t0": 1.893, "t1": 2.0},
+		{"w": "the", "t0": 2.02, "t1": 2.08},
+		{"w": "moonlight!", "t0": 2.144, "t1": 2.96}
+	]
+}

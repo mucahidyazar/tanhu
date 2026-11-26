@@ -1,0 +1,80 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/maps/depart_world.gd" id="1_world"]
+[ext_resource type="Script" path="res://scripts/systems/sky_rig.gd" id="2_rig"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="3_sky"]
+[ext_resource type="Texture2D" path="res://assets/_free/hdri/qwantani_sunrise_puresky/qwantani_sunrise_puresky_2k.hdr" id="4_pano"]
+[ext_resource type="PackedScene" path="res://assets/structures/yurt/yurt.glb" id="5_yurt"]
+[ext_resource type="Texture2D" path="res://assets/_free/texture/dry_ground_rocks/dry_ground_rocks_diff_1k.jpg" id="6_snow"]
+[ext_resource type="Texture2D" path="res://assets/_free/texture/dirt/dirt_diff_1k.jpg" id="7_dirt"]
+[ext_resource type="Texture2D" path="res://assets/_free/texture/burned_ground_01/burned_ground_01_diff_1k.jpg" id="8_ash"]
+[ext_resource type="PackedScene" path="res://assets/props/cradle/cradle.glb" id="9_cradle"]
+[ext_resource type="PackedScene" path="res://assets/props/cradle_bow/cradle_bow.glb" id="10_small_bow"]
+[ext_resource type="PackedScene" path="res://assets/props/swaddled_baby/swaddled_baby.glb" id="11_swaddle"]
+[ext_resource type="PackedScene" path="res://assets/props/bow/bow.glb" id="12_bow"]
+[ext_resource type="PackedScene" path="res://assets/animals/horse_brown/horse_brown.glb" id="13_horse"]
+[ext_resource type="PackedScene" path="res://assets/animals/horse_white/horse_white.glb" id="14_cart_horse"]
+[ext_resource type="PackedScene" path="res://assets/props/campfire/campfire.glb" id="15_fire"]
+[ext_resource type="PackedScene" path="res://assets/props/firewood/firewood.glb" id="16_wood"]
+[ext_resource type="PackedScene" path="res://assets/props/saddlebags/saddlebags.glb" id="17_bags"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
+shader = ExtResource("3_sky")
+shader_parameter/ambient_panorama = ExtResource("4_pano")
+
+[sub_resource type="Sky" id="Sky_predawn"]
+sky_material = SubResource("ShaderMaterial_sky")
+process_mode = 3
+radiance_size = 3
+
+[sub_resource type="Environment" id="Environment_predawn"]
+background_mode = 2
+sky = SubResource("Sky_predawn")
+ambient_light_source = 3
+ambient_light_color = Color(0.36, 0.42, 0.64, 1)
+ambient_light_sky_contribution = 0.42
+ambient_light_energy = 0.34
+reflected_light_source = 1
+tonemap_mode = 2
+tonemap_white = 6.0
+ssao_enabled = true
+ssao_radius = 1.0
+ssao_intensity = 1.1
+glow_enabled = true
+glow_intensity = 0.55
+glow_bloom = 0.04
+glow_blend_mode = 1
+glow_hdr_threshold = 1.0
+fog_enabled = true
+fog_light_color = Color(0.38, 0.44, 0.62, 1)
+fog_density = 0.0042
+fog_aerial_perspective = 0.3
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.003
+volumetric_fog_albedo = Color(0.82, 0.85, 0.95, 1)
+volumetric_fog_length = 40.0
+adjustment_enabled = true
+adjustment_contrast = 1.04
+adjustment_saturation = 1.02
+
+[node name="DepartWorld" type="Node3D"]
+script = ExtResource("1_world")
+preloaded = Array[Resource]([ExtResource("5_yurt"), ExtResource("6_snow"), ExtResource("7_dirt"), ExtResource("8_ash"), ExtResource("9_cradle"), ExtResource("10_small_bow"), ExtResource("11_swaddle"), ExtResource("12_bow"), ExtResource("13_horse"), ExtResource("14_cart_horse"), ExtResource("15_fire"), ExtResource("16_wood"), ExtResource("17_bags")])
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_predawn")
+metadata/free_asset = "qwantani_sunrise_puresky"
+
+[node name="SunLight" type="DirectionalLight3D" parent="."]
+light_color = Color(0.66, 0.74, 1, 1)
+light_energy = 0.62
+shadow_enabled = true
+shadow_blur = 1.2
+directional_shadow_mode = 1
+directional_shadow_max_distance = 70.0
+
+[node name="SkyRig" type="Node" parent="."]
+script = ExtResource("2_rig")
+initial_samples = "res://data/maps/depart_yurt/light.json"
+initial_sample = "predawn"

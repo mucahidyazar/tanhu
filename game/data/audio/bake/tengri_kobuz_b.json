@@ -1,0 +1,15 @@
+{
+  "id": "tengri_kobuz_b",
+  "kind": "music",
+  "instrument": "kobuz",
+  "variant": "bow",
+  "phrase": "tengri_b",
+  "tempo": 48,
+  "bars": 2,
+  "mode": "major_pent",
+  "seed": 4822,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "tengri: kıl kobuz, uzun gök notaları C5 A4. Önsöz'ün gök panosu, tengri durumu (audio.md §3: majör pentatonik kök F, 48; koro açık beşli D–A, kıl kobuz ana renk, hucia; kopuz yok). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

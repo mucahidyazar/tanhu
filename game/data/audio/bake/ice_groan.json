@@ -1,0 +1,12 @@
+{
+  "id": "ice_groan",
+  "kind": "ambience",
+  "instrument": "ice",
+  "seconds": 20.0,
+  "fold": 2.0,
+  "seed": 4551,
+  "rate": 22050,
+  "loop": true,
+  "note": "Buz Kolu'nun inlemesi (audio.md §4 «Ortamın saati»: ice_groan Tan ve Gece'de; act1.md §4: buz inler): piyuv, alçak inilti, çatırtı; buza yaklaştıkça duyulur. Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

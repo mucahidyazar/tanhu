@@ -1,0 +1,37 @@
+# Belge sitesi (Next.js): bağımlılıklar ve derleme çıktısı
+docs-app/node_modules/
+docs-app/.next/
+docs-app/tsconfig.tsbuildinfo
+docs-app/next-env.d.ts
+
+# API anahtarları asla depoya girmemeli
+.env
+.env.*
+
+.DS_Store
+
+# Godot'nun içe aktarma önbelleği: her makinede yeniden üretilir (.import dosyaları depodadır)
+game/.godot/
+
+# Yerel araç ve oturum klasörleri
+.claude/
+**/.claude/
+__pycache__/
+*.pyc
+
+# Yerel yedekler (iskelet düzeltmesinden önceki ham dosyalar)
+backups/
+
+# Ham Meshy indirmeleri (≈9 GB; .gdignore'lu, oyun bunları yüklemez). Depoda yalnız görev kayıtları
+# (meshy.json: klip kütüphanesi ve sınamalar okur) ve notlar kalır; API yanıtları (task_*.json) imzalı
+# indirme adresleri taşıdığı için dışarıdadır.
+game/assets/_meshy_raw/**
+!game/assets/_meshy_raw/**/
+!game/assets/_meshy_raw/.gdignore
+!game/assets/_meshy_raw/**/meshy.json
+!game/assets/_meshy_raw/**/*.md
+
+# İnceleme videolarının 100 MB'ı aşan kopyaları (oyunun kendi videoları game/assets/cine/video'da, Git LFS ile)
+docs/media/review/mit_sinemasi.mp4
+docs/media/review/mit_sinemasi_v1.mp4
+docs/media/review/kopru_1.mp4

@@ -1,0 +1,40 @@
+{
+  "id": "winter_evening_kaval_a",
+  "kind": "music",
+  "instrument": "kaval",
+  "rows": [
+    [
+      0,
+      6,
+      "B4",
+      0.8
+    ],
+    [
+      6,
+      6,
+      "A4",
+      0.78
+    ],
+    [
+      12,
+      4,
+      "G4",
+      0.72
+    ],
+    [
+      16,
+      8,
+      "F4",
+      0.82
+    ]
+  ],
+  "variant": "breath",
+  "tempo": 58,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 5811,
+  "rate": 44100,
+  "loop": false,
+  "note": "winter_evening: kaval cümlesi B A G F (motifin I. Perde biçimi A G F; K59). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "tengri_hujia_a",
+  "kind": "music",
+  "instrument": "hujia",
+  "rows": [
+    [
+      0,
+      8,
+      "C5",
+      0.85
+    ],
+    [
+      8,
+      4,
+      "D5",
+      0.7
+    ],
+    [
+      12,
+      10,
+      "A4",
+      0.85
+    ]
+  ],
+  "tempo": 48,
+  "bars": 2,
+  "mode": "major_pent",
+  "seed": 4831,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "tengri: hucia (answer katmanı: gök panosunda kopuz yoktur, satır aralarında hucia cevap verir; kıl kobuzun 6 dB üstünde). Önsöz'ün gök panosu, tengri durumu (audio.md §3: majör pentatonik kök F, 48; koro açık beşli D–A, kıl kobuz ana renk, hucia; kopuz yok). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

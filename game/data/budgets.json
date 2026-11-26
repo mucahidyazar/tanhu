@@ -1,0 +1,108 @@
+{
+	"version": 1,
+	"source": "godot.md §7.2 (K63, K3, K59, K74)",
+	"note": "Bütçe tablosunun makine kopyası. tools/check_budget.py bütçe ölçümünün (scenes/dev/budget_probe.tscn) sonucunu bu sınırlarla karşılaştırır: sınıra dek tamam, sınırın tolerance kadar üstüne dek uyarı, daha üstü hata. Tablo değişirse önce godot.md §7.2 değişir, sonra bu dosya. Kampın taban ölçümü data/budget_baseline.json'dadır.",
+	"tolerance": 0.03,
+	"reference": {
+		"device": "Apple M1 Pro",
+		"godot": "4.7.2",
+		"renderer": "Forward Plus",
+		"window": "1920x1080",
+		"scaling_3d": "FSR 1.0, 0.67",
+		"msaa_3d": "2x",
+		"vsync": false,
+		"warmup_frames": 240,
+		"measure_frames": 180
+	},
+	"metrics": {
+		"frame_ms_target": "Kare süresi hedefi (ms): pozun 180 karesinin ortalaması; üstü yalnız uyarıdır",
+		"frame_ms_limit": "Kare süresi sınırı (ms): pozun 180 karesinin ortalaması; %95'lik dilim ayrıca yazılır",
+		"script_ms": "GDScript işi (ms): ölçümde süreç adımı, karenin process_frame anından en son işlenen düğümün _process'ine dek (bütün _process işi; çizim dışında), ortalama",
+		"draw_calls_visible": "Görünür geçişin çizim emri (Viewport.get_render_info), pozdaki en büyük değer",
+		"draw_calls_shadow": "Gölge geçişinin çizim emri, pozdaki en büyük değer",
+		"triangles_visible": "Görünür geçişin üçgeni (ilkel), pozdaki en büyük değer",
+		"triangles_shadow": "Gölge geçişinin üçgeni (gölge bölümü başına yeniden sayılır), pozdaki en büyük değer",
+		"texture_mib": "Doku belleği (MiB): sahnedeki 3B malzeme dokularının ekran kartındaki boyu (biçim ve mip düzeyiyle; scripts/dev/texture_mem_probe.gd). Motorun Performance.RENDER_TEXTURE_MEM_USED sayacı Godot 4.7.2 Metal'de güvenilmez (pencere boyuna göre eksiye düşüp sarıyor): ölçümde texture_counter_mib olarak yalnız bilgi için yazılır",
+		"video_mib": "Video belleği, toplam (Performance.RENDER_VIDEO_MEM_USED, MiB)",
+		"audio_mib": "Dünya başına ses belleği (MiB; tests/unit/test_audio_budget.gd sınar)",
+		"load_s": "Yükleme (sn): kamp için kampa dönüş, iç harita için yükleme (yolculuğun altında), kalabalıkta sahne içinde 0"
+	},
+	"rows": {
+		"camp": {
+			"title": "Kamp (menü, Serbest Gez; Ev K106 ile Tanhu Kampı'nın kendi dünyasında)",
+			"frame_ms_target": 16.7,
+			"frame_ms_limit": 33.0,
+			"script_ms": 3.0,
+			"draw_calls_visible": 800,
+			"draw_calls_shadow": 600,
+			"triangles_visible": 3500000,
+			"triangles_shadow": 2500000,
+			"texture_mib": 256,
+			"video_mib": 1024,
+			"audio_mib": 26,
+			"load_s": 2.0
+		},
+		"interior": {
+			"title": "İç harita (Kışlak, yerleşim, ordugâh)",
+			"frame_ms_target": 16.7,
+			"frame_ms_limit": 28.0,
+			"script_ms": 4.0,
+			"draw_calls_visible": 900,
+			"draw_calls_shadow": 500,
+			"triangles_visible": 3000000,
+			"triangles_shadow": 1500000,
+			"texture_mib": 384,
+			"video_mib": 1024,
+			"audio_mib": 26,
+			"load_s": 6.0
+		},
+		"crowd": {
+			"title": "Kalabalık (baskın, toplantı, toplu savaş)",
+			"frame_ms_target": 20.0,
+			"frame_ms_limit": 28.0,
+			"script_ms": 5.0,
+			"draw_calls_visible": 1000,
+			"draw_calls_shadow": 500,
+			"triangles_visible": 3500000,
+			"triangles_shadow": 1500000,
+			"texture_mib": 384,
+			"video_mib": 1024,
+			"audio_mib": 26,
+			"load_s": 0.0
+		}
+	},
+	"scene": {
+		"note": "Her satırda aynı: konumsal ışık gölgeli ≤4, gölgesiz ≤32 (toplam); canlı (çalan) ses oynatıcısı ≤40.",
+		"positional_lights_shadowed": 4,
+		"positional_lights": 32,
+		"audio_players": 40
+	},
+	"audio_pools_mib": {
+		"note": "Dünya başına ses havuzları (K59); toplam havuzların toplamıdır (26 MiB).",
+		"music": 16,
+		"sfx_ambience": 8,
+		"voice": 2
+	},
+	"shares": {
+		"grass": {
+			"row": "camp",
+			"note": "Çimenin kamp karesindeki payı: sınırı yok, taban ölçümünde ayrı satır olarak yazılır (data/budget_baseline.json → grass_share)."
+		},
+		"party": {
+			"row": "interior",
+			"note": "Yoldaş partisinin payı (K74; godot.md §7.2): party11 ve party11_crowd pozlarıyla ölçülür (act-1-p5, act-2-p3).",
+			"frame_ms_mean": 16.7,
+			"frame_ms_p95": 22.0,
+			"script_ms_total": 4.0,
+			"script_ms": 1.2,
+			"follow_controllers_ms": 0.6,
+			"party_manager_ms": 0.1,
+			"strip_and_edge_ms": 0.2,
+			"lod_select_ms": 0.05,
+			"draw_calls_visible": 90,
+			"draw_calls_shadow": 60,
+			"triangles_visible": 300000,
+			"skeletons_full_update": 6
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.feast.baba_tonga",
+	"take": 0,
+	"seed": 2357443613,
+	"hash": "8c83bc1d04d5",
+	"model": "eleven_v3",
+	"voice": "FWipwLM0YqCuwisLprpU",
+	"seconds": 2.64,
+	"words": [
+		{"w": "Tonga,", "t0": 0.0, "t1": 0.96},
+		{"w": "long", "t0": 1.072, "t1": 1.52},
+		{"w": "life", "t0": 1.6, "t1": 1.92},
+		{"w": "to", "t0": 1.947, "t1": 2.0},
+		{"w": "your", "t0": 2.032, "t1": 2.16},
+		{"w": "son.", "t0": 2.24, "t1": 2.64}
+	]
+}

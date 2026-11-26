@@ -1,0 +1,16 @@
+{
+	"id": "act0.storm.ana_hand",
+	"take": 0,
+	"seed": 853010034,
+	"hash": "32d7e672de49",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 2.0,
+	"words": [
+		{"w": "Keep", "t0": 0.0, "t1": 0.24},
+		{"w": "Boru", "t0": 0.34, "t1": 0.8},
+		{"w": "by", "t0": 0.907, "t1": 1.12},
+		{"w": "your", "t0": 1.152, "t1": 1.28},
+		{"w": "side.", "t0": 1.376, "t1": 2.0}
+	]
+}

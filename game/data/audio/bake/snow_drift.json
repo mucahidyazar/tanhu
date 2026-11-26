@@ -1,0 +1,12 @@
+{
+  "id": "snow_drift",
+  "kind": "ambience",
+  "instrument": "snow",
+  "seconds": 16.0,
+  "fold": 2.0,
+  "seed": 4541,
+  "rate": 22050,
+  "loop": true,
+  "note": "Savrulan kar (act1.md §14: Kışlak'ın rüzgâr, kar ve Kara Boran döngüleri): tiz tıslama, kristal tıkırtısı; karda ve rüzgârda kabarır. Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

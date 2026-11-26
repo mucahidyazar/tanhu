@@ -1,0 +1,232 @@
+{
+	"version": 3,
+	"source": "docs/design/d2/labour-model.json v3 (2026-11-04): law, weather; structures.md §2.4; K21, K50, K52, K80, K83",
+	"doc": "Emek yasası (Labour, scripts/sim/labour/labour.gd okur). Birim: iş dakikası (İD) bir işçinin bir oyun dakikasında yaptığı iştir; 60 İD = 1 İS, 1.440 İD = 1 İG = tek işçiyle 60 gerçek dk (oyun dakikası 2,5 gerçek sn). İnşaat, söküm ve onarım K50 eğrisiyle işler: k(W) = W (W < 1), (1 / build.base)^(min(W, build.coefMax) − 1) (W ≥ 1); T(n) = taban × 0,75^(min(n, 8) − 1) gerçek dk; oran = k(W) × K_usta × K_beceri × K_gece × K_hava × K_tok × hız (İD / oyun dk). Tezgâh ve el tarifi K21 eğrisiyle kalır: eff(W) = min(W, (1 − effBase^W) / (1 − effBase)). W yapının el tavanına (crewMax) dek en ağır üyelerin ağırlık toplamıdır (roles: usta ve el 1, çırak 0,75, yaşlı ve Çocuk 0,5, adlı büyük usta ≤ roles.namedMasterMax). craftOf ekonominin zanaatçı rolünü emek zanaatına eşler (yazılmayan cr_ rolü home). dayCapacity.sunCurve güneşin ışık eğrisidir ([yükseklik°, düzey]; d2/core.md §1.8): ışıksız akşamda gece sınıfının eşikleri (night.dayLevel, night.dimLevel) bundan çözülür. Sayılar d2/labour-model.json v3 ile aynıdır (tests/unit/test_labour.gd karşılaştırır); model değişirse önce model, sonra bu dosya.",
+	"law": {
+		"dayGameMin": 1440,
+		"realSecPerGameMin": 2.5,
+		"build": {
+			"base": 0.75,
+			"coefMax": 8,
+			"appliesTo": ["build", "dismantle", "repair", "rawWork on site"],
+			"notAppliesTo": ["station", "hand recipe", "haul trips"],
+			"k_table": [[0.5, 0.5], [0.75, 0.75], [1, 1], [1.5, 1.1547], [1.75, 1.2408], [2, 1.3333], [2.5, 1.5396], [2.75, 1.6544], [3, 1.7778], [3.25, 1.9103], [4, 2.3704], [5, 3.1605], [6, 4.214], [7, 5.6187], [8, 7.4915]]
+		},
+		"effBase": 0.9,
+		"siteHeadMax": 8,
+		"stewardCrew": {
+			"rule": "fill",
+			"overflow": "next_site",
+			"playerLock": true,
+			"src": "K80"
+		},
+		"roles": {
+			"usta": 1,
+			"hand": 1,
+			"apprentice": 0.75,
+			"elder": 0.5,
+			"child": 0.5,
+			"mete": 1,
+			"namedMasterMax": 1.25
+		},
+		"roleUsta": {
+			"usta": "own",
+			"hand": "home",
+			"apprentice": "none",
+			"elder": "own",
+			"child": "none",
+			"mete": "home"
+		},
+		"craftOf": {
+			"cr_carpenter": "wood",
+			"cr_cartwright": "wood",
+			"cr_bowyer": "wood",
+			"cr_smith": "earth",
+			"cr_earth": "earth"
+		},
+		"noUstaK": 0.7,
+		"leadMinWeight": 0.75,
+		"rotation": false,
+		"night": {
+			"classes": {
+				"lit": 1,
+				"day": 1,
+				"dim": 0.7,
+				"dark": 0.4
+			},
+			"dayLevel": 0.5,
+			"dimLevel": 0.25,
+			"fireLightPad": 4,
+			"torchDarkHours": 4,
+			"torchFreeSpecs": ["camp", "scenario"],
+			"default": "work",
+			"restWindow": {
+				"camp": ["06:00", "22:00"],
+				"kislak": ["07:00", "23:00"],
+				"summer": ["05:30", "21:30"],
+				"winter": ["07:00", "23:00"]
+			}
+		},
+		"dayCapacity": {
+			"outdoorTanhuOrdu": {
+				"summer": 15.2,
+				"spring": 14.6,
+				"autumn": 13,
+				"winter": 12.4
+			},
+			"workshopLit": 16,
+			"build": 24,
+			"herding": 24,
+			"household": {
+				"summer": 47,
+				"spring": 46,
+				"autumn": 43,
+				"winter": 42
+			},
+			"pinned": {
+				"camp": 14.3,
+				"hexiDay1": 12.6
+			},
+			"sunCurve": [[6, 1], [-0.833, 0.6], [-6, 0.35], [-12, 0.05]]
+		},
+		"fed": {
+			"ok": 1,
+			"low": 0.85,
+			"hungry": 0.7,
+			"lowBelow": 35,
+			"hungryBelow": 15,
+			"pinned": {
+				"kislak": 1
+			}
+		},
+		"repair": {
+			"raise": 0.8,
+			"patch": 0.6,
+			"burnt": 1.25,
+			"skill": 0.5,
+			"rerun": 0.8,
+			"tearStitch": 4
+		},
+		"dismantle": 0.35,
+		"haul": {
+			"vLoaded": 1.4,
+			"vEmpty": 1.9,
+			"handleS": 8,
+			"cap": {
+				"adult": 20,
+				"apprentice": 14,
+				"child": 6
+			},
+			"selfHaulR": 150,
+			"cart": {
+				"handleS": 30,
+				"speed": 6.8,
+				"capFelt": 60
+			}
+		},
+		"skills": {
+			"quick_raise": {
+				"crewK": 1.4286,
+				"helpers": 1
+			},
+			"repair": {
+				"timeK": 0.5,
+				"costK": 0.25
+			},
+			"carry_pack": {
+				"haulCapAdd": 8
+			}
+		}
+	},
+	"weather": {
+		"clear": {
+			"k": 1
+		},
+		"cloud": {
+			"k": 1
+		},
+		"overcast": {
+			"k": 1
+		},
+		"fog": {
+			"k": 1
+		},
+		"wind": {
+			"k": 1
+		},
+		"drizzle": {
+			"k": 1,
+			"felt": 0.9
+		},
+		"rain": {
+			"k": 0.85,
+			"felt": 0.7
+		},
+		"sleet": {
+			"k": 0.85,
+			"felt": 0.7
+		},
+		"downpour": {
+			"k": 0.5,
+			"felt": 0,
+			"hold": ["felt"]
+		},
+		"thunderstorm": {
+			"k": 0.5,
+			"felt": 0,
+			"hold": ["felt", "tall"]
+		},
+		"dry_storm": {
+			"k": 0.9,
+			"felt": 1,
+			"hold": ["tall"]
+		},
+		"gale": {
+			"k": 0.9,
+			"felt": 0,
+			"lattice": 0.8,
+			"hold": ["felt"]
+		},
+		"snow": {
+			"k": 0.9,
+			"felt": 0.9
+		},
+		"heavy_snow": {
+			"k": 0.7,
+			"felt": 0.7
+		},
+		"hail": {
+			"k": 0,
+			"felt": 0,
+			"hold": ["all"]
+		},
+		"blizzard": {
+			"k": 0,
+			"felt": 0,
+			"hold": ["all"]
+		},
+		"kara_boran": {
+			"k": 0,
+			"felt": 0,
+			"hold": ["all"]
+		},
+		"dust_storm": {
+			"k": 0,
+			"felt": 0,
+			"hold": ["all"]
+		},
+		"resumeAfterGameHours": 0.25
+	},
+	"childHelp": {
+		"verbs": {
+			"help_tamp": ["y_site"],
+			"help_carry": ["y_bosaga", "y_uuk", "y_liner", "y_sirdak"],
+			"help_hold": ["y_kerege", "y_tuurduk"],
+			"help_tie": ["y_bag", "y_kolan"],
+			"help_heave": ["y_tunduk"],
+			"help_pull": ["y_uzuk"]
+		},
+		"count": 9,
+		"excludedSteps": ["y_esik", "y_ocak"]
+	}
+}

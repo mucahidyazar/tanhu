@@ -1,0 +1,13 @@
+{
+	"id": "prologue_days",
+	"version": 1,
+	"doc": "Önsöz'ün oynanan üç günü (E21, K110; story.md §3 «Göl Obası'nda üç gün»; docs/design/d3/e21-prologue-api.md §1). PrologueDays (scripts/story/prologue_days.gd) sırayla oynatır: her gün kara perdede kartıyla ve kayıt noktasıyla açılır, sahneleri (görevleri) sırayla oynatır; sahneler arası perde kararır, saat sahnenin başına atlar. Gün «sleep» ya da «night_end» adımıyla, son gün «cinema» adımıyla biter (sinemaya geçiş: data/cine/prologue.json 0'dan). day_n takvimin günüdür (K67: 10 Nisan MÖ 209 = 1.170, Önsöz'ün gecesi). lines: günün sözlerinin önekleri: koşucu günün başında yalnız o günün sözlerini ister (AudioManager.request_lines), gün bitince bırakır (ses havuzu gün başınadır: test_audio_budget, test_vo_budget). day1_* Ö1'in, day2_* ve day3_* Ö2'nindir.",
+	"days": [
+		{"id": "day1", "day": 1, "day_n": 1168, "date": {"tr": "8 Nisan MÖ 209 · Göl Obası", "en": "8 April 209 BC · Lake Camp"}, "lines": ["act0.milk.", "act0.storm."],
+			"scenes": ["res://data/story/prologue_days/day1_milk.json", "res://data/story/prologue_days/day1_storm.json"]},
+		{"id": "day2", "day": 2, "day_n": 1169, "date": {"tr": "9 Nisan MÖ 209 · Göl Obası", "en": "9 April 209 BC · Lake Camp"}, "lines": ["act0.lambs.", "act0.feast.", "act0.wrestle."],
+			"scenes": ["res://data/story/prologue_days/day2_lambs.json", "res://data/story/prologue_days/day2_feast.json"]},
+		{"id": "day3", "day": 3, "day_n": 1170, "date": {"tr": "10 Nisan MÖ 209 · Göl Obası", "en": "10 April 209 BC · Lake Camp"}, "lines": ["act0.hearth."],
+			"scenes": ["res://data/story/prologue_days/day3_hearth.json"]}
+	]
+}

@@ -1,0 +1,180 @@
+{
+  "id": "ibex_snort",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.45,
+  "rate": 22050,
+  "seed": 7241,
+  "loop": false,
+  "source": "code",
+  "note": "Yaban keçisinin alarmı (kurgu: ıslıklı burun soluğu; argali «taş düşer»): ürken sürü (survival.md §4.4). Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "noise",
+          "f0": [
+            [
+              0,
+              100
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.008,
+              1
+            ],
+            [
+              0.16,
+              0.4
+            ],
+            [
+              0.32,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              2200,
+              2.5,
+              1
+            ],
+            [
+              3600,
+              4,
+              0.4
+            ]
+          ],
+          "breath": 1.0,
+          "jitter": 0
+        },
+        {
+          "t": 0.01,
+          "type": "tri",
+          "f0": [
+            [
+              0,
+              1650
+            ],
+            [
+              0.192,
+              1518.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.02,
+              0.35
+            ],
+            [
+              0.192,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              1650,
+              6,
+              1
+            ]
+          ],
+          "breath": 0.1,
+          "jitter": 12
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "noise",
+          "f0": [
+            [
+              0,
+              100
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.008,
+              1
+            ],
+            [
+              0.14,
+              0.4
+            ],
+            [
+              0.28,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              2200,
+              2.5,
+              1
+            ],
+            [
+              3600,
+              4,
+              0.4
+            ]
+          ],
+          "breath": 1.0,
+          "jitter": 0
+        },
+        {
+          "t": 0.01,
+          "type": "tri",
+          "f0": [
+            [
+              0,
+              1500
+            ],
+            [
+              0.168,
+              1380.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.02,
+              0.35
+            ],
+            [
+              0.168,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              1500,
+              6,
+              1
+            ]
+          ],
+          "breath": 0.1,
+          "jitter": 12
+        }
+      ]
+    }
+  ]
+}

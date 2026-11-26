@@ -1,0 +1,297 @@
+---
+title: Yoldaşlar
+order: 25
+status: tasarim
+summary: 'Serbest dolaşımda Mete''nin yanında en çok 10 yoldaş gezer; parti Mete''nin onluğudur; kadro 12 çekirdek ve 4 konuk, 16 kişidir; her yoldaşın kendi portresinden yuvarlak kartı sol şeritte durur, ekranda görünmeyen yoldaşın kartı ekran kenarında onun yönündedir (K70–K74, K88).'
+sources:
+  - docs/design/decisions.md
+  - docs/design/companions.md
+  - docs/design/story.md
+  - docs/design/act1.md
+  - docs/design/army.md
+  - docs/design/progression.md
+  - docs/design/survival.md
+  - docs/design/godot.md
+  - docs/design/d3/register.md
+  - docs/design/d3/oyun-durumu.md
+  - docs/research/yoldaslar.md
+---
+
+## Özü
+
+[Mete](/encyclopedia/mete) II. Perde'den serbest dolaşırken yanına en çok 10 yoldaş alır. Yoldaşlar onun kendi onluğudur: Mete'yle 11 kişi. Her yoldaşın kendi portresinden küçük yuvarlak bir kartı vardır; kartlar sol kenardaki parti şeridinde durur. Ekranda görünmeyen yoldaşın kartı ekran kenarına, yoldaşın bulunduğu yöne geçer. Kadro 16 kişidir. I. Perde'de Mete rehinedir: serbest parti yoktur, yalnız köpek Ku, görev yoldaşı ve kaçış gecesinin firarileri vardır.
+
+> [!NOT]
+> «Ek olarak baldurs gate deki gibi companionlarımızda olabılecek haritada serbest dolaşıyorken yanımıza alabileceğimiz (10 companiona kadar alabiliriz ve her companionun kendi profil resminden mini dairesel kartı olacak eğer haritada gözükmüyorlarsa bu mini çeber profil resimleri gözükecek ne tarafta olduklarını belli edecek şekilde)»
+
+Tasarım isteği olduğu gibi karşılar. Sınır, parti ve kart [K70](/docs/source/design/decisions#k70), kadro ve perdeler [K71](/docs/source/design/decisions#k71), onay [K72](/docs/source/design/decisions#k72), ekran kenarı göstergesi [K73](/docs/source/design/decisions#k73), yara, Düşüş ve çizim bütçesi [K74](/docs/source/design/decisions#k74)'tür; kuralların sahip belgelere bağlandığı altı yer [K88](/docs/source/design/decisions#k88)'dir. Baldur's Gate yalnız tür örneğidir: adı, kişileri ve arayüz görünüşü alınmaz. Tanhu 1'den kişi, ad ve nesne alınmaz.
+
+## On yuva: Mete'nin onluğu
+
+- **Sınır 10, kesindir.** On yuva oyuncuya «Mete'nin Onluğu» diye görünür; Mete onların önderidir. 11. kişi yuva almaz: on birinci katılımda «Kim kalsın?» kartı açılır. Kartta partinin on kartı 2 × 5 dizilir, altlarında rol ve düğüm yazar. Konuk ve zorunlu kişi seçilemez; seçilen Ordugâh'a gider ya da bulunduğu yerde bekler, kaybolmaz. Hikâye katılımında «Vazgeç» yoktur.
+- **Yuvaları** çekirdek yoldaş, konuk ve adlı er paylaşır. Hayvan (Ku, [Karabaş](/encyclopedia/karabash), doğan, kartal) yuva tutmaz.
+- **Baş.** Bir yoldaş onluğun başı yapılır: onluğun disiplini +5, başın huyu onluğa geçer; Mete yurda girince düzeni o tutar.
+- **Er ile doldur.** Açıkken (varsayılan) boş yuvaları ordugâhtaki onluk erleri doldurur; kapalıyken ve gizlilik bölgesinde boş kalır.
+- **Dört kademe.** Çekirdek yoldaş (12 kişi) üç adımlı kişisel görev, üç kamp sahnesi, 2–3 el yazımı ikili söyleşi, sahne sesi, boyalı portre, 3B model ve rol etkisi taşır. Konuk (4 kişi) hikâyeye bağlı kısa bir görevle betikle gelir ve gider, gönderilemez. Adlı er onluğun adı bilinen eridir (I'in firarileri ve II'nin Islık atlıları, en çok 32 kayıt): huyu, okçu ya da mızrakçı rolü, 12–20 kısa sözü ve oyunun çizdiği portresi vardır, rol etkisi yoktur. Hayvanın kartı 40 px'tir; adam vurmaz, ölmez. Çekirdek ve konuk oynanışta ölmez; adlı er yalnız Düşüş'te ve sahnede ölür.
+
+## Kadro
+
+Kadro 16 kişidir: 12 çekirdek, 4 konuk. 9'u kaynakta geçen kişidir, 7'si kurgudur; yoldaş olarak kullanılmaları her satırda kurgudur. Yaş, katıldığı yıldadır ([companions.md §1.2](/docs/source/design/companions#1-2-kadro-tablosu)).
+
+| Kişi | Halkı | Rolü | Katıldığı perde ve görev | Sonu |
+|---|---|---|---|---|
+| [Uldın](/encyclopedia/uldin), 36 | Hun | Güreşçi: kısa kılıç ya da balta, Uyku Kolu; Bıçak dalının ustası | I'de görev yoldaşı ve Son Gece firarisi, II'den çekirdek | VI-a'da yüzbaşı olur ya da Sonsöz'e dek kalır |
+| [Berik](/encyclopedia/berik), 19 | Hun | Keşif eri: sapan, bıçak, pusu; Keşif Eri ustası | Berik'in Evi'nde «Masal» denip satmadıysa Son Gece firarisi, II'den çekirdek; «Gerçek» dendiyse Kışlak'ta kalır, IV'te Vadi'de bulunur | V'te hane başı ya da Sonsöz'e dek baş gözcü |
+| [Luhun](/encyclopedia/luhun), 24 | Hun | Okçu: atlı okçu, art arda iki ok | II, Gergin Yay | II'de Sevdiği'nde oyuncunun hükmüyle ölür ya da VI-a'da Jiyu'nun onluğunun onbaşısı olur |
+| [Mijia](/encyclopedia/mijia), 22 | Tunghu | İz sürücü: boynuz yay, kapan | III, Yenilenlerin Seçimi (1 Ekim 208); «Sürüsüz» seçildiyse IV'te Vuhuan haraç kervanıyla | VI-a'da Tunghu hanelerinin başı ya da Sonsöz |
+| [Dangyu](/encyclopedia/dangyu), 52 | Hun | Otacı ve ocak kamı: savaşmaz, düşeni kaldırır | IV, Ocak Kamı | VI-b'de ocağına çekilir; 186 kışı ölür (Kronik) |
+| [Loufan okçusu](/encyclopedia/loufan-archer), 31 | Loufan | Keskin nişancı: tek hedefe ağır ok | IV-B, Lung-çeng (25 Haziran 203) ya da Loufan Okçuları | Sonsöz'e dek ya da VI-a'da Loufan sancağına subay; lakabını Ordos'ta Dailin'de Mete verir: Kiriş, Gez ya da Temren |
+| [Kozı](/encyclopedia/kozi), 30 | Baiyang | At terbiyecisi ve Ordos kılavuzu: kement sırığı, kısa mızrak | IV-B, Ak Koyun; en geç Ordos görevinin başında | V sonunda ırmak otlağına döner; VI-c'de yeniden alınabilir |
+| [Kunduz](/encyclopedia/kunduz), 19 | Dingling | Avcı: avcı yayı, kapan, uzun ezgi | V, Karda Tavşan | VI-d ya da VI-e'de kuzeye döner |
+| [Zang Yan](/encyclopedia/zang-yan), 27 | Yan | Danışman: Han işleri, Han kılıcı | V, Sur mu, Teker mi | VI-b ya da VI-c'de güneye gider, dönmez |
+| [Jiyu](/encyclopedia/jiyu), 15 | Hun | Veliaht: atlı okçu | VI-a, Kurultay | Ayrılmaz, subay olmaz; Sonsöz'de Tanhu olur |
+| [Zhang Sheng](/encyclopedia/zhang-sheng), 44 | Yan | Kâtip: savaşmaz | VI-b, Kâtip (o seçilirse) | VI-d'de ocağına çekilir |
+| [Tuidang](/encyclopedia/tuidang), 24 | Han-Hun | Dilmaç: atlı okçu, Han kılıcı | V'te doğar (Yolda Doğan); VI-c, Irmağın Güneyi | 166'da halkıyla Han'a geçer («yıllar sonra» kartı) |
+| [Han Xin](/encyclopedia/han-xin), 45, konuk | Han | Komutan: Han kılıcı | V, Dönüş | 1 Aralık 201'den sonra kendi ordusuna; 13 Mart 196'da ölür (Kronik) |
+| [Wang Huang](/encyclopedia/wang-huang), 50, konuk | Han (Baitu) | Tüccar: arbalet | V, Dönüş | İki Komutan'ın sonunda ordusunu getirmeye gider, gelmez; 196'da adamları onu teslim eder (Kronik) |
+| [Xi Huqian](/encyclopedia/xi-huqian), 52, konuk | Hun | Elçi: hafif yay | VI-d, 176 Mektubu | Elçinin Yolu'nun sonunda armağanla yola çıkar |
+| [Bujiu](/encyclopedia/bujiu), 44, konuk | Usun | Koruyucu: mızrak | VI-d, Kunmo (4 Haziran 176) | Usun görevinden sonra Kunmo'nun yanında kalır |
+
+```varlik
+portrait_uldin, portrait_berik, portrait_luhun, portrait_mijia, portrait_dangyu, portrait_loufan_archer, portrait_kozi, portrait_kunduz
+portrait_zang_yan, portrait_jiyu, portrait_zhang_sheng, portrait_tuidang, portrait_han_xin, portrait_wang_huang, portrait_xi_huqian, portrait_bujiu
+```
+
+**Adlar.** Uldın ve Berik 5. yy Avrupa Hunlarının adlarıdır, Destan'da «adı sonraki Hunlardan» notunu taşır ([K37](/docs/source/design/decisions#k37)). Mijia'nın adı Xianbei kaydındandır. Loufan, Baiyang ve Dingling için kaynakta kişi adı yoktur: lakap kullanılır (Kozı «kuzu» demektir). **Tanhu 1 sınırı.** Loufan okçusu erkektir, eş adayı değildir; çocukluk arkadaşı Luhun onbaşı olarak başlamaz; yaycı ve seyis yoldaş değil ustadır; sevdiği eş [Yançi](/encyclopedia/yanchi) yoldaş olmaz. **Çekirdeğin huyu** aşağıdadır: sevdiği +1, sevmediği −1, kırmızı çizgi −3 yazar.
+
+| Yoldaş | Sever | Sevmez | Kırmızı çizgi |
+|---|---|---|---|
+| Uldın | Ganimeti paylaşmak, Geri Çekil, güreş ve Toy | Uyuyan nöbetçide durdurulmak, ganimeti alıkoymak, Yüeçi'ye yol vermek | Teslim olan Hun'u öldürmek |
+| Berik | Yakalanmadan biten gizlilik, küçük suçu bağışlamak, kurut | Yalan, gizlilikte dövüşe girmek, atmayanın başını kestirmek | Kaçanı geri getirip kestirmek |
+| Luhun | Bağışlamak, Kut eşikleri, çocukla ilgilenmek | Korku eşikleri, ganimeti alıkoymak, Kanun | Kendisi bağışlandıktan sonra başka birinin başını kestirmek |
+| Mijia | Yenilene sürüsünü bırakmak, Pay Bırak, köpeklere iyi bakmak | «Sürüsüz», aşırı av, Kan Bedeli'nde Hun töresi | Zorla Erzak |
+| Dangyu | Düşeni taşımak, Ocağa Pay ve Küle Yatır, kamı dinlemek | Düşeni bırakmak, ocak söndürmek, kamı susturmak | Erlik'in Yolu'nu ikinci kez kullanmak |
+| Loufan okçusu | Yüz yüze dövüş, Loufan'a kendi otlağını vermek | Sahte kaçış ve Geri Çekil, Han giysisi, alay | Loufan kralının otlak koşulunu reddetmek |
+| Kozı | Atı tımar etmek, Bağ yükselişi, toprağın geri sayılması | Yorgun atı dörtnala zorlamak, Han'a toprak bırakan söz | Baiyang'ın sürü çetelesini Hazine'ye yazmak |
+| Kunduz | Kurda dokunmamak, Pay Bırak, kar ve gece ateşi | Kurt öldürmek, Han ipeği, yerleşimde üç günden çok kalmak | Yanındayken kurt postu giymek |
+| Zang Yan | Surlu avlu, Han'a sert ağız, Han giysisi | Han Xin'i övmek, göçer avlu | Lu Wan'ın adamlarına parsel vermemek |
+| Jiyu | Açık söz, yay talimi, Kurultay'da adil dağıtım | Han giysisi, avluda Han ipeği dağıtmak | Yok: veliaht ayrılmaz |
+| Zhang Sheng | Yazıya saygı, yalın ağız, sığınanlara iş ve parsel | Alay ağzı, Zang Yan'ın sert ağzı | Bir elçiye ok |
+| Tuidang | Yalın ağız, Kunmo'nun sayıma alınması, iki dilde aynı söz | Han'a alay, babasını kötüleyen söz | Nan için Kanun |
+
+## Perdelere göre
+
+**I. Perde: rehinelikte yardımcılar.** Mete rehinedir: Al, Bırak, Gönder ve Görevlendir yoktur. Buyruklar yalnız Gel (Z), Kal (X) ve Bak'tır (G); Tab ad ve uzaklığı gösterir ([act1.md §9.7](/docs/source/design/act1#9-7-takipci-altyapisi)). Ku kadraj dışına ilk çıktığında tek seferlik ipucu gelir: «Ku'nun kartı onun yönündedir.» Uldın ve Berik I'de de Düşüş zarı atmaz. Ev'de firariler Mete'yle Tanhu Kampı'na gelir: II'nin onluğu onlardır.
+
+| Yardımcı | Ne zaman | Ne yapar | Sınır |
+|---|---|---|---|
+| [Ku](/encyclopedia/ku) | Gün II sabahı Sürü Okulu'ndan Gün V'e | Gel, Kal, Bak | Son Gece Mene'nin yanında kalır |
+| Görev yoldaşı | Görev süresince: Uldın Demir Diş ve Bahis'te, Berik Berik'in Evi'nde, Yuan Demir Diş'te | İzler, Dur ve İzle alır, savaşmaz | Ku'nun yanında en çok bir kişi. Kızıl Kazık'ı geçemez: geçersen 40 sn'lik sayaç ikinizi de kapsar, Kazık Atlısı ikinizi getirir |
+| Firariler | Son Gece'nin Çukur'undan Eşik'e | Kama, Çığırtkan çağrısı | En çok 10 kart (Çukur seçimiyle 9 ya da 6); 40 m'den uzaklaşan kayıptır |
+
+| Perde | Yeni gelen | Açık çekirdek, en çok | Konuk | Not |
+|---|---|---|---|---|
+| II | Uldın, Berik, Luhun; köpek Karabaş | 3 | 0 | Onluğun kalanı adlı er; Mete firarisiz kaçtıysa Uldın 4 Haziran'da kendi gelir: «Beni orada bıraktın.» |
+| III | Mijia (1 Ekim 208) | 4 | 0 | Luhun öldüyse 3 |
+| IV | Dangyu, Loufan okçusu, Kozı; Berik'in ikinci yolu; doğan | 7 | 0 | |
+| V | Zang Yan, Kunduz; Han Xin, Wang Huang; kartal | 9 | 2 | On yuva ilk kez dolar: 11 aday, biri ordugâhta bekler |
+| VI | Jiyu, Zhang Sheng, Tuidang; Xi Huqian, Bujiu | Dilime göre 3–9 | 0–2 | VI-a'da üç ayrılık (Uldın, Mijia, Luhun), VI-b'de Dangyu ve Zang Yan, VI-d'de Kunduz ve Zhang Sheng; son sayıma az yoldaş kalır |
+
+**Zorunlu ve yasak sahneler.** Zorunlu kişi partide değilse sahne onu bulunduğu yerden 3 sn karartmayla getirir; parti doluysa «Kim kalsın?» açılır. Yasak kişi sahnenin başında kendi yerine gider, sahne bitince 3 sn karartmayla döner. Zorunlu: Sevdiği'nde Luhun (üçüncü ret kararı onundur), Av'da partideki herkes (betikli), Çukur'da Uldın, Ordos görevinde Kozı, Ordos'ta Dailin'de Loufan okçusu ve Kozı, Yedi Gün'de Han Xin, Kurultay, Son Söğüt ve Son Dailin'de Jiyu, Lü'ye Mektup'ta Zhang Sheng, Irmağın Güneyi'nde Tuidang, 176 Mektubu ve Yirmi Altı'da Xi Huqian. Yasak: On Elçi'de Han Xin, Zang Yan ve Wang Huang (Han elçisi onları görmemeli), Hatun'da ve Kıl Köprü'de bütün parti. Gizli görevlerde sınır vardır: Tanhu'nun Atı 3, Tunghu Nöbeti 2, Amaga 1 yoldaş; Ordos'ta Kozı ve 1 kişi. **Partisiz kipler:** Önsöz, Çocukluk, Yola Çıkış, Ev, Serbest Gez'in Çocuk kipi ve sinemada parti yoktur, şerit gizlidir. Akan Kronik'te parti donar: yoldaki, görevdeki ve subay olan yerinde kalır.
+
+## Parti kuralları
+
+| Eylem | Nasıl | Süre ve kural |
+|---|---|---|
+| Al | Yoldaşla konuş (`E`) ya da Defter > Yoldaşlar | Hemen; yer yoksa «Kim kalsın?» |
+| Burada Bırak | Kartın bağlam menüsü | 24 oyun saati bekler, sonra kendiliğinden Ordugâh'a gider |
+| Ordugâh'a Gönder | Defter ya da «Kim kalsın?» | Atlas yolunun günü kadar; ordugâh kurulana dek (II, 2–3 Haziran) yalnız Bırak vardır |
+| Görevlendir | Yerleşimde ya da ordugâhta konuş | Hemen: usta, kâhya ya da nöbet |
+| Subay Yap | Ordugâhta Birlik Kartı | Ertesi Tan'da |
+| Çağır | Karta sağ tık ya da Defter | Aynı iç haritada hemen yürür; başka yerde haberci atlas günü kadar |
+
+Partide olmayanın bağı ne düşer ne artar; büyük hikâye seçimleri «duyulan» olarak ona da gelir.
+
+- **Usta.** Yoldaş yapısında rol etkisini verir: Uldın Talim Alanı'nda Baş Talimi ×1,25 ve Toy'da güreş moral +4; Berik Gözcü Konağı'nda görüş 400 → 500 m; Luhun Okçu Yurdu'nda ok yapımı ×1,1 (Jiyu'ya yay öğretir); Mijia ve Kunduz av kolunda verim +%20, Kunduz'la kürk +%25; Dangyu Otacı Yurdu'nda iyileşme %15 → %20/gün, yatak 8 → 10; Loufan okçusu ok yapımı ×1,15; Kozı At Hattı'nda kışın atın yağı +1/gün, tay kaybı yok; Zang Yan, Zhang Sheng ve Tuidang Elçi Yurdu'nda Han heyetine ek seçenek.
+- **Kâhya.** Ordugâhta bağı ≥6 olan çekirdek, Mete yokken ordugâhı yönetir: Azıkçı boş dönmez, ateş 10 atlıya 1 yanar, sadakat +0,1/gün (tavan 70), Gece Akını'nda savunma +2. Yerleşimin Kâhya'sı [Lan Hatun](/encyclopedia/lan-hatun) ve [Yimo](/encyclopedia/yimo)'dur ([K43](/docs/source/design/decisions#k43)).
+- **Nöbet.** Savaşan çekirdek akın hesabında 3 nöbetçi sayılır, akından ≈22 sn önce uyarır. Süre [K55](/docs/source/design/decisions#k55)'in kuralıyla sayılır, görüşün at hızına (≈9 m/sn) bölümüdür: yoldaş yerden bakar, 200 m görür; Gözcü Kulesi 300 m (≈33 sn), Gözcü Konağı 400 m (≈44 sn) görür.
+- **Öğün (K88).** Görevdeki yoldaş yerleşimde ambardan günde 1 öğün yer, hane sayılmaz; ordugâhta birliğin erzakından yer. Partideyken de onluğun erzakından günde 1 öğün eder (07:00 ve 18:00'de yarımşar).
+- **Subay.** Onbaşı II'den bağ ≥3 ister, onluğun sadakatine +2 × (bağ − 5) yazar, huyu birliğe geçer. Yüzbaşı III'ten bağ ≥6 ister, Yüzlük'e aynı kuralı ve disiplin +3 verir. Binbaşı IV'ten bağ ≥9 ister, aynı anda en çok 2 yoldaş olur, Binlik'in moral tabanına +5 verir. Konuk ve Jiyu subay olmaz. Subay partiden çıkar; ordugâhta geri çağrılınca ertesi Tan'da döner. Kişisel görevin son adımı subaylıksa (Uldın, Luhun) dönüş yoktur.
+
+**Yük ve kamp.** Her yoldaşın atının terkisi vardır (Hun Atı 40, deve 60, katır 40 Yük): Topla buyruğuyla toplanan oraya girer, yerleşimde ve ordugâhta kendiliğinden Ambar'a boşalır. Savaş ganimetinde parti bir onluk sayılır; «Paylaş» ya da «Alıkoy» yoldaşlara da yazar. Giyim ve silah perdeyle değişir, oyuncu kuşandırmaz. Parti yanındayken [Tek Gecelik Kamp](/docs/gameplay/overnight-camp) küçük bir sefer ordugâhıdır (K88): yoldaşlar 1–4 kişiye 1, 5–10 kişiye 2 çadır kurar, nöbeti sırayla tutar, Uyku Zarı düşman zonunda da atılmaz.
+
+## Kişisel görevler
+
+Her çekirdek yoldaşın üç adımlı bir görevi vardır. Adım n, n. düğümü ister (bağ ≥3, ≥6, ≥9). Adım bağ +1, son adım +2 verir; XP vermez (K88): II–VI'nın XP bütçesi görev listesine bağlıdır, kişisel görev ise oyuncudan oyuncuya 0 ile 36 adım arasında değişir. Tarihli adımda yoldaş orada değilse ya da düğüm eşiğin altındaysa adım «kaçtı» yazar, görev sonraki adımdan sürer. Konukların görevleri yan görevdir: Kralın Kuşkusu, İki Komutan, Elçinin Yolu, Usun ([story.md §14.4](/docs/source/design/story#14-4-yoldaslarin-kisisel-gorevleri-k71-k72)).
+
+| Yoldaş | Görev | 1. adım | 2. adım | 3. adım (son) |
+|---|---|---|---|---|
+| Uldın | Sekiz Kış | II, Islık Ordugâhı: onluğun başı olmak ister | IV, Çukur: Palak'ı ister (Kan, Güreş, Bırak) | VI-a, Lung-çeng: kurtulanların Yüzlük'üne yüzbaşı |
+| Berik | Görmediği Ev | II, Kendi Ocağın: anlatılan yurtla gerçek yurt | IV: Sarva'yı ister | V: kendi Hane Yurdu; hane başı ya da baş gözcü |
+| Luhun (bağışlandıysa) | Gergin Yay | II sonu: Yançi'nin gergin yayını tutar | III ya da IV: Jiyu'ya yay öğretir (üç oyun günü) | VI-a, Kurultay: yayı Jiyu'ya verir, onun onbaşısı olur |
+| Mijia | Kızıl Dağ | III sonu: ölü kocası için süslü köpek | IV: Vuhuan haracını yılda 20 deriden 10'a indirmek | VI-a: Tunghu hanelerinin başı |
+| Dangyu | Al Karısı | IV: «Loğusa boğuluyor» olayı | V, Yolda Doğan: Tuidang'ın doğumu | VI-a: ardılı [Liuli](/encyclopedia/liuli)'yi yetiştirir, VI-b sonunda çekilir |
+| Loufan okçusu | Bakış | IV-B: Guangwu'yu anlatır; o güne dek seçkin düşmana bakınca 2 sn donar | Ordos'ta Dailin: lakap | V, Yedi Gün: Han sancağına ok; donması kalkar |
+| Kozı | Meng Tian'ın Kazıkları | IV-B: dört Ç'in sınır kazığı sökülür | Ordos'ta Dailin: ailesinin atları sayılır (+2 kısrak) | V, Dört Yel: atları renge göre ayırır |
+| Kunduz | Uzun Ezgi | V: gece ateşinde ezgi | VI-a: ninesi Dingling ozanı | VI-d ya da VI-e, Hangay: samurdan sonra kuzeye |
+| Zang Yan | Yan'ın Ölüsü | V: Han Xin'le çatışma | VI-b: Zhang Sheng'i kâtip adayı getirir | VI-b, Lü'ye Mektup: güneye izin ister |
+| Jiyu | Çetele | VI-a: 24 sancağı Tuçi'yle sayar | VI-c, Hüküm: Nan için Kefil | VI-e, Son Söğüt: çetele ona verilirse |
+| Zhang Sheng | İki Efendi | VI-b: Lu Wan'ın buyruğunu çiğneyişi | Lü'ye Mektup: yazar | VI-d, 176 Mektubu: fırçayı Tuidang'a verir |
+| Tuidang | İki Ad | VI-c: babasının ölümü (13 Mart 196) | VI-d: 176 mektubunun kâtibi | VI-e, Wen'in Cevabı: Han giysisi mi, Hun kaftanı mı |
+
+## Onay ve güven
+
+Yeni onay ölçeği yoktur: I. Perde'nin Yakınlık ekseni (bağ, 0–10) II'den yoldaşın onayıdır. Defter sayı göstermez, düğüm gösterir. Mete'nin eylemini yalnız 40 m içindeki ve partideki yoldaş görür; büyük hikâye seçimleri bütün tanınan yoldaşlara ×0,5 ile ve tek satırla gelir. Herkes için: ant tutulunca +0,5, bozulunca −1; düşeni taşıyınca +0,5, bırakınca −0,5; ganimet paylaşılınca +0,5, alıkonunca −0,5; teslim olanı öldürünce −1. Kişiye göre: sevdiği +1, sevmediği −1, büyük sahne ±2, kırmızı çizgi −3. Armağan iki oyun gününde bir verilir (+0,5, sevdiği +1; perde başına en çok +2). Tekrarlanan eylem yoldaş başına günde bir sayılır. Söz ≥9 ise yeni yoldaş +2 ile başlar.
+
+| Düğüm | Bağ | Açılan |
+|---|---|---|
+| 0 | <3 | Yalnız buyruk; söyleşi yok; ayrılık denetimi işler |
+| 1 | 3–5,9 | Kamp sahnesi 1, kişisel görev adımı 1, onbaşılık |
+| 2 | 6–8,9 | Sahne 2, adım 2, yüzbaşılık, ordugâh kâhyalığı; yakın dövüşte önce Mete'nin çevresini korur |
+| 3 | ≥9 | Sahne 3, adım 3, binbaşılık; Mete'nin Can'ı %25'in altına inince araya girer; ilk kırmızı çizgi affedilir |
+
+- **Söyleşi.** Binekte de olur; savaşta, gizlilikte, sinemada ve başka ses çalarken olmaz. Aralık en az 4 gerçek dk, aynı ikili için en az 6 dk. Ateş başında Dinlen'le gecede en çok bir kamp sahnesi gelir: önce kişisel görev adımı, sonra son olaya tepki, çatışma, ikili söyleşi. Kartta üç nokta rozeti sahnenin hazır olduğunu söyler.
+- **Uyarı ve ayrılık.** Bağ 3'ün altına inince düğüm gevşer; ≤2 iken ateş başında yüzleşme gelir: Dinle (+0,5), Sus (−0,5), Söz ver (Söz ≥7; +1, bozulursa −2). Ayrılık bağ ≤1 ve bir kırmızı çizgiyle, bağ 0'la ya da iki kırmızı çizgiyle gelir: ertesi Tan'da bir sahneyle yoldaş halkının yerine gider. Perde başına bir kez geri kazanılır: 40 Kıymetlik armağan ve Söz ≥5 ya da Kut ≥10; döner, bağ 3 olur. İki çizgiden sonra dönmez. Konuk ve Jiyu ayrılmaz: bağ ≤1 iken partiye girmez, zorunlu sahnede gelir.
+- **Çatışma ve dostluk.** 12 ikili el yazımıdır: 7 çatışma (Uldın ile Mijia, Uldın ile Luhun, Loufan okçusu ile Uldın, Han Xin ile Zang Yan, Kozı ile Loufan okçusu, Mijia ile Kunduz, Jiyu ile Tuidang) ve 5 dostluk (Uldın ile Berik, Luhun ile Jiyu, Dangyu ile Kunduz, Zang Yan ile Zhang Sheng, Zhang Sheng ile Tuidang). Çatışma sahnesi ikisi partideyken ve ikisinin bağı ≥3 iken bir kez gelir: taraf tutmak birine +1, ötekine −1; Barıştır (Söz ≥7 ya da Kut ≥10) ikisine +0,5, tutmazsa −0,5. Kıskançlık yalnız çatışan ikililerde ve üç tetikte gelir (baş seçmek, subay yapmak, taraf tutmak): geride kalan −0,5 alır. Partiye almamak kıskançlık yaratmaz.
+- **Kut ve Korku.** Kut eşiklerinin (10, 14, 20, 24, 30) ilk geçilişi Luhun, Dangyu, Kunduz, Tuidang ve Bujiu'ya +0,5; Korku eşiklerinin (10, 14, 18, 22, 28) ilk geçilişi Luhun, Dangyu, Mijia, Kunduz ve Zhang Sheng'e −0,5 yazar. Kut ≥14'te ayrılık eşiği bağ ≤0,5'e iner ([Seviye ve Gelişim](/docs/gameplay/progression#kut-ve-korku)).
+
+## Buyruklar ve diziliş
+
+Buyruk seçili yoldaşlara gider, seçim yoksa bütün partiye. Bütün tuşlar yeniden atanır ve kaydedilir ([K39](/docs/source/design/decisions#k39)).
+
+| Buyruk | Tuş | Oyun kolu | Ne yapar | Açılış |
+|---|---|---|---|---|
+| İzle | Z | D-pad ↑ | Yuvaya döner, izler | I (Ku), II |
+| Dur | X kısa | D-pad ↓ | Bulunduğu yerde durur | I (Ku), II |
+| Burayı Tut | X 0,4 sn basılı | Halka | 40 m içindeki noktada düzeni kurar, saldırana karşılık verir | II |
+| Saldır | V, fare noktası | D-pad → | Nokta ya da 60 m içindeki en yakın düşman; Mete'den en çok 120 m | II |
+| Geri Çekil | Shift + Z | Halka | Savaşı bırakır, Mete'nin 25 m gerisine çekilir; moral düşmez | II |
+| Topla, Avla, İz Sür, Gizlen | 7, 8, 9, 0 | Halka | 30 m içinde toplar; 120 m içinde küçük ve orta av vurur; en iyi iz sürücü izi 400 m'ye dek önden yürütür; 12 m içinde sipere girer, görülme ×0,5 | II |
+| Düzen | B | LB | Kipe göre döner (aşağıda) | II |
+| Islık | R | RT | Okçu yoldaş ıslığın gösterdiğine atar | II |
+| Seç | F1–F10; H hepsi; Shift ile ekle | Halkada sağ çubuk | Aç ve kapa | II |
+| Buyruk Halkası, Bilgi | N basılı; Tab basılı | View basılı | Bütün buyruklar; kartlarda ad ve uzaklık | II; Tab I'den |
+
+Çığırtkan çağrısı 300 m içindeki herkesi sese getirir: I. Perde'de `Q`'dadır, II'den `Q` hızlı silahtır ve Çığırtkan Çubuk'un 6. yuvasına geçer; oyun kolunda RB kalır ([K82](/docs/source/design/decisions#k82)). Çoğu Mac klavyesinde F1–F10 ortam tuşudur: şerit kartına tıklamak her zaman seçer, parti ilk kurulduğunda tek seferlik ipucu çıkar.
+
+- **Düzenler.** Kama, saf ve hilal ordunun on yuvalı düzenleridir ([Ordu](/docs/gameplay/army)). Gevşek yayadır: Mete'nin ardında iki yay, 150°; iç yayda 2,4 m'de 4, dış yayda 4,2 m'de 6 yuva; en yakın iki yuva 1,8 m; yoldaş Mete'ye ya da 8 m içindeki ateşe, tezgâha, konuşana bakar. Kol tek sıradır, Mete'nin izinde: yayada 1,8 m, atlıda 4,2 m arayla; 6 m'den dar geçitte kendiliğinden kurulur. Kendiliğinden seçim: atlı ve açık arazide kama, yerleşimde ve kampta gevşek, dar yerde kol.
+- **Düzen buyruğu (K88).** B II'de açılır ve kipe göre döner: yayada gevşek → kama → kol, atlıda kama → saf → hilal. Saf ve hilal Buyruk dalının becerileriyle döngüye girer, o güne dek atlı döngü yalnız kamadır. Baş öndedir, savaşmayanlar (Dangyu, Zhang Sheng, Wang Huang) arkadadır, okçular hilalin boynuzlarındadır.
+- **Yetişme.** Yuvaya ≤25 m yoldaş izler; 25–60 m'de ×1,25 hızla yetişir; 60 m'den uzak ve 2 sn kadraj dışındaysa yuvanın yanına sıçrar; 300 m'den uzak ya da başka haritadaysa «geride kaldı» olur, yol ağzından atla gelir. Kadrajda ışınlanma yoktur. Kamera parti için uzaklaşmaz: varsayılan 28 m kalır ([Kamera ve Kontroller](/docs/gameplay/camera-controls)).
+- **Gizlilik.** Gizlilik bölgesine en çok 3 yoldaş girer: seçililer, yoksa Berik, Mijia, Kunduz, Loufan okçusu. İzleyen yoldaş çömelmeyi kopyalar; saldırmadıkça, Mete görülmedikçe ve alarm yokken nöbet onu görmez.
+- **Binme ve ateş.** Mete binince yoldaşlar 0,3–1,2 sn arayla biner; Mete yurda girince kapıda bekler; ateş başında 3–5 m'lik halkada oturur, moral +1/dk.
+
+## Dövüş
+
+Rol etkisi yoldaş partideyken, ayaktayken ve Ağır Yaralı değilken işler; aynı rol üst üste binmez.
+
+| Yoldaş | Rol | Dövüş | Parti etkisi |
+|---|---|---|---|
+| Uldın | Güreşçi | Yakın; Uyku Kolu 2,2 sn'de bayıltır | Toy'da moral +4; Mete'nin Uyku Kolu 1,8 sn |
+| Berik | Keşif eri | Sapan, bıçak, pusu | Gizlilik bölgesine girişte en yakın 2 nöbetçinin konisi 20 sn görünür |
+| Luhun | Okçu | Atlı okçu, art arda iki ok | Islıktan sonra yoldaş oklarının saçılımı −%15 |
+| Mijia | İz sürücü | Boynuz yay, kapan | 60 m içindeki izler zemine ve haritaya düşer, yaşı okunur |
+| Dangyu | Otacı | Savaşmaz, 10 m geride | Sargı 4 → 2 sn, Kaldır 3 → 1,5 sn; ateş başında 3 oyun saatinde bir Yara −1 |
+| Loufan okçusu | Keskin nişancı | 2,5 sn'de bir nişanlı ok, hasar ×1,5 | Yoldaş okçularında menzil +%10 (Hun yayı 40 → 44 m) |
+| Kozı | At terbiyecisi | Kement sırığı atlıyı düşürür, kısa mızrak | Parti atlarının yorgunluğu ×0,9; gök gürültüsü ürkmesi ×0,5 |
+| Kunduz | Avcı | Avcı yayı, kapan; karda hız cezası yarı | Av izi 80 m'den görünür; av verimi +%15 |
+| Zang Yan | Danışman | Han kılıcı; atta yakın dövüş −%20 | Han elçi ve kurul sahnesinde ek seçenek |
+| Jiyu | Veliaht | Atlı okçu | Onluğun moral tabanı +10 |
+| Zhang Sheng | Kâtip | Savaşmaz | Mektup ve heyette ek ağız; Han satıcısıyla takas −%5 |
+| Tuidang | Dilmaç | Atlı okçu, Han kılıcı | Han ve Yüeçi ağzında ek seçenek; söylenti +1 |
+| Han Xin | Komutan | Han kılıcı | Han birliklerinin saldırı çizimi 0,2 sn erken görünür |
+| Wang Huang | Tüccar | Arbalet | Takas −%5; kervan kartında +1 mal |
+| Xi Huqian | Elçi | Hafif yay | Atlas yol olayı %25 → %20 |
+| Bujiu | Koruyucu | Mızrak | 4 m içindeyken Mete'nin aldığı yakın dövüş hasarı ×0,9 |
+
+- **Hedef sırası.** Önce ıslık: okçu yoldaş ıslığın gösterdiğine atar. Ok partideki birini gösterirse o kişi korumalıdır: oklar 3 m kısa düşer, Korku +1, gösterilen yoldaşın bağı −1 (K88). Sonra Mete'yi nişan alan ya da ona yanaşan düşman (25 m), düşmüş yoldaşa saldıran, menzildeki en yakın düşman, rolün tercihi. Yakın dövüş jetonu hedef başına 3, parti başına 6'dır; jetonsuz yoldaş ok atar. Yoldaş oku yoldaşa ve Mete'ye değmez.
+- **Can ve Yara.** Can `50 + 6 × perde`'dir (II 62, III 68, IV 74, V 80, VI 86); savaşmayanınki ×0,8. Can 0'da Yara +1 ve Can %50. Yara sınırı her zorlukta 3'tür (K88): kartın üç yara baklavası her zorlukta aynı okunur, zorluk yoldaşa yalnız alınan hasarla dokunur (×0,7 / ×1 / ×1,25). Yara 3'te yoldaş düşer; Mete `E` basılı 3 sn'de (otacı 1,5 sn'de) onu Can %30 ve Yara 2 ile kaldırır, savaş başına bir kez. Savaş bitince kalkmayan Ağır Yaralı olur: savaşmaz, uyku ya da 24 oyun saati sonra iyileşir (Otacı Yurdu'nda ya da Dangyu'yla 12). Kalıcı yara ve dirilme yoktur.
+- **Düşüş ve ölüm (K74).** Mete düşünce çekirdek yoldaş, konuk ve Jiyu zar atmaz: 40 m içindekiler Mete'yi taşır, uyanışta yanındadır, Yara +2 alır. Adlı er zar atar (Hikâye %0, Normal %30, Zor %50); ölen Ad İpi'ne geçer. Hikâyede ölüm yalnız Luhun (II, oyuncunun hükmü), Han Xin (196), Wang Huang (196) ve Dangyu'dur (186). Gerekçe: el yazımı görev yarıda kalmaz, bedel zaman ve yaradır.
+- **Moral** onluğundur: <30 iken tepki +0,4 sn; <15 iken adlı er dağılır, çekirdek dağılmaz, Mete'nin 25 m gerisine çekilir.
+
+## Parti şeridi ve yuvarlak kart
+
+Yoldaş Kartı Destan Kitabı'nın dilindedir: koyu keçe, altın çift çizgi, baklava, gök mavisi vurgu. Çapı 56 px (Küçük 44, Büyük 72), portre 48 px dairedir; kartın portresi yoldaşın profil portresinden kesilir.
+
+| Parça | Yer | Ne söyler |
+|---|---|---|
+| Can bandı | Altın çift çizginin arasında, saat 12'den saat yönünde | Can, yay boyuyla; %35 altında kor rengi ve 1 Hz nabız |
+| Baklava | Saat 12 | Kenar kartında çevrede döner, yoldaşı gösterir; seçili ya da konuşurken gök mavisi |
+| Yara | Saat 6'da üç küçük baklava | Yara 0–3 |
+| Durum rozeti | Saat 4 | Çapraz kılıç savaşta, damla yaralı, iki damla Ağır Yaralı, kırık halka kayıp, kare bekliyor, üç nokta konuşmak istiyor, kapalı göz gizlenmiş, yatık sancak düştü |
+| Konuk düğümü, baş işareti | Saat 8; saat 10'da ıslıklı ok | Konuk; onluğun başı |
+| Seçili, konuşuyor | Kart ×1,08 ve gök mavisi hale; iç çizgi 0,3 sn parşömen rengine döner | Seçim; sesi gelen yoldaş |
+
+Şerit sol kenarda dikey on karttır: Can ve Stamina bloğunun 24 px altından başlar, aralık 66 px; sığmazsa Küçük boya, yine sığmazsa iki sütuna geçer; ayarla alta yatay 2 × 5 iner. Sıra katılış sırasıdır, Defter'de sürüklenir, F1–F10 onu izler. Hayvan kartları (40 px) altta durur. Kartın altında tuş yazar, ad üstüne gelince görünür. Sol tık seçer, çift tık kamerayı o yoldaşa çevirir, sağ tık bağlam menüsünü açar: Çağır, Dur, Burayı Tut, rol işi, Burada Bırak, Defter sayfası. Boş yuva keçe dairedir. Düşmüş kartta portre %70 solar; 3 Hz'den hızlı yanıp sönme yoktur; yazı en az 18 px'tir. Sinemada, kitapta ve Plan Kipi'nde şerit ve kenar kartları gizlenir.
+
+## Ekran kenarı göstergesi
+
+İsteğin ikinci yarısı budur: haritada görünmeyen yoldaşın yuvarlak kartı ekran kenarında, onun bulunduğu yönde durur (K73). Varsayılan 28 m kamerada ([K98](/docs/source/design/decisions#k98)) 10 m'den çok geride ya da 16 m'den çok yanda kalan yoldaş ekrandan çıkar; en yakın 14 m kadrajda 4,7 m geride ya da 8,3 m yanda kalan çıkar. Bu yüzden kenar kartı istisna değil olağan görünüştür. Eski hesap 27 m ve 6 m kadrajla yapılmıştı (13 m geride, 18 m yanda; 6 m'de partinin yarısı kartta); kartta kalan yoldaş sayısı yeniden sayılır ([Yol Haritası](/roadmap#item-k98-recalc)).
+
+- **Ne zaman.** Yoldaşın göğüs noktası (yerden 1,2 m) ekranın %4 içeride çizilen dikdörtgeninin dışında 0,25 sn kalınca kart çıkar, %8 içeri girince kaybolur. Kadrajda ama 1 sn'den çok yurdun, kayanın ya da ağacın ardında kalan yoldaşın başının üstünde 36 px'lik bir işaret yanar.
+- **Yer ve yön.** Kart merkezi yuvarlatılmış bir iç dikdörtgende durur: yanlardan 64, üstten ve alttan 60 px, şerit soldayken sol pay 128 px. HUD'un yerleri (Can ve Stamina, harita düğmesi, Gök Kavisi, 1–6 çubuğu, ipucu paneli) yasaktır, kart kenar boyunca kayar. Yön ekranın merkezinden yoldaşadır; kameranın arkasındaki yoldaşta yön zeminden okunur: ileri ekranda yukarı, geri aşağıdır. Kartın baklavası yoldaşı gösterir.
+- **Uzaklık.** Kart 30 m'de 56 px ve tam görünür, 150 m'de 44 px ve %75'tir. Sayı 60 m ötede, kayıpta ya da Tab basılıyken 10 m'ye yuvarlanıp yazar («120 m»).
+- **Kümelenme.** İki kart 64 px'ten yakınsa kümelenir, 80 px'te ayrılır; en çok üç portre yelpaze olur, dördüncüden sonra «+N» yazar. Küme kartına tıklamak yelpazeyi 1,5 sn açar.
+- **Tehditten ayrım.** Tehdit okları her zaman öndedir ve portresizdir; oka 64 px'ten yakın kart kenar boyunca en çok 80 px kaçar, kaçamazsa %50 saydamlaşır. Kart üçgen kullanmaz, durumu rozetle söyler.
+- **Geçiş.** Kart 0,20 sn'de solarak çıkar ve kenara kayar; kamera dönerken sıçramaz, kayar. Kayıp ve düşmüş kart 1 Hz nabız atar. Hareketi Azalt açıkken kayma anlıktır.
+- **Tıklama.** Sol tık kamerayı yoldaşa çevirir: yalnız açı, en kısa yönden, 0,6 sn; yoldaş yine kadraj dışındaysa uzaklık 40 m'ye dek açılır. Sağ tık çağırır, Shift + sol tık seçer. Oyun kolunda View basılıyken sağ çubuk kart seçer, A çevirir, X çağırır. Sinemada ve kovalamacanın betikli anlarında çevirme kapalıdır.
+- **Okunurluk.** Hiçbir bilgi yalnız renkle verilmez: Can yay boyuyla, Yara dolu baklavayla, durum biçimle, seçim haleyle. Yüksek karşıtlık çizgileri kalınlaştırır.
+- **Kapsam.** Partideki ve aynı dünyadaki yoldaşlar ve hayvanlar. Başka haritadaki, görevdeki ve subay olan yoldaşın kenar kartı yoktur.
+
+```varlik
+ui_companion_card, ui_party_strip, ui_offscreen_indicator
+```
+
+Doğrulanacak: kart çapı, kenar payları, görünme gecikmesi, kümelenme ve yumuşatma sayıları ekranda denenip ayarlanır; ilk ayar Ku'nun kartıyla ([Yol Haritası](/roadmap#item-ku-card-edge)), on kartla yinelenişi II'nin partisinde ([Yol Haritası](/roadmap#item-party-ledger-strip)).
+
+## Harita, atlas ve Defter
+
+- **Harita (M).** Partideki yoldaş 32 px portre iğnesidir; bekleyen kare rozetli, geride kalan kırık halkalıdır.
+- **Atlas.** Mete'nin iğnesinin çevresinde 10 küçük baklava yürür: dolu baklava çekirdek ya da konuk, boş baklava adlı er. Partide olmayan yoldaş bulunduğu konakta portre iğnesidir; yoldaki «Yolda, {g} gün» yazar. Parti en yavaş üyenin hızıyla yürür.
+- **Defter > Yoldaşlar (P).** Defter'in Beceriler'den sonraki sekmesidir ([K62](/docs/source/design/decisions#k62)). Solda tanınan yoldaşlar ve durumları (Yanında, Bekliyor, Ordugâhta, Görevde, Subay, Yolda, Ayrıldı, Öldü), sağda seçilenin halkı, yaşı, rolü, düğümü, Can ve Yara'sı, kişisel görevinin adımı, öğrenilen sevdikleri, atı ve terkisi. Düğmeler: Al, Burada Bırak, Ordugâh'a Gönder, Görevlendir, Subay Yap, Baş Yap, Çağır. Açıkken oyun durur; I. Perde'de yalnız yanındakileri gösterir.
+
+## Ayarlar
+
+| Ayar | Değerler | Varsayılan |
+|---|---|---|
+| Kenar kartı | Hep, yalnız dövüşte ve kovalamacada, kapalı | Hep |
+| Kart boyu | 44, 56, 72 px | 56 |
+| Uzaklık yazısı | Uzaktayken, hep, kapalı | Uzaktayken |
+| Şeritte ad | Üstüne gelince, hep | Üstüne gelince |
+| Şeridin yeri | Sol, alt | Sol |
+| Er ile doldur | Açık, kapalı | Açık |
+| Söyleşi sıklığı | Az (aralık iki katı), olağan, çok (3 dk) | Olağan |
+| TV güvenli alanı | %0–5 | %0 |
+| Yüksek karşıtlık | Açık, kapalı | Kapalı |
+
+Son ikisi bütün HUD'undur, tehdit oku da okur. Yoldaş tuşları ve kamera ayarları [Kamera ve Kontroller](/docs/gameplay/camera-controls#ayarlar) sayfasındadır.
+
+## Varlıklar, ses ve bedel
+
+- **Görsel ([K85](/docs/source/design/decisions#k85)).** Her yoldaş için önce tam boy art, art'tan profil portresi ve T-poz üretilir (gpt-image-2): 16 yoldaş ve Jiyu'nun iki yaşı, 54 görsel. Kredi harcamaz, sorulmadan üretilir. Adlı erin portresini oyun kendisi çizer.
+- **3B.** Her yoldaşa Meshy modeli ve iskelet: 18 × 45 = 810 kredi; beş jest (güreş kolu, davul, kement, ezgi, yazma) 15, Uldın'ın VI yaşı 15. Toplam ≈840 kredi, boyalı at donlarıyla ≈1.035. Atlar ve develer kodla boyanır.
+- **Ses.** Söylenen İngilizcedir (eleven_v3), altyazı Türkçedir ([K61](/docs/source/design/decisions#k61)). Her yoldaşa ElevenLabs kütüphanesinden kendi sesi seçilir; anlatıcının ve ozanın sesi yoldaşa verilmez. ≈1.500 satır ≈71.000 kredi eder; Kunduz'un sözsüz ezgisi bir Eleven Music çekimidir (≈450 kredi). Ansiklopedideki iki cümlelik tanıtım da bu sesle okunur ([K86](/docs/source/design/decisions#k86)).
+- **Onay bekleyenler.** Yoldaş üretiminin kredisi (önerilen perde perde, yoldaşın ilk göründüğü fazdan önce), 16 yoldaşın sesi (tasarım iki üç aday önerir, dinlemek kredisizdir) ve Yoldaş Kartı'nın görünüşü [Karar Bekleyenler](/docs/general/pending-decisions)'dedir.
+- **Çizim bütçesi (K74).** Mete ve 10 atlı yoldaş 11 atlıdır; her karede tam güncellenen iskelet en çok 6 binicidir. Kadrajda ve 30 m içinde tam canlandırma, 30–60 m'de seyrek, kadraj dışında daha seyrek, 60 m ötesinde yalnız konum. Ölçüt kare ortalaması ≤16,7 ms, %95 ≤22 ms, parti payı ≤1,2 ms. Doğrulanacak: ilk ölçüm Kara Boran'ın on firarisiyle ([Yol Haritası](/roadmap#item-party11-lod)), yinelenişi II'nin partisiyle ([Yol Haritası](/roadmap#item-party11-repeat)).
+
+Doğrulanacak: gevşek ve kol düzeni, yetişme eşikleri, zorunlu ve yasak kişinin akışı, onay ve söyleşi sıklığı (olağan bir oyunda perde başına en çok bir uyarı) ve rol etkileri (perde başına ganimet ve takas farkı ≤%5) II'nin oynanışında sınanır ([Yol Haritası](/roadmap#item-party-tuning)); I. Perde'de Ku'nun ve görev yoldaşının yetişmesi kampta ve Kışlak'ta oynanarak sınanır ([Yol Haritası](/roadmap#item-follower-core)).
+
+> [!DURUM]
+> Godot'da yok: yoldaş, parti, Yoldaş Kartı, parti şeridi, ekran kenarı göstergesi, buyruklar, düzenler, onay ve Defter > Yoldaşlar; I. Perde'nin takipçisi Ku da yoktur. Oyunda bugün yalnız arayüz takımı vardır: kartın renkleri ve çerçevesi Destan Kitabı'nınkilerdir (keçe, altın, parşömen, gök mavisi). Prototipte yoldaş sistemi denenmedi. 16 yoldaşın profil portresi ve kartla kenar göstergesinin taslağı gpt-image-2 ile çizildi, Jiyu'nun art ve T-pozu ansiklopedidedir; ötekilerin art ve T-pozu, 3B modeller ve sesler henüz yok ([d3/game-state](/docs/source/design/d3/game-state)).
+
+## Yol haritası
+
+Ku'nun kartı, Yoldaş Kartı ve kenar göstergesi I. Perde'nin hikâye sistemleri fazında, firarilerin kartları ve ilk bütçe ölçümü Kara Boran'ın fazında, serbest parti II. Perde'nin yoldaş fazındadır; IV, V ve VI'nın yoldaşları kendi perdelerindedir ([IV](/roadmap#item-act4-companions), [V](/roadmap#item-act5-companions), [VI](/roadmap#item-act6-companions)).
+
+```ilerleme
+act-1-p3
+act-1-p5
+act-2-p3
+```
+
+## Kaynaklar
+
+- [companions.md](/docs/source/design/companions): [§1](/docs/source/design/companions#1-kadro), [§2](/docs/source/design/companions#2-perdelere-gore), [§3](/docs/source/design/companions#3-parti-kurallari), [§4](/docs/source/design/companions#4-onay-ve-guven), [§5](/docs/source/design/companions#5-buyruk-ve-davranis), [§6](/docs/source/design/companions#6-dovus), [§7](/docs/source/design/companions#7-arayuz), [§9](/docs/source/design/companions#9-varliklar)
+- [decisions.md](/docs/source/design/decisions): [K37](/docs/source/design/decisions#k37), [K43](/docs/source/design/decisions#k43), [K62](/docs/source/design/decisions#k62), [K70](/docs/source/design/decisions#k70), [K71](/docs/source/design/decisions#k71), [K72](/docs/source/design/decisions#k72), [K73](/docs/source/design/decisions#k73), [K74](/docs/source/design/decisions#k74), [K82](/docs/source/design/decisions#k82), [K85](/docs/source/design/decisions#k85), [K86](/docs/source/design/decisions#k86), [K88](/docs/source/design/decisions#k88)
+- [story.md §8.6](/docs/source/design/story#8-6-yoldaslar-k70-k71), [§14.4](/docs/source/design/story#14-4-yoldaslarin-kisisel-gorevleri-k71-k72); [act1.md §9.7](/docs/source/design/act1#9-7-takipci-altyapisi); [progression.md §1.6](/docs/source/design/progression#1-6-yoldasin-seviyesi-k72-k74), [§3](/docs/source/design/progression#3-yara-ve-dusus), [§5.6](/docs/source/design/progression#5-6-yoldasin-onayi-ve-eksenler-k72); [godot.md §3.7](/docs/source/design/godot#3-7-yoldas-partisi-k70-k74), [§5.4](/docs/source/design/godot#5-4-kadraj-disi-tehdit-ve-yoldas-gostergesi-17-k73)
+- Araştırma: [yoldaslar.md](/docs/source/research/companions); [d3/register.md](/docs/source/design/d3/register) (E3.1), [d3/game-state](/docs/source/design/d3/game-state)
+- [Kadro](/docs/story/cast), [Kamera ve Kontroller](/docs/gameplay/camera-controls), [Dövüş](/docs/gameplay/combat), [Ordu](/docs/gameplay/army), [Seviye ve Gelişim](/docs/gameplay/progression), [Tek Gecelik Kamp](/docs/gameplay/overnight-camp), [II. Perde](/docs/story/act-2), [IV. Perde](/docs/story/act-4), [V. Perde](/docs/story/act-5), [VI. Perde](/docs/story/act-6), [Varlıklar](/assets), [Ansiklopedi](/encyclopedia)

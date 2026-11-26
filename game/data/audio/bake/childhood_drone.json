@@ -1,0 +1,15 @@
+{
+  "id": "childhood_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "sky_f",
+  "tempo": 72,
+  "bars": 8,
+  "mode": "major_pent",
+  "seed": 7201,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2,
+  "source": "code",
+  "note": "childhood klibinin 0. katmanı: majör pentatonik (kök F) dron, 72 (audio.md §3 childhood: kopuz hızlanır, dron, kaval cümleleri; davul ve koro yok). Önsöz'ün son 10 sn'si (geçiş) ve Çocukluk «Koyun Sırtında». Kulak onayı bekler."
+}

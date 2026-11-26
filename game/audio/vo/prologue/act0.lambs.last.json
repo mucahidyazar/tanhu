@@ -1,0 +1,19 @@
+{
+	"id": "act0.lambs.last",
+	"take": 0,
+	"seed": 1759127222,
+	"hash": "68da26b6a0c9",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 3.04,
+	"words": [
+		{"w": "There's", "t0": 0.0, "t1": 0.32},
+		{"w": "one", "t0": 0.4, "t1": 0.64},
+		{"w": "more", "t0": 0.72, "t1": 1.04},
+		{"w": "bleating,", "t0": 1.1, "t1": 1.68},
+		{"w": "down", "t0": 1.76, "t1": 2.08},
+		{"w": "by", "t0": 2.133, "t1": 2.24},
+		{"w": "the", "t0": 2.28, "t1": 2.4},
+		{"w": "stream.", "t0": 2.469, "t1": 3.04}
+	]
+}

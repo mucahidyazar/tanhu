@@ -1,0 +1,134 @@
+{
+  "id": "dog_whine",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.95,
+  "rate": 22050,
+  "seed": 7191,
+  "loop": false,
+  "source": "code",
+  "note": "Köpeğin inlemesi (ses-tasarimi.md §7.2: oyun ve yavru harmonik; weather.md §7.6 «Ku inler»). Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "tri",
+          "f0": [
+            [
+              0,
+              700
+            ],
+            [
+              0.255,
+              910.0
+            ],
+            [
+              0.595,
+              840.0
+            ],
+            [
+              0.85,
+              630.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.08,
+              0.8
+            ],
+            [
+              0.595,
+              0.6
+            ],
+            [
+              0.85,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              1200,
+              3,
+              1
+            ],
+            [
+              2400,
+              4,
+              0.4
+            ]
+          ],
+          "vib": 40,
+          "vib_rate": 7,
+          "jitter": 8,
+          "breath": 0.12
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "tri",
+          "f0": [
+            [
+              0,
+              760
+            ],
+            [
+              0.22499999999999998,
+              988.0
+            ],
+            [
+              0.5249999999999999,
+              912.0
+            ],
+            [
+              0.75,
+              684.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.08,
+              0.8
+            ],
+            [
+              0.5249999999999999,
+              0.6
+            ],
+            [
+              0.75,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              1200,
+              3,
+              1
+            ],
+            [
+              2400,
+              4,
+              0.4
+            ]
+          ],
+          "vib": 40,
+          "vib_rate": 7,
+          "jitter": 8,
+          "breath": 0.12
+        }
+      ]
+    }
+  ]
+}

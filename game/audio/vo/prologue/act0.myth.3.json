@@ -1,0 +1,18 @@
+{
+	"id": "act0.myth.3",
+	"take": 1,
+	"seed": 3723912748,
+	"hash": "c9993f3370b2",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 2.24,
+	"block": {"id": "block:act0.myth.3..act0.myth.4", "t0": 0.0, "t1": 2.24},
+	"words": [
+		{"w": "You", "t0": 0.0, "t1": 0.08},
+		{"w": "never", "t0": 0.133, "t1": 0.4},
+		{"w": "asked", "t0": 0.467, "t1": 0.8},
+		{"w": "who", "t0": 0.9, "t1": 1.2},
+		{"w": "counts", "t0": 1.269, "t1": 1.68},
+		{"w": "us.", "t0": 1.787, "t1": 2.08}
+	]
+}

@@ -1,0 +1,15 @@
+{
+	"id": "act0.tally.lan_ask",
+	"take": 0,
+	"seed": 1115259076,
+	"hash": "427980c42af6",
+	"model": "eleven_v3",
+	"voice": "LI283TzJcIwSKqsXiH7u",
+	"seconds": 1.52,
+	"words": [
+		{"w": "What", "t0": 0.0, "t1": 0.24},
+		{"w": "did", "t0": 0.3, "t1": 0.48},
+		{"w": "Hereka", "t0": 0.528, "t1": 0.96},
+		{"w": "say?", "t0": 1.06, "t1": 1.52}
+	]
+}

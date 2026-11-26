@@ -1,0 +1,21 @@
+{
+  "id": "hoof_land_a",
+  "kind": "sfx",
+  "instrument": "hoof",
+  "seconds": 0.5,
+  "seed": 5311,
+  "rate": 22050,
+  "loop": false,
+  "thump_hz": 92,
+  "clop_hz": 640,
+  "dirt": 0.85,
+  "decay_s": 0.05,
+  "dirt_s": 0.09,
+  "body_hz": 58,
+  "body_s": 0.1,
+  "body_gain": 0.65,
+  "echo_s": 0.032,
+  "echo_gain": 0.8,
+  "source": "code",
+  "note": "Atın sıçrayıştan inişi, a çeşidi (audio.md §4 «Hayvan»; 2026-11-08): ön toynakların ikisi arka arkaya sıkışık toprağa basar, gövdenin ağırlığı alçak bir sarsıntı, savrulan toprak uzun (scripts/audio/synth/hoof.gd: decay_s, dirt_s, body_*, echo_*). İnişte toynak sesinin üstüne çalar (scripts/player/ride_effects.gd, Landing; iki çeşit AudioStreamRandomizer'da). Kulak onayı bekler."
+}

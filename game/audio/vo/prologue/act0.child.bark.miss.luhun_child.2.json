@@ -1,0 +1,14 @@
+{
+	"id": "act0.child.bark.miss.luhun_child.2",
+	"take": 0,
+	"seed": 1106466748,
+	"hash": "41f357bc8525",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.2,
+	"words": [
+		{"w": "A", "t0": 0.0, "t1": 0.08},
+		{"w": "little", "t0": 0.114, "t1": 0.32},
+		{"w": "lower.", "t0": 0.4, "t1": 1.2}
+	]
+}

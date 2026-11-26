@@ -1,0 +1,361 @@
+{
+	"id": "mq0_depart",
+	"version": 1,
+	"doc": "Yola Çıkış (mq0_depart; K6, K37, K58, K61, K67, K98, K99; story.md §6, docs-app story/childhood «Yola Çıkış»): 15 Aralık MÖ 213, şafaktan önce, ≈90 sn, kuzeydeki Tanhu Kampı, kış. Oyuncu oluşturucuda yaptığı 20 yaşındaki Mete'dir (CharacterProfile: görünüş, Kışlak kılığı ve pelerin boyası). DepartScene (scripts/maps/depart_scene.gd) bu dosyayı düz sırayla oynatır; dünya depart_yurt'tur (scenes/maps/depart_yurt.tscn, DepartWorld). Yerler DepartWorld.marker kimliği (dizgi; yurdun yerli işaretleri de: cradle, hang_spot, mete_start, yanchi_stand, door_out) ya da [x, z] dünya noktasıdır. Üç adım: hang (yurt: beşiğe yürü, E ile yayını küçüğün yanına as; Yüeçi rehineyi silahsız ister), farewell (avlu: Eskam ve armağan arabası; Eskam'ın sözü, Huyan Hatun kapısında Gutu kucağında el sallar, kamera Teoman'ın kapalı kapısında dört saniye uzak karede durur), mount (at: Lan Hatun dizginleri verir, oyuncu E ile ata biner ve atı kendisi sürer: ride, E20; kamptan batıya giden yolda kampın son yurtlarını ve çiti geçer, eşikte (road_end) girdi bırakılır, at adımla yürür, kamera arkada kalan kampa döner (look_back, uzak kare), sahne kararır. Uyuyan kampta at dörtnala kalkmaz: mount_traits atın satırının kopyasını değiştirir, Shift tırıstır; area sürüşte oyuncunun alanıdır). Sözler seslidir (E20/7; K61): satırın sesi data/vo_lines.json'da vo_prefix + anahtar kimliğindedir; SceneVoice ses varsa onu çalar, altyazı sesin süresi kadar durur, söz sırası sesin bitişini bekler, konuşulurken gelen söz sıraya girer (dosyası yoksa altyazıyla akar, K89); İngilizcesi söylenen, Türkçesi altyazıdır. Adımın söz kancaları: intro_line (adım başladıktan after sn sonra, adımın ilk evresi sürüyorsa), leave_lines (ilk girdinin near işaretine radius m'den yakın olunca hepsi sırayla: Huyan Hatun yurdun kapısından çıkan Mete'ye), reply_lines (adımın line'ından sonra sırayla: Mete'nin cevabı ve Lan Hatun). Teoman'ın kapısındaki dört saniye bilerek sözsüzdür. Kamera K98 kadrajındadır (28 m, 38°); yurdun çatısı oyuncu içerideyken kalkar (diorama), kapı bakışı da uzak karedir. Kayıt yazılmaz; bitince done işareti yazılır. Takvim yolculuğa day_n olarak yazılır (K67; Köprü 1'in atlaması aynı günü yazar).",
+	"title": {
+		"tr": "Yola Çıkış",
+		"en": "The Departure"
+	},
+	"date": {
+		"tr": "15 Aralık MÖ 213 · Tanhu Kampı",
+		"en": "15 December 213 BC · The Tanhu's Camp"
+	},
+	"place": {
+		"tr": "Tanhu Kampı · Yola Çıkış",
+		"en": "The Tanhu's Camp · The Departure"
+	},
+	"day_n": -41,
+	"flags": {
+		"done": "mq0_depart"
+	},
+	"music": {
+		"bank": "camp",
+		"state": "camp_night",
+		"fade": 2.5
+	},
+	"ambience": {
+		"wind_steppe": -21.0
+	},
+	"inside_ambience": {
+		"yurt_inside": -22.0,
+		"ember_crackle": -27.0
+	},
+	"player": {
+		"start": "mete_start",
+		"face": "cradle"
+	},
+	"vo_prefix": "act0.depart.",
+	"speakers": {
+		"yanchi": {
+			"tr": "Yançi",
+			"en": "Yanchi"
+		},
+		"eskam": {
+			"tr": "Eskam",
+			"en": "Eskam"
+		},
+		"lan_hatun": {
+			"tr": "Lan Hatun",
+			"en": "Lan Hatun"
+		},
+		"huyan_hatun": {
+			"tr": "Huyan Hatun",
+			"en": "Huyan Hatun"
+		},
+		"mete": {
+			"tr": "Mete",
+			"en": "Mete"
+		}
+	},
+	"lines": {
+		"yanchi_bow": {
+			"speaker": "yanchi",
+			"tr": "Yay burada kalır, ben gererim. Sen git, sayılmaya.",
+			"en": "The bow stays here; I'll keep it strung. Go on, go and be counted."
+		},
+		"eskam_road": {
+			"speaker": "eskam",
+			"tr": "Evladım, yol uzun. Ben her kış gelirim.",
+			"en": "My boy, the road is long. I will come every winter."
+		},
+		"lan_days": {
+			"speaker": "lan_hatun",
+			"tr": "Kırk iki gün yol.",
+			"en": "Forty-two days of road."
+		},
+		"yanchi_hush": {
+			"speaker": "yanchi",
+			"tr": "Şşş. Yeni uyudu.",
+			"en": "Shh. He just fell asleep."
+		},
+		"huyan_road": {
+			"speaker": "huyan_hatun",
+			"tr": "Yolun açık olsun, Mete.",
+			"en": "May your road be clear, Mete."
+		},
+		"huyan_wave": {
+			"speaker": "huyan_hatun",
+			"tr": "Gutu, ağabeyine el salla.",
+			"en": "Wave to your brother, Gutu."
+		},
+		"eskam_come": {
+			"speaker": "eskam",
+			"tr": "Gel evladım, yol bizi bekler.",
+			"en": "Come, my boy. The road is waiting for us."
+		},
+		"mete_count": {
+			"speaker": "mete",
+			"tr": "Sayarım.",
+			"en": "I'll count them."
+		},
+		"lan_home": {
+			"speaker": "lan_hatun",
+			"tr": "Dönüş yolunu da say.",
+			"en": "Count the road home too."
+		},
+		"eskam_ride": {
+			"speaker": "eskam",
+			"tr": "Sen sür evladım, araba ardından yetişir.",
+			"en": "Ride on, my boy. The cart will catch up."
+		}
+	},
+	"actors": {
+		"yanchi": {
+			"start": "yanchi_stand",
+			"face": "cradle",
+			"solid": true
+		},
+		"eskam": {
+			"start": "eskam_stand",
+			"face": "eskam_talk",
+			"solid": true
+		},
+		"huyan_hatun": {
+			"start": "huyan_stand",
+			"face": "courtyard",
+			"solid": true,
+			"carry": "gutu",
+			"reach": [
+				[
+					"LeftArm",
+					"lateral",
+					-32.0
+				],
+				[
+					"LeftForeArm",
+					"lateral",
+					-88.0
+				]
+			],
+			"gesture": [
+				[
+					"RightArm",
+					"lateral",
+					-128.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-34.0
+				]
+			]
+		},
+		"gutu": {
+			"carried_by": "huyan_hatun",
+			"pose": "sit",
+			"gesture": [
+				[
+					"RightArm",
+					"lateral",
+					-95.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-20.0
+				]
+			]
+		},
+		"lan_hatun": {
+			"start": "lan_stand",
+			"face": "horse",
+			"solid": true,
+			"reach": [
+				[
+					"RightArm",
+					"lateral",
+					-58.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-20.0
+				]
+			],
+			"reach_grips": {
+				"Right": 0.85
+			}
+		}
+	},
+	"steps": [
+		{
+			"id": "yurt",
+			"kind": "hang",
+			"objective": {
+				"tr": "Yayını Jiyu'nun beşiğine as",
+				"en": "Hang your bow on Jiyu's cradle"
+			},
+			"hint": {
+				"tr": "Yüeçi rehineyi silahsız ister.",
+				"en": "The Yuezhi want the hostage unarmed."
+			},
+			"prompt": {
+				"tr": "Yayı as",
+				"en": "Hang the bow"
+			},
+			"target": "cradle",
+			"spot": "hang_spot",
+			"reach": 1.3,
+			"hang_seconds": 2.4,
+			"intro_line": {
+				"line": "yanchi_hush",
+				"after": 1.2
+			},
+			"line": "yanchi_bow",
+			"line_after": 0.3,
+			"hold_after": 2.0,
+			"gesture": [
+				[
+					"Spine02",
+					"lateral",
+					12.0
+				],
+				[
+					"Spine01",
+					"lateral",
+					10.0
+				],
+				[
+					"Spine",
+					"lateral",
+					8.0
+				],
+				[
+					"RightArm",
+					"lateral",
+					-62.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-24.0
+				]
+			]
+		},
+		{
+			"id": "yard",
+			"kind": "farewell",
+			"objective": {
+				"tr": "Avluya çık: Eskam bekliyor",
+				"en": "Go out to the yard: Eskam is waiting"
+			},
+			"hint": {
+				"tr": "Armağan arabası avluda.",
+				"en": "The gift cart is in the yard."
+			},
+			"target": "eskam_talk",
+			"radius": 1.0,
+			"line": "eskam_road",
+			"leave_lines": [
+				{
+					"line": "huyan_road",
+					"near": "door_out",
+					"radius": 2.0
+				},
+				{
+					"line": "huyan_wave"
+				}
+			],
+			"wave": {
+				"actor": "huyan_hatun",
+				"carried": "gutu",
+				"rate": 1.7
+			},
+			"door": {
+				"focus": "door_focus",
+				"pan": 1.6,
+				"seconds": 4.0,
+				"camera_distance": 30.0,
+				"back": 1.3
+			}
+		},
+		{
+			"id": "horse",
+			"kind": "mount",
+			"objective": {
+				"tr": "Atına bin",
+				"en": "Mount your horse"
+			},
+			"hint": {
+				"tr": "Lan Hatun dizginleri tutuyor.",
+				"en": "Lan Hatun is holding the reins."
+			},
+			"target": "horse",
+			"meet": 4.0,
+			"intro_line": {
+				"line": "eskam_come",
+				"after": 0.6
+			},
+			"line": "lan_days",
+			"reply_lines": [
+				{
+					"line": "mete_count"
+				},
+				{
+					"line": "lan_home"
+				}
+			],
+			"ride": {
+				"after": 0.5,
+				"objective": {
+					"tr": "Batı yoluna çık",
+					"en": "Take the west road"
+				},
+				"hint": {
+					"tr": "Kampın son yurtlarını ve çiti geç; Shift tırısa kaldırır.",
+					"en": "Ride past the last yurts and the fence; Shift lifts to a trot."
+				},
+				"remount_objective": {
+					"tr": "Atına bin",
+					"en": "Mount your horse"
+				},
+				"remount_hint": {
+					"tr": "Atın yolda bekliyor.",
+					"en": "Your horse is waiting on the road."
+				},
+				"gate": "road_gate",
+				"threshold": "road_end",
+				"toward": "road_far",
+				"area": {
+					"center": [
+						-50.0,
+						2.0
+					],
+					"radius": 80.0,
+					"soft_edge": 4.0
+				},
+				"mount_traits": {
+					"gallop_after_s": 1000.0,
+					"spur": 0.0
+				},
+				"wind_db": -15.0,
+				"look_back": {
+					"toward": "camp_view",
+					"seconds": 4.5,
+					"camera_distance": 40.0,
+					"pitch": 38.0,
+					"blend": 2.0,
+					"turn": 1.5,
+					"yaw_offset_deg": 25.0,
+					"focus_shift": 6.0
+				},
+				"fade": 3.0,
+				"black": 0.4,
+				"intro_line": {
+					"line": "eskam_ride",
+					"after": 2.0
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"id": "act0.bone.moon",
+	"take": 0,
+	"seed": 1320918754,
+	"hash": "4ebb9ee2b3cb",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 2.16,
+	"words": [
+		{"w": "My", "t0": 0.0, "t1": 0.16},
+		{"w": "father's", "t0": 0.217, "t1": 0.64},
+		{"w": "bowing", "t0": 0.72, "t1": 1.04},
+		{"w": "to", "t0": 1.093, "t1": 1.2},
+		{"w": "the", "t0": 1.22, "t1": 1.28},
+		{"w": "moon", "t0": 1.344, "t1": 1.6},
+		{"w": "now.", "t0": 1.68, "t1": 2.16}
+	]
+}

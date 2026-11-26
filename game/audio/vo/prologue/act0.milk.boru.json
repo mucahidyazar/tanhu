@@ -1,0 +1,15 @@
+{
+	"id": "act0.milk.boru",
+	"take": 0,
+	"seed": 687580468,
+	"hash": "28fba5347dde",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 1.92,
+	"words": [
+		{"w": "Girls", "t0": 0.0, "t1": 0.32},
+		{"w": "don't", "t0": 0.36, "t1": 0.56},
+		{"w": "make", "t0": 0.608, "t1": 0.8},
+		{"w": "wrestlers.", "t0": 0.88, "t1": 1.92}
+	]
+}

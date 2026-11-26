@@ -1,0 +1,723 @@
+{
+  "doc": "Emek yasası verisi (K21, K50, K51, K52), v3. Kaynak: structures.md §2.4 (emek yasası, inşaat eğrisi), §3.1 ve §3.6 (adımlar ve boylar), §4.1–§4.6 (öteki yapılar), §11.6 ve §14 (senaryolar). Birim: iş dakikası (İD) = bir işçinin bir oyun dakikasında yaptığı iş; 1 iş günü (İG) = 1440 İD = tek işçiyle 60 gerçek dakika. İnşaat, söküm ve onarım K50 eğrisiyle işler (law.build: T(n) = taban × 0,75^(min(n, 8) − 1)); tezgâh ve zanaat işi K21'in eff'iyle kalır (law.station). work: adımın tek el payı (İD), her ekipte aynıdır; slots: adımda aynı anda iş başında görünen el, hızı sınırlamaz; crewMax ya da max: yapının el tavanı (baş); katsayı en çok 8 ağırlıkta durur. econ-sim (K24) law, defs ve settlement alanlarını okur, kendi eğrisini basmaz. Prototipin econ-sim'i bu dosyanın v3'ünü okur ama law.build'i uygulamaz: kurmayı law.effBase'in eff(W)'siyle ve econ-model params.typicalCrew (4 el) ile sayar (economy.md §10.8 sınır 1). law.build, Kâhya kuralı (law.stewardCrew, K80) ve şantiyenin k(W) × 24 İS günlük ilerlemesiyle resmî koşu Yol Haritası'ndadır: econ-sim-run (act-2-p2).",
+  "version": 3,
+  "date": "2026-11-04",
+  "changes": "v2 → v3 (2026-11-04, K50, K51, K52): inşaat eğrisi T(n) = taban × 0,75^(min(n, 8) − 1) (law.build, k(W) = (4/3)^(W − 1), W < 1 doğrusal); eff yalnız tezgâhta (law.station, effBase aynı). Adımın work alanı tek el payıdır: v2'nin work × solo değeri (y_tunduk 171, st_beams 405, c_axle 165, c_tilt 75, t_poles 72, t_cover 108, h_frame 220, sh_beams 198 ve granary 264, tw_braces 660, tw_platform 660, br_piles 720, br_stringers 600, p_gate 50; settlement dizileri aynı yolla); solo ve min alanları kalktı, adımın max'ı slots, stepMax stepSlots oldu; yurt.crewWork (1376) kalktı. Yuvarlama düzeltmeleri: rampart_gate 648, sky_pole 302, gathering_ground 116, cart_felt 220, cart_war 550 (one toplamları değişmedi). Üç boy (sizes, K51): yurt_small (×0,7, 576 İD, en çok 6 el), yurt (×1), otag ve beg_otag (×1,4, 3600 İD, 12 el, katsayı 8'de); settlement'a yurt_small ve beg_otag eklendi, yurt gövdelilere size ve layout yazıldı. crew tabloları, söküm ve senaryolar (camp3, kislak_new_yurt) K50 eğrisiyle yeniden hesaplandı; camp3'ün K50 karar metnindeki saatleri k50DecisionValues'da iz olarak durur. Çocuğun yardımı dokuz türdür (K52, childHelp); yurt adımlarına help listeleri yazıldı. rawWork'e Küçük Yurt ve Otağ toplamları, haul'a fazla el kuralı, dismantleRule'a K46 eklendi. v3 düzeltmesi (2026-11-04, E6): scenarios.camp3.familyWait K83'e uydu (aile 23:00'e dek ateş başında; 23:00'te aşama ≥4 ise ilk dumana dek bekler; 05:00'te Ana'nın közü), firstSmoke.joinOnly 05:04'ten 04:02'ye düzeldi, smokeS eklendi, proposal kalktı, k50DecisionValues iz olarak işaretlendi; law.stewardCrew (K80, Kâhya'nın şantiye eli) eklendi; defs.tent_night (K46'nın E6 notu: Gecelik Çadır küçük şantiye açar, en çok 2 el) eklendi.",
+  "law": {
+    "dayGameMin": 1440,
+    "realSecPerGameMin": 2.5,
+    "build": {
+      "_note": "K50 inşaat eğrisi: kurma, söküm ve onarım bununla işler; şantiyede ham malla gelen parçanın emeği (rawWork) şantiye ekibiyle aynı eğriden geçer. Bütün yapıya tek katsayı: adımın work payı ekip büyüyünce değişmez, böylece T(n) her ekipte tam tutar (Hane Yurdu 2 el 45, 3 el 33,75 dk). slots yalnız görünen eldir, hızı sınırlamaz; yuvadan artan eller taşır ve ekipte sayılır. Tek el yöntemleri görünüştür, çarpan almaz. structures.md §2.4.",
+      "curve": "T(n) = taban × 0,75^(min(n, 8) − 1) gerçek dk; taban = tek el İD / 24",
+      "k": "k(W) = W (W < 1); (4/3)^(min(W, coefMax) − 1) (W ≥ 1)",
+      "rate": "oran = k(W) × K_usta × K_beceri × K_gece × K_hava × K_tok × hız  (İD / oyun dk); adımın süresi = work / oran",
+      "base": 0.75,
+      "coefMax": 8,
+      "W": "yapının crewMax başına dek en ağır üyelerin ağırlık toplamı; Çocuk yalnız adımın fiilini yaparken sayılır (y_esik ve y_ocak dışında); adlı büyük usta ≤1,25",
+      "appliesTo": ["build", "dismantle", "repair", "rawWork on site"],
+      "notAppliesTo": ["station", "hand recipe", "haul trips"],
+      "k_table": [
+        [0.5, 0.5],
+        [0.75, 0.75],
+        [1, 1],
+        [1.5, 1.1547],
+        [1.75, 1.2408],
+        [2, 1.3333],
+        [2.5, 1.5396],
+        [2.75, 1.6544],
+        [3, 1.7778],
+        [3.25, 1.9103],
+        [4, 2.3704],
+        [5, 3.1605],
+        [6, 4.214],
+        [7, 5.6187],
+        [8, 7.4915]
+      ],
+      "k_tableNote": "[W, k(W)] çiftleri; Hane Yurdu süresi 60 / k(W) gerçek dk",
+      "siteDay": "Bir şantiye bir günde k(W) × 24 İS işler (gece emri, ışıklı); el başına 24 İS elin zamanıdır, ilerleme değildir"
+    },
+    "station": {
+      "_note": "Tezgâh ve zanaat tarifi K21 eğrisiyle kalır (K50: «tezgâhlar K21 eff ile kalır»; economy.md §6.7). effBase bu eğrinin tabanıdır.",
+      "eff": "eff(W) = min(W, 10 · (1 − 0.9^W)); W = tezgâhın el sınırına dek en ağır üyelerin ağırlık toplamı"
+    },
+    "effBase": 0.9,
+    "effBaseNote": "Yalnız tezgâh eğrisi (station) içindir; inşaat build.k ile işler.",
+    "siteHeadMax": 8,
+    "siteHeadMaxNote": "Hane Yurdu ve yurt gövdelilerin varsayılan el tavanı; Küçük Yurt 6, Otağ ve Bey Otağı 12 (sizes).",
+    "stewardCrew": {
+      "rule": "fill",
+      "overflow": "next_site",
+      "playerLock": true,
+      "src": "K80",
+      "_note": "Kâhya'nın varsayılan dağıtımı «el tavanına dek doldur, sonra sıradakine»dir: öncelik sırasındaki ilk şantiye yapının crewMax'ına dek el alır (Küçük Yurt 6; Hane Yurdu ve yurt gövdeli yapılar 8; Otağ ve Bey Otağı 12, katsayı 8'de durur, 9.–12. eller malı ambardan taşır), artan eller sıradaki şantiyeye gider. Oyuncu el kilidiyle (+ / −) şantiye başına eli sınırlar, tek elli şantiyeleri çoğaltabilir. El başına verim crew.perHand'dir: yurtta 8 el 0,94, 6 el 0,70, 3–4 el 0,59; el tavanı 2–6 olan yapıda tavana dek doldurmak verimi 0,59–0,70'e indirir. econ-model params.typicalCrew (4) bu kuralla kalktı; econ-sim kuralı benzetene dek yalnız bugünkü koşunun girdisidir (Yol Haritası: econ-sim-run). structures.md §2.4, settlement.md §6.2."
+    },
+    "roles": { "usta": 1, "hand": 1, "apprentice": 0.75, "elder": 0.5, "child": 0.5, "mete": 1, "namedMasterMax": 1.25 },
+    "roleUsta": { "usta": "own", "hand": "home", "apprentice": "none", "elder": "own", "child": "none", "mete": "home" },
+    "noUstaK": 0.7,
+    "noUstaNote": "Yapının zanaatından (home, wood, earth) usta yoksa oran ×0,7. Usta tarifinin (rawRole) ustasız yolu yoktur: ham pay işlemez, adım «Usta gerek» bekler (d2/core.md §2.6, §4.5).",
+    "leadMinWeight": 0.75,
+    "rotation": false,
+    "rotationNote": "Atanan el bir işçidir ve nöbetleşmez: öğün ve uyku emeği durdurmaz; camp3'ün öğün sırası BuilderSystem'in senaryo görünümüdür (d2/core.md §2.5).",
+    "night": {
+      "classes": { "lit": 1, "day": 1, "dim": 0.7, "dark": 0.4 },
+      "dayLevel": 0.5,
+      "dimLevel": 0.25,
+      "source": "daylight.nightClass(lightLevel, lit) (time.md §12.3, d2/core.md §1.8); L_moon (1 − cloud) çarpanını içerir; moonSeen yalnız görsel ve sözdür",
+      "quarterMoon": "Açık gecede ay ≥30° iken aydınlık ≈0,67'yi geçince dark → dim (bilerek)",
+      "fireLightPad": 4,
+      "torchDarkHours": 4,
+      "torchFreeSpecs": ["camp", "scenario"],
+      "default": "work",
+      "restWindow": { "camp": ["06:00", "22:00"], "kislak": ["07:00", "23:00"], "summer": ["05:30", "21:30"], "winter": ["07:00", "23:00"] }
+    },
+    "dayCapacity": {
+      "_note": "İşçi başına İS / gün (d2/core.md §2.5); hane ≈44 İS/gün (2,75 ağırlık, 0,65 çoban)",
+      "outdoorTanhuOrdu": { "summer": 15.2, "spring": 14.6, "autumn": 13, "winter": 12.4 },
+      "workshopLit": 16,
+      "build": 24,
+      "herding": 24,
+      "household": { "summer": 47, "spring": 46, "autumn": 43, "winter": 42 },
+      "pinned": { "camp": 14.3, "hexiDay1": 12.6 },
+      "siteDayNote": "build 24 İS el başınadır; şantiyenin günlük ilerlemesi k(W) × 24 İS (3 el 42,7; 8 el 179,8 İS)"
+    },
+    "fed": {
+      "ok": 1,
+      "low": 0.85,
+      "hungry": 0.7,
+      "lowBelow": 35,
+      "hungryBelow": 15,
+      "unit": "bağlı defterin Yiyecek çizgisi, % (100 = 30 gün)",
+      "pinned": { "kislak": 1 }
+    },
+    "repair": {
+      "raise": 0.8,
+      "patch": 0.6,
+      "burnt": 1.25,
+      "skill": 0.5,
+      "rerun": 0.8,
+      "tearStitch": 4,
+      "_note": "Onarım emeği adımın work payından çıkar (K50: pay tek el emeğidir) ve inşaat eğrisiyle işler."
+    },
+    "dismantle": 0.35,
+    "dismantleRule": "K46: sağlam taşınır yapı bohçasına döner (yurt_kit_s, yurt_kit, otag_kit, tent_kit); eksik ya da hasarlı taşınır yapı ve öteki yapılar ayaktaki adımların ham malının yarısını verir. Emek payın 0,35 katı, inşaat eğrisiyle.",
+    "haul": {
+      "vLoaded": 1.4,
+      "vEmpty": 1.9,
+      "handleS": 8,
+      "cap": { "adult": 20, "apprentice": 14, "child": 6 },
+      "selfHaulR": 150,
+      "cart": { "handleS": 30, "speed": 6.8, "capFelt": 60 },
+      "extraHands": "Katsayı tavanını (8) ya da crewMax'ı aşan boştaki eller önce taşır (Otağ'ın 9.–12. elleri); yoksa en hafif üye sefer süresince ekipten düşer"
+    },
+    "skills": {
+      "quick_raise": { "crewK": 1.4286, "helpers": 1, "unlock": "seviye 7, «Önce bir yurdu bitir»: II. Perde açılışında yoktur" },
+      "repair": { "timeK": 0.5, "costK": 0.25 },
+      "carry_pack": { "haulCapAdd": 8 }
+    },
+    "rawWork": {
+      "_note": "Ham malla teslimde adıma eklenen zanaat emeği (İD); I. Perde ve ana kamp şantiyeleri spec.labour.rawWork: false",
+      "y_bosaga": { "work": 360, "recipe": "rc_door_frame" },
+      "y_kerege": { "work": 720, "recipe": "rc_kerege_set", "role": "cr_carpenter" },
+      "y_uuk": { "work": 480, "recipe": "rc_uuk_set" },
+      "y_liner": { "work": 120, "recipe": "rc_chiy" },
+      "c_axle": { "work": 600, "recipe": "rc_wheel_pair", "role": ["cr_cartwright", "cr_carpenter"] },
+      "yurtTotal": 1680,
+      "otagParts": 3000,
+      "kerege_set_s": { "work": 360, "recipe": "rc_kerege_set_s", "role": "cr_carpenter", "size": "s" },
+      "uuk_set_s": { "work": 240, "recipe": "rc_uuk_set_s", "size": "s" },
+      "yurtSmallTotal": 1080,
+      "_sizes": "Küçük Yurt 1080 İD (18 İS: bosağa 360, kerege_set_s 360, uuk_set_s 240, çiy 120); Hane 1680 (28 İS); Otağ 3000 (50 İS: bosağa 360, 2 kerege_set 1440, 2 uuk_set 960, 2 çiy 240); rawWork şantiyede inşaat eğrisiyle işler"
+    }
+  },
+  "weather": {
+    "_note": "Emek alanının tepki tablosu (d2/core.md §2.8); hava yalnız fx verir. felt yazılmayan türde keçe adımı genel çarpanı alır.",
+    "clear": { "k": 1 },
+    "cloud": { "k": 1 },
+    "overcast": { "k": 1 },
+    "fog": { "k": 1 },
+    "wind": { "k": 1 },
+    "drizzle": { "k": 1, "felt": 0.9 },
+    "rain": { "k": 0.85, "felt": 0.7 },
+    "sleet": { "k": 0.85, "felt": 0.7 },
+    "downpour": { "k": 0.5, "felt": 0, "hold": ["felt"] },
+    "thunderstorm": { "k": 0.5, "felt": 0, "hold": ["felt", "tall"] },
+    "dry_storm": { "k": 0.9, "felt": 1, "hold": ["tall"] },
+    "gale": { "k": 0.9, "felt": 0, "lattice": 0.8, "hold": ["felt"] },
+    "snow": { "k": 0.9, "felt": 0.9 },
+    "heavy_snow": { "k": 0.7, "felt": 0.7 },
+    "hail": { "k": 0, "felt": 0, "hold": ["all"] },
+    "blizzard": { "k": 0, "felt": 0, "hold": ["all"] },
+    "kara_boran": { "k": 0, "felt": 0, "hold": ["all"] },
+    "dust_storm": { "k": 0, "felt": 0, "hold": ["all"] },
+    "resumeAfterGameHours": 0.25
+  },
+  "sizes": {
+    "_note": "K51 üç boy. Malzeme, emek ve can yalnız boydan çıkar; millet (style) ve düzen (layout) sayıları değiştirmez. Kayıt { size, style, layout }, eksikse { size: m, style: hun } ve türün düzeni; eski design alanı layout okunur. Kaynak cadir-otag.md öneri 2; structures.md §2.3, §3.5, §3.6.",
+    "s": {
+      "kind": "yurt_small",
+      "name": { "tr": "Küçük Yurt", "en": "Small Yurt" },
+      "scale": 0.7,
+      "kanat": 4,
+      "uuk": 24,
+      "workK": 0.4,
+      "one": 576,
+      "baseRealMin": 24,
+      "crewMax": 6,
+      "realMin": { "1": 24, "2": 18, "3": 13.5, "4": 10.13, "5": 7.59, "6": 5.7 },
+      "dismantleRealMin": { "1": 8.4, "2": 6.3, "3": 4.73, "4": 3.54, "5": 2.66, "6": 1.99 },
+      "hp": 216,
+      "pools": [0, 20, 32, 25, 40, 20, 64, 15],
+      "padR": 5.95,
+      "footR": 4.9,
+      "walkR": 4.5,
+      "kit": "yurt_kit_s",
+      "kitLoad": 38,
+      "siteLoad": 58,
+      "wool": 6,
+      "rawWorkIS": 18,
+      "tone": 0.78,
+      "tier": 1,
+      "layouts": ["ev"]
+    },
+    "m": {
+      "kind": "yurt",
+      "name": { "tr": "Hane Yurdu", "en": "Household Yurt" },
+      "scale": 1,
+      "kanat": 6,
+      "uuk": 48,
+      "workK": 1,
+      "one": 1440,
+      "baseRealMin": 60,
+      "crewMax": 8,
+      "realMin": { "1": 60, "2": 45, "3": 33.75, "4": 25.31, "5": 18.98, "6": 14.24, "7": 10.68, "8": 8.01 },
+      "dismantleRealMin": { "1": 21, "2": 15.75, "3": 11.81, "4": 8.86, "5": 6.64, "6": 4.98, "7": 3.74, "8": 2.8 },
+      "hp": 420,
+      "pools": [0, 40, 60, 50, 80, 40, 120, 30],
+      "padR": 8.5,
+      "footR": 7.05,
+      "walkR": 6.42,
+      "kit": "yurt_kit",
+      "kitLoad": 59,
+      "siteLoad": 89,
+      "wool": 12,
+      "rawWorkIS": 28,
+      "tone": 1,
+      "tier": 1,
+      "layouts": ["ev", "konuk", "ambar", "otag", "han", "silah", "otaci", "bolmeli"]
+    },
+    "l": {
+      "kind": ["otag", "beg_otag"],
+      "name": { "tr": "Otağ", "en": "Great Yurt" },
+      "scale": 1.4,
+      "kanat": 8,
+      "uuk": 48,
+      "workK": 2.5,
+      "one": 3600,
+      "baseRealMin": 150,
+      "crewMax": 12,
+      "coefMax": 8,
+      "realMin": { "1": 150, "2": 112.5, "3": 84.38, "4": 63.28, "5": 47.46, "6": 35.6, "7": 26.7, "8": 20.02, "12": 20.02 },
+      "dismantleRealMin": { "1": 52.5, "2": 39.38, "3": 29.53, "4": 22.15, "5": 16.61, "6": 12.46, "7": 9.34, "8": 7.01, "12": 7.01 },
+      "hp": 843,
+      "pools": [0, 79, 126, 98, 160, 80, 240, 60],
+      "padR": 11.9,
+      "footR": 9.9,
+      "walkR": 9,
+      "kit": "otag_kit",
+      "kitLoad": 109,
+      "siteLoad": 159,
+      "wool": 36,
+      "rawWorkIS": 50,
+      "tone": 1.12,
+      "fence": { "r": 16, "lengthM": 100, "gatesMax": 2 },
+      "tier": [3, 4],
+      "layouts": ["otag", "han"]
+    }
+  },
+  "crew": {
+    "_note": "K50 tabloları: standart (parça biçimli) yurt, usta var, gündüz, açık hava; gerçek dk. Saf emek (öğünsüz, yürüyüşsüz). k21RealMin yalnız izdir (K50 ile değişti).",
+    "perHand": { "1": 1, "2": 0.67, "3": 0.59, "4": 0.59, "5": 0.63, "6": 0.7, "7": 0.8, "8": 0.94 },
+    "realMin": {
+      "yurt_small": { "1": 24, "2": 18, "3": 13.5, "4": 10.13, "5": 7.59, "6": 5.7 },
+      "yurt": { "1": 60, "2": 45, "3": 33.75, "4": 25.31, "5": 18.98, "6": 14.24, "7": 10.68, "8": 8.01 },
+      "otag": { "1": 150, "2": 112.5, "3": 84.38, "4": 63.28, "5": 47.46, "6": 35.6, "7": 26.7, "8": 20.02, "12": 20.02 }
+    },
+    "dismantleRealMin": {
+      "yurt_small": { "1": 8.4, "2": 6.3, "3": 4.73, "4": 3.54, "5": 2.66, "6": 1.99 },
+      "yurt": { "1": 21, "2": 15.75, "3": 11.81, "4": 8.86, "5": 6.64, "6": 4.98, "7": 3.74, "8": 2.8 },
+      "otag": { "1": 52.5, "2": 39.38, "3": 29.53, "4": 22.15, "5": 16.61, "6": 12.46, "7": 9.34, "8": 7.01, "12": 7.01 },
+      "tent": { "1": 3.15, "2": 2.36, "4": 1.33 }
+    },
+    "mixedRealMin": {
+      "master+child": 52.19,
+      "master+apprentice": 48.36,
+      "camp3": 36.27,
+      "camp3+child_ember": 31.2,
+      "kislak_nanay+2": 33.75,
+      "mete_quick_raise": 42,
+      "mete+first_ten_8": 8.01,
+      "mete+first_ten_8_quick_raise": 5.61,
+      "laden_household_3": 33.75,
+      "raw_yurt_1": 130,
+      "raw_yurt_3": 73.13,
+      "raw_yurt_8": 17.35,
+      "dismantle_1": 21,
+      "dismantle_4": 8.86
+    },
+    "k21RealMin": { "1": 60, "2": 30.6, "3": 21.7, "4": 17.3, "5": 14.7, "6": 13, "7": 11.9, "8": 11.2 },
+    "childExcludedSteps": ["y_esik", "y_ocak"]
+  },
+  "childHelp": {
+    "_note": "K52: Çocuğun yardımı dokuz türdür: altı fiil (Çocuk o fiili yaptıkça ekipte 0,5 ve bir baştır) ve üç ayak işi (ekipte sayılmaz, ustanın yolunu kısaltır). K21'in «sekiz tür» sözü düzeldi. structures.md §11.6.",
+    "verbs": {
+      "help_tamp": ["y_site"],
+      "help_carry": ["y_bosaga", "y_uuk", "y_liner", "y_sirdak"],
+      "help_hold": ["y_kerege", "y_tuurduk"],
+      "help_tie": ["y_bag", "y_kolan"],
+      "help_heave": ["y_tunduk"],
+      "help_pull": ["y_uzuk"]
+    },
+    "errands": {
+      "help_water": "y_site: 2 kova; getirilmezse Dengiz her kova için 20 gerçek sn ekipten çıkar",
+      "help_log": "y_uuk: 4 kütük; getirilmezse Dengiz her kütük için 26 gerçek sn ekipten çıkar",
+      "help_ember": "y_ocak: köz yığındaysa 20 → 6 İD"
+    },
+    "count": 9
+  },
+  "defs": {
+    "yurt": {
+      "crewMax": 8,
+      "craft": "home",
+      "ig": 1,
+      "one": 1440,
+      "size": "m",
+      "steps": [
+        { "id": "y_site", "stage": 0, "work": 81, "slots": 8, "help": ["help_tamp", "help_water"] },
+        { "id": "y_bosaga", "stage": 1, "work": 81, "slots": 6, "parts": { "door_frame": 1 }, "rawWork": 360, "help": ["help_carry"] },
+        {
+          "id": "y_kerege",
+          "stage": 2,
+          "work": 146,
+          "slots": 8,
+          "lattice": true,
+          "parts": { "kerege_set": 1 },
+          "rawWork": 720,
+          "rawRole": "cr_carpenter",
+          "help": ["help_hold"],
+          "soloView": "destek kazığıyla"
+        },
+        { "id": "y_bag", "stage": 2, "work": 48, "slots": 8, "help": ["help_tie"] },
+        { "id": "y_tunduk", "stage": 3, "work": 171, "slots": 6, "tall": true, "help": ["help_heave"], "soloView": "bakanla, 6 küçük hamle" },
+        { "id": "y_uuk", "stage": 4, "work": 290, "slots": 8, "tall": true, "parts": { "uuk_set": 1 }, "rawWork": 480, "help": ["help_carry", "help_log"] },
+        { "id": "y_liner", "stage": 5, "work": 113, "slots": 8, "parts": { "chiy": 1 }, "rawWork": 120, "help": ["help_carry"] },
+        { "id": "y_tuurduk", "stage": 6, "work": 129, "slots": 8, "felt": true, "help": ["help_hold"], "soloView": "kazıkla gererek" },
+        { "id": "y_uzuk", "stage": 6, "work": 146, "slots": 8, "felt": true, "help": ["help_pull"], "soloView": "halatı kazığa dolayarak" },
+        { "id": "y_kolan", "stage": 7, "work": 113, "slots": 8, "help": ["help_tie"] },
+        { "id": "y_esik", "stage": 7, "work": 21, "slots": 4, "felt": true, "child": false },
+        { "id": "y_sirdak", "stage": 7, "work": 81, "slots": 8, "felt": true, "help": ["help_carry"] },
+        { "id": "y_ocak", "stage": 7, "work": 20, "slots": 1, "child": false, "workIfEmber": 6, "help": ["help_ember"] }
+      ]
+    },
+    "stable": {
+      "crewMax": 6,
+      "craft": "wood",
+      "ig": 1.5,
+      "one": 2160,
+      "steps": [
+        { "id": "st_site", "stage": 0, "work": 140, "slots": 6 },
+        { "id": "st_posts", "stage": 1, "work": 340, "slots": 4 },
+        { "id": "st_walls", "stage": 2, "work": 510, "slots": 6 },
+        { "id": "st_beams", "stage": 3, "work": 405, "slots": 4, "tall": true },
+        { "id": "st_roof", "stage": 4, "work": 765, "slots": 6 }
+      ]
+    },
+    "fence": {
+      "crewMax": "2 m'lik parça başına 1, en çok 8 (10 m'de 5)",
+      "craft": "home",
+      "per": "m",
+      "steps": [{ "id": "f_stakes", "stage": 0, "work": 7.2, "slots": "seg2m" }, { "id": "f_rails", "stage": 1, "work": 3.6, "slots": "seg2m" }]
+    },
+    "pen": {
+      "crewMax": "5 m ya da pano başına 1, en çok 8",
+      "craft": "home",
+      "per": "m",
+      "steps": [
+        { "id": "p_line", "stage": 0, "work": 1.5, "slots": "seg5m" },
+        { "id": "p_wattle", "stage": 1, "work": 20, "slots": "panel", "per": "unit" },
+        { "id": "p_gate", "stage": 1, "work": 50, "slots": 2, "per": "once" }
+      ]
+    },
+    "cart": {
+      "crewMax": 4,
+      "craft": "wood",
+      "ig": 0.3,
+      "one": 432,
+      "steps": [
+        {
+          "id": "c_axle",
+          "stage": 1,
+          "work": 165,
+          "slots": 4,
+          "parts": { "wheel_pair": 1, "tag:wood": 1, "iron_bar": 1 },
+          "rawWork": 600,
+          "rawRole": ["cr_cartwright", "cr_carpenter"]
+        },
+        { "id": "c_bed", "stage": 1, "work": 120, "slots": 4 },
+        { "id": "c_hoops", "stage": 1, "work": 40, "slots": 2 },
+        { "id": "c_tilt", "stage": 1, "work": 75, "slots": 4, "felt": true },
+        { "id": "c_yoke", "stage": 1, "work": 32, "slots": 2 }
+      ]
+    },
+    "tent": {
+      "crewMax": 4,
+      "craft": "home",
+      "ig": 0.15,
+      "one": 216,
+      "steps": [
+        { "id": "t_stakes", "stage": 0, "work": 36, "slots": 4 },
+        { "id": "t_poles", "stage": 1, "work": 72, "slots": 4 },
+        { "id": "t_cover", "stage": 2, "work": 108, "slots": 4, "felt": true }
+      ]
+    },
+    "tent_night": {
+      "crewMax": 2,
+      "craft": "home",
+      "ig": 0.03,
+      "one": 43.2,
+      "steps": [
+        { "id": "tn_stakes", "stage": 0, "work": 7.2, "slots": 2 },
+        { "id": "tn_pole", "stage": 1, "work": 14.4, "slots": 2 },
+        { "id": "tn_cover", "stage": 2, "work": 21.6, "slots": 2, "felt": true }
+      ],
+      "_note": "Gecelik Çadır (K46; E6 notu): tent'in beşte biri; küçük şantiye açar, çünkü 43,2 İD basılı tutma sınırının (12 İD) üstündedir; E 1 sn malzeme koyar, T «Bitene dek çalış» 2,3 sn'de atlatır, Plan Kipi gerekmez. law.build ile tek başına 108 gerçek sn, iki elle 81 sn; sabah Topla 15,1 İD (×0,35). Döşek (bedroll) basılı tutmadır, burada tanımı yoktur. structures.md §4.5, survival.md §7.3, economy.md §6.14."
+    },
+    "hut": {
+      "crewMax": 4,
+      "craft": "home",
+      "ig": 0.5,
+      "one": 720,
+      "steps": [
+        { "id": "h_ground", "stage": 0, "work": 60, "slots": 4 },
+        { "id": "h_frame", "stage": 1, "work": 220, "slots": 4 },
+        { "id": "h_walls", "stage": 2, "work": 240, "slots": 4 },
+        { "id": "h_roof", "stage": 3, "work": 200, "slots": 4 }
+      ]
+    },
+    "shed": {
+      "crewMax": 4,
+      "craft": "wood",
+      "ig": 0.6,
+      "one": 864,
+      "steps": [
+        { "id": "sh_footing", "stage": 0, "work": 60, "slots": 4 },
+        { "id": "sh_posts", "stage": 1, "work": 180, "slots": 4 },
+        { "id": "sh_beams", "stage": 2, "work": 198, "slots": 4, "tall": true },
+        { "id": "sh_brush", "stage": 3, "work": 200, "slots": 4 },
+        { "id": "sh_thatch", "stage": 4, "work": 226, "slots": 4 }
+      ]
+    },
+    "granary": {
+      "crewMax": 6,
+      "craft": "wood",
+      "ig": 0.8,
+      "one": 1152,
+      "steps": [
+        { "id": "sh_footing", "stage": 0, "work": 80, "slots": 6 },
+        { "id": "sh_posts", "stage": 1, "work": 240, "slots": 6 },
+        { "id": "sh_beams", "stage": 2, "work": 264, "slots": 4, "tall": true },
+        { "id": "sh_brush", "stage": 3, "work": 266, "slots": 6 },
+        { "id": "sh_thatch", "stage": 4, "work": 302, "slots": 6 }
+      ]
+    },
+    "tower": {
+      "crewMax": 6,
+      "craft": "wood",
+      "ig": 1.5,
+      "one": 2160,
+      "steps": [
+        { "id": "tw_base", "stage": 0, "work": 300, "slots": 6 },
+        { "id": "tw_braces", "stage": 1, "work": 660, "slots": 4, "tall": true },
+        { "id": "tw_platform", "stage": 2, "work": 660, "slots": 4, "tall": true },
+        { "id": "tw_rail", "stage": 3, "work": 540, "slots": 4, "tall": true }
+      ]
+    },
+    "tower_gate": { "craft": "wood", "ig": 1.5, "script": true, "same": "tower" },
+    "bridge": {
+      "crewMax": 8,
+      "craft": "wood",
+      "ig": 2,
+      "one": 2880,
+      "steps": [
+        { "id": "br_footing", "stage": 0, "work": 360, "slots": 6 },
+        { "id": "br_piles", "stage": 1, "work": 720, "slots": 6 },
+        { "id": "br_stringers", "stage": 2, "work": 600, "slots": 6 },
+        { "id": "br_deck", "stage": 3, "work": 480, "slots": 8 },
+        { "id": "br_lashings", "stage": 4, "work": 300, "slots": 6 },
+        { "id": "br_rails", "stage": 5, "work": 420, "slots": 6 }
+      ]
+    },
+    "rack": {
+      "crewMax": 1,
+      "craft": "home",
+      "hold": true,
+      "steps": [{ "id": "rk_broken", "stage": 0, "work": 0, "slots": 1 }, { "id": "rk_rack", "stage": 1, "work": 3.2, "slots": 1 }]
+    },
+    "road_bone": {
+      "crewMax": 1,
+      "craft": "home",
+      "hold": true,
+      "steps": [{ "id": "rb_broken", "stage": 0, "work": 0, "slots": 1 }, { "id": "rb_pole", "stage": 1, "work": 8, "slots": 1 }]
+    }
+  },
+  "settlement": {
+    "_note": "K23 türleri ve K51 boyları (structures.md §3.5, §3.6, §4.6). work: adımların tek el payı (İD) sırayla; v2'nin solo çarpanları paya girdi. max: yapının el tavanı (baş); katsayı en çok 8 ağırlıkta durur (law.build.coefMax). stepSlots: adımın görünen eli, hızı sınırlamaz. same: adım sırası ve bayraklar o türden. Ad, kademe, kapasite settlement.md §7; malzeme economy.md §6.12.",
+    "yurt_small": {
+      "craft": "home",
+      "ig": 0.4,
+      "one": 576,
+      "max": 6,
+      "size": "s",
+      "scale": 0.7,
+      "kanat": 4,
+      "same": "yurt",
+      "workK": 0.4,
+      "work": [32.4, 32.4, 58.4, 19.2, 68.4, 116, 45.2, 51.6, 58.4, 45.2, 8.4, 32.4, 8],
+      "stepSlots": { "y_bosaga": 4, "y_tunduk": 4, "y_esik": 3, "y_ocak": 1 },
+      "layout": "ev",
+      "name": { "tr": "Küçük Yurt", "en": "Small Yurt" }
+    },
+    "otag": {
+      "craft": "home",
+      "ig": 2.5,
+      "one": 3600,
+      "max": 12,
+      "coefMax": 8,
+      "size": "l",
+      "scale": 1.4,
+      "kanat": 8,
+      "same": "yurt",
+      "workK": 2.5,
+      "work": [202.5, 202.5, 365, 120, 427.5, 725, 282.5, 322.5, 365, 282.5, 52.5, 202.5, 50],
+      "stepSlots": { "y_bosaga": 9, "y_tunduk": 9, "y_esik": 6, "y_ocak": 1 },
+      "layout": { "day": "otag", "feast": "han" },
+      "name": { "tr": "Tanhu Otağı", "en": "The Tanhu's Great Yurt" }
+    },
+    "beg_otag": {
+      "craft": "home",
+      "ig": 2.5,
+      "one": 3600,
+      "max": 12,
+      "coefMax": 8,
+      "size": "l",
+      "scale": 1.4,
+      "kanat": 8,
+      "same": "yurt",
+      "workK": 2.5,
+      "work": [202.5, 202.5, 365, 120, 427.5, 725, 282.5, 322.5, 365, 282.5, 52.5, 202.5, 50],
+      "stepSlots": { "y_bosaga": 9, "y_tunduk": 9, "y_esik": 6, "y_ocak": 1 },
+      "layout": { "day": "otag", "feast": "han" },
+      "name": { "tr": "Bey Otağı", "en": "Lord's Great Yurt" },
+      "tier": 4,
+      "perZoneMax": 3
+    },
+    "store_yurt": { "craft": "home", "ig": 0.99, "one": 1420, "max": 8, "same": "yurt", "drop": ["y_ocak"], "size": "m", "layout": "ambar" },
+    "cmd_yurt": { "craft": "home", "ig": 1, "one": 1440, "max": 8, "same": "yurt", "size": "m", "layout": "silah" },
+    "envoy_yurt": { "craft": "home", "ig": 1, "one": 1440, "max": 8, "same": "yurt", "size": "m", "layout": "konuk" },
+    "healer_yurt": { "craft": "home", "ig": 1, "one": 1440, "max": 8, "same": "yurt", "size": "m", "layout": "otaci" },
+    "armoury": {
+      "craft": "home",
+      "ig": 1.2,
+      "one": 1728,
+      "max": 8,
+      "same": "yurt",
+      "drop": ["y_ocak"],
+      "add": { "id": "y_raf", "stage": 7, "work": 308, "slots": 4 },
+      "size": "m",
+      "layout": "silah"
+    },
+    "fletchery": {
+      "craft": "home",
+      "ig": 1.2,
+      "one": 1728,
+      "max": 8,
+      "same": "yurt",
+      "drop": ["y_ocak"],
+      "add": { "id": "y_raf", "stage": 7, "work": 308, "slots": 4 },
+      "size": "m",
+      "layout": "silah"
+    },
+    "supply_depot": {
+      "craft": "home",
+      "ig": 1.5,
+      "one": 2160,
+      "max": 8,
+      "same": "yurt",
+      "drop": ["y_ocak"],
+      "add": { "id": "y_seki", "stage": 7, "work": 740, "slots": 8 },
+      "size": "m",
+      "layout": "ambar"
+    },
+    "felt_yard": { "craft": "home", "ig": 0.5, "one": 720, "max": 6, "work": [144, 216, 216, 144] },
+    "tannery": { "craft": "home", "ig": 0.4, "one": 576, "max": 4, "work": [173, 230, 173] },
+    "wood_shop": { "craft": "wood", "ig": 0.8, "one": 1152, "max": 6, "same": "granary", "work": [80, 240, 264, 266, 302], "stepSlots": { "2": 4 } },
+    "smithy": { "craft": "earth", "ig": 1.5, "one": 2160, "max": 6, "work": [540, 756, 432, 432] },
+    "kiln": { "craft": "earth", "ig": 0.6, "one": 864, "max": 4, "work": [259, 432, 173] },
+    "grain_pit": { "craft": "earth", "ig": 0.3, "one": 432, "max": 4, "work": [302, 130] },
+    "well": { "craft": "earth", "ig": 1, "one": 1440, "max": 3, "work": [864, 432, 144] },
+    "field": {
+      "craft": "earth",
+      "ig": 0.5,
+      "one": 720,
+      "max": 6,
+      "perPlot": true,
+      "seasonWorkIG": 1,
+      "seasonNote": "ekim (bahar) 0,5 İG + biçim (güz) 0,5 İG, tarla başına (doğrulama V8)",
+      "work": [432, 288]
+    },
+    "pit_house": { "craft": "earth", "ig": 2, "one": 2880, "max": 6, "work": [1008, 576, 720, 576] },
+    "rampart": { "craft": "earth", "ig": 0.5, "one": 720, "max": 8, "per10m": true, "work": [324, 396] },
+    "granary_tower": { "craft": "wood", "ig": 2, "one": 2880, "max": 6, "tall": true, "work": [432, 720, 720, 576, 432] },
+    "watch_tower": { "craft": "wood", "ig": 1.5, "one": 2160, "max": 4, "same": "tower", "tall": true },
+    "treasury": { "craft": "wood", "ig": 1.2, "one": 1728, "max": 6, "work": [173, 432, 518, 432, 173] },
+    "rampart_gate": { "craft": "wood", "ig": 1.5, "one": 2160, "max": 6, "work": [432, 648, 648, 432] },
+    "palisade": { "craft": "wood", "ig": 0.1, "one": 144, "max": "2 m'lik parça başına 1, en çok 8", "per10m": true, "workPerM": [9.6, 4.8] },
+    "horse_line": { "craft": "home", "ig": 0.08, "one": 115, "max": 4, "per20m": true, "work": [69, 46] },
+    "training_ground": { "craft": "home", "ig": 0.6, "one": 864, "max": 8, "work": [432, 259, 173] },
+    "gathering_ground": { "craft": "home", "ig": 0.4, "one": 576, "max": 8, "work": [230, 230, 116] },
+    "barter_ground": { "craft": "home", "ig": 0.5, "one": 720, "max": 6, "work": [216, 288, 216] },
+    "sky_pole": { "craft": "wood", "ig": 0.6, "one": 864, "max": 6, "tall": true, "work": [432, 302, 130] },
+    "outpost": { "craft": ["home", "wood"], "ig": 0.4, "one": 576, "max": 4, "work": { "tent": [36, 72, 108], "tower_low": [60, 120, 120, 60] } },
+    "banner_pole": { "craft": "home", "ig": 0.028, "one": 40, "max": 2, "tall": true, "work": [8, 24, 8] },
+    "lantern_post": { "craft": "home", "one": 10, "max": 1, "hold": true, "holdRealSec": 25 },
+    "cart_felt": { "craft": "wood", "ig": 0.4, "one": 576, "max": 4, "same": "cart", "workK": 1.3333, "work": [220, 160, 53, 100, 43] },
+    "cart_high": { "craft": "wood", "ig": 0.6, "one": 864, "max": 4, "same": "cart", "workK": 2, "work": [330, 240, 80, 150, 64] },
+    "cart_war": {
+      "craft": "wood",
+      "ig": 1,
+      "one": 1440,
+      "max": 6,
+      "same": "cart",
+      "workK": 3.3333,
+      "work": [550, 400, 133, 250, 107],
+      "stepSlots": { "2": 3, "4": 3 }
+    },
+    "wagon_felt": { "craft": "wood", "ig": 1.2, "one": 1728, "max": 6, "same": "cart", "workK": 4, "work": [660, 480, 160, 300, 128], "stepSlots": { "2": 3, "4": 3 } }
+  },
+  "scenarios": {
+    "_note": "Yeniden koşulabilir senaryolar, K50 eğrisiyle. Olay güdümlü tam benzetim (oran parça parça sabit), saatler en yakın dakika; 0,05 oyun dk adımlı benzetim ±1 dk aynı. Kabul koşuları açık havaya iğnelidir (structures.md §11.6, §14, §17).",
+    "camp3": {
+      "start": "14:54",
+      "crew": { "oktar": 1, "erka": 1, "dengiz": 0.75 },
+      "rawWork": false,
+      "torchFree": true,
+      "meals": ["12:00", "18:30"],
+      "mealMin": 30,
+      "mealOrder": ["oktar", "erka", "dengiz"],
+      "errands": { "help_water": { "buckets": 2, "dengizTripS": 20 }, "help_log": { "logs": 4, "dengizTripS": 26 }, "help_ember": { "workIfEmber": 6 } },
+      "pureS": { "unhelped": 2176, "allHelp": 1872, "tolerance": 10 },
+      "clockedS": { "unhelped": 2256, "errandsOnly": 2207, "joinOnly": 1969, "allHelp": 1924, "tolerance": 15, "_note": "emek bitişi: ocak hemen yansaydı" },
+      "labourDone": { "unhelped": "05:56", "errandsOnly": "05:37", "joinOnly": "04:02", "allHelp": "03:43", "restAtNight": "14:17 (ertesi gün)" },
+      "firstSmoke": {
+        "unhelped": "05:48",
+        "errandsOnly": "05:37",
+        "joinOnly": "04:02",
+        "allHelp": "03:43",
+        "restAtNight": "14:17 (ertesi gün)",
+        "_note": "aile kuralıyla (familyWait, K83): katılma ve bütün yardım gece, yardımsız ve yalnız ayak işi şafakta. joinOnly 05:04 idi (K83 ile değişti: 23:00 denetimiyle aile bekler)"
+      },
+      "smokeS": { "unhelped": 2235, "errandsOnly": 2207, "joinOnly": 1969, "allHelp": 1924, "realMin": { "unhelped": 37.2, "errandsOnly": 36.8, "joinOnly": 32.8, "allHelp": 32.1 }, "_note": "14:54'ten ilk dumana gerçek sn ve dk (structures.md §11.6 tablosu; K83)" },
+      "crownRaised": { "unhelped": "20:36", "errandsOnly": "20:33", "joinOnly": "19:52", "allHelp": "19:48" },
+      "uukDone": { "unhelped": "23:40", "errandsOnly": "23:29", "joinOnly": "22:32", "allHelp": "22:22" },
+      "unhelpedStepsNote": "yardımsız adım bitişleri; y_liner ve sonrası ertesi gündür",
+      "unhelpedSteps": {
+        "y_site": "15:46",
+        "y_bosaga": "16:35",
+        "y_kerege": "18:03",
+        "y_bag": "18:33",
+        "y_tunduk": "20:36",
+        "y_uuk": "23:40",
+        "y_liner": "00:48",
+        "y_tuurduk": "02:06",
+        "y_uzuk": "03:34",
+        "y_kolan": "04:43",
+        "y_esik": "04:55",
+        "y_sirdak": "05:44",
+        "y_ocak": "05:48"
+      },
+      "familyWait": {
+        "fireside": { "who": ["ozan", "ana", "baba"], "until": "23:00", "_note": "camp3'ün kurulduğu gece aile 22:30'da yatmaz, 23:00'e dek ateş başında kalır; Ağabey 22:30'da yatar (K83)" },
+        "check": "23:00",
+        "stageMin": 4,
+        "stageMeaning": "kayıttaki stage en son biten aşamadır: uuk bitmiş",
+        "until": "smoke",
+        "untilMeaning": "ilk dumana dek; 05:00'e dek duman çıkmazsa Ana közü getirir, ocak yurt bitince yanar, aile yine oradadır",
+        "emberAt": "05:00",
+        "else": "23:00'te aşama 4'ün altındaysa aile yatar: y_ocak 05:00'ten önce başlamaz; 05:00'te Ana közü getirir (6 İD), ocağı ekip yakar; yurt 05:00'ten sonra hazırsa ocak o an yanar; duman şafakla yükselir",
+        "owner": "BuilderSystem",
+        "events": ["camp3:family_wait", "camp3:hearth_dawn"],
+        "eventArgs": { "camp3:family_wait": { "check": "23:00", "until": "smoke" } },
+        "source": "K83 (K50'nin aile kuralı)",
+        "outcome": "Katılma ve bütün yardım aileyi ateş başında tutar: uuk 22:32 ve 22:22'de biter (pay 28 ve 38 oyun dk), ilk duman 04:02 ve 03:43, gece. Yardımsız ve yalnız ayak işi uuk'u 23:40 ve 23:29'da bitirir, aile yatar, duman şafakla 05:48 ve 05:37. Ateş başı yalnız o gece 30 oyun dk (75 gerçek sn) uzar",
+        "whyNotFixedEnd": "Sabit 04:15 bitişi seçilmedi (K83): ocak yanana dek yağmur açıktır (weather.md §6.3), yağmur keçe adımını ×0,7 yapar, tek bölüm 22–45 oyun dk geciktirir ve yalnız katılmanın 13 dakikalık payını aşar. «İlk dumana dek» açık havada 04:15 ile aynı sonucu verir (04:02 ve 03:43), yağmurda da katılan oyuncunun ateş başı anını korur; 05:00 zaten Ana'nın köz saatidir",
+        "lines": {
+          "pick": "satır ailenin ateş başında olup olmadığıyla seçilir: lines.night ya da lines.dawn",
+          "night": { "tr": "Yeni yurt gece kuruldu; ilk dumanı ozan gördü.", "en": "The new yurt went up in the night; the bard saw its first smoke." },
+          "dawn": { "tr": "Yeni yurt gece kuruldu; ocağını sabah ben yaktım.", "en": "The new yurt went up in the night; I lit its hearth this morning." }
+        }
+      },
+      "k50DecisionValues": {
+        "firstSmoke": { "unhelped": "05:25", "errandsOnly": "05:00", "joinOnly": "03:32", "allHelp": "03:12" },
+        "crownRaised": { "unhelped": "19:57", "allHelp": "19:05" },
+        "_note": "İz, okunmaz (K83 ile değişti). decisions.md K50'nin ilk metni ve story.md §7.6 bu saatleri K21'in adım tablosuyla (adım el sınırı, tündük 107, ocak tek el) hesaplamıştı; o tablo T(n)'yi tutmaz (2 el 43,2 dk). K83 ile K50'nin metni firstSmoke ve crownRaised'ın saatlerine çekildi."
+      },
+      "weatherCap": { "maxSev": 2, "until": "camp3 y_ocak", "src": "weather.md §6.3" }
+    },
+    "kislak_new_yurt": {
+      "mode": "timed",
+      "rawWork": false,
+      "fedPinned": 1,
+      "half": { "units": 27, "of": 54 },
+      "crew": { "nanay": ["10:30", "19:30"], "hands": { "n": 2, "window": ["07:00", "23:00"] }, "W": 3 },
+      "stores": { "1": "II 09:00", "2": "II 13:00", "4": "III 13:00", "5": "III 15:30", "6": "IV 09:00", "7": "IV 13:00" },
+      "crownScene": { "at": "III 08:30", "hands": 6, "work": 171, "gameMin": 40.6, "done": "III 09:11" },
+      "feastHearth": { "who": "atsho", "W": 1, "work": 6, "at": "IV 17:00", "smoke": "IV 17:06" },
+      "schedule": {
+        "crewAndStores": {
+          "0": "I 14:46",
+          "1": "II 10:01",
+          "2": "II 14:49",
+          "3": "III 09:11",
+          "4": "III 15:43",
+          "5": "III 16:47",
+          "6": "IV 11:57",
+          "7": "IV 15:01",
+          "smoke": "IV 17:06"
+        },
+        "halfPath": {
+          "0": "I 14:46",
+          "1": "I 15:31",
+          "2": "I 19:19",
+          "3": "III 09:11",
+          "4": "III 15:43",
+          "5": "III 16:47",
+          "6": "IV 11:57",
+          "7": "IV 15:01",
+          "smoke": "IV 17:06"
+        },
+        "allEarly": {
+          "0": "I 14:46",
+          "1": "I 15:31",
+          "2": "I 17:20",
+          "3": "III 09:11",
+          "4": "III 12:14",
+          "5": "III 13:17",
+          "6": "III 15:52",
+          "7": "III 17:53",
+          "smoke": "IV 17:06"
+        }
+      },
+      "storyGates": { "crown": "III 08:30", "feastSmoke": "IV 17:06", "eyeRoad": "V 11:50" },
+      "dayVPatch": { "who": ["nanay", "hand", "hand"], "W": 3, "work": 275, "from": "07:00", "to": "09:35", "formula": "(129 + 146) × 0,8 × 1,25", "gameMin": 154.7 }
+    }
+  }
+}

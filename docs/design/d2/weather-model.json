@@ -1,0 +1,100 @@
+{
+ "meta": {
+  "v": 2,
+  "doc": "docs/design/weather.md §5.9, §15 W26; d2/core.md §3.6",
+  "date": "2026-11-03",
+  "tool": "tools/weather-model.mjs (8.10) yazar; tools/econ-sim.mjs (K24) okur: derin kar payı ve mevsimin buildK / feltK çarpanı (weather.md §4.2 yedeği yerine)",
+  "source": "Gerçek weather-core (src/game/weather-core.js): ayarlı ağırlıklar, cephe hazırlığı ve çözülmesi, gün içi eğriler, sis, dolu ve tipi kuralları. Kış: 150 kış × 120 gün (16 Kasım–15 Mart, iklimin enleminde gerçek güneş), tohum 2048377054. Mevsim çarpanı: 2000 günlük benzetimin gerçekleşen payları (dolu ayrı) × d2/labour-model.json weather tepkileri, durakları dahil; buildK yurt adımlarının ekip emeğiyle ağırlıklı, feltK keçe adımının. Sınama (test/weather-core.test.js) dosyaya bakmaz: kural sırasını, I. Perde kabuğunun 0'ını ve yalnız steppe_south (derin kar 0,135 ±0,03, kabuk 0,63 ±0,3) ile gobi (kabuk ≤0,05) için mutlak toleransı denetler. Dosya ekonominin son econ-sim --strict koşusundan önce yazılır; sonra değişirse sim yeniden koşulur.",
+  "note": "Sıcaklık yok (K1): kar örtüsü yağışın ve güneşin sırasıdır; kabuk sıra kuralıdır."
+ },
+ "snowpack": {
+  "max": 1,
+  "depthAtMaxCm": 40,
+  "gainPerHour": { "snow": 0.035, "heavy_snow": 0.09, "blizzard": 0.05, "kara_boran": 0.05, "sleet": 0.01 },
+  "lossPerHour": { "settle": 0.004, "sunExtra": 0.03, "sunMinElDeg": 15, "sunTypes": ["clear", "cloud"], "springK": 3 },
+  "resetSeasons": ["summer", "autumn"],
+  "deepSnowAt": 0.6,
+  "deepSnowReadAt": "06:00"
+ },
+ "crust": {
+  "needs": "deepSnow",
+  "paths": [
+   { "id": "sleet", "rule": "o gün (06:00–20:00) ≥1 sa sulu kar" },
+   { "id": "glaze", "rule": "son 24 sa'te yoğun kar ya da tipi bitmiş ve 10:00–15:00 tümüyle açık", "p": 0.12 }
+  ],
+  "thenClearNight": { "from": "20:00", "to": "06:00", "minClearHours": 6, "types": ["clear", "cloud"] },
+  "days": [5, 10],
+  "endsIf": ["snowpack<0.3", "spring"],
+  "react": "settlement.md §15.3: otlak ×0,3, yem deep, yemsiz %2/gün; ordugâh horse_fat −2/gün"
+ },
+ "winterRowsSleetAdded": { "orkhon": 0.5, "ordos": 0.5, "steppe_south": 0.5, "kerulen": 0.5, "hangai": 0.5, "note": "açıktan alındı (weather.md §4.2)" },
+ "byClimate": {
+  "steppe_south": {
+   "spring": { "buildK": 0.889, "feltK": 0.848 },
+   "summer": { "buildK": 0.888, "feltK": 0.847 },
+   "autumn": { "buildK": 0.972, "feltK": 0.952 },
+   "winter": { "deepSnowShare": 0.16, "crustPerWinter": 0.62, "crustDayShare": 0.02, "buildK": 0.943, "feltK": 0.916 }
+  },
+  "kerulen": {
+   "spring": { "buildK": 0.926, "feltK": 0.887 },
+   "summer": { "buildK": 0.901, "feltK": 0.857 },
+   "autumn": { "buildK": 0.976, "feltK": 0.956 },
+   "winter": { "deepSnowShare": 0.258, "crustPerWinter": 0.97, "crustDayShare": 0.039, "buildK": 0.948, "feltK": 0.928 }
+  },
+  "hangai": {
+   "spring": { "buildK": 0.93, "feltK": 0.896 },
+   "summer": { "buildK": 0.898, "feltK": 0.852 },
+   "autumn": { "buildK": 0.973, "feltK": 0.951 },
+   "winter": { "deepSnowShare": 0.413, "crustPerWinter": 1.23, "crustDayShare": 0.06, "buildK": 0.939, "feltK": 0.921 }
+  },
+  "orkhon": {
+   "spring": { "buildK": 0.931, "feltK": 0.9 },
+   "summer": { "buildK": 0.908, "feltK": 0.866 },
+   "autumn": { "buildK": 0.976, "feltK": 0.956 },
+   "winter": { "deepSnowShare": 0.067, "crustPerWinter": 0.29, "crustDayShare": 0.009, "buildK": 0.967, "feltK": 0.953 }
+  },
+  "daibei": {
+   "spring": { "buildK": 0.9, "feltK": 0.868 },
+   "summer": { "buildK": 0.881, "feltK": 0.83 },
+   "autumn": { "buildK": 0.979, "feltK": 0.961 },
+   "winter": { "deepSnowShare": 0.133, "crustPerWinter": 0.37, "crustDayShare": 0.012, "buildK": 0.954, "feltK": 0.934 }
+  },
+  "gobi": {
+   "spring": { "buildK": 0.827, "feltK": 0.781 },
+   "summer": { "buildK": 0.919, "feltK": 0.906 },
+   "autumn": { "buildK": 0.946, "feltK": 0.924 },
+   "winter": { "deepSnowShare": 0.016, "crustPerWinter": 0.01, "crustDayShare": 0, "buildK": 0.966, "feltK": 0.948 }
+  },
+  "ordos": {
+   "spring": { "buildK": 0.883, "feltK": 0.848 },
+   "summer": { "buildK": 0.889, "feltK": 0.852 },
+   "autumn": { "buildK": 0.968, "feltK": 0.949 },
+   "winter": { "deepSnowShare": 0.017, "crustPerWinter": 0.07, "crustDayShare": 0.001, "buildK": 0.961, "feltK": 0.942 }
+  },
+  "hexi": {
+   "spring": { "buildK": 0.859, "feltK": 0.822 },
+   "summer": { "buildK": 0.903, "feltK": 0.87 },
+   "autumn": { "buildK": 0.976, "feltK": 0.959 },
+   "winter": { "deepSnowShare": 0.015, "crustPerWinter": 0.05, "crustDayShare": 0.001, "buildK": 0.976, "feltK": 0.964 },
+   "act1": { "deepSnowShare": 0.001, "crustPerWinter": 0, "crustDayShare": 0, "note": "yoğun kar ve tipi dışlı; I. Perde'de kar örtüsü oyunu değiştirmez" }
+  },
+  "alashan": {
+   "spring": { "buildK": 0.789, "feltK": 0.746 },
+   "summer": { "buildK": 0.939, "feltK": 0.929 },
+   "autumn": { "buildK": 0.95, "feltK": 0.932 },
+   "winter": { "deepSnowShare": 0, "crustPerWinter": 0, "crustDayShare": 0, "buildK": 0.948, "feltK": 0.927 }
+  }
+ },
+ "zones": {
+  "tanhu_ordu": "steppe_south",
+  "whistle_field": "gobi",
+  "longcheng": "orkhon",
+  "tanhu_camp": "orkhon",
+  "hexi_winter": "hexi",
+  "donghu_land": "kerulen",
+  "ordos": "ordos",
+  "mayi": "daibei",
+  "baideng": "daibei",
+  "hangai": "hangai"
+ }
+}

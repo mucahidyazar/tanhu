@@ -1,0 +1,27 @@
+{
+  "id": "winter_night_harp_e",
+  "kind": "music",
+  "instrument": "harp",
+  "rows": [
+    [
+      0,
+      12,
+      "E3",
+      0.5
+    ],
+    [
+      12,
+      12,
+      "B3",
+      0.4
+    ]
+  ],
+  "tempo": 58,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 5861,
+  "rate": 44100,
+  "loop": false,
+  "note": "winter_night: seyrek arp teli (açık beşli E–B tek tek). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

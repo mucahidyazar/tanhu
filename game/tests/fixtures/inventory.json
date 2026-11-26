@@ -1,0 +1,1660 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/inventory.mjs",
+		"proto": ["src/game/container.js", "src/game/items.js", "src/game/inventory.js", "src/data/items.js", "src/data/gear.js"],
+		"proto_sha": {
+			"src/game/container.js": "9489d7bde65b659c71a957059bd9484756b1341f",
+			"src/game/items.js": "a5a0a3f65d03bfe6c5c39b892bca3eda9efd6d80",
+			"src/game/inventory.js": "0999f60dc5307130137c84375e5acbd10f1438be",
+			"src/data/items.js": "9ad8ae14c3d95be6f6104458e87d9274743b4e74",
+			"src/data/gear.js": "beda97e4586eaf0bc93f70c989c8a5ef76f90336"
+		},
+		"kind": "math",
+		"tol": 1e-9,
+		"note": "Kap ve heybe: onda bir Yük, yuva, kabul, aktarma, bozulma, bohça, hız, terki, sekmeler, kuşam, sadak, el koyma, şafak. Sayılar 1e-9, tamsayı ve kimlik tam eşit."
+	},
+	"cases": [
+		{
+			"id": "stack_load10/arrow_bone/10",
+			"fn": "stack_load10",
+			"in": ["arrow_bone", 10],
+			"out": 5
+		},
+		{
+			"id": "stack_load10/arrow_bone/11",
+			"fn": "stack_load10",
+			"in": ["arrow_bone", 11],
+			"out": 6
+		},
+		{
+			"id": "stack_load10/arrowhead_iron/60",
+			"fn": "stack_load10",
+			"in": ["arrowhead_iron", 60],
+			"out": 30
+		},
+		{
+			"id": "stack_load10/wood_pine/3",
+			"fn": "stack_load10",
+			"in": ["wood_pine", 3],
+			"out": 120
+		},
+		{
+			"id": "stack_load10/feather/30",
+			"fn": "stack_load10",
+			"in": ["feather", 30],
+			"out": 30
+		},
+		{
+			"id": "stack_load10/arrow_shaft/1",
+			"fn": "stack_load10",
+			"in": ["arrow_shaft", 1],
+			"out": 1
+		},
+		{
+			"id": "stack_load10/stone/0",
+			"fn": "stack_load10",
+			"in": ["stone", 0],
+			"out": 0
+		},
+		{
+			"id": "stack_load10/meat_small/7",
+			"fn": "stack_load10",
+			"in": ["meat_small", 7],
+			"out": 14
+		},
+		{
+			"id": "tab_of/stone",
+			"fn": "tab_of",
+			"in": ["stone"],
+			"out": ["back", false]
+		},
+		{
+			"id": "tab_of/meal",
+			"fn": "tab_of",
+			"in": ["meal"],
+			"out": ["food", true]
+		},
+		{
+			"id": "tab_of/herb_wormwood",
+			"fn": "tab_of",
+			"in": ["herb_wormwood"],
+			"out": ["food", true]
+		},
+		{
+			"id": "tab_of/rope",
+			"fn": "tab_of",
+			"in": ["rope"],
+			"out": ["craft", true]
+		},
+		{
+			"id": "tab_of/axe_bronze",
+			"fn": "tab_of",
+			"in": ["axe_bronze"],
+			"out": ["tools", false]
+		},
+		{
+			"id": "tab_of/tally_farnak",
+			"fn": "tab_of",
+			"in": ["tally_farnak"],
+			"out": ["keepsakes", false]
+		},
+		{
+			"id": "tab_of/hide",
+			"fn": "tab_of",
+			"in": ["hide"],
+			"out": ["craft", true]
+		},
+		{
+			"id": "tab_of/felt_boots",
+			"fn": "tab_of",
+			"in": ["felt_boots"],
+			"out": ["craft", true]
+		},
+		{
+			"id": "tab_of/shrieker",
+			"fn": "tab_of",
+			"in": ["shrieker"],
+			"out": ["keepsakes", false]
+		},
+		{
+			"id": "tab_of/wood_tamarisk",
+			"fn": "tab_of",
+			"in": ["wood_tamarisk"],
+			"out": ["craft", true]
+		},
+		{
+			"id": "tab_of/yurt_kit",
+			"fn": "tab_of",
+			"in": ["yurt_kit"],
+			"out": ["back", false]
+		},
+		{
+			"id": "matches/wood_larch/tag:wood",
+			"fn": "matches",
+			"in": ["wood_larch", "tag:wood"],
+			"out": true
+		},
+		{
+			"id": "matches/wood_birch/tag:wood_light",
+			"fn": "matches",
+			"in": ["wood_birch", "tag:wood_light"],
+			"out": true
+		},
+		{
+			"id": "matches/wood_larch/tag:wood_hard",
+			"fn": "matches",
+			"in": ["wood_larch", "tag:wood_hard"],
+			"out": true
+		},
+		{
+			"id": "matches/wood_pine/tag:wood_light",
+			"fn": "matches",
+			"in": ["wood_pine", "tag:wood_light"],
+			"out": false
+		},
+		{
+			"id": "matches/stone/tag:wood",
+			"fn": "matches",
+			"in": ["stone", "tag:wood"],
+			"out": false
+		},
+		{
+			"id": "matches/sprig_juniper/tag:wood",
+			"fn": "matches",
+			"in": ["sprig_juniper", "tag:wood"],
+			"out": false
+		},
+		{
+			"id": "matches/sprig_juniper/tag:fuel",
+			"fn": "matches",
+			"in": ["sprig_juniper", "tag:fuel"],
+			"out": true
+		},
+		{
+			"id": "matches/hun_bow+/hun_bow",
+			"fn": "matches",
+			"in": ["hun_bow+", "hun_bow"],
+			"out": true
+		},
+		{
+			"id": "matches/hun_bow/hun_bow+",
+			"fn": "matches",
+			"in": ["hun_bow", "hun_bow+"],
+			"out": false
+		},
+		{
+			"id": "matches/hun_bow+/hun_bow+",
+			"fn": "matches",
+			"in": ["hun_bow+", "hun_bow+"],
+			"out": true
+		},
+		{
+			"id": "matches/hun_bow+/tag:gear",
+			"fn": "matches",
+			"in": ["hun_bow+", "tag:gear"],
+			"out": true
+		},
+		{
+			"id": "container/limits",
+			"fn": "container_ops",
+			"note": "sandık: sınır, kabul ve yuvasız kap",
+			"in": {
+				"boxes": {
+					"chest": {
+						"kind": "chest"
+					},
+					"granary": {
+						"kind": "granary"
+					},
+					"treasury": {
+						"kind": "treasury"
+					},
+					"armoury": {
+						"kind": "armoury"
+					},
+					"shed": {
+						"kind": "shed"
+					},
+					"sled": {
+						"kind": "sled"
+					}
+				},
+				"ops": [
+					["can_take", "chest", "stone", 20],
+					["can_take", "chest", "arrow_bone", 2000],
+					["add", "chest", "stone", 11],
+					["free10", "chest"],
+					["can_take", "chest", "stone", 5],
+					["can_take", "chest", "wood_pine", 5],
+					["can_take", "chest", "arrow_bone", 200],
+					["can_take", "granary", "wood_pine", 1],
+					["add", "granary", "wood_pine", 1],
+					["can_take", "granary", "millet", 10],
+					["can_take", "granary", "meat", 4],
+					["add_over", "granary", "wood_pine", 1],
+					["can_take", "treasury", "gold_old", 3],
+					["can_take", "treasury", "fur_sable", 3],
+					["can_take", "treasury", "felt", 3],
+					["can_take", "armoury", "hun_bow+", 1],
+					["can_take", "armoury", "arrow_iron", 10],
+					["can_take", "armoury", "meal", 1],
+					["can_take", "shed", "fodder", 1],
+					["can_take", "shed", "hay", 1],
+					["can_take", "shed", "stone", 1],
+					["can_take", "shed", "rope", 1],
+					["can_take", "sled", "wood_pine", 9],
+					["can_take", "sled", "rope", 1],
+					["load10", "chest"]
+				]
+			},
+			"out": [
+				12,
+				1200,
+				{
+					"added": 11,
+					"rest": 0
+				},
+				50,
+				1,
+				1,
+				100,
+				0,
+				{
+					"added": 0,
+					"rest": 1
+				},
+				10,
+				4,
+				{
+					"added": 0,
+					"rest": 1
+				},
+				3,
+				3,
+				0,
+				1,
+				10,
+				0,
+				1,
+				1,
+				1,
+				0,
+				3,
+				0,
+				550
+			]
+		},
+		{
+			"id": "container/slots",
+			"fn": "container_ops",
+			"note": "Heybe: 24 ortak yuva, sırt yükü yuva tutmaz",
+			"in": {
+				"boxes": {
+					"pack": {
+						"kind": "pack",
+						"cap10": 10000
+					},
+					"meal": {
+						"kind": "pack",
+						"cap10": 10000
+					},
+					"chest": {
+						"kind": "chest",
+						"cap10": 10000
+					},
+					"cache": {
+						"kind": "cache"
+					}
+				},
+				"ops": [
+					["can_take", "pack", "rope", 1000],
+					["add", "pack", "rope", 470],
+					["slots_used", "pack"],
+					["can_take", "pack", "rope", 20],
+					["can_take", "pack", "felt", 1],
+					["can_take", "pack", "stone", 1],
+					["add", "meal", "meal", 230],
+					["can_take", "meal", "rope", 1],
+					["can_take", "meal", "rope", 30],
+					["add", "chest", "rope", 470],
+					["can_take", "chest", "felt", 1],
+					["add", "cache", "dried_meat", 70],
+					["add", "cache", "stone", 2],
+					["slots_used", "cache"]
+				]
+			},
+			"out": [
+				480,
+				{
+					"added": 470,
+					"rest": 0
+				},
+				24,
+				10,
+				0,
+				1,
+				{
+					"added": 230,
+					"rest": 0
+				},
+				1,
+				20,
+				{
+					"added": 470,
+					"rest": 0
+				},
+				1,
+				{
+					"added": 40,
+					"rest": 30
+				},
+				{
+					"added": 0,
+					"rest": 2
+				},
+				4
+			]
+		},
+		{
+			"id": "container/partial",
+			"fn": "container_ops",
+			"note": "kısmi aktarma, etiket, kabul",
+			"in": {
+				"boxes": {
+					"pack": {
+						"kind": "pack",
+						"cap10": 400
+					},
+					"sled": {
+						"kind": "sled"
+					},
+					"a": {
+						"kind": "chest"
+					},
+					"b": {
+						"kind": "stash",
+						"cap10": 100
+					},
+					"c": {
+						"kind": "granary"
+					}
+				},
+				"ops": [
+					["add", "pack", "stone", 6],
+					["transfer", "pack", "sled", "stone", 6],
+					["count", "pack", "stone"],
+					["load10", "sled"],
+					["add", "a", "wood_pine", 2],
+					["add", "a", "wood_willow", 3],
+					["add", "a", "rope", 4],
+					["transfer", "a", "b", "tag:wood", 5],
+					["count", "b", "tag:wood"],
+					["count", "a", "tag:wood"],
+					["transfer", "a", "c", "rope", 4],
+					["list", "a"],
+					["list", "b"]
+				]
+			},
+			"out": [
+				{
+					"added": 6,
+					"rest": 0
+				},
+				{
+					"moved": 2,
+					"rest": 4,
+					"items": [
+						{
+							"id": "stone",
+							"n": 2
+						}
+					]
+				},
+				4,
+				100,
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"added": 4,
+					"rest": 0
+				},
+				{
+					"moved": 2,
+					"rest": 3,
+					"items": [
+						{
+							"id": "wood_pine",
+							"n": 2
+						}
+					]
+				},
+				2,
+				3,
+				{
+					"moved": 0,
+					"rest": 4,
+					"items": []
+				},
+				[
+					{
+						"id": "wood_willow",
+						"n": 3
+					},
+					{
+						"id": "rope",
+						"n": 4
+					}
+				],
+				[
+					{
+						"id": "wood_pine",
+						"n": 2
+					}
+				]
+			]
+		},
+		{
+			"id": "container/bulk",
+			"fn": "container_ops",
+			"note": "toplu aktarma: Sırtı Boşalt ve Eksikleri Al",
+			"in": {
+				"boxes": {
+					"pack": {
+						"kind": "pack",
+						"cap10": 1000
+					},
+					"store": {
+						"kind": "store_yurt"
+					},
+					"site": {
+						"kind": "site",
+						"cap10": 60
+					},
+					"full": {
+						"kind": "stash",
+						"cap10": 20
+					},
+					"big": {
+						"kind": "chest"
+					},
+					"small": {
+						"kind": "stash",
+						"cap10": 50
+					}
+				},
+				"ops": [
+					["add", "pack", "stone", 2],
+					["add", "pack", "wood_pine", 2],
+					["add", "pack", "rope", 3],
+					["add", "pack", "meal", 2],
+					[
+						"transfer_all",
+						"pack",
+						"store",
+						null,
+						{
+							"filter_tag": "tag:bulk"
+						}
+					],
+					["list", "pack"],
+					[
+						"transfer_all",
+						"store",
+						"site",
+						[
+							{
+								"id": "tag:wood",
+								"n": 3
+							},
+							{
+								"id": "stone",
+								"n": 1
+							}
+						]
+					],
+					["transfer_all", "pack", "full", null],
+					["add", "big", "stone", 3],
+					["transfer_all", "big", "small", null]
+				]
+			},
+			"out": [
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"moved": [
+						{
+							"id": "stone",
+							"n": 2
+						},
+						{
+							"id": "wood_pine",
+							"n": 2
+						}
+					],
+					"rest": []
+				},
+				[
+					{
+						"id": "rope",
+						"n": 3
+					},
+					{
+						"id": "meal",
+						"n": 2
+					}
+				],
+				{
+					"moved": [
+						{
+							"id": "wood_pine",
+							"n": 1
+						}
+					],
+					"rest": [
+						{
+							"id": "tag:wood",
+							"n": 2
+						},
+						{
+							"id": "stone",
+							"n": 1
+						}
+					]
+				},
+				{
+					"moved": [
+						{
+							"id": "rope",
+							"n": 3
+						},
+						{
+							"id": "meal",
+							"n": 2
+						}
+					],
+					"rest": []
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"moved": [
+						{
+							"id": "stone",
+							"n": 1
+						}
+					],
+					"rest": [
+						{
+							"id": "stone",
+							"n": 2
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "container/perish",
+			"fn": "container_ops",
+			"note": "bozulma: gün parçaları, kış dünyasında balık, aktarma gün taşır",
+			"in": {
+				"boxes": {
+					"c": {
+						"kind": "chest"
+					},
+					"pack": {
+						"kind": "pack",
+						"cap10": 200
+					},
+					"chest": {
+						"kind": "chest"
+					}
+				},
+				"ops": [
+					["add_day", "c", "meat", 1, 9],
+					["add_day", "c", "meat", 2, 10],
+					["add_day", "c", "fish", 2, 9],
+					["add_day", "c", "dried_meat", 3, 1],
+					["days_of", "c", "meat"],
+					["on_dawn", "c", 11, false],
+					["count", "c", "meat"],
+					["count", "c", "spoiled"],
+					["count", "c", "fish"],
+					["load10", "c"],
+					["on_dawn", "c", 12, true],
+					["on_dawn", "c", 13, true],
+					["count", "c", "spoiled"],
+					["on_dawn", "c", 14, true],
+					["add_day", "pack", "meat", 2, 4],
+					["add_day", "pack", "meat", 3, 5],
+					["on_dawn", "pack", 5, true],
+					["remove", "pack", "meat", 1],
+					["days_of", "pack", "meat"],
+					["transfer", "pack", "chest", "meat", 2],
+					["days_of", "chest", "meat"],
+					["days_of", "pack", "meat"],
+					["on_dawn", "chest", 6, true],
+					["on_dawn", "chest", 7, true],
+					["add", "chest", "meat_small", 2],
+					["days_of", "chest", "meat_small"],
+					["to_json", "c"],
+					["to_json", "chest"]
+				]
+			},
+			"out": [
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				[
+					[9, 1],
+					[10, 2]
+				],
+				[
+					{
+						"id": "meat",
+						"n": 1
+					}
+				],
+				2,
+				1,
+				2,
+				28,
+				[
+					{
+						"id": "meat",
+						"n": 2
+					}
+				],
+				[
+					{
+						"id": "fish",
+						"n": 2
+					}
+				],
+				5,
+				[],
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				[],
+				[
+					{
+						"id": "meat",
+						"n": 1
+					}
+				],
+				[
+					[4, 1],
+					[5, 3]
+				],
+				{
+					"moved": 2,
+					"rest": 0,
+					"items": [
+						{
+							"id": "meat",
+							"n": 2
+						}
+					]
+				},
+				[
+					[4, 1],
+					[5, 1]
+				],
+				[
+					[5, 2]
+				],
+				[
+					{
+						"id": "meat",
+						"n": 1
+					}
+				],
+				[
+					{
+						"id": "meat",
+						"n": 1
+					}
+				],
+				{
+					"added": 2,
+					"rest": 0
+				},
+				[
+					[7, 2]
+				],
+				{
+					"items": {
+						"dried_meat": 3,
+						"spoiled": 5
+					},
+					"day": 14
+				},
+				{
+					"items": {
+						"spoiled": 2,
+						"meat_small": 2
+					},
+					"perish": {
+						"meat_small": [
+							[7, 2]
+						]
+					},
+					"day": 7
+				}
+			]
+		},
+		{
+			"id": "container/bundle",
+			"fn": "container_ops",
+			"note": "bohça: yurt_kit şantiyede açılır",
+			"in": {
+				"boxes": {
+					"cart": {
+						"kind": "cart",
+						"cap10": 600
+					},
+					"site": {
+						"kind": "site",
+						"cap10": 1112,
+						"accept": ["door_frame", "kerege_set", "yurt_crown", "pole", "uuk_set", "chiy", "felt", "rope", "stone"]
+					},
+					"tent": {
+						"kind": "site",
+						"accept": ["pole", "rope", "felt"]
+					},
+					"box": {
+						"kind": "chest"
+					}
+				},
+				"ops": [
+					["can_take", "cart", "yurt_kit", 2],
+					["add", "cart", "yurt_kit", 1],
+					["transfer_unpack", "cart", "site", "yurt_kit", 1],
+					["count", "cart", "yurt_kit"],
+					["list", "site"],
+					["load10", "site"],
+					["add", "box", "tent_kit", 1],
+					["transfer_unpack", "box", "tent", "tent_kit", 1],
+					["count", "box", "tent_kit"]
+				]
+			},
+			"out": [
+				1,
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"moved": 1,
+					"rest": 0,
+					"items": [
+						{
+							"id": "yurt_kit",
+							"n": 1,
+							"unpacked": true
+						}
+					]
+				},
+				0,
+				[
+					{
+						"id": "door_frame",
+						"n": 1
+					},
+					{
+						"id": "kerege_set",
+						"n": 1
+					},
+					{
+						"id": "yurt_crown",
+						"n": 1
+					},
+					{
+						"id": "pole",
+						"n": 2
+					},
+					{
+						"id": "uuk_set",
+						"n": 1
+					},
+					{
+						"id": "chiy",
+						"n": 1
+					},
+					{
+						"id": "felt",
+						"n": 6
+					},
+					{
+						"id": "rope",
+						"n": 6
+					}
+				],
+				590,
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"moved": 0,
+					"rest": 1,
+					"items": []
+				},
+				1
+			]
+		},
+		{
+			"id": "inventory/speed",
+			"fn": "inventory_ops",
+			"note": "Yük ve hız: yarıda 0,85, tamda 0,7; dörtte üçte koşu yok",
+			"in": {
+				"setup": {
+					"cap": 24
+				},
+				"ops": [
+					["capacity"],
+					["speedK"],
+					["add", "ore_iron", 3],
+					["load"],
+					["loadFrac"],
+					["speedK"],
+					["canRun"],
+					["canJump"],
+					["add", "ore_iron", 2],
+					["loadFrac"],
+					["canRun"],
+					["canJump"],
+					["add", "ore_iron", 1],
+					["speedK"],
+					["add_over", "stone", 2],
+					["speedK"],
+					["load"]
+				]
+			},
+			"out": [
+				24,
+				1,
+				{
+					"added": 3,
+					"rest": 0
+				},
+				12,
+				0.5,
+				0.85,
+				true,
+				true,
+				{
+					"added": 2,
+					"rest": 0
+				},
+				0.8333333333333334,
+				false,
+				false,
+				{
+					"added": 1,
+					"rest": 0
+				},
+				0.7,
+				{
+					"added": 2,
+					"rest": 0
+				},
+				0.7,
+				34
+			]
+		},
+		{
+			"id": "inventory/carry_pack",
+			"fn": "inventory_ops",
+			"note": "Sırt Yükü: yarıya dek ×1",
+			"in": {
+				"setup": {
+					"cap": 32,
+					"slowFrom": 0.5
+				},
+				"ops": [
+					["add", "ore_iron", 4],
+					["load"],
+					["speedK"],
+					["add", "ore_iron", 4],
+					["speedK"],
+					["remove", "ore_iron", 2],
+					["speedK"]
+				]
+			},
+			"out": [
+				{
+					"added": 4,
+					"rest": 0
+				},
+				16,
+				1,
+				{
+					"added": 4,
+					"rest": 0
+				},
+				0.7,
+				[
+					{
+						"id": "ore_iron",
+						"n": 2
+					}
+				],
+				0.85
+			]
+		},
+		{
+			"id": "inventory/limit_sled",
+			"fn": "inventory_ops",
+			"note": "sınır, sığmayan kalır; kızak +12 ve ×0,9",
+			"in": {
+				"setup": {
+					"cap": 21
+				},
+				"ops": [
+					["add", "stone", 5],
+					["add", "stone", 1],
+					["add_over", "wood_pine", 1],
+					["load"],
+					["sled_add", "wood_pine", 3],
+					["sledOn", true],
+					["capacity"],
+					["load"],
+					["speedK"],
+					["sledOn", false],
+					["capacity"]
+				]
+			},
+			"out": [
+				{
+					"added": 4,
+					"rest": 1
+				},
+				{
+					"added": 0,
+					"rest": 1
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				24,
+				{
+					"added": 3,
+					"rest": 0
+				},
+				null,
+				33,
+				36,
+				0.63,
+				null,
+				21
+			]
+		},
+		{
+			"id": "inventory/saddlebags",
+			"fn": "inventory_ops",
+			"note": "terki: binek Yük'ü, taşma",
+			"in": {
+				"setup": {
+					"cap": 21
+				},
+				"ops": [
+					["bag_cap", "yakwe"],
+					["bag_cap", "offering_stallion"],
+					["bag_cap", "spare_horse"],
+					["add_mount", "wood_pine", 8, "yakwe"],
+					["pack_count", "wood_pine"],
+					["bag_count", "yakwe", "wood_pine"],
+					["add_mount", "stone", 30, "yakwe"],
+					["bag_load", "yakwe"]
+				]
+			},
+			"out": [
+				40,
+				50,
+				30,
+				{
+					"added": 8,
+					"rest": 0
+				},
+				5,
+				3,
+				{
+					"added": 5,
+					"rest": 25
+				},
+				37
+			]
+		},
+		{
+			"id": "inventory/tabs",
+			"fn": "inventory_ops",
+			"note": "sekmeler ve 24 ortak yuva",
+			"in": {
+				"setup": {
+					"cap": 500
+				},
+				"ops": [
+					["add", "stone", 2],
+					["add", "meal", 3],
+					["add", "herb_wormwood", 2],
+					["add", "rope", 4],
+					["add", "axe_bronze", 1],
+					["add", "axe_bronze", 1],
+					["add", "tally_farnak", 1],
+					["tab", "back"],
+					["tab", "food"],
+					["tab", "craft"],
+					["tab", "tools"],
+					["tab", "keepsakes"],
+					["load"],
+					["has", "axe_bronze"],
+					["count", "tag:herb"],
+					["slotsUsed"],
+					["add", "felt", 210],
+					["slotsFree"],
+					["add", "reed", 1],
+					["add", "stone", 1]
+				]
+			},
+			"out": [
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 4,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 0,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				[
+					{
+						"id": "stone",
+						"n": 2
+					}
+				],
+				[
+					{
+						"id": "meal",
+						"n": 3
+					},
+					{
+						"id": "herb_wormwood",
+						"n": 2
+					}
+				],
+				[
+					{
+						"id": "rope",
+						"n": 4
+					}
+				],
+				[
+					{
+						"id": "axe_bronze",
+						"n": 1
+					}
+				],
+				[
+					{
+						"id": "tally_farnak",
+						"n": 1
+					}
+				],
+				12.5,
+				true,
+				2,
+				3,
+				{
+					"added": 210,
+					"rest": 0
+				},
+				0,
+				{
+					"added": 0,
+					"rest": 1
+				},
+				{
+					"added": 1,
+					"rest": 0
+				}
+			]
+		},
+		{
+			"id": "inventory/remove",
+			"fn": "inventory_ops",
+			"note": "çıkarma: etiket, araç, kuşanılan",
+			"in": {
+				"setup": {
+					"cap": 40
+				},
+				"ops": [
+					["add", "wood_pine", 2],
+					["add", "wood_willow", 2],
+					["add", "pick_bronze", 1],
+					["count", "tag:wood"],
+					["remove", "tag:wood", 3],
+					["remove", "pick_bronze", 1],
+					["has", "pick_bronze"],
+					["equip", "hands", "glove_sak"],
+					["count", "glove_sak"],
+					["remove", "glove_sak", 1],
+					["equipped", "hands"],
+					["remove", "stone", 2]
+				]
+			},
+			"out": [
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				4,
+				[
+					{
+						"id": "wood_pine",
+						"n": 2
+					},
+					{
+						"id": "wood_willow",
+						"n": 1
+					}
+				],
+				[
+					{
+						"id": "pick_bronze",
+						"n": 1
+					}
+				],
+				false,
+				true,
+				1,
+				[
+					{
+						"id": "glove_sak",
+						"n": 1
+					}
+				],
+				null,
+				[]
+			]
+		},
+		{
+			"id": "inventory/equip",
+			"fn": "inventory_ops",
+			"note": "kuşam: yuva denetimi, eskisi heybeye, gearBlock",
+			"in": {
+				"setup": {
+					"cap": 30
+				},
+				"ops": [
+					["add", "felt_boots", 1],
+					["equip", "head", "felt_boots"],
+					["equip", "feet", "stone"],
+					["equip", "feet", "felt_boots"],
+					["pack_count", "felt_boots"],
+					["load"],
+					["equip", "feet", "fur_boots"],
+					["pack_count", "felt_boots"],
+					["equip", "feet", "felt_boots"],
+					["equip", "body", "hide_lamellar"],
+					["equip", "belt", "pouch_belt"],
+					["equip", "neck", "gold_torque"],
+					["equip", "bow", "hun_bow+"],
+					["gear"],
+					["unequip", "feet"],
+					["equipped", "feet"],
+					["gear"]
+				]
+			},
+			"out": [
+				{
+					"added": 1,
+					"rest": 0
+				},
+				false,
+				false,
+				true,
+				0,
+				0,
+				true,
+				1,
+				true,
+				true,
+				true,
+				true,
+				true,
+				{
+					"dr": {
+						"slash": 18,
+						"pierce": 14,
+						"blunt": 10,
+						"fire": 0
+					},
+					"statBonus": {
+						"grip": 0,
+						"wind": 0,
+						"foot": 0,
+						"eye": 0,
+						"word": 1
+					},
+					"load": 4,
+					"noise": 1,
+					"visMul": 1.05,
+					"snowSpeed": 1.05,
+					"trackMul": 0.85,
+					"quiverCap": 0,
+					"bow": "hun_bow+"
+				},
+				"felt_boots",
+				null,
+				{
+					"dr": {
+						"slash": 18,
+						"pierce": 14,
+						"blunt": 10,
+						"fire": 0
+					},
+					"statBonus": {
+						"grip": 0,
+						"wind": 0,
+						"foot": 0,
+						"eye": 0,
+						"word": 1
+					},
+					"load": 4,
+					"noise": 1,
+					"visMul": 1.05,
+					"snowSpeed": 1,
+					"trackMul": 1,
+					"quiverCap": 0,
+					"bow": "hun_bow+"
+				}
+			]
+		},
+		{
+			"id": "inventory/quiver",
+			"fn": "inventory_ops",
+			"note": "sadak: doldurma, atış, çıkınca oklar heybeye",
+			"in": {
+				"setup": {
+					"cap": 30
+				},
+				"ops": [
+					["add", "arrow_bone", 20],
+					["quiverCap"],
+					["equip", "quiver", "quiver_farnak"],
+					["quiverCap"],
+					["fillQuiver"],
+					["pack_count", "arrow_bone"],
+					["spendArrow", "arrow_bone"],
+					["arrows"],
+					["spendArrow", "arrow_iron"],
+					["unequip", "quiver"],
+					["arrows"],
+					["pack_count", "arrow_bone"]
+				]
+			},
+			"out": [
+				{
+					"added": 20,
+					"rest": 0
+				},
+				0,
+				true,
+				12,
+				[
+					{
+						"id": "arrow_bone",
+						"n": 12
+					}
+				],
+				8,
+				true,
+				{
+					"arrow_bone": 11
+				},
+				false,
+				"quiver_farnak",
+				{},
+				19
+			]
+		},
+		{
+			"id": "inventory/seize",
+			"fn": "inventory_ops",
+			"note": "el koyma ve geri alma",
+			"in": {
+				"setup": {
+					"cap": 60
+				},
+				"ops": [
+					["add", "notch_stick", 1],
+					["add", "tally_farnak", 1],
+					["add", "tally_kantu", 1],
+					["add", "meal", 2],
+					["add", "rope", 3],
+					["add", "hoof_wraps", 1],
+					["add", "knife_iron", 1],
+					["add", "axe_bronze", 1],
+					["add", "net", 1],
+					["equip", "body", "hostage_coat"],
+					["equip", "cape", "wolf_pelt"],
+					["equip", "hands", "glove_sak"],
+					["equip", "feet", "felt_boots"],
+					["equip", "belt", "plaque"],
+					["equip", "neck", "shrieker"],
+					["equip", "blade", "akinakes"],
+					["equip", "quiver", "quiver_farnak"],
+					["add", "arrow_bone", 5],
+					["fillQuiver"],
+					["chest_add", "felt", 3],
+					["stash_add", "way_camp", "dried_meat", 4],
+					["cache_add", "RB07", "dried_meat", 6],
+					["bag_add", "yakwe", "hay", 2],
+					["seize"],
+					["pack_list_sorted"],
+					["equipment"],
+					["has_tool", "axe_bronze"],
+					["cache_count", "dried_meat"],
+					["chest_empty"],
+					["restoreSeized"],
+					["pack_count", "meal"],
+					["pack_count", "dried_meat"],
+					["has_tool", "net"],
+					["equipped", "blade"],
+					["equipped", "quiver"],
+					["arrows"]
+				]
+			},
+			"out": [
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				true,
+				true,
+				true,
+				true,
+				true,
+				true,
+				true,
+				true,
+				{
+					"added": 5,
+					"rest": 0
+				},
+				[
+					{
+						"id": "arrow_bone",
+						"n": 5
+					}
+				],
+				{
+					"added": 3,
+					"rest": 0
+				},
+				{
+					"added": 4,
+					"rest": 0
+				},
+				{
+					"added": 6,
+					"rest": 0
+				},
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"items": [
+						{
+							"id": "dried_meat",
+							"n": 4
+						},
+						{
+							"id": "felt",
+							"n": 3
+						},
+						{
+							"id": "hay",
+							"n": 2
+						},
+						{
+							"id": "hoof_wraps",
+							"n": 1
+						},
+						{
+							"id": "meal",
+							"n": 2
+						},
+						{
+							"id": "rope",
+							"n": 3
+						}
+					],
+					"tools": ["axe_bronze", "net"],
+					"equip": {
+						"blade": "akinakes",
+						"quiver": "quiver_farnak"
+					},
+					"arrows": {
+						"arrow_bone": 5
+					}
+				},
+				["knife_iron", "notch_stick", "tally_farnak", "tally_kantu"],
+				{
+					"head": null,
+					"neck": "shrieker",
+					"body": "hostage_coat",
+					"cape": "wolf_pelt",
+					"hands": "glove_sak",
+					"belt": "plaque",
+					"feet": "felt_boots",
+					"blade": null,
+					"bow": null,
+					"quiver": null
+				},
+				false,
+				6,
+				true,
+				{
+					"items": 6,
+					"tools": ["axe_bronze", "net"],
+					"equip": {
+						"blade": "akinakes",
+						"quiver": "quiver_farnak"
+					}
+				},
+				2,
+				4,
+				true,
+				"akinakes",
+				"quiver_farnak",
+				{
+					"arrow_bone": 5
+				}
+			]
+		},
+		{
+			"id": "inventory/dawn",
+			"fn": "inventory_ops",
+			"note": "şafak: gün anahtarı, ikinci şafakta bozulma, ilk şafakta eşleme",
+			"in": {
+				"setup": {
+					"cap": 40
+				},
+				"ops": [
+					["add", "meat", 2],
+					["chest_add_day", "fish", 1],
+					["onDawn", 1042],
+					["day"],
+					["pack_days", "meat"],
+					["add", "meat", 1],
+					["pack_days", "meat"],
+					["onDawn", 1043],
+					["pack_count", "spoiled"],
+					["pack_count", "meat"],
+					["onDawn", 1043],
+					["add", "meat", 3],
+					["longSkip", 3],
+					["day"],
+					["pack_count", "meat"],
+					["pack_count", "spoiled"]
+				]
+			},
+			"out": [
+				{
+					"added": 2,
+					"rest": 0
+				},
+				{
+					"added": 1,
+					"rest": 0
+				},
+				[],
+				1042,
+				[
+					[1041, 2]
+				],
+				{
+					"added": 1,
+					"rest": 0
+				},
+				[
+					[1041, 2],
+					[1042, 1]
+				],
+				[
+					{
+						"container": "pack",
+						"id": "meat",
+						"n": 2
+					},
+					{
+						"container": "chest",
+						"id": "fish",
+						"n": 1
+					}
+				],
+				2,
+				1,
+				[],
+				{
+					"added": 3,
+					"rest": 0
+				},
+				[
+					{
+						"container": "pack",
+						"id": "meat",
+						"n": 4
+					}
+				],
+				1046,
+				0,
+				6
+			]
+		}
+	]
+}

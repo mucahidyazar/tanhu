@@ -1,0 +1,19 @@
+{
+	"id": "act0.hearth.wood_done",
+	"take": 0,
+	"seed": 119143462,
+	"hash": "0719fc26e9f2",
+	"model": "eleven_v3",
+	"voice": "wSqOdjeNqDrHcoK0zorF",
+	"seconds": 2.24,
+	"words": [
+		{"w": "With", "t0": 0.0, "t1": 0.08},
+		{"w": "this", "t0": 0.128, "t1": 0.32},
+		{"w": "much", "t0": 0.352, "t1": 0.48},
+		{"w": "wood", "t0": 0.544, "t1": 0.8},
+		{"w": "it'll", "t0": 0.907, "t1": 1.2},
+		{"w": "burn", "t0": 1.248, "t1": 1.44},
+		{"w": "till", "t0": 1.472, "t1": 1.6},
+		{"w": "morning.", "t0": 1.65, "t1": 2.24}
+	]
+}

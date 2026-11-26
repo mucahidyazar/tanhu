@@ -1,0 +1,62 @@
+{
+	"version": 1,
+	"source": "progression.md §0, §1.1–§1.5, §2.1–§2.2, §4.1–§4.2, §13.2–§13.3; act1.md §11; K43, K72, K88",
+	"doc": "Seviye, XP, stat ve beceri kuralları (Progression, scripts/sim/progression/progression.gd okur). levels.xpCurve birikimli XP'dir (indeks seviye − 1; L20 69.000); levels.actCaps perde tavanıdır (I 5 … VI 20): seviye atlamayı durdurur, XP'yi silmez; actBands perdede alınan seviyelerdir. L20'den sonra her overflowXp (1.800) XP bir beceri puanı, en çok overflowMax (3). Her seviye +1 stat, +1 beceri puanı, Can +5 (Can tabanı hpBase + hpPerLevel × (Sv − 1); türetilen Can Derive'dadır). stats: beş stat, başlangıç start (3); köken (data/character/origins.json) originBonus (+1) verir, kökensiz kayıtta bu puan beklemede durur; tek stat tavanı perdeye bağlıdır (actCaps: I 7 … VI 12). skills: tier tabanı seviyesi tierLevels (T1 1, T2 3, T3 6, T4 9, T5 12, T6 15; satırdaki level yüksekse o geçer), çubuk barSlots yuvalı, II. Perde'den her perde başında respecPerAct Ozan'a Anlattır hakkı, nameFlag gelene dek gizli adlı beceri siluettir, sentencedFlag yazılınca ustası tutmayan I. Perde becerisi yiter; questPoints perdenin beceri puanı veren görevleridir (§1.4). xp: kaynağın tabanı × scale[perde − 1], en yakın tamsayı (yarım yukarı); main ve side tabanı görev verisindedir (base null); once kaynağı kimlik başına bir kez sayılır; perDay günde, perAct perdede en çok bu kadar sayılır; perActFrom perdeden itibaren perActMax sınırı (av: II'den perde başına en çok 4 tür); zeroKinds bu türdeki hedef XP vermez (sahnesiz konak). zero listesindeki kaynaklar hiçbir perdede XP vermez: insan öldürmek, ham toplama, ganimet, küçük durak, Kaçak Ödül, Gecelik Kamp, yoldaşın kişisel görevi, söyleşi ve armağan. Tablo değişirse önce progression.md, sonra bu dosya.",
+	"levels": {
+		"max": 20,
+		"xpCurve": [0, 250, 800, 1700, 3000, 4600, 6600, 9000, 11800, 15000, 18600, 22600, 27000, 31800, 37000, 42600, 48600, 55000, 61800, 69000],
+		"actCaps": [5, 8, 11, 14, 17, 20],
+		"actBands": [[1, 5], [6, 8], [9, 11], [12, 14], [15, 17], [18, 20]],
+		"hpBase": 100,
+		"hpPerLevel": 5,
+		"overflowXp": 1800,
+		"overflowMax": 3
+	},
+	"stats": {
+		"ids": ["grip", "wind", "foot", "eye", "word"],
+		"start": 3,
+		"originBonus": 1,
+		"actCaps": [7, 8, 9, 10, 11, 12],
+		"names": {
+			"grip": {"tr": "Bilek", "en": "Grip"},
+			"wind": {"tr": "Soluk", "en": "Wind"},
+			"foot": {"tr": "Ayak", "en": "Foot"},
+			"eye": {"tr": "Göz", "en": "Eye"},
+			"word": {"tr": "Söz", "en": "Word"}
+		}
+	},
+	"skills": {
+		"tierLevels": [1, 3, 6, 9, 12, 15],
+		"barSlots": 6,
+		"respecPerAct": 2,
+		"nameFlag": "whistling_arrow",
+		"sentencedFlag": "sentenced",
+		"questPoints": {
+			"1": ["mq_herd_school", "mq_feast"],
+			"2": ["mq2_whistle_make", "mq2_tanhu_horse"],
+			"3": ["mq3_empty_land", "mq3_dailin"],
+			"4": ["mq4_hollow", "mq4_west_road"],
+			"5": ["mq5_feigned_flight", "mq5_seven_days"],
+			"6": ["mq6_kurultay"]
+		}
+	},
+	"xp": {
+		"scale": [1, 1.75, 2.6, 3.5, 4.4, 5],
+		"sources": {
+			"main": {"base": null},
+			"side": {"base": null},
+			"job": {"base": 25, "perDay": 3},
+			"job_first": {"base": 15, "once": true},
+			"lookout": {"base": 10, "once": true},
+			"waystation": {"base": 10, "once": true},
+			"cairn": {"base": 10, "once": true, "fromAct": 2},
+			"fare": {"base": 35, "perDay": 3},
+			"atlas_node": {"base": 20, "once": true, "fromAct": 2, "zeroKinds": ["waypost"]},
+			"hunt": {"base": 40, "once": true, "perActFrom": 2, "perActMax": 4},
+			"recipe": {"base": 20, "once": true},
+			"build": {"base": 30, "once": true, "fromAct": 2},
+			"provision": {"base": 40, "fromAct": 2, "perAct": 4}
+		},
+		"zero": ["kill_human", "kill", "gather", "loot", "minor_stop", "fugitive_reward", "night_camp", "companion_quest", "companion_talk", "gift"]
+	}
+}

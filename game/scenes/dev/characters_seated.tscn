@@ -1,0 +1,83 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/camp_npcs.tscn" id="1_npcs"]
+[ext_resource type="Script" path="res://scripts/camp/rug.gd" id="2_rug"]
+[ext_resource type="Script" path="res://scripts/camp/campfire.gd" id="3_fire"]
+
+[sub_resource type="GDScript" id="GDScript_seated"]
+script/source = "extends Node3D
+## Geliştirme sahnesi: ateş başındaki oturan karakterler (CampNpcs) sade bir zeminde, nötr ışıkta.
+## Kesişme ve zemine oturma denetimi için yakın çekim yapılır:
+##   tools/capture.sh /tmp/oturan.png 120 --scene=res://scenes/dev/characters_seated.tscn --pose=0.3,2.2,4.2,0,-24
+## --hide-model=mete oturan Mete'yi gizler (CampNpcs.set_hidden_model denemesi), --night gece ışığı verir,
+## --no-npcs karakterleri kaldırır (kare hızı karşılaştırması için).
+
+@onready var _camera := $Camera as Camera3D
+
+
+func _ready() -> void:
+	var capture := get_node_or_null(^\"/root/DevCapture\")
+	if capture:
+		capture.pose_requested.connect(func(pos: Vector3, yaw: float, pitch: float) -> void:
+			_camera.global_transform = Transform3D(Basis.from_euler(Vector3(deg_to_rad(pitch), deg_to_rad(yaw), 0.0)), pos))
+		capture.fov_requested.connect(func(fov_deg: float) -> void: _camera.fov = fov_deg)
+	var args := preload(\"res://scripts/dev/capture.gd\").parse_args(OS.get_cmdline_user_args())
+	if args.has(\"hide-model\"):
+		($CampNpcs as CampNpcs).set_hidden_model(str(args[\"hide-model\"]))
+	if args.has(\"no-npcs\"):
+		$CampNpcs.queue_free()
+	if args.has(\"night\"):
+		($Sun as DirectionalLight3D).light_energy = 0.25
+		($WorldEnvironment as WorldEnvironment).environment.ambient_light_energy = 0.25
+"
+
+[sub_resource type="Environment" id="Environment_seated"]
+background_mode = 1
+background_color = Color(0.3, 0.38, 0.5, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.64, 0.75, 1)
+ambient_light_energy = 0.8
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(16, 16)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.3, 0.42, 0.22, 1)
+
+[node name="CharactersSeated" type="Node3D"]
+script = SubResource("GDScript_seated")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_seated")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 4, 0)
+light_color = Color(1, 0.95, 0.88, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("Material_ground")
+
+[node name="RugLeft" type="Node3D" parent="."]
+transform = Transform3D(0.78801, 0, 0.61566, 0, 1, 0, -0.61566, 0, 0.78801, -1.45, 0, -0.8)
+script = ExtResource("2_rug")
+size = Vector2(3.1, 1.8)
+
+[node name="RugRight" type="Node3D" parent="."]
+transform = Transform3D(0.76604, 0, -0.64279, 0, 1, 0, 0.64279, 0, 0.76604, 1.75, 0, -0.75)
+script = ExtResource("2_rug")
+size = Vector2(2.9, 1.7)
+field_color = Color(0.2, 0.17, 0.32, 1)
+border_color = Color(0.45, 0.12, 0.08, 1)
+
+[node name="Campfire" type="Node3D" parent="."]
+script = ExtResource("3_fire")
+
+[node name="CampNpcs" parent="." instance=ExtResource("1_npcs")]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.89879, 0.43837, 0, -0.43837, 0.89879, 0.3, 2.6, 4.6)
+fov = 45.0

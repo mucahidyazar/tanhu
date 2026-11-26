@@ -1,0 +1,12 @@
+{
+  "id": "wind_steppe",
+  "kind": "ambience",
+  "instrument": "wind",
+  "seconds": 24.0,
+  "fold": 2.0,
+  "seed": 4401,
+  "rate": 22050,
+  "loop": true,
+  "source": "code",
+  "note": "Bozkır rüzgârı döngüsü (audio.md §4): gövde 380 Hz, gezinen orta bant 800–1500 Hz, seyrek ıslık 1,5–2,1 kHz; Önsöz'de alçak sessizlikte −40 dB, kara sessizlikte −60 dB kuyruk. Ücretsiz aday (OpenGameArt wind1, CC0, 60 sn) kulakla karşılaştırılır: tools/bake_music.sh --only=wind_steppe --source=free:assets/_free/_staging/opengameart/wind1/wind1.wav --out=<klasör>."
+}

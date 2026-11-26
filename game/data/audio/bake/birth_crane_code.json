@@ -1,0 +1,14 @@
+{
+  "id": "crane_call_code",
+  "kind": "wav",
+  "instrument": "crane",
+  "role": "flock",
+  "calls": 10,
+  "seconds": 5.5,
+  "distance": 0.7,
+  "seed": 2347,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "Karşılaştırma adayı (oyuna girmez, ara WAV): kodla basılan turna sürüsü (scripts/audio/synth/crane.gd: ≈1 kHz dar biçimlendirici, sert atak, çatlak; 10 çağrı). Kulak ücretsiz kayıtları (crane_call, crane_call_v1) seçmezse crane_call.json bu tarife döner."
+}

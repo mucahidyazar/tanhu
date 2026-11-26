@@ -1,0 +1,18 @@
+{
+	"id": "act0.myth.20",
+	"take": 0,
+	"seed": 3402813822,
+	"hash": "a271016bc5d1",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 2.101,
+	"block": {"id": "block:act0.myth.3..act0.myth.25", "t0": 97.877, "t1": 99.978},
+	"words": [
+		{"w": "The", "t0": 0.05, "t1": 0.143},
+		{"w": "Sky", "t0": 0.143, "t1": 0.443},
+		{"w": "left", "t0": 0.491, "t1": 0.683},
+		{"w": "them", "t0": 0.731, "t1": 0.923},
+		{"w": "to", "t0": 0.95, "t1": 1.003},
+		{"w": "themselves.", "t0": 1.076, "t1": 1.941}
+	]
+}

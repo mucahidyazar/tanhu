@@ -1,0 +1,190 @@
+{
+  "id": "prologue_myth",
+  "version": 1,
+  "note": "Önsöz'ün mit sinemasının müzik bankası (audio.md §3; K59, K61, K68): myth (D Dorian 52; dron, seyrek kopuz motor 0,2 ve cevap katmanı), erlik (E Frigyen 52; kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2), tengri (majör pentatonik kök F, 48; sinemanın tek korosu açık beşli D–A, kıl kobuz ana renk, hucia; kopuz yok). Geçişler ölçü sınırında (NEXT_BAR), çapraz, 2 vuruş. answer: satır bitince 'layer' katmanı 'under' katmanının sesinin 6 dB üstüne çıkar, ≥1,5 sn (panolarda 2 sn) kalır; swap ise 'under' o sürede susar (kopuz kuralı: aynı anda en çok üç tel). Çizelge data/cine/prologue_myth.json bu sayılarla yazılır, test_prologue_myth.gd ikisini birlikte sınar. myth'in dronu ve boş cümlesi kamp bankasınındır (camp_drone, camp_rest): ozanın dronu mite sürer. Kodla basılan müzik kulak onayı bekler (Karar Bekleyenler).",
+  "menu_source": "elevenlabs",
+  "transition": {
+    "from": "next_bar",
+    "to": "start",
+    "fade": "cross",
+    "beats": 2
+  },
+  "clips": [
+    {
+      "name": "myth",
+      "tempo": 52,
+      "mode": "d_dorian",
+      "answer": {
+        "layer": "answer",
+        "under": "kopuz",
+        "swap": true
+      },
+      "layers": [
+        {
+          "name": "drone",
+          "file": "camp_drone",
+          "db": -5
+        },
+        {
+          "name": "kopuz",
+          "db": -6,
+          "phrases": [
+            {
+              "file": "myth_kopuz_a",
+              "copies": 2
+            },
+            {
+              "file": "myth_kopuz_b",
+              "copies": 2
+            },
+            {
+              "file": "camp_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "answer",
+          "db": -80,
+          "phrases": [
+            {
+              "file": "myth_answer_a",
+              "copies": 2
+            },
+            {
+              "file": "myth_answer_b",
+              "copies": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "erlik",
+      "tempo": 52,
+      "mode": "e_phrygian",
+      "answer": {
+        "layer": "answer",
+        "under": "kopuz",
+        "swap": true
+      },
+      "layers": [
+        {
+          "name": "drone",
+          "file": "erlik_drone",
+          "db": -4
+        },
+        {
+          "name": "kobuz",
+          "db": -5,
+          "phrases": [
+            {
+              "file": "erlik_kobuz_a",
+              "copies": 2
+            },
+            {
+              "file": "erlik_kobuz_b",
+              "copies": 2
+            },
+            {
+              "file": "camp_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "slide",
+          "db": -4,
+          "phrases": [
+            {
+              "file": "erlik_slide",
+              "copies": 1
+            },
+            {
+              "file": "camp_rest",
+              "copies": 2,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "kopuz",
+          "db": -3,
+          "phrases": [
+            {
+              "file": "erlik_kopuz",
+              "copies": 1
+            }
+          ]
+        },
+        {
+          "name": "answer",
+          "db": -80,
+          "phrases": [
+            {
+              "file": "erlik_answer",
+              "copies": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tengri",
+      "tempo": 48,
+      "mode": "major_pent",
+      "answer": {
+        "layer": "answer",
+        "under": "kobuz",
+        "swap": false
+      },
+      "layers": [
+        {
+          "name": "drone",
+          "file": "tengri_drone",
+          "db": -6
+        },
+        {
+          "name": "choir_tengri",
+          "file": "choir_tengri",
+          "db": -4
+        },
+        {
+          "name": "kobuz",
+          "db": -8,
+          "phrases": [
+            {
+              "file": "tengri_kobuz_a",
+              "copies": 2
+            },
+            {
+              "file": "tengri_kobuz_b",
+              "copies": 2
+            },
+            {
+              "file": "tengri_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "answer",
+          "db": -80,
+          "phrases": [
+            {
+              "file": "tengri_hujia_a",
+              "copies": 1
+            },
+            {
+              "file": "tengri_hujia_b",
+              "copies": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

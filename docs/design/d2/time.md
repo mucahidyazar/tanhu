@@ -1,0 +1,905 @@
+# Zaman ve Takvim / Time and Calendar (K20)
+
+> **Taslak, yerini aldı (2026-11-03).** Son biçim `docs/design/time.md`'dir; bağlayıcı olan odur. Bu dosya eleştiri ve karar izi için korunur.
+
+d2 tasarım taslağı, 2026-11-02. Alan: dünya saati, takvim, gün ışığı, güneş ve ay yönü, ışık durakları, bekleme ve uyku, saat programları, I. Perde'nin saate geçişi ve saatin öteki sistemlere anlamı. Bağlayıcı olan `decisions.md` K1–K19 ve yönetmenin K20–K24 kararlarıdır; bu belge onları ayrıntılandırır, tersine çevirmez. Çerçeve kodla aynıdır: x doğu, z güney, kuzey −z, metre; oyun kamerası kuzeye bakar ve oyuncu onu döndürmez (`architecture.md` §8 karar 19). Kimlikler İngilizce, oyuncu metinleri TR / EN ve yenidir.
+
+**Komşu alanlar.** Emek birimi ve gece çarpanı K21'indir (`d2/labour-model.json`: 1 iş dakikası = bir işçinin bir oyun dakikalık emeği, 1 iş günü = 1.440 İD = tek işçiyle 60 gerçek dk, `law.night`). Mevsim uzunlukları ve günlük üretim saati K24'ündür (`d2/econ-model.json` `params.seasonDays` 120/60/100/85, `prodHoursPerDay` 16). Hava K22'nin, yerleşim ve ordugâh K23'ün alanıdır. Bu belge onların okuduğu saat yüzünü bağlar.
+
+**Neyi değiştirmez.** Bu taslak hiçbir belgeyi ve kodu düzenlemedi. `architecture.md`, `structures.md`, `audio.md` değişiklikleri birebir talimat olarak `d2/time-delta-architecture.md`, `d2/time-delta-structures.md`, `d2/time-delta-audio.md` dosyalarındadır, Faz 7'den sonra işlenir. Öteki belgelerin değişiklikleri §15'tedir.
+
+## 0. Karar özeti
+
+| # | Karar | Sayı | Neden |
+|---|---|---|---|
+| Z1 | Oran | 1 oyun günü = 24 oyun saati = 1.440 oyun dk = 3.600 gerçek sn. 1 oyun saati = 150 sn = 2,5 dk; 1 oyun dk = 2,5 sn; 1 gerçek sn = 0,4 oyun dk | K20 |
+| Z2 | Tek hız | Saat hızı ayarı yok. Oran yalnız 0 (durma), oyunun `dt` ölçeği (yavaşlatma) ya da Yol Akışı `k`'dır; bekleme, uyku, yolculuk atlamadır | K20: gün hep 60 dk |
+| Z3 | Gün sınırları | Takvim günü gece yarısı artar. Yeni gün, `dawn` olayı ve hikâye günü Tan evresinin başında başlar: sivil şafaktan 30 dk önce | Bozkırın günü şafakla başlar; `economy.md` `onDawn` |
+| Z4 | Gün ışığı | Gerçek güneş: enlem ve yılın gününden sapma (deklinasyon), ufukta −0,833° kırılma. Oyun saati yerel güneş saatidir, öğle 12:00 | K20: dünya ve mevsimle değişir, gün yine 60 dk |
+| Z5 | Ana kampın mevsimi | Orhun yukarısı 47,35°K, 10 Nisan (δ +7,42°), iğnelidir | Menü güneşi (−0,66; 0,6; 0,46) bu günün 14:46'sındaki gerçek güneştir: hesap §5.5 |
+| Z6 | Menü dakikası | 14:46,2 (886,2 dk). Bu dakikada saatin ışığı menü karesinin ışığıdır: durak karışımı golden→dusk 0,3, güneş yönü 1e−6 içinde | Menü karesi değişmez; yeni Serbest Gez oturumu sıçramasız açılır |
+| Z7 | Evreler | Tan, Sabah, Öğle, İkindi, Akşam, Gece; sınırlar güneşe bağlı | Oyun dili; eski dört dilim bunların birleşimidir |
+| Z8 | Işık durakları | Altı: `night`, `dawn`, `morning`, `noon`, `golden` (bugünkü), `dusk` (bugünkü); anahtarlar evre çapalarına bağlı | K20; bugünkü iki durak bit bit kalır |
+| Z9 | Gece ışığı | Aynı `DirectionalLight` geceleri ay ya da gök yönünden; alacakaranlıkta yön döner, yoğunluk çukura iner | Çalışma zamanında ışık eklenmez (`architecture.md` §0 kural 7) |
+| Z10 | Kışlak günü | Gün I: doğuş 07:11, batış 16:49 (9 sa 37 dk = 24 dk); Gece evresi 17:48–06:12 (31 dk) | Hexi 38,9°K, 2 Aralık MÖ 210 |
+| Z11 | İş Puanı | Kalkar. Yerine vakit pencereleri, saat bekleyişleri ve uyku kapısı | K20 |
+| Z12 | Ay Saati | Düğüm'den buz saatine: Normal 06:40, Zor 05:10, Hikâye'de saat yok; Amaga 20:00'de gelir | Sabit oranda 36 / 28 dk tutmaz; gerçek süre ≈32 / ≈28,5 dk |
+| Z13 | Dolunay | Gün IV 18:00 (baskın); Son Gece ay bütün gece gökte | Shiji 110 #11: ay dolunca saldırırlar |
+| Z14 | Bekle ve uyu | `T` Bekle tekerini açar (bugünkü geliştirme ışık düğmesinin yerine); uyku yalnız döşekte | K20 |
+| Z15 | Atlama | Atlanan süre her sistemde sırayla işlenir: saat başları, şafaklar, sonra tek `clock:skip` | Uyuyan dünya durmaz |
+| Z16 | Sayım takvimdir | Mutlak gün sayısı = rehinenin günü: Gün I = 1.041 = 2 Aralık MÖ 210; 1. gün 26 Ocak MÖ 212 | Palak'ın sayımı takvimin kendisi olur |
+
+## 1. Birimler ve oran
+
+| Birim | Değer | Kod |
+|---|---|---|
+| Oyun dakikası | 2,5 gerçek sn | `SEC_PER_MIN = 2.5` |
+| Oyun saati | 150 gerçek sn | |
+| Oyun günü | 3.600 gerçek sn = 60 dk | `DAY_MIN = 1440` |
+| Gerçek saniye | 0,4 oyun dk | `MIN_PER_SEC = 0.4` |
+| Hikâye günü | Tan başından ertesi Tan başına | `calendar.storyDay` |
+| İş dakikası (K21) | Bir işçinin bir oyun dakikası | `labour-model.json` `law` |
+
+**Zaman ikiye ayrılır.** *Eylem süresi* gerçek saniyedir ve oyunun hissidir: vuruş (`T`), 2 sn basılı toplama, şişte 12 sn pişirme, 120 sn'lik Göz Yolu. *Dünya süresi* oyun dakikasıdır: güneş, yakıt, kuruma, mayalanma, bozulma, emek, yenilenme, program. Eylem dünyayı durdurmaz: 15 sn'lik kazan pişirmesi saati 6 oyun dk ilerletir. Bu kural her alan belgesinin süre sütununu okumanın yoludur.
+
+**Belgelerdeki "dilim".** Eski metinlerdeki *dilim* iki anlamda kullanılır, ikisi de saate şöyle çevrilir: süre olarak bir dilim = 6 oyun saati (15 dk); "dilim başında" = eski dört dilimin sınırında, yani Tan, Öğle, İkindi ve Gece evrelerinin başında (§4).
+
+## 2. Takvim
+
+**Mutlak gün (`dayN`).** Bütün oyunda tek sayaç, rehinenin günüdür. Gün I = 1.041 (Palak: «Bin kırk birinci gün.»), Gün V = 1.045 (`act1.md` §8.4 «Bin kırk beşinci gün») tutar; `travel.md` §11 örneğindeki `day: 1043` Gün III'tür. Perdeler ilerledikçe sayaç sürer; II. Perde'de sayan Mete'dir (`army.md` §1.3 Dailin Sayımı).
+
+**Yıl ve gün.** 365 günlük oyun yılı, artık gün yok. `dayN = 1` 26 Ocak MÖ 212 (doy 25, 0 = 1 Ocak); Gün I 2 Aralık MÖ 210 (doy 335). `yearBC = 212 − floor((dayN + 24) / 365)`, `doy = (dayN + 24) mod 365`. Üç kış (212, 211, 210) `act1.md` §1 «Üç kıştır» ile tutar.
+
+**Mevsimler** `econ-model.json` `params.seasonDays` uzunluklarıyla (bozkırda kış uzundur):
+
+| Mevsim | doy | Tarih | Gün |
+|---|---|---|---|
+| Kış / Winter | 319–73 | 16 Kasım – 15 Mart | 120 |
+| Bahar / Spring | 74–133 | 16 Mart – 14 Mayıs | 60 |
+| Yaz / Summer | 134–233 | 15 Mayıs – 22 Ağustos | 100 |
+| Güz / Autumn | 234–318 | 23 Ağustos – 15 Kasım | 85 |
+
+**Ay.** Sinodik ay 29,530588 gün. `moonAge = (dayN + minute/1440 − 1044,75 + 14,765) mod 29,530588`; dolunay Gün IV 18:00'dedir. Aydınlık `(1 − cos(2π·age/29,53)) / 2`. Gün I gecesi %91, Gün IV %100, Son Gece %99, Gün VI %95. Ana kampın Serbest Gez sayacı kendi gün sayısını tutar (`roam.clock.day`, 0'dan); ayı `age = (day + 10) mod 29,53`: ilk geceler büyüyen ayla aydınlıktır. **Neden Gün IV dolunay:** Shiji 110 «舉事而候星月,月盛壯則攻戰,月虧則退兵»: Teoman Yüeçilere dolunayda saldırır, Mete eksilmeye başlayan ayın altında kaçar. `army.md` §3.5'in 28 günlük `moonDay % 28` formülü bunun yerine bu işlevi okur (§15).
+
+**Ay ayları ve toplantılar** (`army.md` §1.3 için). `lunarMonth`: kış gündönümünden (doy 354) sonraki ikinci yeni ay 1. aydır. Kış Toplantısı 1. ayın yeni ayında, Lung-çeng Toplantısı 5. ayda, Dailin Sayımı güzün dolunayında (doy 234–318 içindeki ilk dolunay, "at semizken"). Tarih sırası ve etkisi `army.md`'nindir; bu belge yalnız günü verir.
+
+## 3. Gün ışığı
+
+```
+δ(doy) = −23,44° · cos(2π (doy + 10) / 365)
+cos H(h0) = (sin h0 − sin φ · sin δ) / (cos φ · cos δ)          h0: −0,833° doğuş-batış, −6° sivil, −12° denizci
+doğuş = 12:00 − H/15 sa      batış = 12:00 + H/15 sa      (yerel güneş saati; saat dilimi ve zaman denklemi yok)
+```
+
+Değerler betikle hesaplandı (bu taslak için, projeye yazılmadı). Gece sütunu Gece evresidir (§4), gerçek dakika.
+
+| Dünya, enlem | Gün | Doğuş | Batış | Gün ışığı | Sivil şafak – alaca | Öğle güneşi | Gece evresi |
+|---|---|---|---|---|---|---|---|
+| Göl Obası (K106), Orhun 47,35° | 10 Nisan, iğneli (δ +7,42°) | 05:22 | 18:38 | 13 sa 15 dk = 33 dk | 04:51 – 19:09 | 50,1° | 19:39–04:21, 21,7 dk |
+| Orhun, Lung-çeng 47,35° | 15 Ocak | 07:35 | 16:25 | 8 sa 49 dk = 22 dk | 07:01 – 16:59 | 21,2° | 32,6 dk |
+| | 15 Temmuz | 04:12 | 19:48 | 15 sa 37 dk = 39 dk | 03:33 – 20:27 | 64,4° | 15,3 dk |
+| | 15 Ekim | 06:35 | 17:25 | 10 sa 50 dk = 27 dk | 06:04 – 17:56 | 33,5° | 27,8 dk |
+| Hun Ordası, Gobi 43,5° | 15 Ocak | 07:22 | 16:38 | 9 sa 15 dk = 23 dk | 06:50 – 17:10 | 25,0° | 31,7 dk |
+| | 15 Nisan | 05:21 | 18:39 | 13 sa 18 dk = 33 dk | 04:51 – 19:09 | 55,4° | 21,8 dk |
+| | 15 Temmuz | 04:26 | 19:34 | 15 sa 8 dk = 38 dk | 03:51 – 20:09 | 68,2° | 16,8 dk |
+| | 15 Ekim | 06:30 | 17:30 | 11 sa = 27,5 dk | 06:02 – 17:58 | 37,4° | 27,7 dk |
+| Hexi, Ordos 38,9° | Gün I, 2 Aralık | 07:11 | 16:49 | 9 sa 37 dk = 24 dk | 06:42 – 17:18 | 29,0° | 17:48–06:12, 31,0 dk |
+| | Gün VI, 7 Aralık | 07:14 | 16:46 | 9 sa 32 dk = 24 dk | 06:44 – 17:16 | 28,4° | 17:46–06:14, 31,2 dk |
+| | 15 Nisan | 05:26 | 18:34 | 13 sa 7 dk = 33 dk | 04:59 – 19:01 | 60,0° | 22,4 dk |
+| | 15 Temmuz | 04:40 | 19:20 | 14 sa 40 dk = 37 dk | 04:09 – 19:51 | 72,8° | 18,3 dk |
+| | 15 Ekim | 06:25 | 17:35 | 11 sa 9 dk = 28 dk | 05:59 – 18:01 | 42,0° | 27,4 dk |
+
+Atlas yerlerinin enlemi `geography.js`'tendir: `tanhu_camp` 47,35, `longcheng` 47,9, `tanhu_ordu` 43,5, `hexi` 38,9–39,6, `ordos` 39, `mayi` 39,35, `baideng` 40,3. Yeni `WorldSpec` `light: { lat }` yazar, güneş takvimden gelir; iğneli dünya `dec` da yazar.
+
+**Neden gerçek astronomi.** Gün uzunluğu bir tasarım kolu değil bir yer duygusudur: Hexi kışında 24 dakikalık gün ve 31 dakikalık gece, Orhun yazında 39 dakikalık gün oyuncuya mevsimi anlatır. Gece uzun olsa da isteğe bağlıdır (uyku atlar, §7) ve ışık durağı geceyi okunur tutar (§5.3). Hesap kısa ve saftır; tablo testte altın değerdir (§17).
+
+## 4. Evreler
+
+| Evre | id | Başı | Sonu | Eski dilim |
+|---|---|---|---|---|
+| Tan / Dawn | `dawn` | Sivil şafak − 30 dk | Doğuş + 30 dk | `morning` |
+| Sabah / Morning | `morning` | Doğuş + 30 dk | 10:30 | `morning` |
+| Öğle / Midday | `noon` | 10:30 | 13:30 | `noon` |
+| İkindi / Afternoon | `golden` | 13:30 | Batış − 60 dk | `evening` |
+| Akşam / Evening | `dusk` | Batış − 60 dk | Sivil alaca + 30 dk | `evening` |
+| Gece / Night | `night` | Sivil alaca + 30 dk | Sivil şafak − 30 dk | `night` |
+
+`dawn` olayı Tan'ın, `dusk` olayı Gece'nin başında yayılır. Sınırların sırası 38–50° arasında her gün için tutar (doğuş 10:00'dan önce, batış 14:30'dan sonra; testte bütün yıl taranır).
+
+| Evre | Kışlak Gün I | Gerçek dk | Ana kamp | Gerçek dk |
+|---|---|---|---|---|
+| Tan | 06:12–07:41 | 3,7 | 04:21–05:52 | 3,8 |
+| Sabah | 07:41–10:30 | 7,0 | 05:52–10:30 | 11,6 |
+| Öğle | 10:30–13:30 | 7,5 | 10:30–13:30 | 7,5 |
+| İkindi | 13:30–15:49 | 5,8 | 13:30–17:38 | 10,3 |
+| Akşam | 15:49–17:48 | 5,0 | 17:38–19:39 | 5,1 |
+| Gece | 17:48–06:12 | 31,0 | 19:39–04:21 | 21,7 |
+
+**Neden altı evre.** Altı ışık durağıyla birebirdir (§5); Türkçede gündelik vakit adlarıdır (tan, sabah, öğle, ikindi, akşam, gece) ve eski dört dilim (`slice:morning` vb., `architecture.md` §3.14 koşul dili, §4.5 örneği) birleşimleriyle aynen çalışır: hiçbir koşul yeniden yazılmak zorunda değildir.
+
+## 5. Güneş, ay ve ışık durakları
+
+### 5.1 Işık kaynağı
+
+Dünyanın tek yönlü ışığı (`world.sun`) ve kubbenin `uSunDir`'i (aynı `Vector3`) saatten yazılır. Saf işlev `lightSource(info, minute, sun, moon, out)` yönü ve yoğunluk çarpanını (`k`) verir.
+
+| Ne zaman | Yön | `k` |
+|---|---|---|
+| Güneş ufkun üstünde | Güneş; yükseklik `max(el, 6°)` | 1 |
+| Akşam penceresi: batış → gece anahtarı (ana kamp 18:38–19:54) | Kıstırılmış güneş yönünden gece kaynağına slerp | `1 − 0,8·sin(πu)` |
+| Gece | Ay ≥10° ise ay (yükseklik `max(el, 20°)`); değilse gök yönü (az 160°, yükseklik 55°); 10°↔5° arası karışım | `0,55 + 0,45·aydınlık` (ay batıksa 0,55) |
+| Sabah penceresi: gece anahtarı sonu → tan anahtarı (04:06–05:10) | Gece kaynağından güneşe slerp | `1 − 0,8·sin(πu)` |
+
+Yoğunluk: `sun.intensity = lerp(a.sunI, b.sunI, f) × k × hava` (hava çarpanı K22'nin). **Neden:** gölge yönü dönerken ışık söner, ay ışığı doğarken yeniden belirir; maviye dönen saatte sert gölge olmadığı için göz dönüşü görmez. 6° alt sınırı ufka yatık ışığın sonsuz gölgesini ve zemin yüzünde akneyi keser; 20° ay sınırı gece gölgelerini kısa ve okunur tutar. Ay modeli oyun içindir: ay güneşin saat açısından `360°·age/29,53` geride, sapması `δ_güneş·cos(2π·age/29,53)` (gerçeğe göre ≤8° hata; ışık yönü için yeter).
+
+**Ana kampın güneş yolu** (10 Nisan, δ +7,42°; az kuzeyden saat yönünde). Kamera kuzeye bakar: doğu sağ, batı sol, güney kameranın arkası.
+
+| Saat | 05:30 | 06:30 | 08:00 | 10:00 | 12:00 | 13:40 | 14:46 | 16:00 | 17:30 | 18:30 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Yükseklik | 0,4° | 10,5° | 25,5° | 42,6° | 50,1° | 44,7° | **36,7°** | 25,5° | 10,5° | 0,4° |
+| Azimut | 79,5° | 90,4° | 107,9° | 137,7° | 180° | 216,2° | **235,1°** | 252,1° | 269,6° | 280,5° |
+
+**Kışlak'ın güneş yolu** (Gün I). Kış güneşi hep güneydedir, hep kameranın arkasından vurur, gölgeler hep kadrajın üstüne (kuzeye) uzanır: öğlede bile cismin 1,8 katı.
+
+| Saat | 07:30 | 08:30 | 10:00 | 12:00 | 14:00 | 15:30 | 16:30 |
+|---|---|---|---|---|---|---|---|
+| Yükseklik | 2,3° | 11,7° | 22,9° | 29,0° | 22,9° | 11,7° | 2,3° |
+| Azimut | 121° | 131,3° | 149,8° | 180° | 210,2° | 228,7° | 239° |
+
+### 5.2 Anahtarlar
+
+Işık konumu `s ∈ [0, 6)` durak sırasıdır: 0 `night`, 1 `dawn`, 2 `morning`, 3 `noon`, 4 `golden`, 5 `dusk`, 6 ≡ 0. Renk `mix(stop[floor s], stop[floor s + 1], frac s)`; `s` anahtarlar arasında doğrusal. Anahtarlar evre çapalarına bağlıdır, mevsimle kendiliğinden kayar.
+
+| Anahtar | Çapa | `s` | Ana kamp | Kışlak Gün I |
+|---|---|---|---|---|
+| Gece biter | Sivil şafak − 45 dk | 0 | 04:06 | 05:57 |
+| Tan | Doğuş − 12 dk | 1 | 05:10 | 06:59 |
+| Sabah | Doğuş + 105 dk | 2 | 07:07 | 08:56 |
+| Öğle başı | 11:00 | 3 | 11:00 | 11:00 |
+| Öğle sonu | 12:30 | 3 | 12:30 | 12:30 |
+| İkindi | Spec: kamp 13:40, Kışlak 14:00; varsayılan `clamp(batış − 180, 13:30, 15:30)` | 4 | 13:40 | 14:00 |
+| Menü dizi | `light.menuMinute`, yalnız ana kamp | 4,3 | 14:46,2 | — |
+| Akşam | Batış | 5 | 18:38 | 16:49 |
+| Gece başlar | Sivil alaca + 45 dk | 6 | 19:54 | 18:03 |
+
+Ana kampta ikindi eğimi 13:40 → 14:46 arasında 0,27 s/sa, 14:46 → 18:38 arasında 0,18 s/sa'dır: dizin farkı gözle seçilmez. Gece 19:54–04:06 düzlüktür; ayın evresi ve hava onu kıpırdatır.
+
+### 5.3 Ana kampın durakları
+
+`golden` ve `dusk` bugünkü `MOODS` değerleridir, dokunulmaz. Dört yeni durak boyalı hedeftir; Faz 8.9 ekran görüntüleriyle (`docs/research/time-shots/`) ayarlanır. Anahtar adları `world.js` `MOODS` ile aynıdır; `motes` zerre tekdüzeni `uDusk`'ı verir (`golden` 0, `dusk` 1: `lerp(0, 1, t) = t`, bugünkü yazımla bit bit aynı).
+
+| Anahtar | `night` | `dawn` | `morning` | `noon` | `golden` | `dusk` |
+|---|---|---|---|---|---|---|
+| `sun` | `#a9bde8` | `#ffb48a` | `#ffe2b8` | `#fff1d8` | `#ffcb8a` | `#ff9f6d` |
+| `sunI` | 0,55 | 1,25 | 3,2 | 4,1 | 3,75 | 1,55 |
+| `sky` | `#5e72a8` | `#9aaedc` | `#bcd2f0` | `#cfe0f8` | `#c4d7f5` | `#8aa2dc` |
+| `ground` | `#2b3644` | `#4f6250` | `#7a8c4e` | `#8fa058` | `#84944f` | `#475c46` |
+| `hemi` | 0,95 | 1,25 | 1,55 | 1,75 | 1,62 | 1,32 |
+| `fog` | `#26344f` | `#8d93b8` | `#9ab4d4` | `#8fb0d8` | `#7c9cc9` | `#4a648f` |
+| `fogNear`, `fogFar` | 55, 900 | 45, 900 | 60, 1100 | 90, 1550 | 80, 1400 | 70, 1250 |
+| `fire`, `door`, `lantern` | 70, 22, 20 | 40, 13, 11 | 20, 5, 3 | 16, 4, 2 | 22, 6, 5 | 54, 17, 15 |
+| `village` | 2,0 | 1,2 | 0,5 | 0,35 | 0,75 | 1,5 |
+| `lakeDeep`, `lakeSky`, `lakeGlow` | `#081a30`, `#3c5078`, 1,25 | `#1a3556`, `#a3a9cf`, 1,15 | `#1d4a6e`, `#a8c2e0`, 0,95 | `#24557c`, `#b4cdea`, 0,7 | `#1f4a70`, `#9fbbdc`, 0,85 | `#102542`, `#6f89b8`, 1,05 |
+| `exposure`, `flame` | 1,52, 1,2 | 1,36, 1,05 | 1,22, 1 | 1,16, 0,9 | 1,24, 1 | 1,38, 1,1 |
+| `rim` | `#9fb6e6` | `#ffc4a4` | `#ffe6c4` | `#fff0d6` | `#ffdcae` | `#ffb98a` |
+| `skyLow`, `skyMid`, `skyTop` | `#33456e`, `#22305a`, `#121a38` | `#e2b3a8`, `#8f96c4`, `#3a4f8a` | `#c7d3e6`, `#8eaad6`, `#5577b6` | `#bcd0ea`, `#8db0e0`, `#5a84c8` | `#a9bfdc`, `#7d9fd2`, `#4f74b8` | `#b98e98`, `#5f73a8`, `#28386a` |
+| `skyGlow` | `#c8d6ff` | `#ffb48c` | `#ffe0b0` | `#fff0d0` | `#ffc890` | `#ff9a68` |
+| `cloudLit`, `cloudShade` | `#a8b6d8`, `#2a3352` | `#ffd2be`, `#6c709c` | `#fff6ea`, `#9aa6c4` | `#ffffff`, `#9aa8c8` | `#fff0dc`, `#8e9cc0` | `#f7b494`, `#4e5683` |
+| `motes` | 1 | 0,6 | 0 | 0 | 0 | 1 |
+
+**Boyalı hedefler.**
+- **Tan / Dawn (05:10).** Gök pembe-mor, göl sisi yerden kalkar (`fogFar` 900), ocak hâlâ közdür, kapı ışıkları sönmek üzere. Güneş doğu-kuzeydoğudan (az 76°) yurtların ardından sağdan vurur: ince sıcak kenarlar, uzun mavi gölgeler sol alta, kameraya doğru uzanır. Kampın en sessiz karesi.
+- **Sabah / Morning (07:07).** Soluk altın güneş sağdan, yan ışık (az 97°); gölgeler batıya, sola yatık; göl üstünde sabah pusu; yeşil serin, gölgeler mavi-yeşil. Kamp işe başlar.
+- **Öğle / Midday (11:00–12:30).** Güneş kameranın arkasında, yüksek (50°): cepheden ışık, kısa gölgeler kadrajın üstüne. Yüksek ton, doygun çimen, ince duman, bulut gölgeleri belirgin. Düz görünmemesi için gölge rengi soğuk kalır (`sky` `#cfe0f8`), çimen `ground` `#8fa058`.
+- **İkindi / Afternoon (13:40–16:00).** Menünün ışığıdır: güneybatıdan sıcak ışık, kuzeydoğuya uzanan gölgeler.
+- **Akşam / Evening (18:38).** Güneş batı-kuzeybatıda (az 282°), soldan ve hafif önden: sıcak kontur, yurt kapıları ve fener yanmış, gölün yüzü gök ışığını alır.
+- **Gece / Night (19:54–04:06).** Mavi ama okunur: ay ya da gök ışığı yüksekten, kısa yumuşak gölgeler; ocağın sıcak havuzu ve kapı parıltıları kadrajın sıcak tek noktalarıdır; göl ardında köy ışıkları. Zifiri karanlık yok: yeni ayda bile `k` 0,55'tir.
+
+### 5.4 Kışlak'ın durakları
+
+`act1.md` §1 tonu: gündüz kar sıcak beyaz, gölge mavi; mavi baskınlık yalnız gece ve tipide. Kışlak'ta göl ve köy anahtarı yoktur. Değerler Faz 9.1 hedefidir (`specs/winter.js` `WINTER_MOODS`); `architecture.md` §3.8'in kış yorumundaki dört durağın (morning, noon, evening, night) yerine geçer.
+
+| Anahtar | `night` | `dawn` | `morning` | `noon` | `golden` | `dusk` |
+|---|---|---|---|---|---|---|
+| `sun`, `sunI` | `#9fb6e8`, 0,6 | `#ffb98f`, 1,3 | `#ffe7c4`, 3,3 | `#fff4e2`, 3,7 | `#ffcf96`, 3,0 | `#ff9a6a`, 1,4 |
+| `sky`, `ground`, `hemi` | `#56688f`, `#3a4660`, 1,0 | `#a7b5dc`, `#8f8ea8`, 1,35 | `#c2d3ee`, `#d6d2cc`, 1,6 | `#cddcf3`, `#e2ddd6`, 1,7 | `#bccdea`, `#d9c9b4`, 1,5 | `#8798cc`, `#7d7690`, 1,3 |
+| `fog`, `fogNear`, `fogFar` | `#2a3a58`, 60, 1100 | `#9a9fc0`, 50, 900 | `#a9bcd6`, 80, 1500 | `#b2c6df`, 90, 1700 | `#9db1cf`, 80, 1400 | `#55688f`, 70, 1200 |
+| `fire`, `door`, `lantern` | 70, 22, 22 | 40, 13, 12 | 20, 5, 2 | 16, 4, 0 | 24, 6, 6 | 54, 17, 16 |
+| `exposure`, `flame` | 1,50, 1,2 | 1,34, 1,05 | 1,12, 1 | 1,06, 0,9 | 1,14, 1 | 1,36, 1,1 |
+| `rim` | `#a4bcef` | `#ffc7a6` | `#ffeacc` | `#fff3e0` | `#ffd9a8` | `#ffb38a` |
+| `skyLow`, `skyMid`, `skyTop`, `skyGlow` | `#2f4068`, `#1f2b52`, `#0f1630`, `#cdd9ff` | `#e6b9ad`, `#949bc8`, `#3c4f8c`, `#ffb791` | `#cad6e8`, `#93afd9`, `#5a7cba`, `#ffe4b8` | `#c9d8ec`, `#96b4df`, `#5e83c4`, `#fff0d4` | `#d6c6c0`, `#8ca6d4`, `#4f70b0`, `#ffc58a` | `#c08f96`, `#5c6ea6`, `#26356a`, `#ff9466` |
+| `cloudLit`, `cloudShade` | `#a3b2d6`, `#262f4c` | `#ffd6c4`, `#6d729e` | `#fff8ee`, `#9ea9c6` | `#ffffff`, `#a3aec9` | `#ffedd6`, `#8e98bc` | `#f4ad90`, `#4a5280` |
+
+Kar parlak olduğu için gündüz pozlaması kamptan düşüktür (1,06–1,14). Tan'da kar leylak, akşamda mor; gece ay ışığında soğuk mavi, nöbet ateşleri ve fenerler sıcak havuz (ışık sahtedir, `act1.md` §4). Kara Boran ve Tipi bu durakların üstüne K22'nin hava katmanıyla yazar.
+
+### 5.5 Menü karesi ve geçişler
+
+**Hesap.** Menünün güneşi `(−0,66; 0,6; 0,46)` normalize edilince yükseklik 36,716°, azimut 235,125° (güneybatı) verir. 47,35°K'de bu yöne güneşin çıktığı tek sapma δ = +7,422°'dir (10 Nisan ya da 3 Eylül), saat 14:46,2'dir (saat açısı 41,54°). Betik ters yönde de doğruladı: bu günün 14:46,2'sinde gerçek güneş `(−0,657637; 0,597852; 0,458353)`, menü vektörünün kendisi. Ana kampın mevsimi bu yüzden 10 Nisan bahardır; K7'nin «bahar» `home`'u ile de tutar.
+
+| An | Işık | Güneş | Kural |
+|---|---|---|---|
+| Menü, Yeni Oyun, oluşturucunun ardındaki kamp | `applyMood(0,3)`: golden→dusk 0,3, bugünkü yol | `MENU_SUN`, sabit | Saat yok. `menuDiff` değişmez |
+| `home` (perde sonu) | Menü ışığı | `MENU_SUN` | Saat menü dakikasına iğneli (§6.3 `home_golden`), akmaz |
+| Serbest Gez, kayıtlı saat yok | Saat 14:46,2'de açılır: `s = 4,3`, güneş menü yönü | Aynı | Süzülme yok: ilk kare menüyle aynı ışıkta |
+| Serbest Gez, kayıtlı saat var | 2,4 sn süzülme: `s` 4,3'ten kayıtlıya kısa döngü yönünde, güneş slerp, `sineInOut` | Yön farkı >30° ise ortada `k` 0,4 | Menüden gelen kamera karışımıyla (1,6 sn) aynı anda başlar |
+| Haritadan, duraklatmadan dönüş | Süzülme yok | | Aynı oturum |
+| Menüye dönüş (`pause` → `menu`) | `beginReturn`: uçuş boyunca (1,7 sn) `s` → 4,3, güneş → `MENU_SUN` | | `endSession` tam değerleri yazar: `applyMood(0,3)`, `sunDir = MENU_SUN`, `k = 1`, gece tekdüzenleri 0, zerre `uDusk` oturumdaki değer |
+
+**Neden böyle.** Menü karesini korumanın en güvenli yolu menü yolunun saati hiç okumamasıdır; yeni oturumun sıçramasızlığı da menü dakikasının saatin gerçek bir anı olmasıyla gelir. İki koşul birlikte ancak yukarıdaki hesapla sağlanır.
+
+### 5.6 Gece göğü
+
+Gök kubbesi yalnız kamera ufka bakarken çizilir (`showBelowPitch` 18°: Bakış Noktası, Tengri kamerası; `act1.md` §8.6 Gök Açılır geceleyin oynar). Kubbe gölgelendiricisine üç tekdüzen eklenir: `uNight` (gece durağının ağırlığı), `uMoonDir`, `uMoonPhase`. Yıldızlar yön tabanlı üç katmanlı karma ızgara, `uTime` ile hafif titrer; ay diski 1,2° (biçimsel), evre çizgisi `uMoonPhase`'ten. Bulut örtüsü (`cov`, gölgelendiricide zaten var) yıldızı ve ayı örter. Program sayısı değişmez: kubbe yine tek programdır, yalnız kaynağı büyür. Menü kamerası (28°) kubbeyi çizmez: `menuDiff` etkilenmez.
+
+## 6. Saatin akışı
+
+### 6.1 Oran
+
+| Durum ya da kip | Oran | Not |
+|---|---|---|
+| `freeroam`, `play` | 1 | 2,5 sn = 1 oyun dk |
+| Bloklayan diyalog, sinema (varsayılan), seviye ekranı, Terazi, Yol Kartı, Bekle tekeri | 0 | Konuşma zamanı yemez; eski «diyalogda nöbetçi algısı durur» kuralıyla aynı |
+| Yürürken konuşma, bark, altyazı akışı | 1 | Kişiler iş bırakmaz (`act1.md` §3 söz kuralı) |
+| Donuk Kamp | 0 | `act1.md` §8.5 «Ay Saati durur» |
+| Zaman yavaşlatma (ıslıklı ok ×0,25, öğretim ×0,5, baskın ×0,6) | Aynı çarpan | `dt` ölçeği |
+| Yol Akışı (`travel.md` §6.4) | `k` (1–4) | Saat doğal süre `T1` kadar ilerler |
+| Yolu Kısalt | Atlama | Kalan doğal süre `skip` |
+| Bekle | Görsel hızlı akış, sonda atlama | §7.2 |
+| Uyku | Atlama | Karartma |
+| Atlas yolculuğu (`travel`) | Atlama, `gün × 1.440` | Varışta |
+| `map`, `pause`, gizli sekme, `freeze` | Durur | `game.update` çalışmaz; duvar saati telafi edilmez |
+| `menu`, `newgame`, `creator` | Saat yok | Sabit görünüm |
+| `home` | İğneli | Menü ışığı |
+
+### 6.2 Durma kuralları
+
+`WorldClock.pause(reason, on)`; nedenlerden biri açıkken oran 0'dır. Nedenler: `dialogue` (bloklayan diyalog), `cine` (sinema; `clock.run` diyen sinema hariç, §6.4), `modal` (seviye, Terazi, Yol Kartı, Bekle tekeri), `frozen` (Donuk Kamp), `lapse` (bekleme akışı kendi sürer). Gizli sekmede rAF durur, saat de durur; `__tanhu.step` saati ilerletir (gizli bölmede belirlenimli sınama).
+
+### 6.3 Vakitler ve bekleyişler
+
+**Vakit / beat.** Saatli hikâye anıdır: `{ id, quest, earliest, latest }`. Öncülü bittiyse ve saat `earliest`'e vardıysa başlar (çan çalar, kişi çağırır, görev yazısı çıkar). Erken biten oyuncu bekler ya da `T` ile vakte dek bekler. Saat `latest`'e varır ve vakit başlamamışsa saat orada **bekler**: güneş durur, kişiler vaktin yerinde toplanır, Görevler «Gün seni bekliyor: …» / «The day is waiting for you: …» yazar, Gök Kavisi'nde küçük bir düğüm görünür. Oyuncu vakte gelince saat salınır.
+
+**Bekleyiş / hold.** `clock.hold(id, { at, until })`: saat `at` dakikasına varınca durur; `until` koşulu tutunca ya da `release(id)` ile salınır. Bekleyiş türleri:
+
+| Bekleyiş | Nerede | Kural |
+|---|---|---|
+| Vakit (`b_*`) | `play` | `latest`'te, vakit başlayana dek |
+| Şafak (`dawn_line`) | `play`, I. Perde | Tan başında (06:12), günün ana işi bitmediyse. Ana işin her adımı gece de yapılabilir; kilitlenme olmaz |
+| Buz saatinden önce (`ice_story`) | Son Gece, Hikâye zorluğu | 05:45'te, kaçışa dek |
+| Menü ışığı (`home_golden`) | `home` | Hep |
+
+Hikâye bekleyişleri yalnız `play`'dedir, `home` iğnelidir; Serbest Gez'de saat hiç beklemez. Bekleyişte Bekle tekeri bekleyişi geçen seçenekleri soluk gösterir (§7.1).
+
+**Neden.** Saat sahneden kaçmamalı, yavaş oyuncu karanlıkla, hızlı oyuncu boş beklemeyle cezalanmamalı. Eski İş Puanı'nın «gün, ana iş bitmeden kapanmaz» güvencesi böylece saatte kalır.
+
+### 6.4 Sinema kesmeleri
+
+Sinema verisine (`architecture.md` §4.3 `CineDef`) `clock` izi eklenir; yalnız ileri gider, atlanan süre §7.4 gibi işlenir.
+
+| Satır | Anlam | Örnek |
+|---|---|---|
+| `{ t, set: 'hh:mm' }` | Saati o dakikaya taşı (bugün ya da yarın) | Gün I araba varışı `10:40` |
+| `{ t, atLeast: çapa }` | Saat erkense taşı | Kapı `civilDawn−30`, Şafak Sırtı `sunrise−10` |
+| `{ t, advance: dk }` | Dakika ekle | Yakalanma +60 |
+| `{ t: 0, run: true }` | Bu sinemada saat akar | Göz Yolu bağlı yürüyüşü |
+
+## 7. Bekle, dinlen, uyu
+
+### 7.1 Tuş, yer, süre
+
+- **`T` Bekle / Wait.** Bugün `T` yalnız geliştirmede alacakaranlığı aç-kapa yapar (`architecture.md` §8 karar 25). K20 ile `T` her pakette Bekle tekerini açar; eski `mood` eylemi kalkar, geliştirmede ışık `__tanhu.clock` panelinden sürülür. HUD'daki geliştirme ışık düğmesinin yeri Gök Kavisi olur, dokunmatikte ona dokunmak tekeri açar.
+- **Teker.** «Bir saat / One hour», «Üç saat / Three hours», sonra sıradaki evrelerden «Sabaha dek / Until morning», «Öğleye dek / Until midday», «İkindiye dek / Until afternoon», «Akşama dek / Until evening», «Geceye dek / Until nightfall», «Tan ağarana dek / Until first light». Her satır hedef saati yazar (`→ 17:38`). Bekleyişi ya da vakti geçen satır solu ve nedenini söyler. Tek bekleme en çok 12 oyun saatidir. `1–6` ya da tık seçer, `Esc` kapatır. Teker açıkken saat durur.
+- **Uyu / Sleep.** Yalnız döşekte: Rehine Yurdu döşeği (I. Perde), Ana kampta Yurt A'daki aile döşeği (Çocuk), sonraki perdelerde kendi yurdun ve kurduğun ateş başında `bedroll`. Döşeğe yaklaşınca `E` «Uyu / Sleep» (etkileşim `bed`, öncelik 58), ya da orada `T`. Seçenekler: «Tanla uyan / Wake at first light» (sivil şafak: Kışlak 06:42, kamp 04:51) ve «Güneşle uyan / Wake with the sun» (doğuş + 30 dk). Uyku Akşam ve Gece evrelerinde açıktır; günün ana işi bittiyse (I. Perde, §9.1).
+- **Dinlen / Rest.** Ateş başında `E` basılı 3 sn (`survival.md` §2) tekeri ateş başı kipinde açar: Stamina hemen dolar; ≥2 saatlik dinlenme, Tokluk ≥25 ise Yara −1 (6 oyun saatinde bir).
+- **Yer.** Bekle her yerde açıktır, şu durumlar dışında: 30 m içinde düşman ya da avcı hayvan, nöbetçi şüphesi (`stealth` düzeyi `none` değil), yürüyen at (`Atı durdur.`), su ya da buz üstü, Son Gece'nin Ay Saati, baskın, Kara Boran, boss, bir vaktin içi.
+
+### 7.2 Görünüm
+
+| Süre | Görünüm | Gerçek süre |
+|---|---|---|
+| ≤3 sa bekleme | Dünya %60'a kararır, vinyet; gök, güneş, bulut ve gölgeler hızlı akar (`world.setTimeOfDay` her kare); aktörler durur; sonda 0,25 sn siyah dalış, toplu işleme, açılış | 1,8 + 0,5 sn |
+| >3 sa bekleme, uyku | `ui.fade` 0,6 sn siyah, Gök Kavisi 1,6 sn'de döner, toplu işleme, 0,8 sn açılış; uyanışta kısa bildirim «Gün III, tan» / «Day III, dawn» | ≈3 sn |
+
+Ses: `wait_lapse` (yumuşak rüzgâr kabarması) ve uyanışta `wake` (soluk, çıtırtı). Hareketi Azalt ayarında hızlı akış yerine doğrudan karartma.
+
+### 7.3 Kesintiler
+
+Bekleme şu an kesilir ve saat o dakikada kalır: bir vaktin `earliest`'ine varıldı («Seni çağırıyorlar.» / «They are calling for you.»), düşman ya da avcı hayvan 20 m'ye girdi, nöbetçi şüphelendi, hava sertleşti (K22 fırtına başı), görev olayı. Uyku yalnız vakit ve bekleyişle kesilir; uykuda tehlike yoktur (döşek barınaktır).
+
+### 7.4 Atlamada sistemler
+
+`skip` sırası: `clock:skip:begin`, sonra atlanan her sınır sırayla (`clock:hour`, `dawn`, `dusk`, `clock:phase`; hepsi `skipping: true` yüküyle), en son tek `clock:skip { from, to, minutes, reason, sleep }`. Pahalı işi olan sistem saat olaylarını `skipping`'de yok sayar, toplu işini `clock:skip`'te yapar.
+
+| Sistem | Atlamada |
+|---|---|
+| `nodes` | Atlanan her şafakta `NodeStore.onDawn()` bir kez |
+| `supply` (Kış Hesabı) | Atlanan her şafakta `onDawn(8)` |
+| `calendar` | Hikâye günü her şafakta artar (ana iş bittiyse); vakitler `earliest`'te keser |
+| `structures`, `builders` (K21) | Ekip yalnız iş penceresi içindeki dakikalar kadar çalışır: `advance(İD)`; ustalar programdaki yerine |
+| `campfire` | Yakıt `dakika × 2,5` sn yer; biten ateş `cold_pit`; `cold_pit` ertesi şafakta kalkar |
+| `cooking` (kurutma, mayalanma) | Sırık ve tulum dakika sayar |
+| Bozulma (Inventory) | Çabuk bozulan yığınlar edinme dakikasını taşır; şafakta ve atlamada denetlenir |
+| `npcs`, `camp_life` | Herkes programdaki yerine, kadraj gözetmeden (karartma altında) |
+| `fauna` | Şafakta %30 geri gelir; evrenin hayvan takımı kurulur |
+| Hava (K22) | Saat saat, tohumlu zincir boyunca; ucuz (12 sa = 12 adım) |
+| `needs` | Tokluk: bekleme −5/oyun sa, uyku −1,25/oyun sa |
+| `player` | Uyku: bütün yaralar kapanır (`progression.md` §3), Can tam; bekleme: Stamina tam |
+| `squads`, ordu | `fatigue` dinlenme oranıyla düşer; öğünler saatinde (§10.7) |
+| Kayıt | Uyku ve ≥1 sa bekleme sonunda oto kayıt (`sleep`, `wait`) |
+
+Bütçe: 12 saatlik atlamanın toplu işi karartma altında ≤50 ms (§16).
+
+## 8. Ana kamp: Serbest Gez'de saat programı
+
+### 8.1 Kampın günü
+
+Serbest Gez Çocuğun oyunudur, kampta Mete yoktur (K6). Mevsim iğneli bahardır, gün sayısı akar, ay evresi değişir. Saat kipi yalnız `freeroam`'dadır; tutmaç ve uyku kapısı yoktur. Evreler §4: Tan 04:21, Sabah 05:52, Öğle 10:30, İkindi 13:30, Akşam 17:38, Gece 19:39.
+
+### 8.2 Halkın programı
+
+Ozan, Ana ve Baba bugün menü kompozisyonundaki statik figürlerdir (`world.folk`). Ateş saatlerinde yerlerinde dururlar; üçü birden 12:00–22:30 ateş başındadır, menü dakikası (14:46) bu aralıktadır. Dışında yalnız kadraj dışındayken (sınır küresi + 1 m kesik koninin dışında) ya da karartma altında gizlenirler; iş yerinde aynı görünüşte bir `Folk` ikizi belirir (`architecture.md` §8 karar 16 deseni). Aynı anda en çok 2 ikiz. Gece içeride uyuyanlar çizilmez.
+
+| Saat | Ozan | Ana | Baba |
+|---|---|---|---|
+| 04:21–05:00 | Yurt B, uyur | Yurt A, uyur | Yurt A, uyur |
+| 05:00–05:15 | Uyur | Ocak (statik): közü canlandırır | Uyur |
+| 05:15–06:30 | Uyur | Ocak: süt kaynatır | İkiz: ahırda atları yemler |
+| 06:30–08:00 | Uyur | Ocak: sabah aşı | İkiz: kütük yarar (14,54; 1,43); kamp odunu `node_camp_logs` +4 |
+| 08:00–09:00 | Uyur | İkiz: Yurt A kapısında keçe diker | İkiz: kütük yarar |
+| 09:00–10:00 | Ocak: akort, kısa ezgi (`strum` 0,4–0,6) | İkiz: 09:30 kovayla dereden su (−3,65; 0,2) | İkiz: kütük yarar |
+| 10:00–11:00 | Ocak | İkiz: keçe | Kampta yok: yaya avda |
+| 11:00–12:00 | Ocak | Ocak: öğle aşı | Kampta yok |
+| 12:00–19:00 | Ocak: türküler (`strum` 1) | Ocak | Ocak (12:00'de döner) |
+| 19:00–22:30 | Ocak: uzun destan, dombra ozandan | Ocak: akşam aşı 18:30 | Ocak |
+| 22:30–23:00 | Yurt B | Yurt A | İkiz: ahırı yoklar |
+| 23:00–04:21 | Uyur | Uyur | Uyur |
+
+İkiz sayısı: 05:15–08:00 bir, 08:00–10:00 iki, 10:00–11:00 bir, 22:30–23:00 bir; kalan saatlerde yok. Çocuk ateş yakarsa (`survival.md` §5) Ana ve Baba ateş saatlerinde yanına gelip oturur; bu da ikiz sayısına girer (en çok 2).
+
+### 8.3 Ustalar
+
+Üçüncü yurt bitene dek Oktar ve Erka (tündükte Dengiz) programla çalışır. Emek miktarı, ekip ve gece çarpanı K21'indir (`labour-model.json`); bu belge yalnız saatlerini verir.
+
+| Saat | Ustalar |
+|---|---|
+| 06:00 | Kuzey yamaçtan gelir: usta girişi (−4,5; −31), `structures.md` §11.1 yolu |
+| 06:00–22:00 | İş penceresi, 16 oyun saati (`econ-model.json` `prodHoursPerDay`); 12:00 ve 18:30 öğünleri sırayla, ateş başında 30'ar dk |
+| 18:38–22:00 | Ocak ve meşale ışığında (K21 `law.night.lit`, 12 m) |
+| 22:00 | İş biter, kuzeye çıkarlar; Çocuk o gece yardım yuvası bulmaz |
+
+Yurt bitince Erka Otacı Yurdu'nda yaşar: 05:30–06:30 kapıda ot kurutur, 12:00 ve 18:30 ateşte, 21:00'de uyur; kalan saatler içeridedir (çizilmez). Oktar üç günde bir akşam aşına gelir (18:00–21:00).
+
+### 8.4 Atlar ve yaban hayvanı
+
+Ana kampta hayvan ≤6 (K3). Doru ve Akbulut hep ahırdadır (Çocuğun binekleri); 21:00–05:00 baş eğik dinlenme duruşu. Yaban hayvanı en çok 4, evreye göre `fauna`'dan istenir:
+
+| Evre | Hayvanlar | Toplam (atlarla) |
+|---|---|---|
+| Tan | Maral 2 (orman kıyısı), tavşan 1, karga 1 | 6 |
+| Sabah | Karga 2, tarbagan 1, tavşan 1 | 6 |
+| Öğle | Tarbagan 2, karga 1 | 5 |
+| İkindi | Karga 2, tarbagan 1, tavşan 1 | 6 |
+| Akşam | Maral 1, tavşan 2, karga 1 (tüneğe gider) | 6 |
+| Gece | Tilki 1, tavşan 1 | 4 |
+
+Takım değişimi yalnız kadraj dışında; maral `survival.md` §4 «tan vakti açıkta» ile Tan ve Akşam'dadır.
+
+### 8.5 Ses
+
+| Evre | Ortam (`app/sounds.js`) | Müzik |
+|---|---|---|
+| Tan | `birds_day` 0,5, `wind_steppe` 0,35, `fire_loop` 0,6 | `camp`, dombra yok (ozan uyur) |
+| Sabah | `birds_day` 0,35, `camp_day` 0,35, `wind_steppe` 0,55 | `camp`; 09:00'dan dombra ozandan |
+| Öğle, İkindi | `camp_day` 0,35, `wind_steppe` 0,7 | `camp` |
+| Akşam | `camp_day` 0,2 → `night_meadow` 0,3, `wind_steppe` 0,45, `fire_loop` 1 | `camp` |
+| Gece | `night_meadow` 0,45, `wind_steppe` 0,3, `fire_loop` 1 (22:30'dan 0,5); 23:00'ten sonra uzak `wolf_howl` 6–10 dk'da bir | Yeni `camp_night`: dron, ozan ateşteyken seyrek dombra, sonra seyrek kaval |
+
+Bugünkü kural (alacakaranlıkta `camp_day` yerine `night_meadow`) evreye bağlanır: `moodTarget > 0,75` denetimi kalkar. Müzik ve reçete ekleri `d2/time-delta-audio.md`.
+
+## 9. I. Perde saatle
+
+### 9.1 Gün ve saat (`act1.md` §2 «Gün dilimi» paragrafının yerine)
+
+Bir oyun günü 60 gerçek dakikadır; saat `play`'de akar, diyalogda, sinemada, kitapta, haritada ve Donuk Kamp'ta durur (§6). Kışlak'ın günü kısadır: Gün I'de güneş 07:11'de doğar, 16:49'da batar; Gece evresi 17:48–06:12 sürer. Evreler Tan, Sabah, Öğle, İkindi, Akşam, Gece; eski dört dilim (`slice:`) onlardan türer. **Hikâye günü** Tan başında başlar (Gün I'de 06:12, Gün VI'da 06:14). Günün **vakitleri** saatlidir (§9.2): erken biten bekler, geç kalan için saat bekler. **Günün ana işi uykuyu açar:** ana adımlar bitmeden Rehine Yurdu döşeği «Bugünün işi bitmedi: …» / «Today's work is not done: …» der; ana iş bitmeden gece Tan başına varırsa saat orada bekler. İş Puanı kalkar: ana adım, iş, yan adım ve ateş başı dinlenmesi puan vermez, aldıkları süre bedelleridir. Gece isteğe bağlıdır, uykuyla atlanır. Işık saati sürekli izler; sahneler ışıklarını vakitleri ve sinema kesmeleriyle seçer. Son Gece'nin saati Ay Saati'dir (§9.6).
+
+### 9.2 Hikâye günleri
+
+| Gün, sayım | Uyanış | Vakitler (`earliest` – `latest`) | Ana iş (uykuyu açar) | Akşam |
+|---|---|---|---|---|
+| I, 1.041 | Araba 10:40'ta varır (sinema `set`) | Öğle çanı `mq_ration` 12:00–13:30; Farnak'ın taşları `mq_first_tally` tayından sonra – 15:00 | `mq_count`, `mq_ration`, `mq_first_tally` | Akşam aşı 17:30–19:30 |
+| II, 1.042 | 06:42 | Sayım 07:30–08:30 (bekleyişsiz, Güven +1); `mq_herd_school` 08:00–12:00 | `mq_herd_school`, `mq_three_tallies` | Kandiller 16:30–17:00 (`sq_lamp_oil`); `sq_fever`; gece `sq_short_measure` |
+| III, 1.043 | 06:42 | Sayım; `mq_crown` 08:30–10:30; `mq_envoy` 11:30–13:00; `mq_hunt` 14:00–15:00 | `mq_crown`, `mq_envoy`, `mq_hunt` | Yay 17:30'da geri alınır; gece `sq_offering_grain` |
+| IV, 1.044 | 06:42 | Sayım; `mq_feast` 16:30–17:30; baskın kendiliğinden 17:40–20:04 | `mq_feast`, `mq_reeds` | Baskın dönüşü uyku |
+| V, 1.045 | 06:44 | `mq_ash` 07:30–09:00; Çukur kesmesi `atLeast 11:50`; `mq_eyes` 11:50–12:30; hücre kesmeleri `set 18:00` (Nanay), `set 20:00` (Amaga) | `mq_ash`, `mq_eyes`, `mq_last_meal` | Uyku yok: «Bu gece uyku yok.» / «There is no sleep tonight.» |
+| Son Gece | | Düğüm 20:10'dan; buz saati §9.6 | | |
+| VI, 1.046 | Kaçışla | Kapı kesmesi `atLeast 06:14`; Şafak Sırtı kesmesi `atLeast 07:04` (doğuş 07:14) | | |
+| Ev | Bahar, Tanhu Kampı'nın küçük dünyası (K106) | `home_golden` | | |
+
+**Gündelik saatler.** 06:12 Tan: yeni gün, Kış Hesabı −8, düğümler yenilenir; 06:30 Atşo köz taşır; 07:30 Sayım; 11:45–12:30 Mutfak tayını, 12:00 Amaga ilk kaseyi kaldırır; 16:30 nöbet ateşleri; 17:00 dokuz fener; 17:30–19:30 akşam aşı; 19:30'dan 1,5 saatte bir gece davulu (19:30, 21:00, 22:30, 00:00, 01:30, 03:00, 04:30, 06:00), 8 oyun dk (20 sn) nöbet değişimi; 22:30 yatsı. **Neden davul 1,5 saat:** eski 240 sn'yi (1,6 sa) okunur saatlere oturtur, aralık %6 kısalır; geçiş penceresi 20 sn olarak kalır, Son Gece Ambar işinin 16 sn'si yine sığar (`economy.md` §8.1).
+
+**Akşam aşı.** Kaseler bu vakitte verilir (`act1.md` §2 İş Tahtası: 2 iş tam, 0–1 yarım). Kaçıran oyuncunun kasesini Ardokşa 22:00'ye dek Ambar'da tutar: boşluk doldurma, ceza değil.
+
+### 9.3 Süre tablosu (`act1.md` §1)
+
+| Bölüm | Saat aralığı (ana yol) | Ana yol | Tüm içerik | Saatin payı |
+|---|---|---|---|---|
+| Gün I, Çan | 10:40 → 19:00 | 30 dk | 40 dk | 8 sa 20 dk = 21 dk saat + ≈9 dk sinema ve konuşma |
+| Gün II, Kefil | 06:42 → 20:30 | 45 dk | 65 dk | 13 sa 48 dk = 34,5 dk + ≈10; tüm içerik gece yarısını geçer (01:00) |
+| Gün III, Elçi | 06:42 → 19:00 | 40 dk | 60 dk | 12 sa 18 dk = 31 dk + ≈9 |
+| Gün IV, Kâse | 06:42 → 20:05 | 35 dk | 50 dk | Ana yol Toy'a dek ≈4 sa bekler (`T`); baskın 6 dk = 2 sa 24 dk |
+| Gün V, Hüküm | 06:44 → 20:10 | 20 dk | 20 dk | ≈5 sa saat + üç kesme |
+| Son Gece | 20:10 → buz saati | 30 dk | 50 dk | Normal 10 sa 30 dk = 26 dk saat + ≈6 dk durmuş; hepsine yetişilmez |
+| Gün VI, Ses | Kaçış → 07:04+ | 20 dk | 25 dk | Tipide gök ve saat gizli |
+| **Toplam** | | **≈3 sa 40 dk** | **≈5 sa 10 dk** | Uyku ve bekleme gerçek süreye girmez |
+
+Dakikalar eski tahmindir, saat aralıkları onları gerçek süreye bağlar: bir gün 60 dakikadır ama ana yolu oynayanın günü uyku ve bekleme yüzünden 20–45 dakika sürer.
+
+### 9.4 NPC programı (`act1.md` §5 tablosunun yerine)
+
+Program `schedule[npc] = [[from, to, at, job], …]`, dakikayla. Kişi bir sonraki bloğa yürüme süresi kadar önce çıkar, yerine vaktinde varır (1,4 m/sn, yol ağı); 60 m ötesinde ve kadraj dışında yer sıçraması kalır.
+
+| Kişi | 06:40–10:30 | 10:30–14:30 | 14:30–19:30 | 19:30–06:40 | Özel |
+|---|---|---|---|---|---|
+| Amaga | Otağ önü (0,−36), dilek dinler | 12:00 Ulu Ocak (6,−4), ilk kaseyi kaldırır; sonra Otağ içi | Otağ içi; 17:30 Ulu Ocak | Otağ içi | III 12:00 Eskam'la; IV 17:00 Toy (0,−6); V 12:10 hüküm (0,6); V 20:00 Yeni Yurt |
+| Farnak | Ahır (−72,34) | Çoban Durağı (210,−250) | Keçe Avlusu | Ocağı (−88,−12) | III 14:00 Av; VI Boss |
+| Nanay | Keçe Avlusu (42,42) | Yeni Yurt pedi | Yeni Yurt pedi, dikiş | Farnak'ın Ocağı | V 18:00 Son Aş; V gece mahkûm kapısı |
+| Ardokşa | İş Tahtası (52,−6) | 11:45–12:30 Mutfak (20,14), tayın | Ambar içi; 17:30 Mutfak, kaseler | Ambar içi | |
+| Kantu | Menzil (58,22) | Araba çevrimi 2 sa 53 dk: Kesim → Sazlık → Çoban Durağı → Demir Diş | Menzil | Baraka (70,28), 21:00'den uyur | IV gece yok; V teker |
+| Mene | Kurutma sırıkları (26,20) | Ağılı (90,−240), Ku'yla | Ahır, atları yemler | Baraka; III'ten sonra Adak Ağılı çiti (−62,172) | IV 17:20 ilk ışığı görür |
+| Palak | 07:30 Sayım Taşı (−14,−14), sonra Kule | Kule (28,−86) | Kazık hattı, atlı (90,−124) | Nöbet Yurdu (58,−72); davulu o çaldırır | V 12:00 son sayım; Son Gece Sak'ın taşı (−170,170) |
+| Sak | Sayım Taşı (−10,−16) | Kazık Atlısı, Geçit (140,−155) | Mutfak (24,10) | Rampa (45,−98) | IV gece ölür, ekran dışı |
+| Atşo | 06:30 Ulu Ocak (−4,4), köz taşır | Ateş Yurdu (−62,−48) | Ulu Ocak çevresi | Ateş Yurdu | |
+| Hereka | Çukur (92,165) | 12:00 Çukur Kapısı (60,125), tayın | Çukur | Çukur; 20:00–22:00 şarkı | Çukur'dan çıkmaz |
+| Uldın | 07:00 kol: Çukur → Demir Diş | Galeri (−300,−170) | 17:00 kol dönüşü | Çukur | III 12:00 güreş (−270,−60) |
+| Berik | Çukur Kapısı | Mutfak, su taşır | Çukur | Çukur; görevle Çit Deliği (110,124) | |
+| Kujul | Körük (−270,−90) | Körük | Körük | Körük başında uyur | |
+| Yuan | Galeri | Galeri | Çiang çadırı (−240,−130) | Çadır | |
+| Omarg | Nöbet Yurdu, uyur | Kule dibi (24,−80) | Mutfak (18,10) | Ulu Ocak kuzeyi (10,−10) | V gece mahkûm kapısı |
+| Opia | Ambar kuyruğu (58,−4) | Keçe Avlusu (38,48) | Ocağı (−30,70) | Ocağı; II gece 23:00 Ambar arkası (74,−24) | Son Gece saklanma yeri |
+| Nandu | Gün II–IV Sazlık (345,−150) | Ulu Ocak pazarı (12,8) | Sazlık | Sazlık | |
+| Eskam | Yok | Gün III 11:30 Ulu Ocak'tan | Gün III 14:00 ayrılır | Yok | |
+
+Esir kolu (`road_column`) 07:00'de Çukur'dan çıkar, 17:00'de döner. Bölgelerin «Gündüz → Gece» hâli (`act1.md` §4) `dusk` olayında (17:48) geceye, `dawn` olayında (06:12) gündüze döner; nöbet ateşleri 16:30'da yanar, 07:40'ta söner.
+
+**Kantu takvimi** (`travel.md` §5.2 saatle): Gün I 10:00–10:40 giriş seferi; II teker onarılınca 11:00–17:00 iki çevrim; III 08:00–10:30 açık, öğle `sq_fares` (sen sürersin), 13:30–17:00 açık; IV 08:00–16:00 açık, Toy'dan sonra kapalı, baskında teker kırılır; V 07:30–10:00 yalnız yaralı seferi, sonra hat kapanır. Kantu 21:00–07:30 uyur: «Kantu uyuyor. Sabah gel.» / `travel.md` §8 kilit 9.
+
+### 9.5 Sahne saatleri (`act1.md` §8 başlıkları)
+
+| Sahne | Saat | Işık |
+|---|---|---|
+| 8.1 Tündük Kaldırma, Gün III | 08:30 (08:30–10:30) | Güneş 11,7°, güneydoğudan yalayan ışık; kerege ve tündük kadrajın üstüne uzun gölge düşürür |
+| 8.2 Elçi, Gün III | 12:00 (11:30–13:00) | Kış öğlesi, güneş 29°: bütün kamp açıkta, Eskam'ın görmediği yer yok |
+| 8.3 Toy ve baskın, Gün IV | Toy 17:00 (16:30–17:30), baskın 17:40–20:04 | Batıştan hemen sonra, akşam durağı; dolunay 16:35'te doğu-kuzeydoğudan doğar: kuzeydoğunun kızıllığı yanan Sazlık ve doğan aydır |
+| 8.4 Kül Sabahı, Göz Yolu, hüküm, Son Aş, Gün V | 07:30, 12:00 (120 sn bağlı yürüyüş, saat akar), 12:10, 18:00 | Göz Yolu en yüksek kış güneşinde |
+| 8.5 Düğüm, Donuk Kamp | 20:10'dan | Donuk Kamp'ta saat durur |
+| 8.6 Gök Açılır | Gecenin herhangi saati | Kubbe gece göğüyle (§5.6): yıldızlar, dolunaydan bir gün sonraki ay |
+| 8.7 Gece İşleri | Ay Saati içinde | |
+| 8.9 Boss, Gün VI | Kapı kesmesi ≥06:14 | İlk ağarma: tan anahtarına giden mavi |
+| 8.11 Eşik | Şafak Sırtı ≥07:04, doğuş 07:14 | İlk açık gök, ilk doğrudan güneş |
+| 8.11 Ev | `home`: bahar, menü ışığı, saat iğneli | |
+
+### 9.6 Ay Saati (`act1.md` §8.7, §13)
+
+Ay Saati Düğüm'le (`mq_knot`) başlar, **buz saatinde** biter: Amaga'nın «Şafakta buza» dediği saat. Gök Kavisi Son Gece'de ay kipine geçer: ay gerçek yayında doğudan batıya yürür, yayın üstünde buz saati kızıl bir çentiktir, kalan saatler küçük çizgilerdir.
+
+| Zorluk | Buz saati | Düğümden (20:10) | Gerçek süre |
+|---|---|---|---|
+| Hikâye | Yok; saat 05:45'te bekler, kaçışa dek (`ice_story`) | | Sınırsız |
+| Normal | 06:40 (sivil şafaktan 4 dk önce) | 10 sa 30 dk | 26,25 dk saat + ≈6 dk durmuş ≈ 32 dk (eski 36) |
+| Zor | 05:10 | 9 sa | 22,5 dk saat + ≈6 dk durmuş ≈ 28,5 dk (eski 28) |
+
+- **Neden saatler değişti.** Sabit oranda eski 36 dakika 14,4 oyun saatidir, bir kış gecesinden uzundur. Saat kaydırılamaz (K20), bu yüzden süre Amaga'yı öne alarak (20:00) ve buz saatini zorluğa bağlayarak korunur. Normal %11 sıkılaşır; «Hepsine yetişilmez» tasarımı (50 dakikalık içerik) sürer. Konuşmalar saati yemediği için gerçek süre eskisine yakındır.
+- **Takipçi.** Buz saatinden 2 sa önce +1, 1 sa önce +1 daha (en çok +2). Eski «5. saatten sonra her 5 dk +1» ile aynı niyet: geç kaçan ağır kovalanır.
+- **Sis.** Düğümden buz saatine sis 1.400 m'den 140 m'ye saatle doğrusal iner (Donuk Kamp'ta durur). K22'nin `kara_boran` hava cephesinin yükselişi budur: ay gecenin ikinci yarısında giderek örtülür.
+- **Yakalanma.** Yükleme değildir: yurda dönüş, saat +60 dk (`advance`), o çıkış kapanır, +1 nöbetçi (`act1.md` §8.7).
+- **Saat biterse** oyun bitmez: `dawn_path` aynen.
+- **Ay.** Gün V gecesi ay 17:30'da doğar, gece yarısı 69°'de güneydedir, 06:00'da batıda 27°, 08:40'ta batar: bütün kaçış ay altında geçer, bulut ve sis onu örttükçe gizlilik kolaylaşır (§9.9).
+
+### 9.7 Kara Boran (`act1.md` §10)
+
+Kovalamaca kaçışla başlar, saat akar ama gök ve Gök Kavisi Tipide görünmez (pusula yok kuralının saat yüzü). Boss'un açılış sineması saati en az 06:14'e (sivil şafak − 30) taşır, Şafak Sırtı sineması en az 07:04'e: Kapı'da ilk ağarma, Sırt'ta ilk güneş her dalda görülür. Erken kaçanın atladığı saatler fırtınanın içindedir; Kışlak arkada kaldığı için atlamanın toplu işi yalnız saat ve havadır. Temiz sürüş ≥3 dk (K10) değişmez; takipçi, zemin ve hız kuralları saate bağlı değildir.
+
+### 9.8 İlk 15 dakika (`act1.md` §12)
+
+| Dakika | Saat | Oyuncu |
+|---|---|---|
+| 0:00–0:25 | Saat yok | Kara ekran, çan, anlatıcı |
+| 0:25–1:20 | Sinema, saat durur; sonunda `set 10:40` | Kantu'nun arabası |
+| 1:20–2:30 | 10:40–11:08 | Rehine Yurdu'ndan kuzeye 73 m |
+| 2:30–3:10 | 11:08, durur | Palak sayar: «Bin kırk birinci gün. Bir rehine.» |
+| 3:10–4:50 | 11:08–11:48 | Çığlık, el dili |
+| 4:50–6:30 | 11:48–12:28 | Karga Savaşı; 12:00'de Kazan çanı çalar |
+| 6:30–8:00 | 12:28–12:48 (konuşmalar durur) | Tayın, Çukur Kapısı |
+| 8:00–10:30 | 12:48–13:36 | Farnak'ın altı taşı, ped |
+| 10:30–11:30 | 13:36, durur | Amaga çeteleyi böler |
+| 11:30–13:20 | 13:36–14:12 (L2 ekranında durur) | İş Tahtası, 4 kütük, L2 |
+| 13:20–15:00 | 14:12–14:52 | Yakve'yle Yar Bakışı: güneş 17°, güneybatıdan (az 221°); kuzeye uzanan uzun gölgelerin ucunda ev. İkindi, güneş 16:49'da batar |
+
+İlk 15 dakika saatte 10:40'tan ≈14:52'ye uzanır (4 sa 12 dk = 10,5 dk saat; kalan ≈4,5 dk giriş sineması ve durmuş konuşma). Eski «Dilim hâlâ öğle, serbestsin» satırının yerine: «İkindi; güneş batıya iniyor, akşam aşına dek serbestsin.»
+
+### 9.9 Şafak, düğüm, hayvan, gizlilik
+
+- **Kış Hesabı** (`economy.md` §7): her şafakta (06:12–06:14) −8; uykuda atlanan şafaklar da düşer. Senaryo tablosu değişmez: gün sayısı aynıdır.
+- **Düğümler** (`economy.md` §3.2): yenilenebilirler `dawn` olayında döner; uykuda atlanan her şafakta bir kez. Gece gürültüsü (balta 24 m, kazma 28 m, tut 3 m) güneş ufkun altındayken (`clock.dark`) yayılır.
+- **Hayvan etkinliği** (`survival.md` §4 türleri). Ağırlık 0–3 doğma ve görünme olasılığıdır; tuzak zarı her evre başında türün ağırlığıyla atılır (günde 6 kez).
+
+| Tür | Tan | Sabah | Öğle | İkindi | Akşam | Gece | Not |
+|---|---|---|---|---|---|---|---|
+| Karga | 2 | 3 | 2 | 3 | 2 | 0 | Gece tüner |
+| Tavşan | 3 | 1 | 0 | 1 | 3 | 2 | Alaca ve gece |
+| Tarbagan | 0 | 2 | 3 | 2 | 0 | 0 | Güneş sever, gece inde |
+| Keklik | 2 | 3 | 1 | 2 | 2 | 0 | |
+| Tilki | 2 | 0 | 0 | 0 | 2 | 3 | «Gece gezer» |
+| Ceylan | 2 | 3 | 1 | 2 | 3 | 0 | |
+| Yaban keçisi | 3 | 2 | 1 | 1 | 3 | 0 | Tan ve akşam sekiye iner: `mq_hunt` 14:00–16:47 buna denk |
+| Domuz | 2 | 0 | 0 | 0 | 2 | 3 | |
+| Maral | 3 | 1 | 0 | 0 | 3 | 1 | «Tan vakti açıkta» |
+| Kurt | 2 | 0 | 0 | 0 | 2 | 3 | Sürü gece avlanır |
+| Balık (ağ) | ×1,5 | ×1 | ×1 | ×1 | ×1,2 | ×0,8 | Verim çarpanı |
+
+Algı: gündüz görüş ×1; alacakaranlıkta görüş ×0,8, duyma ×1,2; gece görüş ×0,6 (tilki ve kurt ×1), duyma ×1,3. Rüzgâr kuralı (`survival.md` §4) aynen üstüne.
+- **Gizlilik** (`act1.md` §9.5). `act1.md` §9.5'in formül ve zemin çarpanları ay ışıklı geceye göre kurulmuştur; saat buna `envVis` ekler: `L = lightLevel(güneş, ay, bulut) ∈ [0,1]`, `envVis = 0,8 + L`. Gündüz 1,8, alacakaranlık ≈1,3, dolunaylı gece ≈1,05, aysız ya da kapalı gece 0,8. Fener havuzu (×1,3, 20 m) ve ateşin ele vermesi aynen kalır. Son Gece başında ×1,05'ten fırtına ilerledikçe ≈0,9'a iner: fırtına kaçağın dostudur. Kızıl Kazık sayacı (40 / 120 sn) saate bağlı değildir.
+
+## 10. Saatin öteki sistemlere anlamı
+
+### 10.1 Ustalar ve emek (K21)
+
+- Emek iş dakikasıdır (İD); yurt 1 iş günü = 1.440 İD (`labour-model.json`). Saat yüzü: ekip her oyun dakikasında `eff(N)` İD üretir; gerçek saniyede `0,4 × eff(N)`. `StructureState.advance` bugün gerçek saniye alır; K21 yeniden yazımı İD'ye geçer (dönüşüm 1 gerçek sn = 0,4 İD × ekip).
+- **İş penceresi** NPC ekiplerinindir: varsayılan 16 oyun saati (`prodHoursPerDay`); ana kamp 06:00–22:00, Kışlak 07:00–23:00, yerleşim ve ordugâh yazın 05:30–21:30, kışın 07:00–23:00. Pencere dışında ekip durur, yerine gider. Oyuncu her saatte çalışır; tek başına sürekli çalışan Mete yurdu bir günde bitirir (K21). Gece verimi K21'in `law.night`'ıdır (ateş ışığı ×1, ay ×0,7, karanlık ×0,4).
+- **Gece vardiyası** (sonraki perdeler): iş emri `night: true` ile ekip 24 saat çalışır; bedeli K21 ve K23'ündür.
+- Atlamada ekip yalnız pencere içindeki dakikalar kadar çalışır (§7.4). HUD yapı durumu kalan süreyi oyun saatiyle yazar: «Kerege · ≈3 saat» / «Lattice · ≈3 hours».
+- Kışlak Yeni Yurdu'nun `slice` kipi kalkar: `timed` kip, dünya saati, malzeme ve ana adımlar aşamayı kapılar (K21 alanı).
+
+### 10.2 Ateş ve yemek (`survival.md`)
+
+| Kural | Saatle |
+|---|---|
+| Yakıt saniyesi | Gerçek saniyedir: 150 sn = 1 oyun saati. Odun 240 sn = 1 sa 36 dk, tezek 1 sa 12 dk, dal 24 dk, en çok 720 sn = 4 sa 48 dk |
+| Uyku | Bakımsız ateş uykuda söner; uyanınca `cold_pit` |
+| `cold_pit` | «Gün sonunda» yerine ertesi şafakta kalkar |
+| Şiş, kor, kazan | Eylem süresidir (8–40 sn); saat o kadar akar |
+| Kurutma sırığı | 2 oyun saati (bugünkü 5 dk); uykuda da kurur |
+| Tulum, kımız | 12 oyun saati (eski «2 dilim») |
+| Bozulma | Çiğ et 24 oyun saatinde `spoiled` |
+| Dinlenme | §7.1: ateş başında Bekle, Stamina dolar, Yara −1 (≥2 sa, Tokluk ≥25) |
+
+### 10.3 Hava (K22)
+
+Saat havaya şunları verir: `clock:hour` (saat başı geçiş; atlamada `skipping`), tohum için `(dünya, dayN, saat)`, evre ve güneş yüksekliği. Saatle bağlı hava kuralları K22'nin tablosunda kullanılır: yaz ikindisinde (13:00–19:00) gök gürültülü fırtına eğilimi; açık geceden sonra Tan'da vadi sisi; rüzgâr 11:00–17:00 güçlü, tan ve akşamda dingin; değişimden ≥1 oyun saati (2,5 dk) önce işaret. Gece kapalı hava `lightSource` ay çarpanını ve gizlilikteki `L`'yi düşürür. Atlamada hava saat saat ilerler. Hikâye havası (Kara Boran) saati değil havayı iğneler. Menü ve Yeni Oyun açık kalır (K22).
+
+### 10.4 Yerleşim ve ordugâh üretimi (K23)
+
+Saat yüzü:
+- Üretim saat başında işler, pencere içinde; atlamada toplu.
+- Sağım 06:00 ve 19:00 (günde iki kez); sürü 08:00'de otlağa çıkar, 18:00'de döner; keçe dövme ve yün işi ikindi; yazın saman, güzde kesim ve kurutma, kışın onarım ve ok yapımı (mevsim §2).
+- Ordugâh günü: Tan'da kalk, 07:30–10:30 talim (`army.md` `drill`), öğle aşı, ikindi atlar otlağa ve ok yapımı, 18:00 akşam aşı, 1,5 saatlik nöbetler, 22:30 yatsı.
+- Erzak kervanı yerleşimle ordugâh arasında oyun saatiyle yol alır: iç haritada doğal süre × 0,4 oyun dk/sn, atlasta gün (`travel.md` §9.1).
+- Sayılar ve katman hedefleri K23 ve K24'ündür: 1 oyun günü 60 dk oyun olduğundan `econ-model.json` `targetDays` ile `targetPlayerMin` aynı saatte okunur.
+
+### 10.5 Tokluk, yara, düşüş
+
+- **Tokluk** (`economy.md` §5) oyun saatine bağlanır: uyanıkken −5/oyun sa (bugünkü −2/dk ile aynı), uykuda ×0,25 (−1,25/sa). Kışlak'ta 16 sa uyanık + 8 sa uyku günde −90: ≈2,6 Aş; tayın (2) ve akşam kasesiyle tutar. Oran K24'ündür, bu belge yalnız saat yüzünü önerir.
+- **Yara.** Uyku bütün yaraları kapatır (`progression.md` §3); bekleme kapatmaz.
+- **Düşüş** (Umay Eşiği, `progression.md` §8.5): son barınakta uyanış saati +2 oyun saati (bekleyişi geçmez). Tipi düşüşü (`blizzard_falls`) ve Son Gece yakalanması kendi kurallarındadır.
+
+### 10.6 Yolculuk (`travel.md`)
+
+- Vadi içi araba: saat doğal süre `T1` kadar ilerler (`T1 × 0,4` oyun dk: 55 sn → 22 dk, 229 sn → 1 sa 32 dk). Yol Akışı `k` saati de `k` kat hızlandırır; Yolu Kısalt kalanı atlar. «Dilim değişmez» kuralı kalkar.
+- Atlas yolculuğu: `clock.skip(gün × 1.440)` varışta. Varış saati `kalkış + kesir(gün) × 24 sa`; güneş ufkun altındaysa ertesi doğuş + 30 dk, bekleme saati eklenir. Eski «Varış dilimi» formülünün yerine.
+- `travel.calendar` alanı kalkar; takvim `world.clock`'tadır (§13).
+
+### 10.7 Ordu (`army.md`)
+
+- Erzak: «dilim başına 0,25 × üye» yerine günde iki öğün, 07:00 ve 18:00'de `0,5 × üye × upkeep` (bozkırda iki öğün).
+- Ay: `moon = calendar.moonIllum()`; dolunay ≥0,85, eksilen ≤0,25 kuralları aynı.
+- `fatigue` dinlenmesi (−4/dk) gerçek dakikadır; atlamada oyun saati başına −10.
+- `tumen_call`: «bir dilimde gelir» = 6 oyun saatinde.
+- Takvim olayları §2'deki günlerdedir.
+
+## 11. Arayüz ve metinler
+
+**Gök Kavisi / Sky Arc** (`ui/hud/clock.js`, sağ üst yuva). Keçe ve tunç dilinde yarım daire: güneş simgesi doğudan batıya yayda yürür, gece ay (evresiyle) yürür; bekleyişte yayın üstünde küçük düğüm; Son Gece'de Ay Saati kipi (§9.6); Tipide gizli. Altında evre adı. DOM'a en çok saniyede 4 kez yazar. Ayar: «Saat göstergesi / Clock display»: «Evre / Phase» (varsayılan) ya da «Evre ve saat / Phase and hour».
+
+**Kayıt kartı.** «Gün II, ikindi» / «Day II, afternoon» (eski «Gün II, öğle» `save.day_slice` biçimi evreye geçer).
+
+**Görevler.** Vakitler evreyle yazılır: «Öğle çanı · Öğle» / «Noon bell · Midday»; bekleyişte «Gün seni bekliyor: …».
+
+`i18n/strings/time.js` (yeni):
+
+| Anahtar | TR | EN |
+|---|---|---|
+| `time.phase.dawn` … `night` | Tan, Sabah, Öğle, İkindi, Akşam, Gece | Dawn, Morning, Midday, Afternoon, Evening, Night |
+| `time.day` | Gün {n} | Day {n} |
+| `time.wait.title` | Bekle | Wait |
+| `time.wait.h1`, `time.wait.h3` | Bir saat · Üç saat | One hour · Three hours |
+| `time.wait.to_morning` … `to_dawn` | Sabaha dek · Öğleye dek · İkindiye dek · Akşama dek · Geceye dek · Tan ağarana dek | Until morning · Until midday · Until afternoon · Until evening · Until nightfall · Until first light |
+| `time.sleep`, `.dawn`, `.sun` | Uyu · Tanla uyan · Güneşle uyan | Sleep · Wake at first light · Wake with the sun |
+| `time.deny.danger` | Tehlike yakınken beklenmez. | You cannot wait with danger this close. |
+| `time.deny.watched` | Gözler üstündeyken beklenmez. | You cannot wait while you are watched. |
+| `time.deny.moving` | Atı durdur. | Rein in first. |
+| `time.deny.work` | Bugünün işi bitmedi: {task} | Today's work is not done: {task} |
+| `time.deny.bed` | Uyumak için bir döşek gerek. | You need a bed to sleep. |
+| `time.deny.early` | Uyku vakti değil. | It is not yet time to sleep. |
+| `time.deny.night` | Bu gece uyku yok. | There is no sleep tonight. |
+| `time.call` | Seni çağırıyorlar. | They are calling for you. |
+| `time.hold.beat` | Gün seni bekliyor: {task} | The day is waiting for you: {task} |
+| `time.hold.dawn` | Şafak seni bekliyor: {task} | Dawn is waiting for you: {task} |
+| `time.woke` | Gün {n}, {phase} | Day {n}, {phase} |
+| `time.moon.title`, `time.moon.left` | Ay Saati · Buz saatine {n} saat | Moon Clock · {n} hours to the ice |
+| `time.setting`, `.phase`, `.hour` | Saat göstergesi · Evre · Evre ve saat | Clock display · Phase · Phase and hour |
+| `time.build.left` | ≈{n} saat | ≈{n} hours |
+
+## 12. Sözleşme ve uygulama
+
+### 12.1 Modüller
+
+| Dosya | Saf | İş |
+|---|---|---|
+| `src/game/world-clock.js` | Evet | `WorldClock`: dakika, gün, oran, durma, bekleyiş, atlama, olaylar |
+| `src/game/daylight.js` | Evet | Güneş ve ay konumu, `dayInfo`, evreler, anahtarlar, ışık kaynağı, ışık düzeyi |
+| `src/game/calendar.js` | Evet | `Calendar`: hikâye günü, yıl, mevsim, ay, vakitler, uyku kapısı (Faz 10.1'in planlanmış dosyası; içeriği değişir) |
+| `src/game/clock-system.js` | Hayır | `ClockSystem`: `GameSystem` id `clock`, order 15, kipler `freeroam`, `play`, `home`; dünyaya ışığı yazar, Bekle ve uyku |
+| `src/game/camp-life.js` | Hayır | `CampLife`: id `camp_life`, order 81, kip `freeroam`; §8 programı, ikizler, hayvan takımı |
+| `src/ui/hud/clock.js`, `src/ui/wait-wheel.js`, `src/ui/css/wait.css`, `src/i18n/strings/time.js` | | Gök Kavisi, teker, metinler |
+
+### 12.2 `WorldClock`
+
+```js
+// src/game/world-clock.js (saf): dünya saati (K20). Oyun dakikası; 1 gün = 1.440 dk = 3.600 gerçek sn.
+export const DAY_MIN = 1440;
+export const SEC_PER_MIN = 2.5;
+export const MIN_PER_SEC = 1 / SEC_PER_MIN;
+
+export class WorldClock {
+  constructor({ bus = null, day = 0, minute = 0, info /* (day) → DayInfo */ });
+  day;  minute;                 // takvim günü (dayN) ve [0, 1440) dakika; ikisi tek kaynaktan: abs
+  get abs();                    // day × 1440 + minute (double)
+  get hour();                   // minute / 60
+  get info();                   // bugünün DayInfo'su (önbellekli, gün değişince yeniden)
+  get phase();  get slice();  get dark();   // evre, eski dilim, güneş ufkun altında mı
+  get held();  get paused();  rate;         // rate: 1; Yol Akışı k yazar, dt ölçeği ClockSystem'den
+  advance(dtReal);              // → ilerleyen oyun dk; bekleyişte at'ta durur; sınır olaylarını sırayla yayar
+  pause(reason, on);
+  hold(id, { at, until = null, note = null });   // at: abs dk; until: koşul dizgesi (ClockSystem 4 Hz denetler)
+  release(id);  holds();        // → [{ id, at, note }]
+  skip(minutes, { reason, sleep = false });      // → { from, to, minutes, dawns, hours }; ilk bekleyişte durur
+  setTo(absMinute, { reason }); // yalnız ileri; geri yazım geliştirmede throw, üretimde yok sayılır
+  next(target);                 // 'dawn'|'morning'|'noon'|'golden'|'dusk'|'night'|'hh:mm'|çapa → abs dk
+  toJSON();  fromJSON(o);
+}
+```
+
+Olaylar: `clock:hour { day, hour, skipping }`, `clock:phase { day, phase, prev, skipping }`, `slice:change { day, slice, prev }` (eski dilim değişince; bugünkü dinleyiciler için), `dawn { day }`, `dusk { day }`, `clock:skip:begin { from, to }`, `clock:skip { from, to, minutes, reason, sleep }`, `clock:hold { id, on, at }`. Kare başına olay yok: saat başı 150 sn'de bir.
+
+### 12.3 `daylight.js`
+
+```js
+// src/game/daylight.js (saf): güneş, ay, evre, ışık anahtarı. Derece ve oyun dakikası.
+export function solarDec(doy);                        // −23,44 · cos(2π(doy + 10)/365)
+export function dayInfo({ lat, dec });                // → { dec, sunrise, sunset, civilDawn, civilDusk, nauticalDawn, nauticalDusk, phases: [[id, from, to] ×6], dawnAt, duskAt }
+export function sunAt(lat, dec, minute, out);         // → out { el, az, x, y, z }: x doğu, y yukarı, z güney, birim
+export function moonAt(lat, dec, minute, age, out);   // → out { el, az, x, y, z, illum }
+export function phaseAt(info, minute);  export function sliceOf(phase);
+export function skyKeys(info, { golden, menu = null });   // → [{ m, s }] sıralı; §5.2
+export function skyAt(keys, minute);                  // → s ∈ [0, 6)
+export function lightSource(info, minute, sun, moon, out);   // → out { x, y, z, k }; §5.1
+export function lightLevel(sunEl, moonEl, illum, cloud = 0); // → 0..1; gizlilik, hayvan, K21 gece sınıfı
+export const MENU_MINUTE = 886.18;                    // ana kamp, 10 Nisan, 47,35°K
+```
+
+### 12.4 `Calendar`
+
+```js
+// src/game/calendar.js (saf): K20, act1.md §2. Hikâye günü, takvim, ay, vakit, uyku kapısı.
+export const SYNODIC = 29.530588;
+export const DAY1 = { yearBC: 212, doy: 25 };        // dayN 1
+export const SEASONS = [['winter', 319, 73], ['spring', 74, 133], ['summer', 134, 233], ['autumn', 234, 318]];
+export class Calendar {
+  constructor({ bus, clock, cond, effects, story /* { days: { [n]: StoryDay } } */, moonEpoch = 1044.75 });
+  act;  storyDay;                            // I. Perde 1..6; 0: hikâye günü yok (Serbest Gez)
+  get dayN();  get count();  get yearBC();  get doy();  get season();
+  moonAge(abs);  moonIllum(abs);  lunarMonth(abs);
+  beat(id);  beats();                        // 'wait'|'open'|'held'|'done'
+  mainDone();  canSleep(bedId);              // → { ok, reason, task }
+  sleep(target);  wait(target);              // ClockSystem'e atlama ister
+  iceAt();                                   // Son Gece buz saati, zorluktan; Hikâye'de null
+  toJSON();  fromJSON(o);
+}
+StoryDay = { n, mainWork: ['mq_herd_school', 'mq_three_tallies'], beats: [{ id: 'b_herd', quest: 'mq_herd_school', earliest: '08:00', latest: '12:00' }],
+             sleep: { beds: ['hostage_bed'], from: 'dusk' } | false, cuts: [] };
+```
+
+Hikâye verisi `src/story/act1/days.js`'te (11.1; `schedule.js`'in yanında). `addWork`, `setSlice`, `eatDinner` ve `workPoints` kalkar.
+
+### 12.5 `ClockSystem`
+
+- `attach(ctx)`: `ctx.worldClock`, `ctx.calendar` bağlanır; `devtools.register('clock', panel)` yalnız geliştirmede.
+- `onWorld(world)`: `spec.light` ve `spec.moods.cycle`'dan `DayInfo` ve anahtarlar; Kışlak'ta gün takvimden, ana kampta iğneli.
+- `update(dt)`: durma nedenleri yoksa `worldClock.advance(dt)`; 4 Hz'de `world.setTimeOfDay(sample)`; bekleyiş koşulları 4 Hz; Yol Akışı `rate = k`.
+- Bekle ve uyku: teker sonucu → görünüm (§7.2) → `skip` → kayıt.
+- `home`: `setTimeOfDay(null)` (menü ışığı), saat akmaz.
+- `debug()`: `{ day, minute, phase, s, held, holds, paused }`.
+- Panel `__tanhu.clock`: `get()`, `set('hh:mm')`, `next(phase)`, `skip(min)`, `lapse(h)`, `hold(id, hhmm)`, `release(id)`, `keys()`, `stop(on)`.
+
+### 12.6 `World` ve `WorldSpec`
+
+```js
+// world/world.js eki (8.9). Menü yolu (applyMood) değişmez.
+MOODS.night; MOODS.dawn; MOODS.morning; MOODS.noon;   // §5.3; golden ve dusk aynen
+applyMood(t);                    // bugünkü gibi: golden→dusk; menü, Yeni Oyun, home
+applyMoodMix(a, b, f);           // iki durak, ayırma yok; applyMood(t) = applyMoodMix('golden', 'dusk', t), aynı aritmetik
+setTimeOfDay(sample | null);     // sample: { a, b, f, dir: [x,y,z], k, moon: { x, y, z, phase, up }, night }; null: menü değerleri
+timeDriven;                      // saat ışığı yazıyor mu (endSession false yapar)
+// specs/camp.js
+light: { lat: 47.35, dec: 7.4223, menuMinute: 886.18, menuSun: [-0.66, 0.6, 0.46] },
+moods: { stops: [MOODS.golden, MOODS.dusk], startT: 0.3, cycle: { palettes: MOODS, golden: 820 } },
+// specs/winter.js
+light: { lat: 38.9 },  moods: { cycle: { palettes: WINTER_MOODS, golden: 840 } },
+```
+
+`mixTone(out, key, a, b, t)` bugünkü `copy(TONES.golden[key]).lerp(TONES.dusk[key], t)` yazımını genelleştirir; `a='golden'`, `b='dusk'` için aynı işlemdir. `sky.setMood(a, b, t)` zaten iki ton nesnesi alır.
+
+### 12.7 Koşul, etki, sinema
+
+- Koşul dili atomları (`architecture.md` §3.14): `hour` (`hour>=12`), `'phase:'name`, `'beat:'id'.'state`, `dark`, `moon` (aydınlık); `'slice:'name` eski dilim olarak kalır; `day` hikâye günüdür.
+- Etki: `work` kalkar; yeni `clock`: `['clock', 'set', '11:50']`, `['clock', 'atLeast', 'civilDawn-30']`, `['clock', 'advance', 60]`, `['clock', 'hold', id, '13:30']`, `['clock', 'release', id]`.
+- Sinema: `clock` izi §6.4.
+- §4.5 örneğindeki `slice:noon` geçerli kalır; Gün I için doğru yazım `hour>=12` olur (öğle çanı vakti).
+
+### 12.8 Öteki sözleşmelere bağ
+
+| Sözleşme | Saatle |
+|---|---|
+| `StagedStructure`, `StructureState` (§3.11) | `advance(İD)` ekip ve pencereyle; `sliceTick` kalkar; `clock:skip`'te pencere içi toplu `advance` |
+| `Inventory` (§3.13) | `ITEMS[id].spoil` (dk) olan yığın edinme dakikasını taşır (FIFO); denetim `dawn` ve `clock:skip`'te |
+| `NodeStore` (§3.12) | `onDawn()` `dawn` olayına bağlı; atlamada şafak başına bir kez |
+| `SupplyLedger` (§3.22) | `onDawn(loss)` aynı olayla; `freezeToy` vakit `b_feast`'te |
+| `Needs` | `update(dtGameMin, { sleep })` oyun dakikasıyla |
+| `Campfire` | Yakıt gerçek sn; `onSkip` dakika × 2,5 |
+| `NpcManager`, `resolveSchedule` (§3.16) | `resolveSchedule(table, npcId, { day, minute, flags, overrides })`; `onSlice` yerine `onBlock(day, minute)` blok değişince |
+| `army.md` `UnitRec` | `supply` öğünleri `clock:hour` 7 ve 18; `horse_fat` şafakta; `moon` `calendar` |
+| `travel` | Doğal süre ve atlas günleri §10.6 |
+| `stealth` | `envVis` `lightLevel`'dan (§9.9) |
+
+## 13. Kayıt
+
+**Yolculuk** (`progression.md` §13.2 `world` bloğu):
+
+```jsonc
+"world": {
+  "zone": "hexi_winter", "act": 1, "day": 2,                 // day: hikâye günü (Gün II)
+  "clock": { "v": 1, "dayN": 1042, "minute": 742.5, "holds": [{ "id": "b_herd", "at": 1501200 }] },
+  "calendar": { "v": 1, "beats": { "b_count": "done", "b_herd": "open" }, "mainDone": false, "moonEpoch": 1044.75 },
+  "jobsToday": 2, "jobTypesDone": ["job_firewood"], "moonClock": null, "dawnPath": false
+  // kalanlar aynı; "slice" ve "workPoints" kalkar
+}
+"meta": { "act": 1, "day": 2, "minute": 742.5, "phase": "noon", "slice": "noon" }   // slice türetilir, eski kartlar için
+```
+
+Bloklar: `world.clock` order 69 (`game/clock-system.js`), `world.calendar` ve `world.zone`, `.act`, `.day`, `.jobsToday`, `.jobTypesDone`, `.moonClock`, `.dawnPath` order 70 (`game/calendar.js`). `SlotInfo` `minute` ve `phase` kazanır. Oto kayıt nedenlerinde `slice` yerine `dawn`; yeni `sleep`, `wait` (≥1 sa). Göç: `world.slice` → dakika (sabah 08:00, öğle 12:00, akşam 17:00, gece 21:00), `workPoints` atılır.
+
+**Serbest Gez** (`tanhu.roam`, `progression.md` §13.4): `"clock": { "day": 3, "minute": 1012.4 }` eklenir, `mood` artık yazılmaz. Göç: `clock` yoksa `mood > 0,75` ise 18:38 (akşam), değilse 14:46,2 (menü dakikası); gün 0.
+
+Boyut: yolculukta ≈150 B, Serbest Gez'de ≈40 B.
+
+## 14. Yerleşik koddaki değişiklikler
+
+| Dosya | Değişiklik | Kim |
+|---|---|---|
+| `src/world/world.js` | `MOODS`'a dört durak; `mixTone(out, key, a, b, t)`; `applyMoodMix`, `setTimeOfDay`, `timeDriven`; `sunDir` saatle yazılır, `MENU_SUN` sabiti; zerre `motes` anahtarı | 8.9 |
+| `src/world/sky.js` | `uNight`, `uMoonDir`, `uMoonPhase`; yıldız ve ay diski; program sayısı aynı | 8.9 |
+| `src/app/states/freeroam.js` | `T` → `wait`; `toggleMood` ve `MOOD_*` sabitleri kalkar; `beginSession` `roam.clock` okur (göç §13), `saveRoam` yazar; `endSession` güneş yönünü ve gece tekdüzenlerini de geri yazar | 8.9 |
+| `src/core/keymap.js` | `wait: ['KeyT']`; `mood` kalkar | 8.9 |
+| `src/ui/hud.js` | Geliştirme ışık düğmesi (`moodBtn`, `setDusk`, `DUSK_ABOVE`) kalkar, yuvaya Gök Kavisi takılır | `L` (kural 4: `hud.js` özellik için düzenlenmez) |
+| `src/app/sounds.js` | `DUSK_ABOVE` / `moodTarget` denetimi yerine evre: §8.5 tablosu | `L` |
+| `src/app/systems.js`, `src/app/app.js` | `ClockSystem` (15), `CampLife` (81); `ctx.worldClock`, `ctx.calendar` | `L` |
+| `src/game/save.js` | `meta.minute`, `meta.phase`; `SlotInfo` alanları | 8.9 |
+| `src/ui/menu/save-panel.js`, `src/i18n/strings/save.js` | Kart evreyi yazar; `save.phase.*` dizgeleri, `save.slice.*` eski kayıtlar için kalır | 8.9 |
+| `src/game/builders.js`, `src/world/structure-logic.js` | İş penceresi ve İD; `sliceTick` kalkar; 590 sn çizelgesi K21'le yeniden | K21 sonrası faz |
+| `src/game/child.js` | §8 karar 16'nın ateş ziyareti `CampLife`'tan ister | 8.8 / 8.9 bağı |
+
+Menü yolu (`menu.js`, `newgame.js`, `creator.js`, `devtools.js` `drawMenuFrame`) hiç değişmez.
+
+## 15. Belgelerdeki değişiklikler
+
+`architecture.md`, `structures.md`, `audio.md` için birebir talimatlar `d2/time-delta-*.md` dosyalarındadır. Öteki belgeler (bu taslak düzenlemedi; birleştirme d2 bitince):
+
+| Belge, bölüm | Değişiklik |
+|---|---|
+| `act1.md` §1 süre tablosu | §9.3 tablosu yerine geçer |
+| `act1.md` §2 «Gün dilimi» paragrafı | §9.1 metni yerine geçer; İş Tahtası'nda «Günde 3 iş» → «Hikâye günü başına 3 iş (şafaktan şafağa)»; Kış Hesabı «her sabah −%8» → «her şafakta (06:12) −8» |
+| `act1.md` §5 | §9.4 tablosu, gündelik saatler ve davul satırı (§9.2) yerine geçer; «Gece davulu 240 sn'de bir» → «1,5 oyun saatinde bir, 8 oyun dk (20 sn) değişim» |
+| `act1.md` §8 başlıkları | §9.5 saat ve ışık satırları başlıklara eklenir |
+| `act1.md` §8.7 Ay Saati paragrafı | «6 saat, ay diski (Normal 36 dk, Zor 28, Hikâye saatsiz)» → §9.6 tablosu ve kuralları |
+| `act1.md` §9.3 Yeni Yurt takvimi | K21'in metni; «2 dilimde 1 aşama» kalkar |
+| `act1.md` §10 | §9.7 paragrafı eklenir |
+| `act1.md` §12 | §9.8 tablosu yerine geçer; «Dilim hâlâ öğle, serbestsin» → «İkindi; güneş batıya iniyor, akşam aşına dek serbestsin.» |
+| `act1.md` §13 | «Ay Saati: Yok / 36 dk / 28 dk» → «Buz saati: Yok (05:45 bekler) / 06:40 / 05:10» |
+| `act1.md` §17 «Diğer kayıtlı kararlar» | «Gerçek zamanlı gün yerine İş Puanlı dilim…» → «K20: 60 dakikalık gün; sahne güvenliği vakitler ve bekleyişlerle, ışık maliyeti yalnız tekdüzen (ışık ve program sayısı aynı)» |
+| `survival.md` §2 | Dinlenme: «İş Puanı +1» kalkar, §7.1 metni; yakıt saniyesinin saat karşılığı (§10.2); `cold_pit` ertesi şafakta kalkar |
+| `survival.md` §3 | Kurutma 2 oyun saati; kımız 12 oyun saati; çiğ et 24 oyun saatinde bozulur |
+| `survival.md` §4 | Hayvan etkinliği tablosu (§9.9); kapan zarı evre başında; «Gün başına %30» → «her şafakta %30» |
+| `economy.md` §3.1, §3.2 | Gece gürültüsü `clock.dark`; «Şafak yeni günün `morning` başlangıcıdır» → «Şafak Tan evresinin başıdır (sivil şafak − 30 dk), `dawn` olayı; atlanan her şafak bir kez» |
+| `economy.md` §7, §8.3 | «her sabah −8» → «her şafakta −8»; Erzak Kolu «dilim başına» → «6 oyun saati başına» |
+| `progression.md` §5.4 | «her dilim başında» → «her evre başında» |
+| `progression.md` §8.5 | Düşüş: uyanış saati +2 oyun saati |
+| `progression.md` §9.3 | «dilim başına 0,25 × üye» → «07:00 ve 18:00'de 0,5 × üye» |
+| `progression.md` §13.2–§13.4 | §13 şemaları; oto kayıt nedenleri |
+| `progression.md` §4.10 `tumen_call` | «bir dilimde gelir; dilim başına 1» → «6 oyun saatinde gelir; günde en çok 4» |
+| `travel.md` §5.2 | Kantu takvimi saatle (§9.4) |
+| `travel.md` §6.4, §6.8 | Yol Akışı satırı «Dilim değişmez» → «Saat doğal süreyle akar»; §6.8 §10.6'nın ilk maddesiyle yeniden |
+| `travel.md` §8 kilit 9 | «Dilim gece» → «Kantu 21:00–07:30 uyur» |
+| `travel.md` §9.4 | «Varış dilimi» formülü → §10.6 varış saati |
+| `travel.md` §11 | `calendar` alanı kalkar, `world.clock` okunur |
+| `army.md` §1.3, §3.5, §3.6 | Takvim günleri (§2), `moon = calendar.moonIllum()`, öğünler (§10.7) |
+| `decisions.md` | K20 satırı yönetmenindir; bu taslak yazmaz |
+
+## 16. Bütçe
+
+| Kalem | Tavan | Not |
+|---|---|---|
+| `ClockSystem.update` | ≤0,02 ms/kare | O(1) |
+| `world.setTimeOfDay` | ≤0,03 ms/çağrı, 4 Hz; bekleme akışında her kare | ≈60 renk karışımı, ayırma yok (`TONES` 6 durak, bir kez çözülür) |
+| Gök Kavisi | DOM'a ≤4 yazım/sn | |
+| `CampLife` | ≤0,05 ms/kare | 4 Hz koni sınaması ≤8 nesne |
+| Atlama toplu işi | ≤50 ms / 12 sa, karartma altında | `NodeStore.onDawn` 3.270 kayıt ≤2 ms |
+| Işık | 0 ekleme, 0 silme | 4 nokta ışık hep var, yoğunluk değişir |
+| Program | Değişmez (menü 56, Serbest Gez 57; tavan 92) | Yalnız tekdüzen; kubbe kaynağı büyür, yine bir program |
+| Çizim, ana kamp | Gece −9 (içeride uyuyan üç statik), gündüz ikizler ≤+6 (≤2 ikiz, ≈+40k üçgen) | `architecture.md` §7 Serbest Gez ≤511 içinde |
+| Gölge | Değişmez | Yön her kare yazılır, ızgara oturtması aynı |
+| Ses | +4 reçete (`meal_call`, `night_drum`, `wait_lapse`, `wake`), +1 müzik durumu | ≤0,5 MB |
+| Kayıt | +≈150 B yolculuk, +≈40 B Serbest Gez | |
+
+## 17. Test planı
+
+**`node:test`** (saf):
+
+| Test | Beklenen |
+|---|---|
+| `daylight` | Hexi Gün I doğuş 07:11, batış 16:49, sivil 06:42 / 17:18 (±1 dk); kamp 05:22 / 18:38; Orhun 15 Temmuz 04:12 / 19:48; `sunAt(47.35, 7.4223, 886.18)` normalize menü vektörüne 1e−5 içinde; 38°, 43,5°, 47,35° için 365 günün hepsinde evre sınırları ve anahtarlar sıralı, evre toplamı 1.440 |
+| `world-clock` | `advance(2.5)` +1 dk; 3.600 sn → `day` +1, `minute` aynı (1e−9); bekleyiş `at`'ta tam durur, `release` sürer; `skip(720)` 12 `clock:hour`, bir `dawn`, olay sırası; bekleyişi geçmez; `setTo` geri gitmez; `toJSON`/`fromJSON` gidiş dönüş; `pause` nedenleri birikir |
+| `calendar` | Hikâye günü yalnız şafakta ve ana iş bitince artar; uyku kapısı; `dawn_line` bekleyişi; vakit `earliest`/`latest`; buz saati Normal 06:40, Zor 05:10, Hikâye `null` ve 05:45 bekleyişi; yakalanma +60 dk; takipçi +1 buz−2 sa, +1 buz−1 sa; atlanan her şafakta Kış Hesabı −8; Gün IV 18:00 aydınlık ≥0,999; `dayN` 1.041 → MÖ 210, doy 335, kış |
+| `sky-keys` | Kampta `skyAt(886.18)` = 4,3 (1e−9); o `s`'te karışan renkler `applyMood(0,3)` ile 1e−12 içinde aynı; anahtarlar döngüsel sıralı; akşam ve sabah penceresinde `k` en düşük 0,2 |
+| `schedule` | Her NPC her dakikada bir blokta; ana kampta ≤2 ikiz; her evrede hayvan ≤6 (K3); Kışlak'ta 22 kişi her blokta yerde |
+
+**Tarayıcı** (`__tanhu`):
+1. `menuDiff` 0: (a) taze açılış; (b) Serbest Gez 03:00'te oturum, `pause` → `menu`; (c) `home` ardından.
+2. Yeni Serbest Gez oturumunun ilk karesinde `world.sun.color`, `intensity`, `sunDir`, sis, göl ve kubbe tekdüzenleri menüdekiyle aynı.
+3. `clock.set()` ile altı durakta ekran görüntüsü (`docs/research/time-shots/`), `perf()`: program 57, çizim ≤511.
+4. `clock.lapse(24)`: bir `dawn`, güneş yolu sürekli, `NaN` yok, ikiz sayısı ≤2.
+5. `T` → üç saat: ustalar yalnız pencere içinde ilerler; uyku sonrası ateş `cold_pit`; kayıt `sleep`.
+6. Kışlak (Faz 10.9 dikey dilim): ilk 15 dakika Yar Bakışı'na 15:00 ±30 dk'da varır; öğle çanı 12:00'de; `mq_ration` 13:30'da bekletir.
+
+## 18. Doldurulan boşluklar
+
+1. Evre adları ve sınırları; eski dilimin evre birleşimi; "dilim" sözcüğünün iki anlamı (§1, §4).
+2. Gün sınırı: takvim günü gece yarısı, hikâye günü ve `dawn` Tan başında.
+3. Ana kampın mevsimi menü güneşinden hesaplandı: 10 Nisan, 14:46 (§5.5).
+4. Gece ışığı tek yönlü ışıkla: ay, gök yönü, alacakaranlık çukuru (§5.1); gece göğü kubbede (§5.6).
+5. Vakit pencereleri ve bekleyişler; şafak bekleyişi; sinema kesmeleri (§6.3, §6.4).
+6. Bekle tekeri, uyku seçenekleri, kesintiler, yasak yerler, `T` tuşunun yeni işi (§7).
+7. Atlamada her sistemin işi (§7.4); uykuda Tokluk ×0,25.
+8. Ana kampın halk, usta, at ve hayvan programı, ses (§8).
+9. Takvim: mutlak gün = rehine sayımı, rehinenin ilk günü, mevsimler (K24 uzunluklarıyla), ay ve dolunay (§2).
+10. I. Perde'nin saatleri: gündelik saatler, davul, akşam aşı ve saklanan kase, Kantu (§9).
+11. Ay Saati'nin saatle yeniden kurulması, Amaga 20:00 (§9.6); Kara Boran'da gizli gök ve kesmeler (§9.7).
+12. Hayvan etkinliği, gizlilikte ışık çarpanı (§9.9).
+13. Ateş, kuruma, bozulma, düşüş, ordu öğünleri, yolculuğun saati (§10).
+14. Gök Kavisi ve saat göstergesi ayarı; kayıt kartı (§11).
+
+## 19. Açık sorular
+
+> (2026-11-04, E6) Geçersiz: bu taslak izdir, altı soru kapandı ve hiçbiri Karar Bekleyenler'e gitmez. Kararlar `time.md` §19'dadır (karar 1–6); her sorunun yanında kapatan karar yazılıdır.
+
+1. **NPC iş penceresi (K21 ile).** Ustalar 16 saatlik pencerede çalışır, gece vardiyası emirle; K21 "tek işçi bir günde" kuralını yalnız sürekli çalışan oyuncu için mi okuyor? Okumuyorsa ekip penceresi 24 saate çıkar. (K21 ile kapandı: inşaat ekipleri gece de çalışır, pencere üretim, ev işi ve «Gece dinlenilsin» emri içindir; `time.md` §19 karar 1, §10.1.)
+2. **Saat göstergesi.** Varsayılan yalnız evre adı; sayı ayarla açılır. Kullanıcı sayıyı varsayılan isterse ayar tersine döner. (Baş tasarımcı kararıyla kapandı, `d2/core.md` §7: varsayılan evre adıdır, saat sayısı ayarla açılır; `time.md` §19 karar 2, §11.)
+3. **Kara Boran kesmeleri.** Erken kaçışta Kapı sinemasının saati 06:14'e taşıması kabul mü, yoksa kovalamaca boyunca saat 06:14'te mi beklesin? (Baş tasarımcı kararıyla kapandı, `d2/core.md` §7: sinemalar saati ileri taşır, `atLeast` ile Kapı 06:14, Şafak Sırtı 07:04; kovalamaca boyunca saat beklemez; `time.md` §19 karar 3, §9.7.)
+4. **Ay Saati süresi.** Normal ≈32 dk (eski 36). Daha uzun istenirse Amaga 19:30'a alınır (+1,25 dk). (K20 ile kapandı: Normal ≈32 dk kalır, Zor başlangıcı kaydırır (Amaga 21:30); `time.md` §19 karar 4, §9.6.)
+5. **Tokluk oranı (K24).** Uyanık −5/oyun sa, uykuda −1,25; ekonomi alanı onaylamalı. (K24 ile kapandı: uyanık −5/oyun sa, uykuda ×0,25, ateş başında ×0,5, × `diff.foodK`; `time.md` §19 karar 5, §10.5.)
+6. **Ana kamp sonraki perdelerde.** Kampın tek görünüşü bahardır; II. Perde'den sonra başka mevsimde ziyaret edilirse ışık iğneli kalır (öneri), kar ve güz görünüşü yoktur. (K67 ile kapandı: takvim akar; açılış 11 Nisan baharıdır, yaz görünüşü baharınkidir, güz çimen tonuyla, kış K22'nin kar örtüsüyle gelir; `time.md` §19 karar 6, §5.5. Görünüşün ekran sınaması Yol Haritası'nda: `roam-calendar`.)
+
+## 20. Doğrulama durumu
+
+- **Hesap, betikle:** güneş ve ay konumu, gün ışığı tablosu, evre sınırları, anahtar dakikaları, menü vektörünün 10 Nisan 14:46,2'deki gerçek güneşe eşitliği (1e−6), Gün I–VI ay doğuş ve batışı. Betik oturumun geçici dizinindeydi, projeye yazılmadı.
+- **Okundu:** `decisions.md`, `architecture.md` §0, §2, §3.1, §3.5, §3.7, §3.8, §3.11–§3.16, §3.19, §3.22, §4.3, §5, §6, §7, §8; `act1.md` tamamı; `survival.md`; `economy.md` §0–§3, §7, §8; `structures.md` §0, §3.1, §4, §10, §11, §14; `army.md` §1, §3; `travel.md` §4.4, §5, §6.4–§6.8, §9; `progression.md` §2.5, §3, §8.5, §13; `audio.md`; kod `core/clock.js`, `world/world.js`, `world/sky.js`, `app/states/freeroam.js`, `core/keymap.js`, `core/post-profiles.js`, `game/save.js`, `world/structure-logic.js` ilgili kısımları; `d2/labour-model.json`, `d2/econ-model.json` saat alanları.
+- **Oyunda koşulmadı, render edilmedi:** dört yeni durağın renkleri hedeftir; gece okunurluğu, alacakaranlık çukuru ve ikiz takası ekran görüntüsüyle sınanacak (Faz 8.9).

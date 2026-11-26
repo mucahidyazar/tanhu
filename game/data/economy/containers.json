@@ -1,0 +1,61 @@
+{
+	"version": 1,
+	"doc": "Kaplar ve Yük kuralları (economy.md §4.1–§4.7; d2/core.md §5.6; progression.md §2.3, §6.4). ItemContainer, Inventory ve CarryLoad okur. Sınırlar Yük'tür, içeride onda bir tamsayı (cap × 10) tutulur; -1 sınırsız, null sınırın sahibinden gelir (Heybe loadMax, Terki binek Yük'ü, şantiye yığını yapının malzeme yükü × 1,25). accept kabul süzgecidir: kimlik ya da 'tag:x' listesi, null her şeyi alır. slots yuva sayısıdır (yalnız Heybe ve Zula; Erzak ve Zanaat ortak yuva tutar, sırt yükü, araç ve görevlik eşya tutmaz). hidden nöbet ve Hüküm bulmaz. carry: Yük formülü 12 + 3 × Bilek + Sırt Yükü (8) + kuşak + kızak (12); hız 1 − 0,3 × doluluk (Sırt Yükü becerisiyle yarıya dek ×1), koşu doluluk ≤ 0,75, zıplama ≤ 0,5, koşunun takat gideri × (1 + doluluk), sırttaki yığın beş kademe; terki yarısına dek ×1, üstünde 1 − 0,3 × (doluluk − 0,5), dörtte üçü geçince dörtnal yok; at 15 m içindeyken terki açılır ve taşma oraya gider; dünyada en çok 24 yer yığını. bodies: yetişkin formülü okur; çocuğun sınırı 6 Yük'tür (tasarımın kuralı «Çocuk tek kütük taşır, hızı ×0,8»: 4 Yük'lük kütük 6'nın üçte ikisi, 1 − 0,3 × 4/6 = 0,8; iki kütük sığmaz). carts araba ve yük hayvanı, mount_load binek Yük'ü (data/fauna/mounts.json'da satırı olan binek oradan okunur, bu tablo yalnız henüz satırı olmayan I.–VI. Perde bineklerinin yedeğidir). seize_keep Hüküm'de (sentenced) el konmayan yuvalar, kimlikler ve etiketler. messages oyuncuya çıkan uyarılar.",
+	"carry": {
+		"base": 12,
+		"per_grip": 3,
+		"grip": 3,
+		"carry_pack": 8,
+		"carry_pack_slow_from": 0.5,
+		"slow_k": 0.3,
+		"run_frac": 0.75,
+		"jump_frac": 0.5,
+		"run_cost_k": 1.0,
+		"sled_k": 0.9,
+		"back_stages": [0.1, 0.3, 0.5, 0.75, 1.0],
+		"mount_free": 0.5,
+		"mount_slow_k": 0.3,
+		"gallop_frac": 0.75,
+		"pack_slots": 24,
+		"near_mount_m": 15.0,
+		"ground_piles_max": 24
+	},
+	"bodies": {
+		"adult": {"cap": null},
+		"child": {"cap": 6}
+	},
+	"kinds": {
+		"pack": {"name": {"tr": "Heybe", "en": "Pack"}, "cap": null, "slots": 24, "accept": null},
+		"purse": {"name": {"tr": "Kese", "en": "Purse"}, "cap": -1, "accept": ["cowrie"]},
+		"saddlebags": {"name": {"tr": "Terki", "en": "Saddlebags"}, "cap": null, "accept": null},
+		"sled": {"name": {"tr": "Yük Kızağı", "en": "Load Sled"}, "cap": 12, "accept": ["tag:bulk"]},
+		"cart": {"name": {"tr": "Araba", "en": "Cart"}, "cap": 40, "accept": null},
+		"chest": {"name": {"tr": "Sandık", "en": "Chest"}, "cap": 60, "accept": null},
+		"stash": {"name": {"tr": "Menzil Ambarı", "en": "Waystation Store"}, "cap": 40, "accept": null},
+		"cache": {"name": {"tr": "Zula", "en": "Cache"}, "cap": 6, "slots": 4, "accept": null, "hidden": true},
+		"store_yurt": {"name": {"tr": "Ambar Yurdu", "en": "Store Yurt"}, "cap": 400, "accept": null},
+		"shed": {"name": {"tr": "Sundurma", "en": "Shed"}, "cap": 500, "accept": ["tag:bulk", "tag:forage", "fodder"]},
+		"granary": {"name": {"tr": "Tahıl Ambarı", "en": "Granary"}, "cap": 600, "accept": ["tag:food", "tag:grain"]},
+		"granary_tower": {"name": {"tr": "Tahıl Kulesi", "en": "Grain Tower"}, "cap": 800, "accept": ["tag:food", "tag:grain"]},
+		"grain_pit": {"name": {"tr": "Ambar Çukuru", "en": "Grain Pit"}, "cap": 120, "accept": ["tag:food", "tag:grain"], "hidden": true},
+		"treasury": {"name": {"tr": "Hazine", "en": "Treasury"}, "cap": 120, "accept": ["tag:valuable"]},
+		"armoury": {"name": {"tr": "Silahlık", "en": "Armoury"}, "cap": 200, "accept": ["tag:gear", "tag:arrow", "tag:metal"]},
+		"supply_depot": {"name": {"tr": "Erzak Ambarı", "en": "Supply Depot"}, "cap": 600, "accept": null},
+		"haystack": {"name": {"tr": "Ot Yığını", "en": "Haystack"}, "cap": -1, "accept": ["hay", "straw"]},
+		"site": {"name": {"tr": "Şantiye Yığını", "en": "Site Stock"}, "cap": null, "accept": null},
+		"ground_pile": {"name": {"tr": "Yer Yığını", "en": "Ground Pile"}, "cap": -1, "accept": null},
+		"seized": {"name": {"tr": "El Konan Çuval", "en": "Seized Sack"}, "cap": -1, "accept": null}
+	},
+	"carts": {"cart_kantu": 40, "cart_felt": 60, "cart_ox": 60, "cart_high": 80, "cart_war": 140, "wagon_felt": 120, "sled_log": 12, "pack_horse": 30, "pack_camel": 60, "pack_donkey": 20, "pack_mule": 35},
+	"mount_load": {"yakwe": 40, "offering_stallion": 50, "spare_horse": 30, "hun_pony": 40, "riding_camel": 60, "mule_mount": 40, "west_steed": 45, "jueti": 45},
+	"cache_spots": 6,
+	"seize_keep": {"slots": ["body", "cape", "hands", "feet"], "items": ["plaque", "knife_iron"], "tags": ["key"]},
+	"messages": {
+		"pack_full": {"tr": "Yük dolu", "en": "Too heavy"},
+		"slots_full": {"tr": "Heybede yer yok", "en": "No room in the pack"},
+		"store_full": {"tr": "Ambar dolu", "en": "The store is full"},
+		"saddlebags_full": {"tr": "Terki dolu", "en": "The saddlebags are full"},
+		"refuses": {"tr": "Bu kap bunu almaz", "en": "This store won't take that"},
+		"keepsake": {"tr": "Hatıra atılmaz", "en": "A keepsake is not thrown away"}
+	}
+}

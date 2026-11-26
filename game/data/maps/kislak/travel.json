@@ -1,0 +1,43 @@
+{
+	"id": "kislak_travel",
+	"script": "res://scripts/world/travel_layer.gd",
+	"doc": "Kışlak'ın Menzil ağı, Yol Kemikleri ve Kantu'nun arabası (Yol Haritası roads-relays; travel.md §4.1–§4.4, act1.md §4 «Yol ağı», «Yol Kemikleri», «Menzil», §9.4; map.json «layers» «travel»; TravelLayer kurar). Yolların geometrisi, düğümleri, kenarları (e01–e23) ve hız sınırları haritanın yol dosyasındadır (roads: data/maps/kislak/roads.json; sahibi arazidir, bu katman okur ve değiştirmez); burada yalnız kenar kapıları (gates: e06 Gün VI'ya dek kapalı, act1_day = oturumun günü − Gün I + 1; e09 bridge_stage ≥5), Geçit'in buz sınırı (cap_after: Gün III'ten 4,0), duraklar (8; travel.md §4.2: at bulunma noktası, node düğüm, bone bağlı Yol Kemiği, region ve rank bölge ve rütbe, guarantor kilit satırının kefili, post Menzil Direği, stop arabanın dingil noktası, deliver varışta yükün kabı: Kışlak Menzili Ambar durağıdır) ve Yol Kemikleri (RB01–RB14; act1.md §4 tablosu yolun orta çizgisindedir, direk yolun side metre soluna konur; eksi sağıdır: Buz Kolu'na bakan RB02 ve RB03 yolun öbür yanında) bu katmanındır. Ağ tally_kantu ile çalışır (Gün II; requires_flag); önce bulunan duraklar bekler. Rütbe bayrağı «rank» (sayı) ya da geliştirmede rank_N. Kantu 21:00–07:30 uyur. Kuzey −Z.",
+	"roads": "res://data/maps/kislak/roads.json",
+	"requires_flag": "tally_kantu",
+	"graph": {
+		"gates": {
+			"e06": {"flag": "act1_day", "gte": 6},
+			"e09": {"flag": "bridge_stage", "gte": 5}
+		},
+		"cap_after": {
+			"cap_ford": {"flag": "act1_day", "gte": 3}
+		}
+	},
+	"stations": [
+		{"id": "way_camp", "name": {"tr": "Kışlak Menzili", "en": "Camp Waystation"}, "at": [58.0, 22.0], "node": "n_camp", "bone": "", "region": "winter_camp", "rank": 0, "post": [58.1, 25.2], "stop": [57.9, 20.4], "deliver": "stores"},
+		{"id": "way_fold", "name": {"tr": "Çoban Durağı", "en": "Shepherd's Halt"}, "at": [210.0, -250.0], "node": "n_fold", "bone": "RB04", "region": "pale_pasture", "rank": 1, "guarantor": {"tr": "Farnak'ın çetelesi", "en": "Farnak's tally"}, "post": [212.6, -248.1], "stop": [208.7, -250.9]},
+		{"id": "way_cut", "name": {"tr": "Kesim Yeri", "en": "Felling Ground"}, "at": [430.0, 10.0], "node": "n_cut", "bone": "", "region": "black_slope", "rank": 2, "guarantor": {"tr": "Ardokşa'nın çetelesi", "en": "Ardoksha's tally"}, "post": [430.1, 13.2], "stop": [429.9, 8.4]},
+		{"id": "way_tooth", "name": {"tr": "Demir Diş", "en": "Iron Tooth"}, "at": [-270.0, -90.0], "node": "n_forge", "bone": "", "region": "iron_tooth", "rank": 3, "guarantor": {"tr": "Palak'ın çetelesi", "en": "Palak's tally"}, "post": [-268.7, -92.9], "stop": [-270.7, -88.5]},
+		{"id": "way_hamlet", "name": {"tr": "Sazlık İskelesi", "en": "Reed Pier"}, "at": [345.0, -192.0], "node": "n_pier", "bone": "RB12", "region": "reed_hamlet", "rank": 2, "guarantor": {"tr": "Kantu'nun çetelesi", "en": "Kantu's tally"}, "post": [347.8, -190.4], "stop": [343.6, -192.8]},
+		{"id": "way_kurgan", "name": {"tr": "Büyük Kurgan", "en": "Great Kurgan"}, "at": [450.0, -300.0], "node": "n_kurgan", "bone": "RB14", "region": "old_kurgans", "rank": 3, "guarantor": {"tr": "Atşo'nun çetelesi", "en": "Atsho's tally"}, "post": [452.6, -301.9], "stop": [448.7, -299.1]},
+		{"id": "way_folds", "name": {"tr": "Yukarı Ağıllar", "en": "Upper Folds"}, "at": [440.0, -475.0], "node": "n_ufolds", "bone": "RB08", "region": "upper_folds", "rank": 4, "guarantor": {"tr": "dördüncü rütbe", "en": "the fourth rank"}, "post": [442.2, -472.7], "stop": [438.9, -476.2]},
+		{"id": "way_salt", "name": {"tr": "Tuz Kabuğu", "en": "Salt Crust"}, "at": [-180.0, -510.0], "node": "n_salt", "bone": "", "region": "mirror_lake", "rank": 4, "guarantor": {"tr": "dördüncü rütbe", "en": "the fourth rank"}, "post": [-177.0, -511.2], "stop": [-181.5, -509.4]}
+	],
+	"bones": [
+		{"id": "RB01", "at": [40.0, -92.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB02", "at": [111.0, -137.0], "road": "road_winter", "side": -3.4},
+		{"id": "RB03", "at": [170.0, -195.0], "road": "road_winter", "side": -3.4},
+		{"id": "RB04", "at": [221.0, -261.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB05", "at": [281.0, -321.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB06", "at": [341.0, -379.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB07", "at": [401.0, -438.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB08", "at": [457.0, -500.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB09", "at": [503.0, -570.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB10", "at": [550.0, -640.0], "road": "road_winter", "side": 3.4},
+		{"id": "RB11", "at": [264.0, -150.0], "road": "road_east", "side": 2.9},
+		{"id": "RB12", "at": [381.0, -176.0], "road": "road_east", "side": 2.9},
+		{"id": "RB13", "at": [494.0, -227.0], "road": "road_east", "side": 2.9},
+		{"id": "RB14", "at": [420.0, -308.0], "road": "road_east", "side": 2.9}
+	],
+	"cart": {"id": "cart_kantu", "park": "way_camp", "horse_mount": "yakwe", "horse_model": "res://assets/animals/horse_brown/horse_brown.glb", "driver": "kantu", "effects": true, "stable_horse": "yakwe@Yakwe"}
+}

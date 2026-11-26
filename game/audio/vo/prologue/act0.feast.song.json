@@ -1,0 +1,18 @@
+{
+	"id": "act0.feast.song",
+	"take": 0,
+	"seed": 3066080754,
+	"hash": "b6c0adf271b1",
+	"model": "eleven_v3",
+	"voice": "JXFyLOwtCuySmwGGzqHN",
+	"seconds": 3.04,
+	"words": [
+		{"w": "Come", "t0": 0.0, "t1": 0.24},
+		{"w": "on,", "t0": 0.32, "t1": 0.56},
+		{"w": "another", "t0": 0.6, "t1": 0.88},
+		{"w": "song!", "t0": 0.992, "t1": 1.52},
+		{"w": "The", "t0": 1.54, "t1": 1.6},
+		{"w": "baby's", "t0": 1.68, "t1": 2.08},
+		{"w": "listening.", "t0": 2.152, "t1": 3.04}
+	]
+}

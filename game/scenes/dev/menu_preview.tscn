@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/dev/menu_preview.gd" id="1_prev"]
+[ext_resource type="PackedScene" path="res://scenes/world/world.tscn" id="2_world"]
+[ext_resource type="Script" path="res://scripts/camera/menu_camera.gd" id="4_cam"]
+
+[node name="MenuPreview" type="Node3D"]
+script = ExtResource("1_prev")
+
+[node name="World" parent="." instance=ExtResource("2_world")]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.788011, 0.615661, 0, -0.615661, 0.788011, -2.5, 17.55, 19.56)
+fov = 36.0
+near = 0.05
+far = 6000.0
+script = ExtResource("4_cam")
+design_fov = 36.0
+drift_amount = 0.0
+parallax_degrees = 0.0

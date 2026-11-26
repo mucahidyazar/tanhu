@@ -1,0 +1,16 @@
+{
+	"id": "act0.child.point",
+	"take": 0,
+	"seed": 133725101,
+	"hash": "07f87bad592d",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.0,
+	"words": [
+		{"w": "There!", "t0": 0.0, "t1": 0.72},
+		{"w": "In", "t0": 0.8, "t1": 0.96},
+		{"w": "the", "t0": 0.98, "t1": 1.04},
+		{"w": "short", "t0": 1.08, "t1": 1.28},
+		{"w": "grass.", "t0": 1.373, "t1": 2.0}
+	]
+}

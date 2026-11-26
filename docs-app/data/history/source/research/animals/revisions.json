@@ -1,0 +1,20 @@
+[
+ {
+  "n": 1,
+  "at": "2026-11-04T11:49:26.067Z",
+  "kind": "ilk",
+  "message": "İlk kayıt",
+  "hash": "217dbb1d5a73d943",
+  "added": 501,
+  "removed": 0
+ },
+ {
+  "n": 2,
+  "at": "2026-11-04T16:25:26.946Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "75acd9b9fee1bb70",
+  "added": 120,
+  "removed": 53
+ }
+]

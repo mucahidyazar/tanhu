@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/dev/env_lab.gd" id="1_lab"]
+
+[sub_resource type="Environment" id="Environment_day"]
+background_mode = 1
+background_color = Color(0.55, 0.7, 0.85, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.82, 0.86, 0.9, 1)
+ambient_light_energy = 0.32
+tonemap_mode = 0
+
+[node name="EnvLab" type="Node3D"]
+script = ExtResource("1_lab")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_day")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.78935, 0.50409, -0.35046, -0, 0.57083, 0.82107, 0.61394, -0.64811, 0.45059, 0, 10, 0)
+light_color = Color(1, 0.97, 0.9, 1)
+light_energy = 0.78
+shadow_enabled = true
+shadow_blur = 2.0
+directional_shadow_max_distance = 40.0
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64279, 0.76604, 0, -0.76604, 0.64279, 0.3, 5.96, 4.5)
+fov = 40.0

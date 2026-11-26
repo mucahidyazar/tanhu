@@ -1,0 +1,11 @@
+{
+  "id": "lamb",
+  "kind": "sfx",
+  "source": "free:assets/_free/sound/lamb_baa/Baa.ogg",
+  "start": 0.0,
+  "seconds": 1.0,
+  "gain_db": -2,
+  "rate": 22050,
+  "loop": false,
+  "note": "Kuzu meleme (audio.md §4: lamb): doğum sahnesinin uzak sürüsü. Kaynak ücretsiz kayıt (lamb_baa: OpenGameArt «Baby Animals Sounds Pack» Baa, technopeasant / swiftoid, CC0), 96 kHz stereo → mono 22,05 kHz QOA."
+}

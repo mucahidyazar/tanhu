@@ -1,0 +1,14 @@
+{
+  "id": "goose_honk",
+  "kind": "sfx",
+  "source": "free:assets/_free/sound/geese_distant/Geese_Honking_distant.ogg",
+  "start": 0.95,
+  "seconds": 1.6,
+  "gain_db": 10,
+  "instrument": "goose",
+  "distance": 0.75,
+  "seed": 6101,
+  "rate": 22050,
+  "loop": false,
+  "note": "Mit sinemasının ilk panosunda uzak kaz: kısa ve sık (audio.md §4 «Önsöz ekleri»). Kaynak ücretsiz kayıttır (geese_distant: Wikimedia Commons, ABD Balık ve Yaban Hayatı Servisi, kamu malı), 0,95–2,55 sn: iki üç ötüş. Kodla basılan (scripts/audio/synth/goose.gd: iki kaz sırayla) karşılaştırma adayıdır: tools/bake_music.sh --only=goose_honk --source=code --out=<klasör>. Kulak onayı bekler."
+}

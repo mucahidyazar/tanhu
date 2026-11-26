@@ -1,0 +1,258 @@
+---
+title: Envanter ve Yük
+order: 10
+status: tasarim
+summary: 'Mete''nin taşıdığı her şey Yük ile ölçülür; sırt doldukça yavaşlar, fazlası terkiye, yoldaşın terkisine, yük hayvanına, arabaya ya da yere gider, ambarlar da aynı ölçüyle çalışır.'
+sources:
+  - docs/design/decisions.md
+  - docs/design/d2/core.md
+  - docs/design/economy.md
+  - docs/design/progression.md
+  - docs/design/fauna.md
+  - docs/design/companions.md
+  - docs/design/settlement.md
+  - docs/design/travel.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+Oyuncu `I` ile Heybe'yi açar. Her malın bir Yük'ü vardır: kütük 4, taş 5, bir öğün Aş 0,1, yüz kabuk 0,1. Sırt doldukça [Mete](/encyclopedia/mete) yavaşlar; yükün yarısını geçince zıplayamaz, dörtte üçünü geçince koşamaz. Sığmayan kaybolmaz: önce atın terkisine gider, o da doluysa yerde yığın olur. II. Perde'den yoldaşların terkileri, yük hayvanları, arabalar ve yerleşimin ambarları aynı ölçüyle çalışır ([K24](/docs/source/design/decisions#k24)).
+
+> [!NOT]
+> «o yüzden oyunda malzeme ve envanter sistemide olması gerekiyor yine yurtlar, yerleşim yerindeki diğer gerekli birimler malzemeler ile kurulacak, malzemeler açık dünyada savaşlarla, ağaç kesere, avlanarak eti toplacanak, yine bir para birimi ve bu parayı harcayacak satıcılar etc olacak»
+
+## Yük
+
+Yük oyunun tek ağırlık birimidir. Heybe, terki, yük hayvanı, araba, ambar ve şantiye yığını hep Yük ile sınırlanır. Oyun kilo göstermez. İçeride onda bir birim tamsayı tutulur, bu yüzden küçük mal adetle sayılır: ok, temren ve ok gövdesinde 10 adet 0,5 Yük'tür, kabukta 100 adet 0,1 Yük.
+
+| Mal | Yük | Mal | Yük |
+|---|---|---|---|
+| Çam ya da ardıç kütüğü | 4 | Demir Külçe, Tunç Külçe | 2 |
+| Söğüt kütüğü | 3 | Yem Bağı, Arpa Torbası, Tahıl Çuvalı | 2 |
+| Saksavul | 5 | Ham Deri, İri Post | 1,5 |
+| Taş Blok | 5 | Keçe, Ot, Sepi Deri | 1 |
+| Cevher | 4 | Yün, İp, Saz, Et | 0,5 |
+| Dolu Tulum, Kil | 3 | On ok | 0,5 |
+| Yurt Yükü | 59 | Bir öğün (Aş, Kak, Kurut) | 0,1 |
+| Küçük Yurt Yükü | 38 | Yüz kabuk | 0,1 |
+| Otağ Yükü | ≈109 | Gecelik Çadır ve döşek | 5 |
+| Çadır Yükü | 16 | Hun Kazanı | 8 |
+
+Mete'nin sınırı tek formüldür: **12 + 3 × Bilek + Sırt Yükü (8) + kuşak + kızak (12)**.
+
+| Kaynak | Etki |
+|---|---|
+| Taban | 12 Yük |
+| Bilek | Puan başına +3. Başlangıçta Bilek 3 ile 21 Yük; «Zırhlı Atlılar Arasında» kökeni Bilek +1 verir: 24 |
+| Sırt Yükü becerisi | +8 Yük; yarım yüke dek yavaşlama yok |
+| Kuşak | Kese Kuşak +4 (II), Ordos Kuşağı +6 (III), Alet Kuşağı +3 (IV) |
+| Yahni | 6 dk Bilek +1, yani +3 Yük |
+| Yük Kızağı | +12 Yük, yalnız sırt yükü alır. Hız ayrıca ×0,9, gürültü +6 m; 15°'den dik eğimde ve ip merdivende kullanılmaz |
+
+I. Perde'nin tavanı Bilek 7 ve Sırt Yükü ile 41 Yük'tür. Sınırı aşan alınmaz: «Yük dolu» / «Too heavy». Toplarken fazlası düğümün dibinde yer yığını olur. Giyilen ve kuşanılan eşyanın da Yük'ü vardır: Kışlak Kaftanı 1, Deri Dilimli Zırh 4, Tunç Pullu Zırh 8, Demir Dilimli Zırh 10 ([progression.md §6.2](/docs/source/design/progression#6-2-giyilen-esya)).
+
+```varlik
+load_sled, status_load
+```
+
+## Hız cezası
+
+Doluluk, taşınan Yük'ün sınıra oranıdır. Sırt Yükü becerisi yoksa hız `1 − 0,3 × doluluk`'tur; beceriyle yarıya dek ×1 kalır, sonra iner.
+
+| Doluluk | Hız | Sırt Yükü ile hız | Koşu | Zıplama |
+|---|---|---|---|---|
+| %0 | ×1 | ×1 | Var | Var |
+| %25 | ×0,925 | ×1 | Var | Var |
+| %50 | ×0,85 | ×1 | Var | Var |
+| %75 | ×0,775 | ×0,85 | Var | Yok |
+| %100 | ×0,7 | ×0,7 | Yok | Yok |
+
+- Koşunun stamina gideri doluluk kadar artar: tam yükte ×2.
+- Yük sırtta görünür: yığın beş kademede büyür (doluluk 0,1 / 0,3 / 0,5 / 0,75 / 1), Mete öne eğilir.
+- `G` 0,6 sn basılı: **Yükü Bırak / Drop Load**. Sırt sekmesi yere yığın olur. I. Perde'de Palak'ı sırtlamak bunu ister. Kısa basış Ku'ya Bak buyruğudur.
+- Serbest Gez'de Heybe yoktur. Çocuk tek kütük taşır, hızı ×0,8.
+
+## Heybe
+
+| Sekme | İçerik | Sınır |
+|---|---|---|
+| Sırt | Yük'ü 3 ve üstü olanlar: odun, taş, cevher, tulum, kil | Yük; yığın 4–8 |
+| Erzak | Yiyecek, ot | Zanaat ile ortak 24 yuva; yığın 3–30 |
+| Zanaat | Geri kalan malzeme | Erzak ile ortak 24 yuva; yığın 1–30 |
+| Araç | Balta, kazma, ağ, çakmak taşı | Sınırsız, Yük 0 |
+| Hatıra | Görevlik eşya | Sınırsız, Yük 0, satılmaz, atılmaz |
+| Terki | Atın kabı; at 15 m içindeyken açılır | Binek Yük'ü |
+| Yoldaş Terkileri | II'den; yoldaş başına bir sütun; yoldaşın atı 15 m içindeyken açılır | Binek Yük'ü |
+
+- Yuva yalnız Heybe'dedir; öteki kaplarda sınır Yük'tür. Araçlar kırılmaz, aşınmaz.
+- Yiyecek 1–6 çubuğuna konur, yemek 1,2 sn sürer, yürürken ve atta da olur.
+- `I` Heybe'yi açar; Defter (`L`), Görevler (`J`) ve Destan Kitabı ayrıdır. Heybe açıkken oyun durur, Ay Saati dahil ([K62](/docs/source/design/decisions#k62)).
+- **Kese** (II'den, [K48](/docs/source/design/decisions#k48)): Heybe'nin üst satırında «Kese {n}» yazar. Yalnız kabuk alır, yuva tutmaz, yüz kabuk 0,1 Yük olarak Heybe yüküne girer. Başarılı akında Mete'nin kesesi güvendedir. Kabuğun kuralı: [Para ve Satıcılar](/docs/economy/money-traders#kabuk).
+
+```varlik
+ui_pack_panel, saddlebags, waterskin, skin_bag
+```
+
+## Terki
+
+Her binek kendi kabını taşır. Sınır bineğin Yük'üdür ([K65](/docs/source/design/decisions#k65)).
+
+| Binek | Terki (Yük) | Perde | Not |
+|---|---|---|---|
+| Yedek At | 30 | I | İkinci terki, birlikte yürür |
+| Yakve | 40 | I | Gün I–V Mete'nin atı |
+| Adak Aygırı | 50 | I | Iduktur: yük hayvanı olarak kervana verilmez |
+| Hun Atı | 40 | II | Yokuş cezası ×0,5 |
+| Binek Deve | 60 | II | 20 m içinde düşman atı ürker; kum ve tuz cezası yok |
+| Binek Katır | 40 | V | Eğim cezası yok |
+| Batı Atı | 45 | VI | |
+| Cüti | 45 | VI | Kuzeyin melez bineği, armağan |
+
+- Heybe dolunca taşma terkiye gider. At 15 m içindeyse yaya toplamada da böyledir.
+- Terkinin yarısına dek hız ×1; üstünde `1 − 0,3 × (doluluk − 0,5)`, dolu terkide ×0,85. Dörtte üçü geçince dörtnal yoktur.
+- Yanında yedekte giden yük hayvanının kabı da yedek atınki gibi ikinci terkidir.
+- At düşerse terki yer yığını olur. Ganimet önce Heybe'ye, sığmazsa terkiye, sonra yer yığınına gider.
+
+**At üstünde toplama** ([K46](/docs/source/design/decisions#k46)). Tek kural: araç El, eylem en çok 2 sn ve eğilip alınan düğüm at üstünde toplanır. Liste kapalıdır: Kuru Dal, Yavşan, Kuşburnu, Topalak, Uyku Otu, Tezek. Öteki düğüme tıklamak önce Mete'yi indirir; Kutlu Ot inmeden koparılmaz. Toplarken at en çok 3 m/sn'ye iner, eylem ×1,5 sürer; Dizle Sürme becerisiyle en çok 5,5 m/sn ve ×1. Dörtnalda toplanmaz, erişim 2,1 m kalır, stamina harcanmaz. İstem «E Topla»; `E` 0,4 sn basılı tutulursa Mete iner. Toplanan önce Heybe'ye, dolunca terkiye girer. I. Perde'nin düğüm hakları değişmez: at yalnız yürüme süresini kısaltır.
+
+## Yoldaş terkileri
+
+Yoldaşın Heybe'si, Tokluk'u ve kesesi yoktur: taşıdığı atının terkisidir, yediği onluğun erzakıdır, aldığı ganimetin payıdır ([K70](/docs/source/design/decisions#k70)). On altı yoldaşın bineği 13 at, 2 binek deve ve 1 binek katırdır.
+
+| Kalem | Kural |
+|---|---|
+| Terki | Hun Atı 40, binek deve 60, binek katır 40, Batı Atı ve Cüti 45 Yük. Hız kuralı Mete'nin terkisiyle aynıdır. Ağır Yaralı yoldaş terkisini taşır, toplamaz |
+| Topla buyruğu (`7`) | Yoldaş 30 m içindeki El düğümlerini kendi terkisine toplar; balta ve kazma isteyen düğüm Mete'nindir. Hızı Mete'nin yaya taban hızıdır, beceri ve Tam Vuruş işlemez, düğümün hakkı oyuncununkiyle ortaktır. Terki dolunca, düşman 40 m'ye girince ya da Mete 30 m'den uzaklaşınca bırakır. Toplanan mal XP vermez |
+| Heybe sekmesi | At 15 m içindeyken «Yoldaş Terkileri»: yoldaş başına bir sütun, terkiden Heybe'ye ve Heybe'den terkiye sürüklenir |
+| Boşalma | Yerleşimde ve ordugâhta terki kendiliğinden o yerin Ambar'ına boşalır; kabın almadığı mal terkide kalır |
+| Ganimet payı | Parti bir onluk sayılır: «Paylaş» yoldaşa +0,5, «Alıkoy» −0,5 onay yazar (yoldaş başına günde bir). Yoldaş kendi payını istemez, kabuk almaz |
+| Bakım | Partideki yoldaş onluğun erzakından günde 1 öğün yer, 07:00 ve 18:00'de yarımşar ([K88](/docs/source/design/decisions#k88)). Aç gün onluğun kuralıdır: moral düşer, onay değişmez. Atlasta parti her 5 üyeye +1 Aş öder |
+| Görevdeki yoldaş | Yerleşimde usta ya da nöbetçiyken ambardan günde 1 öğün yer; hane sayılmaz, Gönül'ü yoktur. Ordugâhta birliğin erzakından yer (K88) |
+| Armağan | İki oyun gününde bir: sıradan +0,5, sevdiği +1, perde başına en çok +2; eşya Heybe'den gider. Ayrılan yoldaşı geri kazanmak 40 Kıymet'lik (10 kabuk) bir armağan ister, perde başına bir kez |
+| Takas | Wang Huang her takasta, Zhang Sheng Han satıcısıyla fiyatı ×0,95 yapar; birikmez, satıcı kesesini değiştirmez |
+
+Yoldaş ekonomiyi büyütmez: Topla buyruğu Mete'nin taban hızında ve onun 30 m'sinde çalışır, av kolu ve Ambar verimi rol etkisiyle en çok %20 artar. Hedef, olağan bir oyunda perde başına ganimet ve takas farkının ≤%5 kalmasıdır.
+
+Doğrulanacak: yoldaşların rol etkileriyle perde başına ganimet ve takas farkı ≤%5 ([Yol Haritası](/roadmap#item-party-tuning)).
+
+Kadro ve buyruklar: [Yoldaşlar](/docs/gameplay/companions). Kural `companions.md` §3.5'tedir.
+
+## Araba ve yük hayvanı
+
+| Taşıyıcı | Yük | Hız, yol / kar (m/sn) | Çeken | Perde | Not |
+|---|---|---|---|---|---|
+| Kantu'nun Arabası | 40 | 6,4 / 4,0 | 1 at | I | Kantu sürer; sefer 1 Aş ya da 1 odun; varış Ambar ya da yurt pedi ise yük kendiliğinden teslim olur |
+| Keçe Araba | 60 | 6,8 / 4,4 | 1 at | II | Teoman'ın armağanı; sonra Oba'dan kurulur |
+| Yüksek Teker | 80 | 7,0 / 5,0 | 2 at | III | Boy Yurdu'ndan; yurdu ve sahibinin eşyasını taşır |
+| Ordu Arabası | 140 | 6,0 / 4,0 | 4 at | IV | Toy Yeri'nden |
+| Keçe Göç Arabası | 120 | 3,0 / 2,0 | 4 öküz | V | Göçer Avlu'nun keçe evi |
+| Öküz Arabası | 60 | 3,2 / 2,2 | 2 öküz | II | Yalnız yol |
+| Tomruk Kızağı | 12 | 3,2 / 3,2 | 1 öküz | I, çevrede | |
+| Yük Atı | 30 | 4,0 / 3,0 | | II | Hane sürüsünün atı |
+| Yük Devesi | 60 | 3,8 / 3,0 | | II; çevrede I | Yol dışı gider; çamurdan yavaşlamaz, arabaların kaldığı havada ×0,5 |
+| Yük Eşeği | 20 | 3,4 / 2,4 | | IV | Vaha ve Loulan yolu |
+| Yük Katırı | 35 | 4,0 / 3,0 | | V | Eğim cezası yok |
+
+- **Deve yük atının iki katını taşır** ([K65](/docs/source/design/decisions#k65)). Bir Yurt Yükü (59) bir keçe arabaya, bir yük devesine ya da iki yük atına sığar. Küçük Yurt Yükü (38) bir yük devesine ya da iki yük atına, Otağ Yükü (≈109) iki yük devesi ve bir yük atına ya da bir Ordu Arabası'na sığar ([K51](/docs/source/design/decisions#k51)).
+- Kantu'nun arabasına 10 kütük, 8 taş, 10 cevher ya da 13 tulum biner. Çift Koşum parçası yükü +20 artırır. Teker kırılırsa yük yere iner; yük hayvanı düşerse yükü yer yığını olur.
+- Çeken hayvan sürüden ayrılır, kesilmez, sürü defterinde koşum satırında durur; sürüde yoksa araba bekler.
+- Araba Plan Kipi'nin Atölye kategorisinde tek karttır ([K57](/docs/source/design/decisions#k57)): Oba'da Keçe Araba, Boy Yurdu'nda Yüksek Teker, Toy Yeri'nde Ordu Arabası, Göçer Avlu'da Keçe Göç Arabası. Ağaç Atölyesi ve dülger ister: [Plan Kipi](/docs/settlement/plan-mode).
+- **Kervan.** Bir keçe araba 600 öğün ya da 30 Yem Bağı taşır. Keçe araba yerine deve konabilir: aynı 60 Yük, yolsuz gider ama yavaştır, Gobi yolunun seçimidir. Kervana yalnız kuru erzak girer (Aş, darı, kak, kurut, arpa ve tahıl çuvalı); çiğ et ve süt girmez. Yem taşınmaz: yüzlük bir ordugâh otlaksız günde 600 Yük yem ister. Ocak'ta kervan yoktur, onluğun azığını bir atlı alır ([K54](/docs/source/design/decisions#k54)).
+- **Gelen hane** evini kendi hayvanına yükler ([K53](/docs/source/design/decisions#k53)): yurtlu hane ≈70 Yük ile 3 yük atı ya da iki hanede bir 1 yük devesi ve 1 yük atı getirir, çadırlı hane ≈27 Yük ile 1 yük atı, İsteyen Hane yalnız 2,2 Yük azık. Yük hayvanları hanenin sürüsüne girer: [Haneler ve Kâhya](/docs/settlement/households).
+
+```varlik
+cart_kantu, cart_felt, cart_high, cart_war, wagon_felt, cart_ox
+pack_saddle_horse, pack_saddle_camel, pack_saddle_donkey, camel, horse_brown
+```
+
+## Kaplar
+
+Bütün kaplar tek kuraldır: kaç Yük alır, neyi kabul eder ([d2/core.md §5.6](/docs/source/design/d2/core#5-6-kaplar)). Bir yerin kapları tek **Ambar** görünümünde birleşir. Yerleşim ile ordugâhın ambarı ayrıdır; aralarında yalnız kervan ve Mete'nin heybesi taşır. Ulu Ambar becerisi (V. Perde) Mete'ye her ambardan alma hakkı verir.
+
+| Kap | Nerede | Sınır (Yük) | Ne alır | Not |
+|---|---|---|---|---|
+| Heybe | Mete | Yük sınırı | Hepsi | I. Perde'de Hüküm'de el konur |
+| Kese | Mete, II'den | Sınırsız | Yalnız kabuk | 100 kabuk 0,1 Yük; akında güvende |
+| Terki | Her binek | Binek Yük'ü | Hepsi | At düşerse yer yığını |
+| Yük hayvanı | Kervan, göç, yedek | 20 / 30 / 35 / 60 | Hepsi | Düşerse yer yığını |
+| Araba | Durak ya da yol | 40 / 60 / 80 / 140; göç arabası 120 | Hepsi | Teker kırılırsa yük yere |
+| Sandık | Mete'nin yurdu, her hane yurdu | 60 | Hepsi | Hane sandığı yerleşim toplamına girmez; yurt 2. aşamanın altına inerse yer yığını |
+| Ambar Yurdu | Yerleşim | 400 | Hepsi | Başarılı akında %30 gider |
+| Sundurma | Yerleşim | 500 | Sırt yükü, kaba yem, Yem Bağı | Akında %30; ot tutuşursa içi yanar |
+| Tahıl Ambarı | Yerleşim | 600 | Yiyecek, tahıl | Akında %30 |
+| Tahıl Kulesi | Surlu Avlu | 800 | Yiyecek, tahıl | Akında %10 |
+| Ambar Çukuru | Yerleşim | 120 | Yiyecek, tahıl | Gizli: akında %50 olasılıkla bulunur, bulunursa %30 gider; yanmaz |
+| Hazine | Toy Yeri'nden | 120 | Değerli mal, kabuk | Akında %30, kabuğun da %30'u; 30 m içinde Gözcü Kulesi varsa ×0,5 |
+| Silahlık | Ordugâh | 200 | Teçhizat, ok, külçe | Sadaklar buradan dolar |
+| Erzak Ambarı | Ordugâh | 600 | Hepsi | Birliğin çizgileri buradan okunur |
+| Ot Yığını | Açıkta | Sınırsız | Ot, saman | Islak günde %2 çürür |
+| Şantiye Yığını | Şantiye | Malzeme yükü × 1,25 | O yapının malzemesi | Şantiye 150 m içindeki ambardan kendi taşır |
+| Menzil Ambarı | Bağlı durak | 40 | Hepsi | I. Perde'de Hüküm'de el konur |
+| Zula | Onarılmış Yol Kemiği | 6 yuva × 6 | Hepsi | Bulunmaz, el konmaz |
+| Yer Yığını | Bırakılan yer | Sınırsız; dünyada en çok 24 | Hepsi | Yağmurda yakıt ve yem ıslanır |
+
+**Akın ve kap** ([K55](/docs/source/design/decisions#k55)). Akın yalnız ay penceresinde (ayda ≈3 gün) gelir ve küçüktür. Başarısı `R / (R + D)`'dir, rastgele yoktur. Başarılı akında kaplar yukarıdaki payı yitirir; sürü kaybı en çok %10'dur. Ambarcı Moyan kap kaybını ×0,75 yapar, başarıya dokunmaz. Sayılar: [Ekonomi Dengesi](/docs/economy/balance#akin).
+
+**Aktarma.** Kap `E` ile açılır, iki sütunlu paneldir, açıkken oyun ve saat durur. Hızlı düğmeler: Sırtı Boşalt, Malzemeyi Bırak, Yiyeceği Bırak, Hepsini Al, Eksikleri Al (seçili tarif ya da şantiye için eksik girdiyi hesaplar). Uymayan mal soluk görünür: «Bu kap bunu almaz». Sığmayan kalır: «Ambar dolu». Oyuncu yerleşim içinde yük taşımaz: tezgâh ve şantiye 150 m içindeki ambardan kendi alır, varan araba, kervan ve yoldaş terkisi kendiliğinden boşalır. Bohça teslimde açılır: bir Yurt Yükü şantiyeye 8 tür, 19 parça olarak girer.
+
+## El koyma
+
+I. Perde «Çan»ın ilkesi: «Yazılan el konur, saklanan kalır.» Hüküm'de (Gün V) şunlar Ambar'a gider:
+
+| Yer | Sınır | Hüküm'de |
+|---|---|---|
+| Heybe ve araçlar | Yük sınırı | Ambar'a |
+| Rehine Sandığı | 60 Yük | Ambar'a gider, Ardokşa sayar |
+| Menzil Ambarı | 40 Yük | Ambar'a gider, Kantu'nun arabası toplar |
+| Kantu'nun Arabası | 40 Yük | Akında teker kırılır, içindeki Ambar'a |
+| Yer Yığını | En çok 24 | Ambar'a; Son Gece bırakılan kalır |
+| Zula | 6 yuva × 6 Yük | Kalır: nöbet ve Hüküm bulmaz |
+
+- **Üstünde kalan:** Çığırtkan, Çentik Çubuğu, çizmedeki Kendi Bıçağın, Yarım Çeteleler; giyilenler (Keçe Çizme, Kurt Postu, Altın Levha); çandaki Keçe Tıkaç.
+- **Geri almak:** el konan her şey tek çuvaldadır. Son Gece Ambar'da 6 sn sürer, gürültüsü 4 m'dir, Gece İşleri görevinin parçasıdır. Hiçbir eşya kapı değildir: Mete eyersiz biner, heybesiz kaçar.
+- **Zula** Hüküm'de el konmayanlardandır: içindekiler Ambar'a gitmez, Tipi'de firari başına 1 Aş buradan gelir ([K38](/docs/source/design/decisions#k38)). Yuva onarılmış Yol Kemiği dibinde kurulur, en çok 6 tanedir; Mene'nin ağılı bağla açılır. Koymak 3 sn, almak 1 sn, atta 8 m'den alınır. Pay yuvalardaki toplam Tokluk ÷ 35'tir: 10 firari ve Mete 11 pay ister, yani 11 Aş (1,1 Yük) ya da 20 Kak (2 Yük). Kalan yiyecek IV. Perde «Borç»ta Kışlak'a dönülünce aynı direkte durur.
+
+## Bozulma
+
+| Durum | Kural |
+|---|---|
+| Çiğ et, çiğ balık | Edinildiği hikâye gününden sonraki ikinci şafakta Bozuk Et olur: 24–48 oyun saati. Yalnız köpeğe verilir |
+| Kış dünyasında balık | Donuktur, bozulmaz. Bu dünya kuralıdır, soğuk mekaniği değil ([K1](/docs/source/design/decisions#k1)) |
+| Pişmiş ve kurutulmuş yiyecek | Bozulmaz |
+| Sırıktaki açık yiyecek | Sağanak bölümü başına %10, küçük dolu %20, iri dolu %50 bozulur |
+| Yer yığını | Yağmur ve sulu karda yakıt ve yem ıslanır, değeri ×0,5. Kuru havada 2 oyun saatinde ya da ateşin 4 m'sinde 30 sn'de kurur |
+| Örtüsüz ot yığını | Islak günde %2 çürür |
+| Heybe, araba, ambar | Kuru sayılır |
+
+Sayaç yoktur, sınır şafakta okunur. Neden: bozulma sayacı hazırlığı cezalandırır, zulayı öldürür ([economy.md §14](/docs/source/design/economy#14-kararlar-ve-sapmalar), karar 5).
+
+## Oyunda şu an
+
+> [!DURUM]
+> Godot'da: Heybe, Yük sınırı, terki, kese, kaplar ve aktarma paneli yok; `I` tuşuna bağlı bir ekran yok. Gece kampındaki terki, sandık, fıçı ve kova modelleri (Meshy) yalnız süstür. Serbest Gez'de yük taşınmaz.
+>
+> Prototipte denendi: Heybe, Yük sınırı, terki, kişisel kaplar, yer yığını, bozulma ve kayıt. Godot'a taşınmadı.
+>
+> Godot'daki plan: Yük onda bir tamsayıyla tutulan tek kap sınıfı ve Heybe ile Ambar arayüzü ([godot.md §3](/docs/source/design/godot#3-sistem-haritasi)). Yol Haritası: envanter, Heybe ve kaplar ([madde](/roadmap#item-inventory)), binicilik ve binek yükü ([madde](/roadmap#item-riding)), yük hayvanları ve binek deve ([madde](/roadmap#item-pack-animals)), kese ve kabuk ([madde](/roadmap#item-currency)). I. Perde'nin çekirdek fazı:
+
+```ilerleme
+act-1-p1
+```
+
+## Kaynaklar
+
+- [economy.md §4: Heybe ve Yük](/docs/source/design/economy#4-heybe-ve-yuk)
+- [economy.md §4.3: Taşıyıcı](/docs/source/design/economy#4-3-tasiyici)
+- [economy.md §4.5: Kaplar](/docs/source/design/economy#4-5-kaplar-containers-k24)
+- [economy.md §4.8: Yoldaşın yükü, payı, bakımı](/docs/source/design/economy#4-8-yoldasin-yuku-payi-bakimi-k70)
+- [economy.md §3.1: Etkileşim kuralları](/docs/source/design/economy#3-1-etkilesim-kurallari) (at üstünde toplama)
+- [economy.md §2.10: Kalite, yığın, bozulma](/docs/source/design/economy#2-10-kalite-yigin-bozulma)
+- [d2/core.md §5.6: Kaplar](/docs/source/design/d2/core#5-6-kaplar)
+- [fauna.md §2: Binek ve yük](/docs/source/design/fauna#2-binek-ve-yuk)
+- `companions.md` §3.5: Yük, ganimet, erzak
+- [progression.md §6.4: Binek](/docs/source/design/progression#6-4-binek)
+- [settlement.md §9: Depolama](/docs/source/design/settlement#9-depolama)
+- [travel.md §3.2: Araç tablosu](/docs/source/design/travel#3-2-arac-tablosu)
+- [d3/oyun-durumu.md](/docs/source/design/d3/game-state)
+- Kararlar: [K24](/docs/source/design/decisions#k24), [K38](/docs/source/design/decisions#k38), [K46](/docs/source/design/decisions#k46), [K48](/docs/source/design/decisions#k48), [K51](/docs/source/design/decisions#k51), [K53](/docs/source/design/decisions#k53), [K55](/docs/source/design/decisions#k55), [K65](/docs/source/design/decisions#k65), [K70](/docs/source/design/decisions#k70), [K88](/docs/source/design/decisions#k88)
+- İlgili: [Yolculuk](/docs/world/travel), [Hayvanlar](/docs/world/animals), [Üretim ve Depolama](/docs/settlement/production-storage), [Arayüz ve Menüler](/docs/presentation/ui-menus)
+- Sonraki: [Malzemeler](/docs/economy/materials)

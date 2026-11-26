@@ -1,0 +1,11 @@
+{
+  "id": "sheep",
+  "kind": "sfx",
+  "source": "free:assets/_free/sound/sheep_baa/sheep_baa.flac",
+  "start": 0.0,
+  "seconds": 0.87,
+  "gain_db": -2,
+  "rate": 22050,
+  "loop": false,
+  "note": "Koyun meleme (audio.md §4 «Hayvan ve dünya» sheep): doğum sahnesinin uzak sürüsü ve sayım hattı. Kaynak ücretsiz kayıt (sheep_baa: OpenGameArt «Sheep Baa», antumdeluge / mikewest, CC0), mono 22,05 kHz QOA. fauna-sound-bank gelince türün kendi kümesi bu kimliği alır."
+}

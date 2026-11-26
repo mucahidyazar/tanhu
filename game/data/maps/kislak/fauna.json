@@ -1,0 +1,56 @@
+{
+	"id": "kislak_fauna",
+	"doc": "Kışlak'ın hayvanları (Yol Haritası animals, fauna-first-species, fauna-sound-bank; act1.md §4 «Bölgeler», survival.md §4.1, fauna.md §1, §6, §9: I. Perde'nin kış takımı; map.json «layers» → FaunaLayer kurar). Koordinatlar act1.md §4'tür (x −450..950, z −760..290; kuzey −Z). Yerleşimin yasak dairesi winter_camp bölgesinden okunur (yarıçap + 15 m): yırtıcı ve yaban hayvanı girmez (K3, K65); ateşler (Ulu Ocak 12 m, ocaklar ve nöbet ateşleri 8 m) map.json'un yapı kayıtlarındandır. flocks açık otlağın sürüleridir (PastureFlock, HerdField: tek MultiMesh, iskelet yok): Ak Otlak'ta 60 at (Hun Atı boy ×0,94, K65; gece 21:00–05:00 baş eğik dinlenir) ve 200 koyun (Çoban Durağı'nın yanında otlar, akşam Mene'nin ağılına toplanır: fold, act1.md §4), Kızak Yolu'nun güneyinde üç deve, Sazlık'ın yanında dört sığır (çevrede deve ve sığır, fauna.md §9). young genç hayvanların payı ve boy aralığı (kuzu, tay). groups FaunaDirector'un ajanlarıdır (count [en az, en çok], sahnede türün scene'i aşılmaz): kampın üç köpeği (ocaklar arasında dolaşır, gece yatar, kurda havlar), Kurt İnleri'nin dört kurdu (yalnız alaca ve gece; prowl gece sokulduğu yerler: sürünün kıyısı) ve Kara Tepeler'in üç kurdu, Ak Otlak'ın ve Sazlık'ın tilkisi, Kuzey Düzü'nün ve Ak Otlak'ın ceylanı, Kara Tepeler'in yaban keçileri (Av Sekisi'nden 350 m öteye gitmez: leash), Kara Yamaç'ın ve Batı Sazı'nın yaban domuzu, Kara Yamaç'ın marallar (cover Ardıç Sırtı'nın ormanı). Gruplar evrenin etkinliğiyle doğar (survival.md §4.3), oyuncu yakınsa sahnededir; ajan ≤24 (tavşanlar dahil), T0 ≤8. small_game SmallGameField'in gruplarıdır (kodla çizilir): tavşan (Ak Otlak, Kuzey Düzü, Sazlık; zikzak kaçar), karga (Kışlak, Esir Çukuru, Ak Otlak), keklik (Kara Yamaç, Kara Tepeler); tarbagan kış uykusundadır (fauna.md §1). sky gökteki kartal çiftidir (yalnız gölgesi ve sesi). Kuş ≤64: 19 karga, 12 keklik, 2 kartal. voices serpinti çizelgesidir (FaunaVoices): kurt uluması 23:00'ten Tan'a 6–10 dk'da bir (audio.md §4 «Ortamın saati»; sürü 3–5 çalış), köpek havlaması (22:30'dan sonra seyrek), sürünün sesleri yakındayken, karga gündüz, tilki ve yaban domuzu alaca ve gece. Ses ≥150 m'den gelir; simülasyonda hayvan varsa ondan çıkar.",
+	"script": "res://scripts/fauna/fauna_layer.gd",
+	"camp_region": "winter_camp",
+	"flocks": [
+		{"id": "ak_otlak_horses", "kind": "horse", "count": 60, "center": [135.0, -385.0], "radius": 55.0, "home": [140.0, -380.0], "home_radius": 95.0, "rests": true, "young": [0.12, 0.72, 0.84], "seed": 6011},
+		{"id": "ak_otlak_sheep", "kind": "sheep", "count": 200, "center": [235.0, -275.0], "radius": 46.0, "home": [235.0, -280.0], "home_radius": 70.0, "fold": [90.0, -240.0], "fold_radius": 12.0, "pen": "menes_fold", "young": [0.15, 0.66, 0.8], "seed": 6021},
+		{"id": "camp_camels", "kind": "camel", "count": 3, "center": [150.0, 62.0], "radius": 9.0, "home": [150.0, 62.0], "home_radius": 18.0, "flee": "scatter", "young": [0.0, 1.0, 1.0], "seed": 6031},
+		{"id": "reed_cattle", "kind": "cattle", "count": 4, "center": [292.0, -108.0], "radius": 10.0, "home": [292.0, -108.0], "home_radius": 20.0, "flee": "scatter", "young": [0.0, 1.0, 1.0], "seed": 6041}
+	],
+	"groups": [
+		{"id": "camp_dogs", "kind": "dog", "home": [0.0, 20.0], "radius": 60.0, "count": [3, 3], "seed": 7001,
+			"spots": [[-48.0, 58.0], [0.0, -45.0], [62.0, -12.0], [-88.0, -12.0], [-30.0, 70.0], [58.0, -72.0], [38.0, 38.0], [-64.0, 41.0], [-37.0, -83.0], [84.0, 48.0], [14.0, 82.0]]},
+		{"id": "wolves_dens", "kind": "wolf", "home": [60.0, -430.0], "radius": 55.0, "count": [4, 4], "seed": 7011,
+			"prowl": [[105.0, -290.0], [70.0, -385.0], [150.0, -440.0], [205.0, -420.0]]},
+		{"id": "wolves_black_hills", "kind": "wolf", "home": [700.0, -580.0], "radius": 70.0, "count": [3, 3], "seed": 7021,
+			"prowl": [[760.0, -480.0], [640.0, -620.0]]},
+		{"id": "fox_pasture", "kind": "fox", "home": [250.0, -430.0], "radius": 110.0, "count": [1, 1], "seed": 7031},
+		{"id": "fox_reeds", "kind": "fox", "home": [380.0, -110.0], "radius": 70.0, "count": [1, 1], "seed": 7041},
+		{"id": "gazelle_north_flat", "kind": "gazelle", "home": [160.0, -600.0], "radius": 110.0, "count": [5, 6], "seed": 7051},
+		{"id": "gazelle_pasture", "kind": "gazelle", "home": [310.0, -430.0], "radius": 70.0, "count": [3, 4], "seed": 7061},
+		{"id": "ibex_black_hills", "kind": "ibex", "home": [745.0, -560.0], "radius": 75.0, "count": [6, 6], "leash": [720.0, -610.0], "leash_radius": 350.0, "seed": 7071},
+		{"id": "boar_black_slope", "kind": "boar", "home": [560.0, 120.0], "radius": 85.0, "count": [6, 6], "cover": [600.0, 150.0], "seed": 7081},
+		{"id": "boar_west_reeds", "kind": "boar", "home": [-80.0, -215.0], "radius": 55.0, "count": [6, 6], "cover": [-60.0, -195.0], "seed": 7091},
+		{"id": "deer_black_slope", "kind": "deer", "home": [620.0, 160.0], "radius": 95.0, "count": [4, 5], "cover": [640.0, 180.0], "seed": 7101}
+	],
+	"small_game": {
+		"seed": 3301,
+		"groups": [
+			{"kind": "hare", "count": 2, "patches": [[260.0, -390.0, 25.0], [120.0, -305.0, 18.0]], "holes": []},
+			{"kind": "hare", "count": 2, "patches": [[60.0, -560.0, 28.0], [260.0, -600.0, 28.0]], "holes": []},
+			{"kind": "hare", "count": 1, "patches": [[365.0, -108.0, 16.0]], "holes": []},
+			{"kind": "crow", "count": 8, "patches": [[24.0, 26.0, 9.0], [-20.0, 40.0, 10.0], [60.0, -30.0, 9.0], [-58.0, -22.0, 9.0]], "holes": []},
+			{"kind": "crow", "count": 5, "patches": [[78.0, 150.0, 10.0], [110.0, 176.0, 9.0]], "holes": []},
+			{"kind": "crow", "count": 6, "patches": [[205.0, -300.0, 16.0], [250.0, -262.0, 14.0]], "holes": []},
+			{"kind": "partridge", "count": 6, "patches": [[500.0, 40.0, 14.0], [540.0, 82.0, 12.0]], "holes": []},
+			{"kind": "partridge", "count": 6, "patches": [[760.0, -470.0, 14.0], [730.0, -522.0, 12.0]], "holes": []}
+		]
+	},
+	"sky": [
+		{"center": [220.0, -390.0], "radius": [80.0, 150.0], "height": [70.0, 110.0], "count": 2, "seed": 5101}
+	],
+	"voices": [
+		{"kind": "wolf", "role": "howl", "after": 1380.0, "before": 400.0, "every": [360.0, 600.0], "from": "group:wolves_dens", "hear": 1500.0},
+		{"kind": "wolf", "role": "howl", "after": 1380.0, "before": 400.0, "every": [420.0, 720.0], "from": "group:wolves_black_hills", "hear": 1500.0},
+		{"kind": "dog", "role": "call", "every": [40.0, 110.0], "night_every": [150.0, 320.0], "from": "group:camp_dogs", "hear": 700.0},
+		{"kind": "horse", "role": "calm", "every": [30.0, 80.0], "from": "flock:ak_otlak_horses", "hear": 260.0},
+		{"kind": "sheep", "role": "call", "every": [18.0, 45.0], "from": "flock:ak_otlak_sheep", "hear": 220.0},
+		{"kind": "camel", "role": "call", "every": [60.0, 170.0], "from": "flock:camp_camels", "hear": 240.0},
+		{"kind": "cattle", "role": "call", "every": [60.0, 170.0], "from": "flock:reed_cattle", "hear": 280.0},
+		{"kind": "crow", "role": "call", "phases": ["dawn", "morning", "noon", "golden", "dusk"], "every": [20.0, 60.0], "from": "birds:crow"},
+		{"kind": "fox", "role": "call", "phases": ["dusk", "night", "dawn"], "every": [240.0, 480.0], "from": "group:fox_pasture", "hear": 700.0},
+		{"kind": "boar", "role": "grunt", "phases": ["dusk", "night", "dawn"], "every": [70.0, 160.0], "from": "group:boar_black_slope", "hear": 400.0}
+	]
+}

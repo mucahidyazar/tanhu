@@ -1,0 +1,19 @@
+{
+	"id": "act0.child.bark.flush.yanchi_child.1",
+	"take": 0,
+	"seed": 903670774,
+	"hash": "35dcebf6bdbb",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.88,
+	"words": [
+		{"w": "It's", "t0": 0.0, "t1": 0.24},
+		{"w": "off!", "t0": 0.34, "t1": 0.72},
+		{"w": "It", "t0": 0.853, "t1": 1.12},
+		{"w": "landed", "t0": 1.189, "t1": 1.6},
+		{"w": "in", "t0": 1.627, "t1": 1.68},
+		{"w": "the", "t0": 1.72, "t1": 1.84},
+		{"w": "other", "t0": 1.893, "t1": 2.16},
+		{"w": "grass.", "t0": 2.253, "t1": 2.88}
+	]
+}

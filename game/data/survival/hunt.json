@@ -1,0 +1,18 @@
+{
+	"version": 1,
+	"doc": "Av verimi (survival.md §4.6, §4.7; fauna.md §1, §4; economy.md §3.6; progression.md §1.3; K65). Hunt okur (scripts/sim/survival/hunt.gd). Türün verimi data/fauna/kinds.json'dadır: yield tabanı (fauna.md §1), yield_season mevsimin eki (tarbagan güzde +1 iç yağı). Kan yoktur: vurulan çöker, yetişkin E basılı skin_s ile yüzer (Avcı becerisi skinT ile kısaltır), eşya verim verim Heybe'ye girer (Inventory.receive kaynağı «hunt»; sığmayan önce yakındaki atın terkisine, sonra leşin yerine yer yığını olur). Yüzmek bıçak ister (knife_refs: kuşanılan ya da Heybe'deki kesici); bıçaksız yalnız küçük av (small: hp ≤ small_hp ya da sınıfı kuş) yüzülür. Tek okta düşen avda clean_bonus kadar deri eklenir (yalnız veriminde hide ya da hide_small olan türde: büyük avda hide, küçük avda hide_small). Avcı becerisi (huntYield) her avda verimin ilk kalemine bir ekler. Kopuz Gecesi ertesi günün ilk büyük avına kopuz_bonus (ilk kalem) verir. Pay Bırak yüzdükten sonra E basılı share_s: share_refs'ten biri bölgede günde bir (algı ve stoğun geri gelmesi fauna bloğunundur). Çocuk (Serbest Gez, Çocukluk) hayvanı bütün alır: items.json'un av satırı (game) düzülünce aynı verimi verir (dress). XP: tür başına ilk av Progression «hunt» kaynağı (+40, I. Perde'de tavansız; II'den perde başına 4 tür).",
+	"skin_s": 2.0,
+	"share_s": 2.0,
+	"small_hp": 8,
+	"knife_refs": ["knife_iron", "short_sword", "short_sword_uldin", "akinakes", "ring_sword", "iron_sword", "long_sword", "han_sword", "qingrak"],
+	"clean_bonus": 1,
+	"kopuz_bonus": 1,
+	"share_refs": ["meat_small", "fat"],
+	"text": {
+		"skin": {"tr": "Yüz", "en": "Skin"},
+		"take": {"tr": "Al", "en": "Take"},
+		"need_knife": {"tr": "Bunu yüzmek için bıçak gerek.", "en": "You need a knife to skin this."},
+		"got": {"tr": "{kind}: {items}", "en": "{kind}: {items}"},
+		"first": {"tr": "İlk {kind}.", "en": "Your first {kind}."}
+	}
+}

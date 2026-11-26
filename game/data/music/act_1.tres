@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MusicColor" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/music_color.gd" id="1_color"]
+
+[resource]
+script = ExtResource("1_color")
+act = 1
+lead = &"harp"
+add = Array[StringName]([&"hujia", &"kaval", &"jaw"])
+drum_db = 0.0
+rest_copies = -1
+motif_clip = &""

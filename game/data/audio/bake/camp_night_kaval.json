@@ -1,0 +1,15 @@
+{
+  "id": "camp_night_kaval",
+  "kind": "music",
+  "instrument": "kaval",
+  "tempo": 46,
+  "bars": 2,
+  "mode": "d_dorian",
+  "phrase": "motif",
+  "variant": "breath",
+  "seed": 4621,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "camp_night: 40–70 sn'de bir kısa kaval cümlesi; düşüş A G F D gecede bu cümlede. Kamp bankası (data/audio/banks/camp.json); kulak onayı bekler (Karar Bekleyenler), onaya dek menü ElevenLabs parçasını çalar."
+}

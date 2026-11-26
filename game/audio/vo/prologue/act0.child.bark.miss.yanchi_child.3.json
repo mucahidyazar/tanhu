@@ -1,0 +1,12 @@
+{
+	"id": "act0.child.bark.miss.yanchi_child.3",
+	"take": 0,
+	"seed": 3860280394,
+	"hash": "e617344aeb90",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.36,
+	"words": [
+		{"w": "Again!", "t0": 0.0, "t1": 0.72}
+	]
+}

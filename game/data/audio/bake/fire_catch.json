@@ -1,0 +1,12 @@
+{
+  "id": "fire_catch",
+  "kind": "sfx",
+  "instrument": "fire_catch",
+  "strike": true,
+  "seconds": 1.6,
+  "seed": 6121,
+  "rate": 32000,
+  "loop": false,
+  "source": "code",
+  "note": "İlk ateş: 2:21,7'de, 1,5 sn'lik alçak sessizlikten sonra ak taş kara taşa vurur, kıvılcım tutuşur (audio.md §3, §4). Ücretsiz aday (catching_fire: OpenGameArt «Catching Fire», CC0, 0,45 sn büyü efekti) kulakla karşılaştırılır: tools/bake_music.sh --only=fire_catch --source=free:assets/_free/_staging/opengameart/catching-fire/flame_0.ogg --out=<klasör>. Kulak onayı bekler."
+}

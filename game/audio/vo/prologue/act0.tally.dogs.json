@@ -1,0 +1,14 @@
+{
+	"id": "act0.tally.dogs",
+	"take": 0,
+	"seed": 1589223809,
+	"hash": "5eb9a18175de",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 1.44,
+	"words": [
+		{"w": "Hold", "t0": 0.0, "t1": 0.24},
+		{"w": "your", "t0": 0.272, "t1": 0.4},
+		{"w": "dog!", "t0": 0.56, "t1": 1.44}
+	]
+}

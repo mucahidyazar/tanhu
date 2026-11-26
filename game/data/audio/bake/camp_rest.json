@@ -1,0 +1,11 @@
+{
+  "id": "camp_rest",
+  "kind": "music",
+  "instrument": "rest",
+  "tempo": 52,
+  "bars": 2,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "52'de iki ölçülük boş cümle (Playlist'in boş kopyası; perde rengi rest_copies)."
+}

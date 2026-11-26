@@ -1,0 +1,18 @@
+{
+	"id": "act0.child.hunt_dare",
+	"take": 0,
+	"seed": 4145540093,
+	"hash": "f717ebfdf123",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.92,
+	"words": [
+		{"w": "Let's", "t0": 0.0, "t1": 0.32},
+		{"w": "see", "t0": 0.36, "t1": 0.48},
+		{"w": "who", "t0": 0.52, "t1": 0.64},
+		{"w": "hits", "t0": 0.688, "t1": 0.88},
+		{"w": "the", "t0": 0.9, "t1": 0.96},
+		{"w": "first", "t0": 1.013, "t1": 1.28},
+		{"w": "bird.", "t0": 1.376, "t1": 1.92}
+	]
+}

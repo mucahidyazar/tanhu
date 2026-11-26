@@ -1,0 +1,21 @@
+{
+  "id": "hoof_land_b",
+  "kind": "sfx",
+  "instrument": "hoof",
+  "seconds": 0.5,
+  "seed": 5347,
+  "rate": 22050,
+  "loop": false,
+  "thump_hz": 84,
+  "clop_hz": 720,
+  "dirt": 0.75,
+  "decay_s": 0.055,
+  "dirt_s": 0.08,
+  "body_hz": 52,
+  "body_s": 0.11,
+  "body_gain": 0.7,
+  "echo_s": 0.026,
+  "echo_gain": 0.7,
+  "source": "code",
+  "note": "Atın sıçrayıştan inişi, b çeşidi (bkz. hoof_land_a): biraz daha alçak gümleme, ön toynaklar daha sık. Kulak onayı bekler."
+}

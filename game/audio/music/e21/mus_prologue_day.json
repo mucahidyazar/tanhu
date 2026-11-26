@@ -1,0 +1,360 @@
+{
+ "id": "mus_prologue_day",
+ "take": 0,
+ "seed": null,
+ "model": "music_v2_5",
+ "song_id": "yo7hEyN2Gds2OFGrIvNl",
+ "seconds": 60.029,
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Intro]\n{a single komuz phrase, then silence}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless",
+     "bare fingers, soft plucks and gentle brushed strokes, no pick",
+     "sparse phrases with long silences between them",
+     "open D and A strings, a simple melody on one string",
+     "D dorian, natural F and C",
+     "close and dry, one player, a quiet morning outdoors",
+     "calm, tender, unhurried",
+     "instrumental",
+     "very sparse"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   },
+   {
+    "text": "[Verse]\n{slow gentle melody, a few notes at a time, pauses}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless",
+     "bare fingers, soft plucks and gentle brushed strokes, no pick",
+     "sparse phrases with long silences between them",
+     "open D and A strings, a simple melody on one string",
+     "D dorian, natural F and C",
+     "close and dry, one player, a quiet morning outdoors",
+     "calm, tender, unhurried",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   },
+   {
+    "text": "[Verse]\n{the melody answers itself, softly, a little brighter}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless",
+     "bare fingers, soft plucks and gentle brushed strokes, no pick",
+     "sparse phrases with long silences between them",
+     "open D and A strings, a simple melody on one string",
+     "D dorian, natural F and C",
+     "close and dry, one player, a quiet morning outdoors",
+     "calm, tender, unhurried",
+     "instrumental"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   },
+   {
+    "text": "[Outro]\n{the phrase returns and fades into silence, loopable}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "solo Kyrgyz komuz, the old Turkic kopuz lute, three gut strings, fretless",
+     "bare fingers, soft plucks and gentle brushed strokes, no pick",
+     "sparse phrases with long silences between them",
+     "open D and A strings, a simple melody on one string",
+     "D dorian, natural F and C",
+     "close and dry, one player, a quiet morning outdoors",
+     "calm, tender, unhurried",
+     "instrumental",
+     "loopable ending"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "{a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "single",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "komuz",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "phrase,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "then",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "silence}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "{slow",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "gentle",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "melody,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "few",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "notes",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "at",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "time,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "pauses}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "{the",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "melody",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "answers",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "itself,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "softly,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "little",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "brighter}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "{the",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "phrase",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "returns",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "and",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "fades",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "into",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "silence,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "loopable}",
+   "start_ms": 0,
+   "end_ms": 0
+  }
+ ],
+ "waveform_visual": null
+}

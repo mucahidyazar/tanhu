@@ -1,0 +1,13 @@
+{
+	"id": "act0.birth.hereka",
+	"take": 2,
+	"seed": 805690216,
+	"hash": "30059d8aa777",
+	"model": "eleven_v3",
+	"voice": "49d0YOOn2K0LVSBCkZ0q",
+	"seconds": 0.64,
+	"words": [
+		{"w": "One", "t0": 0.0, "t1": 0.16},
+		{"w": "more.", "t0": 0.224, "t1": 0.8}
+	]
+}

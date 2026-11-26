@@ -1,0 +1,83 @@
+[
+ {
+  "n": 1,
+  "at": "2026-11-04T02:54:01.869Z",
+  "kind": "ilk",
+  "message": "İlk kayıt",
+  "hash": "5ecf0b93dfc7c4d3",
+  "added": 172,
+  "removed": 0
+ },
+ {
+  "n": 2,
+  "at": "2026-11-04T16:25:26.786Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "c2ae07f22fba8b5a",
+  "added": 358,
+  "removed": 78
+ },
+ {
+  "n": 3,
+  "at": "2026-11-04T18:13:20.372Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "52b8e19a261b8fe1",
+  "added": 21,
+  "removed": 2
+ },
+ {
+  "n": 4,
+  "at": "2026-11-04T23:12:09.148Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "c28daaf782c36eda",
+  "added": 78,
+  "removed": 35
+ },
+ {
+  "n": 5,
+  "at": "2026-11-05T02:09:24.829Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "427f1e725f9c0148",
+  "added": 3,
+  "removed": 1
+ },
+ {
+  "n": 6,
+  "at": "2026-11-05T07:24:10.076Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "24045093ca6dcc24",
+  "added": 1,
+  "removed": 1
+ },
+ {
+  "n": 7,
+  "at": "2026-11-06T19:25:24.606Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "dc84d163fd9cf273",
+  "added": 4,
+  "removed": 4
+ },
+ {
+  "n": 8,
+  "at": "2026-11-07T04:23:56.903Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "8af6550ed01e4057",
+  "added": 23,
+  "removed": 20
+ },
+ {
+  "n": 9,
+  "at": "2026-11-07T07:38:34.189Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "7c9fd08b0c68bdae",
+  "added": 16,
+  "removed": 16
+ }
+]

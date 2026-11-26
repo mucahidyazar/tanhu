@@ -1,0 +1,16 @@
+{
+	"id": "act0.flock.walk_3",
+	"take": 0,
+	"seed": 2676637705,
+	"hash": "9f8a4009d97b",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 3.2,
+	"words": [
+		{"w": "It", "t0": 0.0, "t1": 0.08},
+		{"w": "didn't", "t0": 0.128, "t1": 0.4},
+		{"w": "forget.", "t0": 0.48, "t1": 1.12},
+		{"w": "It's", "t0": 1.52, "t1": 2.4},
+		{"w": "waiting.", "t0": 2.47, "t1": 3.2}
+	]
+}

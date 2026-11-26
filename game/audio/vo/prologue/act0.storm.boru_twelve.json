@@ -1,0 +1,16 @@
+{
+	"id": "act0.storm.boru_twelve",
+	"take": 0,
+	"seed": 740997357,
+	"hash": "2c2ab8edf625",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 2.56,
+	"words": [
+		{"w": "Twelve!", "t0": 0.0, "t1": 0.64},
+		{"w": "The", "t0": 0.74, "t1": 1.04},
+		{"w": "stream's", "t0": 1.097, "t1": 1.6},
+		{"w": "right", "t0": 1.64, "t1": 1.84},
+		{"w": "there!", "t0": 1.92, "t1": 2.56}
+	]
+}

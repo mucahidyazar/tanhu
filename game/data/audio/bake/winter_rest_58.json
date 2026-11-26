@@ -1,0 +1,11 @@
+{
+  "id": "winter_rest_58",
+  "kind": "music",
+  "instrument": "rest",
+  "tempo": 58,
+  "bars": 2,
+  "rate": 22050,
+  "loop": false,
+  "note": "58'de iki ölçülük boş cümle (winter_evening ve winter_night).",
+  "source": "code"
+}

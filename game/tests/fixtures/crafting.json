@@ -1,0 +1,5591 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/crafting.mjs",
+		"proto": ["src/game/craft.js", "src/data/craft-recipes.js", "src/data/stations.js"],
+		"proto_sha": {
+			"src/game/craft.js": "916a42fb1480a0ab7c4471925e319c48d85ef2ba",
+			"src/data/craft-recipes.js": "78256eba9778cddb7570a9b0706b8ac7e9b2fa92",
+			"src/data/stations.js": "709eecbc34a35888d7ee9779d337b906d6937faa"
+		},
+		"kind": "sim",
+		"tol": 0.000001,
+		"note": "Tezgâhın saati birikimli benzetimdir (1e-6). Sahte kap etiketi d2/econ-model.json items.tags ile çözer; Godot'da sınırsız ItemContainer. Prototipin tarif tablosu K48, K51, K58 öncesidir: karşılaştırma ortak kimliklerdedir."
+	},
+	"constants": {
+		"recipes": {
+			"rc_rope": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"reed": 3
+				},
+				"out": {
+					"rope": 1
+				},
+				"wh": 0.5,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_rope_hair": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"hair": 2
+				},
+				"out": {
+					"rope": 1
+				},
+				"wh": 0.75,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt": {
+				"station": "felt_yard",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"wool": 2
+				},
+				"out": {
+					"felt": 1
+				},
+				"wh": 1.5,
+				"hold": 4,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt_batch": {
+				"station": "felt_yard",
+				"who": "station",
+				"role": null,
+				"in": {
+					"wool": 12
+				},
+				"out": {
+					"felt": 6
+				},
+				"wh": 7,
+				"hold": null,
+				"cure": 6,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt_white": {
+				"station": "felt_yard",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"wool": 3
+				},
+				"out": {
+					"felt_white": 1
+				},
+				"wh": 2,
+				"hold": 5,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_chiy": {
+				"station": "felt_yard",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"reed": 6
+				},
+				"out": {
+					"chiy": 1
+				},
+				"wh": 2,
+				"hold": 4,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_dye": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"madder": 2
+				},
+				"out": {
+					"dye": 1
+				},
+				"wh": 1,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_hide_patch": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"hide_small": 3
+				},
+				"out": {
+					"hide": 1
+				},
+				"wh": 1,
+				"hold": 3,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_leather": {
+				"station": "tannery",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"hide": 1,
+					"tag:tan": 1
+				},
+				"out": {
+					"leather": 1
+				},
+				"wh": 1,
+				"hold": 3,
+				"cure": 12,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_glue": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"bone": 3
+				},
+				"out": {
+					"glue": 2
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 6,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_glue_fish": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"fish": 2
+				},
+				"out": {
+					"glue": 3
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 6,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_skin_bag": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"hide": 1
+				},
+				"out": {
+					"skin_bag": 1
+				},
+				"wh": 1,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_pole": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"tag:wood": 1
+				},
+				"out": {
+					"pole": 2
+				},
+				"wh": 0.5,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_door_frame": {
+				"station": "wood_shop",
+				"who": "station",
+				"role": null,
+				"in": {
+					"tag:wood": 3,
+					"iron_bar": 1
+				},
+				"out": {
+					"door_frame": 1
+				},
+				"wh": 6,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_kerege_set": {
+				"station": "wood_shop",
+				"who": "master",
+				"role": "cr_carpenter",
+				"in": {
+					"tag:wood": 8,
+					"rope": 2
+				},
+				"out": {
+					"kerege_set": 1
+				},
+				"wh": 12,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_uuk_set": {
+				"station": "wood_shop",
+				"who": "station",
+				"role": null,
+				"in": {
+					"tag:wood": 12
+				},
+				"out": {
+					"uuk_set": 1
+				},
+				"wh": 8,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_yurt_crown": {
+				"station": "wood_shop",
+				"who": "master",
+				"role": "cr_carpenter",
+				"in": {
+					"wood_birch": 2,
+					"sinew": 2
+				},
+				"out": {
+					"yurt_crown": 1
+				},
+				"wh": 10,
+				"hold": null,
+				"cure": 24,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_crown_great": {
+				"station": "wood_shop",
+				"who": "master",
+				"role": "cr_carpenter",
+				"in": {
+					"wood_birch": 4,
+					"sinew": 4,
+					"glue": 2
+				},
+				"out": {
+					"crown_great": 1
+				},
+				"wh": 20,
+				"hold": null,
+				"cure": 24,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_wheel_pair": {
+				"station": "wood_shop",
+				"who": "master",
+				"role": ["cr_cartwright", "cr_carpenter"],
+				"in": {
+					"tag:wood": 2
+				},
+				"out": {
+					"wheel_pair": 1
+				},
+				"wh": 10,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_saddle_tree": {
+				"station": "wood_shop",
+				"who": "station",
+				"role": null,
+				"in": {
+					"tag:wood_light": 2,
+					"glue": 1
+				},
+				"out": {
+					"saddle_tree": 1
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_shafts": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"tag:wood_light": 1
+				},
+				"out": {
+					"arrow_shaft": 15
+				},
+				"wh": 3,
+				"hold": 6,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_shafts_branch": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"branch": 1
+				},
+				"out": {
+					"arrow_shaft": 5
+				},
+				"wh": 1,
+				"hold": 2,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_heads_bone": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"bone": 1
+				},
+				"out": {
+					"arrowhead_bone": 5
+				},
+				"wh": 1,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_heads_bronze": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"bronze_bar": 1,
+					"charcoal": 1
+				},
+				"out": {
+					"arrowhead_bronze": 30
+				},
+				"wh": 3,
+				"hold": null,
+				"cure": 1,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_heads_iron": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"iron_bar": 1,
+					"charcoal": 1
+				},
+				"out": {
+					"arrowhead_iron": 15
+				},
+				"wh": 5,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_arrow_bone": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"arrowhead_bone": 5,
+					"arrow_shaft": 5,
+					"feather": 1
+				},
+				"out": {
+					"arrow_bone": 5
+				},
+				"wh": 2.5,
+				"hold": 4,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_arrow_bronze": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"arrowhead_bronze": 5,
+					"arrow_shaft": 5,
+					"feather": 1
+				},
+				"out": {
+					"arrow_bronze": 5
+				},
+				"wh": 2.5,
+				"hold": 4,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": "trilobate",
+				"seasons": null,
+				"fine": null
+			},
+			"rc_arrow_iron": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"arrowhead_iron": 5,
+					"arrow_shaft": 5,
+					"feather": 1
+				},
+				"out": {
+					"arrow_iron": 5
+				},
+				"wh": 2.5,
+				"hold": 4,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": "trilobate",
+				"seasons": null,
+				"fine": null
+			},
+			"rc_torch": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"branch": 1,
+					"resin": 1
+				},
+				"out": {
+					"torch": 1
+				},
+				"wh": 0.25,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_charcoal": {
+				"station": "kiln",
+				"who": "station",
+				"role": null,
+				"in": {
+					"tag:wood": 3
+				},
+				"out": {
+					"charcoal": 2
+				},
+				"wh": 1.5,
+				"hold": null,
+				"cure": 12,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_copper_bit": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"ore_copper": 1
+				},
+				"out": {
+					"copper_bit": 1
+				},
+				"wh": 1,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_iron_bar": {
+				"station": "smithy",
+				"who": "master",
+				"role": "kujul",
+				"in": {
+					"ore_iron": 4
+				},
+				"out": {
+					"iron_bar": 1
+				},
+				"wh": 4,
+				"hold": 6,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_bloom": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"ore_iron": 4,
+					"charcoal": 3
+				},
+				"out": {
+					"iron_bar": 1
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 6,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_reforge": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"iron_scrap": 4,
+					"charcoal": 1
+				},
+				"out": {
+					"iron_bar": 1
+				},
+				"wh": 2,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_bronze_bar": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"copper_bit": 8,
+					"tin_ingot": 1,
+					"charcoal": 2
+				},
+				"out": {
+					"bronze_bar": 4
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 2,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_bronze_recast": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"bronze_scrap": 4,
+					"charcoal": 1
+				},
+				"out": {
+					"bronze_bar": 1
+				},
+				"wh": 2,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_tin_ingot": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"ore_tin": 4,
+					"charcoal": 2
+				},
+				"out": {
+					"tin_ingot": 1
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 0,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_cauldron": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"bronze_bar": 4
+				},
+				"out": {
+					"cauldron": 1
+				},
+				"wh": 8,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_pot": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"clay": 2
+				},
+				"out": {
+					"pot": 1
+				},
+				"wh": 2,
+				"hold": 6,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_fodder": {
+				"station": "stable",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"tag:forage": 2
+				},
+				"out": {
+					"fodder": 1
+				},
+				"wh": 0.25,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_saddle_felt": {
+				"station": "felt_yard",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"felt": 3,
+					"hide": 1,
+					"rope": 1
+				},
+				"out": {
+					"saddle_felt": 1
+				},
+				"wh": 3,
+				"hold": 6,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt_boots": {
+				"station": "felt_yard",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"felt": 2
+				},
+				"out": {
+					"felt_boots": 1
+				},
+				"wh": 1.5,
+				"hold": 4,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_hoof_wraps": {
+				"station": "smithy",
+				"who": "master",
+				"role": "kujul",
+				"in": {
+					"hide": 2,
+					"copper_bit": 4,
+					"iron_bar": 2
+				},
+				"out": {
+					"hoof_wraps": 1
+				},
+				"wh": 4,
+				"hold": 8,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_meal": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"millet": 2
+				},
+				"out": {
+					"meal": 1
+				},
+				"wh": 0.25,
+				"hold": 15,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_meal_batch": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"millet": 10
+				},
+				"out": {
+					"meal": 5
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_cauldron_meat": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"meat": 1
+				},
+				"out": {
+					"@ration": 5
+				},
+				"wh": 0.5,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_dried_meat": {
+				"station": "drying_rack",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"meat": 1,
+					"salt": 1
+				},
+				"out": {
+					"dried_meat": 1
+				},
+				"wh": 0.5,
+				"hold": 2,
+				"cure": 2,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_dried_batch": {
+				"station": "drying_rack",
+				"who": "station",
+				"role": null,
+				"in": {
+					"meat": 4,
+					"salt": 1
+				},
+				"out": {
+					"dried_meat": 4
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 2,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_qurt": {
+				"station": "drying_rack",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"milk": 1,
+					"salt": 1
+				},
+				"out": {
+					"qurt": 1
+				},
+				"wh": 0.5,
+				"hold": 2,
+				"cure": 2,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_qurt_batch": {
+				"station": "drying_rack",
+				"who": "station",
+				"role": null,
+				"in": {
+					"milk": 4,
+					"salt": 1
+				},
+				"out": {
+					"qurt": 4
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 2,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_kumis_batch": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"mare_milk": 10
+				},
+				"out": {
+					"kumis": 5
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 12,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": ["spring", "summer", "autumn"],
+				"fine": null
+			},
+			"rc_lamp_oil": {
+				"station": "kitchen",
+				"who": "station",
+				"role": null,
+				"in": {
+					"fat": 1
+				},
+				"out": {
+					"lamp_oil": 1
+				},
+				"wh": 0.5,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_ember_pot": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"pot": 1,
+					"hide": 1
+				},
+				"out": {
+					"ember_pot": 1
+				},
+				"wh": 1,
+				"hold": 4,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt_coat": {
+				"station": "felt_yard",
+				"who": "station",
+				"role": null,
+				"in": {
+					"felt": 4
+				},
+				"out": {
+					"felt_coat": 1
+				},
+				"wh": 3,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"felt": 1
+				}
+			},
+			"rc_hide_lamellar": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"hide": 6,
+					"rope": 2
+				},
+				"out": {
+					"hide_lamellar": 1
+				},
+				"wh": 8,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"hide": 1
+				}
+			},
+			"rc_bronze_scale": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"copper_bit": 8,
+					"tin_ingot": 2,
+					"leather": 4,
+					"charcoal": 2
+				},
+				"out": {
+					"bronze_scale": 1
+				},
+				"wh": 12,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_iron_lamellar": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"iron_bar": 10,
+					"leather": 4,
+					"charcoal": 2
+				},
+				"out": {
+					"iron_lamellar": 1
+				},
+				"wh": 16,
+				"hold": null,
+				"cure": 0,
+				"act": 5,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_war_cape": {
+				"station": "felt_yard",
+				"who": "station",
+				"role": null,
+				"in": {
+					"felt": 3,
+					"dye": 1
+				},
+				"out": {
+					"war_cape": 1
+				},
+				"wh": 2,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_riding_boots": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"leather": 3
+				},
+				"out": {
+					"riding_boots": 1
+				},
+				"wh": 2,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_fur_boots": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"leather": 3,
+					"fur_fox": 1
+				},
+				"out": {
+					"fur_boots": 1
+				},
+				"wh": 3,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_pouch_belt": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"leather": 2
+				},
+				"out": {
+					"pouch_belt": 1
+				},
+				"wh": 2,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_tool_belt": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"leather": 3,
+					"iron_bar": 1
+				},
+				"out": {
+					"tool_belt": 1
+				},
+				"wh": 3,
+				"hold": null,
+				"cure": 0,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_iron_helm": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"iron_bar": 3,
+					"leather": 1,
+					"charcoal": 1
+				},
+				"out": {
+					"iron_helm": 1
+				},
+				"wh": 6,
+				"hold": null,
+				"cure": 0,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_iron_bracer": {
+				"station": "smithy",
+				"who": "station",
+				"role": null,
+				"in": {
+					"iron_bar": 2,
+					"leather": 1
+				},
+				"out": {
+					"iron_bracer": 1
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 0,
+				"act": 5,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_thumb_ring": {
+				"station": "fletchery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"horn": 1
+				},
+				"out": {
+					"thumb_ring": 1
+				},
+				"wh": 1,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_war_quiver": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"leather": 2,
+					"wood_birch": 1
+				},
+				"out": {
+					"war_quiver": 1
+				},
+				"wh": 3,
+				"hold": null,
+				"cure": 0,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_hun_bow": {
+				"station": "fletchery",
+				"who": "master",
+				"role": "cr_bowyer",
+				"in": {
+					"horn": 2,
+					"sinew": 2,
+					"tag:wood": 1,
+					"glue": 1
+				},
+				"out": {
+					"hun_bow": 1
+				},
+				"wh": 12,
+				"hold": null,
+				"cure": 24,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"sinew": 1
+				}
+			},
+			"rc_bone_bow": {
+				"station": "fletchery",
+				"who": "master",
+				"role": "cr_bowyer",
+				"in": {
+					"horn": 3,
+					"sinew": 3,
+					"bone": 2,
+					"tag:wood": 1,
+					"glue": 1
+				},
+				"out": {
+					"bone_bow": 1
+				},
+				"wh": 14,
+				"hold": null,
+				"cure": 24,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"sinew": 1
+				}
+			},
+			"rc_horn_bow": {
+				"station": "fletchery",
+				"who": "master",
+				"role": "cr_bowyer",
+				"in": {
+					"horn": 4,
+					"sinew": 4,
+					"wood_birch": 1,
+					"glue": 2
+				},
+				"out": {
+					"horn_bow": 1
+				},
+				"wh": 18,
+				"hold": null,
+				"cure": 24,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"sinew": 1
+				}
+			},
+			"rc_great_bow": {
+				"station": "fletchery",
+				"who": "master",
+				"role": "cr_bowyer",
+				"in": {
+					"horn": 5,
+					"sinew": 5,
+					"wood_birch": 2,
+					"glue": 2
+				},
+				"out": {
+					"great_bow": 1
+				},
+				"wh": 20,
+				"hold": null,
+				"cure": 24,
+				"act": 5,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"sinew": 1
+				}
+			},
+			"rc_saddle_wood": {
+				"station": "tannery",
+				"who": "station",
+				"role": null,
+				"in": {
+					"saddle_tree": 1,
+					"leather": 2
+				},
+				"out": {
+					"saddle_wood": 1
+				},
+				"wh": 4,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_saddle_war": {
+				"station": "tannery",
+				"who": "master",
+				"role": "cr_saddler",
+				"in": {
+					"saddle_tree": 1,
+					"leather": 2,
+					"iron_bar": 1
+				},
+				"out": {
+					"saddle_war": 1
+				},
+				"wh": 6,
+				"hold": null,
+				"cure": 0,
+				"act": 5,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_blanket_felt": {
+				"station": "felt_yard",
+				"who": "station",
+				"role": null,
+				"in": {
+					"felt": 2
+				},
+				"out": {
+					"blanket_felt": 1
+				},
+				"wh": 1.5,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_horse_armor": {
+				"station": "tannery",
+				"who": "master",
+				"role": "cr_saddler",
+				"in": {
+					"leather": 8,
+					"iron_bar": 4
+				},
+				"out": {
+					"horse_armor": 1
+				},
+				"wh": 16,
+				"hold": null,
+				"cure": 0,
+				"act": 5,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"leather": 1
+				}
+			},
+			"rc_ring_sword": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"iron_bar": 3,
+					"charcoal": 1,
+					"leather": 1
+				},
+				"out": {
+					"ring_sword": 1
+				},
+				"wh": 8,
+				"hold": null,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"iron_bar": 1
+				}
+			},
+			"rc_iron_sword": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"iron_bar": 5,
+					"charcoal": 2,
+					"leather": 1
+				},
+				"out": {
+					"iron_sword": 1
+				},
+				"wh": 10,
+				"hold": null,
+				"cure": 0,
+				"act": 3,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"iron_bar": 1
+				}
+			},
+			"rc_long_sword": {
+				"station": "smithy",
+				"who": "master",
+				"role": "cr_smith",
+				"in": {
+					"iron_bar": 7,
+					"charcoal": 3,
+					"leather": 1
+				},
+				"out": {
+					"long_sword": 1
+				},
+				"wh": 14,
+				"hold": null,
+				"cure": 0,
+				"act": 4,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": {
+					"iron_bar": 1
+				}
+			},
+			"rc_yurt_kit": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"door_frame": 1,
+					"kerege_set": 1,
+					"yurt_crown": 1,
+					"pole": 2,
+					"uuk_set": 1,
+					"chiy": 1,
+					"felt": 6,
+					"rope": 6
+				},
+				"out": {
+					"yurt_kit": 1
+				},
+				"wh": 0,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_tent_kit": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"tag:wood": 2,
+					"pole": 2,
+					"rope": 4,
+					"felt": 3
+				},
+				"out": {
+					"tent_kit": 1
+				},
+				"wh": 0,
+				"hold": 3,
+				"cure": 0,
+				"act": 2,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_sling": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"hide": 1,
+					"wool": 1
+				},
+				"out": {
+					"sling": 1
+				},
+				"wh": null,
+				"hold": 3,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_snare": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"rope": 2
+				},
+				"out": {
+					"snare": 1
+				},
+				"wh": null,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_felt_plug": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"felt": 1
+				},
+				"out": {
+					"felt_plug": 1
+				},
+				"wh": null,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_shears": {
+				"station": "smithy",
+				"who": "master",
+				"role": "kujul",
+				"in": {
+					"iron_bar": 1,
+					"charcoal": 1
+				},
+				"out": {
+					"shears": 1
+				},
+				"wh": null,
+				"hold": 6,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_sled": {
+				"station": "hand",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"tag:wood": 3,
+					"rope": 2
+				},
+				"out": {
+					"load_sled": 1
+				},
+				"wh": null,
+				"hold": 6,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_halter": {
+				"station": "stable",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"rope": 1
+				},
+				"out": {
+					"halter": 1
+				},
+				"wh": null,
+				"hold": 2,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_firestriker": {
+				"station": "smithy",
+				"who": "master",
+				"role": "kujul",
+				"in": {
+					"iron_bar": 1
+				},
+				"out": {
+					"firestriker": 2
+				},
+				"wh": null,
+				"hold": 4,
+				"cure": 0,
+				"act": 1,
+				"a1": false,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			},
+			"rc_bandage": {
+				"station": "hearth",
+				"who": "hand",
+				"role": null,
+				"in": {
+					"felt": 1,
+					"bark_willow": 1
+				},
+				"out": {
+					"bandage": 1
+				},
+				"wh": null,
+				"hold": 4,
+				"cure": 0,
+				"act": 1,
+				"a1": true,
+				"skill": null,
+				"seasons": null,
+				"fine": null
+			}
+		},
+		"stations": {
+			"hand": {
+				"tr": "El",
+				"en": "Hand",
+				"crewMax": 1,
+				"slots": 0,
+				"open": false,
+				"dry": false,
+				"act": 1,
+				"structure": null
+			},
+			"hearth": {
+				"tr": "Ocak",
+				"en": "Hearth",
+				"crewMax": 2,
+				"slots": 0,
+				"open": false,
+				"dry": false,
+				"act": 1,
+				"structure": null
+			},
+			"felt_yard": {
+				"tr": "Keçe Avlusu",
+				"en": "Felting Yard",
+				"crewMax": 6,
+				"slots": 2,
+				"open": true,
+				"dry": true,
+				"act": 1,
+				"structure": "felt_yard"
+			},
+			"tannery": {
+				"tr": "Sepi Yeri",
+				"en": "Tannery",
+				"crewMax": 3,
+				"slots": 4,
+				"open": true,
+				"dry": true,
+				"act": 2,
+				"structure": "tannery"
+			},
+			"wood_shop": {
+				"tr": "Ağaç Atölyesi",
+				"en": "Woodshop",
+				"crewMax": 3,
+				"slots": 2,
+				"open": false,
+				"dry": false,
+				"act": 2,
+				"structure": "wood_shop"
+			},
+			"smithy": {
+				"tr": "Demirci Ocağı",
+				"en": "Smithy",
+				"crewMax": 3,
+				"slots": 1,
+				"open": false,
+				"dry": false,
+				"act": 1,
+				"structure": "smithy"
+			},
+			"kiln": {
+				"tr": "Fırın",
+				"en": "Kiln",
+				"crewMax": 2,
+				"slots": 1,
+				"open": true,
+				"dry": false,
+				"act": 2,
+				"structure": "kiln"
+			},
+			"fletchery": {
+				"tr": "Okçu Yurdu",
+				"en": "Fletcher's Yurt",
+				"crewMax": 3,
+				"slots": 4,
+				"open": false,
+				"dry": false,
+				"act": 3,
+				"structure": "fletchery"
+			},
+			"kitchen": {
+				"tr": "Kazan Ocağı",
+				"en": "Cauldron Hearth",
+				"crewMax": 3,
+				"slots": 2,
+				"open": false,
+				"dry": false,
+				"act": 2,
+				"structure": null
+			},
+			"stable": {
+				"tr": "Ahır",
+				"en": "Stable",
+				"crewMax": 2,
+				"slots": 0,
+				"open": false,
+				"dry": false,
+				"act": 1,
+				"structure": "stable"
+			},
+			"drying_rack": {
+				"tr": "Kurutma Sırığı",
+				"en": "Drying Rack",
+				"crewMax": 1,
+				"slots": 6,
+				"open": true,
+				"dry": true,
+				"act": 1,
+				"structure": "rack"
+			}
+		},
+		"roles": {
+			"cr_felter": {
+				"tr": "Keçeci",
+				"en": "Felt-maker",
+				"station": "felt_yard",
+				"craft": "home",
+				"tier": "T1",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_tanner": {
+				"tr": "Sepici",
+				"en": "Tanner",
+				"station": "tannery",
+				"craft": "home",
+				"tier": "T2",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_carpenter": {
+				"tr": "Dülger",
+				"en": "Carpenter",
+				"station": "wood_shop",
+				"craft": "wood",
+				"tier": "T1",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_cartwright": {
+				"tr": "Arabacı",
+				"en": "Cartwright",
+				"station": "wood_shop",
+				"craft": "wood",
+				"tier": "T3",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_smith": {
+				"tr": "Demirci",
+				"en": "Smith",
+				"station": "smithy",
+				"craft": "earth",
+				"tier": "T2",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_bowyer": {
+				"tr": "Yaycı",
+				"en": "Bowyer",
+				"station": "fletchery",
+				"craft": "wood",
+				"tier": "T3",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_saddler": {
+				"tr": "Saraç",
+				"en": "Saddler",
+				"station": "tannery",
+				"craft": "home",
+				"tier": "T4",
+				"speedK": null,
+				"speedFor": null
+			},
+			"cr_cook": {
+				"tr": "Aşçı",
+				"en": "Cook",
+				"station": "kitchen",
+				"craft": "home",
+				"tier": "T2",
+				"speedK": 1.25,
+				"speedFor": ["rc_meal_batch", "rc_cauldron_meat", "rc_kumis_batch"]
+			},
+			"cr_earth": {
+				"tr": "Toprak Ustası",
+				"en": "Earth Builder",
+				"station": null,
+				"craft": "earth",
+				"tier": "T5",
+				"speedK": null,
+				"speedFor": null
+			}
+		},
+		"named": {
+			"kujul": {
+				"station": "smithy",
+				"craft": "earth",
+				"act": 1
+			}
+		},
+		"dry_by_type": {
+			"clear": 1,
+			"cloud": 0.9,
+			"overcast": 0.6,
+			"fog": 0.3,
+			"drizzle": 0,
+			"rain": 0,
+			"downpour": 0,
+			"thunderstorm": 0,
+			"dry_storm": 1.3,
+			"hail": 0,
+			"wind": 1.3,
+			"gale": 1.3,
+			"sleet": 0,
+			"snow": 0.3,
+			"heavy_snow": 0.3,
+			"blizzard": 0.3,
+			"kara_boran": 0.3,
+			"dust_storm": 0.5
+		},
+		"craft_labour": {
+			"torchDarkMin": 240,
+			"fineK": 1.5,
+			"recipeXp": 20
+		}
+	},
+	"cases": [
+		{
+			"id": "crew_eff/0",
+			"fn": "crew_eff",
+			"in": [0],
+			"out": 0
+		},
+		{
+			"id": "crew_eff/0.5",
+			"fn": "crew_eff",
+			"in": [0.5],
+			"out": 0.5
+		},
+		{
+			"id": "crew_eff/1",
+			"fn": "crew_eff",
+			"in": [1],
+			"out": 1
+		},
+		{
+			"id": "crew_eff/2",
+			"fn": "crew_eff",
+			"in": [2],
+			"out": 1.9
+		},
+		{
+			"id": "crew_eff/3",
+			"fn": "crew_eff",
+			"in": [3],
+			"out": 2.7099999999999995
+		},
+		{
+			"id": "crew_eff/4",
+			"fn": "crew_eff",
+			"in": [4],
+			"out": 3.4390000000000005
+		},
+		{
+			"id": "crew_eff/6",
+			"fn": "crew_eff",
+			"in": [6],
+			"out": 4.68559
+		},
+		{
+			"id": "crew_eff/8",
+			"fn": "crew_eff",
+			"in": [8],
+			"out": 5.6953279000000006
+		},
+		{
+			"id": "crew_eff/12",
+			"fn": "crew_eff",
+			"in": [12],
+			"out": 7.175704635190001
+		},
+		{
+			"id": "unit_minutes/rc_felt_batch/4",
+			"fn": "unit_minutes",
+			"in": ["rc_felt_batch", 4, false],
+			"out": 122.12852573422505
+		},
+		{
+			"id": "unit_minutes/rc_hun_bow/3",
+			"fn": "unit_minutes",
+			"in": ["rc_hun_bow", 3, true],
+			"out": 398.5239852398525
+		},
+		{
+			"id": "unit_minutes/rc_uuk_set/1",
+			"fn": "unit_minutes",
+			"in": ["rc_uuk_set", 1, false],
+			"out": 480
+		},
+		{
+			"id": "unit_minutes/rc_rope/0",
+			"fn": "unit_minutes",
+			"in": ["rc_rope", 0, false],
+			"out": "inf"
+		},
+		{
+			"id": "unit_minutes/rc_meal/2",
+			"fn": "unit_minutes",
+			"in": ["rc_meal", 2, false],
+			"out": 7.894736842105264
+		},
+		{
+			"id": "inputs_of/rc_hun_bow/true",
+			"fn": "inputs_of",
+			"in": ["rc_hun_bow", true],
+			"out": [
+				{
+					"id": "horn",
+					"n": 2
+				},
+				{
+					"id": "sinew",
+					"n": 3
+				},
+				{
+					"id": "tag:wood",
+					"n": 1
+				},
+				{
+					"id": "glue",
+					"n": 1
+				}
+			]
+		},
+		{
+			"id": "inputs_of/rc_hun_bow/false",
+			"fn": "inputs_of",
+			"in": ["rc_hun_bow", false],
+			"out": [
+				{
+					"id": "horn",
+					"n": 2
+				},
+				{
+					"id": "sinew",
+					"n": 2
+				},
+				{
+					"id": "tag:wood",
+					"n": 1
+				},
+				{
+					"id": "glue",
+					"n": 1
+				}
+			]
+		},
+		{
+			"id": "inputs_of/rc_rope/false",
+			"fn": "inputs_of",
+			"in": ["rc_rope", false],
+			"out": [
+				{
+					"id": "reed",
+					"n": 3
+				}
+			]
+		},
+		{
+			"id": "inputs_of/rc_felt_coat/true",
+			"fn": "inputs_of",
+			"in": ["rc_felt_coat", true],
+			"out": [
+				{
+					"id": "felt",
+					"n": 5
+				}
+			]
+		},
+		{
+			"id": "inputs_of/rc_leather/false",
+			"fn": "inputs_of",
+			"in": ["rc_leather", false],
+			"out": [
+				{
+					"id": "hide",
+					"n": 1
+				},
+				{
+					"id": "tag:tan",
+					"n": 1
+				}
+			]
+		},
+		{
+			"id": "fine_role/rc_hun_bow",
+			"fn": "fine_role",
+			"in": ["rc_hun_bow"],
+			"out": "cr_bowyer"
+		},
+		{
+			"id": "fine_role/rc_felt_coat",
+			"fn": "fine_role",
+			"in": ["rc_felt_coat"],
+			"out": "cr_felter"
+		},
+		{
+			"id": "fine_role/rc_iron_bracer",
+			"fn": "fine_role",
+			"in": ["rc_iron_bracer"],
+			"out": "cr_smith"
+		},
+		{
+			"id": "fine_role/rc_rope",
+			"fn": "fine_role",
+			"in": ["rc_rope"],
+			"out": null
+		},
+		{
+			"id": "fine_role/rc_hide_lamellar",
+			"fn": "fine_role",
+			"in": ["rc_hide_lamellar"],
+			"out": "cr_tanner"
+		},
+		{
+			"id": "fine_role/rc_saddle_war",
+			"fn": "fine_role",
+			"in": ["rc_saddle_war"],
+			"out": "cr_saddler"
+		},
+		{
+			"id": "fine_role/rc_iron_lamellar",
+			"fn": "fine_role",
+			"in": ["rc_iron_lamellar"],
+			"out": "cr_smith"
+		},
+		{
+			"id": "can_craft/rope_short",
+			"fn": "can_craft",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 2,
+					"hide": 1,
+					"salt": 1
+				},
+				{}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"id": "reed",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/rope_ok",
+			"fn": "can_craft",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 3
+				},
+				{}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/felt_station",
+			"fn": "can_craft",
+			"in": [
+				"rc_felt",
+				{
+					"wool": 2
+				},
+				{}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"station": "felt_yard"
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/felt_two_stations",
+			"fn": "can_craft",
+			"in": [
+				"rc_felt",
+				{
+					"wool": 2
+				},
+				{
+					"station": ["hearth", "felt_yard"]
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/leather_tag_tan",
+			"fn": "can_craft",
+			"in": [
+				"rc_leather",
+				{
+					"hide": 1,
+					"salt": 1
+				},
+				{
+					"station": "tannery"
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/dye_kitchen",
+			"fn": "can_craft",
+			"in": [
+				"rc_dye",
+				{
+					"madder": 2
+				},
+				{
+					"station": "kitchen"
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/arrow_skill",
+			"fn": "can_craft",
+			"in": [
+				"rc_arrow_bronze",
+				{
+					"arrowhead_bronze": 5,
+					"arrow_shaft": 5,
+					"feather": 1
+				},
+				{}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"skill": "trilobate"
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/arrow_skill_ok",
+			"fn": "can_craft",
+			"in": [
+				"rc_arrow_bronze",
+				{
+					"arrowhead_bronze": 5,
+					"arrow_shaft": 5,
+					"feather": 1
+				},
+				{
+					"skills": ["trilobate"]
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/kerege_master",
+			"fn": "can_craft",
+			"in": [
+				"rc_kerege_set",
+				{
+					"wood_pine": 8,
+					"rope": 2
+				},
+				{
+					"station": "wood_shop"
+				}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"role": "cr_carpenter"
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/iron_bar_kujul",
+			"fn": "can_craft",
+			"in": [
+				"rc_iron_bar",
+				{
+					"ore_iron": 4
+				},
+				{
+					"station": "smithy",
+					"role": "kujul"
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/rope_two_units",
+			"fn": "can_craft",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 3
+				},
+				{
+					"n": 2
+				}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"id": "reed",
+						"n": 3
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/fine_no_master",
+			"fn": "can_craft",
+			"in": [
+				"rc_hun_bow",
+				{
+					"horn": 2,
+					"sinew": 3,
+					"wood_pine": 1,
+					"glue": 1
+				},
+				{
+					"station": "fletchery",
+					"fine": true
+				}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"role": "cr_bowyer"
+					},
+					{
+						"role": "cr_bowyer"
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/fine_master",
+			"fn": "can_craft",
+			"in": [
+				"rc_hun_bow",
+				{
+					"horn": 2,
+					"sinew": 3,
+					"wood_pine": 1,
+					"glue": 1
+				},
+				{
+					"station": "fletchery",
+					"fine": true,
+					"role": ["cr_bowyer"]
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/fine_none",
+			"fn": "can_craft",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 3
+				},
+				{
+					"fine": true,
+					"role": ["cr_bowyer"]
+				}
+			],
+			"out": {
+				"ok": false,
+				"missing": [
+					{
+						"fine": true
+					}
+				]
+			}
+		},
+		{
+			"id": "can_craft/copper_bit",
+			"fn": "can_craft",
+			"in": [
+				"rc_copper_bit",
+				{
+					"ore_copper": 1
+				},
+				{
+					"station": "smithy"
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "can_craft/door_frame",
+			"fn": "can_craft",
+			"in": [
+				"rc_door_frame",
+				{
+					"wood_pine": 2,
+					"wood_willow": 1,
+					"iron_bar": 1
+				},
+				{
+					"station": "wood_shop"
+				}
+			],
+			"out": {
+				"ok": true,
+				"missing": []
+			}
+		},
+		{
+			"id": "craft_hand/rope_first",
+			"fn": "craft_hand",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 7
+				},
+				{
+					"first": true
+				}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "rope",
+							"n": 1
+						}
+					],
+					"xp": 20
+				},
+				"pool": [
+					{
+						"id": "reed",
+						"n": 4
+					},
+					{
+						"id": "rope",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/rope_short",
+			"fn": "craft_hand",
+			"in": [
+				"rc_rope",
+				{
+					"reed": 2
+				},
+				{}
+			],
+			"out": {
+				"out": {},
+				"pool": [
+					{
+						"id": "reed",
+						"n": 2
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/felt_batch_not_hand",
+			"fn": "craft_hand",
+			"in": [
+				"rc_felt_batch",
+				{
+					"wool": 12
+				},
+				{}
+			],
+			"out": {
+				"out": {},
+				"pool": [
+					{
+						"id": "wool",
+						"n": 12
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/yurt_kit",
+			"fn": "craft_hand",
+			"in": [
+				"rc_yurt_kit",
+				{
+					"door_frame": 1,
+					"kerege_set": 1,
+					"yurt_crown": 1,
+					"pole": 2,
+					"uuk_set": 1,
+					"chiy": 1,
+					"felt": 6,
+					"rope": 6
+				},
+				{}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "yurt_kit",
+							"n": 1
+						}
+					],
+					"xp": 0
+				},
+				"pool": [
+					{
+						"id": "yurt_kit",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/sling",
+			"fn": "craft_hand",
+			"in": [
+				"rc_sling",
+				{
+					"hide": 1,
+					"wool": 1
+				},
+				{}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "sling",
+							"n": 1
+						}
+					],
+					"xp": 0
+				},
+				"pool": [
+					{
+						"id": "sling",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/pole_tag",
+			"fn": "craft_hand",
+			"in": [
+				"rc_pole",
+				{
+					"wood_willow": 1
+				},
+				{
+					"n": 1
+				}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "pole",
+							"n": 2
+						}
+					],
+					"xp": 0
+				},
+				"pool": [
+					{
+						"id": "pole",
+						"n": 2
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/shafts_light",
+			"fn": "craft_hand",
+			"in": [
+				"rc_shafts",
+				{
+					"wood_willow": 1,
+					"hide": 1
+				},
+				{}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "arrow_shaft",
+							"n": 15
+						}
+					],
+					"xp": 0
+				},
+				"pool": [
+					{
+						"id": "arrow_shaft",
+						"n": 15
+					},
+					{
+						"id": "hide",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "craft_hand/copper_two",
+			"fn": "craft_hand",
+			"in": [
+				"rc_copper_bit",
+				{
+					"ore_copper": 3
+				},
+				{
+					"n": 2
+				}
+			],
+			"out": {
+				"out": {
+					"out": [
+						{
+							"id": "copper_bit",
+							"n": 2
+						}
+					],
+					"xp": 0
+				},
+				"pool": [
+					{
+						"id": "copper_bit",
+						"n": 2
+					},
+					{
+						"id": "ore_copper",
+						"n": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "recipes_at/wood_shop",
+			"fn": "recipes_at",
+			"in": [
+				"wood_shop",
+				["rc_rope", "rc_rope_hair", "rc_felt", "rc_felt_batch", "rc_felt_white", "rc_chiy", "rc_dye", "rc_hide_patch", "rc_leather", "rc_glue", "rc_glue_fish", "rc_skin_bag", "rc_pole", "rc_door_frame", "rc_kerege_set", "rc_uuk_set", "rc_yurt_crown", "rc_crown_great", "rc_wheel_pair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_torch", "rc_charcoal", "rc_copper_bit", "rc_iron_bar", "rc_bloom", "rc_reforge", "rc_bronze_bar", "rc_bronze_recast", "rc_tin_ingot", "rc_cauldron", "rc_pot", "rc_fodder", "rc_saddle_felt", "rc_felt_boots", "rc_hoof_wraps", "rc_meal", "rc_meal_batch", "rc_cauldron_meat", "rc_dried_meat", "rc_dried_batch", "rc_qurt", "rc_qurt_batch", "rc_kumis_batch", "rc_lamp_oil", "rc_ember_pot", "rc_felt_coat", "rc_hide_lamellar", "rc_bronze_scale", "rc_iron_lamellar", "rc_war_cape", "rc_riding_boots", "rc_fur_boots", "rc_pouch_belt", "rc_tool_belt", "rc_iron_helm", "rc_iron_bracer", "rc_thumb_ring", "rc_war_quiver", "rc_hun_bow", "rc_bone_bow", "rc_horn_bow", "rc_great_bow", "rc_saddle_wood", "rc_saddle_war", "rc_blanket_felt", "rc_horse_armor", "rc_ring_sword", "rc_iron_sword", "rc_long_sword", "rc_yurt_kit", "rc_tent_kit"]
+			],
+			"out": ["rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_crown_great", "rc_door_frame", "rc_heads_bone", "rc_hide_patch", "rc_kerege_set", "rc_pole", "rc_rope", "rc_rope_hair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_skin_bag", "rc_tent_kit", "rc_uuk_set", "rc_wheel_pair", "rc_yurt_crown", "rc_yurt_kit"]
+		},
+		{
+			"id": "recipes_at/kitchen",
+			"fn": "recipes_at",
+			"in": [
+				"kitchen",
+				["rc_rope", "rc_rope_hair", "rc_felt", "rc_felt_batch", "rc_felt_white", "rc_chiy", "rc_dye", "rc_hide_patch", "rc_leather", "rc_glue", "rc_glue_fish", "rc_skin_bag", "rc_pole", "rc_door_frame", "rc_kerege_set", "rc_uuk_set", "rc_yurt_crown", "rc_crown_great", "rc_wheel_pair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_torch", "rc_charcoal", "rc_copper_bit", "rc_iron_bar", "rc_bloom", "rc_reforge", "rc_bronze_bar", "rc_bronze_recast", "rc_tin_ingot", "rc_cauldron", "rc_pot", "rc_fodder", "rc_saddle_felt", "rc_felt_boots", "rc_hoof_wraps", "rc_meal", "rc_meal_batch", "rc_cauldron_meat", "rc_dried_meat", "rc_dried_batch", "rc_qurt", "rc_qurt_batch", "rc_kumis_batch", "rc_lamp_oil", "rc_ember_pot", "rc_felt_coat", "rc_hide_lamellar", "rc_bronze_scale", "rc_iron_lamellar", "rc_war_cape", "rc_riding_boots", "rc_fur_boots", "rc_pouch_belt", "rc_tool_belt", "rc_iron_helm", "rc_iron_bracer", "rc_thumb_ring", "rc_war_quiver", "rc_hun_bow", "rc_bone_bow", "rc_horn_bow", "rc_great_bow", "rc_saddle_wood", "rc_saddle_war", "rc_blanket_felt", "rc_horse_armor", "rc_ring_sword", "rc_iron_sword", "rc_long_sword", "rc_yurt_kit", "rc_tent_kit"]
+			],
+			"out": ["rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_cauldron_meat", "rc_dye", "rc_ember_pot", "rc_glue", "rc_glue_fish", "rc_heads_bone", "rc_hide_patch", "rc_kumis_batch", "rc_lamp_oil", "rc_meal", "rc_meal_batch", "rc_pole", "rc_pot", "rc_rope", "rc_rope_hair", "rc_shafts", "rc_shafts_branch", "rc_skin_bag", "rc_tent_kit", "rc_torch", "rc_yurt_kit"]
+		},
+		{
+			"id": "recipes_at/smithy",
+			"fn": "recipes_at",
+			"in": [
+				"smithy",
+				["rc_rope", "rc_rope_hair", "rc_felt", "rc_felt_batch", "rc_felt_white", "rc_chiy", "rc_dye", "rc_hide_patch", "rc_leather", "rc_glue", "rc_glue_fish", "rc_skin_bag", "rc_pole", "rc_door_frame", "rc_kerege_set", "rc_uuk_set", "rc_yurt_crown", "rc_crown_great", "rc_wheel_pair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_torch", "rc_charcoal", "rc_copper_bit", "rc_iron_bar", "rc_bloom", "rc_reforge", "rc_bronze_bar", "rc_bronze_recast", "rc_tin_ingot", "rc_cauldron", "rc_pot", "rc_fodder", "rc_saddle_felt", "rc_felt_boots", "rc_hoof_wraps", "rc_meal", "rc_meal_batch", "rc_cauldron_meat", "rc_dried_meat", "rc_dried_batch", "rc_qurt", "rc_qurt_batch", "rc_kumis_batch", "rc_lamp_oil", "rc_ember_pot", "rc_felt_coat", "rc_hide_lamellar", "rc_bronze_scale", "rc_iron_lamellar", "rc_war_cape", "rc_riding_boots", "rc_fur_boots", "rc_pouch_belt", "rc_tool_belt", "rc_iron_helm", "rc_iron_bracer", "rc_thumb_ring", "rc_war_quiver", "rc_hun_bow", "rc_bone_bow", "rc_horn_bow", "rc_great_bow", "rc_saddle_wood", "rc_saddle_war", "rc_blanket_felt", "rc_horse_armor", "rc_ring_sword", "rc_iron_sword", "rc_long_sword", "rc_yurt_kit", "rc_tent_kit"]
+			],
+			"out": ["rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_bloom", "rc_bronze_bar", "rc_bronze_recast", "rc_bronze_scale", "rc_cauldron", "rc_copper_bit", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_hide_patch", "rc_hoof_wraps", "rc_iron_bar", "rc_iron_bracer", "rc_iron_helm", "rc_iron_lamellar", "rc_iron_sword", "rc_long_sword", "rc_pole", "rc_reforge", "rc_ring_sword", "rc_rope", "rc_rope_hair", "rc_shafts", "rc_shafts_branch", "rc_skin_bag", "rc_tent_kit", "rc_tin_ingot", "rc_yurt_kit"]
+		},
+		{
+			"id": "recipes_at/felt_yard",
+			"fn": "recipes_at",
+			"in": [
+				"felt_yard",
+				["rc_rope", "rc_rope_hair", "rc_felt", "rc_felt_batch", "rc_felt_white", "rc_chiy", "rc_dye", "rc_hide_patch", "rc_leather", "rc_glue", "rc_glue_fish", "rc_skin_bag", "rc_pole", "rc_door_frame", "rc_kerege_set", "rc_uuk_set", "rc_yurt_crown", "rc_crown_great", "rc_wheel_pair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_torch", "rc_charcoal", "rc_copper_bit", "rc_iron_bar", "rc_bloom", "rc_reforge", "rc_bronze_bar", "rc_bronze_recast", "rc_tin_ingot", "rc_cauldron", "rc_pot", "rc_fodder", "rc_saddle_felt", "rc_felt_boots", "rc_hoof_wraps", "rc_meal", "rc_meal_batch", "rc_cauldron_meat", "rc_dried_meat", "rc_dried_batch", "rc_qurt", "rc_qurt_batch", "rc_kumis_batch", "rc_lamp_oil", "rc_ember_pot", "rc_felt_coat", "rc_hide_lamellar", "rc_bronze_scale", "rc_iron_lamellar", "rc_war_cape", "rc_riding_boots", "rc_fur_boots", "rc_pouch_belt", "rc_tool_belt", "rc_iron_helm", "rc_iron_bracer", "rc_thumb_ring", "rc_war_quiver", "rc_hun_bow", "rc_bone_bow", "rc_horn_bow", "rc_great_bow", "rc_saddle_wood", "rc_saddle_war", "rc_blanket_felt", "rc_horse_armor", "rc_ring_sword", "rc_iron_sword", "rc_long_sword", "rc_yurt_kit", "rc_tent_kit"]
+			],
+			"out": ["rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_blanket_felt", "rc_chiy", "rc_felt", "rc_felt_batch", "rc_felt_boots", "rc_felt_coat", "rc_felt_white", "rc_heads_bone", "rc_hide_patch", "rc_pole", "rc_rope", "rc_rope_hair", "rc_saddle_felt", "rc_shafts", "rc_shafts_branch", "rc_skin_bag", "rc_tent_kit", "rc_war_cape", "rc_yurt_kit"]
+		},
+		{
+			"id": "recipes_at/hand",
+			"fn": "recipes_at",
+			"in": [
+				"hand",
+				["rc_rope", "rc_rope_hair", "rc_felt", "rc_felt_batch", "rc_felt_white", "rc_chiy", "rc_dye", "rc_hide_patch", "rc_leather", "rc_glue", "rc_glue_fish", "rc_skin_bag", "rc_pole", "rc_door_frame", "rc_kerege_set", "rc_uuk_set", "rc_yurt_crown", "rc_crown_great", "rc_wheel_pair", "rc_saddle_tree", "rc_shafts", "rc_shafts_branch", "rc_heads_bone", "rc_heads_bronze", "rc_heads_iron", "rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_torch", "rc_charcoal", "rc_copper_bit", "rc_iron_bar", "rc_bloom", "rc_reforge", "rc_bronze_bar", "rc_bronze_recast", "rc_tin_ingot", "rc_cauldron", "rc_pot", "rc_fodder", "rc_saddle_felt", "rc_felt_boots", "rc_hoof_wraps", "rc_meal", "rc_meal_batch", "rc_cauldron_meat", "rc_dried_meat", "rc_dried_batch", "rc_qurt", "rc_qurt_batch", "rc_kumis_batch", "rc_lamp_oil", "rc_ember_pot", "rc_felt_coat", "rc_hide_lamellar", "rc_bronze_scale", "rc_iron_lamellar", "rc_war_cape", "rc_riding_boots", "rc_fur_boots", "rc_pouch_belt", "rc_tool_belt", "rc_iron_helm", "rc_iron_bracer", "rc_thumb_ring", "rc_war_quiver", "rc_hun_bow", "rc_bone_bow", "rc_horn_bow", "rc_great_bow", "rc_saddle_wood", "rc_saddle_war", "rc_blanket_felt", "rc_horse_armor", "rc_ring_sword", "rc_iron_sword", "rc_long_sword", "rc_yurt_kit", "rc_tent_kit"]
+			],
+			"out": ["rc_arrow_bone", "rc_arrow_bronze", "rc_arrow_iron", "rc_heads_bone", "rc_hide_patch", "rc_pole", "rc_rope", "rc_rope_hair", "rc_shafts", "rc_shafts_branch", "rc_skin_bag", "rc_tent_kit", "rc_yurt_kit"]
+		},
+		{
+			"id": "workshop/felt_batch_four_hands",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "felt_batch_four_hands",
+					"station": "felt_yard",
+					"pool": {
+						"wool": 12
+					},
+					"ops": [
+						{
+							"order": ["rc_felt_batch", 1]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"lit": "day",
+									"weather": "CLEAR"
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 206.34000000000003,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_felt_batch", 1, 206.34000000000003, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 206.34000000000003,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_felt_batch", 1, 412.68000000000006, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 7.319999999999937,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 302.12852573422504, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 242.12852573422504, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 182.12852573422504, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 122.12852573422504, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 62.128525734225036, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 2.128525734225036, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "felt",
+									"n": 6,
+									"recipe": "rc_felt_batch",
+									"fine": false
+								}
+							],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "felt",
+						"n": 6
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "felt_yard",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/crew_clamped",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "crew_clamped",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 12
+					},
+					"ops": [
+						{
+							"order": ["rc_uuk_set"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_uuk_set", 1, 162.59999999999997, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_uuk_set", 1, 2.71, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/no_crew",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "no_crew",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 12
+					},
+					"ops": [
+						{
+							"order": ["rc_uuk_set"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {
+								"reason": "crew"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_uuk_set", 1, 0, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_uuk_set", 1, 0, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/felt_rain",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "felt_rain",
+					"station": "felt_yard",
+					"pool": {
+						"wool": 12
+					},
+					"ops": [
+						{
+							"order": ["rc_felt_batch"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 4,
+									"weather": "RAIN"
+								}
+							]
+						},
+						{
+							"set_wm": [0, 420]
+						},
+						{
+							"tick": [
+								1,
+								{
+									"crewW": 4,
+									"weather": "CLEAR"
+								}
+							]
+						},
+						{
+							"tick": [
+								120,
+								{
+									"crewW": 4,
+									"weather": "RAIN"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0,
+									"weather": "drizzle"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0,
+									"weather": {
+										"type": "wind",
+										"dryK": 1.3
+									}
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 144.43800000000002,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_felt_batch", 1, 144.43800000000002, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 359, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 359, true]
+						],
+						"rain"
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 359, true]
+						],
+						"rain"
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_felt_batch", 281, false]
+						],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "felt_yard",
+					"q": [],
+					"cures": [
+						["rc_felt_batch", 4.68]
+					]
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/kitchen_roofed",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "kitchen_roofed",
+					"station": "kitchen",
+					"pool": {
+						"bone": 3
+					},
+					"ops": [
+						{
+							"order": ["rc_glue"]
+						},
+						{
+							"tick": [
+								120,
+								{
+									"crewW": 3,
+									"weather": "RAIN"
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"weather": "RAIN"
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 60.00000000000001,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_glue", 262.140221402214, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_glue", 202.14022140221402, false]
+						],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "kitchen",
+					"q": [],
+					"cures": [
+						["rc_glue", 3.37]
+					]
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/master_needed",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "master_needed",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 8,
+						"rope": 2
+					},
+					"ops": [
+						{
+							"order": ["rc_kerege_set"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": {
+										"cr_carpenter": "apprentice"
+									}
+								}
+							]
+						},
+						{
+							"crew": {
+								"W": 3,
+								"roles": ["cr_carpenter"]
+							}
+						},
+						{
+							"tick": [
+								60,
+								{}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {
+								"reason": "master",
+								"role": "cr_carpenter"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_kerege_set", 1, 0, false, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {
+								"reason": "master",
+								"role": "cr_carpenter"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_kerege_set", 1, 0, false, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_kerege_set", 1, 162.59999999999997, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_kerege_set", 1, 2.71, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/wheel_cartwright",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "wheel_cartwright",
+					"station": "wood_shop",
+					"pool": {
+						"wood_elm": 2
+					},
+					"ops": [
+						{
+							"order": ["rc_wheel_pair"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 1,
+									"roles": ["cr_cartwright"]
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 60,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_wheel_pair", 1, 60, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_wheel_pair", 1, 1, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/material_wait",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "material_wait",
+					"station": "smithy",
+					"pool": {
+						"iron_bar": 1
+					},
+					"ops": [
+						{
+							"order": ["rc_heads_iron"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 2
+								}
+							]
+						},
+						{
+							"add": ["charcoal", 1]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 2
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {
+								"reason": "material",
+								"missing": [
+									{
+										"id": "charcoal",
+										"n": 1
+									}
+								]
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_heads_iron", 1, 0, false, false]
+						],
+						[],
+						""
+					],
+					["add", 1],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 114,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_heads_iron", 1, 114, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "smithy",
+					"q": [
+						["rc_heads_iron", 1, 1.9, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/rest_window",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "rest_window",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 24
+					},
+					"ops": [
+						{
+							"order": ["rc_uuk_set", 2]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"window": false
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {
+								"reason": "rest"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_uuk_set", 2, 0, false, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "wood_pine",
+						"n": 24
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_uuk_set", 2, 0, 0]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/night_shift_dark",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "night_shift_dark",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 24
+					},
+					"ops": [
+						{
+							"order": [
+								"rc_uuk_set",
+								2,
+								{
+									"night": true
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"window": false,
+									"lit": "dark"
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 65.03999999999999,
+							"wait": {},
+							"night_min": 60,
+							"torches": 0
+						},
+						[
+							["rc_uuk_set", 2, 65.03999999999999, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "wood_pine",
+						"n": 12
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_uuk_set", 2, 1.08, 6]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/lit_torch",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "lit_torch",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 36,
+						"torch": 1
+					},
+					"ops": [
+						{
+							"order": [
+								"rc_uuk_set",
+								3,
+								{
+									"night": true
+								}
+							]
+						},
+						{
+							"tick": [
+								480,
+								{
+									"crewW": 3,
+									"window": false,
+									"lit": "lit",
+									"dark": true
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "uuk_set",
+									"n": 1,
+									"recipe": "rc_uuk_set",
+									"fine": false
+								}
+							],
+							"used": 910.5599999999998,
+							"wait": {},
+							"night_min": 480,
+							"torches": 1
+						},
+						[
+							["rc_uuk_set", 2, 430.55999999999983, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "uuk_set",
+						"n": 1
+					},
+					{
+						"id": "wood_pine",
+						"n": 12
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_uuk_set", 2, 7.18, 6]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/lit_day_no_torch",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "lit_day_no_torch",
+					"station": "wood_shop",
+					"pool": {
+						"torch": 2
+					},
+					"ops": [
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"lit": true,
+									"dark": false
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "torch",
+						"n": 2
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/fine_bow",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "fine_bow",
+					"station": "fletchery",
+					"pool": {
+						"horn": 2,
+						"sinew": 3,
+						"wood_pine": 1,
+						"glue": 1
+					},
+					"ops": [
+						{
+							"order": [
+								"rc_thumb_ring",
+								1,
+								{
+									"fine": true
+								}
+							]
+						},
+						{
+							"order": [
+								"rc_hun_bow",
+								1,
+								{
+									"fine": true
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3,
+									"roles": ["cr_bowyer"]
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 0
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", -1],
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 162.59999999999997, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 325.19999999999993, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 487.7999999999999, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 650.3999999999999, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 812.9999999999998, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hun_bow", 1, 975.5999999999997, true, false]
+						],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 104.40000000000032,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1418.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1358.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1298.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1238.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1178.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1118.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 1058.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 998.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 938.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 878.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 818.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 758.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 698.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 638.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 578.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 518.5239852398524, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 458.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 398.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 338.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 278.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 218.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 158.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 98.52398523985244, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[
+							["rc_hun_bow", 38.523985239852436, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "hun_bow+",
+									"n": 1,
+									"recipe": "rc_hun_bow",
+									"fine": true
+								}
+							],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "hun_bow+",
+						"n": 1
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "fletchery",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/kitchen_ration",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "kitchen_ration",
+					"station": "kitchen",
+					"pool": {
+						"meat": 1
+					},
+					"ops": [
+						{
+							"order": ["rc_cauldron_meat"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 1
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "@ration",
+									"n": 5,
+									"recipe": "rc_cauldron_meat",
+									"fine": false
+								}
+							],
+							"used": 30,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "kitchen",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/cook_speed",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "cook_speed",
+					"station": "kitchen",
+					"pool": {
+						"millet": 10
+					},
+					"ops": [
+						{
+							"order": ["rc_meal_batch"]
+						},
+						{
+							"tick": [
+								10,
+								{
+									"crewW": 1,
+									"roles": ["cr_cook"]
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 12.5,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_meal_batch", 1, 12.5, true, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [],
+				"json": {
+					"v": 1,
+					"station": "kitchen",
+					"q": [
+						["rc_meal_batch", 1, 0.21, 4]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/slot_wait",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "slot_wait",
+					"station": "smithy",
+					"pool": {
+						"ore_iron": 8,
+						"charcoal": 6
+					},
+					"ops": [
+						{
+							"order": ["rc_bloom", 2]
+						},
+						{
+							"tick": [
+								240,
+								{
+									"crewW": 3,
+									"roles": ["cr_smith"]
+								}
+							]
+						},
+						{
+							"tick": [
+								808.5608856088561,
+								{
+									"crewW": 3,
+									"roles": ["cr_smith"]
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 480.00000000000006,
+							"wait": {
+								"reason": "slot"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_bloom", 1, 240.00000000000003, true, true]
+						],
+						[
+							["rc_bloom", 208.5608856088561, false]
+						],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "iron_bar",
+									"n": 1,
+									"recipe": "rc_bloom",
+									"fine": false
+								},
+								{
+									"id": "iron_bar",
+									"n": 1,
+									"recipe": "rc_bloom",
+									"fine": false
+								}
+							],
+							"used": 0,
+							"wait": {
+								"reason": "slot"
+							},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "iron_bar",
+						"n": 2
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "smithy",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/npc_rope",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "npc_rope",
+					"station": "wood_shop",
+					"pool": {
+						"reed": 9
+					},
+					"ops": [
+						{
+							"order": ["rc_rope", 3]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "rope",
+									"n": 1,
+									"recipe": "rc_rope",
+									"fine": false
+								},
+								{
+									"id": "rope",
+									"n": 1,
+									"recipe": "rc_rope",
+									"fine": false
+								}
+							],
+							"used": 60,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_rope", 1, 0, false, false]
+						],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "reed",
+						"n": 3
+					},
+					{
+						"id": "rope",
+						"n": 2
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [
+						["rc_rope", 1, 0, 0]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/outbox",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "outbox",
+					"station": "wood_shop",
+					"pool": {
+						"wood_pine": 1
+					},
+					"cap": 0,
+					"ops": [
+						{
+							"order": ["rc_pole"]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 1
+								}
+							]
+						},
+						{
+							"cap": "inf"
+						},
+						{
+							"tick": [
+								1,
+								{
+									"crewW": 0
+								}
+							]
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					[
+						"tick",
+						{
+							"done": [
+								{
+									"id": "pole",
+									"n": 2,
+									"recipe": "rc_pole",
+									"fine": false
+								}
+							],
+							"used": 30,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 0,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[],
+						[],
+						""
+					]
+				],
+				"pool": [
+					{
+						"id": "pole",
+						"n": 2
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "wood_shop",
+					"q": [],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "workshop/cancel_save",
+			"fn": "workshop",
+			"in": [
+				{
+					"id": "cancel_save",
+					"station": "tannery",
+					"pool": {
+						"hide": 7,
+						"rope": 2,
+						"salt": 1
+					},
+					"ops": [
+						{
+							"order": ["rc_hide_lamellar"]
+						},
+						{
+							"order": ["rc_leather", 1]
+						},
+						{
+							"tick": [
+								60,
+								{
+									"crewW": 3
+								}
+							]
+						},
+						{
+							"cancel": 5
+						}
+					]
+				}
+			],
+			"out": {
+				"trace": [
+					["order", 0],
+					["order", 1],
+					[
+						"tick",
+						{
+							"done": [],
+							"used": 162.59999999999997,
+							"wait": {},
+							"night_min": 0,
+							"torches": 0
+						},
+						[
+							["rc_hide_lamellar", 1, 162.59999999999997, true, false],
+							["rc_leather", 1, 0, false, false]
+						],
+						[],
+						""
+					],
+					[
+						"cancel",
+						[]
+					]
+				],
+				"pool": [
+					{
+						"id": "hide",
+						"n": 1
+					},
+					{
+						"id": "salt",
+						"n": 1
+					}
+				],
+				"json": {
+					"v": 1,
+					"station": "tannery",
+					"q": [
+						["rc_hide_lamellar", 1, 2.71, 4],
+						["rc_leather", 1, 0, 0]
+					],
+					"cures": []
+				},
+				"outbox": []
+			}
+		},
+		{
+			"id": "long_step/1800",
+			"fn": "long_step",
+			"in": [1800],
+			"out": [
+				18,
+				0,
+				[]
+			]
+		},
+		{
+			"id": "long_step/60",
+			"fn": "long_step",
+			"in": [60],
+			"out": [
+				18,
+				0,
+				[]
+			]
+		},
+		{
+			"id": "long_step/10",
+			"fn": "long_step",
+			"in": [10],
+			"out": [
+				18,
+				0,
+				[]
+			]
+		},
+		{
+			"id": "workshop/json",
+			"fn": "workshop_json",
+			"in": [
+				{
+					"v": 1,
+					"station": "tannery",
+					"q": [
+						["rc_hide_lamellar", 1, 2.71, 4],
+						["rc_leather", 1, 0, 0]
+					],
+					"cures": []
+				}
+			],
+			"out": {
+				"back": {
+					"v": 1,
+					"station": "tannery",
+					"q": [
+						["rc_hide_lamellar", 1, 2.71, 4],
+						["rc_leather", 1, 0, 0]
+					],
+					"cures": []
+				},
+				"junk": {
+					"v": 1,
+					"station": "tannery",
+					"q": [],
+					"cures": []
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "erlik_drone",
+  "kind": "music",
+  "instrument": "throat",
+  "role": "kargyraa",
+  "root": 40,
+  "growl": 0.6,
+  "tempo": 52,
+  "bars": 8,
+  "mode": "e_phrygian",
+  "seed": 5251,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2,
+  "source": "code",
+  "note": "erlik'in 0. katmanı: kargıra dronu E2'de (alt oktav E1 periyot ikilenmesiyle), sıgıt yalnız kipteki harmoniklerde (8 E, 12 B, 16 E). Önsöz'ün Erlik panosu, erlik durumu (audio.md §3: E Frigyen 52, kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

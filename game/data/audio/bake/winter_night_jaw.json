@@ -1,0 +1,13 @@
+{
+  "id": "winter_night_jaw",
+  "kind": "music",
+  "instrument": "jaw",
+  "root": 40,
+  "tempo": 58,
+  "bars": 2,
+  "seed": 5851,
+  "rate": 44100,
+  "loop": false,
+  "note": "winter_night: tek tük ağız kopuzu (Mete'nin çalgısı; audio.md §2, §3). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

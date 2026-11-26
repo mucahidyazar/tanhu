@@ -1,0 +1,28 @@
+{
+	"id": "hearth",
+	"title": {"tr": "Ocak", "en": "The Hearth"},
+	"doc": "Önsöz «Ocak» (10 Nisan MÖ 209, ikindiden akşama, Göl Obası; K110; story.md §3; e21-atmosphere.md «Ocak»; Ö2). Ozan bu gece uzun söyleyecektir, ateşi Çocuk kuracaktır: tipi ocak taşlarını çatlattı (HearthCold). Orman kıyısında kuru kütükler baltayla kırılır, altı parça toplanır (hearth_wood); derede büyük taş kırılır, üç taş tek tek Ağabey'in heybesine taşınır, dönüş kararmayla kısalır, odun kucaklanır (hearth_stone); ocakta üç taş üçgen dizilir, odun konur, ak taş kara taşa vurulur, kav tutuşur, ateş odunla evre evre büyür, aile ışığa girdikçe menüdeki yerine oturur, ozan kopuzu kaldırır, Çocuk Ana'nın yanına oturur, ateş menünün ateşine oturur ve sinema başlar (hearth_build → days.to_cinema).",
+	"clock": {"start": "15:00", "seconds_per_minute": 2.5},
+	"player": {"at": [1.6, 3.8], "face": "gol_fire"},
+	"family_yurt": "closed",
+	"weather": {"type": "clear", "snow": 0.0, "mist": 0.0},
+	"music": "mus_prologue_day",
+	"beds": [{"id": "amb_dusk_valley", "at": "gol_center", "radius": 90}],
+	"cast": {
+		"bard": {"at": [2.35, -0.65], "face": "gol_fire", "work": "sit"},
+		"mother": {"at": "gol_family_door", "face": "gol_fire", "work": "stand"},
+		"father": {"at": "gol_felt", "face": "gol_fire", "work": "felt"},
+		"older_brother": {"at": [3.4, 3.0], "face": "gol_fire", "work": "stand"}
+	},
+	"steps": [
+		{"id": "wood", "kind": "hearth_wood",
+			"intro": ["act0.hearth.bard", "act0.hearth.ana", "act0.hearth.wood"],
+			"objective": {"tr": "Orman kıyısında kuru dal", "en": "Dry wood at the forest edge"},
+			"edge": "forest_edge", "logs": [[5.4, -5.6], [7.4, -3.4]], "bundle_at": [-7.4, 54.0]},
+		{"id": "stone", "kind": "hearth_stone",
+			"objective": {"tr": "Dereye in, büyük taşı bul", "en": "Go down to the stream, find the big stone"},
+			"stone_at": [-209.6, 153.4], "bank": "ford", "edge": "forest_edge", "bundle_at": [-7.4, 54.0], "hearth": "gol_fire"},
+		{"id": "build", "kind": "hearth_build",
+			"objective": {"tr": "Ateşi kur", "en": "Build the fire"}, "hearth": "gol_fire"}
+	]
+}

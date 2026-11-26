@@ -1,0 +1,627 @@
+{
+	"id": "kislak_light",
+	"version": 1,
+	"doc": "Kışlak'ın ışığı (act-1-p2; godot.md §4.9; time.md §5; K20, K58, K67, K101): Hexi Koridoru 38,9°K, I. Perde'nin Gün I'i dayN 1.041 (2 Aralık MÖ 210; güneş 07:11'de doğar, 16:49'da batar, öğlede ≈29°). Saat (GameClock, oturumun) 4 Hz örnek üretir: LightStops.sample(bu tablo, \"kislak\", gün, dakika) altı durağı karıştırır, MapSky (scripts/maps/map_sky.gd) SkyRig'e verir; ışığın tek yazıcısı SkyRig kalır. Duraklar ana kampın (data/time/light_stops.json) duraklarından kara çevrildi: kar ak olduğu için pozlama ×0,84, gölge dolgusu soğuk mavi, göğün yeri (ground) kar, ufuk ve sis kış beyazı; kampın ateş, köy ve su payları (props, water) yoktur. Değerler hedeftir: K58'in kar kareleriyle (docs/media/review/kislak_light_*.jpg) ayarlanır, göz onayı kullanıcınındır. samples.noon saat bağlanmadan önceki açılış örneğidir (sahne ve sınama). Hava kilidi map.json «weather»dadır (act1.md §9.8).",
+	"lat": 38.9,
+	"day_n": 1041,
+	"order": [
+		"night",
+		"dawn",
+		"morning",
+		"noon",
+		"golden",
+		"dusk"
+	],
+	"places": {
+		"kislak": {
+			"doc": "Kışlak, Hexi Koridoru (act1.md §4; atlas iğnesi 99,4°D 38,9°K): sapma tarihten, ikindi ve menü anahtarı yok (Daylight.sky_keys varsayılanı).",
+			"lat": 38.9,
+			"dec_offset": 0.0,
+			"props": {},
+			"nodes": {
+				"light": "SunLight",
+				"environment": "WorldEnvironment"
+			}
+		}
+	},
+	"probe": {
+		"doc": "K58'in kar kareleri (Gün I, dayN 1.041): her durağın anahtarı (Daylight.sky_keys: tan doğuştan 12 dk önce, sabah doğuştan 105 dk sonra, öğle düzlüğü, ikindi batıştan 180 dk önce, akşam batış) ve gece 23:00. Gölge kıstırması (15°): 08:30 ve 15:30, güneş ≈11,7°.",
+		"day_n": 1041,
+		"night": "23:00",
+		"dawn": "06:59",
+		"morning": "08:56",
+		"noon": "11:45",
+		"golden": "13:49",
+		"dusk": "16:49",
+		"clamp_am": "08:30",
+		"clamp_pm": "15:30"
+	},
+	"stops": {
+		"night": {
+			"name": "Gece / Night",
+			"light_color": [
+				0.66,
+				0.75,
+				1.0
+			],
+			"light_energy": 0.42,
+			"ambient_color": [
+				0.3,
+				0.38,
+				0.66
+			],
+			"ambient_energy": 0.5,
+			"ambient_sky": 0.55,
+			"exposure": 0.9,
+			"sky_energy": 1.0,
+			"grade_night": 1.0,
+			"sky": {
+				"zenith": [
+					0.025,
+					0.045,
+					0.16
+				],
+				"mid": [
+					0.06,
+					0.11,
+					0.32
+				],
+				"horizon": [
+					0.2,
+					0.3,
+					0.6
+				],
+				"ground": [
+					0.108,
+					0.137,
+					0.223
+				],
+				"moon_energy": 3.2,
+				"moon_glow_strength": 0.55,
+				"moon_glow_color": [
+					0.5,
+					0.6,
+					1.0
+				],
+				"star_brightness": 2.4,
+				"cloud_lit_color": [
+					0.6,
+					0.64,
+					0.92
+				],
+				"cloud_shadow_color": [
+					0.21,
+					0.25,
+					0.52
+				],
+				"cloud_rim_color": [
+					0.95,
+					0.96,
+					1.0
+				],
+				"cloud_coverage": 0.58,
+				"cloud_softness": 0.04,
+				"cloud_opacity": 0.97,
+				"cloud_light_from_sun": 0.0,
+				"sun_color": [
+					1.0,
+					0.66,
+					0.36
+				],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.0,
+				"sun_glow_color": [
+					1.0,
+					0.56,
+					0.32
+				],
+				"sun_glow_strength": 0.0,
+				"sun_glow_spread": 3.0,
+				"sun_glow_height": 0.35,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": [
+					0.18,
+					0.26,
+					0.46
+				],
+				"density": 0.00045,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.006,
+				"albedo": [
+					0.55,
+					0.62,
+					0.9
+				]
+			},
+			"props": {},
+			"saturation": 1.12,
+			"contrast": 1.05
+		},
+		"dawn": {
+			"name": "Tan / Dawn",
+			"light_color": "#ffb48a",
+			"light_energy": 0.47,
+			"ambient_color": [
+				0.542,
+				0.609,
+				0.796
+			],
+			"ambient_energy": 0.36,
+			"ambient_sky": 0.0,
+			"exposure": 0.958,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#3a4f8a",
+				"mid": "#8f96c4",
+				"horizon": "#e2b3a8",
+				"ground": [
+					0.721,
+					0.751,
+					0.789
+				],
+				"moon_energy": 1.2,
+				"moon_glow_strength": 0.15,
+				"moon_glow_color": [
+					0.62,
+					0.66,
+					0.9
+				],
+				"star_brightness": 0.35,
+				"cloud_lit_color": "#ffd2be",
+				"cloud_shadow_color": "#6c709c",
+				"cloud_rim_color": [
+					1.0,
+					0.86,
+					0.78
+				],
+				"cloud_coverage": 0.42,
+				"cloud_softness": 0.1,
+				"cloud_opacity": 0.85,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.72,
+					0.52
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.013,
+				"sun_glow_color": "#ffb48c",
+				"sun_glow_strength": 0.6,
+				"sun_glow_spread": 2.6,
+				"sun_glow_height": 0.45,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#8d93b8",
+				"density": 0.00045,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.005,
+				"albedo": [
+					0.72,
+					0.72,
+					0.84
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"morning": {
+			"name": "Sabah / Morning",
+			"light_color": "#ffe2b8",
+			"light_energy": 1.203,
+			"ambient_color": [
+				0.614,
+				0.686,
+				0.838
+			],
+			"ambient_energy": 0.451,
+			"ambient_sky": 0.0,
+			"exposure": 0.861,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#5577b6",
+				"mid": "#8eaad6",
+				"horizon": [
+					0.812,
+					0.856,
+					0.921
+				],
+				"ground": [
+					0.733,
+					0.763,
+					0.787
+				],
+				"moon_energy": 0.5,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#fff6ea",
+				"cloud_shadow_color": "#9aa6c4",
+				"cloud_rim_color": [
+					1.0,
+					0.97,
+					0.9
+				],
+				"cloud_coverage": 0.22,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.92,
+					0.78
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.012,
+				"sun_glow_color": "#ffe0b0",
+				"sun_glow_strength": 0.45,
+				"sun_glow_spread": 2.4,
+				"sun_glow_height": 0.9,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": [
+					0.712,
+					0.788,
+					0.881
+				],
+				"density": 0.000368,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.003,
+				"albedo": [
+					0.82,
+					0.84,
+					0.88
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"noon": {
+			"name": "Öğle / Midday",
+			"light_color": "#fff1d8",
+			"light_energy": 1.542,
+			"ambient_color": [
+				0.653,
+				0.715,
+				0.856
+			],
+			"ambient_energy": 0.509,
+			"ambient_sky": 0.0,
+			"exposure": 0.818,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#5a84c8",
+				"mid": "#8db0e0",
+				"horizon": [
+					0.786,
+					0.849,
+					0.931
+				],
+				"ground": [
+					0.739,
+					0.769,
+					0.79
+				],
+				"moon_energy": 0.4,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#ffffff",
+				"cloud_shadow_color": "#9aa8c8",
+				"cloud_rim_color": [
+					1.0,
+					0.99,
+					0.95
+				],
+				"cloud_coverage": 0.22,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.96,
+					0.86
+				],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.011,
+				"sun_glow_color": "#fff0d0",
+				"sun_glow_strength": 0.35,
+				"sun_glow_spread": 2.0,
+				"sun_glow_height": 1.0,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": [
+					0.69,
+					0.78,
+					0.889
+				],
+				"density": 0.000261,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.0025,
+				"albedo": [
+					0.84,
+					0.86,
+					0.9
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"golden": {
+			"name": "İkindi / Afternoon",
+			"light_color": "#ffcb8a",
+			"light_energy": 1.41,
+			"ambient_color": [
+				0.63,
+				0.696,
+				0.849
+			],
+			"ambient_energy": 0.471,
+			"ambient_sky": 0.0,
+			"exposure": 0.875,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#4f74b8",
+				"mid": "#7d9fd2",
+				"horizon": [
+					0.742,
+					0.809,
+					0.898
+				],
+				"ground": [
+					0.736,
+					0.766,
+					0.789
+				],
+				"moon_energy": 0.5,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#fff0dc",
+				"cloud_shadow_color": "#8e9cc0",
+				"cloud_rim_color": [
+					1.0,
+					0.94,
+					0.84
+				],
+				"cloud_coverage": 0.22,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.84,
+					0.62
+				],
+				"sun_energy": 5.5,
+				"sun_disc_size": 0.012,
+				"sun_glow_color": "#ffc890",
+				"sun_glow_strength": 0.5,
+				"sun_glow_spread": 2.4,
+				"sun_glow_height": 0.7,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": [
+					0.653,
+					0.741,
+					0.859
+				],
+				"density": 0.000289,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.0025,
+				"albedo": [
+					0.86,
+					0.84,
+					0.82
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"dusk": {
+			"name": "Akşam / Evening",
+			"light_color": "#ff9f6d",
+			"light_energy": 0.583,
+			"ambient_color": [
+				0.51,
+				0.583,
+				0.796
+			],
+			"ambient_energy": 0.38,
+			"ambient_sky": 0.0,
+			"exposure": 0.974,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#28386a",
+				"mid": "#5f73a8",
+				"horizon": "#b98e98",
+				"ground": [
+					0.718,
+					0.749,
+					0.786
+				],
+				"moon_energy": 1.6,
+				"moon_glow_strength": 0.2,
+				"moon_glow_color": [
+					0.6,
+					0.64,
+					0.92
+				],
+				"star_brightness": 0.45,
+				"cloud_lit_color": "#f7b494",
+				"cloud_shadow_color": "#4e5683",
+				"cloud_rim_color": [
+					1.0,
+					0.8,
+					0.66
+				],
+				"cloud_coverage": 0.44,
+				"cloud_softness": 0.1,
+				"cloud_opacity": 0.86,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.62,
+					0.42
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.013,
+				"sun_glow_color": "#ff9a68",
+				"sun_glow_strength": 0.7,
+				"sun_glow_spread": 2.8,
+				"sun_glow_height": 0.45,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#4a648f",
+				"density": 0.000324,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.004,
+				"albedo": [
+					0.66,
+					0.66,
+					0.82
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05
+		}
+	},
+	"samples": {
+		"noon": {
+			"light_color": "#fff1d8",
+			"light_energy": 1.542,
+			"ambient_color": [
+				0.653,
+				0.715,
+				0.856
+			],
+			"ambient_energy": 0.509,
+			"ambient_sky": 0.0,
+			"exposure": 0.818,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#5a84c8",
+				"mid": "#8db0e0",
+				"horizon": [
+					0.786,
+					0.849,
+					0.931
+				],
+				"ground": [
+					0.739,
+					0.769,
+					0.79
+				],
+				"moon_energy": 0.4,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#ffffff",
+				"cloud_shadow_color": "#9aa8c8",
+				"cloud_rim_color": [
+					1.0,
+					0.99,
+					0.95
+				],
+				"cloud_coverage": 0.22,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.96,
+					0.86
+				],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.011,
+				"sun_glow_color": "#fff0d0",
+				"sun_glow_strength": 0.35,
+				"sun_glow_spread": 2.0,
+				"sun_glow_height": 1.0,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0,
+				"ambient_panorama": "res://assets/_free/hdri/qwantani_sunrise_puresky/qwantani_sunrise_puresky_2k.hdr",
+				"ambient_panorama_mix": 0.3,
+				"ambient_panorama_energy": 0.42,
+				"ambient_panorama_offset": 0.344,
+				"ambient_panorama_clamp": 6.0
+			},
+			"fog": {
+				"color": [
+					0.69,
+					0.78,
+					0.889
+				],
+				"density": 0.000261,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.0025,
+				"albedo": [
+					0.84,
+					0.86,
+					0.9
+				]
+			},
+			"props": {},
+			"saturation": 1.0,
+			"contrast": 1.05,
+			"doc": "Gün I 11:45 (öğle düzlüğü): saat bağlanmadan önceki açılış örneği.",
+			"lat": 38.9,
+			"doy": 336,
+			"minute": 705.0,
+			"light_shadow": true
+		}
+	}
+}

@@ -1,0 +1,63 @@
+{
+  "id": "wind_winter",
+  "kind": "ambience",
+  "instrument": "wind",
+  "seconds": 24.0,
+  "fold": 2.0,
+  "seed": 4501,
+  "rate": 22050,
+  "loop": true,
+  "top_hz": 6000,
+  "bands": [
+    {
+      "f": 300.0,
+      "q": 0.6,
+      "gain": [
+        0.4,
+        1.0
+      ],
+      "points": 7
+    },
+    {
+      "f": 900.0,
+      "q": 1.3,
+      "sweep": [
+        600.0,
+        1300.0
+      ],
+      "gain": [
+        0.15,
+        0.55
+      ],
+      "points": 9
+    },
+    {
+      "f": 750.0,
+      "q": 9.0,
+      "sweep": [
+        620.0,
+        900.0
+      ],
+      "gain": [
+        0.0,
+        0.16
+      ],
+      "points": 6
+    },
+    {
+      "f": 3800.0,
+      "q": 0.9,
+      "sweep": [
+        3000.0,
+        5000.0
+      ],
+      "gain": [
+        0.04,
+        0.16
+      ],
+      "points": 8
+    }
+  ],
+  "note": "Kışlak'ın kış rüzgârı (audio.md §4 «Ortamın saati»: gündüz 0,6, gece 0,45; × havanın windK'sı): gövde 300 Hz, gezinen orta bant, seyrek uluma 620–900 Hz, karın tıslaması. Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

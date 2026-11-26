@@ -1,0 +1,18 @@
+{
+	"id": "new_game",
+	"version": 2,
+	"doc": "Yeni Oyun'un sırası (K99; K36, K67, K68, K100; story.md §3–§6, docs-app story/childhood): Önsöz → Çocukluk «Koyun Sırtında» → Köprü 1 → oluşturucu «Yola Hazırlan» → Yola Çıkış → Köprü 2 → I. Perde. NewGameFlow (scripts/story/new_game_flow.gd) okur, main.gd sürer. Tür: prologue (Önsöz; basılı Esc atlar), childhood (scene dosyası; ChildhoodScene; Çocukluk'u bir kez bitiren oyuncuya başında «Çocukluğu geç: Esc basılı tut» sunulur), cine (CineHost dizisi: path; Köprü 1'in baş perdesi Çocukluk'un donan son karesidir), creator (oluşturucu; Geri Al açılış ekranına döner), scene (oynanan küçük sahne: Yola Çıkış, DepartScene; path sahnenin verisi), act (perde: I. Perde; world dünyasıdır), card (kara ekranda kart; unless'teki aşama hazırsa gösterilmez). Dosyası olmayan ya da main.gd'nin bugün oynatamadığı aşama (act) sessizce atlanır: I. Perde gelince yalnız dosyası ve main.gd'deki oynatıcısı eklenir, sıra değişmez, son kart düşer. Takvim (K67): jump/jumps aşamanın yolculuğa yazdığı günlerdir (dayN; gün sayacı rehineliğin ilk gününde 1; at verilen atlama sinemanın o olayında, öteki aşama bitince yazılır; takvim geri gitmez): Çocukluk −5.600 (22 Eylül MÖ 228), Köprü 1'den sonra −41 (15 Aralık MÖ 213, Yola Çıkış'ın günü), Köprü 2'nin bileğe çan bağlanan çekiminde 1 (26 Ocak MÖ 212, rehineliğin 1. günü), sonunda 1.041 (2 Aralık MÖ 210, I. Perde'nin Gün I'i). preload: bu aşama sürerken o aşamanın dünyası (world) arka planda yüklenir; dosya yoksa sessizce geçilir (Köprü 2 → Kışlak). Akış hiçbir kayıt yazmaz; son kart açılış ekranına döner.",
+	"stages": [
+		{"id": "prologue", "kind": "prologue"},
+		{"id": "childhood", "kind": "childhood", "scene": "res://data/story/childhood/scene.json", "days": "res://data/story/childhood_days.json"},
+		{"id": "bridge_1", "kind": "cine", "path": "res://data/cine/bridge_1.json", "jump": {"day_n": -41, "date": {"tr": "15 Aralık MÖ 213", "en": "15 December 213 BC"}}},
+		{"id": "creator", "kind": "creator"},
+		{"id": "depart", "kind": "scene", "path": "res://data/story/departure/scene.json", "date": {"tr": "15 Aralık MÖ 213 · Tanhu Kampı", "en": "15 December 213 BC · The Tanhu's Camp"}},
+		{"id": "bridge_2", "kind": "cine", "path": "res://data/cine/bridge_2.json", "preload": "act_1", "jumps": [
+			{"at": "tie", "day_n": 1, "date": {"tr": "26 Ocak MÖ 212", "en": "26 January 212 BC"}},
+			{"day_n": 1041, "date": {"tr": "2 Aralık MÖ 210", "en": "2 December 210 BC"}}
+		]},
+		{"id": "act_1", "kind": "act", "path": "res://data/story/act_1/act.json", "world": "res://scenes/maps/kislak.tscn"},
+		{"id": "end_card", "kind": "card", "unless": "act_1", "title": {"tr": "I. Perde: Çan", "en": "Act I: The Bell"}, "line": {"tr": "Yapım aşamasında.", "en": "In the making."}, "sfx": "bell_step", "hold": 5.0}
+	]
+}

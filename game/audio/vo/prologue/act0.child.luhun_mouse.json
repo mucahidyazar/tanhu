@@ -1,0 +1,14 @@
+{
+	"id": "act0.child.luhun_mouse",
+	"take": 0,
+	"seed": 3269107556,
+	"hash": "c2da9f6478db",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.04,
+	"words": [
+		{"w": "She", "t0": 0.0, "t1": 0.08},
+		{"w": "has", "t0": 0.14, "t1": 0.32},
+		{"w": "young.", "t0": 0.387, "t1": 1.04}
+	]
+}

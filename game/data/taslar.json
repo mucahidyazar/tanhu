@@ -1,0 +1,39 @@
+{
+	"stones": [
+		{
+			"id": "ocak_taslari",
+			"name": "Ocak Taşları",
+			"group": "Kamp",
+			"unlock": "ates_basi",
+			"text": "Ateşin çevresine halka hâlinde dizilmiş dere taşları. Her biri başka bir yolculuktan getirilmiş: biri ırmak yatağından, biri dağ geçidinden, biri eski bir höyüğün dibinden. Taşlar ateşi tutar, ateş de kampı."
+		},
+		{
+			"id": "ahir",
+			"name": "Ahır",
+			"group": "Kamp",
+			"unlock": "ahir_ziyaret",
+			"text": "Kalın direklerle kurulmuş, damı otla örtülü bir barınak. İçinde iki at, bir yemlik ve bir fener var. Rüzgâr kuzeyden esince atlar buraya sığınır; gece fenerin ışığı yurtlardan görünür."
+		},
+		{
+			"id": "yosunlu_kayalar",
+			"name": "Yosunlu Kayalar",
+			"group": "Çevre",
+			"unlock": "yosunlu_kaya",
+			"text": "Kampın çevresine serpilmiş iri, yuvarlak granit kayalar. Kuzey yüzlerini yosun tutmuş; çobanlar yönlerini bu yosunlardan bulur. Yaşlı Ozan onlara “devlerin unuttuğu yumurtalar” der."
+		},
+		{
+			"id": "dikili_kayalar",
+			"name": "Dikili Kayalar",
+			"group": "Çevre",
+			"unlock": "kaya_kumesi",
+			"text": "Çayırdan yükselen, dilim dilim yarılmış kaya kümeleri. Rüzgâr aralarından geçerken ıslık çalar. Eskiler bunları sınır taşı sayardı: ötesi başka bir obanın yurduydu."
+		},
+		{
+			"id": "gol",
+			"name": "Göl",
+			"group": "Çevre",
+			"unlock": "gol_yamaci",
+			"text": "Vadinin dibinde, ormanla çevrili uzun bir göl. Ay doğunca suyun üstünde gümüş bir yol açılır. Adacıklarında ışıklar yanar; kimin yaktığını kimse bilmez. Göle bakan yamaç, kampın en sessiz yeridir."
+		}
+	]
+}

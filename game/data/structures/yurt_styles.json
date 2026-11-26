@@ -1,0 +1,332 @@
+{
+	"version": 1,
+	"source": "structures.md §3.6 «Milletler» (K51; cadir-otag.md öneri 4–5, 17); godot.md §6.7",
+	"doc": "Yurdun milletleri (YurtStyle okur; scripts/world/structures/yurt_style.gd). Millet yalnız görünüşü verir, sayı değiştirmez (malzeme, emek, can boydan çıkar). Gövde Hun'a göredir: wall_k duvar çarpanı, rise çatının yükseklik çarpanı, bulge çatının şişkinliği, crown_r taç çarpanı; door_deg kuzeyden kapı açısı ve payı (yerleşimin varsayılanı; kayıt rot verirse o geçer); door bosaga (ahşap çerçeve, keçe kapak) ya da curtain (keçe perde); family yurt, kubbe (duvarsız), cart (araba üstü ev) ya da tent (çadır ailesi: bu üretici kurmaz, StructureCatalog'un çadırı). Renkler köşe rengidir (yeni doku yok): felt keçe, band kerege bağı ve süs kuşağının zemini, rope halat ve kolan, motif ve accent süs deseninin renkleri; pattern süs kuşağının deseni (1 menderes, 2 plaka ve turkuaz nokta, 3 çift şerit, 5 baklava, 6 hayvan plakası; 0 yok), roof_pattern çatının deseni (4 tepeden ışın; rays ışın sayısı). Godot boyları: Hane Yurdu duvar yarıçapı 3,3 m, duvar 2,25 m, çatı 1,5 m (Hun); boy kök ölçektir (yatayda ×0,7 / ×1 / ×1,4, dikeyde ×0,84 / ×1 / ×1,18: kapı Mete'nin boyunu geçsin diye dikey ölçek kökün kareköküdür; tasarım boşluğu kararı 2026-11-09).",
+	"styles": {
+		"hun": {
+			"name": {
+				"tr": "Hun",
+				"en": "Xiongnu"
+			},
+			"family": "yurt",
+			"wall_k": 1.0,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				120,
+				45
+			],
+			"door_deg_great": [
+				90,
+				10
+			],
+			"door": "bosaga",
+			"felt": "#d9cfba",
+			"band": "#7a2a22",
+			"rope": "#5a4632",
+			"motif": "#e8dcc0",
+			"accent": "#b08b4e",
+			"pattern": 1,
+			"roof_pattern": 0,
+			"trim": "#8a5a2c",
+			"tag": "kaynak: 穹廬; oran ve kerege kurgu"
+		},
+		"yuezhi": {
+			"name": {
+				"tr": "Yüeçi",
+				"en": "Yuezhi"
+			},
+			"family": "yurt",
+			"wall_k": 1.1,
+			"rise": 1.2,
+			"bulge": 0.1,
+			"crown_r": 1.0,
+			"door_deg": [
+				180,
+				30
+			],
+			"door": "bosaga",
+			"felt": "#c9b896",
+			"band": "#6b2130",
+			"rope": "#5a4234",
+			"motif": "#c9a24f",
+			"accent": "#3aa39a",
+			"pattern": 2,
+			"roof_pattern": 0,
+			"trim": "#7a4a2a",
+			"tag": "kurgu (groups-research.md §5)"
+		},
+		"usun": {
+			"name": {
+				"tr": "Usun",
+				"en": "Wusun"
+			},
+			"family": "yurt",
+			"wall_k": 0.9,
+			"rise": 0.85,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				120,
+				45
+			],
+			"door": "bosaga",
+			"felt": "#b8b3a0",
+			"band": "#4a5240",
+			"rope": "#6a5f52",
+			"motif": "#d8d0b8",
+			"accent": "#8a8a70",
+			"pattern": 3,
+			"roof_pattern": 0,
+			"trim": "#5a4a3a",
+			"tag": "kaynak: 穹廬為室兮旃為牆 (HS 96B); görünüş kurgu"
+		},
+		"saka": {
+			"name": {
+				"tr": "Saka",
+				"en": "Saka"
+			},
+			"family": "cart",
+			"wall_k": 0.9,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				180,
+				90
+			],
+			"door": "curtain",
+			"felt": "#4a4038",
+			"band": "#a88445",
+			"rope": "#3b2a1e",
+			"motif": "#c9a24f",
+			"accent": "#8a3f2a",
+			"pattern": 6,
+			"roof_pattern": 0,
+			"trim": "#3b2a1e",
+			"tag": "kaynak: keçeli araba evi (Hippokrates); Saka'ya uzatma çıkarım"
+		},
+		"tunghu": {
+			"name": {
+				"tr": "Tunghu",
+				"en": "Donghu"
+			},
+			"family": "kubbe",
+			"wall_k": 0.0,
+			"rise": 1.23,
+			"bulge": 0.3,
+			"crown_r": 0.7,
+			"door_deg": [
+				90,
+				10
+			],
+			"door": "curtain",
+			"felt": "#3a3532",
+			"band": "#8a2f22",
+			"rope": "#5a4632",
+			"motif": "#a83a26",
+			"accent": "#d9b26a",
+			"pattern": 0,
+			"roof_pattern": 4,
+			"rays": 13,
+			"trim": "#5a4632",
+			"tag": "kaynak: kapı doğu (Wuhuan, MS 3. yy); oran Yanbei çıkarım"
+		},
+		"dingling": {
+			"name": {
+				"tr": "Dingling",
+				"en": "Dingling"
+			},
+			"family": "yurt",
+			"wall_k": 0.8,
+			"rise": 0.9,
+			"bulge": 0.2,
+			"crown_r": 0.8,
+			"door_deg": [
+				120,
+				45
+			],
+			"door": "curtain",
+			"felt": "#9a8a70",
+			"band": "#6a4a30",
+			"rope": "#3f2a1c",
+			"motif": "#c4a882",
+			"accent": "#5a3a24",
+			"pattern": 5,
+			"roof_pattern": 0,
+			"trim": "#3f2a1c",
+			"tag": "kurgu (車輪高大, Wei Shu 103 öne alma)"
+		},
+		"loufan": {
+			"name": {
+				"tr": "Loufan",
+				"en": "Loufan"
+			},
+			"family": "yurt",
+			"wall_k": 1.0,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				120,
+				45
+			],
+			"door": "bosaga",
+			"felt": "#cdbb94",
+			"band": "#b9653a",
+			"rope": "#5a4632",
+			"motif": "#e6d2a0",
+			"accent": "#7a3a22",
+			"pattern": 6,
+			"roof_pattern": 0,
+			"trim": "#6a4a2a",
+			"tag": "kurgu"
+		},
+		"baiyang": {
+			"name": {
+				"tr": "Baiyang",
+				"en": "Baiyang"
+			},
+			"family": "yurt",
+			"wall_k": 1.0,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				120,
+				45
+			],
+			"door": "bosaga",
+			"felt": "#efe3c6",
+			"band": "#7a5a34",
+			"rope": "#5a4632",
+			"motif": "#f6eedc",
+			"accent": "#7a5a34",
+			"pattern": 5,
+			"roof_pattern": 0,
+			"trim": "#6a4a2a",
+			"tag": "kurgu (ad)"
+		},
+		"ciang": {
+			"name": {
+				"tr": "Çiang",
+				"en": "Qiang"
+			},
+			"family": "tent",
+			"tent": "tent_qiang",
+			"wall_k": 1.0,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				180,
+				90
+			],
+			"door": "slit",
+			"felt": "#2f2a26",
+			"band": "#8a6a3a",
+			"rope": "#8a6a3a",
+			"motif": "#8a6a3a",
+			"accent": "#d8c8a8",
+			"pattern": 0,
+			"roof_pattern": 0,
+			"trim": "#4a3a2a",
+			"tag": "kaynak: bugünkü Tibet kara çadırı (Manderscheid); MÖ 200'e taşıma kurgu"
+		},
+		"han": {
+			"name": {
+				"tr": "Han",
+				"en": "Han"
+			},
+			"family": "tent",
+			"tent": "tent_han",
+			"wall_k": 1.0,
+			"rise": 1.0,
+			"bulge": 0.0,
+			"crown_r": 1.0,
+			"door_deg": [
+				180,
+				20
+			],
+			"door": "curtain",
+			"felt": "#8d8674",
+			"band": "#2a2320",
+			"rope": "#8f2f22",
+			"motif": "#8f2f22",
+			"accent": "#b08b4e",
+			"pattern": 0,
+			"roof_pattern": 0,
+			"trim": "#2a2320",
+			"tag": "çıkarım (SJ 7, Zeng çadırı)"
+		}
+	},
+	"sizes": {
+		"s": {
+			"scale": 0.7,
+			"scale_y": 0.84,
+			"kanat": 4,
+			"uuk": 24,
+			"tone": 0.78
+		},
+		"m": {
+			"scale": 1.0,
+			"scale_y": 1.0,
+			"kanat": 6,
+			"uuk": 48,
+			"uuk_winter": 24,
+			"tone": 1.0
+		},
+		"l": {
+			"scale": 1.4,
+			"scale_y": 1.18,
+			"kanat": 8,
+			"uuk": 48,
+			"tone": 1.12
+		}
+	},
+	"body": {
+		"doc": "Hane Yurdu'nun Godot ölçüleri (m, kök ölçeğinden önce): radius duvarın yarıçapı, wall duvarın boyu, roof çatının yüksekliği, crown taç halkasının yarıçapı, door kapının eni ve boyu (en az; duvarın 0,18 m altında kalır), eave saçağın taşması, pad pedin yarıçapı (radius × pad_k).",
+		"radius": 3.3,
+		"wall": 2.25,
+		"roof": 1.5,
+		"crown": 0.6,
+		"door": [
+			0.95,
+			2.05
+		],
+		"eave": 0.12,
+		"pad_k": 1.21,
+		"lattice_step": 0.5
+	},
+	"zones": {
+		"doc": "Dünyanın yapı varsayılanları (StructureKit.world_ctx; harita kimliğiyle): style kaydında millet yoksa (zon başına ≤2 gövde biçimi; cadir-otag.md öneri 17), center adsız yurdun kapısının baktığı ocak, snow çatı ve kapalı yurtların kar örtüsü (0..1), painted zemin yapıların ezik yerini ve düz pedini kendisi boyar (Kışlak: TerrainPaint): yurt pedi ve Ulu Ocak'ın meydan diski kurulmaz.",
+		"kislak": {
+			"style": "yuezhi",
+			"center": [
+				0.0,
+				0.0
+			],
+			"snow": 0.85,
+			"painted": true
+		},
+		"testmap": {
+			"style": "hun",
+			"center": [
+				0.0,
+				-4.0
+			],
+			"snow": 0.0,
+			"painted": false
+		},
+		"camp": {
+			"style": "hun",
+			"center": [
+				0.0,
+				0.0
+			],
+			"snow": 0.0,
+			"painted": false
+		}
+	}
+}

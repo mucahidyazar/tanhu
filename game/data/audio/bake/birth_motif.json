@@ -1,0 +1,13 @@
+{
+  "id": "birth_motif",
+  "kind": "music",
+  "instrument": "motif",
+  "tempo": 52,
+  "bars": 10,
+  "mode": "d_dorian",
+  "seed": 2343,
+  "rate": 44100,
+  "loop": true,
+  "source": "code",
+  "note": "birth_motif klibinin motif katmanı: motifin bütünü kopuzla, oyunda ilk kez (Önsöz 3:22,5; audio.md §3): D↗A kayışı ve A G F D düşüşü, alt konum (scripts/audio/synth/motif.gd, B'nin kopuz teli). Motif dosyanın başındadır, ardı sessizdir (10 ölçü): klip 3:22,5'te ölçü beklemeden başlar (geçiş immediate/start), motif bir kez çalar, Çocukluk geçişi döngüden önce gelir. Kulak onayı bekler."
+}

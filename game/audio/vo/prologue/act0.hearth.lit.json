@@ -1,0 +1,15 @@
+{
+	"id": "act0.hearth.lit",
+	"take": 0,
+	"seed": 3260726222,
+	"hash": "c25abbceea78",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 1.84,
+	"words": [
+		{"w": "It's", "t0": 0.0, "t1": 0.32},
+		{"w": "caught.", "t0": 0.389, "t1": 1.12},
+		{"w": "Feed", "t0": 1.184, "t1": 1.44},
+		{"w": "it.", "t0": 1.52, "t1": 1.84}
+	]
+}

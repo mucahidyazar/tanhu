@@ -1,0 +1,13 @@
+{
+	"id": "act0.child.count_child",
+	"take": 0,
+	"seed": 3143218343,
+	"hash": "bb59b4a7f4cd",
+	"model": "eleven_v3",
+	"voice": "S9V0fuqWOqX0i8Kb8ctu",
+	"seconds": 1.68,
+	"words": [
+		{"w": "One", "t0": 0.0, "t1": 0.4},
+		{"w": "child.", "t0": 0.587, "t1": 1.68}
+	]
+}

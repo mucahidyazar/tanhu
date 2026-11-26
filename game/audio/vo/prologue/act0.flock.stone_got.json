@@ -1,0 +1,18 @@
+{
+	"id": "act0.flock.stone_got",
+	"take": 0,
+	"seed": 3749335334,
+	"hash": "df7a51263da7",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.72,
+	"words": [
+		{"w": "He", "t0": 0.0, "t1": 0.16},
+		{"w": "got", "t0": 0.24, "t1": 0.48},
+		{"w": "it!", "t0": 0.587, "t1": 1.28},
+		{"w": "The", "t0": 1.3, "t1": 1.36},
+		{"w": "white", "t0": 1.413, "t1": 1.68},
+		{"w": "stone's", "t0": 1.733, "t1": 2.08},
+		{"w": "his!", "t0": 2.2, "t1": 2.72}
+	]
+}

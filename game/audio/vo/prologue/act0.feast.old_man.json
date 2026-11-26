@@ -1,0 +1,19 @@
+{
+	"id": "act0.feast.old_man",
+	"take": 0,
+	"seed": 3772611624,
+	"hash": "e0dd7c285f1b",
+	"model": "eleven_v3",
+	"voice": "KvaCHcJoMXfOzwtsULOZ",
+	"seconds": 4.56,
+	"words": [
+		{"w": "Nobody", "t0": 0.0, "t1": 0.4},
+		{"w": "sleeps", "t0": 0.457, "t1": 0.8},
+		{"w": "tonight.", "t0": 0.86, "t1": 1.72},
+		{"w": "Whoever", "t0": 1.775, "t1": 2.16},
+		{"w": "sleeps", "t0": 2.24, "t1": 2.72},
+		{"w": "misses", "t0": 2.811, "t1": 3.36},
+		{"w": "the", "t0": 3.42, "t1": 3.6},
+		{"w": "watch-night.", "t0": 3.667, "t1": 4.56}
+	]
+}

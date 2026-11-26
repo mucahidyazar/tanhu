@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.noon_4",
+	"take": 0,
+	"seed": 3806933083,
+	"hash": "e2e9305bce02",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.36,
+	"words": [
+		{"w": "You'll", "t0": 0.0, "t1": 0.24},
+		{"w": "see", "t0": 0.28, "t1": 0.4},
+		{"w": "him", "t0": 0.44, "t1": 0.56},
+		{"w": "at", "t0": 0.587, "t1": 0.64},
+		{"w": "the", "t0": 0.66, "t1": 0.72},
+		{"w": "count.", "t0": 0.813, "t1": 1.36}
+	]
+}

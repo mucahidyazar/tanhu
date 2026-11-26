@@ -1,0 +1,26 @@
+{
+	"version": 1,
+	"source": "K20, K45, K46; time.md §7.1; survival.md §2.7, §7.4; economy.md §4.4–§4.6; Yol Haritası wait-sleep, inventory",
+	"doc": "Dünyaların bekleme ve etkileşim yerleri (WorldSpots okur; scripts/world/world_spots.gd). beds: döşek (Uyu; time.md §7.1: yalnız döşekte; ana kampta Yurt A'daki aile döşeği Çocuğundur, deneme haritasında Mete'nin yurdu Kışlak'ın Rehine Yurdu yerine durur); döşek yurdun içindedir, yurdun kapısının önünde E «Uyu» (door: kapının duvardan uzaklığı, m). fires: ateş başı (Dinlen; survival.md §2.7: E basılı 3 sn, ya da orada T; e false ise E ateşin katmanınındır (deneme haritasında SurvivalLayer: dokunuş tarif çemberi), Dinlen orada T ile açılır). sites: şantiye (Çalış; K21; bugün kayıtlı şantiye yok). containers: E ile açılan kap (economy.md §4.6; store: Inventory'nin kabı, bugün chest: Mete'nin sandığı, 60 Yük; deneme haritasında fıçı Rehine Sandığı'nın yerine durur). Yer iki yoldan verilir: node (kampın sahnesindeki düğümün yolu; yurdun kapısı düğümün +Z yönündedir) ya da structure (MapSpec'in yapı kaydı: at, facing pusula derecesi, radius). radius: yerin erimi (m, yatay).",
+	"maps": {
+		"camp": {
+			"beds": [
+				{"id": "family_bed", "node": "Camp/YurtLeft", "door": 0.75, "radius": 1.6, "name": {"tr": "Aile döşeği", "en": "Family bed"}}
+			],
+			"fires": [
+				{"id": "hearth", "node": "Camp/Campfire", "radius": 3.4, "name": {"tr": "Ocak", "en": "Hearth"}}
+			]
+		},
+		"testmap": {
+			"beds": [
+				{"id": "mete_bed", "structure": "yurt_north", "door": 0.75, "radius": 1.6, "name": {"tr": "Döşek", "en": "Bed"}}
+			],
+			"fires": [
+				{"id": "campfire", "structure": "campfire", "radius": 3.4, "e": false, "name": {"tr": "Ocak", "en": "Hearth"}}
+			],
+			"containers": [
+				{"id": "barrel", "structure": "barrel", "radius": 1.7, "store": "chest", "title": {"tr": "FIÇI · SANDIK", "en": "BARREL · CHEST"}}
+			]
+		}
+	}
+}

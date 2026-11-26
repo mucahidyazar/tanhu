@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/character_creator.tscn" id="1_creator"]
+
+[sub_resource type="GDScript" id="GDScript_creator"]
+script/source = "extends Control
+## Geliştirme sahnesi: karakter oluşturucu belli bir seçimle (vücut tipi, renkler) ve kadrajla açılır.
+## Argümanlar: --body=0|1 (Tip 1 = Mete, Tip 2 = kadın kahraman), --close (yakın plan),
+## --skin=N --hair=N --eye=N (renk dizinleri; 0 = Doğal), --yaw=derece (karakteri döndürür), --no-preload,
+## --switch-delay=saniye (önce Tip 1 ile açar, bu kadar sonra seçilen profile geçer),
+## --dye=N (pelerin boyası, 0 = Göl Mavisi), --origin=N, --difficulty=N (0 Hikâye, 1 Normal, 2 Zor),
+## --focus=alan (klavye odağı o satırda, ör. cape_dye).
+## Örnek: tools/capture.sh /tmp/olusturucu.png 200 --scene=res://scenes/dev/characters_creator.tscn --body=1 --close
+
+@onready var _creator := $CharacterCreator as CharacterCreator
+
+
+func _enter_tree() -> void:
+	# --no-preload: oyuncu modelleri arka planda önceden yüklenmez (hata ayıklama için).
+	if preload(\"res://scripts/dev/capture.gd\").parse_args(OS.get_cmdline_user_args()).has(\"no-preload\"):
+		CreatorTurntable.preload_enabled = false
+
+
+func _ready() -> void:
+	var args := preload(\"res://scripts/dev/capture.gd\").parse_args(OS.get_cmdline_user_args())
+	var profile := CharacterProfile.new()
+	profile.set_value(&\"body_type\", int(args.get(\"body\", 0)))
+	profile.set_value(&\"skin\", int(args.get(\"skin\", 0)))
+	profile.set_value(&\"hair_color\", int(args.get(\"hair\", 0)))
+	profile.set_value(&\"eye_color\", int(args.get(\"eye\", 0)))
+	for key in [\"dye\", \"origin\", \"difficulty\"]:
+		if args.has(key):
+			profile.set_value(&\"cape_dye\" if key == \"dye\" else StringName(key), int(args[key]))
+	if args.has(\"switch-delay\"):
+		# Önce varsayılan profille açılır, sonra vücut tipi değiştirilir (önceden yükleme denemesi).
+		_creator.open(CharacterProfile.new())
+		await get_tree().create_timer(float(args[\"switch-delay\"])).timeout
+	else:
+		# Önizleme varsayılan modeli (Mete) kendi _ready'sinde yükledi; aynı karede silinen bir modelin
+		# malzemeleri çizim tarafında \"Parameter material is null\" hatası verir. Birkaç kare bekle.
+		for i in 3:
+			await get_tree().process_frame
+	_creator.open(profile)
+	var turntable := _creator.get_turntable()
+	if args.has(\"yaw\"):
+		turntable.start_yaw_degrees = float(args[\"yaw\"])
+		turntable.reset_rotation(true)
+	if args.has(\"focus\"):
+		var row := _creator.get_row(StringName(str(args[\"focus\"])))
+		if row:
+			row.hovered.emit(row.field)
+	if args.has(\"close\"):
+		await get_tree().process_frame
+		turntable.set_close_up(true, true)
+"
+
+[node name="CharactersCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_creator")
+
+[node name="CharacterCreator" parent="." instance=ExtResource("1_creator")]
+layout_mode = 1

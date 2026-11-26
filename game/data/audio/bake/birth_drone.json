@@ -1,0 +1,15 @@
+{
+  "id": "birth_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "low",
+  "tempo": 52,
+  "bars": 8,
+  "mode": "d_dorian",
+  "seed": 2341,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2,
+  "source": "code",
+  "note": "birth ve birth_motif kliplerinin 0. katmanı: doğumun alçak dronu (audio.md §3 «Yeni Oyun ve Önsöz»: Doğum, dron alçak). D2 boğaz dronu, koyu (low: 1,6 kHz alçak geçiren, alt oktav ×0,14). Banka data/audio/banks/ordos.json; kulak onayı bekler (Karar Bekleyenler)."
+}

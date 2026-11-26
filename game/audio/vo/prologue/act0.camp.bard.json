@@ -1,0 +1,17 @@
+{
+	"id": "act0.camp.bard",
+	"take": 0,
+	"seed": 2104787136,
+	"hash": "7d7480c05994",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 2.8,
+	"words": [
+		{"w": "Sit.", "t0": 0.0, "t1": 0.4},
+		{"w": "Let", "t0": 0.54, "t1": 0.96},
+		{"w": "the", "t0": 1.0, "t1": 1.12},
+		{"w": "kopuz", "t0": 1.2, "t1": 1.84},
+		{"w": "speak", "t0": 1.907, "t1": 2.24},
+		{"w": "first.", "t0": 2.32, "t1": 2.8}
+	]
+}

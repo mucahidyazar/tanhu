@@ -1,0 +1,255 @@
+{
+ "id": "mus_prologue_night",
+ "take": 0,
+ "seed": null,
+ "model": "music_v2_5",
+ "song_id": "SnnpkfX1m1y8Lfjv5ZUb",
+ "seconds": 45.035,
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Intro]\n{a low wordless hum, barely there}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "night on the steppe, very quiet, cold clear sky",
+     "a soft low hummed drone on D, almost a breath, one voice far away, wordless",
+     "sparse jaw harp twangs with long pauses",
+     "no rhythm section",
+     "close but very soft, lots of silence",
+     "still, safe, sleepy",
+     "D dorian",
+     "instrumental apart from the wordless hum"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   },
+   {
+    "text": "[Verse]\n{a few soft jaw harp twangs over the hum}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "night on the steppe, very quiet, cold clear sky",
+     "a soft low hummed drone on D, almost a breath, one voice far away, wordless",
+     "sparse jaw harp twangs with long pauses",
+     "no rhythm section",
+     "close but very soft, lots of silence",
+     "still, safe, sleepy",
+     "D dorian",
+     "instrumental apart from the wordless hum"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   },
+   {
+    "text": "[Outro]\n{the hum alone, fading, loopable}",
+    "duration_ms": 15000,
+    "positive_styles": [
+     "night on the steppe, very quiet, cold clear sky",
+     "a soft low hummed drone on D, almost a breath, one voice far away, wordless",
+     "sparse jaw harp twangs with long pauses",
+     "no rhythm section",
+     "close but very soft, lots of silence",
+     "still, safe, sleepy",
+     "D dorian",
+     "instrumental apart from the wordless hum",
+     "loopable ending"
+    ],
+    "negative_styles": [
+     "acoustic guitar",
+     "classical guitar",
+     "electric guitar",
+     "bass guitar",
+     "oud",
+     "saz",
+     "baglama",
+     "sitar",
+     "banjo",
+     "mandolin",
+     "piano",
+     "strings section",
+     "orchestra",
+     "synthesizer",
+     "pad",
+     "drum kit",
+     "cymbals",
+     "snare",
+     "pop production",
+     "cinematic score",
+     "epic trailer",
+     "English lyrics",
+     "lead singer",
+     "solo vocalist",
+     "Western harmony",
+     "major key pop",
+     "reverb hall",
+     "modern beat"
+    ]
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "{a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "low",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "wordless",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "hum,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "barely",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "there}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "{a",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "few",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "soft",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "jaw",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "harp",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "twangs",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "over",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "the",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "hum}",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "{the",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "hum",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "alone,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "fading,",
+   "start_ms": 0,
+   "end_ms": 0
+  },
+  {
+   "word": "loopable}",
+   "start_ms": 0,
+   "end_ms": 0
+  }
+ ],
+ "waveform_visual": null
+}

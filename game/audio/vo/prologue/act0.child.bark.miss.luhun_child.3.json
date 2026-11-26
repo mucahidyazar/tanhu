@@ -1,0 +1,16 @@
+{
+	"id": "act0.child.bark.miss.luhun_child.3",
+	"take": 0,
+	"seed": 4240061944,
+	"hash": "fcba35f81a8e",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 2.72,
+	"words": [
+		{"w": "Get", "t0": 0.0, "t1": 0.16},
+		{"w": "closer,", "t0": 0.229, "t1": 0.8},
+		{"w": "then", "t0": 1.04, "t1": 2.0},
+		{"w": "let", "t0": 2.04, "t1": 2.16},
+		{"w": "go.", "t0": 2.293, "t1": 2.72}
+	]
+}

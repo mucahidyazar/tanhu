@@ -1,0 +1,277 @@
+---
+title: 'I. Perde: Gün Gün'
+order: 40
+status: tasarim
+summary: 'Altı gün ve Son Gece saat saat: ilk 15 dakika, 22 ana görevin ve 23 yan görevin yeri, büyük sahneler, Kara Boran, Kemik Boğazı, Ev ve antlar; sürprizler saklanmadı.'
+sources:
+  - docs/design/act1.md
+  - docs/design/story.md
+  - docs/design/time.md
+  - docs/design/decisions.md
+  - docs/design/structures.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+## Özet
+
+Bu sayfa tasarım belgesidir, sürprizleri saklamaz. [I. Perde: Çan](/docs/story/act-1) 22 ana görev (2.460 XP) ve 23 yan görevden (1.580 XP) oluşur. Her adım öncekinin bitişiyle tetiklenir; Gün I–IV'te adımlar arası serbesttir; seçimlerin yankısı aynı perdede okunur. Satırlar taslaktır: perde metni dikey dilimin ölçümünden sonra kilitlenir, seslendirme kilitten sonradır ([K38](/docs/source/design/decisions#k38), [K61](/docs/source/design/decisions#k61)).
+
+Bir oyun günü 60 gerçek dakikadır ([K67](/docs/source/design/decisions#k67)). Hikâye günü Tan'da başlar: şafakta Kış Hesabı düşer, düğümler yenilenir. Vakit en erken saatinde çanla çağırır («Seni çağırıyorlar.»), en geç saatinden 30 oyun dk önce ikinci kez çağırır, en geç saatinde başlamadıysa 3 sn karartmayla oyuncuyu yerine götürür («Vakit geldi: {görev}»). Günün ana işi bitmeden döşek uykuyu açmaz: «Bugünün işi bitmedi: {görev}». Gündelik saatler: 06:12 Tan, 06:30 Atşo köz taşır, 07:30 Sayım, 11:45–12:30 Mutfak tayını, 12:00 öğle çanı, 16:30 nöbet ateşleri, 17:00 dokuz fener, 17:30–19:30 akşam aşı, 22:30 yatsı; Kantu 21:00–07:30 uyur ([time.md §9](/docs/source/design/time#9-i-perde-saatle)).
+
+## Bölümler ve süre
+
+| Bölüm | Sayım günü | Saat (ana yol) | Ana yol | Tüm içerik |
+|---|---|---|---|---|
+| Gün I, Gösteri | 1.041 (2 Aralık MÖ 210) | 10:40 → 19:00 | 30 dk | 40 dk |
+| Gün II, Kefil | 1.042 | 06:42 → 20:30 | 45 dk | 65 dk, gece yarısını geçer |
+| Gün III, Elçi | 1.043 | 06:42 → 19:00 | 40 dk | 60 dk |
+| Gün IV, Kâse | 1.044 | 06:42 → 20:05 | 35 dk | 50 dk |
+| Gün V, Hüküm | 1.045 | 06:44 → 20:10 | 20 dk | 20 dk |
+| Son Gece | 1.045 → 1.046 | 20:10 → 06:40 (Zor 21:40 →) | 30 dk | 50 dk |
+| Gün VI, Ses | 1.046 (7 Aralık MÖ 210) | Kaçış → 07:04+ | 20 dk | 25 dk |
+| **Toplam** | | | **≈3 sa 40 dk** | **≈5 sa 10 dk** |
+
+Ana yolu oynayanın günü uyku ve bekleme yüzünden 20–45 dakika sürer. Altı gün, Son Gece ve dakikalar tasarım ölçüsüdür, oyunda sayaç olarak okunmaz; perde son görevle, Ev ile biter ([K42](/docs/source/design/decisions#k42)).
+
+## Gün I: Gösteri
+
+Sayım 1.041, 2 Aralık MÖ 210. Gösteriden dönen araba 10:40'ta Kışlak'a girer. Güneş 07:11'de doğar, 16:49'da batar. Hava açık, rüzgâr 2 m/sn; Yar Bakışı'nda gök ilk kez açık. İlk 15 dakika, Tipi ile birlikte dikey dilimde oynanır ([K11](/docs/source/design/decisions#k11)):
+
+| Dakika | Saat | Oyuncu | Öğrenir |
+|---|---|---|---|
+| 0:00–0:25 | Saat yok | Köprü 2'nin kararmasından kara ekran, adım adım çan. Anlatıcı: «Üç kıştır bir sözdü. Yürüdükçe çalıyordu.» | Ton |
+| 0:25–1:20 | Sinema, sonunda 10:40 | Kantu'nun arabası Geçit → Rampa → kamp, 286 m, ≈55 sn, atlanabilir: «Üç kış, aynı yol. Sen arkaya bakarsın, ben konuşurum.» Direk öter, uzakta sürü başını sese çevirir | Yolun yönü, araba, kemik |
+| 1:20–2:30 | 10:40–11:08 | Rehine Yurdu kapısından kuzeye 73 m. Koşunca çan gürler, köpek havlar, çocuklar taklit eder; el çanda çömelince susar | Hareket, çan |
+| 2:30–3:10 | 11:08 | Palak: «Bin kırk birinci gün. Bir rehine.» Sak eldiven atar: «Parmağın düşerse sayım bozulur.» Palak bir kez ekler: «Üç gösteri. Bin kırk bir gün.» | Sayım, Sak |
+| 3:10–4:50 | 11:08–11:48 | Mene'nin çığlığı, 8 at başını sese çevirir. Seslenirsin dönmez, ayağını vurursun döner; 3 işaret | El dili |
+| 4:50–6:30 | 11:48–12:28 | Oyuncak yayla sırıktan 5 karga; Ardokşa: «Sustur şunu.» 12:00'de Kazan çanı çalar | Nişan, ilk seçim |
+| 6:30–8:00 | 12:28–12:48 | Tayın: sana 2 Aş, Hereka'ya 1. Uldın: «Baban bizi burada unuttu. Sen keçede uyuyorsun.» Hereka: «Yemin etme. Say.» Mete'yi tanır: «Seni ilk gününde ben saydım.» | Erzak, Çukur |
+| 8:00–10:30 | 12:48–13:36 | Farnak: «Şu altı taşı taşıyana kefilim.» Üç ped, üç isteyen; Nanay alay eder | Taşıma, inşa |
+| 10:30–11:30 | 13:36 | Amaga çeteleyi böler: «Yarısı sende, yarısı onda. Sen kaçarsan onun yarısı konuşur.» Harita bir bölge açar | Kefil |
+| 11:30–13:20 | 13:36–14:12 | İş Tahtası. Ardokşa: «Boş karnı kimse saymaz; ben sayarım.» 4 kütük, Tam Vuruş, çubuğa çentik; seviye 2 ekranı | Döngü |
+| 13:20–15:00 | 14:12–14:52 | Yakve'yle Rampa'ya, Yar Bakışı: gök ilk kez kadrajda, güneş 17°, güneybatıdan. Farnak: «Evin orada. Bakmak serbest.» | Ölçek, hedef |
+
+Bu 15 dakikada saat 4 sa 12 dk ilerler: 10,5 gerçek dk akan saattir, kalan ≈4,5 dk sinema ve durmuş konuşmadır. Tayın 13:30'a dek başlamazsa karartma oyuncuyu Mutfak'a götürür.
+
+| Görev | Olan | Ödül | Seçim ve yankı |
+|---|---|---|---|
+| Sayım | Rehine Yurdu'ndan Sayım Taşı'na yürüyüş, çan, Palak'ın sayımı | 30 XP | Sak'ın eldiveni sende kalır, Göz Yolu'na varır |
+| Tayın | Kazan çanı 12:00. 2 Aş al, esir sepetini Çukur Kapısı'na taşı | 80 XP | Payını ver: Hereka yakınlığı +2, Kut +1. Verme: Son Gece ilk onluğun tavanı −2, Uldın bunu söyler |
+| İlk Çetele | Farnak'ın 6 taşı, Yeni Yurt pedi; Amaga çeteleyi böler; Yakve'ye bin, Yar Bakışı | 100 XP, Güven +6, rütbe 1 | Ped gecenin haritasını yazar: A Ahır'a yakın (Farnak), B Ambar'a yakın (Ardokşa), C en karanlık çıkış (Atşo) |
+
+Yeni Yurt'un zemini (aşama 0) Gün I 14:46'da biter. Akşam aşı 17:30–19:30.
+
+## Gün II: Kefil
+
+Sayım 1.042. Saat 06:42 → 20:30. Sayım 07:30–08:30 (gelirsen Güven +1), Sürü Okulu 08:00–12:00, kandiller 16:30–17:00. Ardokşa'nın taşıyıcıları Yeni Yurt'un yığında olmayan malzemesini 09:00 ve 13:00'te pede bırakır.
+
+| Görev | Olan | Ödül | Seçim ve yankı |
+|---|---|---|---|
+| Sürü Okulu | Mene'nin ağılı: el dili, Ku. Oyuncu Mene'nin oyuncağından kendi Çığırtkan'ını yontar, 40 at 3 kapıdan geçer, üç Yol Kemiği onarılır. Kar kalkınca sürü kemiğe döner | 110 XP, Alışkanlık +20, +1 beceri | Karga Savaşı'nda Mene susturulduysa oyuncağını göstermek istemez, yontmak uzar, Mene yakınlığı −1 |
+| Üç Çetele | Ardokşa: 3 iş. Kantu: Kırık Tekerlek (2 tomruk, demir pim, ip). Nanay: Keçe Avlusu'nda kuzey panelinin düğümü | 170 XP, Güven +6, rütbe 2, Menzil ağı, tunç balta | Gevşek düğüm: Son Gece çıkış 8 sn, ama Nanay yakınlığı <3 ise fark eder. Sıkı: 40 sn |
+
+Gece Eksik Ölçü cezasız gizlilik dersidir: taze karda iz, yakalanma yalnız Güven −2.
+
+## Gün III: Elçi
+
+Sayım 1.043. Saat 06:42 → 19:00.
+
+| Görev | Olan | Ödül | Seçim ve yankı |
+|---|---|---|---|
+| Tündük Kaldırma | 08:30–10:30, sahne 3 dk. Nanay: «Sırığa omuz ver, Hun. Çatı senin de başına düşer.» Üç hamle, kaçırmak ceza kesmez. Tündüğün işi 171 İD'dir (iş dakikası): sahnedeki altı elle 40,6 oyun dk (≈101 gerçek sn) sürer, tündük 09:11'de oturur ([K83](/docs/source/design/decisions#k83)). İlk kez kamp sana gülerek bakar: oyuncunun sevmesi gereken an budur | 60 XP, Güven +4, Nanay ve Farnak +1 | Kaldıranlar Göz Yolu'nda başını önce sana çevirir |
+| Elçi | 11:30–13:00, ≤6 dk. Eskam: «Beni sana iyi davrananlara götür, evladım.» Seçim menüde değil ayaklarındadır: Eskam 12 m'den geçtiğin yeri görür, kuşağına düğüm atar; 4 yer ya da 6 dk sonra biter. Palak uzaktan: «Elçi yılda bir gelir. Bu kış iki kez geldi.» Sonda «Babandan.»: Altın Levha | 130 XP; Amaga'ya söylersen Güven +8 | Aşağıda |
+| Av | 14:00–16:30. Ödünç yay, iz, 2 yaban keçisi, Av Sekisi Bakışı; rüzgâr 5 m/sn, rüzgâr altından yaklaşılır. Yay 17:30'da geri alınır. Farnak kardeşlik sözünü açar | 100 XP, Güven +2, rütbe 4 | Son ipi bırakırsan Tipide Sekiler kestirmesi açık |
+
+Eskam'ın gezisi Huyan evinin işidir: küçük oğlun yolunu açan ev, Mete'yi 213'te getiren elçiyi yine gönderir. Gösterdiğin yer baskının kaderini yazar; Sazlık her durumda yanar, çünkü onu Kantu satmıştır.
+
+| Gösterilen | Baskın ve gece etkisi |
+|---|---|
+| Ambar | Ateşli ok, Yiyecek −20 ek; Son Aş yarım |
+| Ahır | Çit kesilir, atlar dağılır: takipçi −1 atlı |
+| Yeni Yurt | Ateşli ok, aşama 7'den 5'e; Gün V sabahı Nanay 6'ya yamar, hücrende açık yer kalır |
+| Kule | Kule yanar, gece nöbetçisi eksilir |
+| Ateş Yurdu | Kutlu ateş söner, Atşo çeteleyi geri alır, Kut −1 |
+| Hela | Eskam güler, bir şey öğrenmez |
+
+Levha takılır, saklanır, ateşe atılır ya da Amaga'ya götürülür. Amaga'ya giden levha hükmü değiştirmez ama baskın süresi +60 sn olur, gece nöbet değişimi haritaya yazılır. Takılıysa Göz Yolu'nda herkes görür; Erlik güler: «Altın kül olmaz.» Yeni Yurt'un aşamaları yalnız ekip ve Ambar gönderimiyle şöyle biter: kapı II 10:01, kerege II 14:49, tündük III 09:11, uuk III 15:43, kamış hasır III 16:47, keçe IV 11:57, kolan IV 15:01, ilk duman IV 17:06; malzemeyi önceden getiren oyuncuda uuk III 12:14'e, kolan III 17:53'e çekilir (K50, K83).
+
+## Gün IV: Kâse
+
+Sayım 1.044. Saat 06:42 → 20:05. Ana yol Toy'a dek ≈4 saat bekler (`T` ya da ateş başında dinlenme). 18:00'de dolunaydır, ay 16:35'te doğu-kuzeydoğudan doğar: Shiji 110'a göre Hunlar ay doluyken saldırır.
+
+**Toy (17:00, vakit 16:30–17:30).** Yurt aşama 7'dedir. Ocağı ateş bekçisi Atşo tek başına yakar, duman 17:06'da tündükten ilk kez çıkar. Kâse: darı içkisi, iki parmak ucu, oklar kâseye batırılır (kurgu tercihi). Farnak: «Ocağıma el kaldırma. Ben de seninkine.» Sadak verir, yay vermez. Nanay yurdu kuran ele bakar, çentik çubuğuna kırmızı iplik bağlar: «Bunu da say.» Ant içersen Farnak yakınlığı +3; içmezsen −2, çetele de bırakılmadıysa Boğaz'da «Bacağıma» seçeneği kapanır. Malzemenin %50'si sendense Güven +10. Güven ≥70 ise Amaga çeteleyi burada böler.
+
+**Baskın (17:40–20:04, 6 dk).** Ant içerken kuzeydoğu kızarır. İlk gören Mene'dir, çünkü herkes kâseye bakar. Amaga: «Git. Gör.» Farnak ve Yakve'yle Geçit üzerinden 399 m, ≈47 sn. Müzik sevinç gibi başlar, kuzeyden gelen kızıl-kahve atlılar eve benzer. Üç yıldır duyduğun ilk Hunca: «Yak!» Müzik kesilir: alçak sessizlik. El sallarsan bir atlı ayağındaki çana bakar, ok ayağının dibine saplanır. 20 Hun atlısı (6 tam, 14 kukla), üç hedef, en çok ikisi kurtulur; kulübeler, Tahıl Ambarı ve Eski Köprü gözünün önünde aşama düşer.
+
+| Hedef | Yapılan | Sonuç |
+|---|---|---|
+| Yaşlılar | 3 yaşlıyı arabaya ya da köprüye | Tipide kurtardıkların izini siler, kurtarmadıkların taş atar |
+| Tahıl | Ambar çatısını kes, ateşi söndür | Yiyecek −10 (yoksa −25) |
+| Atlar | At bağını çöz | Takipçi −1 atlı, Alışkanlık +5 |
+
+Hun vurursan Korku +1, Uldın yakınlığı −1. Mundzuk'a yürürsen menü açılmaz, durur: «Seni biz öldürmeyiz. Onlar öldürecek.» İhanet budur, başka açıklama yoktur. Boru çalar, atlılar çekilir. Köprü ötesi höyükte altın kurtlu sancak: Teoman 4 sn oğluna bakar, atını çevirir. Mete: «Beni gördü.» Bu, dört saniyelik bakışın üçüncüsüdür. Sak bu gece ekran dışında ölür.
+
+## Gün V: Hüküm
+
+Sayım 1.045. Saat 06:44 → 20:10. Ana yol 20 dk. Gök kapalıdır; Göz Yolu ve hüküm rüzgârsız, sessiz karda geçer: yüzler okunur. Uyku yok: «Bu gece uyku yok.»
+
+- **Kül Sabahı (07:30–09:00).** Tekeri onar (1 odun, 1 ip; 44 İD: Mete ve sürücüyle ≈83 gerçek sn, Onarım becerisiyle ≈41 sn), 0–3 yaralıyı Geçit üzerinden sür: 414 m, ≤6 m/sn, hızlanırsan yaralı sarsılır; yaralı başına Güven +1. Sak'ı sorarlar, eldiveni sendedir. Menzil'de Palak bağlar, öğleye dek Çukur'dasın. Yeni Yurt Eskam'a gösterildiyse Nanay ve iki el yanık keçeyi 07:00–09:35'te yamar.
+- **Göz Yolu (11:50–12:30).** Yürüyüş başlayınca açık yan görevler kapanır. Çukur Kapısı → Ulu Ocak, 131 m, 1,1 m/sn, koşu yok, 120 sn. Farnak 3 m ipte yanında: kefil. Kime bakarsan o karşılık verir: Ardokşa çaldığın arpayı sayar («Üç torba arpa.»), Mene «Neden?» işareti yapar, Kantu ilk kez susar, taşıdığın yolcular göz kaçırır, Tündük'ü kaldıranlar başını önce sana çevirir. Yakınlığı ≥5 kefiller birer satır söyler, ≤2 olanlar sırt döner. Farnak: «Yarısı bende. Bu da sayılır.» Palak: «Bin kırk beşinci gün. Bir rehine. Son sayım.»
+- **Hüküm (≈12:40).** Amaga: «Rehine, sözün etten hâlidir. Söz bozuldu. Şafakta buza.» Heybe Ambar'a gider. Kalanlar: Çığırtkan, çentik çubuğu, çizmedeki demir bıçak, zula (6 yuva) ve çetele yarımları; çocuk oyuncağı ve değersiz çubuk sanılırlar. Bu liste esastır; zula da el konmayanlardandır ([K38](/docs/source/design/decisions#k38)).
+- **Son Aş (18:00).** Yeni Yurt hücren olur. Amaga: «Yeni yurda koyun; ocağı henüz kimseyi ısıtmadı.» Nanay yemek getirir: «Bu evi sen de kurdun. Yırtarsan ikimiz de biliriz.» Amaga 20:00'de gelir (Zor 21:30), tuzağı görmüştür: «Sana iyilik etmiyorum. Babana kötülük ediyorum.» Baharda Adak Aygırı'nın kurban edileceğini söyler. Ant: «Bu kampa atlı dönersem önce yol veririm.»
+
+## Son Gece
+
+Ay Saati Düğüm'le başlar, buz saatinde biter: Amaga'nın «Şafakta buza» dediği an, sivil şafaktan 4 dk önce, 06:40. Gök Kavisi ay kipine geçer, buz saati yayın üstünde kızıl bir çentiktir.
+
+| Zorluk | Düğüm | Buz saati | Saat süresi | Gerçek süre |
+|---|---|---|---|---|
+| Hikâye | 20:10 | Yok: saat 05:45'te kaçışa dek bekler | Sınırsız | Sınırsız |
+| Normal | 20:10 | 06:40 | 10 sa 30 dk | ≈32 dk |
+| Zor | 21:40 | 06:40 | 9 sa | ≈28,5 dk |
+
+Ana yol 30 dk, içerik ≈50 dk: hepsine yetişilmez. Buz saatinden 2 sa ve 1 sa önce birer takipçi eklenir. Sis 1.400 m'den 140 m'ye iner, kar yağar, rüzgâr 1,5'ten 6 m/sn'ye çıkar. Nöbetçi 18'dir (Zor +2); gece davulu 1,5 oyun saatinde bir 8 oyun dk'lık nöbet değişimi açar. Ay 17:30'da doğar, 08:40'ta batar: bütün kaçış ay altında geçer.
+
+**Düğüm.** 120 sn beklersen korlar kapıyı iter, çıkmaz sokak yoktur.
+
+| Çıkış | Şart | Süre | Bedel |
+|---|---|---|---|
+| Düğüm çöz | Kendi kuzey panelin | Sıkı 40 sn, gevşek 8 sn | Yurt sağlam |
+| Keçe kes | Nanay'ın iğnesi ya da demir bıçak | 12 sn | Yurt yırtık kalır, 8 m gürültü |
+| Tündükten | Ayak ≥4 | 12 sn | Çatıda görünürsün |
+| Omarg | Sıcak Aş borcu ve Söz ≥5, ya da uyku otlu çorba | 20 sn | Omarg'ın boynu |
+
+**Donuk Kamp.** İlk ateşi geçerken ses kesilir: çan susar, kar havada, kıvılcımlar asılı. Saat ve hava durur. Altı tablo: Nanay eli karnında, Ardokşa kendi tayınını esir çuvalına koyuyor, Palak Sak'ın taşında oğlunun kemeriyle, Kantu elinde eş levhayla, Amaga küçük bir başlık tutuyor, Atşo sana bakıyor. Ulu Ocak'ta Teoman'ın yüzüyle Erlik aşık oynar: «Birini seç. Sabah seni değil onu ararlar.» Kara ip çocuktan kayar: «Ben alacaklıyım, hırsız değil. Çocuklar Umay'ın.»
+
+| Seçim | Kut, Korku | Etki |
+|---|---|---|
+| Birine bağla | Korku +3, Kut −1 | Nöbet algısı ×0,5. O kişinin çetelesi yanar, sabah hain bulunur. Gök kapanır |
+| Reddet | Kut +2 | «Yol orada dursun.» Tipide 2 kara sağanak |
+| Kül Borcu (≥4 tablo görüldüyse) | Korku +1 | Algı ×0,75, en yüksek Can −5. «Söndürdüğün ocak kadar kül borçlusun.» Mete: «Kül avucumda. Sayısını sen tut.» |
+
+**Kara Yol (her dalda).** Adak Ağılı'ndan Ulu Ocak'ın ortasından Boğaz'a 60 m kalana dek 1.024 m kara buz. «Her soluk bir ocak söndürür. Kimin, bilmezsin.» Üstünde görünmezsin, hız +%20, rüzgâr ve müzik kesilir. Her saniye 24 ocaktan biri söner; ilk adım Korku +1, her 6 ocakta Korku +1 daha (en çok +5). Bütün gece ve Tipide zeminde durur: ret bir tık değil, uzun bir dayanmadır. **Mene** kıpırdayan tek kişidir. Erlik: «Bu çocuk beni duymuyor.» Mene elini tutar, çığırtkanını üfler: çığlık dünyayı yeniden başlatır, Erlik bile başını çevirir. Mete bunu görür.
+
+**Gök Açılır.** Yar Bakışı'na çıkınca rüzgâr kesilir, kar durur; kamera 15,9° ve 70 m'de, 6 sn'de döner: vadinin bütün fenerleri ve gök birlikte görünür. Tek söz: «Gör.» Üç ışık atar. Kara Yol'a bastıysan ya da birinin adını verdiysen gök açılmaz, Kut −1. Her ışıkta aynı ses: «Gördüm.»
+
+| Işık | Yapılan | Sonuç |
+|---|---|---|
+| Palak (karda, Sak'ın taşında) | Geç, soy ya da yükünü bırakıp 128 m taşı | Taşıdıysan Kut +3, Boğaz'a dek izler, okları kısa düşer. Soyduysan Korku +1, Kut −2, takip dağınık: kötü seçim oyunu kolaylaştırır |
+| Çukur | Uldın: «Boğazlayalım.» Hereka: «Üçer üçer.» | Işık Kut +2. Uldın'ın yolu: Korku +2, 9 firari, alarm 6 dk erken. Hereka'nın yolu: Kut +1, 6 firari, sessiz. Hereka kalır, kalanlar şarkıyı başlatır |
+| Omarg | Kendi ipinle bağla: «Seni ben bağladım, herkes görsün.» | Kut +2, alarm 40 sn gecikir, Geçit zinciri açık |
+
+**Gece İşleri.** Eyer Keçe Avlusu'nda yapılır (6 sn), yular ve erzak Ambar'dan, makas avludan. Çeteleler ≈20'şer sn'de sahibinin ocağına bırakılır; Amaga'nınki Kut +1. Kule ok fıçısı bozulur. Demir Diş'in kılıcını Uldın'a verdiysen uyuyan nöbetçinin başında o bekler: durdurursan Kut +1, durdurmazsan Korku +1 ve alarm 3 dk erken. Kantu'yla yüzleşme: «Sazlık'ı ben sattım. Onun kulağı için... Duymadı bile.» Bağışla, ele ver ya da zorla. Çan kesilir, bırakılır ya da Mene'ye verilir: Mene ayağına takıp ters yöne seker, ant: «Islık senin çatının üstünden geçmeyecek.» Yakalanma yükleme değildir: yurda dönüş, saat +60 dk, o çıkış kapanır, +1 nöbetçi.
+
+**Adak Aygırı.** Rüzgâr bezine bak, rüzgâr altından yaklaş; üç nöbetçi. Bağ ≥40 sakin, 15–39 ise Buğu Oyunu: soluk verirken yürü, alırken dur. Eyer 20 sn, çıplak binersen stamina %30 hızlı biter. Adını koyarsın: Küldoru, Tanyeli ya da Arkvi. Ant isteğe bağlı: «Bir gün senden vazgeçmem istenirse, önce sana bakacağım.» 1,1 m çitten atla. Fenerler fitil gibi yanar, boru çalar. Saat biterse oyun bitmez: buza yürürken çığlık, aygır ipini koparır, firarisiz ve eyersiz kaçış.
+
+## Gün VI: Kara Boran
+
+Sayım 1.046. Ana yol 20 dk, tüm içerik 25 dk. Şerit yok, vadinin her yerine sürülür; duvar yerine yar ve rüzgâr. Oyunu durduran diyalog yok, ölüm yok. Tipide gök ve saat gizlidir, pusula yoktur: yön onarılmış direğin uğultusu (120 m), Boğaz uğultusu (350 m) ve rüzgârdır; Kut ≥6 ise kubbede Demirkazık'ı gösteren yıldız açıklığı açılır. Rüzgâr 8 m/sn, sis 140 m. Temiz sürüş ≥3 dk ([K10](/docs/source/design/decisions#k10)), ortalama 6–9 dk tahmindir.
+
+| Faz | Hat | Mesafe | Olay |
+|---|---|---|---|
+| İniş | Ağıl → Taşlar → Keçi Dibi → Ulu Ocak | 227 m | Bütün kamp uyanır, ped sokağı keser, sönük fenerler karanlık geçit |
+| Yar | Ulu Ocak → Rampa → Geçit | 219 m | Geçit zincirli; Omarg bağlandıysa açık, değilse sıçra. Firariler kama olur |
+| Irmak | Seçime bağlı | 0–368 m | İnce buz, kendi deliklerin, kırık köprü |
+| Ova | Yol ya da Kurgan | 261–440 m | 40–60 sn kör rüzgâr, okçu halkası, kurtlar |
+| Yokuş | Yukarı Ağıllar → Boğaz | 198 m | Yanık sundurmalar, kor ışığı, gök açılır |
+
+| Rota | Toplam | Ham süre | Karakter |
+|---|---|---|---|
+| Kış Yolu | 1.084 m | ≈2,4 dk | En kısa, en açık: at staminası gideri ×1,25, okçulara açık |
+| Buz Yolu | 1.274 m | ≈2,3 dk | Hızlı, buz çatlar, Sazlık'ta kurtardıkların burada okunur |
+| Sekiler (son ip bırakıldıysa) | 1.592 m | ≈3 dk | Okçudan korunaklı, dar, kurt ini |
+| Saz Tüneli | 1.357 m | ≈3,5 dk | Tünelde görünmez, sonra yıldızsız daire |
+
+Hız `(12 + 0,045 × Bağ) × zemin`'dir: buz 1,1, yol 0,7, kar 0,55, derin kar 0,38, yokuş ×0,85; Bağ 40'ta buzda 15,2 m/sn. Takipçi `4 + yakalanma + geç saat − oyalama`, 3 ile 10 arasında; kadrajda ≤6 tam. Sana zarar verebilen her şey kadrajdadır ya da ekran kenarında okla işaretlidir: ok vuruştan en az 1,2 sn önce yanar, biçimi durumu söyler (boş üçgen izliyor, dolu üçgen yanaşıyor, halka ateş edecek, kanca kement atacak); kovalamacada kamera döner ([K39](/docs/source/design/decisions#k39)). 3 yara düşürür: son direkten ya da barınaktan dönersin, 1 erzak eksik. Beş barınak: Yanık Kulübe, Çoban Durağı, Kurgan Odası, Ağıl Koru, Sıcak Göz. Çığırtkan 300 m'deki firarileri döndürür, her çağrı Refleks +1 yazar: kurtardıkça eğitirsin. Müzik 6/8, 116, D Dorian, kambarkandır: kopuz I. Perde'nin müziğine burada döner ([K59](/docs/source/design/decisions#k59)).
+
+## Gün VI: Farnak ve Ses
+
+**Kemik Boğazı (≥06:14, ≈4 dk).** Kapı kapalı, gökte ilk aydınlık. Farnak'ın canı 180 (Hikâye 120, Zor 240). Çetele bırakılmadıysa Nanay rehindir, onun için gelir; bırakıldıysa acısı için: «Çeteleyi ocağıma bırakmışsın. Beni satın alamazsın.»
+
+| Faz | Can | Sahne | Karşılık |
+|---|---|---|---|
+| Seki | %100–60 | Yokuşta sekiden ok, zemine 1,0 sn önce çizilir. Ant içildiyse ilk ok sapar: «Bir kerelik.» | Direk ve kule ayağı siper, sapan |
+| Sahte Kaçış | %60–30 | Kovalarsan eyerde döner, atar, 2 atlı gelir. «Sana ata binmeyi ben öğrettim. Düşmeyi de öğreteyim.» | Açıyı kes; 3 Çığırtkan kısrağı ürkütür, üçüncüde kemik çatlar |
+| Kılıç | %30–10 | Yaya, 3 kesiş, 1,1 sn çizimli | Kısa kılıç, akinakes, bıçak ya da mızrak |
+
+**Ses.** Farnak diz çöker, takipçiler Kapı'dan görünür. Çatlak kemik, Farnak'ın attığı ok, Nanay'ın ipliği: «Başı bir çocuktan, gövdesi bir kardeşten, bağı bir gelinden.» Zaman ×0,25, 2,5 sn, nişanı sen alırsın. Ok öter (2,4 → 3,6 kHz): «Öttüğü yere gidiyorlar.» Alışkanlık <40 ise 8 attan 3'ü döner, 40–79 hepsi, ≥80 Erkent de. Refleks ≥3 ise firariler okun gittiği yere atar, tutamazsın; ok Farnak'a gittiyse ölür, ant bozulur, Kut −3, Korku +3. Sonra perdenin tek kara sessizliği (≤4 sn). Farnak karda, yay elinde: bacağına atarsın («Bacağıma. Yüzüm kalsın.»), atını vurursun, yayı indirirsin (Kut ≥8: «Görmedim.») ya da bitirirsin. İkinci ok, tek söz etmeden bir höyüğe: bütün oklar aynı taşa. «Neden attık?» «Ses gitti.» Mete sayar: «Bir... dokuz.» Emir ve ceza II. Perde'dedir.
+
+## Son: Eşik ve Ev
+
+**Şafak Sırtı (≥07:04).** Fırtına kesilir, güneş 07:14'te doğar, ilk açık gök. Kartal geçer: ilk açık göğün parçasıdır, her dalda ([K65](/docs/source/design/decisions#k65)). Mete son çentiği atar, çubuğu kırar; uzakta Hun işaret ateşi. Müzik 76, majör pentatonik, ters akort; koro ve kopuz (K59).
+
+**Perde kartı.** Kefil sonuçları, Ocak x/24, Direk x/14, Erzak, Yurt aşaması, rota, firarilerin adları, Ad İpi düğümü, Kut, Korku ve ozan dörtlüğü. Dörtlük kartta okunan metindir; Erlik'i reddeden oyuncu için örnek: «Çan sustu, çetele ikiye bölündü karda; / Köz fiyat söyledi, rehine "dursun" dedi. / Gök "gör" dedi, gördü, yükünü bıraktı; / Bir kemik öttü, sürü döndü şafakta.» Anlatıcı: «O sesi bütün bozkır duydu. Bir tek o duymadı.» Sonra: «Kış bitti, o hâlâ yoldaydı.»
+
+**Ev.** 11 Nisan MÖ 209 (sayım 1.171), bahar, Tanhu Kampı'nda Teoman'ın ocağı; ışık 14:46,2'nin ikindisidir, Godot menüsünün gece ışığı değildir ([K76](/docs/source/design/decisions#k76)). Ev menü dünyasını yüklemez: Tanhu Kampı'nın kendi küçük dünyasında uzak karedir; Çocuk oyuncu değildir, atlıya su götürmez ([K106](/docs/source/design/decisions#k106)). Mete küllü boz aygırla güney patikasından çıkar. Teoman: «Seni öldürdüklerini duydum.» Mete: «Duydun.» Levha takılıysa Teoman levhaya bakar. Kalabalığa döner, gururu rol mü belli olmaz: on bin atlı. Lan Hatun tek satır söyler: «Kırk iki gün dedim. Bin iki yüz on iki oldu.» Kart: «II. Perde yakında»; kayıt korunur ([K7](/docs/source/design/decisions#k7)). II yazılınca kartın yerine 30 sn'lik Akan Kronik gelir ([Perde Arası: Akan Kronik](/docs/story/chronicle)).
+
+## Antlar ve bayraklar
+
+| Ant | Kime | Söz | Nerede okunur |
+|---|---|---|---|
+| Adlar | Hereka | «Adlarınızı sayarak döneceğim.» | IV, Çukur: Bilinen Adlar ≥16 ise tutulur (Kut +2), değilse bozulur (−2) |
+| Kâse | Farnak | «Ocağına el kaldırmayacağım.» | Kemik Boğazı; IV'te ordunun eli Nanay'ın ocağına değmez |
+| Yol | Amaga | «Bu kampa atlı dönersem önce yol veririm.» | IV, Batı Yolu: yol dolunaydan önce verilir; Yüeçiler yok edilmez, batıya çekilir |
+| El | Mene, el diliyle | «Islık senin çatının üstünden geçmeyecek.» | IV: batı yolu Mene'nin çatısının üstünden geçmez |
+| Aygır | Adak Aygırı | «Bir gün senden vazgeçmem istenirse, önce sana bakacağım.» | IV, Adak: Mete önce ata bakarsa tutulur, sonra Ver ya da Verme |
+| Kül Borcu | Erlik | «Kül avucumda. Sayısını sen tut.» | II'de Huyan Hatun'un soğuk ocağı; yerleşimde Kül Ödemesi; VI'da Kıl Köprü'nün eni |
+
+Bayraklar sonraki perdelere kayıtla geçer: ilk onluk ve Refleks II'nin onluğunu ve disiplin tabanını kurar; Uldın ve Berik'in yakınlığı II'de katılışlarını yazar; levha, Eskam'a gösterilenler ve «Beni gördü» II'de, kefiller, Sazlık, adlar, yurt ve çan IV'te okunur ([act1.md §16](/docs/source/design/act1#16-sonraki-perdelere-kancalar)).
+
+## Bölge rütbeleri
+
+Kilitlenme yoktur: her rütbe Güven eşiğiyle ya da gün tabanıyla gelir.
+
+| Rütbe | Güven | Gün tabanı | Açılan |
+|---|---|---|---|
+| 0 | 0 | I | Kışlak, Esir Çukuru (tayın işi) |
+| 1 | Farnak'ın çetelesi | I | Ak Otlak, Buz Geçidi çevresi, Yar Dibi Taşlığı |
+| 2 | 25 | II | Kara Yamaç, Buz Kolu, Sazlık (ilgili çeteleyle) |
+| 3 | 45 | III | Demir Diş, Adak Ağılı, Eski Kurganlar (ilgili görevle) |
+| 4 | 70 ya da Av | IV | Yukarı Ağıllar, Kara Tepeler, Ayna Göl, Kuzey Düzü, Kemik Boğazı'na bakış |
+
+**Zorluk** oluşturucuda bir satırdır, kayda yazılır, kitaptan değişir ([K13](/docs/source/design/decisions#k13)). Hikâye / Normal / Zor: nöbet algısı ×0,7 / ×1 / ×1,3; Tokluk azalması ×0,7 / ×1 / ×1,15; Kış Hesabı şafak kaybı −6 / −8 / −10; nöbetçi ve takipçi −2 / 0 / +2; ok çizimi ×1,3 / ×1 / ×0,85; yara sınırı 5 / 3 / 2; Farnak'ın canı 120 / 180 / 240; Tam Vuruş halkası ×1,3 / ×1 / ×0,8; elmas işaret hep / 45 sn sonra / yok. Kadraj dışı tehdidin kenar oku her zorlukta açıktır.
+
+## Yan görevler
+
+Her biri aynı perdede yankılanır; yankısız seçim yok. Göz Yolu başlayınca açık kalanlar Görevler'de «Kapanır» diye yazılır (K42).
+
+| Görev | Ne zaman | İş | XP | Seçim ve yankı |
+|---|---|---|---|---|
+| Karga Savaşı | I | Oyuncak yayla 5 karga, 3 işaret; oyuncak yay Çocukluk'unkiyle aynıdır | 60 | Sus: aygır sese gelmez, Buğu Oyunu zorunlu. Devam: aygır sese gelir |
+| Kandil Yağı | II akşam | 9 fener | 30 | 2'sini az doldur: Son Gece söner |
+| Eksik Ölçü | II gece | Opia'yı bul | 70 | Ele ver: Güven +5, Kut −1. Kapat: Kut +1, Opia saklar. Nöbete yık: Korku +1 |
+| Çakıl Defteri | II | 6 bölgeden çakıl | 40 | 6 çakıl: Mene yol gösterir. ≤2: Ku havlar |
+| Otuz Bir Ad | II | 16 bedenli, 15 ses | 120 | 31'de Kut +2, Ad İpi. Yemin ya da yalnız say |
+| Erzak Yolu | II–IV | Günde en çok 3 teslim | 60 | Çukur'a kaçır: Hereka Son Gece susar |
+| Zula | II | Onarılmış bir direğe 6 yuva; Uldın bir kez Yan'ın rehinesi [Qin Kai](/encyclopedia/qin-kai)'yi anar | 40 | Hüküm'de el konmayanlardandır: içindekiler Ambar'a gitmez; Tipi'de firari başına 1 Aş buradan (K38) |
+| Çukur Humması | II akşam | 3 söğüt kabuğu, 2 mantar | 70 | Tola yaşarsa firari olur |
+| Yol Kemikleri | II+ | 11 direk | 75 | Adaktan kemik alırsan Kut −1, o direk susar |
+| Balık Delikleri | Rütbe 2 | 6 delik | 30 | Mutfak ya da Çukur. Geçit'e yakın delik takipçi düşürür |
+| Buz Yarışı | II–III | 193 m | 30 | Kazan: Farnak tuzağı 30 sn erken |
+| Kervan Haberi | II–III | Nandu'ya 5 deri: «İmparator öldü. Surun generali de.» | 50 | Amaga'ya: baskın +60 sn. Eskam'a: baskın −60 sn |
+| Yolcular | III | Ebe, gelinin anası, Nandu | 105 | Kaçak postu bildir ya da sus: yedek at |
+| Eski Köprü | III | 12 odun, 4 ip | 70 | Baskında yaşlılar geçer; Tipide arkandan kes |
+| Ocağın Nöbeti | III, Güven ≥35 | 20 ardıç, ateş başı ≈90 sn | 80 | «Kime yakarırsın?» Erlik cevabını alıntılar |
+| Bahis | III | 15 cevher, Uldın'la güreş | 100 | Yen ya da kasten yenil. Palak: «Borç borçtur.» |
+| Demir Diş | III | 5 cevher, körük ritmi | 120 | Bıçak sende (Korku +1) ya da Uldın'a (Son Gece nöbetçinin başında) |
+| Sürüde Kurt | III | Attan 4 kurt | 90 | Dişi kurdu bırak: uluması haber verir. Vur: kurtlar sana saldırır |
+| Sıcak Aş | III | 6 nöbetçiye çorba | 30 | Otlu: Omarg uyur. Otsuz: borçlanır, kapıyı açar |
+| Adak Yemi | III gece | 3 torba arpa, çığlıkla besleme | 90 | 3 besleme: Tipide düşersen aygır döner. Çalarsan Ardokşa sayar |
+| Keçe Dövme | III–IV | 6 yün, rulo | 50 | Arka dikişi gevşek bırak: sessiz giriş, Ardokşa'nın cezası ağırlaşır |
+| Ölünün Altını | IV | Kurgan, 3 oda | 80 | Al: akinakes, Korku +1, Kut −1. Bırak: Kut +1 |
+| Berik'in Evi | II–IV gece | 3 yürüyüş | 90 | Gerçek: kalır, Ay Saati +1 saat. Masal: gelir, yakınlık ≤2 ise satar |
+
+## Oyunda şu an
+
+> [!DURUM]
+> Oyunda: yok. Godot'da I. Perde'nin hiçbir günü, görevi, sahnesi ya da yeri yok; saat ve takvim de yok, kampın gecesi sabittir. Prototipte denendi: saat, hava, emek yasası ve yapı aşamaları; Godot'a taşınmadı ([oyun-durumu.md](/docs/source/design/d3/game-state)).
+
+**Kışlak'ın günü (2026-11-09, [npc-schedules](/roadmap#item-npc-schedules)).** Kişi programı Kışlak'ta akar: adlılar vakit bloklarıyla yerindedir (Amaga sabah yurdunun önünde dilek dinler, 12:00'de Ulu Ocak'ta ilk kaseyi kaldırır; Farnak sabah ahırda, öğlen Çoban Durağı'nda; Palak 07:30'da sayar; Kujul Körük'te çalışır, gece başında uyur), bir sonraki yerine yürüme süresi kadar önce çıkar, vaktinde varır. Gündüz Ulu Ocak'ın çevresinde 40 kişilik pazar kurulur, 17:30'da halkın yarısı Mutfak'ta akşam aşındadır, 19:30'da herkes evine döner; gece dokuz nöbetçi ateşlerinin başındadır. Esir kolu 07:00'de Çukur'dan çıkar, 16 esir ve iki nöbetçi gündüz Demir Diş'te çalışır, 17:00'de döner; gece Çukur'da 31 esir oturur, Hereka 20:00–22:00 şarkı söyler. Hikâye gününe göre değişenler (Eskam yalnız Gün III'te, Farnak'ın avı, Toy, hüküm) programın verisindedir; görevler ve sahneler [act-1-p3](/roadmap#act-1-p3)'tedir. Tablo: [act1.md §5](/docs/source/design/act1#5-npc-programi).
+
+## Kaynaklar
+
+- [act1.md §1](/docs/source/design/act1#1-oncul-sure-ton), [§5](/docs/source/design/act1#5-npc-programi), [§6](/docs/source/design/act1#6-ana-gorevler), [§7](/docs/source/design/act1#7-yan-gorevler), [§8](/docs/source/design/act1#8-buyuk-sahneler), [§9.3](/docs/source/design/act1#9-3-yapi-sistemi-stagedstructure), [§10](/docs/source/design/act1#10-kovalamaca-kara-boran-black-blizzard), [§12](/docs/source/design/act1#12-ogretim-ve-ilk-15-dakika), [§13](/docs/source/design/act1#13-zorluk), [§16](/docs/source/design/act1#16-sonraki-perdelere-kancalar)
+- [story.md §7](/docs/source/design/story#7-i-perde-can), [§7.3](/docs/source/design/story#7-3-zula-4), [§7.6](/docs/source/design/story#7-6-yurt-egrisi-camp3-ve-kislak-yeni-yurdu); [time.md §9](/docs/source/design/time#9-i-perde-saatle)
+- [decisions.md](/docs/source/design/decisions): K4, K7, K10, K11, K13, K20, K38, K39, K42, K50, K59, K65, K67, K76, K83
+
+İlgili sayfalar: [I. Perde: Çan](/docs/story/act-1), [Perde Arası: Akan Kronik](/docs/story/chronicle), [Bölgeler](/docs/world/regions), [Dövüş](/docs/gameplay/combat), [İnşa ve Emek](/docs/buildings/construction-labour).

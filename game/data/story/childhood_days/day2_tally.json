@@ -1,0 +1,601 @@
+{
+	"id": "day2_tally",
+	"version": 1,
+	"doc": "Çocukluk «Ebenin Çetelesi» (E21, K110; story.md §5 «İki yeni gün»; docs/design/d3/e21-childhood-api.md, e21-atmosphere.md «Ebenin Çetelesi»): 21 Eylül MÖ 228, 08:30'dan öğleye; serin parlak sabah, öğleye doğru ısınan hava. Bir ziyarettir. ChildhoodScene bu dosyayı düz sırayla oynatır; türler scripts/story/steps/'dadır (tally_*: Ç2; sleep: Ç1). tally_errand: Lan Hatun bir torba kurut verir (heybeye girer: qurt_gift, TallyErrand), nedenini söyler (sayım öbür gün; Hereka yeni doğanları sayar, çetelesi olmazsa sayıcı eksik yazar; sayımı obasına da söyle); bu sırada Ebe Obası kare kare kurulur (camp: TallyCamp). tally_dogs: kuruyan dere boyunca kuzeye (≈300 m); obaya yaklaşınca iki köpek kalkar, havlar, yolu keser (TallyDogs: ısırmaz, değmez, seslenmeden obaya girilmez); oyuncu durur ve E ile seslenir («Köpeğinizi tutun!»), Hereka yurdundan çıkar, köpekleri tutar («Tuttum, gel. Kimin oğlusun sen?»). tally_visit: «Lan Hatun'un.»; Mete kurutu verir («Anam gönderdi. Teşekkür için.»: kurut teşekkürdür, heybeden düşer); Hereka hatırlar (altı güz önce kapıda Mete'yi o saydı), yurduna çağırır (önünde kuruyan otlar; içi çatısız diorama, K98), Mete'nin doğduğu şafağı anlatır, yedi çentikli çeteleyi verir (elinde görünür: TallyStick; heybeye girer: tally_hereka). tally_news: obanın üç kişisi işindedir (kurut seren kadın, at bağlayan adam, tayının yanındaki adam; Folk); E ile «Sayım öbür gün!», her biri kendi cevabını verir; üçü de duyunca Hereka kapısından «Anana söyle: kurudu güzel olmuş.». tally_home: dönüş; obadan cut_after_m uzaklaşınca yol kısa bir kararmayla kısalır (aynı yolun dönüşü yinelenmez), Lan Hatun karşılar («Getirdin mi? Yedi.»), Hereka'yı sorar; sonra öğleden akşama kararmayla atlanır. tally_sleep (Ç1'in sleep türü): yurtta yatağa E, kararma, 22 Eylül'ün kartı. Çetele sayım gününe dek heybede kalır; sayıcı «Hereka'nın çentikleri. Yedi.» der, çetele düşer (data/story/childhood/scene.json, exchange'in before'ı). Kişilerin hızı oyuncunun koşusunu aşmaz (K105). Satırların metni docs/design/d3/e21-lines.json'dan eşitlenir (act0.tally.*; elle değiştirilmez).",
+	"title": {
+		"tr": "Ebenin Çetelesi",
+		"en": "The Midwife's Tally"
+	},
+	"date": {
+		"tr": "21 Eylül MÖ 228 · Ordos",
+		"en": "21 September 228 BC · Ordos"
+	},
+	"day_n": -5601,
+	"clock": {
+		"start": "08:30",
+		"seconds_per_minute": 2.5
+	},
+	"flags": {
+		"done": "child_tally"
+	},
+	"bow_from": "none",
+	"music": {
+		"bank": "ordos",
+		"state": "childhood",
+		"fade": 3.0
+	},
+	"ambience": {},
+	"atmos": {
+		"beds": [
+			{
+				"id": "amb_ordos_steppe_day",
+				"db": -15.0
+			},
+			{
+				"id": "amb_ebe_camp",
+				"at": "ebe_center",
+				"radius": 34.0,
+				"db": -7.0
+			}
+		]
+	},
+	"player": {
+		"start": "child_start",
+		"yaw_deg": 90.0,
+		"seated": true
+	},
+	"vo_prefix": "act0.tally.",
+	"speakers": {
+		"lan_hatun": {
+			"tr": "Lan Hatun",
+			"en": "Lan Hatun"
+		},
+		"mete_child": {
+			"tr": "Mete",
+			"en": "Mete"
+		},
+		"hereka_young": {
+			"tr": "Hereka",
+			"en": "Hereka"
+		},
+		"ebe_man": {
+			"tr": "Ebe Obalı",
+			"en": "A man of the midwife's camp"
+		},
+		"ebe_woman": {
+			"tr": "Ebe Obalı",
+			"en": "A woman of the midwife's camp"
+		}
+	},
+	"lines": {
+		"errand": {
+			"speaker": "lan_hatun",
+			"tr": "Öbür gün sayım var. Bu kurutu Hereka Ebe'ye götür, çetelesini al gel.",
+			"en": "The count is the day after tomorrow. Take this dried curd to Hereka, and bring back her tally stick."
+		},
+		"news_task": {
+			"speaker": "lan_hatun",
+			"tr": "Sayımı obasına da söyle. Herkes duysun.",
+			"en": "And tell her camp about the count. Everyone must hear."
+		},
+		"dogs": {
+			"speaker": "mete_child",
+			"tr": "Köpeğinizi tutun!",
+			"en": "Hold your dog!"
+		},
+		"dogs_held": {
+			"speaker": "hereka_young",
+			"tr": "Tuttum, gel. Kimin oğlusun sen?",
+			"en": "I've got him. Come. Whose boy are you?"
+		},
+		"name": {
+			"speaker": "mete_child",
+			"tr": "Lan Hatun'un.",
+			"en": "Lan Hatun's."
+		},
+		"counted": {
+			"speaker": "hereka_young",
+			"tr": "Bilirim. Altı güz önce kapıda seni ben saydım.",
+			"en": "I know. Six autumns ago, at the door, I was the one who counted you."
+		},
+		"stick": {
+			"speaker": "hereka_young",
+			"tr": "Al. Yedi çentik, bu yıl doğanlar. Sayıcıya ver, eksik yazmasın.",
+			"en": "Here. Seven notches, this year's births. Give it to the counter, so he doesn't write us short."
+		},
+		"news": {
+			"speaker": "mete_child",
+			"tr": "Sayım öbür gün!",
+			"en": "The count's the day after tomorrow!"
+		},
+		"reply_1": {
+			"speaker": "ebe_woman",
+			"tr": "Duyduk, duyduk.",
+			"en": "We heard, we heard."
+		},
+		"reply_2": {
+			"speaker": "ebe_man",
+			"tr": "Atlar semiz. Gelir sayılırız.",
+			"en": "The horses are fat. We'll come and be counted."
+		},
+		"bye": {
+			"speaker": "hereka_young",
+			"tr": "Anana söyle: kurudu güzel olmuş.",
+			"en": "Tell your mother her curd turned out well."
+		},
+		"home": {
+			"speaker": "lan_hatun",
+			"tr": "Getirdin mi? Yedi. Sayıcı sevinir.",
+			"en": "Did you bring it? Seven. The counter will be pleased."
+		},
+		"why": {
+			"speaker": "lan_hatun",
+			"tr": "Hereka yeni doğanları sayar. Çetelesi olmazsa sayıcı bizi eksik yazar.",
+			"en": "Hereka keeps count of the newborns. Without her stick, the counter will write us short."
+		},
+		"inside": {
+			"speaker": "hereka_young",
+			"tr": "Gir. Otlara dokunma; her biri bir doğum için.",
+			"en": "Come in. Don't touch the herbs. Each one is for a birth."
+		},
+		"moon": {
+			"speaker": "hereka_young",
+			"tr": "Doğduğun şafak dolunay batıyordu, güneş doğuyordu. Baban ikisine de eğildi.",
+			"en": "The dawn you were born, the full moon was setting and the sun was rising. Your father bowed to them both."
+		},
+		"reply_3": {
+			"speaker": "ebe_man",
+			"tr": "Sayıcıya söyle, bizim tay da sayılsın.",
+			"en": "Tell the counter our foal should be counted too."
+		},
+		"lan_ask": {
+			"speaker": "lan_hatun",
+			"tr": "Hereka ne dedi?",
+			"en": "What did Hereka say?"
+		},
+		"mete_answer": {
+			"speaker": "mete_child",
+			"tr": "Beni o saymış.",
+			"en": "She counted me."
+		},
+		"lan_answer": {
+			"speaker": "lan_hatun",
+			"tr": "Öyle. Kapıda onun sesi vardı.",
+			"en": "That's right. It was her voice at the door."
+		},
+		"give": {
+			"speaker": "mete_child",
+			"tr": "Anam gönderdi. Teşekkür için.",
+			"en": "My mother sent it. To say thank you."
+		}
+	},
+	"barks": {
+		"cooldown": 45.0
+	},
+	"actors": {
+		"lan_hatun": {
+			"start": "lan_stand",
+			"face": "child_start",
+			"solid": true
+		},
+		"hereka_young": {
+			"start": [
+				18.9,
+				-326.4
+			],
+			"face": "hereka_door"
+		}
+	},
+	"camp": {
+		"doc": "Ebe Obası'nın sabahı (TallyCamp): kişiler (Folk) işinde, haber alacak üç kişinin reply'ı; çocuklar (yeniden boyanmış çocuk modelleri) ocağın yanında aşık oynar; köpekler (TallyDogs) ebe_dogs'ta yatar, ebe_call'ın önünde yolu keser.",
+		"seed": 2101,
+		"people": [
+			{
+				"id": "curd_woman",
+				"body": "female",
+				"people": "hun",
+				"age": 34,
+				"at": [
+					27.6,
+					-328.5
+				],
+				"face": [
+					27.6,
+					-330.0
+				],
+				"jobs": [
+					"crouch_pick_place_f",
+					"crouch_fruit_basket_f"
+				],
+				"talk": "talk_hands_open",
+				"reply": "reply_1",
+				"speaker": "ebe_woman"
+			},
+			{
+				"id": "horse_man",
+				"body": "male",
+				"people": "hun",
+				"age": 41,
+				"at": [
+					11.2,
+					-331.0
+				],
+				"face": [
+					13.0,
+					-330.2
+				],
+				"jobs": [
+					"collect_object",
+					"bend_over_pick_up_m"
+				],
+				"talk": "stand_and_chat",
+				"reply": "reply_2",
+				"speaker": "ebe_man"
+			},
+			{
+				"id": "foal_man",
+				"body": "male",
+				"people": "hun",
+				"age": 28,
+				"at": [
+					31.6,
+					-334.4
+				],
+				"face": [
+					34.2,
+					-332.4
+				],
+				"jobs": [
+					"stand_and_drink",
+					"collect_object"
+				],
+				"talk": "talk_right_hand_open",
+				"reply": "reply_3",
+				"speaker": "ebe_man"
+			}
+		],
+		"kids": [
+			{
+				"id": "ebe_kid_a",
+				"model": "luhun_child",
+				"tint": "#c4b096",
+				"scale": 0.95,
+				"at": [
+					17.0,
+					-312.5
+				],
+				"face": [
+					18.5,
+					-312.0
+				],
+				"jobs": [
+					"ground_kneel_heels",
+					"ground_one_knee"
+				]
+			},
+			{
+				"id": "ebe_kid_b",
+				"model": "yanchi_child",
+				"tint": "#d8c4ae",
+				"scale": 0.94,
+				"at": [
+					19.9,
+					-311.6
+				],
+				"face": [
+					18.5,
+					-312.0
+				],
+				"jobs": [
+					"ground_one_knee",
+					"ground_kneel_heels"
+				]
+			}
+		],
+		"knucklebones": {
+			"at": [
+				18.5,
+				-312.1
+			]
+		},
+		"herbs": {
+			"at": [
+				28.2,
+				-322.8
+			],
+			"yaw": 6.0,
+			"span": 2.6,
+			"count": 8
+		},
+		"curd_mat": {
+			"at": [
+				27.7,
+				-330.2
+			],
+			"yaw": 4.0,
+			"size": [
+				1.8,
+				1.1
+			],
+			"count": 54
+		},
+		"posts": [
+			[
+				12.4,
+				-331.6
+			]
+		],
+		"horses": [
+			{
+				"model": "horse_brown",
+				"at": [
+					13.6,
+					-330.0
+				],
+				"yaw": 58.0,
+				"clip": "idle",
+				"speed": 0.9
+			},
+			{
+				"model": "horse_white",
+				"at": [
+					34.4,
+					-332.2
+				],
+				"yaw": -36.0,
+				"clip": "graze",
+				"speed": 0.8
+			},
+			{
+				"model": "horse_brown",
+				"at": [
+					35.8,
+					-330.6
+				],
+				"yaw": -62.0,
+				"scale": 0.6,
+				"clip": "idle",
+				"speed": 1.2
+			}
+		],
+		"dogs": {
+			"center": "ebe_center",
+			"call": "ebe_call",
+			"home": "ebe_dogs",
+			"guard_pad": 0.6,
+			"alert_pad": 4.5,
+			"tints": [
+				"#b8a07c",
+				"#5e5048"
+			]
+		},
+		"diorama": {
+			"yurt": "hereka_yurt",
+			"at": "hereka_yurt",
+			"radius": 3.0
+		},
+		"bark_sfx": "sfx_dogs_guard",
+		"settle_sfx": "sfx_dog_settle",
+		"growl_sfx": "fauna/dog_warn_1"
+	},
+	"steps": [
+		{
+			"id": "tally_errand",
+			"kind": "tally_errand",
+			"clock": "08:30",
+			"objective": {
+				"tr": "Hereka'ya git",
+				"en": "Go to Hereka"
+			},
+			"hint": {
+				"tr": "Ebe Obası kuzeyde, kuruyan derenin ucunda.",
+				"en": "The midwife's camp is to the north, at the end of the dry stream."
+			},
+			"errand_at": 1.2,
+			"curd_at": 2.6,
+			"lines": {
+				"errand": "errand",
+				"why": "why",
+				"news_task": "news_task"
+			},
+			"goal": "ebe_call",
+			"route": [
+				"dry_stream_south",
+				"dry_stream_north",
+				"ebe_call"
+			]
+		},
+		{
+			"id": "tally_dogs",
+			"kind": "tally_dogs",
+			"objective": {
+				"tr": "Ebe Obası'na git",
+				"en": "Go to the midwife's camp"
+			},
+			"hint": {
+				"tr": "Kuruyan dere boyunca kuzeye.",
+				"en": "North along the dry stream."
+			},
+			"goal": "ebe_call",
+			"route": [
+				"dry_stream_south",
+				"dry_stream_north",
+				"ebe_call"
+			],
+			"keeper": "hereka_young",
+			"keeper_route": [
+				"hereka_door"
+			],
+			"keeper_speed": 2.6,
+			"keeper_at": "hereka_door",
+			"hold_clip": "crouch_pick_place_f",
+			"lines": {
+				"dogs": "dogs",
+				"held": "dogs_held"
+			},
+			"labels": {
+				"call": {
+					"tr": "Seslen: «Köpeğinizi tutun!»",
+					"en": "Call out: \"Hold your dog!\""
+				}
+			},
+			"objectives": {
+				"stop": {
+					"tr": "Dur ve seslen",
+					"en": "Stop and call out"
+				},
+				"stop_hint": {
+					"tr": "Bozkırın görgüsü: yabancı obaya girmeden durur, köpeği tutturur. Dur, E'ye bas.",
+					"en": "Steppe manners: a stranger stops outside the camp and has the dogs held. Stop, then press E."
+				},
+				"wait": {
+					"tr": "Hereka'yı bekle",
+					"en": "Wait for Hereka"
+				}
+			}
+		},
+		{
+			"id": "tally_visit",
+			"kind": "tally_visit",
+			"objective": {
+				"tr": "Hereka'nın yanına git",
+				"en": "Go to Hereka"
+			},
+			"hint": {
+				"tr": "Köpekler tutuldu.",
+				"en": "The dogs are held."
+			},
+			"keeper": "hereka_young",
+			"near": 3.2,
+			"keeper_route": [
+				"hereka_door",
+				[
+					18.9,
+					-326.5
+				]
+			],
+			"keeper_after": "hereka_door",
+			"bot_route": [
+				"hereka_door",
+				[
+					21.3,
+					-325.8
+				]
+			],
+			"inside": {
+				"at": "hereka_yurt",
+				"radius": 2.3
+			},
+			"give_clip": "collect_object",
+			"lines": {
+				"name": "name",
+				"give": "give",
+				"counted": "counted",
+				"inside": "inside",
+				"memory": "moon",
+				"stick": "stick"
+			},
+			"objectives": {
+				"enter": {
+					"tr": "Hereka'nın yurduna gir",
+					"en": "Go into Hereka's yurt"
+				}
+			}
+		},
+		{
+			"id": "tally_news",
+			"kind": "tally_news",
+			"objective": {
+				"tr": "Obaya sayımı haber ver",
+				"en": "Tell the camp about the count"
+			},
+			"hint": {
+				"tr": "Obanın üç kişisine E ile söyle.",
+				"en": "Tell three people in the camp: press E beside them."
+			},
+			"reach": 2.8,
+			"keeper": "hereka_young",
+			"keeper_route": [
+				"hereka_door",
+				[
+					25.6,
+					-326.2
+				]
+			],
+			"lines": {
+				"news": "news",
+				"bye": "bye"
+			},
+			"labels": {
+				"news": {
+					"tr": "Haber ver: «Sayım öbür gün!»",
+					"en": "Tell them: \"The count's the day after tomorrow!\""
+				}
+			},
+			"objectives": {
+				"news": {
+					"tr": "Obaya sayımı haber ver",
+					"en": "Tell the camp about the count"
+				},
+				"news_hint": {
+					"tr": "Obanın üç kişisine E ile söyle.",
+					"en": "Tell three people in the camp: press E beside them."
+				}
+			}
+		},
+		{
+			"id": "tally_home",
+			"kind": "tally_home",
+			"objective": {
+				"tr": "Eve dön",
+				"en": "Go home"
+			},
+			"hint": {
+				"tr": "Çeteleyi Lan Hatun'a göster.",
+				"en": "Show Lan Hatun the tally stick."
+			},
+			"from": "ebe_center",
+			"cut_after_m": 48.0,
+			"cut_fade_s": 0.7,
+			"arrive": [
+				22.0,
+				-26.0
+			],
+			"arrive_yaw_deg": -35.0,
+			"arrive_clock": "11:40",
+			"meet": "lan_stand",
+			"near": 6.0,
+			"keeper": "lan_hatun",
+			"route": [
+				"dry_stream_north",
+				"dry_stream_south",
+				"lan_stand"
+			],
+			"lines": {
+				"home": "home",
+				"ask": "lan_ask",
+				"answer": "mete_answer",
+				"reply": "lan_answer"
+			},
+			"evening": "19:40",
+			"fade_s": 1.2,
+			"hold_s": 0.9
+		},
+		{
+			"id": "tally_sleep",
+			"kind": "sleep",
+			"objective": {
+				"tr": "Yurda gir, yat",
+				"en": "Go in and lie down"
+			},
+			"hint": {
+				"tr": "Yarın sayım var. Yatağın yanında E.",
+				"en": "The count is tomorrow. Press E by the bed."
+			},
+			"bed": "lan_bed",
+			"radius": 1.4,
+			"fade_s": 1.6,
+			"hold_s": 0.8
+		}
+	]
+}

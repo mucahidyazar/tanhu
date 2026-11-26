@@ -1,0 +1,293 @@
+{
+	"id": "act_1_npcs",
+	"doc": "I. Perde'nin kişi programı (Yol Haritası npc-schedules; act1.md §5, time.md §9.4; Schedule okur, Session'ın 7. adımı). Program oyun dakikasıyladır (K20; saat GameClock): kişi başına vakit blokları [başlangıç, bitiş, yer, iş] ya da {from, to, at, job, route, depart, days}. Bloklar günü (24 saat) boşluksuz örter; gece bloğu başladığı günündür. Kişi bir sonraki bloğa yürüme süresi kadar önce çıkar, yerine vaktinde varır (walk_speed 1,4 m/sn; 1 oyun dk 2,5 sn: dakikada 3,5 m; yol haritanın navmesh'inden (MapNav.path; eşlenene dek ve yol yoksa düz çizgi), «route» verilmişse o yolun düğümleri); depart: true blok başında çıkar (esir kolu 07:00'de, 17:00'de). Gece hâli 19:30'da, gündüz 06:40'ta başlar (K20, act1.md §4): nöbetçiler gece yerlerine bu saatte geçer. Görünen kişi plana yürüyerek yetişir (kendi hızının 1,5 katı, en çok oyuncunun koşusu; K105, PaceLimit); 60 m ötesinde ve kadraj dışında konum sıçrar (snap_m). İşler: stand (ayakta), talk (konuşur, dinler), work (iş klibi), craft (yerde el işi), sit (yerde oturur), sleep (yatar), carry (iki yer arasında taşır: «with» ikinci yer), inside (yurtta: görünmez, yer kapısıdır), away (haritada değil: kampın dışındaki yer), cart (Kantu'nun arabası: kişi arabadadır, araba E'nin; burada görünmez). days: bloğun ya da kişinin günleri (hikâye günü 1–6: day_n 1.041 Gün I; başka gün «0», genel gün: özelsiz). tier: full tam kişi (T0, CharacterAvatar; ≤16, adlılar), crowd kalabalığın kademesinde (T1–T3 kukla; CrowdField; yakındayken tam kişi yuvasına geçebilir, adlı önce). look: kişinin görünüşü (Folk.person: kendi modeli ya da folk.json «named»; yoksa kimliğin tohumu). Yerler act1.md §4'ün koordinatlarıdır (x doğu, z güney; Ulu Ocak (0, 0)); yurt kapıları kapı yönünden (rot) 4 m dışarıda, belgede kapı yazılıysa o. Kalabalık öbekleri (groups) aynı yerlerle ve CrowdPlan.program ile kurulur: Ulu Ocak'ın 40 kişilik pazarı, Esir Çukuru'nun 31 esiri (16'sı Esir Yolu'nun kolu: günde iki kez, Demir Diş'te gündüz 16 esir ve 2 nöbetçi), gece 9 nöbet (watch).",
+	"walk_speed": 1.4,
+	"hurry": 1.5,
+	"snap_m": 60.0,
+	"day_from": "06:40",
+	"night_from": "19:30",
+	"places": {
+		"great_hearth": [0.0, 0.0],
+		"hearth_bowl": [6.0, -4.0],
+		"hearth_amaga": [0.0, -6.0],
+		"hearth_sentence": [0.0, 6.0],
+		"hearth_embers": [-4.0, 4.0],
+		"hearth_ring_w": [-6.5, -2.5],
+		"hearth_north": [10.0, -10.0],
+		"eskam_spot": [3.0, -6.5],
+		"market_nandu": [12.0, 8.0],
+		"amaga_front": [0.0, -36.0],
+		"amaga_yurt": [0.0, -37.0],
+		"guard_amaga": [-3.0, -34.0],
+		"count_stone": [-14.0, -14.0],
+		"count_stone_s": [-10.0, -16.0],
+		"hostage_door": [-43.0, 53.0],
+		"stores": [59.2, -9.2],
+		"stores_queue": [58.0, -4.0],
+		"stores_back": [74.0, -24.0],
+		"work_board": [52.0, -6.0],
+		"kitchen": [20.0, 14.0],
+		"kitchen_e": [24.0, 10.0],
+		"kitchen_w": [18.0, 10.0],
+		"snow_pile": [34.0, 30.0],
+		"drying_poles": [26.0, 20.0],
+		"woodpile": [78.0, 8.0],
+		"felt_yard": [42.0, 42.0],
+		"felt_yard_w": [38.0, 48.0],
+		"fire_yurt": [-58.8, -45.5],
+		"farnak_hearth": [-88.0, -8.0],
+		"stable": [-72.0, 34.0],
+		"watch_yurt": [55.5, -68.9],
+		"watch_yurt_front": [52.0, -66.0],
+		"tower": [28.0, -86.0],
+		"tower_foot": [24.0, -80.0],
+		"ramp_post": [45.0, -98.0],
+		"way_camp": [58.0, 22.0],
+		"kantu_shed": [66.4, 26.2],
+		"opia_hearth": [-34.0, 70.0],
+		"goat_foot": [-50.0, 82.0],
+		"goat_gate": [-62.0, 102.0],
+		"yurt_pad": [-32.0, 22.0],
+		"stake_line": [90.0, -124.0],
+		"ice_ford": [140.0, -155.0],
+		"shepherd_halt": [210.0, -250.0],
+		"mene_pen": [90.0, -240.0],
+		"offering_fence": [-62.0, 172.0],
+		"hollow": [92.0, 165.0],
+		"hollow_shelter": [100.0, 172.0],
+		"hollow_gate": [60.0, 125.0],
+		"hollow_inner_gate": [66.0, 132.0],
+		"west_fork": [-160.0, -40.0],
+		"iron_forge": [-270.0, -90.0],
+		"iron_gallery": [-300.0, -170.0],
+		"copper_vein": [-350.0, -150.0],
+		"qiang_tent": [-240.0, -130.0],
+		"qiang_tent_front": [-243.0, -126.0],
+		"wrestling": [-270.0, -60.0],
+		"felling": [430.0, 10.0],
+		"reed_hamlet": [345.0, -150.0],
+		"away_north": [40.0, -150.0],
+		"away_hunt": [180.0, -210.0]
+	},
+	"routes": {
+		"road_column": ["hollow_gate", "goat_foot", "west_fork", "iron_forge", "iron_gallery"],
+		"cart_loop": ["way_camp", "felling", "reed_hamlet", "shepherd_halt", "iron_forge", "way_camp"]
+	},
+	"people": {
+		"amaga": {"tier": "full", "name": {"tr": "Amaga", "en": "Amaga"}, "blocks": [
+			["06:40", "10:30", "amaga_front", "talk"],
+			["10:30", "12:00", "amaga_yurt", "inside"],
+			["12:00", "12:20", "hearth_bowl", "stand"],
+			["12:20", "17:30", "amaga_yurt", "inside"],
+			["17:30", "19:30", "hearth_amaga", "stand"],
+			["19:30", "06:40", "amaga_yurt", "inside"]
+		], "special": {
+			"3": [["06:40", "10:30", "amaga_front", "talk"], ["10:30", "12:00", "amaga_yurt", "inside"], ["12:00", "14:00", "hearth_bowl", "talk"], ["14:00", "17:30", "amaga_yurt", "inside"], ["17:30", "19:30", "hearth_amaga", "stand"], ["19:30", "06:40", "amaga_yurt", "inside"]],
+			"4": [["06:40", "10:30", "amaga_front", "talk"], ["10:30", "17:00", "amaga_yurt", "inside"], ["17:00", "17:40", "hearth_amaga", "stand"], ["17:40", "06:40", "amaga_yurt", "inside"]],
+			"5": [["06:40", "11:50", "amaga_yurt", "inside"], ["11:50", "13:20", "hearth_sentence", "stand"], ["13:20", "20:00", "amaga_yurt", "inside"], ["20:00", "06:40", "yurt_pad", "stand"]]
+		}},
+		"farnak": {"tier": "full", "name": {"tr": "Farnak", "en": "Farnak"}, "blocks": [
+			["06:40", "10:30", "stable", "work"],
+			["10:30", "14:30", "shepherd_halt", "stand"],
+			["14:30", "19:30", "felt_yard", "talk"],
+			["19:30", "06:40", "farnak_hearth", "inside"]
+		], "special": {
+			"3": [["06:40", "10:30", "stable", "work"], ["10:30", "13:30", "shepherd_halt", "stand"], ["13:30", "16:30", "away_hunt", "away"], ["16:30", "19:30", "felt_yard", "talk"], ["19:30", "06:40", "farnak_hearth", "inside"]]
+		}},
+		"nanay": {"tier": "full", "name": {"tr": "Nanay", "en": "Nanay"}, "blocks": [
+			["06:40", "10:30", "felt_yard", "craft"],
+			["10:30", "19:30", "yurt_pad", "craft"],
+			["19:30", "06:40", "farnak_hearth", "inside"]
+		]},
+		"ardoksha": {"tier": "full", "name": {"tr": "Ardokşa", "en": "Ardoksha"}, "blocks": [
+			["06:40", "10:30", "work_board", "talk"],
+			["10:30", "11:45", "stores", "inside"],
+			["11:45", "12:30", "kitchen", "work"],
+			["12:30", "17:30", "stores", "inside"],
+			["17:30", "19:30", "kitchen", "work"],
+			["19:30", "06:40", "stores", "inside"]
+		]},
+		"kantu": {"tier": "full", "name": {"tr": "Kantu", "en": "Kantu"}, "blocks": [
+			["06:40", "10:30", "way_camp", "stand"],
+			{"from": "10:30", "to": "13:23", "at": "way_camp", "job": "cart", "route": "cart_loop"},
+			["13:23", "19:30", "way_camp", "stand"],
+			["19:30", "21:00", "kantu_shed", "sit"],
+			["21:00", "06:40", "kantu_shed", "inside"]
+		], "special": {
+			"4": [["06:40", "10:30", "way_camp", "stand"], {"from": "10:30", "to": "13:23", "at": "way_camp", "job": "cart", "route": "cart_loop"}, ["13:23", "19:30", "way_camp", "stand"], ["19:30", "06:40", "away_north", "away"]]
+		}},
+		"mene": {"tier": "full", "name": {"tr": "Mene", "en": "Mene"}, "blocks": [
+			["06:40", "10:30", "drying_poles", "work"],
+			["10:30", "14:30", "mene_pen", "stand"],
+			["14:30", "19:30", "stable", "work"],
+			["19:30", "06:40", "kantu_shed", "inside"]
+		], "special": {
+			"3": [["06:40", "10:30", "drying_poles", "work"], ["10:30", "14:30", "mene_pen", "stand"], ["14:30", "19:30", "stable", "work"], ["19:30", "06:40", "offering_fence", "sit"]],
+			"4": [["06:40", "10:30", "drying_poles", "work"], ["10:30", "14:30", "mene_pen", "stand"], ["14:30", "19:30", "stable", "work"], ["19:30", "06:40", "offering_fence", "sit"]],
+			"5": [["06:40", "10:30", "drying_poles", "work"], ["10:30", "14:30", "mene_pen", "stand"], ["14:30", "19:30", "stable", "work"], ["19:30", "06:40", "offering_fence", "sit"]]
+		}},
+		"palak": {"tier": "full", "name": {"tr": "Palak", "en": "Palak"}, "blocks": [
+			["06:40", "07:30", "watch_yurt_front", "stand"],
+			["07:30", "08:30", "count_stone", "talk"],
+			["08:30", "14:30", "tower", "stand"],
+			["14:30", "19:30", "stake_line", "stand"],
+			["19:30", "22:30", "watch_yurt_front", "stand"],
+			["22:30", "06:40", "watch_yurt", "inside"]
+		]},
+		"atsho": {"tier": "full", "name": {"tr": "Atşo", "en": "Atsho"}, "blocks": [
+			{"from": "06:30", "to": "10:30", "at": "hearth_embers", "job": "carry", "with": "fire_yurt"},
+			["10:30", "14:30", "fire_yurt", "inside"],
+			["14:30", "19:30", "hearth_ring_w", "stand"],
+			["19:30", "06:30", "fire_yurt", "inside"]
+		]},
+		"hereka": {"tier": "full", "name": {"tr": "Hereka", "en": "Hereka"}, "blocks": [
+			["06:40", "12:00", "hollow_shelter", "sit"],
+			["12:00", "12:40", "hollow_inner_gate", "stand"],
+			["12:40", "20:00", "hollow_shelter", "sit"],
+			["20:00", "22:00", "hollow", "sit"],
+			["22:00", "06:40", "hollow_shelter", "sleep"]
+		]},
+		"uldin": {"tier": "full", "name": {"tr": "Uldın", "en": "Uldin"}, "blocks": [
+			["06:40", "07:00", "hollow", "stand"],
+			{"from": "07:00", "to": "17:00", "at": "iron_gallery", "job": "work", "route": "road_column", "depart": true},
+			{"from": "17:00", "to": "06:40", "at": "hollow", "job": "sleep", "route": "road_column", "depart": true}
+		], "special": {
+			"3": [["06:40", "07:00", "hollow", "stand"], {"from": "07:00", "to": "12:00", "at": "iron_gallery", "job": "work", "route": "road_column", "depart": true}, ["12:00", "13:00", "wrestling", "stand"], ["13:00", "17:00", "iron_gallery", "work"], {"from": "17:00", "to": "06:40", "at": "hollow", "job": "sleep", "route": "road_column", "depart": true}]
+		}},
+		"berik": {"tier": "full", "name": {"tr": "Berik", "en": "Berik"}, "blocks": [
+			["06:40", "10:30", "hollow_inner_gate", "stand"],
+			{"from": "10:30", "to": "14:30", "at": "kitchen", "job": "carry", "with": "snow_pile"},
+			["14:30", "19:30", "hollow", "sit"],
+			["19:30", "06:40", "hollow_shelter", "sleep"]
+		]},
+		"kujul": {"tier": "full", "name": {"tr": "Kujul", "en": "Kujul"}, "blocks": [
+			["06:40", "22:30", "iron_forge", "work"],
+			["22:30", "06:40", "iron_forge", "sleep"]
+		]},
+		"eskam": {"tier": "full", "days": [3], "name": {"tr": "Eskam", "en": "Eskam"}, "blocks": [
+			["06:40", "11:30", "away_north", "away"],
+			["11:30", "14:00", "eskam_spot", "talk"],
+			["14:00", "06:40", "away_north", "away"]
+		]},
+		"omarg": {"tier": "crowd", "name": {"tr": "Omarg", "en": "Omarg"}, "blocks": [
+			["06:40", "10:30", "watch_yurt", "inside"],
+			["10:30", "14:30", "tower_foot", "stand"],
+			["14:30", "19:30", "kitchen_w", "stand"],
+			["19:30", "06:40", "hearth_north", "stand"]
+		]},
+		"sak": {"tier": "crowd", "days": [0, 1, 2, 3, 4], "name": {"tr": "Sak", "en": "Sak"}, "blocks": [
+			["06:40", "10:30", "count_stone_s", "stand"],
+			["10:30", "14:30", "ice_ford", "stand"],
+			["14:30", "19:30", "kitchen_e", "stand"],
+			["19:30", "06:40", "ramp_post", "stand"]
+		], "special": {
+			"4": [["06:40", "10:30", "count_stone_s", "stand"], ["10:30", "14:30", "ice_ford", "stand"], ["14:30", "19:30", "kitchen_e", "stand"], ["19:30", "06:40", "away_north", "away"]]
+		}},
+		"opia": {"tier": "crowd", "name": {"tr": "Opia", "en": "Opia"}, "blocks": [
+			["06:40", "10:30", "stores_queue", "stand"],
+			["10:30", "14:30", "felt_yard_w", "craft"],
+			["14:30", "06:40", "opia_hearth", "inside"]
+		], "special": {
+			"2": [["06:40", "10:30", "stores_queue", "stand"], ["10:30", "14:30", "felt_yard_w", "craft"], ["14:30", "23:00", "opia_hearth", "inside"], ["23:00", "23:40", "stores_back", "stand"], ["23:40", "06:40", "opia_hearth", "inside"]]
+		}},
+		"nandu": {"tier": "crowd", "days": [2, 3, 4], "name": {"tr": "Nandu", "en": "Nandu"}, "blocks": [
+			["06:40", "10:30", "reed_hamlet", "stand"],
+			["10:30", "14:30", "market_nandu", "stand"],
+			["14:30", "06:40", "reed_hamlet", "stand"]
+		]},
+		"yuan": {"tier": "crowd", "name": {"tr": "Yuan", "en": "Yuan"}, "blocks": [
+			["06:40", "14:30", "iron_gallery", "work"],
+			["14:30", "19:30", "qiang_tent_front", "stand"],
+			["19:30", "06:40", "qiang_tent", "inside"]
+		]},
+		"builder_a": {"tier": "crowd", "name": {"tr": "Yapı Eri", "en": "Builder"}, "blocks": [
+			["06:40", "07:00", "stores_back", "inside"],
+			["07:00", "23:00", "yurt_pad", "work"],
+			["23:00", "06:40", "stores_back", "inside"]
+		]},
+		"builder_b": {"tier": "crowd", "name": {"tr": "Yapı Eri", "en": "Builder"}, "blocks": [
+			["06:40", "07:00", "stores_back", "inside"],
+			["07:00", "23:00", "yurt_pad", "work"],
+			["23:00", "06:40", "stores_back", "inside"]
+		]}
+	},
+	"watch": {
+		"doc": "Gece nöbeti (act1.md §4 «9 nöbet ateşi», §5): dokuz nöbetçi gece hâlinde (19:30–06:40) kendi ateşinin yanında, ateşten dışa 2,2 m'de, dışarıya bakar; gündüz Nöbet Yurdu'nda uyur (18:00'den Mutfak'ta akşam aşı). Gündüzün üç nöbeti (day_posts: Amaga'nın yurdunun önü, Kule dibi, Çukur Kapısı) gündüz yerinde, gece Nöbet Yurdu'nda. Nöbetçi kalabalığın kademesindedir (role guard; yakındaysa tam kişi yuvasına geçer). Ateşlerin kendisi A'nındır (watch_fires[]).",
+		"role": "guard",
+		"post_offset": 2.2,
+		"posts": [
+			{"id": "wf1", "fire": [48.0, -88.0], "guard": "g04"},
+			{"id": "wf2", "fire": [18.0, -78.0], "guard": "g11"},
+			{"id": "wf3", "fire": [-12.0, -34.0], "guard": "g01"},
+			{"id": "wf4", "fire": [84.0, -18.0], "guard": "g03"},
+			{"id": "wf5", "fire": [-58.0, 22.0], "guard": "g05"},
+			{"id": "wf6", "fire": [-96.0, 8.0], "guard": "pb"},
+			{"id": "wf7", "fire": [-62.0, 102.0], "guard": "g06"},
+			{"id": "wf8", "fire": [34.0, 86.0], "guard": "pc"},
+			{"id": "wf9", "fire": [60.0, 118.0], "guard": "g10"}
+		],
+		"night": [
+			["06:40", "18:00", "watch_yurt", "inside"],
+			["18:00", "19:30", "kitchen_e", "stand"],
+			["19:30", "06:40", "@post", "stand"]
+		],
+		"day_posts": [
+			{"id": "d1", "at": "guard_amaga"},
+			{"id": "d2", "at": "tower_foot"},
+			{"id": "d3", "at": "hollow_inner_gate"}
+		],
+		"day": [
+			["06:40", "19:30", "@post", "stand"],
+			["19:30", "06:40", "watch_yurt", "inside"]
+		]
+	},
+	"groups": {
+		"market": {
+			"doc": "Ulu Ocak'ın pazarı (act1.md §4: gündüz «Pazar, 40 kişi»): kişiler gece adsız 13 yurdun kapısında (görünmez), sabah 07:00–09:00 arasında meydana gelir; meydanın 5–15 m'lik halkasında 3–5 kişilik öbekler, öbeğin ortasına bakarak; 17:30–17:55'te %55'i akşam aşına Mutfak'a geçer; 19:30'da evine döner (gece hâli). Çocuklar ve yaşlılar da aralarındadır.",
+			"count": 40,
+			"role": "townsfolk",
+			"seed": 4101,
+			"homes": [[-35.4, -79.3], [-91.0, -78.4], [76.9, -62.5], [-35.8, -26.6], [-38.1, -10.0], [35.0, -4.5], [85.0, 9.6], [93.2, 28.8], [-96.6, 59.9], [80.5, 46.0], [-7.3, 42.1], [-77.8, 60.5], [13.3, 78.1]],
+			"stops": [
+				{"arrive": ["07:00", "09:00"], "spot": {"ring": {"center": [0.0, 0.0], "min": 5.5, "max": 15.0}, "clusters": 10, "cluster_radius": 1.7}, "pose": "stand"},
+				{"arrive": ["17:30", "17:55"], "share": 0.55, "spot": {"disc": {"center": [15.0, 17.0], "radius": 5.5}}, "face": [20.0, 14.0], "pose": "stand"},
+				{"depart": ["19:30", "19:45"], "spot": "home", "pose": "inside"}
+			],
+			"keep_clear": [{"a": [0.0, 0.0], "b": [40.0, -92.0], "r": 2.2}, {"a": [0.0, 0.0], "b": [-42.0, 0.0], "r": 2.0}, {"a": [0.0, 0.0], "b": [20.0, 14.0], "r": 1.6}],
+			"min_gap": 1.0,
+			"blockers": [[0.0, 0.0, 4.5], [6.0, -4.0, 1.2], [0.0, -6.0, 1.2], [-14.0, -14.0, 1.6], [20.0, 14.0, 2.0], [26.0, 20.0, 3.2]]
+		},
+		"hollow": {
+			"doc": "Esir Çukuru'nun gündüz kalanları (act1.md §4: «Boş, yaşlılar → şarkı»; 31 esirin 15'i): yaşlılar ve hastalar kaya barınağın önünde oturur, ötekiler ayakta; 11:45–12:30 tayın için kapıya yürüyüp döner; gece barınağın çevresinde oturur (20:00–22:00 Hereka'nın şarkısı), 22:30'dan barınakta uyur.",
+			"count": 15,
+			"role": "captive",
+			"seed": 4102,
+			"homes": [[100.0, 172.0]],
+			"stops": [
+				{"arrive": ["06:40", "07:10"], "spot": {"disc": {"center": [92.0, 162.0], "radius": 14.0}}, "pose": "sit", "stand_share": 0.4},
+				{"arrive": ["11:45", "12:05"], "share": 0.6, "spot": {"disc": {"center": [68.0, 133.0], "radius": 4.0}}, "face": [60.0, 125.0], "pose": "stand"},
+				{"arrive": ["12:30", "12:50"], "share": 0.6, "spot": "first", "pose": "sit"},
+				{"arrive": ["19:40", "20:00"], "spot": {"ring": {"center": [96.0, 166.0], "min": 3.0, "max": 7.5}}, "face": [96.0, 166.0], "pose": "sit"},
+				{"depart": ["22:30", "22:45"], "spot": "home", "pose": "inside"}
+			],
+			"min_gap": 1.1
+		},
+		"column": {
+			"doc": "Esir Yolu'nun kolu (act1.md §4 road_column, §5: 07:00'de Çukur'dan çıkar, 17:00'de döner; günde iki kez 16 kişi): 16 esir iki sıra, 1,4 m arayla; önde ve arkada Demir Diş'in iki nöbetçisi (escort). Uldın kolun başındadır (tam kişi, people.uldin). Demir Diş'te gündüz Galeri Ağzı, Bakır Damarı ve Körük Ocağı'nda çalışırlar (kuklada iş pozu); nöbetçiler galerinin ağzında ve ocağın yanındadır. Dönüşte Çukur'a 19:30 dolayında varılır; gece Çukur'da oturur, 22:30'dan barınakta uyur; nöbetçiler Nöbet Yurdu'na geçer.",
+			"count": 16,
+			"role": "captive",
+			"seed": 4103,
+			"route": "road_column",
+			"rows": 2,
+			"row_gap_m": 1.4,
+			"lane_m": 0.65,
+			"homes": [[100.0, 172.0]],
+			"night_spot": {"disc": {"center": [90.0, 168.0], "radius": 11.0}},
+			"work_spots": [{"disc": {"center": [-296.0, -164.0], "radius": 5.0}, "share": 0.4}, {"disc": {"center": [-345.0, -147.0], "radius": 4.5}, "share": 0.35}, {"disc": {"center": [-266.0, -95.0], "radius": 4.0}, "share": 0.25}],
+			"out": {"from": "hollow", "depart": "07:00"},
+			"back": {"depart": "17:00"},
+			"night_sit": ["19:20", "22:30"],
+			"escort": {"count": 2, "role": "guard", "seed": 4104, "work_spots": [[-293.0, -160.0], [-262.0, -86.0]], "night": "watch_yurt"}
+		}
+	}
+}

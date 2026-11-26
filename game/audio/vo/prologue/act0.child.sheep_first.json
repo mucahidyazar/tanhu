@@ -1,0 +1,15 @@
+{
+	"id": "act0.child.sheep_first",
+	"take": 0,
+	"seed": 1813981279,
+	"hash": "6c1f285f69fd",
+	"model": "eleven_v3",
+	"voice": "S9V0fuqWOqX0i8Kb8ctu",
+	"seconds": 4.0,
+	"words": [
+		{"w": "Sheep", "t0": 0.0, "t1": 0.48},
+		{"w": "first.", "t0": 0.667, "t1": 2.16},
+		{"w": "Children", "t0": 2.222, "t1": 2.72},
+		{"w": "after.", "t0": 2.88, "t1": 4.0}
+	]
+}

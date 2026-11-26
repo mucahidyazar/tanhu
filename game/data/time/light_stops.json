@@ -1,0 +1,679 @@
+{
+	"version": 1,
+	"source": "K20, K58, K67, K76, K101; time.md §5.1–§5.3, §5.5; godot.md §4.9, §8.5",
+	"doc": "Ana kampın altı ışık durağı (s 0 night, 1 dawn, 2 morning, 3 noon, 4 golden, 5 dusk; 6 ≡ 0). Saat (GameClock) dakikadan s'i Daylight.sky_keys ile bulur, LightStops iki durağı karıştırır, SkyRig yazar: ışığın tek yazıcısı. Renkler sRGB'dir ([r, g, b] ya da #rrggbb). Başlangıç time.md §5.3 tablosudur; Godot birimine K101'in oranıyla çevrildi (Çocukluk'un Ordos örnekleri / tablo): light_energy = sunI × 0,376, ambient_color = sky × (0,827; 0,823; 0,867), ambient_energy = hemi × 0,291, exposure = exposure × 0,84; sisin yoğunluğu menünün 0,00045'i × 900 / fogFar; fire, village ve motes menünün (gece) değerine oranıdır; suyun parıltısı lakeGlow × 4 (gece 1,25 × 4 = menünün 5,0'ı). night durağı Godot'nun menü gecesidir (world.tscn ve sky.gdshader'ın değerleri: ay ışığı 0,42, ortam 0,5, gökten pay 0,55, gece renk ayarı): Serbest Gez'in gecesi menünün gecesi gibidir, menüye dönüş kimliğe varır. Tanın ve akşamın gölge dolgusu (ambient_color, ortamın gökten payı 0) tablonun soğuk sky rengindedir (K101: yoksa camgöbeği boya otun zeytin grisine düşer). golden ve dusk prototipin menü ışığıdır (time.md §5.3). Işığın yönü ve çarpanı (k) Daylight.light_source'tan gelir: gündüz güneş (gölge düşüren yükseklik ≥15°), akşam ve sabah penceresinde güneşle gece kaynağı arasında küresel karışım ve çukur, gecede ay ya da gök yönü; light_energy × k yazılır. grade_night gece renk ayarının (ColorGrade.world_night) payıdır, öteki pay gündüzün (ColorGrade.world): durak geçişi LUT karışımıdır. props: kampın ateşi (Campfire.light_energy), köy ışıkları (VillageLights) ve ateş böcekleri (motes; ikindiden 4,3'e dek 0, oradan batışa 0→1). Değerler hedeftir: K58'in ölçüm klasörüyle ayarlanır (docs/media/review/isik_*.jpg), göz onayı kullanıcınındır. saturation ve contrast ortamın renk ayarıdır (Environment.adjustment_*): gece menününki (1,12; 1,05), gece renk ayarının doygunluk kaybını (0,85) dengeler; gündüz renk ayarında (ColorGrade.world, 1,04) bu denge gerekmez, doygunluk 1.",
+	"order": [
+		"night",
+		"dawn",
+		"morning",
+		"noon",
+		"golden",
+		"dusk"
+	],
+	"places": {
+		"camp": {
+			"doc": "Göl Obası, Orhun yukarısı (K67, K106): sapma tarihten, açılış payıyla; ikindi anahtarı 13:40, menü anahtarı 14:46,2 (s 4,3).",
+			"lat": 47.35,
+			"dec_offset": -0.0127,
+			"golden": 820.0,
+			"menu": 886.18,
+			"props": {
+				"doc": "Kampın ışığa bağlı düğüm özellikleri (World'e göre yol; {Sınıf} o sınıftan ilk çocuktur): yazılan değer kimliğin (menünün) değeri × durağın props payıdır.",
+				"fire": {
+					"path": "Camp/Campfire",
+					"property": "light_energy"
+				},
+				"village": {
+					"path": "VillageLights/Lights",
+					"property": "material_override:shader_parameter/emission_energy"
+				},
+				"motes": {
+					"path": "Meadow/{GPUParticles3D}",
+					"property": "amount_ratio"
+				}
+			},
+			"nodes": {
+				"doc": "SkyRig'in yazdığı düğümler (World'e göre).",
+				"light": "MoonLight",
+				"environment": "WorldEnvironment",
+				"water": [
+					"Water/WaterMesh"
+				]
+			}
+		}
+	},
+	"probe": {
+		"doc": "Ölçüm karelerinin dakikaları (K58; 11 Nisan MÖ 209, ana kamp): her durağın anahtarı (time.md §5.2). Gece 23:00 (ay batık, k 0,55), öğle 11:45 (öğle düzlüğü).",
+		"day_n": 1171,
+		"night": "23:00",
+		"dawn": "05:10",
+		"morning": "07:07",
+		"noon": "11:45",
+		"golden": "13:40",
+		"dusk": "18:38"
+	},
+	"stops": {
+		"night": {
+			"name": "Gece / Night",
+			"light_color": [
+				0.66,
+				0.75,
+				1.0
+			],
+			"light_energy": 0.42,
+			"ambient_color": [
+				0.3,
+				0.38,
+				0.66
+			],
+			"ambient_energy": 0.5,
+			"ambient_sky": 0.55,
+			"exposure": 1.0,
+			"sky_energy": 1.0,
+			"grade_night": 1.0,
+			"sky": {
+				"zenith": [
+					0.025,
+					0.045,
+					0.16
+				],
+				"mid": [
+					0.06,
+					0.11,
+					0.32
+				],
+				"horizon": [
+					0.2,
+					0.3,
+					0.6
+				],
+				"ground": [
+					0.04,
+					0.06,
+					0.13
+				],
+				"moon_energy": 3.2,
+				"moon_glow_strength": 0.55,
+				"moon_glow_color": [
+					0.5,
+					0.6,
+					1.0
+				],
+				"star_brightness": 2.4,
+				"cloud_lit_color": [
+					0.6,
+					0.64,
+					0.92
+				],
+				"cloud_shadow_color": [
+					0.21,
+					0.25,
+					0.52
+				],
+				"cloud_rim_color": [
+					0.95,
+					0.96,
+					1.0
+				],
+				"cloud_coverage": 0.58,
+				"cloud_softness": 0.04,
+				"cloud_opacity": 0.97,
+				"cloud_light_from_sun": 0.0,
+				"sun_color": [
+					1.0,
+					0.66,
+					0.36
+				],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.0,
+				"sun_glow_color": [
+					1.0,
+					0.56,
+					0.32
+				],
+				"sun_glow_strength": 0.0,
+				"sun_glow_spread": 3.0,
+				"sun_glow_height": 0.35,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": [
+					0.18,
+					0.26,
+					0.46
+				],
+				"density": 0.00045,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.006,
+				"albedo": [
+					0.55,
+					0.62,
+					0.9
+				]
+			},
+			"water": {
+				"deep_color": [
+					0.04,
+					0.08,
+					0.2
+				],
+				"shallow_color": [
+					0.18,
+					0.3,
+					0.5
+				],
+				"reflection_horizon": [
+					0.42,
+					0.54,
+					0.86
+				],
+				"reflection_zenith": [
+					0.18,
+					0.29,
+					0.54
+				],
+				"glint_color": [
+					1.0,
+					0.95,
+					0.85
+				],
+				"glint_energy": 5.0
+			},
+			"props": {
+				"fire": 1.0,
+				"village": 1.0,
+				"motes": 1.0
+			},
+			"saturation": 1.12,
+			"contrast": 1.05
+		},
+		"dawn": {
+			"name": "Tan / Dawn",
+			"light_color": "#ffb48a",
+			"light_energy": 0.47,
+			"ambient_color": [
+				0.5,
+				0.56,
+				0.75
+			],
+			"ambient_energy": 0.36,
+			"ambient_sky": 0.0,
+			"exposure": 1.14,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#3a4f8a",
+				"mid": "#8f96c4",
+				"horizon": "#e2b3a8",
+				"ground": [
+					0.16,
+					0.19,
+					0.16
+				],
+				"moon_energy": 1.2,
+				"moon_glow_strength": 0.15,
+				"moon_glow_color": [
+					0.62,
+					0.66,
+					0.9
+				],
+				"star_brightness": 0.35,
+				"cloud_lit_color": "#ffd2be",
+				"cloud_shadow_color": "#6c709c",
+				"cloud_rim_color": [
+					1.0,
+					0.86,
+					0.78
+				],
+				"cloud_coverage": 0.42,
+				"cloud_softness": 0.1,
+				"cloud_opacity": 0.85,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.72,
+					0.52
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.013,
+				"sun_glow_color": "#ffb48c",
+				"sun_glow_strength": 0.6,
+				"sun_glow_spread": 2.6,
+				"sun_glow_height": 0.45,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#8d93b8",
+				"density": 0.00045,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.005,
+				"albedo": [
+					0.72,
+					0.72,
+					0.84
+				]
+			},
+			"water": {
+				"deep_color": "#1a3556",
+				"shallow_color": [
+					0.32,
+					0.38,
+					0.52
+				],
+				"reflection_horizon": "#a3a9cf",
+				"reflection_zenith": [
+					0.43,
+					0.49,
+					0.68
+				],
+				"glint_color": [
+					1.0,
+					0.82,
+					0.68
+				],
+				"glint_energy": 4.6
+			},
+			"props": {
+				"fire": 0.571,
+				"village": 0.6,
+				"motes": 0.6
+			},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"morning": {
+			"name": "Sabah / Morning",
+			"light_color": "#ffe2b8",
+			"light_energy": 1.203,
+			"ambient_color": [
+				0.61,
+				0.678,
+				0.816
+			],
+			"ambient_energy": 0.451,
+			"ambient_sky": 0.0,
+			"exposure": 1.025,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#5577b6",
+				"mid": "#8eaad6",
+				"horizon": "#c7d3e6",
+				"ground": [
+					0.24,
+					0.27,
+					0.15
+				],
+				"moon_energy": 0.5,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#fff6ea",
+				"cloud_shadow_color": "#9aa6c4",
+				"cloud_rim_color": [
+					1.0,
+					0.97,
+					0.9
+				],
+				"cloud_coverage": 0.32,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.92,
+					0.78
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.012,
+				"sun_glow_color": "#ffe0b0",
+				"sun_glow_strength": 0.45,
+				"sun_glow_spread": 2.4,
+				"sun_glow_height": 0.9,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#9ab4d4",
+				"density": 0.000368,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.003,
+				"albedo": [
+					0.82,
+					0.84,
+					0.88
+				]
+			},
+			"water": {
+				"deep_color": "#1d4a6e",
+				"shallow_color": [
+					0.32,
+					0.45,
+					0.56
+				],
+				"reflection_horizon": "#a8c2e0",
+				"reflection_zenith": [
+					0.5,
+					0.62,
+					0.8
+				],
+				"glint_color": [
+					1.0,
+					0.95,
+					0.85
+				],
+				"glint_energy": 3.8
+			},
+			"props": {
+				"fire": 0.286,
+				"village": 0.25,
+				"motes": 0.0
+			},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"noon": {
+			"name": "Öğle / Midday",
+			"light_color": "#fff1d8",
+			"light_energy": 1.542,
+			"ambient_color": [
+				0.671,
+				0.723,
+				0.843
+			],
+			"ambient_energy": 0.509,
+			"ambient_sky": 0.0,
+			"exposure": 0.974,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#5a84c8",
+				"mid": "#8db0e0",
+				"horizon": "#bcd0ea",
+				"ground": [
+					0.28,
+					0.31,
+					0.17
+				],
+				"moon_energy": 0.4,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#ffffff",
+				"cloud_shadow_color": "#9aa8c8",
+				"cloud_rim_color": [
+					1.0,
+					0.99,
+					0.95
+				],
+				"cloud_coverage": 0.3,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.96,
+					0.86
+				],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.011,
+				"sun_glow_color": "#fff0d0",
+				"sun_glow_strength": 0.35,
+				"sun_glow_spread": 2.0,
+				"sun_glow_height": 1.0,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#8fb0d8",
+				"density": 0.000261,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.0025,
+				"albedo": [
+					0.84,
+					0.86,
+					0.9
+				]
+			},
+			"water": {
+				"deep_color": "#24557c",
+				"shallow_color": [
+					0.36,
+					0.5,
+					0.6
+				],
+				"reflection_horizon": "#b4cdea",
+				"reflection_zenith": [
+					0.53,
+					0.66,
+					0.85
+				],
+				"glint_color": [
+					1.0,
+					0.97,
+					0.9
+				],
+				"glint_energy": 2.8
+			},
+			"props": {
+				"fire": 0.229,
+				"village": 0.175,
+				"motes": 0.0
+			},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"golden": {
+			"name": "İkindi / Afternoon",
+			"light_color": "#ffcb8a",
+			"light_energy": 1.41,
+			"ambient_color": [
+				0.636,
+				0.694,
+				0.833
+			],
+			"ambient_energy": 0.471,
+			"ambient_sky": 0.0,
+			"exposure": 1.042,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#4f74b8",
+				"mid": "#7d9fd2",
+				"horizon": "#a9bfdc",
+				"ground": [
+					0.26,
+					0.29,
+					0.16
+				],
+				"moon_energy": 0.5,
+				"moon_glow_strength": 0.0,
+				"moon_glow_color": [
+					0.7,
+					0.76,
+					0.9
+				],
+				"star_brightness": 0.0,
+				"cloud_lit_color": "#fff0dc",
+				"cloud_shadow_color": "#8e9cc0",
+				"cloud_rim_color": [
+					1.0,
+					0.94,
+					0.84
+				],
+				"cloud_coverage": 0.34,
+				"cloud_softness": 0.14,
+				"cloud_opacity": 0.8,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.84,
+					0.62
+				],
+				"sun_energy": 5.5,
+				"sun_disc_size": 0.012,
+				"sun_glow_color": "#ffc890",
+				"sun_glow_strength": 0.5,
+				"sun_glow_spread": 2.4,
+				"sun_glow_height": 0.7,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#7c9cc9",
+				"density": 0.000289,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.0025,
+				"albedo": [
+					0.86,
+					0.84,
+					0.82
+				]
+			},
+			"water": {
+				"deep_color": "#1f4a70",
+				"shallow_color": [
+					0.32,
+					0.44,
+					0.55
+				],
+				"reflection_horizon": "#9fbbdc",
+				"reflection_zenith": [
+					0.47,
+					0.6,
+					0.79
+				],
+				"glint_color": [
+					1.0,
+					0.86,
+					0.66
+				],
+				"glint_energy": 3.4
+			},
+			"props": {
+				"fire": 0.314,
+				"village": 0.375,
+				"motes": 0.0
+			},
+			"saturation": 1.0,
+			"contrast": 1.05
+		},
+		"dusk": {
+			"name": "Akşam / Evening",
+			"light_color": "#ff9f6d",
+			"light_energy": 0.583,
+			"ambient_color": [
+				0.45,
+				0.52,
+				0.75
+			],
+			"ambient_energy": 0.38,
+			"ambient_sky": 0.0,
+			"exposure": 1.16,
+			"sky_energy": 1.0,
+			"grade_night": 0.0,
+			"sky": {
+				"zenith": "#28386a",
+				"mid": "#5f73a8",
+				"horizon": "#b98e98",
+				"ground": [
+					0.14,
+					0.18,
+					0.14
+				],
+				"moon_energy": 1.6,
+				"moon_glow_strength": 0.2,
+				"moon_glow_color": [
+					0.6,
+					0.64,
+					0.92
+				],
+				"star_brightness": 0.45,
+				"cloud_lit_color": "#f7b494",
+				"cloud_shadow_color": "#4e5683",
+				"cloud_rim_color": [
+					1.0,
+					0.8,
+					0.66
+				],
+				"cloud_coverage": 0.44,
+				"cloud_softness": 0.1,
+				"cloud_opacity": 0.86,
+				"cloud_light_from_sun": 1.0,
+				"sun_color": [
+					1.0,
+					0.62,
+					0.42
+				],
+				"sun_energy": 5.0,
+				"sun_disc_size": 0.013,
+				"sun_glow_color": "#ff9a68",
+				"sun_glow_strength": 0.7,
+				"sun_glow_spread": 2.8,
+				"sun_glow_height": 0.45,
+				"night_sky": 1.0,
+				"moon_phase_shade": 1.0
+			},
+			"fog": {
+				"color": "#4a648f",
+				"density": 0.000324,
+				"aerial_perspective": 0.4
+			},
+			"volumetric": {
+				"density": 0.004,
+				"albedo": [
+					0.66,
+					0.66,
+					0.82
+				]
+			},
+			"water": {
+				"deep_color": "#102542",
+				"shallow_color": [
+					0.24,
+					0.3,
+					0.44
+				],
+				"reflection_horizon": "#6f89b8",
+				"reflection_zenith": [
+					0.25,
+					0.32,
+					0.52
+				],
+				"glint_color": [
+					1.0,
+					0.72,
+					0.52
+				],
+				"glint_energy": 4.2
+			},
+			"props": {
+				"fire": 0.771,
+				"village": 0.75,
+				"motes": 1.0
+			},
+			"saturation": 1.0,
+			"contrast": 1.05
+		}
+	}
+}

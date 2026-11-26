@@ -1,0 +1,1465 @@
+# Yerleşim, Ordugâh ve Hanlık / Settlement, Army Camp and Khanate (K23)
+
+Alan belgesi, son biçim 2026-11-03; üçüncü tur 2026-11-04 (K31–K65: unvan ve adlar, kişiler, iki tür gelen hane, Ağaç Atölyesi, Surlu odunu, darı ve Kronik, Azıkçı, akın, Dailin, Plan Kipi; yurt eğrisi ve boyları, kabuk, hayvanlar); aynı gün E6 düzeltmeleri (K48, K49, K50, K55, K56, K60, K79–K82, K88: IV'ün akın sırası, Lung-çeng'in dört oynanan günü ve üç Dailin, Kâhya'nın şantiye eli, Takas Yeri gezgininin stoğu, sefer ordugâhının süresi, Hazine'nin kabuk satırı, kar payı, ocağın ozanı, Plan Kipi'nde Q, VI'nın kervan akını). Kaynak: d2 taslağı (`d2/settlement.md`, 2026-11-02), eleştirisi ve baş tasarımcının kararları (`decisions.md` K23, K25, K26, K29–K88; kesişen sayılar `d2/core.md` §4; kullanıcının cevapları `d3/register.md`, E6 dahil). Alan: II. Perde'de açılış ve II–VI boyunca büyüme yayı; Ocak'tan Tanhu Avlusu'na beş kademe; yerleşim ve ordugâh yapı kataloğu (ad, kademe, görünüm, ayak izi, kapasite, bakım, önkoşul); hane ve nüfus; iş ataması; yapılara yerleşen üretim zincirleri; depolama; ordugâh ve sefer ordugâhı; ikmal kervanı; hanlık merkezi (Tanhu Otağı, toplantılar, Toy Alanı, Gök Direği, Elçi Yurdu, Hazine); `WorldSpec` üstünde yerleşim kuralları ve bütçe; Plan Kipi ve Yerleşim Defteri; kayıt; performans; I. Perde'de kurulacak altyapı. Bağlayan sıra K31'dir: `decisions.md` > `d2/core.md` > alan belgeleri (bu belge, `story.md`, `fauna.md` dahil) > `godot.md`; `architecture.md` ile §13.4, §18 ve §19'un modül ve faz taslakları yalnız Three.js prototipi içindir (K29). Bu belge K23'ü ayrıntılandırır, tersine çevirmez. Kimlikler ve kod İngilizce, oyuncu metinleri TR / EN çiftidir ve bu belge için yeni yazıldı; Tanhu 1'den ad, kişi ve metin alınmadı (K32).
+
+**Komşu belgeler.** `d2/core.md` §2 (K21: İD, İS, İG; `eff(W)`; roller; şantiye `SiteSystem`; gece emri; `dayCapacity`; `world.sites` kaydı), `d2/core.md` §5 ve `d2/econ-model.json` (K24: eşya, tezgâh, tarif, yapı malzeme listesi `bom`, hane ve sürü, hedefler, saf servisler), `time.md` (K20: `WorldClock`, `Calendar`, üretim penceresi, toplantı günleri, perde başları), `weather.md` (K22: türler, iklim satırları, `fx`; `tanhu_ordu` `steppe_south`, `whistle_field` `gobi`), `story.md` (kişiler, görevler, tarihler, Akan Kronik'in satırları; K37, K42, K43), `fauna.md` (yük hayvanı, gelen hanenin kafilesi, kurt kaybı, Kuşhane; K65), `companions.md` (yoldaşın görevlendirilmesi, ordugâh kâhyası, nöbetçi yoldaş; K70; bu belgede §6.5), `godot.md` (Godot'da uygulama biçimi). Araştırma: `docs/research/bozkir-ekonomi.md` öneri 6–12 (darı, Azıkçı, akın, Surlu odunu, araba kartı, gelen hane), `cadir-otag.md` öneri 2, 6, 10–12 (yurt boyları, düzenler, eğim listeleri). Sahiplik: **ad, kademe, görünüm, kapasite, bakım, önkoşul, yer kuralları, hane, iş ataması, ordugâh, kervan, baskın, hanlık ve Kronik bu belgenin; yerleşim K24'ün saf servislerini (`Container`, `Workshop`, `herdDay`, `transfer`, `armyShare`, `rolloverYears`, `SupplyLedger`) saatle süren sistemdir**; emek (İG), el sınırı ve zanaat K21'in; malzeme, tarif, tezgâh, kap kapasitesi ve denge hedefleri K24'ün. † bu belgenin eklediği yapı türlerini işaretler. (2026-11-04, E6) Önerilen emekleri `d2/labour-model.json` v3'ün `settlement` bloğuna adım tablosuyla, malzemeleri `d2/econ-model.json` v3'ün `structures`'ına aynı sayılarla girdi; sayının sahibi artık o iki dosyadır (eski «sahibi gelene dek geçerlidir» sözü kalktı).
+
+**Öteki belgelere.** `architecture.md`, `structures.md`, `audio.md` değişiklikleri Faz 7'den sonra yalnız üç birleşik defterle işlenir: `d2/architecture-delta.md`, `d2/structures-delta.md`, `d2/audio-delta.md` (K26); `d2/settlement-delta-*.md` ve `d2/core-delta-*.md` iz için kalır, işlenmez (bu defter düzeni prototip içindir, K29). Öteki belgelerin değişiklikleri §20'dedir. Makine okunur veri `d2/settlement-model.json` (v3, bu belgeyle aynı sayılar; prototipin `tools/econ-sim.mjs`'i onu `econ-model.json`'un yanında okur; Godot bu iki dosyadan dışa aktarılan veriyi okur, sayı GDScript'e gömülmez).
+
+**Unvan ve adlar (K34, #35, #40).** Oyuncu metninde unvan «Tanhu», ülke «Hun Tanhuluğu», merkez «Tanhu Avlusu»dur; «kağan» ve «hanlık» oyuncuya çıkmaz. Bu belgenin başlığındaki ve §12'deki «hanlık» yalnız belge içi alan adıdır. Usta adı «Dülger / Carpenter»dır (`cr_carpenter`); «Ağaç Ustası» kalktı. Kişilerin adları `story.md` §8 ve §14'tedir (K37); bu belge onları rolleriyle anar.
+
+## 0. Karar özeti
+
+| # | Karar | Sayı | Neden |
+|---|---|---|---|
+| Y1 | Açılış II. Perde'dedir: pay ve Köz Kabı K7 `home` sahnesinin devamı olan sinemada verilir, Mete'nin denetimi atlas bacağında başlar; `mq2_own_hearth` bitince Mete'nin **Serbest Dolaşım**'ında Plan Kipi ve Yerleşim Defteri açılır | I. Perde yalnız altyapı ve geliştirici kum havuzu | K23; ana kampın Serbest Gez'i Çocuğundur, Mete orada oynanmaz (K6, K7) |
+| Y2 | Yerleşim ile ordugâh ayrı iç haritalardır: yerleşim `tanhu_ordu` (112,8; 43,5; K13), ana ordugâh `whistle_field` (106,6; 44,2) | Aralarında `r_whistle_ordu`: atla 1 gün, arabayla 1, öküzle 2 | Kullanıcı: «ayrı olacak»; Shiji 110 單于之庭直代、雲中: Tanhu avlusu bu yerdedir; Islık Alanı talim yeridir |
+| Y3 | Yerleşim büyür ama göçmez; sürü mevsimle otlak değiştirir; ordugâh göçer (sefer ordugâhı) | Sefer ordugâhı `CampPlan` ile ≈4 gerçek dk: onluklar çadırlarını paralel kurar, çadır 4 elle ≈3,8 dk (K50 ile değişti; eski «2–3 gerçek dk» K21'in `eff`'iyleydi, §10.4) | 逐水草遷徙 sürüdür; avlu ve sonraki surlu yerleşimler kalıcıdır |
+| Y4 | Beş kademe: **Ocak / Hearth**, **Oba / Clan Camp**, **Boy Yurdu / Lineage Seat**, **Toy Yeri / Gathering Seat**, **Tanhu Avlusu / The Tanhu's Court** | Hane 3 / 10 / 22 / 45 / 80; tavan 6 / 12 / 25 / 50 / 90 | K24 bileşim önerisi korunur; "Ordu" (ordugâhla karışır) ve "Han" (oyunun unvanı Tanhu'dur, K15, K34) adları alınmaz; Ocak tavanı 6: yüksüz hikâye haneleri gelişi kilitlemesin |
+| Y5 | Kademe n ≥ 3 için perde ≥ n | III'te Boy Yurdu, IV'te Toy Yeri, V'te Tanhu Avlusu | Büyüme perdelere yayılır; mevsim atlaması kademe atlatmaz |
+| Y6 | V. kademede yol seçimi: **Surlu Avlu / Walled Court** ya da **Göçer Avlu / Moving Court** | Surlu 91 İG yapı emeği, odun ≈×1,4; Göçer 55 İG, keçe ≈×1,6, ip ≈×1,5, demir ≈×2; günler 8,1 ve 7,8 (K52) | Hanshu 94A: Wei Lü kuyu, sur ve tahıl kulesi önerir; «胡人不能守城» itirazıyla vazgeçilir. Tarihin tartışması oyuncunun kararıdır |
+| Y7 | Hane 5 kişidir; işçi ağırlığı 2,75; sürü ≈18 at eşdeğeri; günde 4,3 öğün | Net iş gücü çobanlıktan sonra ≈2,1 yetişkin | K24 `params`, `household`; K21 roller |
+| Y8 | Hane gelir, ganimet olmaz. Hane çoğunlukla **olayla** gelir (hikâye dalgası, armağan, zaferden sonra **yenilenlerin seçimi**, toplantı, sığınan); günlük **Çekim / Draw** küçük bir ektir | Perde başına Çekim tavanı 3 / 4 / 6 / 8 / 10; Çekim yalnız Mete yerleşimde ya da ordugâhtayken işler | K23: esir mal ve ganimet değildir; 60 dakikalık günde beklemek ve gidip gelmek büyütmemeli (§5.3) |
+| Y9 | Hanenin yeni ekseni **Gönül / Goodwill** (0–100, hane başına) | <40 iş ×0,85, ≥70 ×1,1; <25 ayrılış | Ordu `loyalty` ekseninin yerleşim eşi; sayı gösterilmez, düğüm gösterilir |
+| Y10 | (K53 ile değişti) İki tür hane gelir. **Yüklü Hane / Laden Household** evini kendi at ve develerinde getirir, yurtlu (`kit`) ya da çadırlı (`tent`), yurdunu kendisi kurar; **İsteyen Hane / Asking Household** (`ask`) barınak ister, kart açılır | Yurtlu / çadırlı / isteyen: Çekim 0,6 / 0,25 / 0,15; yenilen 0,3 / 0,4 / 0,3; kaçkın 0 / 0,5 / 0,5; dalgalar 1 / 0 / 0; hikâye, kurtarılan, sığınan ve heqin hanesi isteyen (§5.3) | Kullanıcı (#39): «bazıları çadırıyla at ve develerine yüklemiş bazıları benden isteyecek»; tarihte göçebe evini taşır, sürüsünü yitiren yoksullaşır (`bozkir-ekonomi.md` §7) |
+| Y11 | İş ataması altı iştir: Sürü, Toplama, Zanaat, İnşa, Nöbet, Taşıma; **Kâhya / Steward** (II–IV Lan Hatun, V'ten Yimo; K43) kendiliğinden dağıtır, oyuncu kilitler; (K80) şantiyeyi el tavanına dek doldurur, artan eli sıradakine verir | Kâhya önceliği: sürü > nöbet tabanı > yiyecek > yem > yakacak > inşa > zanaat > kervan (§6.2); şantiye eli Küçük Yurt 6, Hane Yurdu 8, Otağ 12 (katsayı 8'de durur) | Oyuncu buyurur, halk çalışır; tıklama değil karar büyür (`economy.md` §0); 8 el yurtta el başına 0,94 verir, sabit 4 el 0,59 (K80) |
+| Y12 | Yapı kataloğu K21 ve K24 kimliklerini onaylar, hanlık için 9 yapı ekler | 40 yapı türü, 4 taşıt; üçüncü turda Küçük Yurt ve Bey Otağı (K51) ile Kuşhane (`fauna.md`) (§7) | Tek taksonomi; yeni sanat yalnız 7 görünüm ailesiyle (§7.9) |
+| Y13 | Kalıcı ambarlar ayrıdır: yerleşim ambarı, ordugâh ambarı, hazine, çukur; aralarında yalnız kervan ve oyuncunun heybesi taşır | Baskında tek kural: çukur %50 olasılıkla bulunur ve yalnız yiyecek ve tahıl alır (§15.4) | Act I ilkesi döner: «yazılan el konur, saklanan kalır» |
+| Y14 | İkmal kervanı Oba'dan sürekli buyrukla gider: «Ordu Payı» + yapılan mal. Ocak'ta kervan yoktur: payı onluğun **Azıkçı / Ration Rider**'ı alır (K54) | Her 2 günde bir; Ordu Payı yerleşik atlının %10'u: 1 / 10 / 20 / 40 / 60 öğün/gün; Azıkçı iki günde bir 2 öğün; kervana akın sefer başına ≈%5–9 (III–V; II ve VI'da yok, §11.3), koruma %60–90 püskürtür | Asıl iş yapılan mal: ok malzemesi, keçe, çadır, eyer; toplantıya gelen kendi azığını getirir |
+| Y15 | Hanlık merkezi Shiji 110'un üç toplantısını taşır: Kış Toplantısı perde arasında (Kronik; oynanan karşılığı takvimsiz Avlu Toplantısı), Lung-çeng kervanla, Dailin Sayımı avlunun güz otlağında. Dailin üç kez oynanır: yerleşimin sayımı III'te (16 Eylül 208) ve VI'da (9 Eylül 174), IV'te bir kez Ordos'ta (22 Eylül 203, son görev, K43; yerleşimin sayımı değildir). Lung-çeng günü dört kez oynanır: IV'te 17 Haziran 205 (Mete Hexi'dedir, Gök Dağı eteğinde Beşinci Ay Sunusu) ve 25 Haziran 203 (Lung-çeng'de toplantı ve armağan kervanı), VI'da 2 Haziran 198 ve 4 Haziran 176 | (K56 ile değişti) Lung-çeng 5. ayın, Dailin 8. ayın dolunayı (`GameCalendar.longcheng_day`, `dailin_day`); (E6.4) eski «Dailin iki kez» ve «Lung-çeng IV'te yalnız 17 Haziran 205» sözleri K43'ün son göreviyle ve K33'ün takvimiyle (`story.md` §2) düzeldi | 歳正月…小會單于庭 · 五月，大會蘢城 · 秋，馬肥，大會蹛林，課校人畜計 |
+| Y16 | **Gök Direği / Sky Pole** (Kutlu Tepe): şafak selamı (單于朝出營，拜日之始生) ve yıldırımın sevdiği yalnız uzun şey; konut halkasında paratoner dersi **Sancak Direği / Banner Pole**'dur (10 m) | Selam: birlik moral +2, hane Gönül +0,5, günde bir; vuruş: perde başına bir alamet kartı | K22 «yıldırım uzun ve yalnız olana iner» yerleşimde anlam kazanır |
+| Y17 | Ordugâh konforu sadakati yazar, talim disiplini | Barınak ≥%90 ve tam tayın: `loyalty` +0,3/gün | Teoman'ın atlıları Mete'nin olur: 皆可用 |
+| Y18 | Yer kuralları türe göredir: pedli yapının (`padKinds`) eğimi ≤6°, hane yatan yapı (`homeKinds`) suya ≤150 m (K57), rüzgâraltı atölye, kapı güneydoğu | §13 | K21 genel kuralı (`structures.md` §2.5) taban kalır, yerleşim üstüne ekler |
+| Y19 | Görünür bütçe Kışlak'ınkidir: ana ≤2,04M, ≤213 çizim (prototip); uzak yurt örnekli `YurtField`, öteki uzak yapılar tek `BatchedMesh` `KitField`. Godot'da iç harita satırı K63'tür: kare 16,7 / 28 ms, görünür çizim ≤900, görünür üçgen ≤3,0M | Yakında en çok 4 tam yurt | `act1.md` §15; `architecture.md` §7; K63 |
+| Y20 | Kayıt: `settlement` (order 77) ≤14 KB ambar içerikleri, tezgâh kuyrukları, sürüler ve yoldaki kervan dahil; `camps` (order 92) ≤4 KB Erzak Ambarı dahil; yapılar `world.sites`'tadır (K21, order 76) | Yolculuk ≈83 KB ≤96 | Her dikişin tek sahibi (K26) |
+| Y21 | (K42 ile değişti) Perde son ana görevle biter, sayaç yoktur; son görevden sonra Serbest Dolaşım açık kalır; perdeler arası yıllar **Akan Kronik**'le geçer | K25'in II 12, III 12, IV 14, V 12, VI 16 günü yalnız tasarım ölçüsüdür | Kullanıcı (#19): «sayaç olmasın perde son görev ile bitsin»; kış perdesi (V) oynanmayan güzün stoğuyla açılır (§16.2) |
+| Y22 | Yerleşim sürücüdür: K24'ün saf servislerini saatle sürer, ambarları `StorePool`'da birleştirir | `stores.js`, `production.js`, `caravans.js`, `chronicle.js` | Paralel sistem yok; K24 `EconomySystem` yok (§18) |
+| Y23 | (K55) Akın yalnız ay penceresinde gelir (`moon ≥ 0,97`, ayda ≈3 gün), toplantı günü gelmez; yerleşime perde tavanı vardır; ordugâha yalnız küçük **Gece Akını / Night Raid** gelir | R yerleşim / ordugâh: III 6 / 4, IV 10 / 6 (Yüeçi sürülünce, 17 Haziran 205, 6 / 4; Loufan ve Baiyang katılınca, 25 Haziran 203, 0), V 16 / yok; tavan III 2, IV 2, V 1; ordugâha III ve IV'te ≤1, tam ordugâhta başarı ≤%5,2 | Kullanıcı (#43): küçük, seyrek, kolay def edilen; SJ 110 月盛壯則攻戰, 如鳥之集 (§15.4) |
+| Y24 | (K54) Darı tarlası yalnız Surlu yoldadır; ürünü VI'dan itibaren ve Kronik'in tarla adımıyla gelir | Ekim 10–31 Mayıs, biçim 1–20 Eylül; tarla başına mevsimde 500 darı; V'in kışı tarlasız: Surlu %91, Göçer %90 | Ivolga'da ekime uygun yalnız Mayıs'ın üç haftası (Kradin); Surlu 20 Kasım 201'den sonra seçilir (§4.3, §16.2) |
+| Y25 | (K57) Plan Kipi'nde araba Atölye kategorisinde tek **Araba / Cart** kartıdır; Ağaç Atölyesi Oba'da açılır (K52) | Dört tür: `cart_felt` Oba, `cart_high` Boy Yurdu, `cart_war` Toy Yeri, `wagon_felt` Göçer Avlu | Sekizinci kategori açılmaz; araba kendi yerine, Araba Yeri'ne konur (§7.8, §14.1) |
+| Y26 | (K34) Oyuncuya unvan «Tanhu», ülke «Hun Tanhuluğu», merkez «Tanhu Avlusu»; «kağan» ve «hanlık» oyuncu metninde geçmez; usta adı «Dülger» | | Kullanıcı (#35): «Tanhu diyelim»; dönemin unvanı 單于'dır |
+| Y27 | (K70) Yoldaş görevlendirilir: yerleşimde ve ordugâhta usta ya da nöbetçi, yalnız ordugâhta kâhya; yerleşimin Kâhya'sı K43'te kalır (Lan Hatun, Yimo) | Nöbetçi yoldaş akın `D`'sinde 3 nöbetçi sayılır; ordugâh kâhyası `ties` ≥6 ister, Gece Akını `D` +2, `loyalty` +0,1/gün (tavan 70); usta etkisi yapı başına (§6.5) | E3.1: yoldaş Mete'nin yanında gezer, ama Mete yokken yeri ordugâhtır; yerleşimin dağıtıcısı hikâyenin kişisidir (`companions.md` §3.3) |
+
+## 1. Tarih dayanağı
+
+### 1.1 Kaynak satırları
+
+Shiji 110 ve Hanshu 94A metni zh.wikisource baskısından bu taslak için yeniden okundu (2026-11-02); karakterler o baskınındır, Türkçeler bu belgenin.
+
+| # | Kaynak | Metin | Türkçesi | Oyun kuralı |
+|---|---|---|---|---|
+| S1 | SJ 110 | 逐水草遷徙，毋城郭常處耕田之業，然亦各有分地 | Su ve ot ardınca göçerler, suru, kalıcı yurdu, tarla işi yoktur; ama her birinin payına düşen toprağı vardır | Mete'nin payı (`分地`) II. Perde'de verilir: `tanhu_ordu`; sürü göçer, yerleşim kalır (Y3); V. kademe seçimi (Y6) |
+| S2 | SJ 110 | 而單于之庭直代、雲中：各有分地 | Tanhu'nun avlusu Dai ve Yunzhong'a bakar | Avlunun yeri `tanhu_ordu` (K13 [112,8; 43,5]) |
+| S3 | SJ 110 | 歳正月，諸長小會單于庭，祠。五月，大會蘢城，祭其先、天地、鬼神。秋，馬肥，大會蹛林，課校人畜計 | Yıl başı beyler avluda küçük toplantıya gelir, kurban sunulur. 5. ay Lung-çeng'de büyük toplantı: atalara, göğe ve yere, ruhlara sunu. Güzün, at semizken Dailin'de büyük toplantı, insan ve hayvan sayılır | §12.2 üç toplantı; Dailin Sayımı yerleşimin sayımıdır |
+| S4 | SJ 110 | 而單于朝出營，拜日之始生，夕拜月 | Tanhu sabah konaktan çıkar, doğan güneşe eğilir, akşam aya | Gök Direği'nde Şafak Selamı (§12.4); Tanhu Otağı'nın kapısı doğuya bakar |
+| S5 | SJ 110 | 士力能毌弓，盡爲甲騎 | Yay çekebilen her er zırhlı atlıdır | Seferberlik: her hanenin bir yetişkini ere çağrılabilir (§5.6) |
+| S6 | SJ 110 | 兒能騎羊，引弓射鳥鼠；少長則射狐兔：用爲食 | Çocuk koyuna biner, yayla kuş ve fare vurur; biraz büyüyünce tilki ve tavşan: yiyecek için | Hanenin av payı (K24 `huntRationPerDay`) çocuk ve gencin işidir; çocuk iş havuzuna girmez |
+| S7 | SJ 110 | 與匈奴閒，中有棄地，莫居，千餘里，各居其邊爲甌脫 | Hun ile aralarında kimsenin oturmadığı bin li'den geniş boş toprak, iki yanda gözcü konakları | **Gözcü Konağı / Watch Post** (`outpost`, §7.6); III. Perde Tunghu sınırı |
+| S8 | SJ 110 | 大破滅東胡王，而虜其民人及畜產 | Tunghu kralını ezdi, halkını ve hayvanlarını aldı | Hayvan ganimet olur; insan olmaz: yenilenler seçer (§5.7). Tasarım tercihi, Destan Kitabı'nda yazılır |
+| S9 | SJ 110 | 其法，拔刃尺者死，坐盜者沒入其家 | Yasaları: bir karış bıçak çeken ölür; hırsızın hanesine (malına ve ailesine) el konur | Divan davaları (§12.3): hırsızlıkta «malını al» seçeneği; kan ve ceza sahnesi görünmez |
+| S10 | SJ 110 | 冒頓自立爲單于 | Mete kendini Tanhu ilan etti | II. Perde sonu: avlu işlevleri açılır (§2) |
+| S11 | Hanshu 94A, Huyandi Tanhu (MÖ 85–68) | 衛律為單于謀「穿井築城，治樓以藏穀，與秦人守之…」即穿井數百，伐材數千。或曰胡人不能守城，是遺漢糧也，衛律於是止 | Wei Lü Tanhu'ya kuyu kazmayı, sur kurmayı, tahılı kulede saklamayı, Çinlilerle korumayı öğütler; yüzlerce kuyu kazılır, binlerce ağaç kesilir. Biri «Hu suru tutamaz, Han'a tahıl bırakmak olur» der; vazgeçilir | Y6: Surlu ya da Göçer Avlu. Olay Mete'den bir buçuk kuşak sonradır: `tasarım tercihi` |
+| S12 | Hanshu 94A, Yizhixie Tanhu | 北至窴顏山趙信城而還 | Han atlıları Tianyan dağındaki Zhao Xin kalesine dek gelip döner | Hun'un sığınan Han beyine kurdurduğu surlu yer: sığınan hanelerin bilgisi (§5.3) |
+| S13 | Hanshu 94A, Laoshang Tanhu | 匈奴父子同穹廬臥 | Hun'da baba ve oğul aynı keçe evde yatar | Hane bir yurttur (Y7) |
+
+### 1.2 Arkeoloji
+
+- **Ivolga (Buryatya, Selenga'nın sol kıyısı).** Planlı yerleşim, 348 × 194–216 m; üç yanda dört sıra toprak sur ve üç sıra hendek (35–40 m'lik kuşak), içte kalın kütükten duvar. 57 konut kazıldı: yarı gömük, gömük ve yer üstü, en büyüğü 6,85 × 6,65 m, güney surlarına koşut sıralar; kütükle çevrili >4,5 m kuyu. Demir eritme (körüklü ocak), tunç dökümü, çarkta çömlek, kemik, ağaç, deri, dokuma; darı, arpa, buğday. Halk karışıktır: yerli, Hun ve Kuzey Çin'den gelenler (sığınanlar ve savaş tutsakları; zanaatçı ve çiftçi). Tarih MÖ 2.–1. yy (radyokarbon MÖ 1. yy – MS 1. yy ortası); kazıcı A. V. Davydova kuruluşu Mete'ye bağlar, sayı Kradin'indir (2.500–3.000 kişi tahmini). Oyun: V. kademenin Surlu yolu (sur ve hendek 40 × 10 m, 12 yarı gömük ev, darı tarlası, tahıl kulesi). Tutsak yoktur; Çinli hane sığınan olarak, kendi seçimiyle gelir (§5.7).
+- **Sanjiaocheng (Hexi, Shajing kültürü), `groups-research.md` §5.** Toprak sedde içinde ve çevresinde keçe ev, arpa ve darı çukurları: Ambar Çukuru (`grain_pit`) ve Tahıl Ambarı'nın görünüşü.
+- **Terelj ve Khustyn Bulag demiri** (`economy.md` §2.4 kaynağı): Demirci Ocağı III. kademe öncesi açılır (II. Perde, Oba).
+- **Arkhangai'daki "Lung-çeng" kazısı** (48°06′11″K, 102°33′38″D): kimlik tartışmalıdır (`groups-research.md` §3). Oyun Lung-çeng'i ayrı iç harita tutar, yerleşim oraya kurulmaz.
+
+### 1.3 Tasarım tercihleri (Kurgu listesine girmez)
+
+`decisions.md` K13: kurgu listesi yalnız uydurulan kişi ve kurumları tutar. Bu belge yeni kişi ve kurum uydurmaz; ustaların, Kâhya'nın ve ilk ailelerin adları `story.md` §14'tedir (K37, K43) ve kurgu listesine orada girer. Aşağıdakiler Destan Kitabı'nda `tasarım tercihi` diye işaretlenir:
+
+| Tercih | Neden |
+|---|---|
+| Mete'nin payı `tanhu_ordu`'dur, II. Perde'de Teoman verir | Shiji payın yerini yazmaz; avlunun yeri S2'dir, büyüme aynı yerde olur |
+| İlk ocak babanın Ulu Ocağı'ndan taşınan közle yanar | `structures.md` §10.6 «Ateş başka ateşten doğar»; darbeye anlam verir |
+| Kademe adları (Ocak, Oba, Boy Yurdu, Toy Yeri) | Türkçe söz varlığı oyunun dilidir (kerege, tündük gibi), dönemin sözcüğü değil |
+| Yenilenlerin seçimi, Gönül, Kâhya | Esirsiz bir oyun kuralı; tarihte tutsak alınmıştır (S8) |
+| Dailin'in yeri avlunun güz otlağıdır | Yeri bilinmez (`groups-research.md` §3) |
+| Gök Direği'nin biçimi (taş halka ve uzun direk) | Hun sunak biçimi kaynakta yoktur |
+| Surlu Avlu ve darı tarlası | Mete'den sonradır (S11, Ivolga) |
+| Yer adları Karasu, Seki, Dirsek, Kuytu | Uydurma küçük yer adlarıdır; gerçek adlar `geography.js`'tedir |
+| «Üç Ocak Yeri» adı | Anohin'in üç ocak taşına dayanır (K57) |
+| Dailin'in Söğüt Turu | Üç tur Xianbei kaydıdır, Hun için çıkarımdır (K56) |
+| Hazine'de ve kesede kabuk | Hun'un kabuk sayması tasarım tercihidir (K48) |
+| Ordugâhın Gece Akını | Akının ayı kaynaktır (SJ 110 月盛壯則攻戰); bir ordugâha kaç kez geldiği kaynakta yoktur, sayılar kurgudur (`bozkir-ekonomi.md` §4) |
+
+## 2. Açılış ve büyüme yayı
+
+### 2.1 II. Perde açılışı
+
+Görevlerin metni, günleri ve kişileri `story.md` §11.1'dedir (K37, K43); bu tablo yalnız yerleşime etkilerini verir. (2026-11-04, E6) Başlıktaki «hikâye alanına öneri» ve tablodaki «öneri id» sözleri kalktı: kimlikler `story.md`'nin görev kimlikleridir. II «Ok Neyi Gösterirse / Where the Arrow Points» 1–15 Haziran MÖ 209'dur (`dayN` 1.222–1.236).
+
+| Sıra | Görev | TR / EN | Yer | Yerleşime etkisi |
+|---|---|---|---|---|
+| 1 | `mq2_allotment` | Pay / The Allotment | **Sinema:** K7 `home` sahnesinin devamı, Tanhu Kampı, 1 Haziran 209 (11 Nisan → 1 Haziran'a Akan Kronik), uzak kare (K106). Teoman Mete'ye güneyin payını ve tümeni verir; kampın ateşi Teoman'ın ocağıdır. Ana kamp (Göl Obası) Mete oyuncuyken hiç yüklenmez (K6, K106) | Tümen ve güneyin payı verilir; atlas `tanhu_ordu`'yu `scouted` yapar |
+| 2 | `mq2_own_hearth` | Kendi Ocağın / Your Own Hearth | Sinemanın sonu: Mete Köz Kabı'na babasının ateşinden köz alır ve atına biner. **Mete'nin denetimi atlas bacağında başlar:** `r_tanhu_whistle` → `r_whistle_ordu` → `tanhu_ordu` | Köz Kabı (`ember_pot`) 48 oyun saati yanar, her `charcoal` 24 saat uzatır, kapla 1 kömür verilir (yol 2 gün: oyalanan yolda besler). Ocak Yeri seçilir (§3.2), Mete'nin yurdu ilk onlukla kurulur (Teoman'ın armağanı `yurt_kit`, 8 el 8,0 dk, K50; `quick_raise` seviye 7 ister ve «Önce bir yurdu bitir» kilidi taşır: II. Perde'nin ilk yurdu becerisizdir), `y_ocak` közle yanar: **Ocak**. Göl Obası'nın ozanı II'de gelir ve III sonuna dek Mete'nin ocağında çalar (K79); Köz Kabı'yla gelmez, yolu II'de yazılır (K106) |
+| 3 | `mq2_whistle_camp` | Islık Ordugâhı / The Whistle Camp | `whistle_field`, 2–3 Haziran | Onluğun iki çadırı (kendi `tent_kit`'leri), Talim Alanı; ilk talim (`army.md` `drill`): **Onluk Ateşi**. Eski Binbaşı Dulongçi on bini getirir |
+| 4 | `mq2_oba` | Oba / The Clan Camp | Yerleşim, 4 Haziran'dan (3. günden sonra) | Dört hane yurt yükleri, 5 günlük azıkları ve bahar kırkımlarının yarısıyla gelir, biri demirci Dutu (`cr_smith`): Oba'nın dalgası (§5.3). Lan Hatun Kâhya olur; Oba kurulunca kervan açılır |
+| 5 | Serbest Dolaşım | | Her yer | Plan Kipi (`P`), Yerleşim Defteri, iş ataması, kervan |
+
+**Teoman'ın armağanı:** Mete'nin `yurt_kit`'i, bir `cart_felt`, ≈30 at eşdeğeri sürü (60 koyun, 10 keçi, 16 at, 4 sığır), sürünün bahar kırkımı (60 `wool`), 6 `iron_bar` ve ≈15 günlük azık (400 `millet`, 30 `dried_meat` ≈217 öğün); ayrıca Mete'nin kesesine 24 kabuk (K48; kese `economy` bloğundadır, yerleşimin ambarı değildir). Yurt yükü keçe arabada (59 / 60 Yük), yün, demir ve azık (85 Yük) sürünün üç Yük Atı'ndadır (`pack_horse` 30 Yük, K65). **Neden.** II. Perde 1–15 Haziran'dır (`story.md` §11.1); kırkım bahar sonunda (14 Mayıs) ve güz başında olduğu için perdede yeni yün çıkmaz: Ocak ve Oba'nın keçesi (≈60 keçe) armağanın yününden, Oba hanelerinin getirdiği kırkımdan ve pazarcıdan gelir. Külçe yalnız Demirci Ocağı'nda yapılır; armağanın altı külçesi Ağaç Atölyesi'ne ve demirci gelmeden kurulan iki yurdun bosağasına yeter. Yiyecek kuralları ambardaki günü okur (Çekim ≥5 gün, `K_tok` ≥%35, Oba kapısı ≥10 gün): azıksız açılış kıtlıkla başlardı (doğrulama V1, V2; `d2/core.md` §4.2). **İlk aileler** (`hh_story`, K37): üç hane gelir: onluk eri Şiuşun'un ailesi, dülger Ruodi'nin hanesi (`cr_carpenter`; Ağaç Atölyesi'ni Oba açılınca kurar, K52) ve Mete'nin anası Lan Hatun'un hanesi (II–IV Kâhya; Moyan bu hanededir). Ambarcı (`m_quarter`) önce Tola'dır: `tola_lives` ise rolü o alır, değilse Lan Hatun'un hanesiyle gelen Moyan (`story.md` §14.1, `progression.md` §4.3; E6 netleştirmesi: eski «Ambarcı Moyan bu hanededir» sözü Tola koşulunu düşürüyordu). Üçü de İsteyen Hane'dir: yüksüz gelir ve İsteyen Hane kartını öğretir (`sq2_first_yurts`, K53, §5.3).
+
+Bayrak `hearth_ember`: `father` (babanın közüyle yandı), `own` (köz söndü, yerleşimin ateşinden yakıldı). Okuyan: II. Perde sonu (darbe) ve son kart; bedeli ve ödülü yoktur, söz satırıdır. Köz sönerse görev başarısız olmaz: Seki'deki ilk ateş yerine geçer.
+
+**Neden köz.** Yurt bir yapıdır ama ocak bir soydur (`structures.md` §10.6). Babasının ateşini taşıyan oğul, perdenin sonunda o ateşin sahibini vurur; oyuncu bu çizgiyi kendi eliyle taşımış olur. Ana kampta Ulu Ocak yoktur (Ulu Ocak Kışlak'ındır). Sinema Tanhu Kampı'ndadır, köz orada babanın ocağından dolar; menü dünyası (Göl Obası) kullanılmaz, ona yapı eklenmez (K106).
+
+### 2.2 Perde perde
+
+Perde başları K25'tir (`time.md` §2): II 1 Haziran 209, III 1 Eylül 208, IV 1 Haziran 205, V 20 Kasım 201, VI 1 Haziran 198. (K42 ile değişti) Perde son ana görevle biter, sayaç yoktur; K25'in gün sayıları (II 12, III 12, IV 14, V 12, VI 16) yalnız tasarım ölçüsüdür. Perde adları K32'dir. Son görevden sonra Serbest Dolaşım açık kalır; aradaki yıllar Akan Kronik'le geçer (§16.2). Kişiler ve görevler `story.md` §11 ve §14'tedir.
+
+| Perde | Tarih (`story.md` §2) | Hikâye kancası (`story.md` §11) | Yerleşim | Ordugâh (`whistle_field`) | Hane |
+|---|---|---|---|---|---|
+| II «Ok Neyi Gösterirse» | 1–15 Haziran 209 | Pay, Köz Kabı ve ocak; Göl Obası'nın ozanı Mete'nin ocağına gelir, Köz Kabı'yla değil (K79, K106); ilk aileler (Şiuşun, Ruodi, Lan Hatun); Oba ve demirci Dutu; ıslık sınamaları; av ve darbe (son görev, 14–15 Haziran) | Ocak → Oba | Onluk Ateşi → Yüzlük Kampı (100 atlı yerleşik) | 3 → 10 |
+| III «Boş Toprak» | 1 Eylül–1 Ekim 208 | Dönüş; avlu göçü: eski avlunun Mete'yi tanıyan haneleri gelir (+8, yurtlarıyla); Tunghu elçileri Elçi Yurdu'nda (at, hatun, boş toprak); **Dailin Sayımı 16 Eylül** (perdenin doruğu, K56); akın penceresi 15–17 Eylül; savaş; yenilenlerin seçimi (son görev, 1 Ekim); Gözcü Konakları | Boy Yurdu | Binlik Ordugâhı (200 yerleşik, Dailin'de 1.000); sefer `donghu_land` | 10 → 22 |
+| IV «Borç» | 1 Haziran 205–22 Eylül 203 | Dönüş önce Kışlak'a (A dilimi, Hexi, 1–17 Haziran 205); 17 Haziran 205 dolunayında Yüeçi batıya sürülür, Gök Dağı eteğinde Beşinci Ay Sunusu (Mete Hexi'dedir); iç Kronik; Lung-çeng 25 Haziran 203 ve armağan kervanı, Loufan ve Baiyang katılır (K56 ile değişti; eski «Lung-çeng 17 Haziran 205 ve armağan kervanı»); Ordos'a giriş 21–23 Ağustos 203; kereste yolu (`r_tanhu_hangai`); ocağın ozanı artık Çocuktur (K79); Ordos'ta Dailin (22 Eylül 203, son görev; yerleşimin sayımı değildir) | Toy Yeri | Binlik (400 yerleşik); sefer `ordos`, `hexi_ash` | 22 → 45 |
+| V «Dört Renk» | 20 Kasım–1 Aralık 201 | Dönüş; Han Xin'in beyleri ve haneleri sığınır (surlu yer bilgisi); Divan'da Surlu ya da Göçer Avlu (20–21 Kasım); Baideng kuşatması 25 Kasım–1 Aralık (son görev) | Tanhu Avlusu (seçim) | Ordugâh kışın dağınık; Tümen Ordugâhı (600 yerleşik, toplantıda 3.000–10.000); sefer `mayi`, `baideng` | 45 → 80 |
+| VI «Sayım» | 1 Haziran 198–9 Eylül 174 | Dönüş; heqin malı Hazine'de (Kronik, 6 Aralık 199); Lung-çeng 2 Haziran 198; Kurultay 3–4 Haziran 198; Lung-çeng 4 Haziran 176: 176 mektubu ve Kunmo (`mq6_letter_176`, `mq6_kunmo`; K56); son Dailin 9 Eylül 174 (son görev: Mete sayım sürerken ölür); son kart avluyu okur | Tanhu Avlusu tam | Tümen | 80 → 90 tavan |
+
+### 2.3 Kapılar
+
+| Kapı | Koşul | Kesilirse |
+|---|---|---|
+| Plan Kipi | `quest:mq2_own_hearth.done`; Mete yerleşim ya da ordugâh iç haritasında; görev sahnesi, sinema, boss, `ride` yok | «Burada yurdun yok.» / «You hold no ground here.» |
+| Kademe n ≥ 3 | `act>=n` ve §4.1 «gerekir» sütunu | Defter'de eksik satır yazılır |
+| Kademe düşmez | Hane ya da yapı kaybı kademe adını almaz; kademenin verdiği iş (çekim tabanı, tavan) yapının ayakta olmasına bağlıdır | Yanmış otağda avlu toplantısı yapılmaz, kademe yine Toy Yeri'dir |
+| Avlu işlevleri | `act>=3` (Mete Tanhu) ve Tanhu Otağı ayakta | Divan kapalı |
+| Hazine, toplantı | IV. kademe ve ilgili yapı | |
+| V. kademe yolu | V. Perde'de bir kez, Divan'da (`mq5_wall_or_wheel`); geri alınmaz | §4.3 |
+| Gecelik Kamp (K46) | Plan Kipi'nin kapısı: `mq2_own_hearth` bitti | I. Perde'de kapalıdır |
+| Son Görev Kapısı (K42) | Perdenin kolları bitti | Son görev açılmaz; sayaç yoktur, bekleyene bedel yoktur |
+
+## 3. Yerler
+
+### 3.1 Üç yer türü
+
+| Tür | id | TR / EN | Dünya | Ömür |
+|---|---|---|---|---|
+| Yerleşim | `own_seat` | Yurt / Hold (Defter'de «Yurdun / Your Hold») | `tanhu_ordu` | II–VI, kalıcı |
+| Ana ordugâh | `own_camp` | Ana Ordugâh / Home Encampment | `whistle_field` | II–VI, kalıcı |
+| Sefer ordugâhı | `field_camp` | Sefer Ordugâhı / Field Camp | Sefer iç haritasının `campSites` yerlerinden biri | Seferle kurulur, dönüşte sökülür ya da bırakılır |
+
+**Yer ve defter kimlikleri** tek tablodur (`d2/core.md` §4.1): `own_seat` yerleşim, `own_camp` ana ordugâh, `field_camp` sefer ordugâhı; I. Perde'nin `winter_camp`'ı aynen. `economy.md` §8.3'ün `SupplyLedger('own_camp')`'ı Mete'nin ordugâhıdır. `hold`, `camp_home`, `camp_field` kullanılmaz. Zon kimlikleri ayrıdır: `world.sites.zones` anahtarı zondur (`tanhu_ordu`, `whistle_field`). Yerleşim ile ordugâhın defter ve ambarlarının ayrı kaldığını bir sınama denetler (§21).
+
+**Neden iki ayrı dünya, tek dünyada iki köşe değil.** (1) Kullanıcı ayrılık istedi; (2) tümen ordugâhı 448 × 588 m'lik kafes kamayı ve 800 × 168 m'lik bloğu sığdıran bir ova ister (`army.md` §4.2), yerleşimin dere vadisi ister; (3) iki dünyanın bütçesi ayrı kalır, en kötü kare biri olur; (4) aradaki gün kervana anlam verir. Bedeli atlas bacağıdır: 16 gerçek sn (`travel.md` §9.1 `T = 8 + 0,25 × 30`), saat 1 gün atlar.
+
+**Zon adı.** `tanhu_ordu` II. Perde'de «Mete'nin Payı / Mete's Allotment», III'ten «Tanhu Ordusu / The Tanhu's Ordu» (bugünkü `travel.md` §1.3 adı). Yer adı satırı kademeyi ekler: «Tanhu Ordusu · Boy Yurdu» / «The Tanhu's Ordu · Lineage Seat».
+
+### 3.2 `tanhu_ordu` iç haritası (taslak)
+
+1400 × 1050 m (Kışlak boyu: `terrain-patches`, `nav-patches` aynen), çerçeve x doğu, z güney, merkez (0, 0). İklim `steppe_south` (Şilin Gol bozkırı, `weather.md` §4.1), enlem 43,5° (`time.md` §3). (K57) Koordinatlar Godot'da `tanhu_ordu` iç haritası pişirilirken (`tools/bake_map.gd`) gerçek yol ağıyla (`NavigationServer3D.map_get_path`) ölçülür; sapma bu tabloya ve §3.2'nin Ocak Yeri tablosuna yazılır. Ölçüm soru değildir, doğrulanacak iştir (E6.3): Yol Haritası: `settlement-measure` (`/roadmap#act-2-p2`; Godot g7).
+
+| Öğe | Yer | İş |
+|---|---|---|
+| **Karasu / Black Water** deresi | (−700, −300) → (−80, −150) → (160, 60) dirsek → (700, 150) | Su, söğüt ve karaağaç, saz, ot çayırı; taşkın kuşağı ±25 m (§13.2) |
+| Kuzey tepeleri | z −380..−525 | Taş (`node_quarry`, `node_boulder`), az demir damarı |
+| **Kutlu Tepe / Holy Hill** (`sacred_hill`) | (−420, −470), +24 m, ağaçsız | Gök Direği'nin tek yeri |
+| Güney ve doğu ovası | z > 100 | Otlak, tezek, ot çayırı |
+| Saksavul çalısı | (−560, 360), r 140 | Yakacak |
+| Tuz kabuğu | (520, 470), r 50 | Tuz |
+| Kapılar | `gate_ordu_w` (−690, −260) → `whistle_field`; `gate_ordu_e` (690, 180) → Ordos, Mayi, Tunghu | Uzak Durak (`travel.md` §9.3) |
+
+**Ocak Yeri / Hearth Site** (`mq2_own_hearth`'ta seçilir, geri alınmaz).
+
+| id | TR / EN | Merkez | Kazanç | Bedel |
+|---|---|---|---|---|
+| `hs_terrace` | Seki / The Terrace | (−80, −100) | Düz (r 60 m ≤3°), suya 38 m, taşkın kuşağının dışında; batı kapısına 631 m, doğu kapısına 819 m | Açık bozkır: sert rüzgârda `R` tam (§13.2); Kutlu Tepe 502 m |
+| `hs_bend` | Dirsek / The Bend | (170, 10) | Ot ve söğüt 100 m içinde (yem, odun +), suya 44 m; doğu kapısına 547 m | Konut halkasının %20'si taşkın kuşağında; çamur araba ×1,2; batı kapısına 901 m |
+| `hs_lee` | Kuytu / The Lee | (−330, −380) | Kuzey rüzgârından korunur (sıçrama rüzgârı −4 m/sn), taş ve huş ≈100 m, Kutlu Tepe 127 m, batı kapısına 379 m, kule görüşü +%30 | Suya 165 m: kuyu gelene dek konutta Gönül −0,3/gün (§13.2); doğu kapısına 1.164 m |
+
+Uzaklıklar derenin çoklu çizgisinden ve kapı noktalarından betikle hesaplandı (2026-11-03). Her aday için halka parselleri (§13.1) merkezden türer ve arazi kurallarıyla kırpılır; üçü de önceden hesaplanıp veriye yazılır (yükleyici hesaplamaz). Gerçek yol ağıyla ölçüm yukarıdaki iştir (K57; Yol Haritası: `settlement-measure`): yol uzaklığı dere çizgisinden uzun çıkarsa tablo ölçülen sayıyla yeniden yazılır, ölçüt Seki, Dirsek ve Kuytu'nun kazanç ve bedel sırasının korunmasıdır. **Ad.** «Üç Ocak Yeri» Anohin'in üç ocak taşına dayanır; Destan Kitabı bunu yazar (K57).
+
+**Düğüm kümeleri** (`spec.nodes` biçimi, `economy.md` §3.5).
+
+| Küme | Tür | Adet | Ürün (yaklaşık) | Not |
+|---|---|---|---|---|
+| `c_elm_bend` | `node_elm` | 220 | 660 kütük | Kalıcı |
+| `c_willow_brook` | `node_willow` | 160 | 320 kütük + kabuk | Kalıcı; kabuk şafakta |
+| `c_reed_bend` | `node_reed` | 300 | Günde ≤600 saz | Yenilenir |
+| `c_hay_meadow` | `node_hay` | 200 | Günde ≤400 ot; yaz ve güz | Yenilenir |
+| `c_dung_steppe` | `node_dung` | 400 | Günde ≤400 tezek | Yenilenir |
+| `c_saxaul` | `node_saxaul` | 120 | 120 kütük | Kalıcı |
+| `c_quarry` | `node_boulder`, `node_scree` | 80 + 30 | 320 + günde 90 taş | |
+| `c_clay` | `node_clay` | 20 | Günde 60 kil | |
+| `c_salt` | `node_salt` | 30 | Günde 60 tuz | |
+| `c_iron` | `node_vein_iron` | 8 | Günde 24 cevher | Azdır: demir ganimet (`iron_scrap`) ve takasla tamamlanır |
+| `c_birch_hill` | `node_birch` | 40 | ≈120 kütük + kabuk | Kalıcı; kuzey tepeleri (−250, −460), r 60. Tündük başına 2 huş: ≈60 tündük |
+
+**Kereste baskısı (bilerek).** Zondaki kalıcı odun ≈1.100 kütük (karaağaç, söğüt, saksavul) ve ≈120 huştur. I–III. kademe ≈700 kütük ister (22 yurt × 23 kütük eşdeğeri + atölyeler + arabalar); IV. kademede bitmeye başlar: göçebe hanenin getirdiği yurt (Y10), `r_tanhu_hangai` kereste kervanı (IV) ve takas. **Huş ayrı sayılır:** her tündük 2, Otağ'ın ulu tündüğü 4 huş ister; `c_birch_hill` ≈60 tündüğe yeter (hazır yük getirmeyen ≈22 yurt ve Otağ için ≈48 huş, II–III'te bol pay); Tanhu pazarı tündük ve haftada bir Yurt Yükü satar (`d2/economy.md` §3.6). Göçer Avlu az odun ister, Surlu Avlu çok: seçim ekonomiye dokunur. Surlu'nun surları (40 parça × 16 odun = 640, K52) eski sayıya göre fazladan 480 odun ister; zondaki kalıcı odun IV'te bittiği için bu odun kereste kervanıyla gelir (`wood_larch` ise 1.920 Yük, ≈14 `cart_war` seferi).
+
+### 3.3 `whistle_field` iç haritası (taslak)
+
+1400 × 1050 m düz Gobi ovası, iklim `gobi`, enlem 44,2°.
+
+| Öğe | Yer | İş |
+|---|---|---|
+| **Pınarlar / The Springs** | z −420 boyunca 5 pınar | Su; at hatları yanında |
+| Talim ovası | (0, 40), 320 × 200 m | Talim Alanı, ıslık sahneleri, tümen dizilişi |
+| Ordugâh parselleri | `camp_n` (−250, −300), `camp_e` (300, −250), `camp_s` (0, 330) | Çadır, buyruk yurdu, silahlık, okçu, ambar |
+| **Bakış Sırtı / Lookout Ridge** | z +480 | `army.md` §7.2 tümen bakışı |
+| Kapılar | (K41 ile değişti) `gate_whistle_w` «Kuzey Kapısı / North Gate» (−690, 0) → `tanhu_camp`; `gate_whistle_e` (690, −80) → `tanhu_ordu` | `tanhu_camp` Mete için sahnesiz konaktır (`kind: 'waypost'`, yalnız atlas): II'de «Tanhu Kampı», III'ten «Eski Avlu / The Old Court»; `gate_tanhu` kalktı. Sürücü Balamir'in hattı (`drv_balamir`) Kuzey Kapısı'ndadır |
+| Düğüm | Tezek bol (atlar), ılgın ve saksavul az, taş az | Ordugâhın odunu kervanla gelir |
+
+### 3.4 Sefer ordugâhı yerleri
+
+Sefer iç haritasının spec'i `campSites: [{ id, x, z, r, water, grazeKm2 }]` yazar (1–2 yer). Kural: suya ≤200 m, eğim ≤8°, düşman kampına ≥600 m. Sefer ordugâhı `CampPlan` ile kurulur (§10.4). Önerilen: `donghu_land` 2, `ordos` 2, `hexi_ash` 1 (Kışlak'ın eski Ak Otlağı), `mayi` 1, `baideng` 1 (kuşatmanın dışında).
+
+## 4. Kademeler
+
+### 4.1 Tablo
+
+| n | id | TR / EN | Perde | Gerekir (kademeye çıkış) | Açar | Hane tavanı | Çekim tabanı (hane/gün) |
+|---|---|---|---|---|---|---|---|
+| 1 | `ocak` | Ocak / Hearth | II | Mete'nin yurdu aşama 7, ocak yanık (`mq2_own_hearth`) | `yurt_small`, `yurt`, `tent`, `hut`, `pen`, `fence`, `horse_line`, `rack`, `grain_pit`, `felt_yard`, `banner_pole`, `lantern_post`; iş ataması (sürü, toplama, inşa, nöbet); Azıkçı (kervan yok, K54) | 6 | 0,25 |
+| 2 | `oba` | Oba / Clan Camp | II | Konutta (yurt, Küçük Yurt, çadır, kulübe) ≥5 hane, ≥3'ü yurtta (Küçük Yurt yurt sayılır); Keçe Avlusu, Ağıl, At Hattı, Ambar Çukuru; yiyecek ≥10 gün | `wood_shop` (K52), `stable`, `store_yurt`, `shed`, `tannery`, `smithy`, `kiln`, `cart_felt` (Araba kartı, K57); zanaat ataması, kervan, seferberlik; Kâhya'nın `tent_kit` emri (K53) | 12 | 0,4 |
+| 3 | `boy_yurdu` | Boy Yurdu / Lineage Seat | III | `act>=3`; ≥10 hane; Ahır, Ambar Yurdu, Demirci Ocağı, Ağaç Atölyesi, Sundurma | `otag`, `envoy_yurt`, `sky_pole`, `gathering_ground`, `granary`, `fletchery`, `watch_tower`, `barter_ground`, `outpost`, `cart_high`, `mews` (`act>=4`, `fauna.md` §5.2); Divan | 25 | 0,6 |
+| 4 | `toy_yeri` | Toy Yeri / Gathering Seat | IV | `act>=4`; ≥22 hane; Tanhu Otağı, Elçi Yurdu, Gök Direği, Toy Alanı, Tahıl Ambarı, ≥1 Gözcü Kulesi; ortalama Gönül ≥50 | `treasury`, `well`, `healer_yurt`, `beg_otag` (K51), `cart_war`; Avlu Toplantısı Toy Alanı'nda, armağan, Hazine | 50 | 0,9 |
+| 5 | `tanhu_avlusu` | Tanhu Avlusu / The Tanhu's Court | V | `act>=5`; ≥45 hane; Hazine, ≥1 Kuyu; ortalama Gönül ≥55; yol seçildi (§4.3) | Yola göre §4.3; Dailin Sayımı avluda, Kurultay (VI) | 90 | 1,2 |
+
+**Neden bu adlar.** *Ocak* hem ateş hem soydur; *Oba* birkaç hanenin göçebe obasıdır; *Boy Yurdu* Mete'nin soyunun (Luandi, II. Perde'de açılır, `groups-research.md` §4) oturduğu yerdir: darbeden sonra avlu buraya gelir; *Toy Yeri* yıl başı beylerin toplandığı yer (S3 小會單于庭); *Tanhu Avlusu* 單于庭'nin kendisidir. Ekonomi taslağının önerdiği «Ordu / Court» ordugâhla, «Han Ordası / Khan's Seat» oyunun unvanıyla (Tanhu, K15, K34) karışırdı; «hanlık» da oyuncu metninde geçmez (K34).
+
+**Ağaç Atölyesi Oba'da açılır (K52, #34, #37).** §4.2, §7.5, yapı verisi ve `econ-sim` böyle sayar: T1'de atölye yoktur, tündük Tanhu pazarcısından iki günde bir gelir. Dülger Ruodi II'nin ilk aileleriyle gelir, atölyeyi Oba açılınca kurar; armağanın altı demir külçesi atölyeye ve demirci gelmeden kurulan iki yurdun bosağasına yeter (§2.1). Plan Kipi'nde Ağaç Atölyesi'nin kartı Ocak'ta kademe kilidiyle görünür: «Oba'da açılır.» / «Opens with the Clan Camp.»
+
+### 4.2 Tam bileşim
+
+Bir kademenin içinde kurulması beklenen yeni yapılar (K24 önerisi, yerleşim kararıyla). Hane sayısı kademenin sonundadır; yurt sayısına hanenin getirdiği hazır yük dahildir. Emek K21 İG'sidir (†: bu belgenin eklediği tür; emeği `labour-model.json` v3'e girdi, §7.1).
+
+| Kademe | Yeni yapılar | Hane | Yapı emeği İG | Kâhya kuralıyla, tek şantiye eşdeğeri | El-gün |
+|---|---|---|---|---|---|
+| Ocak | yurt 3, tent 2, pen 1, horse_line 1, rack 1, felt_yard 1, grain_pit 1 | 3 | 4,5 | 0,9 gün | 5,4 |
+| Oba | yurt 7, stable 1, pen 1, store_yurt 1, tannery 1, wood_shop 1, smithy 1, kiln 1, shed 1, cart_felt 1 | 10 | 14,1 | 2,9 gün | 17,7 |
+| Boy Yurdu | yurt 12, otag 1, envoy_yurt 1†, sky_pole 1†, pen 2, stable 1, granary 1, fletchery 1, gathering_ground 1, cart_high 2, watch_tower 2, barter_ground 1†, outpost 2† | 22 | 26,1 | 5,3 gün | 33,6 |
+| Toy Yeri | yurt 23, treasury 1†, healer_yurt 1†, pen 4, stable 2, store_yurt 2, granary 1, shed 2, well 2, watch_tower 2, cart_war 2, smithy 1, lantern_post 6† | 45 | 42,0 | 8,6 gün | 51,7 |
+| Tanhu Avlusu, Surlu | yurt 23, pit_house 12, rampart 40 (400 m), rampart_gate 2†, field 6, granary_tower 3, store_yurt 2, smithy 1, kiln 1, watch_tower 4, well 2 | 80 | 91,1 | 18,8 gün | 116,0 |
+| Tanhu Avlusu, Göçer | yurt 35, wagon_felt 6†, horse_line 4, pen 4, shed 2, granary 1, store_yurt 2, smithy 1, kiln 1, watch_tower 2, well 2 | 80 | 54,9 | 10,6 gün | 66,4 |
+
+**Sütunun okunuşu (K80 ile değişti).** Her yapı Kâhya kuralıyla (§6.2) el tavanına dek el alır; bir şantiye günde `k(W) × 24` İS işler (`labour-model.json` v3 `law.build.siteDay`; `k(W) = (4/3)^(min(W, 8) − 1)`, ışıklı gece emriyle). Gün = İG ÷ `k(el tavanı)`, el-gün = İG × el ÷ `k(el)`. El tavanları `labour-model.json` v3'tendir: yurt gövdeliler, Toy Alanı, 40 m'lik ağıl ve 10 m'lik sur parçası 8; Otağ 12 (katsayı 8'de); Ahır, Ağaç Atölyesi, Demirci Ocağı, Keçe Avlusu, Tahıl Ambarı, Tahıl Kulesi, yarı gömük ev, tarla, Hazine, Sur Kapısı, Takas Yeri, Gök Direği, `cart_war` ve `wagon_felt` 6; çadır, Sepi Yeri, Fırın, Ambar Çukuru, Sundurma, At Hattı, Gözcü Kulesi, Gözcü Konağı, `cart_felt` ve `cart_high` 4; Kuyu 3; Kurutma Sırığı ve Fener Direği 1. Kademe emeğinin %49–74'ü el tavanı 8 ve üstü olan yapılardadır (Surlu %49, Oba %59, Toy Yeri %65, Boy Yurdu %68, Göçer %70, Ocak %74). Kuralın el başına verimi kademe ortalamasında 0,78–0,83'tür: yurtta 0,94, el tavanı 4–6 olan yapıda 0,59–0,70. Eski sütun «4 el, tek şantiye eşdeğeri» K21'in `eff(4) = 3,44`'üyle basılmıştı: 1,3 / 4,1 / 7,6 / 12,2 / 26,5 / 16,0 gün. K50'nin `k(4) = 2,37`'siyle sabit 4 el 1,9 / 6,0 / 11,0 / 17,7 / 38,4 / 23,2 gün ve 7,6 / 23,8 / 44,1 / 70,9 / 153,7 / 92,6 el-gün eder: sabit 4 el yurtta en pahalı ekiptir (K80). Hesap betikle yapıldı: `settlement-model.json` v3 `tiers.compose` × `labour-model.json` v3 el tavanları.
+
+**Gerçek süre bu sütun değildir.** Şantiyeler paralel yürür, halk büyür. Günlük emek `labour.dayCapacity`'dir (`d2/core.md` §2.5): hane ≈44 İS/gün (yazın ≈47, kışın ≈42), şantiyeye verilen el gece de ışıkta çalışır (24 İS), İş Kolu'nun erleri de öyle. Oba'nın 14,1 İG'si 6 hane ve 15 erin (K24 `armyDetail`) elinde ≈1,5 günde biter; asıl sınır malzeme zinciridir (yurt başına ≈10 İG toplama ve zanaat, K24) ve gelen hanedir (§5.3). Kademe günü hedefleri K24'ündür: T1 2–5, T2 2,5–7, T3 3–8, T4 4–9, T5 4–12 (`d2/core.md` §5.8); `econ-sim` bu tabloyla benzetir (§21). Resmî koşu (K49, 2026-11-04, `econ-sim --strict`, 0 işaret): T1 2,2; T2 3,0; T3 7,2; T4 4,6; T5 Surlu 8,1, Göçer 7,8 gün (sur odunu 16, K52); hepsi K24 hedefindedir. (E6.4 ile düzeldi: eski «Surlu 6,7 … 16'ya çıkınca 8,1 olur» cümlesi kalktı, koşu 16 odunla yapıldı.) Bu koşu kurmayı K21'in `eff`'iyle ve sabit 4 elle (`params.typicalCrew`) sayar; K50 eğrisiyle günler 0,1–0,6 uzar (T3 7,8), hepsi hedefte kalır. Kâhya kuralıyla (K80) ve `law.build`'in `k(W) × 24` İS'iyle yapılacak koşu kademe günlerini ve bu bölümü yeniden basar: Yol Haritası: `econ-sim-run` (`/roadmap#act-2-p2`).
+
+### 4.3 V. kademe yolu
+
+V. Perde'de, Han Xin'in sığınan haneleri geldikten sonra Divan'da bir kez sorulur (`mq5_wall_or_wheel`, 20–21 Kasım 201; `story.md` §11.4). Wei Lü'nün sözünü Han Xin'in adamı söyler: kuyu, sur ve tahıl kulesi. İtirazı Hun beyi söyler: «Hun suru tutamaz.» / «The Hun cannot hold a wall.» (胡人不能守城).
+
+| | Surlu Avlu / Walled Court | Göçer Avlu / Moving Court |
+|---|---|---|
+| Kaynak | 穿井築城，治樓以藏穀 (S11), Ivolga | 毋城郭常處耕田之業 (S1), 胡人不能守城 (S11) |
+| Açar | `rampart`, `rampart_gate`†, `pit_house`, `field`, `granary_tower` | `wagon_felt`† (Keçe Göç Arabası, `travel.md` §3.2), ek `horse_line`, `pen` |
+| Baskın | Akının başarı payı ×0,5 (sur aşılmalı); Haziran–Eylül arası başarılı akın güz ürününün %30'unu çiğner (K54; SJ 110 候秋孰，以騎馳蹂而稼穡) | Sürü kaybı ×0,6 (sürü dağılıp kaçar), ambar kaybı ×1 |
+| Kış yiyeceği | (K54 ile değişti) Darı: tarla başına mevsimde 500 darı (≈250 öğün; 50 × 40 m); ekim 10–31 Mayıs, biçim 1–20 Eylül, tarla başına 0,5 + 0,5 İG; işi Kâhya yapar, kart çıkmaz; hasat tahıl ambarına kayıpsız girer. Tahıl Kulesi kuru erzağı korur: yaz ve güz artığının %50'si kışa kalır (öteki yerlerde %35). Surlu 20 Kasım 201'den sonra seçildiği için V'in kışı tarlasızdır, kule de o yılın güz artığını görmemiştir: kış + saklanan ≈%91. Tarla ve kuleyle ≈%102, VI'dan itibaren | Tarla yoktur, darı pazardan gelir. Sürü tavanı ×1,2 (otlak dönüşü): tabanda kış + saklanan ≈%90, tavanda ≈%113 |
+| Zanaat | Kalıcı atölye ×1,1 | Yok |
+| Ordu | Yok | Ordugâh ambarına günlük pay ×1,1 (sürü orduyla yürür) |
+| Gönül | Sığınan haneler +10 | Bozkır haneleri +5 |
+| Bedel | (K52 ile değişti) Yapı emeği 91,1 İG (Göçer'in ≈×1,7'si); odun ≈×1,4 (`rampart` 16 odun, 40 parça 640), taş ve kil; ham Yük ≈%19 çok; fazladan 480 odun kereste kervanıyla gelir (§3.2) | Keçe ≈×1,6, ip ≈×1,5, demir ≈×2; yurt ve araba bakımı; odun az |
+| Kademe günü (hedef 4–12) | 8,1 | 7,8 |
+
+Seçim kademe adını değiştirmez; Sonsöz'ün Son Sayım kartı onu «Avlu» satırında okur (`court_path: walled|moving`): «Avlusu surluydu.» / «His court stood behind walls.» ya da «Avlusu tekerlekteydi.» / «His court rode on wheels.» (`story.md` §12). (K60 ile değişti: eski «son kart ve ozan dörtlüğü okur» sözü kalktı; ozanın Sonsöz'deki iki dizesi `court_path` okumaz.) İki yolun günü yakın tutulur (K52): seçim hızla değil malla yapılır. Surlu odun, taş, kil ve emek ister; Göçer keçe, ip ve demir ister. Eski «odun ≈2×» sözü yanlıştı: sur parçasının odunu 4 iken iki yolun odunu eşitti, parça 16 odun ister oldu.
+
+## 5. Hane ve nüfus
+
+### 5.1 Hane
+
+| Alan | Değer | Kaynak |
+|---|---|---|
+| Kişi | 2 yetişkin, 1 genç, 1 yaşlı, 1 çocuk | K24 `params.householdSize`; S13 |
+| Öğün | 2 × 1 + 1 + 0,8 + 0,5 = **4,3 öğün/gün** | K24 `rationPer` |
+| İş ağırlığı | Yetişkin 1 (`hand`), genç 0,75 (`apprentice`), yaşlı 0,5, çocuk 0 → 3,25; ev işi −0,5 → **2,75** | K24 `workerEq`, `choresEqPerHousehold`; K21 roller |
+| Sürü | 35 koyun, 10 keçi, 7 at, 4 sığır, 0,5 deve ≈18 at eşdeğeri | K24 `household.herd` |
+| Çobanlık | Hane başına ≈0,65 işçi (K24 `herderPer`); net ≈2,1 | Hesap §21 |
+| Yakacak | Günde 3 (kış 3,5) birim: pişirme ve ışık | K24; K1: ısınma yok |
+| Konut | Bir yurt (Küçük Yurt, Hane Yurdu; bey hanesinde Bey Otağı) ya da bir yarı gömük ev; geçici çadır ya da kamış kulübe (½ hane) | K51 |
+
+**Yaşlı** tezgâhta, ev işinde (keçe, ip, kurut) ve şantiyede çalışır; kendi zanaatında usta sayılır ve şantiyeyi tek başına yürütebilir (K21 önder kuralı: ağırlığı ≥0,75 ya da usta sayılan); sürü ve nöbete atanmaz. **Genç** çıraktır. **Çocuk** iş havuzuna girmez; hanenin av payını genç ve çocuk getirir (S6). Bu kural K21'in `child` rolünü yalnız Serbest Gez'in Çocuğuna bırakır.
+
+### 5.2 Kişi kaydı
+
+İşçiler kimlikle atanır (K21 `assign(siteId, workerIds)`). Kimlik haneden türer, saklanmaz: `h<hane>a0`, `a1` yetişkin, `y0` genç, `e0` yaşlı. Kayıtta yalnız iş kodu tutulur (§16).
+
+**Ustalar** hane kaydında `crafts` ve `w` taşıyan yetişkindir (K21 «zanaat ve ağırlık kişinin kaydındadır»). Rol adları `progression.md` §4.3 ve K24 `role` alanıyla birdir; kişilerin adları `story.md` §14.1'dedir (K37, K43). Rolü önce `first_ten`'deki adlı kişi üstlenir; usta kaybolursa eşdeğeri bir perde sonra gelir (`progression.md` §4.3).
+
+| Rol | TR / EN | Zanaat (K21) | Ağırlık | Ne yapar | Nasıl gelir, kim |
+|---|---|---|---|---|---|
+| `cr_carpenter` | (K34 ile değişti) Dülger / Carpenter | `wood` | 1,25 | Ağaç Atölyesi usta tarifleri (kerege takımı, tündük); arabacı gelene dek teker çifti | II. Perde, ilk ailelerden biri (`hh_story`): **Ruodi**; atölyeyi Oba açılınca kurar (K52); III'te avlu göçüyle ikinci dülger |
+| `cr_smith` | Demirci / Smith | `earth` | 1,25 | Demirci Ocağı usta tarifleri (kazan, tunç) | II. Perde, Oba görevi (`oba_wave`): **Dutu** |
+| `cr_bowyer` | Yaycı / Bowyer | `wood` | 1 | Okçu Yurdu'nda yay (`progression.md` `m_bowyer`) | II'de `m_bowyer` olarak (`mq2_whistle_make`), III'te Okçu Yurdu'nun ustası: **Yudan** |
+| `cr_cartwright` | Arabacı / Cartwright | `wood` | 1 | Tekerlek çifti (K24 `rc_wheel_pair`) | III |
+| `cr_earth` | Toprak Ustası / Earth Builder | `earth` | 1,25 | Sur, kuyu, yarı gömük ev | V, Han Xin'in sığınan haneleri (`sq5_defectors`; Surlu yol) |
+| `m_quarter` | Ambarcı / Quartermaster | | 1 | Kâhya'nın sesi; akında kap kaybı ×0,75, başarıya dokunmaz (K55) | Önce Tola (`tola_lives`); yoksa **Moyan**, II'de Lan Hatun'un hanesiyle |
+| `m_groom` | Seyis / Groom | | 1 | Ahır ve at hattı; ordugâhta `horse_fat` +1/gün kışın | II, armağan sürüyle (`mq2_herd`): **Şulü** |
+| `m_custom` | Töreci / Keeper of Custom | | 1 | Toplantı ve Divan'ın töresi; Sayım Çetelesi'ni tutar; Kurultay | III, avlu göçüyle (`mq3_tally`): **Tuçi** |
+| `cr_healer` | Otacı / Healer | | 1 | Otacı Yurdu: yaralı ×2 | IV–VI, ocak kamı ve otacı: **Dangyu** |
+| `m_falconer` | Kuşçu / Falconer | | 1 | Kuşhane (§7.3) | IV, Altay'dan konuk usta: **Sungur** (`fauna.md` §5.2) |
+| `qianzhang_old` | Eski Binbaşı / The Old Commander | | 1 | Ordugâhta Baş Talimi `old_hand` ×1,25 (§10.3) | II, Pay'da on binle: **Dulongçi**; V→VI Kroniği'nde ölür |
+
+**Kâhya** bir rol değil, yerleşimin dağıtıcısıdır (§6.2); yüzü II–IV Lan Hatun, V'ten Yimo'dur (K43; Lan Hatun 16 Kasım 203'te ölür, IV→V Kroniği).
+
+Usta yoksa K21 `K_usta` 0,7 işler (yapı emeği); `master` tarifleri (K24 `who: master`) hiç işlemez: parçada kalite yoktur, ustasız ve dayanıksız kerege yolu açılmaz. `rc_wheel_pair`'in rolü `cr_cartwright` ya da `cr_carpenter`'dır. Rol emeğin zanaatına eşlenir: `cr_carpenter`, `cr_cartwright`, `cr_bowyer` → `wood`; `cr_smith`, `cr_earth` → `earth`.
+
+### 5.3 Katılım
+
+Hane **çoğunlukla olayla** gelir; günlük Çekim perde başına tavanlı küçük bir ektir. Böylece 60 dakikalık günde beklemek, uyumak ya da yerleşim ile ordugâh arasında gidip gelmek yerleşimi büyütmez; büyüten hikâye, zafer, toplantı ve armağandır. Perde sayacı yoktur (K42): son görevden sonraki Serbest Dolaşım bitmiş perdenin Çekim tavanını taşır, tavan dolunca Çekim birikmez.
+
+**İki tür hane (K53, #39).** **Yüklü Hane / Laden Household** evini kendi at ve develerinde getirir: yurtlu (`kit`, Yurt Yükü) ya da çadırlı (`tent`, `tent_kit`). Kâhya ona boş bir konut parseli verir, hane yurdunu kendisi kurar (3 el, 33,75 dk; K50). **İsteyen Hane / Asking Household** (`ask`) yalnız azığıyla gelir, barınak ister: İsteyen Hane kartı açılır (aşağıda). Tür kaynağa göre kesirli sayaçla gelir, rastgele çekiliş yoktur (K24 ganimet deseni, `bozkir-ekonomi.md` öneri 12): her gelen hanede kaynağın üç payı üç sayaca eklenir, en büyük sayacın türü gelir ve o sayaçtan 1 düşer (eşitlikte yurtlu, sonra çadırlı). Gelen yurt ve çadır kendi milletinin görünüşünü taşır (K51): III'te Tunghu, IV'te Yüeçi, Loufan ve Baiyang, V'te Han.
+
+| Kaynak | id | Ne zaman | Adet | Köken | Tür: yurtlu / çadırlı / isteyen | Sürü | Gönül başı |
+|---|---|---|---|---|---|---|---|
+| Hikâye: ilk aileler | `hh_story` | II, `mq2_own_hearth` sonrası | 3: onluk eri Şiuşun'un ailesi, dülger Ruodi'nin hanesi, Lan Hatun'un hanesi (`story.md` §11.1, K37) | `xiongnu`, `fugitive` | 0 / 0 / 1 | 4 at eşdeğeri | 70 |
+| I. Perde yankısı | `hh_saved` | II | `names_known` ≥12: +1; `tola_lives`: +1 | `fugitive` | 0 / 0 / 1 | Yok | 65 |
+| Oba dalgası | `oba_wave` | II, `mq2_oba` (4 Haziran'dan) | 4; biri demirci Dutu | `xiongnu` | 1 / 0 / 0 | Tam | 55 |
+| Avlu göçü | `court_move` | III başı | 8 | `xiongnu` | 1 / 0 / 0 | Tam | 45 |
+| Yenilenlerin seçimi | `choose` | Zaferden sonra | §5.7 (III 2–6, IV 3–6, V 4–8) | Yenilenin kökeni | 0,3 / 0,4 / 0,3 | Yarısı | 40; Korku ile gelen 30 |
+| Armağan | `gift` | IV+, Divan | 2–4, 3 gün sonra; soy başına perdede bir, en çok 3 soy | `huyan`, `lan`, komşu boylar | 1 / 0 / 0 | Tam | 60 |
+| Loufan ve Baiyang | `loufan_baiyang` | IV, Ordos'tan sonra | 6–10 | Ordos boyları | 1 / 0 / 0 | Tam | 50 |
+| Avlu Toplantısı dalgası | `court_gathering` | V, Baideng zaferinden sonra Divan'ın takvimsiz toplantısı (§12.2) | 8–12 | Beylerin haneleri | 1 / 0 / 0 (bey hanesi Otağ Yükü'yle) | Tam | 55 |
+| Kaçkın | `refugees` | Yol olayı `ev_refugees` «Paylaş» (`travel.md` §9.6), kervanın töresi | 1–2 | Karışık | 0 / 0,5 / 0,5 | Yok | 70 |
+| Sığınan | `defectors` | V (Mayi, Han Xin); IV'te seçmeli | 6–12 | `han` | 0 / 0 / 1 (Surlu yolda yarı gömük ev) | Yok; `cr_earth`, çiftçilik, kerpiç bilgisi | 50 |
+| Heqin maiyeti | `heqin` | V–VI | 1–2 | `han` | 0 / 0 / 1 | Yok; Hazine malı | 50 |
+| Kurultay | `kurultay` | VI | 2–4 | Boylar | 1 / 0 / 0 (bey hanesi Otağ Yükü'yle) | Tam | 60 |
+| Çekim | `pull` | Şafak, tavanlı (§5.3.1) | Perde başına ≤3 / 4 / 6 / 8 / 10 | Çoğu `xiongnu` | 0,6 / 0,25 / 0,15 | Tam | `50 + 2 × kut − korku`, 25–80 |
+
+**Sağlama** (perde başına beklenen, `bozkir-ekonomi.md` öneri 12): yurtlu II 5,8 (+ Mete'nin yurdu), III 11,6, IV 22,0, V 16,6, VI 9,0; çadırlı 0,8 / 3,4 / 3,3 / 4,4 / 2,5; isteyen 4,0 / 2,5 / 2,2 / 13,5 / 1,5. K24'ün hazır Yurt Yükü sayıları (`expectedKits` T1 1, T2 6, T3 12, T4 22, T5 17) ve kademe günleri değişmez. V'in 13,5 isteyeni Surlu yolun 12 yarı gömük evine denk gelir. Bey hanesi yurtlu sayılır, Otağ Yükü tek yük sayılır.
+
+**Kafile** (`fauna.md` §2.3; yük: ev, 18 yün ≈9 Yük, 5 günlük azık 2,2 Yük). Yük hayvanları hanenin sürüsüne girer: kafile ayrı hayvan değildir. Kafile parsele gelir; deve diz çöker, at durur, yük 8 sn'de iner.
+
+| Görünüş | Yük | Kafile |
+|---|---|---|
+| Yurtlu, atlı | ≈70 | 3 Yük Atı |
+| Yurtlu, deveyle (iki hanede bir) | ≈70 | 1 Yük Devesi, 1 Yük Atı |
+| Gobi, Ordos ve Hexi hanesi | ≈70 | 2 Yük Devesi |
+| Arabalı (IV'ten yurtlunun %30'u) | ≈70 | 1 keçe araba; yün ve azık binicilerin terkisinde |
+| Çiang hanesi (IV) | Kara çadır | 3 yak |
+| Bey hanesi (`court_gathering`, `kurultay`) | Otağ Yükü 109 | 2 Yük Devesi ve 1 Yük Atı, ya da 1 `cart_war` |
+| Çadırlı | ≈27 | 1 Yük Atı |
+| İsteyen | 2,2 | Yaya ya da tek at |
+
+**İsteyen Hane kartı** (K53): «{n} hane barınak istiyor.» / «{n} households ask for shelter.» Seçenek hanenin başlangıç Gönül'üne eklenir; Gönül oyuncuya sayıyla değil düğümle görünür (§5.4).
+
+| Seçenek | Bedel | Sonuç |
+|---|---|---|
+| Çadır ver / Give a tent | 1 `tent_kit` (16 Yük, 42 Kıymet) | Gönül başı +8; hane konutta sayılır, çadır kuralı sürer (§5.4) |
+| Yurt ver / Give a yurt | 1 `yurt_kit` | Gönül başı +15 |
+| Yarı gömük ev kur / Raise a pit house | Şantiye; yalnız Surlu yolda | Gönül başı +10; ev kurulana dek hane çadırdadır |
+| Bekleyin / Wait | Yok | Gönül −1/gün, 3 gün sonra gider; hikâye haneleri (`hh_story`) gitmez (K53) |
+
+Kâhya'nın sürekli emri Oba'dan `tent_kit keep_to: 2`'dir (§8.2): ambarda çadır yükü varsa Kâhya kendiliğinden verir, kart çıkmaz. İlk kart II'de hikâye haneleriyle gelir ve öğretir (`sq2_first_yurts`); Ocak'ın bileşimindeki iki çadır (§4.2) onlar içindir. `hh_story` haneleri «Bekleyin»de gitmez: hikâye haneleridir, Kâhya ve dülger bunların içindedir (`cadir-otag.md` öneri 13).
+
+| Perde | Açılış tabanı (Kronik) | Beklenen son |
+|---|---|---|
+| II | 0 | ≈10 |
+| III | 10 | ≈22 |
+| IV | 22 | ≈45 |
+| V | 45 | ≈80 |
+| VI | 80 | ≤90 |
+
+Kronik perdeyi açılış tabanının altında açmaz, üstünü düşürmez (§16.2): zayıf bir II. Perde III'ü kilitlemez.
+
+**Gelen hanenin yükü** (bütün kaynaklar; `d2/core.md` §4.4, K53 ile değişti): çadırı, yurt yükü ya da yalnız azığı; **5 günlük azığı** (≈22 öğün; toplantıya gelen atlının 3 günlük azığının deseni) ve kırkım mevsimi geçmişse **son kırkımının yarısı** (yaz başında hane başına ≈18 yün). Gelen hane yiyecek çizgisini seyreltmez, II. Perde'nin keçesi yalnız armağana kalmaz. Kış Toplantısı (1. ayın yeni ayı) oynanan günde sahne açmaz, Kronik'in sonraki koşusunda toplu işlenir (K42); V'in toplantı dalgası takvimsiz Avlu Toplantısı'dır (doğrulama V16).
+
+#### 5.3.1 Çekim formülü
+
+```
+pull  += base(tier) × (1 + 0,03·kut + 0,015·korku) × foodK × roomK × gonulK × warK      // her şafak
+         yalnız önceki gün Mete yerleşimde ya da ordugâhta ≥1 oyun saati uyanık kaldıysa (varlık)
+foodK  = yiyecek ≥15 gün: 1 · 5–15: 0,5 · <5: 0
+roomK  = hane < tavan ve boş konut parseli var: 1 · değilse 0
+gonulK = ortalama Gönül ≥70: 1,25 · <40: 0,5 · arası 1
+warK   = akın penceresi açık (§15.4) ve yerleşime perde tavanı dolmamış: 0,5 · değilse 1    // K55
+pull ≥ 1 → bir hane yola çıkar (pull −= 1), 0,5–1,5 gün sonra kapıdan gelir; perdenin Çekim tavanı dolunca pull birikmez
+```
+
+| Kademe, örnek Kut / Korku | Günlük (varlık günü) | Perde tavanı |
+|---|---|---|
+| Ocak, 6 / 2 | 0,30 | 3 (II) |
+| Oba, 6 / 2 | 0,48 | 3 (II) |
+| Boy Yurdu, 10 / 4 | 0,82 | 4 (III) |
+| Toy Yeri, 14 / 6 | 1,36 | 6 (IV) |
+| Tanhu Avlusu, 18 / 8 | 1,99 | 8 (V), 10 (VI) |
+
+**Neden Korku da çeker.** Bozkırda güçlüye sığınmak korkudan da olur; ama Korku ile gelen düşük Gönülle gelir ve ilk kıtlıkta gider (§5.5). Kut sadık hane çeker. İkisi de sayı göstermez (`progression.md` §5.1); Defter yalnız Çekim'i dört kademeli bir işaretle gösterir.
+
+**Gelen hane** kapıdan girer (kukla kafile §5.3: kişiler ve yüklü hayvanlar, sürü `army.md` T2 örnekli). Yüklü Hane'ye Kâhya boş bir konut parseli verir, hane kendi yurdunu ya da çadırını kurar (yurt 1 İG, 3 el 33,75 dk, K50; boştaki eller katılabilir, şantiye gece de sürer). İsteyen Hane kart alır (§5.3); karar beklerken açıkta bekler (Gönül −1/gün, 3 gün sonra gider; `hh_story` gitmez). Çadır, kulübe ve Küçük Yurt'taki hane Oba kapısında konutlu sayılır; Küçük Yurt yurt sayılır (§4.1).
+
+### 5.4 Gönül
+
+Hane başına 0–100. Değişim (günlük, şafakta; olaylar anında):
+
+| Olay | Değişim |
+|---|---|
+| Yiyecek ≥5 gün | +0,3/gün |
+| Yiyecek <5 gün | −1/gün |
+| Kıtlık, yiyecek <2 gün | −3/gün |
+| Çadır ya da kulübede, 3 günden uzun | −0,5/gün |
+| Suya >150 m (hane yatan yapı, `homeKinds`) | −0,3/gün |
+| Duman ve koku yurda (rüzgârüstü atölye, §13.2) | −0,2/gün atölye başına |
+| Toy (Toy Alanı'nda şölen, hane başına 2 öğün ve 1 kımız) | +6, 10 günde bir; hane başına 1 kabuk saçıyla +8 (K48) |
+| Avlu Toplantısı | +5 |
+| Beşinci Ay Sunusu (yalnız IV ve VI, §12.4) | +3 (K35) |
+| Ganimetin halka payı (`army.md` `booty_share`) | +2/gün, 5 gün |
+| Akın def edildi | +1 (K55) |
+| Baskın yendi (zarar gördü) | −6 |
+| Divan'da sert yargı | −3 (o kökenin bütün haneleri) |
+| Mete 10 günde en az bir gün avluda | +1 |
+| Seferberlikte 10 günden uzun | −0,2/gün (o hane) |
+
+| Gönül | Etki |
+|---|---|
+| <25 | Ayrılış adayı (§5.5) |
+| <40 | O hanenin işçileri ×0,85 |
+| 40–69 | Yok |
+| ≥70 | ×1,1; çekime ×1,25 (ortalama ≥70 ise) |
+
+Defter Gönül'ü beş düğümlü iple gösterir, sayı yazmaz.
+
+### 5.5 Ayrılış
+
+Her şafak hane başına: Gönül <25 ise %3; yiyecek <2 gün ise ek %5 (hikâye dalgalarının haneleri, `hh_story` ve `oba_wave`, gelişlerinden sonraki ilk 5 şafak yiyecek yüzünden ayrılmaz; Gönül düşüşü yine işler); `korku` ≥14 ve `kut` <4 ise Gönül ayrılışı ×2; `kut` ≥14 ise yalnız kıtlık ayrılışı (`army.md` §3.4 «Kut ≥14 firar yok» eşi). Giden hane yurdunu söker (tek el ×0,35, K21 `DISMANTLE`; eğri K50: dört elle Hane Yurdu 8,9 dk), sürüsünü ve yükünü alır, kapıdan çıkar. Kart: «{n} hane göçüp gitti.» / «{n} households have moved away.»
+
+### 5.6 Seferberlik
+
+S5: yay çeken her er atlıdır. Divan ya da Defter'de «Ere Çağır / Call to Arms»: hane başına en çok bir yetişkin bir birliğe katılır (`UnitRec.strength` +1, `origin` hanenin kökeni, başlangıç `loyalty` = hanenin Gönül'ü). Hanenin ağırlığı −1; birlik dönünce geri gelir. 10 günden uzun seferde hane Gönül −0,2/gün. III. Perde `muster_law` (令國中有後者斬, `army.md` §1 #18) bu çağrıyı zorunlu yapar: Korku +1, çağrılmayan hanede Gönül −3.
+
+### 5.7 Esir yoktur
+
+- **Kural.** Eşya tablosunda insan yoktur; `join` yalnız §5.3 kaynaklarından çağrılır; ganimet tablosu (K24 `loot`) insan döndürmez. Sınama bunu denetler (§21).
+- **Yenilenlerin seçimi.** Zaferden sonra yenilen topluluğun hane sayısı `D` (sahne verisi). Katılan pay `clamp(0,15 + 0,02·kut + 0,015·korku, 0,1, 0,6)`; bunların `korku / (kut + korku + 1)` kadarı Korku ile gelir (Gönül 30). Kalanlar sürülerinin yarısıyla çekilir; sahnede atlı kafile uzaklaşır. Hayvan ganimettir (`army.md` §3.5 `booty_share`).
+- **Destan Kitabı.** «Tarih Tunghu halkının alındığını yazar. Bu oyunda yenilen kendi yolunu seçer.» / «History says the Donghu were taken. In this game the defeated choose their own road.»
+
+## 6. İş ataması
+
+### 6.1 İşler
+
+| İş | id | Kim | Ne üretir | Gerek |
+|---|---|---|---|---|
+| Sürü / Herding | `herd` | Yetişkin, genç | Sürü güvenliği, sağım ve kırkımın el emeği (K24 `herdLabour`, `Herd.day` `labourIS`) | Kapsam `Σ baş / herderPer`; kış ×1,5. Kapsanmayan pay kurt kaybına girer (K65, `fauna.md` §3.3): günde `0,01 × (1 + 1,5 × (1 − stok / tamStok)) × (kış ? 1,5 : 1) × (sis ? 1,5 : 1) × (köpek ? 0,4 : 1) × (ağıl ? 0,3 : 1)`; kapsanan sürüde kayıp yoktur |
+| Toplama / Gathering | `gather` | Yetişkin, genç | Kümeden ham (K24 `gather.npcPerWh`); av kolu (K24 `hunts.npcWh`) | Küme ve tür seçilir; kalıcı küme tükenir (§9.5) |
+| Zanaat / Craft | `craft` | Yetişkin, genç, yaşlı | Tezgâhta tarif (K24 `recipes`), sürekli emirle (§8.2) | Tezgâh `crewMax` |
+| İnşa / Building | `build` | Yetişkin, genç | Şantiye emeği (K21 `SiteSystem`) | Yapı el sınırı |
+| Nöbet / Guard | `guard` | Yetişkin | Baskın savunması, gece uyarısı | Barışta 8 hanede 1, savaş mevsiminde 4 hanede 1; savaş mevsimi yerleşime akın gücü R > 0 olan perdedir (III–V, §15.4) |
+| Taşıma / Haul | `haul` | Yetişkin | Kervan sürücüsü (araba başına 1) | Kervan buyruğu |
+
+**Bir kişi bir iştedir** (K21 §6.4). Boştakiler ev işinde Gönül +0,05/gün kazanır.
+
+### 6.2 Kâhya / Steward
+
+Açıkken (varsayılan) her oyun saatinin başında dağıtır; oyuncunun kilidi önce gelir. Kâhya'nın yüzü II–IV Lan Hatun, V'ten Yimo'dur (K43); sözleri ve kartları onlar söyler. Ordugâhın ayrı bir kâhyası olabilir: `ties` ≥6 bir çekirdek yoldaş (§6.5, K70); yerleşimin Kâhya'sı değişmez. Kâhya kabuk harcamaz (K48). Darı tarlasının ekim ve biçimini kendisi atar, kart çıkmaz (K54). İsteyen Hane'ye ambardaki çadır yükünü kendiliğinden verir (`tent_kit keep_to: 2`, Oba'dan; K53). Akın penceresi açılırken uyarır: «Ay doluyor. Atları içeri alın.» / «The moon is filling. Bring the horses in.» (K55).
+
+| Sıra | Ölçüt |
+|---|---|
+| 1 | Sürü kapsamı tam |
+| 2 | Nöbet tabanı |
+| 3 | Yiyecek ≥15 gün (yoksa av kolu ve süt işleme) |
+| 4 | Yem: güz sonunda kış için atlı başına 100 gün (K24 `hayDays`); yaz sonundan ot biçimi |
+| 5 | Yakacak ≥10 gün |
+| 6 | İnşa sırası (öncelik 0–3, K21 «Boştaki eller yapıya») |
+| 7 | Zanaat sürekli emirleri |
+| 8 | Kervan sürücüleri (kalkıştan 2 saat önce ayrılır) |
+
+**Şantiye eli (K80).** Kâhya'nın varsayılan dağıtımı «el tavanına dek doldur, sonra sıradakine»dir: inşa sırasındaki ilk şantiye yapının el tavanına (`crewMax`) dek el alır, artan eller öncelik sırasındaki sonraki şantiyeye gider. El tavanı `labour-model.json` v3'tedir (`structures.md` §2.4): Küçük Yurt 6; Hane Yurdu ve yurt gövdeli yapılar 8; Otağ ve Bey Otağı 12, katsayı 8'de durur, 9.–12. eller malı ambardan taşır; öteki yapılarınki §4.2'nin altındadır. Oyuncu el kilidiyle (+ / −) şantiye başına eli sınırlar ve tek elli şantiyeleri çoğaltabilir. Aynı kural `labour-model.json` v3 `law.stewardCrew` ve `settlement-model.json` `steward.crew`'dadır. `econ-model.json`'un `params.typicalCrew` (4) değeri kalkar: bugün yalnız 2026-11-04 koşusunun girdisidir, `econ-sim` bu kuralı benzetince silinir (Yol Haritası: `econ-sim-run`). **Neden.** K50'de (kullanıcının 60 / 45 / 33,75'i) n el tek elin n × 0,75^(n−1) katı emek harcar, el başına verim bunun tersidir: yurtta 8 el 0,94, 6 el 0,70, 3–4 el 0,59 (`labour-model.json` `crew.perHand`). Kural yurdu en çabuk bitirir; oyuncu kişi arttıkça sürenin kısaldığını görür. Bedeli küçük yapılardadır: el tavanı 2–6 olan yapıda tavana dek doldurmak el başına verimi 0,59–0,70'e indirir. Bu yapılar kademenin yapı emeğinin %26–51'idir (en çok Surlu yolda: yarı gömük ev ve Tahıl Kulesi), yerleşimin bütün emeğinin (hane başına ≈44 İS/gün) ise küçük payıdır; kuralın kademe ortalaması 0,78–0,83 kalır, sabit 4 elin 0,59'undan yüksektir (§4.2). Sabit 4 el yurtta en pahalı ekiptir; tek elli şantiyeleri varsayılan yapmak toplam verimi artırır ama yarım yapı kalabalığı doğurur ve her yapıyı geç bitirir, bu yüzden oyuncunun kilidine kalır. Bugünkü iki uç koşu kuralın kendisi değildir ama ikisi de hedeftedir (T3: bütün şantiyeler 8 elle 7,1, 4 elle 7,8 gün; hedef 3–8); kuralın günü Kâhya kuralıyla yapılacak koşudan basılır (`econ-sim-run`). Bu, `economy.md` §15 «Açık kalan» (1)'in sorusunu kapatır: Kâhya şantiyeye el tavanı kadar el verir.
+
+Kilit: iş başına en az ve en çok; şantiye başına el (K21 + / −; K80'in tavanına dek doldurmayı sınırlar); tezgâh başına el. «Kâhya'yı kapat / Steward off»: dağıtım donar, değişen iş gücü (gelen, giden) boşta kalır.
+
+### 6.3 Ordu eli ve Mete
+
+- **İş Kolu** (`army.md` `cmd_detail`): ordugâhtan gelen erler yerleşim havuzuna «Er / Rider» olarak girer (ağırlık 1, `home` ustası), yiyeceği birliğin `supply`'ından düşer, o saatte talim kazanmaz (K21 §8.3). K24 `armyDetail` önerisi kademe başına 5, 15, 20, 30, 50.
+- **Mete** şantiyede «Çalış / Work» ile 1 ağırlık ve emek becerileriyle girer (K21 §3); Kâhya onu saymaz.
+
+### 6.4 İş saati, gece, fener
+
+- **Üretim penceresi** K20'nindir: yerleşim ve ordugâh yazın 05:30–21:30, kışın 07:00–23:00 (16 saat, K24 `prodHoursPerDay`); penceredeki saat ışığa göre sayılır (`labour.dayCapacity`). Çobanlık 24 saattir.
+- **Şantiye** varsayılan olarak gece de çalışır (K21: «Gece de çalışılsın»): atanan el bir işçidir ve nöbetleşmez (öğün ve uyku emeği durdurmaz; Kâhya bir el için bir işçi sayar, `d2/core.md` §2.5), bedeli meşaledir (karanlığın 4 saatinde 1 `torch`), Gönül bedeli yoktur. Şantiyeye «Gece dinlenilsin» emri verilebilir.
+- **Üretimde gece vardiyası** oyuncunun emridir (`night: true`, tezgâh başına): o tezgâhta çalışan hanenin Gönül'ü gece başına −0,2, meşale yanar.
+- **Fener Direği / Lantern Post** (`lantern_post`†): 8 m ışık; K21 gece ışığının (c) kaynağı. 3 gecede 1 `lamp_oil`. Görüş: ışık uzaktan görünür (`act1.md` «ışık gösterir ama ele verir»). Gerçek ışık değildir: köşe rengi ve `fxGlow` (`architecture.md` §0 kural 7).
+
+### 6.5 Yoldaş görevlendirme (K70)
+
+Yoldaş partiden alınıp yerleşimde ya da ordugâhta bir işe verilebilir (Görevlendir / Assign: yoldaşla konuş ya da Defter > Yoldaşlar). Kural `companions.md` §3.3'tedir; burada yerleşimin okuduğu yüzü yazılır. Bir yoldaş bir iştedir; görevdeki yoldaş partiden çıkar, yerleşimin iş gücüne ve Kâhya'nın dağıtımına girmez, hane sayılmaz, Gönül'ü yoktur. Yerleşimdeyse ambardan günde 1 öğün yer (§5.1'in hane tüketimine eklenir); ordugâhtaysa birliğin `supply`'ından yer (`army.md` §3.6). Kural K88'in 5. maddesidir: partideyken de onluğun erzakından günde 1 öğün eder (07:00 ve 18:00'de yarımşar), görev yeri değişince tüketim değişmez, yalnız kaynağı değişir (`economy.md` §4.8). Çağrılınca (kartta sağ tık ya da Defter) aynı iç haritadaysa hemen yürür, başka yerdeyse haberci atlas günü kadar sürer; görevdeki usta da çağrılabilir. Ağır Yaralı yoldaş yalnız Otacı Yurdu'na yatırılır.
+
+| Görev | Yer | Kim | Etki |
+|---|---|---|---|
+| Usta / Master | Yerleşim ya da ordugâh yapısı | Rolüne uyan çekirdek (aşağıda) | Yoldaşın yapı etkisi; aynı etkiyi veren usta (`progression.md` §4.3) varsa büyüğü sayılır, birikmez |
+| Kâhya / Steward | Yalnız ordugâh (`own_camp`) ya da sefer ordugâhı (`field_camp`) | `ties` ≥6 çekirdek | Mete yokken ordugâhı yönetir: Azıkçı boş dönmez (ambarda 2 öğün yoksa yerleşimden ister), 10 atlıya 1 ateş yanar, İş Kolu sırayla gider; `loyalty` +0,1/gün (tavan 70, konforun tavanıyla aynı, §10.2); Gece Akını `D` +2 |
+| Nöbet / Guard | Yerleşim ya da ordugâh | Savaşan çekirdek | Akın `D`'sinde 3 nöbetçi sayılır (§15.4); akından ≈22 sn önce uyarır (yerden görüşü 200 m ÷ at hızı ≈9 m/sn; K55, §15.4); Gece Akını'nda at hattında durur |
+
+| Yoldaş | Yapı | Etki |
+|---|---|---|
+| Uldın | Talim Alanı | Baş Talimi `old_hand` ×1,25 (Dulongçi'yle birikmez); Toy'da güreş moral +4 |
+| Berik | Gözcü Konağı | Görüş 400 → 500 m (uyarı ≈44 → ≈56 sn); kervanın `ev_raid` payı −%10 |
+| Luhun | Jiyu'nun hanesi, Okçu Yurdu | Kişisel görev adımı 2 (üç oyun günü); ok yapımı ×1,1 |
+| Mijia, Kunduz | Av kolu | Av kolu verimi +%20 (`huntYield`); Kunduz'la kürk +%25 |
+| Dangyu | Otacı Yurdu | Yaralı iyileşmesi %15 → %20/gün; yatak 8 → 10 |
+| Loufan | Okçu Yurdu | Ok yapımı ×1,15; okçu `drill` kazancı ×1,1 |
+| Kozı | At Hattı, Ağıl | Kışın `horse_fat` +1/gün (Seyis'le birikmez); tay kaybı yok |
+| Zang Yan, Zhang Sheng, Tuidang | Elçi Yurdu | Han heyetinde ek seçenek (`envoyOption`); Zhang Sheng'le Han satıcısına takas −%5 |
+
+- **Kâhya K43'te kalır.** Yerleşimin Kâhya'sı Lan Hatun (II–IV) ve Yimo'dur (V'ten): dağıtımı, sözleri ve kartları onlarındır (§6.2). Yoldaş yerleşimin değil ordugâhın kâhyası olur; yerleşimde yalnız usta ya da nöbetçidir. Ordugâh kâhyası birliğin işini yapar, yerleşimin işini dağıtmaz.
+- **Gelen yoldaş hane değildir.** Hane başı olan yoldaş (Berik V'te, Mijia VI-a'da) partiden çıkar ve §5'in hanesi olur: o andan Gönül, iş ve konut kuralları ona işler; Berik'in Hane Yurdu K50'nin eğrisiyle kurulur (8 elde 8,0 dk).
+- **Kişisel görev yerinde ilerler.** Görevin adımı o yapıdaysa (Luhun'un Jiyu'ya yay öğretmesi) üç oyun günü çalışınca adım biter.
+- **Kronik.** Akan Kronik'te görevdeki yoldaş yerinde kalır, etkisi Kronik'in toplu hesabına girer (§16.2); tarihli kişisel görev adımı `chronicle` yazar.
+
+## 7. Yapı kataloğu
+
+### 7.1 Okuma
+
+- **id:** K21 (`structures.md` §4.5–§4.6) ve K24 (`econ-model.json` `structures`) kimlikleri bu belgede **onaylandı**; † işaretliler bu belgenin eklediği türlerdir.
+- **Görünüm:** `STRUCTURE_DEFS` türü ve hazır ayarı (`structures.md` §3.5, §4); yeni aileler §7.9 ve `structures.md` §4.6.
+- **İG:** K21 iş günü (tek el, usta varken; yurt 1 İG parça biçimiyle, ham malla +28 İS `rawWork`, `d2/core.md` §2.6); † türlerin emeği bu belgenin önerisiydi, `labour-model.json` v3'ün `settlement` bloğuna adım tablosuyla ve aynı İG ile girdi (2026-11-04; eski «girene dek geçerlidir» sözü kalktı). (K50 ile değişti) Gerçek dakika inşaat eğrisidir: `T(n) = taban × 0,75^(min(n, 8) − 1)`; taban Küçük Yurt 24, Hane Yurdu 60, Otağ 150 dk. Hane Yurdu 1–8 el: 60 / 45 / 33,75 / 25,3 / 19,0 / 14,2 / 10,7 / 8,0 dk. Küçük Yurt en çok 6 el alır (5,7 dk); Otağ 12 el alır ama katsayı 8'de durur (20,0 dk), fazla eller taşır. Karışık ekipte n ağırlık toplamıdır: usta ve el 1, çırak 0,75, Çocuk 0,5. Eğri inşaat ve sökümdedir (tek el söküm ×0,35); öteki yapılar İG'leri oranında aynı eğriyle kurulur, el sınırı yapınındır. Tezgâhlar K21'in `eff`'iyle kalır.
+- **Malzeme:** K24 `bom` (II. Perde bileşen biçimi); † türlerin malzemesi bu belgenin önerisiydi, `econ-model.json` v3'ün `structures`'ına aynı sayılarla girdi. Kısaltmalar: odun `tag:wood`, kapı `door_frame`, kerege `kerege_set`, uuk `uuk_set`, tündük `yurt_crown`.
+- **Kapasite:** konut hane, ağıl baş, kap Yük (K24 `cap`).
+- **Bakım:** mevsim sonunda ambardan düşer (§7.10).
+
+### 7.2 Konut
+
+| id | TR / EN | İşlev | Ayak izi, m | Görünüm | Kademe, önkoşul | Kapasite | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `yurt_small` | Küçük Yurt / Small Yurt | Küçük ya da yoksul hanenin evi; Oba kapısında yurt sayılır | r 4,9; ped r 5,95 | `yurt` `winter` × **0,7** (4 kanat); iç Ev Düzeni (`ev`) | 1 | 1 hane (dar) | 0,4 (24 dk; en çok 6 el) | taş 4, kapı 1, `kerege_set_s` 1, ip 3, tündük 1, sırık 1, `uuk_set_s` 1, çiy 1, keçe 3, köz 1 (K51); bohça `yurt_kit_s` 38 Yük |
+| `yurt` | Yurt (Hane Yurdu) / Yurt (Household Yurt) | Hanenin evi | r 7,05; ped r 8,5 | `yurt`, `winter` (yakın), `closed` ve `YurtField` (uzak); (K51 ile değişti) iç Ev Düzeni (`ev`): hane yurdu artık `otaci` ya da `bolmeli` çekmez | 1 | 1 hane | 1 | taş 6, kapı 1, kerege 1, ip 6, tündük 1, sırık 2, uuk 1, çiy 1, keçe 6, köz 1 |
+| `otag` | Otağ / Great Yurt; avluda «Tanhu Otağı / The Tanhu's Great Yurt» | Mete'nin avlusu, Divan | r 9,9; ped r 11,9 (K51; eski 11,5 düzeldi: 8,5 × 1,4) | `yurt` `hero` × **1,4** ölçek (8 kanat); iç gündüz Divan Düzeni (`otag`), «Toy Ver» gecesi Şölen Düzeni (`han`); kapı doğuya (S4) | 3, `act>=3` | Mete'nin hanesi + 40 kişilik huzur | 2,5 (150 dk; 12 el, katsayı 8'de durur) | taş 10, kapı 1, kerege 2, uuk 2, `crown_great` 1, sırık 4, çiy 2, `felt_white` 12, ip 14, `dye` 2, köz 1 |
+| `beg_otag` | Bey Otağı / Lord's Great Yurt | Bir beyin hanesi; Divan Tanhu Otağı'nda kalır | r 9,9; ped r 11,9 | `yurt` `winter` × 1,4 (≤34k üçgen); iç Divan Düzeni (`otag`), toy gecesi Şölen (`han`); kendi soyunun rengi | 4; `dwell` parseli, `core` dışında; zonda ≤3 | 1 bey hanesi | 2,5 | Otağ ile aynı; bey hanesi Otağ Yükü'yle (`otag_kit`, 109 Yük) gelir, kendisi kurar (K51, K53) |
+| `tent` | Çadır / Tent | Geçici konut; ordugâhta 5 er. Sağlam çadır sökülünce 1 `tent_kit` olur (emek ×0,35 ≈76 İD, K46) | r 2,6 | `tent` | 1 | ½ hane ya da 5 er | 0,15 | odun 2, sırık 2, ip 4, keçe 3 |
+| `hut` | Kamış Kulübe / Reed Hut | Keçesiz geçici konut | r 2,8 | `hut` | 1, saz kümesi | ½ hane | 0,5 | taş 2, odun 4, ip 4, saz 18 |
+| `pit_house` | Yarı Gömük Ev / Pit House | Sığınan hanenin kalıcı evi | 7 × 7 | Yeni `mound` ailesi (çukur, direk, çatı, örtü) | 5, Surlu | 1 hane | 2 | taş 4, odun 16, kil 6, saz 10, keçe 2 |
+| `envoy_yurt`† | Elçi Yurdu / Envoy Yurt | Elçi konağı, diplomasi olayları | r 7,05 | `yurt` `winter`, (K51 ile değişti) iç Konuk Düzeni (`konuk`) | 3, Tanhu Otağı | 1 elçi heyeti | 1† | yurt + `felt_white` 2, `dye` 1† |
+| `healer_yurt`† | Otacı Yurdu / Healer's Yurt | Yaralı bakımı | r 7,05 | `yurt` `winter`, iç Otacı Düzeni (`otaci`) | 4 (ordugâhta 2) | 8 yaralı | 1† | yurt + `herb_wormwood` 4† |
+
+**Boy, millet, düzen (K51).** Her yurt kaydı `{ size, style, layout }` taşır (kayıttaki `design` `layout` olur; yoksa `{ size: 'm', style: 'hun' }`). Malzeme, emek ve can yalnız boydan, görünüş yalnız milletten, eşya yalnız düzenden çıkar; millet sayıları değiştirmez. Üç boy: Küçük Yurt ×0,7 (can 216, bohça 38 Yük), Hane Yurdu ×1 (420, 59), Otağ ×1,4 (843, 109). Keçe tonu rütbeyi söyler: Küçük ×0,78, Hane ×1, Otağ ak keçe ×1,12; Otağ'ın çevresinde 16 m'lik süslü çit vardır. Gelen hanenin yükü kendi milletinin görünüşünü taşır (§5.3). Hun Divan Düzeni'nde oturak kuzeye bakar (長左而北鄉), kapı doğudur; yalnız bu odada kamera güneye bakar (`camYaw = π`, K27'ye ek). Ayrıntı `structures.md` ve `cadir-otag.md` öneri 2–12.
+
+### 7.3 Sürü ve at
+
+| id | TR / EN | İşlev | Ayak izi | Görünüm | Kademe | Kapasite | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `pen` | Ağıl / Pen | Gece ağılı, kurt kaybını keser | 40 m çizgi (≈12 × 8) | `pen` (örnekli pano) | 1 | 90 küçükbaş ya da 15 sığır | 0,32 | odun 10, dal 72, ip 1 |
+| `fence` | Çit / Fence | Yol ve sınır | 10 m | `fence` | 1 | | 0,075 | odun 6, ip 2 |
+| `horse_line` | At Hattı / Horse Line | Binek atları, gök gürültüsünde ürkme kaybını keser | 20 m çizgi | `fence` `picket` hazır ayarı† (direk ve tek ip) | 1 | 20 at | 0,08 | odun 6, ip 4 |
+| `stable` | Ahır / Stable | Tımar, eyer ve koşum, kışın yem | 10,8 × 6,6 | `stable` | 2 | 8 at; `rc_fodder` tezgâhı | 1,5 | taş 4, odun 18, ip 4, saz 10, keçe 3 |
+| `rack` | Kurutma Sırığı / Drying Rack | Kak, kurut | 2 × 1,4 | `rack` | 1 | 6 kür yuvası | 0,002 | odun 4, ip 2 |
+| `mews` | Kuşhane / Mews | Doğan (IV) ve kartalın (V) yeri; 1 kuşçuyla güz ve kışta günde 0,25 `fur_fox` ve 0,5 `hide_small` (0,5 İS/gün; yiyeceğe etkisi yok) | 4 × 3 | `pen` ailesi | 3, `act>=4` (kuşçu Sungur, `sq_first_bird`) | Doğan ve kartal | 0,12 | odun 6, ip 2, keçe 2, deri 1 (`fauna.md` §5.2) |
+
+### 7.4 Ambar
+
+| id | TR / EN | İşlev | Ayak izi | Görünüm | Kademe | Kapasite | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `grain_pit` | Ambar Çukuru / Grain Pit | Gizli çukur: baskında %50 olasılıkla bulunur, yanmaz; yalnız yiyecek ve tahıl | r 1,4 | Yeni `mound` (çukur, kapak) | 1 | 120 Yük | 0,3 | taş 2, odun 2, keçe 2, deri 1, kil 2 |
+| `store_yurt` | Ambar Yurdu / Store Yurt | Genel ambar | r 7,05 | `yurt` `winter`, (K51 ile değişti) iç Yük Düzeni (`ambar`) + çuval | 2 | 400 Yük | 1 | yurt (köz yok) |
+| `shed` | Sundurma / Shed | Ot, yem, kütük, kömür | 8 × 8 | `shed` `open†` | 2 | 500 Yük, yalnız `tag:bulk` ve `tag:forage` | 0,6 | taş 2, odun 7, ip 4, dal 6, saz 8 |
+| `granary` | Tahıl Ambarı / Granary | Tahıl ve kurutulmuş yiyecek | 8 × 8 | `granary` | 3 | 600 Yük, yiyecek | 0,8 | taş 2, odun 7, ip 4, dal 6, saz 8, kil 4 |
+| `granary_tower` | Tahıl Kulesi / Grain Tower | 治樓以藏穀; baskında kayıp %10 (K24) | 7 × 7, h 9 | `tower` `granary†` hazır ayarı | 5, Surlu | 800 Yük, yiyecek | 2 | taş 6, odun 24, ip 6, saz 10, kil 4 |
+| `treasury`† | Hazine / Treasury | Değerli mal; armağan, pay, Kurultay dağıtımı | 8 × 6 | `shed` `walled†` (tahta duvar, keçe dam, tunç kilit) | 4 | 120 Yük, yalnız `tag:valuable` | 1,2† | taş 8, odun 16, ip 4, keçe 2, kil 2, `bronze_bar` 1† |
+
+### 7.5 Atölye
+
+Tezgâh kimliği yapı kimliğidir (K24 `stations`). Kazan Ocağı (`kitchen`) yapı değildir: kazanı olan her yurt ocağı (K24).
+
+| id | TR / EN | Tezgâh, iş | Ayak izi | Görünüm | Kademe | El (K24 `crewMax`) | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `felt_yard` | Keçe Avlusu / Felting Yard | `felt_yard`: keçe, ak keçe, çiy, eyer keçesi | 14 × 10 | Yeni `yard` (döğme hasırı, germe çerçevesi, çiy rüzgârlığı) | 1 | 6 | 0,5 | çiy 1, odun 4, ip 4, keçe 2 |
+| `tannery` | Sepi Yeri / Tannery | `tannery`: deri, tutkal, ahşap eyer | 10 × 8 | `yard` (sergi, tekne) | 2, su ≤100 m | 3 | 0,4 | odun 6, ip 4, taş 2, `pot` 1, saz 4 |
+| `wood_shop` | Ağaç Atölyesi / Woodshop | `wood_shop`: sırık, kapı, kerege ve uuk takımı, tündük, tekerlek, eyer ağacı; yanında Araba Yeri (§7.8) | 12 × 8 | `shed` `open†` + tezgâh | 2 (K52: Oba'da açılır; kartı Ocak'ta kademe kilidiyle görünür) | 3 | 0,8 | taş 2, odun 12, ip 4, `iron_bar` 1, saz 8 |
+| `smithy` | Demirci Ocağı / Smithy | `smithy`: körük demiri, tunç, kazan, uç, alet | 8 × 6 | `mound` (kil ocak, körük) + `shed` `open†` | 2 | 3 | 1,5 | taş 8, kil 6, `leather` 2, odun 6, `iron_bar` 1 ya da `iron_scrap` 4 (ilk ocak külçesiz kurulur), saz 6 |
+| `kiln` | Fırın / Kiln | `kiln`: kömür | r 2,5 | `mound` (toprak kubbe) | 2 | 2 | 0,6 | taş 6, kil 8 |
+| `fletchery` | Okçu Yurdu / Fletcher's Yurt | `fletchery`: ok, yay (usta `cr_bowyer`) | r 7,05 | `yurt` `winter`, iç `silah` + tezgâh | 3 (ordugâhta Binlik) | 3 | 1,2 | yurt + odun 4 |
+| `field` | Darı Tarlası / Millet Field | (K54 ile değişti) Ekim 10–31 Mayıs, biçim 1–20 Eylül, tarla başına 0,5 + 0,5 İG; işi Kâhya yapar, kart çıkmaz; mevsimde 500 darı, tahıl ambarına kayıpsız. İlk ürün VI'dadır; görünüşü takvimden okunur (1 Haziran 198 yeşil, 13 Şubat 192 karlı ve boş, 4 Haziran 176 yeşil, 9 Eylül 174 sarı) | 50 × 40 | Yeni `field` (sürülmüş toprak çıkartması, örnekli sap) | 5, yalnız Surlu, taşkın kuşağı serbest | 6 | 0,5 / tarla | odun 2, dal 10 |
+| `well` | Kuyu / Well | Suya uzaklık kuralını 150 m çevresinde sağlar | r 1,5 | Yeni `ring` (taş bilezik, çıkrık) | 4 (Kuytu'da 2) | 3 | 1 | taş 6, odun 4, ip 2, `skin_bag` 1 |
+
+### 7.6 Avlu ve savunma
+
+| id | TR / EN | İşlev | Ayak izi | Görünüm | Kademe | Kapasite | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `gathering_ground` | Toy Alanı / Gathering Ground | Toy, Avlu Toplantısı, Dailin Sayımı başı, Kurultay | r 18 | Yeni `ring` (düzlük, keçe oturak halkası, sancaklar) | 3 | 120 oturak | 0,4 | taş 8, odun 12, keçe 4, `dye` 2 |
+| `sky_pole`† | Gök Direği / Sky Pole | Şafak Selamı; yıldırım alameti | r 4, direk 12 m | `ring` (taş halka, uzun direk, keçe flama, sunu taşı) | 3, yalnız `sacred_hill` | | 0,6† | taş 12, odun 2 (huş ya da karaçam), keçe 2, `dye` 1, ip 2 (K24) |
+| `banner_pole`† | Sancak Direği / Banner Pole | Toplanma yeri (`army.md` `rally`); konut halkasının yıldırım çekeni (10 m, ≈9 m içindeki yurtları korur, `weather.md` §8.7) | r 0,5, h 10 | Yeni `post` | 1 | | 40 İD† (iki el; uzun direk) | odun 2 (biri uzun sırık), keçe 1, `dye` 1, ip 2† |
+| `lantern_post`† | Fener Direği / Lantern Post | Gece ışığı 8 m (§6.4) | r 0,5 | `post` + fener | 1 | | basılı tutma 10 İD† | odun 1, ip 1, `lamp_oil` 1† |
+| `barter_ground`† | Takas Yeri / Barter Ground | Hun gezgini (`vendor_barter_ground`, `economy.md` §9.5): III'te 3 günde bir, IV'te 2, V'te 3 günde bir gelir. (K81) Şafak stoğu tuz ×4, Kandil Yağı (`lamp_oil`) ×6, sinir ×6, tutkal ×6, huş kabuğu ×10, tunç hurda ×2 (Kıymet 32 + 18 + 24 + 12 + 10 + 24 = 120); ister keçe, yün, ham deri, boynuz, kurut, kuru et, kürk (`fur_*`); istediğini satmaz. Kabuğu tam alır (`cowrieK` 1), üstü verir; kese şafakta 120 ÷ 4 = 30 kabuğa dolar (K48'in 30'u stoktan türer: Hun satıcısının kesesi şafak stoğunun Kıymet'inin dörtte biridir, `economy.md` §9.5) | 16 × 12 | `yard` (gölgelik, at bağlama) | 3 | | 0,5† | odun 8, keçe 4, ip 4† |
+| `watch_tower` | Gözcü Kulesi / Watchtower | Görüş 300 m, baskın uyarısı; yıldırım adayı | r 2,4, h 7 | `tower` | 3 | 2 nöbetçi | 1,5 | taş 4, odun 20, ip 4, deri 2 |
+| `outpost`† | Gözcü Konağı / Watch Post (甌脫) | Zon kenarı, görüş 400 m, erken uyarı, kervan güvenliği | 8 × 6 | `tent` + `tower` `low†` | 3, zon kenarı | 2 nöbetçi | 0,4† | çadır + odun 6† |
+| `rampart` | Sur ve Hendek / Rampart and Ditch | 10 m'lik parça; kapalı halka akının başarı payını ×0,5 yapar | 10 m, kuşak 4 m | Yeni `mound` çizgisi (hendek, toprak sırt, kütük duvar) | 5, Surlu | | 0,5 / 10 m | taş 2, odun 16, dal 10 (K52: odun 4'ten 16'ya; 40 parça 640 odun; Ivolga'nın kalın kütük duvarı, 伐材數千) |
+| `rampart_gate`† | Sur Kapısı / Rampart Gate | Sur açıklığı, iki kanat | 6 × 6 | `tower` `gate†` | 5, Surlu | | 1,5† | taş 6, odun 24, ip 4, `iron_bar` 2† |
+
+### 7.7 Ordugâh yapıları
+
+K21 §8.3 ve K24 kimlikleri onaylandı. Çadırlar `CampPlan` kaydıdır (`count`, `seed`, `doneAt`); öteki yapılar şantiyedir.
+
+| id | TR / EN | İşlev | Ayak izi | Görünüm | Ordugâh kademesi | Kapasite | İG | Malzeme |
+|---|---|---|---|---|---|---|---|---|
+| `tent` | Onluk Çadırı / Ten's Tent | 5 er | r 2,6 | `tent` | Onluk | 5 er | 0,15 | odun 2, sırık 2, ip 4, keçe 3 |
+| `cmd_yurt` | Buyruk Yurdu / Command Yurt | Onbaşı-yüzbaşı ve beyin yurdu; atama yeri | r 7,05 | `yurt` `winter`, iç `silah` | Yüzlük | 1 baş ve 9 kişi | 1 | yurt |
+| `horse_line` | At Hattı / Horse Line | Binek atı (atlı başına 1) | 20 m | `fence` `picket†` | Onluk | 20 at | 0,08 | odun 6, ip 4 |
+| `training_ground` | Talim Alanı / Training Ground | Talim (`army.md` `drill`), hedef direkleri, at yolu | 60 × 30 | `yard` (6 hedef, yol kazıkları) | Onluk | Aynı anda bir Yüzlük | 0,6 | odun 8, saman 4, deri 4, ip 2 |
+| `supply_depot` | Erzak Ambarı / Supply Depot | Ordugâh ambarı; birlik `supply`'ı buradan dolar | r 7,05 + yük sekisi 6 × 4 | `yurt` `winter`, iç Yük Düzeni (`ambar`, K51) + seki | Yüzlük | 600 Yük | 1,5 | yurt + ip 2, odun 8 |
+| `armoury` | Silahlık / Armoury | Ok, yay, kılıç; sadak dolumu | r 7,05 | `yurt` `winter`, iç `silah` + raf | Yüzlük | 200 Yük (silah, ok) | 1,2 | yurt + odun 6 |
+| `fletchery` | Okçu Yurdu / Fletcher's Yurt | Ok yapımı (§7.5) | r 7,05 | §7.5 | Binlik (yaycı III'te gelir; II'de ok elle yapılır) | 3 el | 1,2 | yurt + odun 4 |
+| `healer_yurt`† | Otacı Yurdu / Healer's Yurt | Yaralı (`wounded`) iyileşmesi ×2 | r 7,05 | §7.2 | Binlik | 8 yaralı | 1† | §7.2 |
+| `watch_tower` | Gözcü Kulesi / Watchtower | | | `tower` | Binlik | | 1,5 | §7.6 |
+| `palisade` | Çit Halkası / Palisade | Sefer ordugâhında çevre | 10 m | `fence` `stockade†` | Binlik, sefer | | 0,1 / 10 m | odun 8, ip 1 |
+| `banner_pole`† | Sancak Direği / Banner Pole | Birlik başına toplanma; ordugâhın yıldırım çekeni | r 0,5, h 10 | `post` | Onluk | | 40 İD† | §7.6 |
+| `outpost`† | Gözcü Konağı / Watch Post | Ova kenarı | | §7.6 | Binlik | | 0,4† | §7.6 |
+
+### 7.8 Taşıtlar
+
+`cart_felt` (II, Oba, 60 Yük, 1 at), `cart_high` (III, Boy Yurdu, 80, 2 at), `cart_war` (IV, Toy Yeri, 140, 4 at): `travel.md` §3.2, `progression.md` §10.3; emek ve malzeme K21, K24. `wagon_felt`† Keçe Göç Arabası (V, Göçer yol, 120 Yük, 4 öküz): 1,2 İG†, tekerlek çifti 2, odun 24, keçe 10, `iron_bar` 4, ip 6†.
+
+(K57 ile değişti) **Araba kartı (#48).** Plan Kipi'nde sekizinci kategori açılmaz: Atölye kategorisinde tek kart **Araba / Cart** vardır, tür kartın içinde ◂ ▸ ile seçilir (§14.1). Araba **Araba Yeri / Cart Yard**'da kurulur: iş parselinde, Ağaç Atölyesi'ne ≤30 m, 6 × 12 m'lik ped; yapı değildir, kart her kuruluşta açar. Araba Yeri'nin kurulumu inşaat eğrisiyle (K50), teker çifti Ağaç Atölyesi'nin tezgâh işiyle yürür (`rc_wheel_pair`, 10 İS, usta; K21 `eff`); kart iki emeği ayrı satırda yazar. Biten araba yerleşimin `carts` listesine girer (`progression.md` §13.2) ve Araba Yeri'nde durur; çeken at ya da öküz sürüden ayrılır, sürüde yoksa kart uyarır. Kırık araba (`ev_raid` sonrası aşama 0) aynı kartta «Onar / Repair» ile K21 onarımına girer; söküm ham malın yarısını verir. Teoman'ın `cart_felt`'i listede başlar: Ocak'ta kart kilitlidir, araba vardır. `chariot_yao` kartta yoktur: V'te armağandır, yapılmaz. Yeni çizim yoktur.
+
+### 7.9 Görünüm aileleri
+
+Yeni sanat yalnız bunlardır; hepsi `core/geo.js` ile kodla kurulur, köşe renkli, `struct_parts` ve `struct_props` programlarıyla (yeni program yok, §17). Adımlar, can, sınıf ve emek `structures.md` §4.6'dadır.
+
+| Aile | Türler | Parçalar | Üçgen |
+|---|---|---|---|
+| `yurt` ölçeği | `yurt_small` (×0,7), `otag` ve `beg_otag` (×1,4) (K51) | `scale`: kök ölçeği, nav şekli, oda sınırı, ped birlikte (ped 5,95 / 8,5 / 11,9); ağa üçgen eklemez, iç eşya ×1 kalır | Küçük `winter` ≤28k; Tanhu Otağı `hero` (zonda 1); Bey Otağı `winter` × 1,4 ≤34k |
+| `yard` | `felt_yard`, `tannery`, `barter_ground`, `training_ground` | Düzlük, köşe direkleri, alçak çit, tür donanımı (hasır, çerçeve, tekne, gölgelik, hedef) | ≤6k |
+| `mound` | `grain_pit`, `kiln`, `smithy` ocağı, `pit_house`, `rampart` | Kazı çukuru, toprak sırtı (`lathe`/`surf`), kapak ya da çatı | ≤6k; sur parçası ≤1,2k, örnekli |
+| `ring` | `well`, `sky_pole`, `gathering_ground` | Taş halka, direk, oturak ya da çıkrık | ≤6k; Toy Alanı oturakları örnekli |
+| `post` | `banner_pole`, `lantern_post` | Direk, flama ya da fener | ≤300, örnekli |
+| `field` | `field` | Zemin çıkartması + örnekli sap demeti (mevsim boyu) | ≤4k, 1 çizim |
+| Hazır ayarlar | `shed` `open` ve `walled`; `tower` `low`, `gate`, `granary`; `fence` `picket`, `stockade`; `tent` | Var olan ağların değişkeni | Var olanın sınırı |
+
+**Godot'da (2026-11-09).** Görünüm aileleri aşama kitidir (`godot.md` §6.7): yurt gövdeli yapılar `StagedYurt` (boy, millet, düzen; K51), öteki türler `StructureCatalog`'un tek ağlı kitleri; uzak yurtlar `YurtField` örnekleridir. İlk kullanıcı I. Perde'nin Kışlak'ıdır (Ulu Ocak, ahır, Kule, Keçe Avlusu, mutfak, odunluk, ağıl); yerleşimin kendi türleri (konut kademeleri, atölyeler, ambar) aynı kitle eklenir, yeni çizim yolu açılmaz.
+
+### 7.10 Bakım
+
+Bakım her 10 günde bir, mevsim miktarının o 10 güne düşen payı kadar ambardan düşer (mevsim 60–120 gün, perde 12–16 gün: mevsim sınırında toplu düşüş perdede bir kez bile olmayabilirdi). Ödenmezse yapının en üst havuzu %25 düşer (yapı geri düşmeye başlar, `structures.md` §5.7), konutta hane Gönül −1.
+
+| Sınıf | Mevsim başına | Emek |
+|---|---|---|
+| Yurt gövdeliler (`yurt`, `store_yurt`, `cmd_yurt`, `envoy_yurt`, `healer_yurt`, `armoury`, `fletchery`, `supply_depot`) | 1 keçe, 1 ip | 0,05 İG |
+| `yurt_small` | ½ keçe, 1 ip (K51) | 0,05 İG |
+| `otag`, `beg_otag` | 2 `felt_white`, 2 ip, 1 `dye` | 0,1 İG |
+| `mews` | 1 keçe† | |
+| `tent` | 1 keçe | 0,02 İG |
+| Ahşap yapılar (`stable`, `shed`, `granary`, `granary_tower`, `wood_shop`, `treasury`, `watch_tower`) | 2 odun, 2 saz | 0,05 İG |
+| `pen` (40 m), `fence`, `palisade` (10 m) | 6 dal; 1 odun | 0,01 İG |
+| `horse_line`, `well` | 1 ip | |
+| `felt_yard`, `tannery` | 2 saz, 1 ip | |
+| `smithy`, `kiln` | 2 kil; körükte 1 `leather` yılda | |
+| `pit_house` | 2 saz, 1 kil | |
+| `rampart` (10 m) | | 0,02 İG; sağanaktan sonra 0,05 |
+| `gathering_ground`, `sky_pole` | 1 keçe | |
+| `banner_pole` | Yılda 1 keçe | |
+
+**Neden bakım.** Hiçbir şey kurulup unutulmaz; keçe yırtılır, ip çürür. Bakım sürekli küçük bir talep yaratır: keçe avlusu ve sepi yeri Tanhu Avlusu'nda da çalışır (K24 malzeme batağı). Toplam, tablodan: IV. kademede (≈100 yapı) mevsim başına ≈3,4 İG ve ≈55 keçe, yani günde ≈0,03–0,06 İG ve ≈0,5 keçe; yerleşim emeğinin %1'inden azı.
+
+## 8. Üretim zincirleri ve atölyeler
+
+### 8.1 Yapı → tezgâh → zincir
+
+Tarif, girdi, çıktı ve süreler K24'ündür (`econ-model.json` `recipes`); burada hangi yapının hangi zinciri taşıdığı ve havası.
+
+| Zincir (K24) | Yapı (tezgâh) | Ana tarifler | Usta | Hava (K22, K21 tablosu) |
+|---|---|---|---|---|
+| Keçe | `felt_yard` | `rc_felt_batch`, `rc_felt_white`, `rc_chiy`, `rc_saddle_felt`, `rc_felt_boots`, `rc_blanket_felt` | | Yağmur ×0,7, sağanak ve sert rüzgârda durur |
+| Sepi | `tannery` | `rc_leather`, `rc_hide_patch`, `rc_saddle_wood` | | Su ≤100 m; kurutma yağmurda durur |
+| Tutkal | Kazanlı yurt ocağı (`kitchen`) | `rc_glue`, `rc_glue_fish` | | |
+| İp | El (her yurt) | `rc_rope`, `rc_rope_hair` | | |
+| Ağaç | `wood_shop` | `rc_pole`, `rc_door_frame`, `rc_kerege_set`, `rc_uuk_set`, `rc_yurt_crown`, `rc_crown_great`, `rc_wheel_pair` (Araba Yeri'nin teker çifti, 10 İS), `rc_saddle_tree`; Küçük Yurt için `kerege_set_s`, `uuk_set_s` (K51) | `cr_carpenter`, `cr_cartwright` | Çatılı: hava etkisi yok |
+| Tunç ve demir | `smithy` + `kiln` | `rc_charcoal`, `rc_bloom`, `rc_copper_bit`, `rc_bronze_bar`, `rc_reforge`, `rc_heads_iron`, `rc_cauldron` | `cr_smith` | Kıvılcım: `smithy` rüzgâraltında (§13.2) |
+| Ok ve yay | `fletchery` | `rc_shafts`, `rc_heads_bone`, `rc_arrow_*`, `rc_hun_bow` | `cr_bowyer` | |
+| Yiyecek | Kazanlı yurt ocağı, `rack` | `rc_meal_batch`, `rc_cauldron_meat`, `rc_qurt_batch`, `rc_dried_batch`, `rc_kumis_batch` | | Sırık yağmurda durur |
+| Yem | `stable` | `rc_fodder` | `m_groom` | |
+| Yurt yükü | El | `rc_yurt_kit`, `rc_tent_kit` (söküm şantiyede, K21 0,35) | | |
+| Tahıl | `field` | Ekim 10–31 Mayıs, biçim 1–20 Eylül; Kâhya atar, kart çıkmaz (K54) | `cr_earth` | Dolu sağanağı başına küçük dolu %10, iri dolu %30 (§15.3); Haziran–Eylül arası başarılı akın güz ürününün %30'unu çiğner (§15.4) |
+
+### 8.2 Sürekli emirler
+
+Tezgâh başına bir liste; Kâhya sırayla işler. Biçim: «{n} tut / keep {n}» (ambarda bu kadar kalsın), «{n} yap / make {n}», «durdur / stop».
+
+| Varsayılan (yerleşim kurulunca) | Neden |
+|---|---|
+| Keçe Avlusu: keçe 20 tut; çiy 2 tut | Bakım ve yeni yurt |
+| Ağaç Atölyesi: sırık 8, kapı 1, kerege takımı 1, uuk takımı 1 tut | Hazır yük olmayan hane için |
+| Demirci Ocağı: `iron_bar` 4 tut; kömür 10 tut | Yurt kapısı, araba |
+| Okçu Yurdu: ordugâh ambarındaki ok stoğu 24 × atlı hedefine doğru, sefer başına ok çizgisi kadar (§11.4); gövde, temren ve tüy atlıların kendi yapımı için kervanla | `army.md` §3.6 sadak |
+| Sırık: kurut 40, kak 20 tut (yaz ve güz) | Kış yiyeceği |
+| Kâhya, Oba'dan: `tent_kit` 2 tut | İsteyen Hane'ye çadır (K53, §5.3); ambarda varsa kart çıkmaz |
+
+### 8.3 Mevsim takvimi
+
+K20 saatinin günlük düzeni (`time.md` §10.4) aynen; mevsimlik işler:
+
+| Mevsim | İş | Yerleşime etkisi |
+|---|---|---|
+| Bahar | Doğum (K24 `growth`), kırkım (`shear.spring`), toz fırtınası (Gobi); Surlu yolda darı ekimi 10–31 Mayıs (K54) | Yün → keçe dalgası; hanenin Gönül'ü doğumla +2 |
+| Yaz | Sağım tepesi, kımız, ot biçimi başlar; Lung-çeng 5. ayın dolunayında (K56) | Yiyecek fazlası kuruta; Toy için kımız |
+| Güz | İkinci kırkım, kesim (K24 `sogum`), kak; darı biçimi 1–20 Eylül (K54); Dailin Sayımı 8. ayın dolunayında (K56) | Kış ambarı dolar |
+| Kış | Onarım, ok ve yay, ağaç işi; kar kabuğu tehlikesi (§15.3) | Yem tüketimi |
+
+## 9. Depolama
+
+### 9.1 Kaplar
+
+Bütün kaplar K24'ün tek `Container` sınıfıdır ve `architecture.md` §3.13'ün kap yüzünü uygular (`{ add, remove, list, load(), cap }`, Yük; içeride onda bir). Kap sınıfı, süzgeç ve aktarma K24'ündür; baskın kuralı tektir (§15.4). Bu belge kabın hangi yapıda durduğunu, yerlerin ayrımını ve **havuzu** verir: bir yerin kapları yerleşimin `StorePool`'unda (`game/settlement/stores.js`, `stores.ofPlace(place)`) tek **Ambar / Store** görünümünde birleşir; eşya süzgecine uyan ve en yakın boş kaba girer. İçerikler `settlement` bloğunda saklanır (§16).
+
+| Kap | Süzgeç | Kapasite |
+|---|---|---|
+| Mete'nin sandığı (Mete'nin yurdu) | Her şey | 60 Yük |
+| `grain_pit` | Yiyecek, tahıl | 120; baskında %50 olasılıkla bulunur, yanmaz |
+| `store_yurt` | Her şey | 400 |
+| `shed` | `tag:bulk`, `tag:forage` | 500 |
+| `granary`, `granary_tower` | Yiyecek | 600, 800 |
+| `treasury` | `tag:valuable` | 120 |
+| `armoury` | Silah, ok | 200 |
+| `supply_depot` | Erzak: yiyecek, yem, ok, yakacak, teçhizat (ordugâhta) | 600 |
+| Şantiye yığını | Adımın malzemesi | K21 `site(id)`: türün yükü × 1,25 |
+
+### 9.2 Yer ayrımı
+
+Yerleşim ambarı, ordugâh ambarı ve hazine **ayrıdır**. Aralarında yalnız kervan (§11) ve Mete'nin heybesi taşır; `great_stores` (`progression.md` §4.5, V) Mete'ye her ambardan alma hakkı verir, birliğin günlük çekişini değiştirmez. Şantiye 150 m içindeki bağlı ambardan kendi taşır (K21 §6.3).
+
+### 9.3 Zula ve baskın
+
+Baskının tek kuralı §15.4'tedir (`d2/core.md` §4.8): başarılı akında Ambar Yurdu, Tahıl Ambarı ve Sundurma içeriğinin %30'u, Tahıl Kulesi'nin %10'u gider; Ambar Çukuru %50 olasılıkla bulunur, bulunursa %30'u gider; Hazine %30 (30 m içinde Gözcü Kulesi varsa ×0,5), Hazine'deki kabuğun da %30'u gider, Mete'nin kesesi güvendedir (K48); ot sundurması tutuşursa hepsi. Ambarcı (`m_quarter`) kap kaybını ×0,75 yapar, başarıya dokunmaz; Hazine, ot sundurması yangını ve sürü kaybı bu çarpanın dışındadır (K55). Act I'in «yazılan el konur, saklanan kalır» ilkesi (`economy.md` §0) II. Perde'de çukur kazmak olur; çukur yalnız yiyecek ve tahıl alır, değerli mal Hazine'dedir.
+
+### 9.4 Defter yüzü
+
+`SupplyLedger` K24'ün ambar kipindedir (`d2/economy.md` §14 `mode: 'store'`): `value(line)` `StorePool`'un kaplarından günle hesaplanır, `consume` hane payını, Ordu Payı'nı, yakacağı ve yemi düşer. Yerleşim ona hane sayısını, ordugâh nüfusunu ve hedef günleri verir. Böylece `ledger` etkisi (`architecture.md` §3.14) ve K21 `K_tok` aynı yüzden okur. Kayıtlı defterler `winter_camp`, `own_seat`, `own_camp`, `field_camp`'tir.
+
+| Defter | id | Çizgiler | Yüzde |
+|---|---|---|---|
+| Yerleşim Hesabı / Hold Ledger | `own_seat` | `food`, `fodder`, `fuel`, `arrows` | `min(100, gün / hedef × 100)`; hedef yiyecek 30, yem kışın 100, yakacak 30 gün |
+| Ordugâh Hesabı / Camp Ledger | `own_camp`, `field_camp` | Aynı | Aynı, ordugâh nüfusuyla |
+
+### 9.5 Küme tükenmesi
+
+Uzaktaki toplama `NodeStore`'u bellekte istemez: yerleşim küme başına alınan miktarı sayar (`taken[cluster]`). Dünya kurulurken `NodeStore.applyTaken(cluster, n)` kümenin düğümlerini tohumlu sırayla kalıcı (`perm`) ya da günlük (`day`) tükenmiş işaretler (`d2/settlement-delta-architecture.md`). Kesim yeri görünür büyür (`economy.md` §3.5 «kendi emeği manzarayı değiştirir»).
+
+## 10. Ordugâh
+
+### 10.1 Kademeler
+
+Ordugâhta **yerleşik** atlı, Erzak Ambarı'ndan beslenen çekirdektir: yerleşim kademesine göre 10, 100, 200, 400, 600. Sayıların sahibi bu belgedir; Ordu Payı bunun düz %10'udur (§11.2). Tümenin geri kalanı ve `army.md` §2'nin `drilled` sayısı kendi payında ailesiyledir; talim ve toplantı için gelir, kendi çadırını ve 3 günlük azığını getirir (`tumen_call`). Böylece ordugâh büyük görünür, yerleşimin yükü küçük kalır. **Yerleşik atlı da kendi çadırıyla gelir** (`tent_kit`, 5 atlıya bir): çadır sütunu atlıların yüküdür, yerleşimin keçesinden çıkmaz; kervan yalnız yenisini götürür (§11.2 `tent_kit: keep_to:4`). Okçu Yurdu Binlik'tedir: yaycı III'te gelir (doğrulama V1).
+
+| Kademe | id | TR / EN | Yerleşik atlı | Çadır (5'er) | At hattı | Yapı | Görünüm |
+|---|---|---|---|---|---|---|---|
+| 1 | `camp_onluk` | Onluk Ateşi / The Ten's Fire | ≤10 | 2 | 1 | Talim Alanı, 1 ateş, sancak | Tam |
+| 2 | `camp_yuzluk` | Yüzlük Kampı / The Hundred's Camp | ≤100 | 20 | 5 | + Buyruk Yurdu, Erzak Ambarı, Silahlık, 10 ateş | Tam |
+| 3 | `camp_binlik` | Binlik Ordugâhı / The Thousand's Encampment | ≤400 (toplantıda 1.000) | 80 (+ gelenlerin 120) | 20 | + Okçu Yurdu, 10 Buyruk Yurdu, Otacı Yurdu, 2 Gözcü Kulesi, Gözcü Konakları | 40 tam çadır, gerisi `TentField` |
+| 4 | `camp_tumen` | Tümen Ordugâhı / The Tumen Encampment | ≤600 (toplantıda 3.000–10.000) | 120 (+ gelenlerin) | 30 | + sancak ovası | `TentField`, T3 kart (`army.md` §7) |
+
+Kademe yerleşik atlıya ve yapıya bağlıdır: Onluk Ateşi Ocak'la, Yüzlük Kampı Oba'yla, Binlik Boy Yurdu ve Toy Yeri'yle, Tümen Tanhu Avlusu'yla gelir. Toplantı ve talim günlerinde gelenlerin çadırı `CampPlan`'a geçici eklenir (en çok 3 gün), azıkları kendilerinindir. Ocak'ta Onluk Ateşi'nin payını Azıkçı alır (§11.2).
+
+**Gece Akını** (K55) ordugâhın tek baskınıdır: yalnız III ve IV'te, perde başına en çok 1; güç `⌈R × 0,6⌉`; hedefi yalnız at hattıdır. Tam ordugâhta başarı en çok %5,2'dir, birlik seferdeyken kalan bekçi Onluk'ta %25–35. Kural ve sonuçlar §15.4'tedir.
+
+**Kışın ordugâh kendiliğinden dağılır** (16 Kasım–15 Mart; oyuncu buyruğu değildir, Ordu Payı ×0,1 ile çarpılır ve K24 kış dengesi bununla hesaplanır, `economy.md` §7.1). `whistle_field` Gobi'dedir, kışın otlak yoktur. Yerleşik atlının %90'ı kışı hanesinin kışlağında geçirir (atı hane sürüsünde sayılır, Ordu Payı o kadar düşer); %10'luk kış bekçisi at hattında ot yer: at başına günde 1 Yem Bağı (2 Yük, `economy.md` §2). Bekçinin otu ordugâhın güzde kendi biçip yığdığı ottur (Kronik kışa bu yığınla açar, §16.2). Kış seferi otlak, Menzil ve akınla beslenir (`army.md` §3.6).
+
+### 10.2 Yapıların ordu eksenlerine etkisi
+
+`army.md` eksenlerinin sahibi `army.md`'dir; aşağıdaki satırlar onun §3.5 olay tablosuna önerilir (§20).
+
+| Etken | Ölçü | Etki | Not |
+|---|---|---|---|
+| Barınak payı `s` | `min(1, çadır × 5 / atlı)` | Islak gece (yağmur, sağanak, kar, dolu, tipi): `morale −2 × (1 − s)` | Islaklık; soğuk yok (K1) |
+| Ateş | 10 atlıya 1 yanan ateş (yakacak K24 `fuelPerRiderDay`) | `morale +1/gün` (`fire_rest`'in uzak özeti) | |
+| Erzak Ambarı | Birlik `supply.food` her şafak 3 güne tamamlanır | Tam / yarım / aç gün `army.md` §3.5 | Ambar boşsa birlik kendi `supply`'ından yer |
+| Silahlık | Sadaklar ordugâhta 24'e dolar; savaştan sonra %60 toplanır (K24 `recovery`) | `supply.arrows` | |
+| At Hattı | Binek atları hatta | Gök gürültüsü ürkmesi: hatlı %0,2, hatsız %2 at dağılır, 2 günde döner (`weather:thunder`, ≤1 km) | |
+| Seyis (`m_groom`) | Ordugâhta | Kışın `horse_fat` +1/gün | |
+| Otacı Yurdu | 8 yaralı | `wounded` günde %15 iyileşir (yoksa %7) | |
+| Konfor | `s ≥ 0,9`, tam tayın, ateş | `loyalty +0,3/gün`, tavan 70 | Y17 |
+| Gece Akını püskürtüldü (K55) | Mete orada / uzakta | `morale` +2 ve `loyalty` +1 / `morale` +1 | §15.4 |
+| Gece Akını başarılı (K55) | Akıncı başına 1 at | `morale` −2; 60 sn içinde `horse_call` ile yakalanan at döner | §15.4 |
+| Azıkçı boş döndü (K54) | Ocak'ta ambarda 2 öğün yok | O gün `morale` −1 | §11.2 |
+
+### 10.3 Talim
+
+Mete'nin ıslık talimi (`army.md` §3.5 `drill`, 90 sn tur) asıl kaynaktır ve yalnız Talim Alanı'nda yapılır. Mete yokken **Baş Talimi / Officer Drill**: Talim Alanı olan ordugâhta birlik `discipline` +0,4/gün (`old_hand` ×1,25), tavan 60; `drilled` (ıslığa uyan) yalnız Mete'nin talimiyle artar. Talim saati 07:30–10:30 (`time.md` §10.4); o saatte İş Kolu'ndaki er talim kazanmaz.
+
+### 10.4 Sefer ordugâhı
+
+`army.md` `cmd_camp` → `CampPlan = { site, units, tents: count, seed, fires, lines, depot: 'carts', palisade: bool, doneAt }`. Çadırlar arabalarda `tent_kit` olarak taşınır (K24), her onluk kendi çadırını kurar, onluklar paralel çalışır: konak ≈4 gerçek dk (K50 ile değişti: çadır 216 İD, en çok 4 el, 9 dk tabanla 4 elde ≈3,8 dk; `army.md` §3 `cmd_camp`, `structures.md` §4.5; eski «2–3 gerçek dakika» K21'in `eff`'iyleydi, K21 §8.3). Erzak Ambarı yerine araba halkası (`wagon_ring`, `progression.md` §4.5) ambar olur. Sökme 0,35 emekle (K21). Seferde bırakılan ordugâh 10 gün sonra kaybolur, malı yağmalanır.
+
+### 10.5 Ordugâhın emeği
+
+Ordugâhın eli erdir (`UnitRec.strength − wounded`, K21 §6.4); kendi yapısını kendi kurar. Bedeli fırsattır: inşaattaki er talim almaz, `fatigue` dinlenmez. Ordugâhın ham malzemesi (keçe, sırık, ip, ok) yerleşimden kervanla gelir: ordunun yerleşime bağımlılığı budur.
+
+## 11. İkmal kervanı
+
+### 11.1 Yol ve araç
+
+| Alan | Değer | Kaynak |
+|---|---|---|
+| Kademe | Oba'dan; Ocak'ta kervan yoktur, Azıkçı vardır (K54, §11.2) | |
+| Yol | `r_whistle_ordu` (30 km gösterim): atla 1, arabayla 1, öküzle 2 gün | `travel.md` §9.2 |
+| Araç | `cart_felt` 60 (1 at), `cart_high` 80 (2 at), `cart_war` 140 (4 at), `wagon_felt` 120 (4 öküz), `cart_ox` 60, `pack_horse` 30 (II), `pack_camel` 60 (K65 ile 30'dan), `pack_donkey` 20 (IV), `pack_mule` 35 (V) Yük. Bir keçe araba yerine bir deve konabilir: aynı 60 Yük, yolsuz gider ama yavaştır (Gobi yolunun doğal seçimi) | `travel.md` §3.2, `fauna.md` §2.2 |
+| Sürücü | Araba başına bir `haul` işçisi | §6.1 |
+| Koruma | Yok, Onluk ya da Yüzlük (ordugâhtan) | |
+| Atlas | Seyrede ≤12 minik araba (`travel.md` §10.4) | |
+
+### 11.2 Kervan Buyruğu / Caravan Order
+
+```js
+{ id: 'k_army', from: 'own_seat', to: 'own_camp', every: 2,          // gün
+  send: { '@army_share': 2, felt: 'keep_to:30', arrow_bone: 'keep_to:2400', tent_kit: 'keep_to:4' },
+  back: ['hide', 'horn', 'sinew', 'iron_scrap', 'bronze_scrap', '@booty'],
+  escort: 'none' | 'onluk' | 'yuzluk', road: { refugees: 'share', wolves: 'fire' } }
+```
+
+**Ocak'ta kervan yoktur (K54, #42).** **Azıkçı / Ration Rider**: onluktan bir atlı iki günde bir Tan'da Ocak Yeri'ne gelir, 2 öğün (0,2 Yük) alır, terkisiyle gider. Ambarda 2 öğün yoksa boş döner, o gün birlik `morale` −1; başka bedel yoktur. Araba, sürücü (`haul`), koruma, Kervan Buyruğu ve yol olayı yoktur; kervan Oba'yla açılır (§4.1). Ordu Payı değişmez (Ocak 1 öğün/gün; `economy.md` §8.5'in o satırında sütunun adı «Azıkçı»dır). Teoman'ın arabası Mete'nindir, Ocak'ta kervana gitmez. Defter'in kervan bölümü Ocak'ta tek satır yazar: «Onluğun azığını bir atlı alır.» / «A rider fetches the Ten's rations.» Tarih bunu destekler: Hun birliği azığını kendi çıkarır (Yantie lun 52), Ordu Payı ana besin değil bağdır (`bozkir-ekonomi.md` §5).
+
+- **Ordu Payı / Army Share** (`@army_share`): ordugâh yerleşik atlısı × 0,1 öğün/gün, düz (K24 `armyShare`): Ocak 1 (Azıkçı), Oba 10, Boy Yurdu 20, Toy Yeri 40, Tanhu Avlusu 60 (Göçer Avlu ×1,1 = 66) öğün/gün; kışın dağılmayla %10'una iner. Yalnız kuru erzak gider (Aş, darı, kak, kurut, tahıl).
+- **Yol Töresi / Road Custom:** kervanın yol olaylarındaki (`travel.md` §9.6) kendiliğinden seçimi: kaçkınla paylaş (2 öğün, +1–2 hane) ya da geç; kurtta ateş (1 odun) ya da sür (1 öğün).
+- Mete kervana katılırsa (atlas bacağı kervanla), olaylar ona sorulur.
+
+### 11.3 Süre, hava, baskın
+
+| Durum | Kural |
+|---|---|
+| Kalkış | Tan'da (K20). Hava `fx.cartLock` iken (gök gürültülü ve kuru fırtına, dolu, fırtına, tipi, toz, Kara Boran; `weather.md` §8.10) en çok 6 oyun saati bekler, kilit kalkmazsa ertesi Tan |
+| Süre | Yol günü ÷ kalkış günündeki ortalama `fx.cartK` (yağmur ve çamurdan sonra ≈×1,25, yoğun karda ≈×1,4, fırtınada ≈×1,2) |
+| Varış | Yük kaba yazılır; dönüş ertesi Tan |
+| Akın | III'ten yol olaylarına (`travel.md` §9.6: sefer başına %25, en çok 1) `ev_raid` «Akın / Raid» eklenir; olaylar içindeki payı III %30, IV %20, V %35, VI 0 (sefer başına III ≈%7,5, IV %5, V ≈%9). Kervan akını yol olayıdır, K55'in ay penceresine bağlı değildir; ama akıncısı §15.4'ün perde satırıdır: VI'da akıncı yoktur (heqin; K55'te VI'nın R'si 0, `story.md` §11.5 «akın yoktur»), bu yüzden VI'nın payı 0'dır (2026-11-04, E6.4 ile düzeldi; eski %10'un akıncısı yoktu). Onluk koruma %60, Yüzlük %90 olasılıkla püskürtür; yol başında Gözcü Konağı payı −%25 |
+| Akın sonucu | Korumasız kervan yükün yarısını yitirir, bir araba aşama 0 (`structures.md` §4.4), sürücüler döner; varışta kart |
+
+### 11.4 Ne taşınır (beklenen akış)
+
+**Ok çizgisi** K24'ün kayıp formülünden çıkar: sefer başına `max(0, (yeniAtlı × 24 + kayıp − atlıYapımı) / sefer)`; kayıp = atlı × 12 × 0,4 × savaş (savaşta 12 atılır, %60 toplanır), atlı yapımı ordugâhta atlı başına günde 2 ok (gövde, temren ve tüy kervanla gider; 5 oka 1 tüy, kaynak av kolu ve takas). «24 × atlı» yalnız stok hedefidir.
+
+| Perde | Yerleşimden ordugâha (sefer başına) | Ordugâhtan yerleşime |
+|---|---|---|
+| II | Ordu Payı 20 öğün (Oba), keçe 6, ok ≈150–350 ve ok malzemesi, çadır yükü 2 | Deri, boynuz, sinir (av kolları) |
+| III–IV | 40–80 öğün, keçe 30, ok ≈250–600, eyer, araba | Ganimet payı (K24 `bootyToDepot`), demir hurdası, at |
+| V–VI | 120 öğün (kışın %10'u), ok ≈300–600, zırh, araba | Heqin malı (Hazine'ye) |
+
+## 12. Hanlık merkezi
+
+### 12.1 Avlu yapıları
+
+| Yapı | İşlev |
+|---|---|
+| Tanhu Otağı | Divan (§12.3); toplantıların başı; kapı doğuya; (K51 ile değişti) gündüz Divan Düzeni (`otag`: oturak kuzeye bakar, kamera bu odada güneye), «Toy Ver» gecesi Şölen Düzeni (`han`) |
+| Elçi Yurdu | Elçi heyeti burada konaklar (Konuk Düzeni, `konuk`); Tunghu'nun üç isteği (III), Han elçileri (V), heqin |
+| Bey Otağları | IV'ten beylerin büyük yurtları (`beg_otag`, zonda ≤3); Divan yine Tanhu Otağı'ndadır |
+| Toy Alanı | Toy, Avlu Toplantısı, Dailin Sayımı'nın oturağı, Kurultay (VI) |
+| Gök Direği | Şafak Selamı, alamet (§12.4) |
+| Hazine | Armağan, ganimet payı, Kurultay dağıtımı (`progression.md` §9.2 VI) |
+| Sancak Direkleri | Toplantıda beylerin yeri: 24 `wanqi` sancağı (`army.md` §1 #6) |
+
+### 12.2 Toplantılar (S3)
+
+(K56 ile değişti) Lung-çeng 5. ayın, Dailin 8. ayın dolunayıdır (Fu Qian 秋社八月中; `time.md` §2'nin «doy 234–318 içindeki ilk dolunay» kuralı kalktı). Godot: `GameCalendar.longcheng_day(year_bc)` ve `dailin_day(year_bc)`; `test_game_calendar.gd` sayıları kilitler (`dailin_day(208) == 1694`, `dailin_day(174) == 14097`, `longcheng_day(205) == 2698`). **Oynanan toplantılar** (K56; E6.4 ile düzeldi). Dailin üç kez oynanır. Yerleşimin Dailin Sayımı (`dailin_count`, `dailin_ground`) iki kezdir: III'te 16 Eylül 208 (`dayN` 1.694; perdenin doruğu: üçüncü istek, «Toprak devletin temelidir», seferberlik) ve VI'da 9 Eylül 174 (14.097; son sayım, Mete sayım sürerken ölür). IV'ün son görevi Ordos'ta, Mete'nin doğduğu otlakta, babanın Dailin yerinde bir kezlik sayımdır (22 Eylül 203, 3.525, `mq4_dailin_ordos`, K43; `story.md` §14.3); yerleşimin `dailin_count` sahnesi değildir, hava kilidi `a4_dailin` `clear`'dır. Lung-çeng günü dört kez oynanır. IV'te 17 Haziran 205 (2.698): Mete Hexi'dedir, Yüeçi batıya sürülür, Beşinci Ay Sunusu Gök Dağı eteğindedir (§12.4); Lung-çeng'de toplantı yoktur. IV'te 25 Haziran 203 (3.436): Lung-çeng'de büyük toplantı ve armağan kervanı, Loufan ve Baiyang katılır (`mq4_longcheng`). VI'da 2 Haziran 198 (5.238, `mq6_longcheng`) ve 4 Haziran 176 (13.270, `mq6_letter_176`, `mq6_kunmo`). Eski «Dailin iki kez» ve «Lung-çeng IV'te 17 Haziran 205 ve VI'da 2 Haziran 198» sözleri K43'ün son göreviyle ve K33'ün takvimiyle (`story.md` §2) düzeldi. Öteki yılların Dailin'i ve Lung-çeng'i Kronik satırıdır; doğum, beş, on bir, on beş ve on yedi yaş ile rehin kararı da Dailin'e düşer; ilk Lung-çeng (30 Haziran 209) ve ilk Dailin (27 Eylül 209) Kronik'tedir (§16.2). Toplantı günü akın yazılmaz: 1.694, 2.698 ve 3.436 (§15.4; VI'nın günleri akınsız perdededir, IV'ün Ordos Dailin'i akın penceresinin dışındadır). **Kış Toplantısı** (1. ayın yeni ayı, ≈Şubat) oynanan günde sahne açmaz (VI'nın Şubat dilimleri dahil); Kronik'in sonraki koşusunda toplu işlenir (atama ve hane, §16.2; K42). Oynanan toplantı **Avlu Toplantısı**'dır: takvimsiz, Divan'dan zaferden sonra perde başına bir kez çağrılır (III'te Otağ önünde, IV'ten Toy Alanı'nda). Ordu etkileri `army.md` §1.3'ündür (doğrulama V16).
+
+| id | TR / EN | Yer | Gerekir | Yerleşime etkisi |
+|---|---|---|---|---|
+| `court_gathering` | Avlu Toplantısı / Court Gathering | Avlu (III'te Otağ önünde, IV'ten Toy Alanı) | Otağ (IV'ten Toy Alanı); zaferden sonra, perde başına bir; 3 gün hane başına 2 öğün + bey başına 3 öğün, kımız 20 | Gönül +5; atama; çekim ×1,2, 10 gün; V'te Baideng'den sonra 8–12 hane (§5.3) |
+| `muster_longcheng` | Lung-çeng Toplantısı / Longcheng Muster | `longcheng` (IV+; IV 25 Haziran 203; VI 2 Haziran 198 ve 4 Haziran 176) (K56 ile değişti; eski «IV 17 Haziran 205»: o gün Mete Hexi'dedir, sunu Gök Dağı eteğindedir) | Armağan kervanı: ≥200 öğün, 10 at, Hazine'den değer ≥200 Kıymet | Gönül +3; `army.md` `loyalty` +5 katılan baş; IV ve VI'da Beşinci Ay Sunusu (§12.4; IV'te Gök Dağı eteğinde, 17 Haziran 205) |
+| `dailin_count` | Dailin Sayımı / Dailin Count | Avlunun güz otlağı (`dailin_ground` parseli) | Toy Alanı; Mete avluda; III (`mq3_dailin`) ve VI (`mq6_last_dailin`) | **Sayım Çetelesi** (K62): hane, kişi, sürü, at; seferberlik payı; `army.md` yeniden sayımı. Palak'ın sayımının dönüşü: sayan Mete'dir. **Söğüt Turu** (K56): sayımın başında `dailin_ground`'a söğüt dalı dikilir, atlılar üç tur atar (r ≈27 m, ≈510 m; dörtnal 8,58 m/sn ile ≈60 sn); bitiren her baş `loyalty` +1, kazanan yoktur. Hava kilidi `a3_dailin` `clear`, `a6_dailin`; IV'ün Ordos sayımı `a4_dailin` `clear` (K56), yerleşimin sayımı değildir |
+
+**Sayım Çetelesi / The Count Tally** kartı (K62; hikâyede sayım çentikle yürür, Töreci Tuçi tutar): «Sayımın {n}. günü. {h} hane, {p} can, {s} sürü.» / «Day {n} of the count. {h} households, {p} souls, {s} head of stock.» (`{n}` = `dayN`, `time.md` Z16: mutlak gün sayacı; Palak'ın «bin kırk birinci gün»ünün devamı).
+
+### 12.3 Divan / Council
+
+Tanhu Otağı'nda `E` «Divan / Council» (yalnız `act>=3`).
+
+| Eylem | TR / EN | Ne yapar |
+|---|---|---|
+| Huzur | Huzur / Audience | Hanelerin dilekleri: küçük işler (2 keçe, bir kuyu, bir hekim); yapılınca Gönül +3 (o hane), Kut vermez |
+| Yargı | Yargı / Judgement | 15 günde bir dava (S9). Hırsızlık: «Malını al / Take his goods» (hanenin sürüsü Hazine'ye, Korku +1, o hane Gönül −10), «Kefaret / Atonement» (çalınan iki katıyla ya da kabukla ödenir, K48; barımta deseni, `bozkir-ekonomi.md` öneri 13), «Bağışla / Pardon» (öteki haneler Gönül −1), «Sür / Banish» (hane gider). Bıçak çeken: «Kanun / The law» (sahne dışı, Korku +1) ya da «Kefil / A guarantor» (Act I kefil motifi, hane Gönül +5, Kut değişmez). II'de Divan yoktur, ilk yargı ateş başındadır (`sq2_first_judgement`, `story.md` §11.1) |
+| Atama | Atama / Appoint | `army.md` §3.2 `appoint` |
+| Armağan | Armağan Gönder / Send Gifts | Hazine'den ≥200 Kıymet (İpek Top burada Kıymet ×1,5 sayılır, K49); 3 gün sonra 2–4 hane ve o soyun beyine `ties` |
+| Kam | Kamın Alameti / The Kam's Omen | Perde başına 1 (K35): kam alamet okur; «Dinle / Listen» ya da «Sustur / Silence» (`story.md` §9) |
+| Elçi | Elçi Kabulü / Receive Envoy | Elçi Yurdu'ndaki heyet: hikâye olayı ya da `ev_envoy` (`travel.md` §9.6) |
+| Seferberlik | Ere Çağır / Call to Arms | §5.6 |
+| Toy | Toy Ver / Hold a Feast | §5.4 |
+| V. kademe yolu | | §4.3, bir kez |
+
+Ceza sahnesi görünmez, sonrası görünür (`act1.md` §1, `army.md` §3.5).
+
+### 12.4 Gök Direği
+
+- **Şafak Selamı / Dawn Bow** (S4): Tan evresinde (`time.md` §4) direkte `E` «Güne Selam / Greet the Sun». Avludaki birlik moral +2, avlu haneleri Gönül +0,5; günde bir. Kut vermez (`progression.md` §5.1 farm yok). Akşamı aya selam yoktur: tek eylem.
+- **Alamet / Omen.** Gök gürültülü ya da kuru fırtınada direk zonun en uzun yalnız şeyidir (12 m, ağaçsız tepe). K22 vuruşu buraya inerse (`weather.md` §8.7) perde başına bir kez: `kut ≥ korku` ise «Gök gördü / Heaven saw» Kut +1, değilse «Gök kızdı / Heaven raged» Korku +1 (`axisOnce`). Flama kuruysa direk tutuşur (`ignite`, meşale 70) ve yeniden dikilir (§7.10); ıslak fırtınada yalnız kara iz kalır. Gök Direği tepededir, yurtları korumaz: konut halkasında yıldırımı Sancak Direği çeker (§7.6).
+- Mete'nin ocağının ozanı alameti bir satırla söyler: II–III'te Göl Obası'nın ozanı, IV–VI'da Çocuk (K79, K106). (K60 ile değişti: eski «ozan dörtlüğü» sözü kalktı; ozanın şarkısı iki dizedir, Destan Kitabı'nın dörtlük sayfası şarkı değildir.)
+- **Beşinci Ay Sunusu / The Fifth Month Offering** (K35; yalnız IV ve VI, perde başına 1): 5. ayın dolunayında, IV'te Gök Dağı eteğinde, VI'da Lung-çeng'de ve Gök Direği'nde. Sürüden 1 at ve 2 kımız; et Toy'a gider. Avlu haneleri Gönül +3, birlik moral +5 (bir gün), Kut +1 (`axisOnce`; `mitoloji.md` öneri 15).
+- **Kül Ödemesi** (K35): `debt_erlik = ash` iken yerleşimde yanan her 5 yeni hane ocağı `hearths_out`'u 1 düşürür, perde başına en çok 2, tabanı 0. Sonsöz'ün Son Sayım kartı bunu okur: «Erlik {o} ocak sayar.» / «Erlik counts {o} hearths.» (`story.md` §12). Aynı kart `court_path`'i («Avlusu surluydu.» / «Avlusu tekerlekteydi.») ve `hearth_ember`'i okur.
+
+### 12.5 Hazine
+
+Hazine malı Kıymet'le sayılır (`economy.md` §9.1); Defter'de terazi ve yanında «≈{n} kabuk» görünür (K48 ile değişti, `economy.md` §9.6; eski «yalnız terazi, sayı yok»). Kıymet sözü oyuncuya çıkmaz. Girer: heqin malı (`silk_bolt`, `wine_jar`, `grain_sack`), ganimetin Tanhu payı, takas kârı, Yargı'nın el koyması ve kefareti, kabuk (`cowrie`, K48). Çıkar: Armağan, `booty_share`, Lung-çeng kervanı, Kurultay dağıtımı, Toy'da saçı (hane başına 1 kabuk; toyun Gönül'ü +6 yerine +8). Baskında ilk hedeftir: kayıp %30, kabuk dahil; Gözcü Kulesi 30 m içindeyse ×0,5. Mete'nin kesesi Hazine değildir, akında güvendedir. Hiçbir kademe kapısı kabuk istemez, Kâhya kabuk harcamaz, Kronik kabuğa dokunmaz (K48).
+
+### 12.6 Kurultay (VI kancası)
+
+Toy Alanı'nda, VI'nın başında (3–4 Haziran 198, `mq6_kurultay`; `story.md` §11.5): Hazine dağıtılır, dağıtımın kendisi oy toplar (`progression.md` §9.2), Kut ≥20 +1 oy (§5.2); Jiyu Sol Bilge Kral, yani veliaht olur. Kurultay bir dağıtımdır, son karar değildir. Hazine'nin dağıtılan payı ve hanelerin ortalama Gönül'ü son karta girdi verir.
+
+## 13. Yerleşim kuralları
+
+K21'in genel kuralı (`structures.md` §2.5: kapalı hücre yok, başka yapının duvarına ≥4 m, yola ≥3 m, izdeki ağaç ve kaya önce kesilir) taban kalır; yerleşim aşağıdakileri ekler. Denetim saf `validatePlacement`'in (K21 `game/site-core.js`) `rules` girdisiyle yapılır: bu belge kural tablosunu verir (`d2/settlement-model.json` `placement`).
+
+### 13.1 Parseller
+
+| Parsel | Merkezden | Türler |
+|---|---|---|
+| `core` | ≤40 m | `otag`, `envoy_yurt`, `gathering_ground`, `treasury`, `banner_pole`, `lantern_post`, Mete'nin yurdu |
+| `dwell` | 40–200 m | `yurt_small`, `yurt`, `beg_otag` (≤3), `tent`, `hut`, `store_yurt`, `grain_pit`, `rack`, `well`, `healer_yurt`, `pit_house`, `lantern_post`, `banner_pole` |
+| `work` | 100–280 m, rüzgâraltı ±60° | `felt_yard`, `tannery`, `wood_shop`, `smithy`, `kiln`, `fletchery`, `shed`, `granary`, `granary_tower`, `barter_ground`; Araba Yeri (Ağaç Atölyesi'ne ≤30 m, 6 × 12 m ped, yapı değil; K57) |
+| `pen` | 150–400 m, suya ≤250 m | `pen`, `fence`, `stable`, `horse_line`, `shed`, `mews` |
+| `field` | Taşkın kuşağı ve dere düzlüğü | `field`, `shed` |
+| `sacred` | `sacred_hill` | `sky_pole` |
+| `wall` | Sur hattı (Surlu yol: 110 × 90 m, çevre 400 m) | `rampart`, `rampart_gate`, `watch_tower` |
+| `edge` | Zon kenarına ≤60 m | `watch_tower`, `outpost` |
+| `camp`, `drill` | Ordugâh dünyaları | §7.7; `training_ground` yalnız `drill` |
+
+### 13.2 Kurallar
+
+| Kural | Değer | Neden |
+|---|---|---|
+| Eğim, pedli yapı (`padKinds`, K57 ile değişti): bütün yurt gövdeleri ve çukur ev (`yurt_small`, `yurt`, `otag`, `beg_otag`, `envoy_yurt`, `healer_yurt`, `store_yurt`, `cmd_yurt`, `fletchery`, `armoury`, `supply_depot`, `pit_house`); yerleşimde ayrıca `tent`, `hut` | ≤6° (`normal.y ≥ 0,9945`) | Ped 0,175 m + kenar eğimi r 7 m'de ≈0,73 m farkı örter (`structures.md` §11.3); ped ölçekle büyür, sınır üç boyda da 6°'dir (r 9,9'da ≈1,04 m, r 4,9'da ≈0,51 m); K21'in 0,9'u pedsiz küçük yapılar içindir |
+| Eğim, ahşap ve avlu | ≤9° | Direk çukuru toleransı |
+| Eğim, çizgiler (`pen`, `fence`, `horse_line`, `rampart`, `palisade`) | Parça başına ≤15° | |
+| Kara çadır `tent_qiang` | Plan Kipi'nde yoktur; yazarın koyduğu yerde ≤12°, yokuş yeğlenir (K57) | Çiang çadırının yeri |
+| Su | Hane yatan yapı (`homeKinds`, K57: `yurt_small`, `yurt`, `otag`, `beg_otag`, `tent`, `hut`, `pit_house`; Göçer Avlu'da `wagon_felt`) ≤150 m (dere, pınar, kuyu) | Aşılırsa izin var, Gönül −0,3/gün; Silahlık ve Okçu Yurdu susuz diye Gönül düşürmez |
+| Taşkın kuşağı | `homeKinds` uyarı («Taşkın yatağı / Flood plain»), sağanakta aşama 0–1 yapı zarar görür | K22 sağanak |
+| Ateş payı | Duvardan duvara ≥4 m sert (K21), <8 m uyarı «Ateş payı dar / The fire gap is tight» | `structures.md` §6.2: `R = 10 + rüzgâr` merkezden; r 7 yurtlar 22 m merkezde ancak sert rüzgârda (≥12 m/sn) tutuşur |
+| Rüzgâraltı | `smithy`, `kiln`, `tannery`: konuta ≥40 m ve hâkim rüzgârın (`weather.md` §4.4) altında ±60°; değilse uyarı ve Gönül −0,2/gün | Duman ve koku |
+| Kapı | Yurt 120° ±45° (güneydoğu, kuzeyden); Tanhu Otağı 90° ±10° (doğu); Tunghu kubbesi 90° ±10° (K51) | Gelenek; S4 doğan güneş |
+| Yol | Ana yol (4 m) ve kapı yolları korunur | |
+| Bağlantı | Geçici damgadan sonra ocak, her kapı ve iki zon kapısı tek bileşende kalmalı (`labelComponents`); kalmazsa «Yolu kesiyor / It blocks the way» | Kendini hapseden yerleşim olmaz |
+| Sayı | Zon başına ≤160 yapı kaydı; çizgiler (`pen`, `fence`, `horse_line`, `rampart`, `palisade`) çoklu çizgi ve parça sayısıyla tek kayıttır (Surlu avlunun 40 sur parçası ≈4 kayıt); aynı anda ≤48 canlı `StagedStructure` (yakın, şantiye, hasarlı); gerisi `YurtField` ve `KitField` | §17; V. kademe ≈150 kayıt |
+
+### 13.3 Görünür yapı bütçesi ve LOD
+
+| Uzaklık (kamera hedefinden) | Yurt | Öteki | Not |
+|---|---|---|---|
+| ≤40 m, en yakın 4 | `winter` (Otağ `hero`) | Tam | Hasar, yanık, iç mekân |
+| 40–220 m | `YurtField`: örnekli `closed` (3k), örnek başına `aCut` (yapım yüksekliği) ve `aChar` (yanık) | `KitField`: bütün türlerin kaba ağları (≤400 üçgen) tek `BatchedMesh` (three 0.187) | 1 + 1 çizim, gölgeleriyle 4 |
+| >220 m | `YurtField` uzak kubbe (96 üçgen) | Yok | Sis örter |
+| Şantiye | Yakındaysa tam; uzaksa `YurtField` `aCut` ile yarım yükselen kubbe | | Yarım yurt uzaktan yarım görünür |
+
+### 13.4 `WorldSpec` alanı
+
+```js
+// world/specs/tanhu-ordu.js (Faz 13)
+settlement: {
+  kind: 'hold',                                   // 'hold' | 'camp'
+  hearthSites: [{ id: 'hs_terrace', at: [-80, -100], name: { tr: 'Seki', en: 'The Terrace' }, traits: { water: 38, flood: 0, wind: 1 } }, /* hs_bend (170, 10), hs_lee (−330, −380) */],
+  plots: { /* hearthSite id → [{ kind: 'dwell', ring: [40, 200] } …] önceden kırpılmış çokgenler */ },
+  sacred: { id: 'sacred_hill', at: [-420, -470], r: 6 },
+  water: [{ kind: 'brook', pts: [[-700, -300], [-80, -150], [160, 60], [700, 150]], flood: 25 }],
+  wind: { dir: [0.71, 0.71], ms: 4 },             // hâkim rüzgâr K22'den; burada yalnız yerleşim kuralı için
+  clusters: ['c_elm_bend', 'c_willow_brook', 'c_birch_hill', /* … §3.2 */],
+  gates: ['gate_ordu_w', 'gate_ordu_e'],
+  dailin: { at: [380, 300], r: 160 },
+  limits: { records: 160, live: 48 },
+},
+weather: { climate: 'steppe_south' },  light: { lat: 43.5 },  labour: { torchFree: false, rawWork: true },
+```
+
+## 14. Arayüz
+
+### 14.1 Plan Kipi / Plan Mode
+
+- **Tuş `P`** (`build_mode` eylemi, boş; TR «Plan», EN «Plan»). Yerleşim ya da ordugâh dünyasında açılır; başka yerde toast «Burada yurdun yok.» / «You hold no ground here.»
+- **Bağlam** `plan` girdi yığınında (`architecture.md` §3.2): Q / E 15° döndürür (Shift ile 5°), tekerlek yakınlaşır, sol tık yerleştirir, sağ tık ya da `Esc` iptal, `Tab` kategori. Bağlam tuşları yuttuğu için Q (II'den hızlı silah; Çığırtkan `cmd_call` Çubuk'un 6. yuvasındadır, K82 ile değişti) ve R (`cmd_loose`) çakışmaz; K21'in önerdiği `keymap.rotate` (R) plan bağlamında Q/E olur.
+- **Kamera** `plan` ön ayarı: pitch 50°, dist 64 (40–120), imleci yumuşak izler (`game.cam.push('plan', …)`).
+- **Alt şerit** (`ui/hud/plan-bar.js`, yuva `bc`): yedi kategori: Konut, Sürü, Ambar, Atölye, Avlu, Savunma, Ordugâh; sekizinci kategori yoktur (K57). Kart: ad, işlev, malzeme (var / gerek renkli), emek («1 iş günü · 8 elle ≈3 saat» / «1 work-day · ≈3 hours with 8 hands»: kart Kâhya'nın vereceği eli ve süreyi yazar, Hane Yurdu 8 elde 8,0 gerçek dk ≈3,2 oyun saati; K80 ile değişti, eski örnek «4 elle akşam biter» K21'in eğrisiyleydi), bakım, kapasite; kilitliyse nedeni. Kademe kilidi kartı gizlemez: Ağaç Atölyesi'nin kartı Ocak'ta «Oba'da açılır.» / «Opens with the Clan Camp.» yazar (K52). Konut kartında boy seçilir (Küçük Yurt, Hane Yurdu; Bey Otağı yalnız bey hanesinindir, K51).
+- **Araba kartı** (K57, #48): Atölye kategorisinde tek kart **Araba / Cart**. Tür kartın içinde ◂ ▸ ile seçilir: `cart_felt` Oba (60 Yük, 1 at), `cart_high` Boy Yurdu (80, 2 at), `cart_war` Toy Yeri (140, 4 at), `wagon_felt` Göçer Avlu (120, 4 öküz); Q / E nesneyi döndürmeye kalır. Kart yük, çeken, yol ve kar hızı (`travel.md` §3.2), malzeme (var / gerek), emek (Araba Yeri eğriyle, teker çifti tezgâhta; iki satır) ve «Boşta {n} · Kervanda {m}» / «Idle {n} · With the caravan {m}» yazar. Kilit satırları: «Önce Ağaç Atölyesi.» / «Build a Woodshop first.»; «Dülger yok.» / «You have no carpenter.» Kırık araba aynı kartta «Onar / Repair». Yer kuralı §13.1 (Araba Yeri).
+- **Önizleme**: Plan Kipi K21'in `sites.beginPlacement`'ının arayüzüdür; iz önizlemesi K21'in `Game.marker` gölgelendiricisidir (yeni program yok), yerleştirilecek türün kaba ağı `KitField` örneğinde renk uniform'uyla (yeşil, sarı, kızıl) görünür; parsel katmanı yere çıkartma. Nedenler (en çok 3): «Yer düz değil» / «The ground is not level», «Suya uzak» / «Far from water», «Taşkın yatağı» / «Flood plain», «Ateş payı dar» / «The fire gap is tight», «Duman yurtlara gider» / «The smoke will drift over the yurts», «Yolu kesiyor» / «It blocks the way», «Burası {parsel} değil» / «This is not {plot} ground».
+- **Çizgiler** (ağıl, çit, at hattı, sur): sürükle; parça yakalama (2 m, 2,2 m, 10 m, 20 m); canlı maliyet.
+- **Yerleşince** K21 şantiyesi doğar (`sites.place`); Kâhya ekibi el tavanına dek doldurur (K80, §6.2) ve taşımayı başlatır.
+- **Sök** (`Delete` ya da kart düğmesi): K21 §6.9; sağlam yurt yurt yüküne, sağlam çadır `tent_kit`'e döner (emek ×0,35); eksik ya da hasarlı yapı ayaktaki adımların ham malının yarısını verir (K46).
+- Saat Plan Kipi'nde akar (K20); durdurmak için `Esc` kitabı. Plan Kipi'nde tekerlek haritayı açmaz (K40).
+
+### 14.2 Yerleşim Defteri / Hold Ledger
+
+Kitap sayfası `hold` (`registerPage`, `architecture.md` §3.20), `L` Defter'in II'den açılan «Yerleşim» sekmesi (K62: tek sekme listesi Künye, Beceriler, Çeteleler, Adlar, Kış Hesabı ve Zula, Yerleşim). Ordugâhta aynı sayfa ordugâhı gösterir; üstte yer seçici «Yurdun / Your Hold» · «Ordugâh / Encampment»; kervan sayfası bu sekmenin içindedir. Açıkken oyun durur (`progression.md` §14.1).
+
+| Bölüm | İçerik |
+|---|---|
+| Özet / Overview | Ad ve kademe; hane (yurtta / çadırda), can; yiyecek, yem, yakacak günü; Gönül ipi; Çekim işareti; «Yolda bir hane var» / «A household is on the road» |
+| Halk / People | Kökene göre hane; yurtlu, çadırlı, barınak bekleyen; ustalar adlarıyla (`story.md` §14.1); seferberlikte olanlar |
+| İş / Work | Altı iş: sayı, + / −, kilit; Kâhya aç-kapa; işin günlük çıktısı |
+| Ambar / Stores | Kategori çubukları ve eşya ızgarası; kap doluluğu |
+| Sürü / Herds | Baş, at eşdeğeri, çoban kapsamı, otlak günü (`economy.md` §8.4) |
+| Yapılar / Buildings | Şantiye ve yapı listesi (K21 §6.11 satırları), öncelik, gece emri, bakım borcu |
+| Kervan / Caravans | Buyruklar, yoldaki arabalar, son kartlar; Ocak'ta tek satır: «Onluğun azığını bir atlı alır.» / «A rider fetches the Ten's rations.» (K54) |
+| Kademe / Tier | Sonraki kademenin «gerekir» satırları işaretli |
+
+Kut ve Korku sayı göstermez; Gönül düğüm, Çekim dört kademe; hane ve gün sayıdır.
+
+### 14.3 HUD, atlas, bildirim
+
+- Yer adı: «Tanhu Ordusu · Oba» (`hud.setPlace`).
+- Atlas: yerleşim `yurt` simgesi, ordugâh `ordu` simgesi (`travel.md` §9.5 `ICONS`), kervan minik araba.
+- Ses (`audio.md` §3, §4): müzik `hold`, `hold_night`, `court`, `muster`; döngüler `hold_day`, `herd_flock`, `camp_army`, `gathering_crowd`; efektler `plan_place`, `plan_rotate`, `household_arrive`, `caravan_depart`, `tier_up`, `dawn_bow`, `omen_strike`, `assembly_drum`. Tezgâh sesleri K24'ün, şantiye sesleri K21'indir.
+- Kısa bildirim (en çok 1/30 sn): «Yeni bir hane geldi.» / «A new household has arrived.»; «{n} hane barınak istiyor.» / «{n} households ask for shelter.» (K53); «Kervan Islık Alanı'na vardı.» / «The caravan has reached the Whistle Field.»; «Ay doluyor. Atları içeri alın.» / «The moon is filling. Bring the horses in.» (Kâhya, akın penceresi, K55); «Akıncılar sürüye dadandı.» / «Raiders have fallen on the herds.»; «Ambar doldu: {kap}.» / «The store is full: {store}.»
+
+### 14.4 Kademe kartları
+
+| Kademe | TR | EN |
+|---|---|---|
+| Ocak | «Ocak yandı. Burası artık senin.» | «The hearth is lit. This ground is yours now.» |
+| Oba | «On ocak, bir oba.» | «Ten hearths make a clan camp.» |
+| Boy Yurdu | «Soyun burada oturur.» | «Your lineage sits here.» |
+| Toy Yeri | «Beyler bu yere gelir.» | «The lords come to this ground.» |
+| Tanhu Avlusu | «Avlu kuruldu. Bozkır buraya bakar.» | «The court stands. The steppe looks here.» |
+
+## 15. Zaman, emek, hava bağları
+
+### 15.1 Saat (K20)
+
+| Olay (`time.md` §12.2) | Yerleşim |
+|---|---|
+| `clock:hour` | Kâhya dağıtımı; tezgâh ve toplama saati; kervan konumu; ordugâh ateşi |
+| `dawn` | Tüketim, sürü (sağım çıktısı, kayıp), çekim, katılım, ayrılış, Gönül, defter |
+| `clock:phase` | Şafak Selamı penceresi; iş penceresi |
+| Mevsim sınırı | Bakım, doğum, kırkım, kesim |
+| `clock:skip` (≤3 gün) | Saat saat toplu işler, §18.2 sırasıyla (Kâhya, K21 `sites.simulate`, `production`, ordugâh, kervan); 12 saatlik atlama ≤8 ms |
+| `clock:skip { long }` (>3 gün) | Günlük adım: gün başına bir ortam örneği (ışık, hava, ekip), şantiye ve tezgâh günlük emeği `dayCapacity` ile; mevsim (90 gün) ≤150 ms; `reason: 'chronicle'` hariç: o aralığı Kronik işler (§16.2) |
+| Atlas yolculuğu | Varışta aynı toplu işlem; yerleşim Mete yokken de üretir ve kurar, ama Çekim yalnız varlık günlerinde birikir (§5.3.1) |
+| Ay penceresi (`moon ≥ 0,97`, K55) | Akın penceresi açılır: Kâhya uyarısı, `warK`, perde tavanı dolmadıysa akın (§15.4); toplantı günü yok |
+| Son görev (K42) | Son Görev Kapısı kartı; görev bitince Serbest Dolaşım, «Kronik'e bırak» ile Akan Kronik (§16.2) |
+| `act_change` | Kronik (§16.2) |
+
+Yerleşim durumu yolculuk kaydındadır, hangi dünya yüklü olursa olsun her `clock:hour`'da işler; yüklü değilse görünüm yoktur, emek ve üretim vardır. Atlanan şantiye saatlerinin tek sahibi vardır: `spec.settlement` taşıyan zonlarda yerleşimin `catchUp`'ı her şantiye için K21 `sites.simulate(siteId, dakika, env)`'i çağırır; öteki zonlarda K21 `sites.onSkip` işler.
+
+### 15.2 Emek (K21)
+
+Bütün iş gücü İG ile sayılır; günlük emek tek işlevdir: `labour.dayCapacity(job, dayInfo, lit, nightOrder)` (`d2/core.md` §2.5). Üretim ve ev işi 16 saatlik pencerede ışığa göre (yerleşimde yazın ≈15,2, kışın ≈12,4 İS/işçi), şantiye gece de ışıkta (24 İS), çobanlık 24 saat: hane ≈44 İS/gün. Şantiye `SiteSystem`'indir; yerleşim yalnız hangi işçinin hangi şantiyede olduğunu verir (`assign`). `K_tok` yerleşim defterinin `food` çizgisinden. Ustalar §5.2.
+
+### 15.3 Hava (K22)
+
+Hava kimlikleri, olasılıkları ve fiziksel değerleri (`fx`) `weather.md`'nindir; bu tablo yerleşimin ve ordugâhın **tek** tepki tablosudur (`d2/core.md` §3.3). Şantiye tepkisi K21'indir (`d2/core.md` §2.8). Soğuk ve sıcaklık yoktur (K1).
+
+| Hava | Yerleşim | Sürü | Kervan | Ordugâh |
+|---|---|---|---|---|
+| Sis | Nöbet görüşü ×0,5: baskın sürprizi | Kurt kaybı ×1,5 | | |
+| Çisenti, yağmur | Islak keçe sıçrama ×0,5 (`structures.md` §6.2, `spreadEntry.wet`) | Otlak ×0,9 | `fx.cartK` (çamur) | Islak gece `morale` (§10.2) |
+| Sağanak | Taşkın kuşağında aşama 0–1 yapı −20 can; dere kabarır | | `fx.cartK` | |
+| Gök gürültülü, kuru fırtına | Yıldırım adayı (`weather.md` §8.7): Sancak Direği, kule, Tahıl Kulesi, yalnız ağaç; yurt varsayılan en uzunudur | At ürkmesi (§10.2) | `fx.cartLock` | At ürkmesi |
+| Dolu (`weather:hail`) | Tarla sağanak başına küçük dolu %10, iri dolu %30; çadır keçesinde yırtık olasılığı %10 | Kuzu kaybı %0,5 | `fx.cartLock` | |
+| Fırtına (`fx.galeDamage`) | Sıçrama `R = 10 + manager.wind` (havanın sayısı); bağsız çadır bölüm başına %25 olasılıkla bir aşama, bağsız raf içinin %20'si; hane fırtına işaretinde kendi çadırını bağlar; Sundurma'dan ot −%5 | | `fx.cartLock` | Ekip çadırlarını bağlar |
+| Kar, yoğun kar | | Otlak ×0,8, ×0,5; derin kar günü (`fx.deepSnow`) yem ister | `fx.cartK` | |
+| Tipi | Dış işler durur | Ağılsız sürü %1/gün | `fx.cartLock` | |
+| Toz fırtınası (Gobi, bahar) | Dış işler durur | Otlak ×0,7 | `fx.cartLock` | İki ordugâhın baharı |
+| **Kar Kabuğu / Snow Crust** (`fx.crust`, kış) | | Otlak ×0,3, yem tüketimi `deep`; yem yoksa sürünün %2'si/gün | | Kış bekçisinin `horse_fat` −2/gün |
+
+**Kar Kabuğu** Moğolca *zud*'un oyun adıdır: bozkırın asıl kış felaketi soğuk değil, otu örten kabuktur. Havanın sıra kuralıyla oluşur (`weather.md` §5.9: derin kar, ardından sulu kar ya da açık bir öğle, ardından açık bir gece), 5–10 gün sürer. `steppe_south` kışında ortalama 0,62 kabuk düşer, derin kar günlerinin payı 0,16'dır (%16,0, K49), kabuk günleri kışın %2'sidir (`d2/weather-model.json` v2 `byClimate.steppe_south.winter`: gerçek `weather-core`, 150 kış). (K49 ile değişti: eski 0,63 ve 0,135 yaklaşık planlayıcıdandı.) W26'nın sınaması modelin değerine ortalanır: derin kar 0,16 ±0,03, kabuk 0,62 ±0,3 (`weather.md` §15; Yol Haritası: `weather`). Kâhya'nın güz yem hedefi (§6.2) buna hazırlıktır.
+
+### 15.4 Baskın
+
+(K55 ile değişti; #43, #45) **Ne zaman.** Akın yalnız ay penceresinde gelir: `moon ≥ 0,97`, ayda ≈3 gün (SJ 110 月盛壯則攻戰; Godot `moon_illum(day_n + 0,5) ≥ 0,97`, ay `time.md` §2'nin formülünden). Eski gün aralığı («8, 14, 12 günde bir») kalktı: perde sayacı olmadığı için (K42) aralık süresiz akın üretirdi. Toplantı günü akın yazılmaz: Dailin (16 Eylül 208, `dayN` 1.694) ve Lung-çeng (17 Haziran 205 ve 25 Haziran 203; 2.698 ve 3.436); akın pencerenin öteki gecesine düşer. (K55 ile değişti: 25 Haziran 203 IV'ün ikinci toplantısıdır, K56; eski liste yalnız 17 Haziran 205'i sayıyordu.) Kronik akın işlemez. Sonuç kaydın tohumundan çıkar: rastgele çekiliş yoktur, aynı kayıt aynı akını verir.
+
+| Perde | Akıncı | R yerleşim / ordugâh | Biter ya da düşer | Pencere (oynanan takvim) | Yerleşime tavan |
+|---|---|---|---|---|---|
+| II | Yok (Teoman'ın barışı) | 0 / 0 | | 1–2 Haziran 209 ay doludur, akın yok | 0 |
+| III | Tunghu atlıları | 6 / 4 | `donghu_land` kazanılınca 0 | 15–17 Eylül 208 (`dayN` 1.693–1.695; 16'sı Dailin) | 2 |
+| IV | Yüeçi; Loufan, Baiyang | 10 / 6 | Yüeçi sürülünce (17 Haziran 205) 6 / 4; Loufan ve Baiyang katılınca (25 Haziran 203) 0 (K55 ile değişti; eski «Ordos katılınca 6 / 4; Yüeçi sürülünce 0» sırası 24–26 Haziran 203 penceresini akınsız bırakıyordu) | 16–18 Haziran 205 (2.697–2.699; 17'si Lung-çeng); 24–26 Haziran 203 (3.435–3.437; 25'i Lung-çeng) | 2 |
+| V | Han sınır birliği | 16 / yok (ordugâh kışın dağınık) | Baideng'den sonra 8 | 27–29 Kasım 201 (4.321–4.323) kuşatmaya düşer, akın yazılmaz; perde bittikten sonra Serbest Dolaşım'da 27–29 Aralık 201 (4.351–4.353) | 1 |
+| VI | Yok (heqin); kervan akını da yoktur (§11.3) | 0 / 0 | 177 sınırı hikâye sahnesidir | | 0 |
+
+Oynanan takvimle beklenen akın: III 1, IV 1–2, V 0. IV'ün akın geceleri 16 Haziran 205 (R 10 / 6), 18 Haziran 205 ve 24 Haziran 203'tür (Yüeçi sürüldükten sonra R 6 / 4); 26 Haziran 203'te R 0'dır; tavan 2 (`army.md` §3.8 akın gecesini 24 Haziran 203'e koyar). V'in tavanı perde bittikten sonra Serbest Dolaşım'da işler; akın Mete uzaktayken kartla çözülür. Serbest Dolaşım bitmiş perdenin R'sini ve tavanını taşır. Savaş mevsimi (nöbet 4 hanede 1, §6.1) yerleşime R > 0 olan perdedir: III–V.
+
+**Tek kural** (`d2/core.md` §4.8; K24'ün kap tablosu bununla aynıdır):
+
+```
+D = nöbetçi × (1 + 0,5 × kule) + garnizon;   başarı = R / (R + D) × (Surlu ? 0,5 : 1)
+hedef: pencerede D'si küçük yer (yerleşim ya da ana ordugâh); eşitse yerleşim      // HS 49 卒少則入
+başarılı akında kap başına: Ambar Yurdu, Tahıl Ambarı, Sundurma %30 · Tahıl Kulesi %10
+                            · Ambar Çukuru %50 olasılıkla bulunur, bulunursa %30 · Hazine %30 (30 m içinde Gözcü Kulesi ×0,5; kabuk dahil)
+                            · ot sundurması tutuşursa hepsi
+kap kaybı × (Ambarcı ? 0,75 : 1)    // Hazine, ot sundurması yangını ve sürü kaybı dışında
+sürü kaybı ≤%10 (Göçer Avlu ×0,6; ambar ×1); çadır ve sundurma tutuşabilir
+Haziran–Eylül arası başarılı akın Surlu tarlasının güz ürününün %30'unu çiğner     // K54, SJ 110 候秋孰
+```
+
+**Garnizon** o an zonda bulunan İş Kolu erleri (kademe başına 5 / 15 / 20 / 30 / 50) ile Mete zondaysa birliğinin gücüdür; nöbetçi savaş mevsiminde 4, barışta 8 hanede 1 (§6.1). (K70) Nöbete görevlendirilen savaşan çekirdek yoldaş 3 nöbetçi sayılır (§6.5): III'te yerleşimin `D`'si 26,0'dan 29,0'a çıkar (kulesiz; Gözcü Kulesi'yle ×1,5'i alır), başarı %18,8'den %17,1'e iner (hesap). Ordugâh kâhyası olan yoldaş Gece Akını `D`'sine +2 yazar. Partideki yoldaş Mete'yle zondaysa garnizonun içindedir, ayrıca sayılmaz. Mete zondaysa akın oynanır (Godot `RaidRules` saf sınıf; prototipte `act1.md` baskın sistemleri: `raid.js`, `fxFlames`, `ignite`); değilse toplu çözülür, kart gelir. Def edilen akında hane Gönül +1 (§5.4); düşen akıncılar düşman türünün ganimet tablosundan ×0,6 verir, küçük akında «Paylaş» sayılır, karar sorulmaz (K49). Başarılı akın Gönül −6'dır.
+
+**Tek akının beklenen ambar kaybı** (başarı × %30 × 0,7; `D` `econ-sim`'in kademe değerleri, `bozkir-ekonomi.md` öneri 9):
+
+| Perde | D | Başarı | Kayıp | Ambarcıyla | Garnizonsuz | Tavanla perde kaybı |
+|---|---|---|---|---|---|---|
+| III | 26,0 | %18,8 | %3,9 | %3,0 | %10,5 | %7,9 |
+| IV | 50,9 | %16,4 | %3,4 | %2,6 | %6,8 | %6,9 |
+| V Surlu | 112,5 | %6,2 | %1,3 | %1,0 | %2,1 | %1,3 |
+| V Göçer | 104,7 | %13,3 | %2,8 | %2,1 | %4,8 | %2,8 |
+
+K24'ün perde başına ambar kaybı ≤%10 hedefi tavanla ve Ambarcısız sınanır: hepsi tutar. IV'ün satırı R 10'ladır; K55'in düzelen sırasıyla (E6.4) ikinci akın Yüeçi sürüldükten sonra R 6 ile gelir: tek akın 6 / (6 + 50,9) = %10,5 başarı, %2,2 kayıp (Ambarcıyla %1,7); tavanla perde kaybı en çok %3,4 + %2,2 = %5,7 (Ambarcıyla %4,2; hesap). Tablonun %6,9'u iki akını R 10 sayan 2026-11-04 koşusudur; sayı `econ-sim`'in yeni akın sırasıyla koşusundan yeniden basılır (Yol Haritası: `econ-sim-run`). Garnizonsuz sütun (İş Kolu seferde, Mete uzakta) hedefe sayılmaz: yerleşimi boş bırakmanın bedelidir (doğrulama V6).
+
+**Ordugâh akını: Gece Akını / Night Raid** (`camp_raid`, K55). Yalnız III ve IV'te, perde başına en çok 1. Güç `R_camp = ⌈R × 0,6⌉`: III 4, IV 6 atlı (IV'te Yüeçi sürüldükten sonra 4, Loufan ve Baiyang katılınca 0; K55). Hedef yalnız at hattıdır; ambar, ok ve çadır etkilenmez. `D` aynı formüldür: nöbetçi ordugâhtaki atlı ÷ 10, kule Gözcü Kulesi ve Gözcü Konağı (`army.md` §3.7), garnizon ordugâhtaki atlı. Birlik seferdeyken ordugâhta kendiliğinden bir Onluk bekçi kalır. `field_camp` bu kuralın dışındadır (yalnız hikâye sahnesi); kervanın `ev_raid`'i ayrı kuraldır (§11.3).
+
+| Ordugâh | Atlı | Kule | D | Başarı, R 4 | Başarı, R 6 |
+|---|---|---|---|---|---|
+| Yüzlük | 100 | 0 | 110 | %3,5 | %5,2 |
+| Binlik | 200 | 2 | 240 | %1,6 | %2,4 |
+| Binlik | 400 | 2 | 480 | | %1,2 |
+| Bekçi Onluk | 10 | 0–2 | 11–12 | %25–27 | %33–35 |
+
+Normal oyunda ordugâhın `D`'si yerleşiminkinden büyüktür (III: 240 ve 26), akın yerleşime gider; ordugâh ancak birlik seferdeyken hedef olur. Beklenen kayıp III'te ≈1, IV'te ≈2 at. III'ün tek ordugâh akını 15 Eylül gecesidir: dört Tunghu atlısı at hattına gelir (`sq3_night_raid`, `story.md` §11.2).
+
+| Sonuç | Mete ordugâhta | Mete uzakta |
+|---|---|---|
+| Püskürtüldü | ≤6 atlıyla küçük dövüş; 3 akıncı düşünce ya da 45 sn sonra dağılırlar (如鳥之集); birlik `morale` +2, `loyalty` +1 | Kart: «Gece akıncılar at hattına geldi. Nöbet püskürttü.» / «Riders came for the horse line in the night. The watch drove them off.»; `morale` +1 |
+| Başarılı | Her akıncı bir at götürür (III 4, IV 6); 60 sn içinde `horse_call` ile yakalanan döner (`economy.md` §3.12); `morale` −2 | Kart: «Bekçiler yetişemedi: {n} at gitti.» / «The watch came too late: {n} horses are gone.» |
+
+**Uyarı** (K22'nin üç kanal deseni). Uyarı süresi görüş ÷ at hızıdır (≈9 m/sn): Gözcü Konağı (400 m) ≈44 sn, Gözcü Kulesi (300 m) ≈33 sn, nöbetteki yoldaş (yerden 200 m, §6.5) ≈22 sn, köpek ≈20 sn önce. Boru sesi, kısa bildirim, atlas işareti. Sis nöbet görüşünü ×0,5 yapar (§15.3). Pencere açılırken Kâhya: «Ay doluyor. Atları içeri alın.» / «The moon is filling. Bring the horses in.» Oyuncu takvimden de okur. `warK` (Çekim ×0,5, §5.3.1) yalnız ay penceresinde ve perde tavanı dolmamışken işler.
+
+**Neden küçük ve seyrek.** Kullanıcı ordugâhın baskına uğramasını, ama akının küçük, seyrek ve kolay def edilir olmasını istedi (#43). Tarih aynı yüzü verir: Hun akıncısı dolunayda çıkar, karşılık görünce kuş sürüsü gibi dağılır (其見敵則逐利，如鳥之集；其困敗，則瓦解雲散矣, SJ 110), zayıf nöbeti kollar (卒少則入, HS 49) ve yağmayı akıncıya bırakır (所得鹵獲因以予之, SJ 110). Akın mal için gelir, yerleşimi düşürmek için değil. Bir kampa kaç kez geldiği kaynakta yoktur: pencere ve tavan sayıları kurgudur (`bozkir-ekonomi.md` §4).
+
+## 16. Kayıt
+
+### 16.1 Bloklar
+
+**`settlement` bloğu** (yolculuk, order 77, sahibi `game/settlement/index.js`). Yapılar ve şantiyeler `world.sites.zones.tanhu_ordu`'dadır (K21, order 76). Yerleşim K24 servislerinin sürücüsüdür, **ambar içeriklerini, tezgâh kuyruklarını, sürüleri ve yoldaki kervanı bu blok saklar**; K24'ün `economy` bloğu yalnız kişisel kapları tutar.
+
+```jsonc
+"settlement": {
+  "v": 3, "zone": "tanhu_ordu", "hearthSite": "hs_terrace", "tier": 2, "path": null, "lastMin": 1503330.0,
+  "hh": "<base64: hane başına 8 B: id 2, köken 1, kaynak 1, Gönül 1, giriş günü 2, bayrak 1>",
+  "masters": [["h07a0", "cr_smith", 1.25]],
+  "jobs": { "auto": true, "lock": { "herd": [4, 8] }, "codes": "<base64: işçi başına 1 B iş kodu>" },
+  "pull": 0.37, "pullAct": 2, "present": true, "inbound": [[1503.4, "pull", "xiongnu", 1]],
+  "kinds": { "pull": [0.2, 0.5, 0.3] },          // K53: kaynak başına yurtlu / çadırlı / isteyen kesirli sayaçları
+  "asking": [[1503.1, "hh_story", 2]],            // barınak bekleyen İsteyen Hane: geliş günü, kaynak, adet
+  "raids": { "act": 2, "hold": 0, "camp": 0, "seen": [] },   // K55: perde başına akın sayısı (yerleşim, ordugâh), işlenen pencereler
+  "stores": { "s_store1": [["felt", 18], ["rope", 22]], "s_pit1": [["millet", 40]] },     // kap başına içerik (StorePool)
+  "workshops": { "s_felt1": { "q": [["rc_felt_batch", 2, 3.5]], "night": false } },       // tezgâh kuyruğu: tarif, adet, kalan İS
+  "herds": { "own_seat": { "sheep": 210, "goat": 60, "horse": 52, "cattle": 24, "camel": 3 } },
+  "orders": { "felt_yard": [["keep", "felt", 20]] },
+  "caravans": { "orders": [/* §11.2: buyruk, koruma, yol töresi */], "inTransit": [{ "id": "k_army", "dep": 1503.0, "arr": 1504.0, "load": [["@ration", 20], ["felt", 6]] }] },
+  "taken": { "c_elm_bend": 214, "c_quarry": 37 },
+  "court": { "lastCase": 1490, "omenAct": [3], "gifts": ["huyan"] },
+  "flags": { "hearth_ember": "father" },
+  "chronicle": { "lastAct": 2, "years": 0 },
+  "stats": { "joined": 9, "left": 0, "raids": 1, "built": 14 }
+}
+```
+
+**`camps` bloğu** (order 92, sahibi `game/settlement/camps.js`).
+
+```jsonc
+"camps": { "v": 2,
+  "own_camp": { "zone": "whistle_field", "tier": 2, "units": ["u_hundred_mete"], "plan": { "tents": 20, "lines": 5, "fires": 10, "seed": 9041, "doneAt": 1498.6 },
+                 "depot": [["@ration", 60], ["arrow_bone", 480], ["fodder", 0]], "drillDay": 1503, "comfort": { "s": 1, "fed": true }, "winter": false },
+  "field_camp": null }
+```
+
+| Kural | Değer |
+|---|---|
+| Boyut | `settlement` ≤14 KB (90 hane × 8 B = 0,7 KB; işçi kodu 300 B; ambar içerikleri ≈3 KB; tezgâh ≈1 KB; sürü ≈0,2 KB; kervan ve emir ≤2 KB), `camps` ≤4 KB; `world.sites` bütün zonlarda ≤20 KB (K21) |
+| Toplam | Beklenen ≈83 KB: `army` ≈20, `world.sites` ≤20, bu iki blok ≤18, öteki ≈25; tam yolculuk sınaması 160 yapı ve 90 haneyle ≤96 KB |
+| Kaydedilmez | Kişi kimliği (haneden türer), görünür işçi, kervan kuklası, tezgâh ilerlemesinin saniyesi (saat başına yuvarlanır) |
+| Oto kayıt | Kademe yükselişi (`tier`), kervan varışı (`caravan`), yol seçimi (`court_path`, `force`) |
+| Göç | `v` arttıkça `migrate[v]`; v1 → v2: ambar, sürü ve kervan `economy` bloğundan bu bloğa taşınır; v2 → v3: `kinds`, `asking`, `raids` eklenir, yoksa boş (K53, K55); bilinmeyen alan korunur; bozuk blok: hane ve sürü korunur, işler Kâhya'ya döner |
+
+### 16.2 Perde geçişi: Kronik (K25)
+
+(K42 ile değişti; #19) **Perde son görevle biter.** Sayaç yoktur; K25'in gün bütçesi (II 12, III 12, IV 14, V 12, VI 16; perde ≈420 dk) yalnız tasarım ölçüsüdür, oyunda okunmaz. Son görev yalnız perdenin kolları bitince açılır. **Son Görev Kapısı** kartı: «Bu yol perdeyi kapatır. Sonra {y} yıl geçer.» / «This road closes the act. Then {y} years will pass.»; açık yan görevler listelenir; `Yola Çık` ya da `Daha Değil`; kartta saat durur. Son görevden sonra Serbest Dolaşım açık kalır: Plan Kipi, Defter, Kâhya, kervan, av ve inşa sürer, takvim akar (1 oyun günü 60 gerçek dk, K67); akın penceresi ve Çekim bitmiş perdenin R'si ve tavanlarıyla işler. Oyuncu dilediğinde «Kronik'e bırak / Leave it to the Chronicle» der (perde kartında, duraklatma kitabında, Mete'nin her ocağında). I'in sonunda Mete oynanmaz: 11 Nisan–1 Haziran 209 doğrudan Kronik'tir (K42).
+
+**Akan Kronik** (K42) yerleşimin kapalı hesabını oyuncuya gösterir: perde kartı → atlas dönem değişimi → `dayN` ve tarih ay ay akar → mevsim nabzı → 2–5 ozan ya da anlatıcı satırı → hane ve sürü sayıları → yeni perde kartı. Süre `T = clamp(mevsim sayısı × 5 sn, 30, 90)` (II→III 30, III→IV 54, IV→V 89, V→VI 50 sn; IV ve VI'nın iç atlamaları aynı formülle); atlanabilir, `E` basılı ×4. En çok 2 Kronik Kararı: tek kart, iki seçenek, 10 sn sonra Kâhya seçer, akış durmaz (kararların metni `story.md` §13). Kronik hedefi `max(K25 tarihi, bugün + 30 gün)`. `act_change(n)` (`progression.md` §15'e satır) yerleşimin kapalı **Kronik**'ini çalıştırır (prototipte `game/settlement/chronicle.js`, saf; Godot'da biçim `godot.md`'dedir); hesap mevsim başına ≤150 ms'dir ve akış boyunca dağılır:
+
+1. Tarih hedefe atlar (perde başları `time.md` §2: II 1 Haziran 209 … VI 1 Haziran 198); saat `clock:skip { reason: 'chronicle', long: true }` yayar (Godot `GameClock.skip_to(day_n, minute, &"chronicle")`). Atlanan her gün takvime işlenir (K67).
+2. Aradaki her yıl kapalı biçimde işlenir (K24 `rolloverYears(n)`): sürünün doğumu, soğumu ve kaybı (otlak kapasitesiyle sınırlı), bozulanın silinmesi, saklananın bir kış ve ambar kapasitesiyle sınırı, bakımın ödenmesi. III'ten Tunghu haracı yılda 20 `hide` (K65; Vuhuan 歲輸牛馬羊皮, HHS 90).
+3. **Tarla** (K54, #41): Surlu yolda (`court_path = walled`) ve ≥1 `field` varsa yıl başına hasat işlenir; ambara yalnız son hasat yazılır: `min(500 × tarla, boş tahıl yeri)`; öncekiler yenmiş sayılır. Ekim ve biçim emeği ile tarlanın bakımı bu adımın içindedir. Kronik'te hava ve akın yoktur.
+4. Hane perdenin açılış tabanına çıkar (III 10, IV 22, V 45, VI 80); üstündeyse düşmez. Yeni haneler yükleriyle gelir (türleri §5.3'ün paylarıyla), Kâhya parsel verir. Aradaki Kış Toplantıları (1. ay), Lung-çeng'ler ve Dailin'ler burada satır olarak işlenir: atama ve hane özet satırıyla gelir (ilk Lung-çeng 30 Haziran 209, ilk Dailin 27 Eylül 209; K56). Oynanan güne düşen Kış Toplantısı da sonraki Kronik'te toplu işlenir (K42).
+5. Kış stoğu: kışla açılan perde (V) K24 kademe hedefinin saklananla kapsamına dek (%75–115 bandının ortası) doldurulur, ambar ve sundurma kapasitesiyle sınırlı: kap kurmak kışı korur. Ordugâhın kış bekçisinin otu da kapasitesine dek.
+6. Yoldaki kervan varmış sayılır; şantiyeler emek yeterse biter, yoksa bırakılmış kalır.
+7. Perde kartı özeti: «{y} yıl geçti. {h} hane, {s} baş sürü; ambar kışa {p}.» / «{y} years have passed. {h} households, {s} head of stock; the stores stand at {p} for winter.» Surlu yolda ek satır: «Tarlalar {n} darı verdi.» / «The fields gave {n} measures of millet.» (K54).
+
+Kronik kabuğa dokunmaz (K48): Hazine'nin ve Mete'nin kesesindeki kabuk aynı kalır. Kronik akın işlemez (K55). Açık yan görevin sonucu görev verisinde yazılıdır (`carry`, `chronicle`, `lost`; K42), sessiz düşüş yoktur. Yükleme karartmasında bütçe ≤150 ms / mevsim kalır. Perdenin içindeki yıl sıçramaları (IV, VI) aynı adımdır ve aynı formülle akar.
+
+## 17. Performans
+
+**Godot (K63).** Yerleşim ve ordugâh iç haritadır: kare hedefi 16,7 ms, sınır 28 ms; GDScript ≤4 ms; görünür çizim ≤900, gölge çizimi ≤500; görünür üçgen ≤3,0M, gölge üçgeni ≤1,5M; doku belleği ≤384 MiB; yükleme ≤6 sn ve atlas yolculuğunun altında. Baskın, toplantı ve Dailin Sayımı kalabalık satırındadır: 20 / 28 ms, ≤5 ms, ≤1.000 / ≤500 çizim, ≤3,5M / ≤1,5M üçgen (T0 ≤16 kişi ve ≤4 atlı, T1 ≤96, T2 ≤300, T3 ≤12.000 kart). Tablo ölçülmemiş hedeftir; ölçüm `scenes/dev/budget_probe.tscn` ve `check_budget.py` ile yapılır, çimen payı ayrı satır yazılır, aşılırsa `godot.md` §7.5'in kesme sırası uygulanır. Ölçüm soru değildir (E6.3): yerleşimin tabanı Yol Haritası: `settlement-measure` (`act-2-p2`), kampın tabanı Yol Haritası: `budget-probe` (`foundation-p3`). Aşağıdaki tablo ve sayılar prototipin hesabıdır.
+
+**Kare.** Yerleşim ve ordugâh oyun dünyasıdır (Kışlak gibi): hedef ≤28 ms, `spec.postCuts: true`. Menü bitişiğinde değildir: `menuDiff` etkilenmez.
+
+| Avlu, V. kademe, en kötü kare | Ana üçgen | Çizim | Kaynak |
+|---|---|---|---|
+| Arazi 14×10 parça, yakın 3×3 | 290k | 14 | `act1.md` §15 |
+| Mete + ghost, tam at ≤2 | 158k | 46 | Aynı |
+| `Folk` ≤16, kukla ≤40 (`NpcManager.budget` ortak) | 342k | 50 | Aynı; şantiye ve tezgâh işçisi buradan |
+| Yapılar: Otağ `hero` ≤129k + 3 `winter` yurt 102k + `YurtField` 60 × 3k + uzak 80 × 96 + `KitField` (tek `BatchedMesh`) 40k + ağıl panoları | ≈460k | ≈22 | §13.3 |
+| Bitki (dere ağaçları, çalı) | 200k | 12 | Kışlak ormanından az |
+| Sürü: örnekli koyun ≤300 × 360, at T1/T2 ≤60 | ≈130k | 3 | `army.md` §7.3 T2 sözleşmesi |
+| Kaya, düğüm, ot | 300k | 30 | |
+| Etki, post | 40k | 21 | |
+| **Toplam** | **≈1,92M ≤2,04M** | **≈198 (+ hava 2) ≤213** | |
+
+| JS | Tavan |
+|---|---|
+| Yerleşim saati (`clock:hour`, 150 sn'de bir) | ≤0,5 ms (90 hane, 300 işçi, 40 tezgâh) |
+| Kare başına | ≤0,1 ms (yalnız görünür işçi ve sürü konumu; sürü y 5 Hz) |
+| 12 saatlik atlama | ≤8 ms (karartma altında; K21 şantiye ≤0,3 ms/gün) |
+| Bir mevsim atlama (90 gün) | ≤150 ms, yükleyicide |
+| `YurtField` yazımı | Değişince; kare başına 0 |
+
+**Program.** Yeni anahtarlar: `yurt_field` (+ derinlik), `kit_field` (`BatchedMesh`, + derinlik), `plot_decal`, `field_stalk`: +6; `plan_ghost` yoktur (önizleme K21'in `Game.marker`'ı ve `KitField` renk uniform'u). Kışla açılan V. Perde'de `yurt_field_w`, `kit_field_w` +2. Hava her dünyada +2 (`weather.md`). Yerleşim dünyasının taban program sayısı Kışlak benzeri bir dünyada Faz 13 kabulünde ölçülür; tavan ≤92, kışta ≤100. Görünüm aileleri (§7.9) `struct_parts`, `struct_props` kullanır, program eklemez. Çalışma zamanında ışık eklenmez: fener, ateş, meşale `fxGlow` ve köşe rengidir.
+
+**Bellek.** Yerleşim durumu ≤200 KB (hane, işçi, kap); dünya kurulurken `YurtField` örnek tamponu 160 × 64 B.
+
+## 18. Uygulama taslağı
+
+Bu bölüm Three.js prototipinin modül taslağıdır (K29). Godot'da oyun kuralı ve sayı bu belgeden, uygulama biçimi (düğüm, sınıf, dosya yolu) `godot.md`'den okunur (K31); veri `d2/settlement-model.json`'dan dışa aktarılır. Akın kuralı Godot'da `RaidRules` saf sınıfıdır (kapı `GameCalendar.moon_illum(day_n + 0.5) >= 0.97`, toplantı günü dışarıda, perde tavanı, küçük `D`'li hedef, `R / (R + D)`); sınaması `tests/unit/test_raid_rules.gd`'dir (`bozkir-ekonomi.md` öneri 15).
+
+### 18.1 Modüller
+
+| Dosya | Saf | İş |
+|---|---|---|
+| `src/data/settlement.js` | Evet | `TIERS`, `BUILDINGS` (§7: tür, görünüm, kademe, parsel, kapasite, bakım, önkoşul), `SOURCES`, `PLACEMENT`, `CAMP_TIERS`; `d2/settlement-model.json` ile aynı |
+| `src/game/settlement/state.js` | Evet | `SettlementState`: hane, kişi kaydı, iş kodu, çekim, Gönül, kademe, yol; saat adımı |
+| `src/game/settlement/households.js` | Evet | Katılım, ayrılış, seferberlik, yenilenlerin seçimi |
+| `src/game/settlement/steward.js` | Evet | Kâhya: ihtiyaç, öncelik, kilit, şantiyeyi el tavanına dek doldurma (K80); çıktısı ekip listeleridir: K21 şantiyesi (`sites.assign`), K24 tezgâhı (`Workshop.crew`), sürü kapsamı (`Herd.day` `labourIS`), toplama kolu |
+| `src/game/settlement/stores.js` | Evet | `StorePool`: yerin kapları (K24 `Container`), `ofPlace(place)`, kabul ve en yakın boş kap, ambar içeriği kaydı |
+| `src/game/settlement/production.js` | Evet | Saatlik tezgâh (`Workshop.tick`) ve toplama kolu, şafakta sürü (`herdDay`), mevsim olayları (kırkım, doğum, soğum) |
+| `src/game/settlement/caravans.js` | Evet | `CaravanBook`: buyruk, koruma, yol töresi, akın, yoldaki yük; K24 `transfer` ve `armyShare` ile |
+| `src/game/settlement/chronicle.js` | Evet | Kronik (§16.2): `rolloverYears`, açılış tabanı, kış stoğu, kart özeti |
+| `src/game/settlement/raids.js` | Evet | Yerleşim akını: tehdit, savunma, başarı payı; kayıp K24 kap kuralıyla |
+| `src/game/settlement/camps.js` | Evet | `CampState`: kademe, konfor, talim, `CampPlan` |
+| `src/game/settlement/court.js` | Evet | Divan, toplantılar, alamet, Hazine |
+| `src/game/settlement/index.js` | Hayır | `SettlementSystem` (GameSystem `settlement`, order 64, kip `play`) |
+| `src/game/settlement/plan.js` | Hayır | Plan Kipi: `plan` bağlamı, önizleme, `sites.place` |
+| `src/world/settlement-view.js` | Hayır | `YurtField`, `KitField`, parsel çıkartması, sürü örnekleri |
+| `src/ui/hold-ledger.js`, `src/ui/hud/plan-bar.js`, `src/ui/css/hold.css`, `src/i18n/strings/settlement.js` | | Defter sayfası, Plan şeridi, metinler |
+| `src/world/specs/tanhu-ordu.js`, `src/world/specs/whistle-field.js` | | II. Perde dünyaları (Faz 13) |
+
+**K24'ün saf servisleri kullanılır, yenisi yazılmaz** (`d2/core.md` §6.1): `Container` (kap), `Workshop` (tezgâh saati), `herdDay` (sürü günü, kırkım, doğum, soğum), `transfer` (aktarma), `armyShare` (Ordu Payı), `rolloverYears` (Kronik), `SupplyLedger` ambar kipi (tüketim, defter çizgileri), `loot.of` (belirli ganimet). **Onları yerleşim sürer:** `StorePool`, `production`, `CaravanBook`, `chronicle` bu belgenin modülleridir; K24 `EconomySystem`, `Stores.register`, `Herd` ve `Caravan` sınıfları yoktur. K21'in `SiteSystem`'i şantiyeyi sürer. Yerleşim bunlara **kimin, nerede, ne kadar** çalıştığını ve **kaç hane, kaç atlı** olduğunu verir.
+
+### 18.2 Arayüzler
+
+```js
+// game/settlement/state.js (saf)
+export class SettlementState {
+  constructor({ data /* data/settlement.js */, econ /* K24 tabloları */, labour /* game/labour.js */, rng });
+  zone; tier; path; households; work; pull; lastMin; stores; herds;   // stores: StorePool; herds: yer başına sayılar (herdDay sürer)
+  hour(env);                      // env: { minute, phase, season, weather, act, kut, korku, threat }; → olay listesi
+  dawn(env);  seasonEnd(env);
+  catchUp(toMin, envAt, sites);   // ≤3 gün saat saat, uzunu günlük adım: her şantiye için sites.simulate(siteId, dk, env), sonra hour()/dawn(); envAt(min) → env
+  chronicle(fromDayN, toDayN, k24);  // §16.2
+  tierCheck(act, built);          // → { tier, missing: [...] }
+  join(src, n, opts);  leave(id, reason);  levy(householdId, unitId);  returnLevy(unitId);
+  workers();                      // → [{ id, role, w, crafts, job }] (haneden türer)
+  assign(job, target, n);  lock(job, min, max);  setAuto(on);
+  toJSON();  fromJSON(o);
+}
+
+// game/settlement/index.js
+export class SettlementSystem {   // GameSystem: id 'settlement', order 64, modes ['play']
+  attach(ctx);                    // ctx.settlement; bus: clock:hour, dawn, clock:skip, structure:done, site:done, site:dismantled
+  onWorld(world, nav);            // spec.settlement varsa görünüm ve plan; yoksa yalnız saat
+  update(dt, t);                  // görünür işçi ve sürü; plan kipi
+  collectInteractions(q, out);    // Ambara Koy / Store, Ambardan Al / Take, Divan / Council, Güne Selam / Greet the Sun, Toy Ver / Hold a Feast
+  openPlan();  closePlan();
+  hold;  camps;                   // SettlementState, CampState
+  debug();
+}
+```
+
+**Saat sırası.** `clock:hour`: (1) `SettlementState.hour`: Kâhya ekipleri yazar (şantiye, tezgâh, sürü, toplama kolu, nöbet, sürücü); (2) K21 `SiteSystem` şantiyelerin o saatini işler (yüklü dünyada zaten kare kare işledi); (3) `production.hour`: tezgâhlar (`Workshop.tick`) ve toplama kolu; (4) `CampState.hour`; (5) `CaravanBook.hour`. `dawn`: `production.dawn` (tüketim `SupplyLedger`, sürü `herdDay`), sonra `SettlementState.dawn` (Çekim, katılım, ayrılış, Gönül, kademe). Atlamada aynı sıra (`catchUp`). Kâhya'nın yazdığı ekip değişene dek şantiyede ve tezgâhta kalır; K21 `sites` (61) o anki ekiple çalışır. En kötü durum bir saatlik gecikmedir (2,5 gerçek dk), toplamı değiştirmez.
+
+### 18.3 Sistem ve kayıt sırası
+
+| `order` | `id` | Modül | Kip |
+|---|---|---|---|
+| 61 | `sites` | `game/sites.js` (K21) | ikisi, home |
+| 64 | `settlement` | `game/settlement/index.js` | play |
+
+| Blok | `order` | Sahip |
+|---|---|---|
+| `world.sites` | 76 | K21 |
+| `settlement` | 77 | `game/settlement/index.js` |
+| `camps` | 92 | `game/settlement/camps.js` |
+
+### 18.4 Var olan koda dokunuşlar (sonraki fazlar)
+
+| Dosya | Değişiklik |
+|---|---|
+| `src/world/structure-defs.js` | §7.9 yeni türler ve hazır ayarlar; `yurt` `scale` alanı |
+| `src/world/structure.js` | Uzak yurdu `YurtField` yuvasına devretme (`closed` örneği), `aCut`; `scale` ile nav, oda, ped; ≤48 canlı yapı |
+| `src/world/site-pad.js` | Hafif ped (`PadField`, örnekli; camp3'ün 512² tuvali yalnız camp3'te) |
+| `src/game/nav.js`, `game/structure-nav.js` | `canPlace(shapes)`: geçici damga ve bileşen denetimi, geri al |
+| `src/world/node-store.js` | `applyTaken(cluster, n)` |
+| `src/core/keymap.js` | `build_mode: ['KeyP']` (`CONTRACT-REQUEST`) |
+| `src/app/systems.js` (L) | `SettlementSystem` (64), `ctx.settlement` |
+
+## 19. I. Perde'de şimdi, sonra
+
+K23: I. Perde altyapıyı ve geliştirici kum havuzunu kurar, hikâye II. Perde'de açılır. Aşağıdaki faz ve paket adları prototipindir (K26, K29). Godot'nun işleri yalnız Yol Haritası'ndadır (K30, K64, K69). II. Perde'nin «Yerleşim, ordugâh ve ekonomi» fazında (`/roadmap#act-2-p2`): yerleşim (`settlement`), Plan Kipi ve Yerleşim Defteri (`plan-mode`), haneler ve Kâhya (`households`, K80'in şantiye eli dahil), ordugâh (`war-camp`), Azıkçı ve kervan (`caravan`), kabuk ve satıcılar (`currency`), `econ-sim`'in resmî koşusu (`econ-sim-run`) ve yerleşimin ölçümleri (`settlement-measure`: taban ölçümü, Üç Ocak Yeri'nin yol ağıyla uzaklıkları, K57; Godot ekonomisinin `econ-sim --strict` eşliği, K49). Küçük akın ve Gece Akını III'ün ordu fazındadır (`/roadmap#act-3-p1`, `raids`): II'nin R'si 0'dır, ilk akın III'tedir. Boy Yurdu, Divan ve Dailin III'ün fazındadır (`/roadmap#act-3-p2`: `boy-yurdu`, Takas Yeri gezgininin stoğu K81 dahil; `divan`, Divan `act>=3` ile açılır; `dailin`). Toy Yeri, Hazine, Avlu Toplantısı, armağan ve Lung-çeng'in armağan kervanı IV'ün fazındadır (`/roadmap#act-4-p1`: `toy-yeri`, `court`, `timber-caravan`). Surlu ya da Göçer Avlu V'in fazındadır (`/roadmap#act-5-p2`, `avlu-paths`), Kurultay VI'nınkindedir (`/roadmap#act-6-p1`, `kurultay`). (2026-11-04, E6: eski cümle Divan'ı IV'ün fazına ve küçük baskınları II'ninkine koyuyordu.) K21 şantiyeyi (8.11, 8.12, kum havuzu `?state=play&sandbox=site`), K24 malzeme ve kapları (8.2, 8.4, 8.7) kurar; bu alan şunları ekler (paketler K26):
+
+| Ne | Faz | Dosyalar | Bitti |
+|---|---|---|---|
+| Yerleşim çekirdeği (saf) | 8.13 | `data/settlement.js`, `game/settlement/{state,households,steward,stores,production,caravans,raids,camps,court,chronicle}.js`, `test/settlement.test.js` | §21 saf sınamalar |
+| Kum havuzunun yerleşim kipi | 9.9 | `?state=play&sandbox=site&hold=1` (yalnız geliştirme, K21 kum havuzunun dünyası): 3 Ocak Yeri, düğüm kümeleri, 10 hane, ambar dolu | Plan Kipi ile 20 yurt; ×60 saat; kaydet, yükle |
+| Plan Kipi, `YurtField`, `KitField`, parsel kuralları | 9.9 | `game/settlement/plan.js`, `world/settlement-view.js`, `ui/hud/plan-bar.js` | 200 rastgele yerleşimde bağlantı kopmaz; yapay V. kademe (80 hane) karesi §17 tablosu içinde |
+| Yerleşim Defteri iskeleti, kervan saplaması (kum havuzunda iki uç) | 10.10 | `ui/hold-ledger.js`, `game/settlement/index.js` | Defter her bölümü dolu; kervan saatle gider |
+| II. Perde dünyaları ve hikâye | 13+ | `specs/tanhu-ordu.js`, `specs/whistle-field.js`, `story/act2/*` | II. Perde kapsamı |
+
+I. Perde içeriği yerleşimi kullanmaz; Kışlak Yeni Yurdu K21'in şantiyesidir. Ana kampın Serbest Gez'i değişmez (K6, K3, menü karesi).
+
+**Gizli panel `__tanhu.hold`.** `give(item, n)`, `households(n, origin)`, `tier(n)`, `speed(k)` (saat ×1–×240), `hour(n)`, `place(kind, x, z, rot)`, `assign(job, n)`, `steward(on)`, `raid(power)`, `weather(id)` (K22 yerel denemesi), `caravan(orderId)`, `census()`, `budget()` (§17 sayaçları), `plots(on)`, `synth(tier, path)` (yapay yerleşim).
+
+## 20. Mevcut belgelerde değişecekler
+
+`architecture.md`, `structures.md`, `audio.md`: birebir metin `d2/settlement-delta-architecture.md`, `d2/settlement-delta-structures.md`, `d2/settlement-delta-audio.md`. Ötekiler (sahibi birleştirir):
+
+| Belge | Bölüm | Değişiklik |
+|---|---|---|
+| `act1.md` | §16 Bayraklar | Yeni satır: «`first_ten[]`, `ties.*`, `names_known`, `tola_lives`, `saved[]` · II: yerleşimin ilk haneleri (`settlement.md` §5.3)» |
+| | §16 Sistem kancaları | «`StagedStructure` II'de Teoman'ın ordusu» → «… II'de Mete'nin yerleşimi ve ordugâhı (K23, `settlement.md`)» |
+| `army.md` | §1.3 Takvim | `muster_winter` perde dışıdır (Kronik); oynanan toplantı takvimsiz `court_gathering` (§12.2); `dailin_count`: «avlunun güz otlağı (`dailin_ground`)»; günler `time.md` §2 |
+| | §3.6 | Yem Bağı 2 Yük (`economy.md` §2); kışın ordugâh dağılır (§10.1) |
+| | §3.5 Olaylar | Yeni satırlar §10.2: barınak, ateş, konfor, Baş Talimi |
+| | §3.6 Ordugâh | «`structures.md` §15 `CampPlan`» → «`settlement.md` §10, `CampPlan` K21 §8.3» |
+| | §9 Kayıt | «`army` ordugâhı taşımaz; `camps` bloğu (order 92)» |
+| | §11.2 Sonra | `cmd_detail`, `cmd_camp` satırına «yerleşim ve ordugâh: K23» |
+| `economy.md` | §4.4 Depolar | Yeni satırlar §9.1 kapları; «Ambar Çukuru baskında %50 olasılıkla bulunur, yalnız yiyecek ve tahıl alır» (§15.4) |
+| | §6.4 Diğer yapılar | Başa: «II. Perde ve sonrası yapı kataloğu `settlement.md` §7» |
+| | §8.3 | `SupplyLedger('own_camp')` ordugâhın defteri olur; yerleşimin defteri `own_seat` (§9.4); «Ordu Payı» §11.2 |
+| | §8.4 | Yerleşim sürüsü otlak hesabına girer (hane başına ≈18 at eşdeğeri) |
+| | §9.3 | Takas Yeri'nin gezgin satıcıları (III+) |
+| `d2/economy.md` (K24, sonraki adımda `economy.md`'ye) | §5, §7.2, §7.3, §8.3, §14, §16, `econ-model.json` | Kademe adları ve bileşimi §4.1–§4.3 benzetime girer; «hane Sadakati» → **Gönül** (§5.4); yer ve defter kimlikleri `own_seat`, `own_camp`, `field_camp` (§3.1); yerleşik atlı ve düz %10 Ordu Payı (§10.1, §11.2); tek baskın kuralı (§15.4); `Stores`, `Herd`, `Caravan` sınıfları ve `EconomySystem` yerine saf işlevler, sürücü yerleşimdir (§18); ambar ve sürünün kaydı `settlement` bloğunda (§16); `rolloverYears` (§16.2); `sky_pole` 12 taş (K24 kazandı) |
+| `travel.md` | §1.3 | `tanhu_ordu` adı: II «Mete'nin Payı / Mete's Allotment», III+ «Tanhu Ordusu / The Tanhu's Ordu»; oynanan alan 1400×1050 m; `whistle_field` 1400×1050 m |
+| | §9.2 | Öneri `r_ordu_donghu` (`tanhu_ordu` – `donghu_land`, ≈22 km, III); `r_tanhu_hangai` IV'ten kereste kervanı |
+| | §9.6 | Yol olayları kervanda «Yol Töresi» ile kendiliğinden çözülür |
+| | §9.7, §10.4 | İkmal kervanı (§11): atlas simgesi, `party` köprüsü |
+| | §11 | Kervan buyrukları `settlement.caravans.orders`'ta, yoldaki kervan K24 `economy.caravans`'ta |
+| `progression.md` | §4.3 | Usta rolleri yerleşimde de iş görür (§5.2): `m_quarter` akında kap kaybı ×0,75, başarıya dokunmaz (K55 ile değişti; eski «ambar kaybı −%25»), `m_groom` ordugâh, `m_custom` toplantı |
+| | §4.5 | `great_stores`: her ambardan alma (yalnız Mete); `provisioner` ordugâhın günlük çekişine de |
+| | §5.3 | Yeni satırlar: «Gök alameti (Gök Direği), perdede bir: Kut +1 ya da Korku +1»; «Divan'da el koyma: Korku +1» |
+| | §13.2 | Şemaya `settlement`, `camps` |
+| | §15 | «Yerleşim ve ordugâh perde geçişinde aynen sürer» |
+| `survival.md` | §3 | Kazanlı yurt ocağı `kitchen` tezgâhıdır (K24) |
+| `decisions.md` | | K23 ve K25 satırları yazıldı (2026-11-03) |
+| `weather.md` | §8.7, §8.14 | Sancak Direği konut halkasında yıldırım adayı; Gök Direği alameti; dolu olayı `{ size, minutes }` (yapıldı) |
+
+**Üçüncü turun izleri (2026-11-04).** Bu belgenin yeni kurallarının öteki belgelerdeki karşılığı (sahibi işler):
+
+| Belge | Bölüm | Değişiklik |
+|---|---|---|
+| `d2/econ-model.json` (ekonomi alanı) | `structures` | Yapıldı (v3, 2026-11-04): `rampart.bom` `tag:wood` 16 (K52); `yurt_small`, `beg_otag` (K51) ve `kerege_set_s`, `uuk_set_s`, `yurt_kit_s`, `otag_kit`. Kalan: Kuşhane `mews` (`fauna.md` §5.2); girince `settlement-model.json`'ın `newBuildings`'inden `buildings`'e taşınır |
+| `tools/econ-sim.mjs` (prototip, ölçüm) | Baskın, nöbet | Sim bugün `raids.perActDays`'ten perde başına akın sayısını ve savaş perdesini okur; bu alan K55'te kalktı, modelde yalnız uyum için `actGameDays / perActMax`'tan türetilmiş durur. Sim `raids.perActMax`'ı (en kötü durum) ve `quartermasterK`'yı okumalı; `settlement-model.json` `buildings`'teki her türü `econ-model.json` `structures`'ta arar |
+| `economy.md` | §8.5, §10.6, §10.8 | Ocak satırında sütun «Azıkçı» (K54); «Göçer ≈%10 çok» → «Surlu ham Yük ≈%19 çok» (K52); akının D ve kayıp tablosu §15.4'ten |
+| `d2/core.md` | §4.4, §4.8 | «gelen hane çadırı ya da yurt yüküyle gelir» → «çadırı, yurt yükü ya da yalnız azığıyla gelir» (K53); akın sıklığı ay penceresi ve perde tavanı (K55) |
+| `army.md` | §1.3, §3.7 | Dailin III ve VI'da, Lung-çeng IV ve VI'da (K56); Gece Akını ordugâhın tek baskını (K55) |
+| `travel.md` | §1.3, §3.2, §9.3 | `tanhu_camp` konak, `gate_whistle_w` «Kuzey Kapısı / North Gate», `drv_balamir` Islık Alanı'nda (K41); `pack_camel` 60 (K65) |
+
+**E6'nın izleri (2026-11-04).** Bu belgenin E6'da düzelen kurallarının öteki belgelerdeki karşılığı (sahibi işler):
+
+| Belge | Bölüm | Değişiklik |
+|---|---|---|
+| `d2/econ-model.json`, `d2/labour-model.json` (ekonomi ve emek alanı) | `vendors`, `structures`, `params`; `law.stewardCrew` | Yapıldı (E6): `vendors.vendor_barter_ground` (III–V, 3 / 2 / 3 günde bir, `cowrieK` 1, kese 30, K81'in stoğu ve istediği mal); `structures.crewMax` `labour-model.json` v3'ün el tavanlarıyla aynı; `law.stewardCrew` Kâhya kuralını yazar (K80). Kalan: `params.typicalCrew` (4) yalnız 2026-11-04 koşusunun girdisi olarak durur, `econ-sim` Kâhya kuralını benzetince silinir (Yol Haritası: `econ-sim-run`) |
+| `tools/econ-sim.mjs` (prototip, ölçüm) | Kurma, akın | Şantiyeyi Kâhya kuralıyla ve `law.build`'in `k(W) × 24` İS'iyle benzetir; IV'ün akın gücünü sırayla okur (`raids.strengthEnds.IV`: önce `yuezhi_driven` 6 / 4, sonra `ordos_joined` 0); §4.2 ve §15.4 bu koşudan basılır (Yol Haritası: `econ-sim-run`) |
+| `economy.md` | §9.5, §10.8, §15 | Takas Yeri gezgininin satırı (K81); IV'ün akın sırası (K55); «Açık kalan» (1) K80, (2) K81 ile kapanır |
+| `d2/core.md`, `story.md` | §4.8; §11.3 «Yerleşim ve ordu» | IV'ün akın sırası: Yüeçi sürülünce 6 / 4, Loufan ve Baiyang katılınca 0 (K55, E6.4) |
+| `weather.md` | §5.9, §6.4 | `steppe_south` derin kar 0,16 ve kabuk 0,62 (K49); `a4_dailin` `clear` (22 Eylül 203); `a4_longcheng` iki IV gününe (17 Haziran 205 Gök Dağı eteği, 25 Haziran 203 `longcheng`), `a6_longcheng` iki VI gününe (2 Haziran 198, 4 Haziran 176) (K56) |
+| `travel.md` | §9.9 | Kervanın `ev_raid` payı VI'da 0 (§11.3; eski %10) |
+| `fauna.md` | §5.1 | Köpek akından ≈20 sn önce havlar (K55; eski 60 sn) |
+| `companions.md`, `army.md` | §3.3; §3.8 | Yapıldı (2026-11-05): nöbetteki yoldaş akından ≈22 sn önce uyarır, yerden görüşü 200 m ÷ at hızı ≈9 m/sn (K55; eski 60 gerçek sn) |
+
+## 21. Test planı
+
+**Saf (`test/settlement.test.js`).**
+1. Veri bütünlüğü: her `BUILDINGS` satırının türü `STRUCTURE_DEFS`'te ya da §7.9 yeni tür listesinde; `bom` kimlikleri K24 `items`'ta; emek K21 `labour-model.json`'da ya da † listesinde (kaynak etiketi doğru: K21, K24 ya da öneri).
+2. Kademe: §4.1 «gerekir» satırları (Oba kapısında konutlu hane, Küçük Yurt yurt sayılır); `act` kapısı; kademe düşmez; Ocak tavanı 6; `wood_shop` Ocak'ta açılmaz, kartı kilitli görünür, Oba'da açılır (K52).
+3. Çekim: tohumlu 100 gün, §5.3.1 tablosu ±%5; `foodK`, `roomK` sıfırları; varlık günü olmayan şafakta birikmez; perde tavanında durur; Serbest Dolaşım bitmiş perdenin tavanını taşır; `warK` yalnız ay penceresinde.
+4. Katılım kaynakları ve tür payları (K53): kesirli sayaç rastgele değildir, 100 Çekim hanesinde yurtlu / çadırlı / isteyen 60 / 25 / 15 ±1; dalgalar perde başına (§5.3); İsteyen Hane kartının dört seçeneği ve Gönül başı (+8, +15, +10, −1/gün); ambarda `tent_kit` varken kart çıkmaz; `hh_story` beklerken gitmez; sağlama satırları (yurtlu II 5,8 … VI 9,0) ve `expectedKits` değişmez.
+5. Gönül değişimleri ve eşikleri; ayrılış: Kut ≥14'te yalnız kıtlık; şantiye gecesi Gönül düşürmez, üretim gece vardiyası düşürür.
+6. Esir yok: `join` ganimet yolundan çağrılamaz; `loot` tablosunda insan yok; yenilenlerin seçimi formülü.
+7. Kâhya: sıra (sürü > nöbet > yiyecek …), kilitler, boştakiler; çoban kapsamı; yaşlı şantiyeyi yürütür, sürüye ve nöbete atanmaz; şantiye eli (K80): ilk şantiye el tavanına dek dolar (Küçük Yurt 6, Hane Yurdu 8, Otağ 12 ve katsayı 8'de), artan el sıradakine gider, oyuncunun el kilidi önce gelir; Hane Yurdu 8 elde 8,0 gerçek dk.
+8. Tüketim: hane 4,3 öğün; mevsim yakacağı; Kar Kabuğu'nda yem `deep`; derin kar günü yem.
+9. Akın (K55): pencere kapısı (`moon_illum(day_n + 0,5) ≥ 0,97`; III 1.693–1.695, IV 2.697–2.699 ve 3.435–3.437, V 4.321–4.323); Dailin (1.694) ve Lung-çeng (2.698, 3.436) günü akın yok; perde tavanı III 2, IV 2, V 1, ordugâh III ve IV'te 1; R tablosu ve bitişleri (IV: 10 / 6, Yüeçi sürülünce 6 / 4, Loufan ve Baiyang katılınca 0; K55); hedef küçük `D`'li yer; savunma, başarı, Surlu ×0,5, Göçer sürü ×0,6; kap kayıpları tek kuralla (çukur %50 bulunur, yalnız yiyecek ve tahıl), Ambarcı ×0,75; aynı kayıt aynı akını verir; ordugâh tablosu (D 110, R 6 → %5,2; D 11, R 4 → %26,7); tavanla perde kaybı ≤%10.
+10. Kervan: Tan kalkışı, `cartLock`'ta ≤6 sa bekleme, `cartK` ile süre, varış, akın tohumu ve püskürtme (`ev_raid` payı III 0,3, IV 0,2, V 0,35, II ve VI 0), yol töresi; ok çizgisi formülü; Ocak'ta kervan yok, Azıkçı iki günde bir 2 öğün alır, ambar boşsa boş döner ve `morale` −1 (K54).
+11. Ordugâh: barınak payı, ıslak gece morali, konfor sadakati, Baş Talimi tavanı 60; kış dağılması kendiliğinden ve Ordu Payı ×0,1; kış bekçisinin otu; yerleşik atlının çadırı kendi yükünden.
+12. Toplantılar (K56): `dailin_day(208) == 1694`, `dailin_day(174) == 14097`, `longcheng_day(205) == 2698`; oynanan günler `court.gatherings` verisinden: Lung-çeng IV 2.698 (Gök Dağı eteğinde sunu, toplantı yok) ve 3.436 (`longcheng`'de toplantı), VI 5.238 ve 13.270; Ordos Dailin'i (3.525) yerleşimin `dailin_count`'u değildir; Kış Toplantısı yalnız Kronik'te, oynanan güne düşse de; Avlu Toplantısı takvimsiz, perde başına bir; Sayım Çetelesi kartı; Söğüt Turu `loyalty` +1.
+13. Yerleşim kuralları: `padKinds` eğimi ≤6°, `homeKinds` suyu ≤150 m ve taşkın uyarısı (K57), `tent_qiang` Plan Kipi'nde yok; ateş payı, rüzgâraltı, kapı açısı, parsel (sahte arazi); Araba Yeri Ağaç Atölyesi'ne ≤30 m; §3.2 uzaklıkları.
+14. Atlama eşdeğerliği: 720 dk toplu `catchUp` = 12 × 60 dk ±1e−6 (şantiye dahil); 5 günlük uzun atlamada günlük adım ile saat adımı farkı ≤%2.
+15. Kayıt: gidiş dönüş (ambar içerikleri, sürüler, tezgâh kuyruğu, yoldaki kervan, Erzak Ambarı dahil); 90 hane ve 160 yapıyla `settlement` ≤14 KB, `camps` ≤4 KB; bozuk blok kurtarma; v1 → v2 göçü.
+16. Küme: `applyTaken` belirlenimli.
+17. Ayrı defterler: `own_seat` ve `own_camp` ambarları ve defterleri birbirine karışmaz; kervansız aktarma yok.
+18. Kronik: II → III geçişinde tarih 1 Eylül 208, hane ≥10, sürü büyümesi kapasiteyle sınırlı; IV → V'te kış stoğu ambar kapasitesiyle sınırlı ve K24 bandında; Surlu yolda tarla adımı yalnız son hasadı yazar (`min(500 × tarla, boş tahıl yeri)`), V'in kışı tarlasız; III'ten yılda 20 `hide`; kabuk değişmez; akın işlenmez; süre `clamp(mevsim × 5 sn, 30, 90)`; ≤150 ms / mevsim.
+19. Bakım: 10 günde bir orantılı; IV. kademede günde ≈0,03–0,06 İG.
+20. Araba kartı (K57): dört tür ◂ ▸ ile; Ağaç Atölyesi ve dülger yokken kilit satırları; biten araba `carts`'a girer, çeken sürüden ayrılır; kırık araba «Onar»; söküm ham malın yarısı.
+21. Yurt eğrisi (K50): Hane Yurdu 1–8 el 60 / 45 / 33,75 / 25,3 / 19,0 / 14,2 / 10,7 / 8,0 dk; Küçük Yurt en çok 6 el; Otağ 12 el ve katsayı 8'de; Yüklü Hane yurdunu 3 elle 33,75 dk'da kurar.
+
+**Tarayıcı (kum havuzu).** 20 yurt Plan Kipi'yle; 200 rastgele yerleşim, bağlantı kopmaz; `synth(5, 'walled')` ve `synth(5, 'moving')` karesi §17 tablosu (`__tanhu.hold.budget()`); program ≤92; ×240 hızla 10 gün: Kâhya, kervan, baskın; kaydet, yükle aynı.
+
+**Godot (`godot.md`).** `tests/unit/test_raid_rules.gd` 9. maddenin sayılarını, `test_game_calendar.gd` 12. maddenin günlerini kilitler; sayılar prototipin `econ-sim.mjs` çıktısıyla aynı olmalıdır (K49, g7; Yol Haritası: `settlement-measure`, koşu `econ-sim-run`). (K70) `test_raid_rules.gd` nöbetçi yoldaşı da sınar: III'te yerleşimin `D`'si 26,0 → 29,0, başarı %18,8 → %17,1; Bekçi Onluk'ta 11–12 → 14–18; ordugâh kâhyası Gece Akını `D` +2. `test_party_manager.gd` görevlendirmeyi sınar: görevdeki yoldaş partiden çıkar, Kâhya'nın dağıtımına girmez; yerleşimde kâhya seçeneği yoktur; Ağır Yaralı yalnız Otacı Yurdu'na yatar.
+
+**Denge (K24 `tools/econ-sim.mjs`, ekonomi alanı koşar).** Resmî koşu Yol Haritası: `econ-sim-run` (emek v3 `law.build`, Kâhya kuralı K80, `k(W) × 24` İS, IV'ün akın sırası K55). `settlement-model.json` v3 ile: kademe günleri K24 hedefleri içinde (T1 2–5, T2 2,5–7, T3 3–8, T4 4–9, T5 4–12), armağanın azığı, gelen hanenin azığı, Kâhya'nın av kolu ve `K_tok` hesaba girerek; her malın o perde ve mevsimde bir kaynağı var (yün, külçe, usta); oyuncu dakikası `targetPlayerMin` içinde; perde günleri (K25) içinde tier bitişi; yaz yiyecek kapsamı ≥1, kış saklananla %75–115 (Kronik'in stoğundan); perde başına baskın kaybı ≤%10.
+
+## 22. Doldurulan boşluklar
+
+1. Yerleşim ve ordugâhın yeri; zon adı perdeye göre.
+2. Ocak Yeri seçimi (üç aday) ve babanın közü.
+3. Kademe adları, gerekleri, açtıkları, tavanları, çekim tabanları.
+4. V. kademe yol seçimi (Hanshu 94A tartışması).
+5. Hane kaydı (kişi kimliği, roller, yaşlının işi, çocuğun dışarıda kalması).
+6. Katılım kaynakları, çekim formülü, yurt yükü payları; yenilenlerin seçimi.
+7. Gönül ekseni, ayrılış, seferberlik.
+8. Kâhya ve altı iş.
+9. Fener Direği ve gece işinin yerleşim bedeli.
+10. Dokuz yeni yapı (Elçi Yurdu, Gök Direği, Hazine, Sancak ve Fener Direği, Otacı Yurdu, Takas Yeri, Gözcü Konağı, Sur Kapısı) ve Keçe Göç Arabası.
+11. Bakım tablosu.
+12. Ambar ayrımı ve yer kimlikleri, akının başarısı (kap kaybı K24'ün), küme tükenmesi.
+13. Ordugâh kademeleri, konfor, Baş Talimi, sefer ordugâhı.
+14. Kervan buyruğu, Ordu Payı, yol töresi, baskın.
+15. Divan eylemleri ve davalar (S9).
+16. Gök Direği: Şafak Selamı ve yıldırım alameti.
+17. Toplantıların yerleşim yüzü; Dailin'in yeri.
+18. Kar Kabuğu (zud) koşulu.
+19. Yer kuralları ve parseller; LOD ve `YurtField`.
+20. Plan Kipi tuşu ve bağlamı; Yerleşim Defteri bölümleri.
+21. Kayıt blokları ve boyut hesabı.
+22. Olaylı büyüme: dalgalar, perde başına Çekim tavanı, varlık kuralı (§5.3).
+23. Kronik: perdeler arası yılların kapalı işlenişi, açılış tabanı, kış stoğu (§16.2).
+24. Dülgerin II'de gelişi, Oba dalgası ve Teoman'ın armağanı (§2.1, §5.2).
+25. Kuzey tepelerinin huşluğu ve tündük bütçesi (§3.2).
+26. Ordugâhın kış dağılması (§10.1); kervanın ok çizgisi formülü (§11.4).
+27. Sancak Direği'nin konut halkasındaki yıldırım işi (§7.6).
+28. İki tür gelen hane, kesirli tür sayacı, İsteyen Hane kartı ve kafile (§5.3; K53).
+29. Ocak'ta Azıkçı; kervanın Oba'yla açılışı (§11.2; K54).
+30. Darı tarlasının takvimi, V'in tarlasız kışı ve Kronik'in tarla adımı (§4.3, §16.2; K54).
+31. Ay pencereli akın, perde tavanı, R tablosu, Ambarcı çarpanı; ordugâhın Gece Akını (§15.4; K55).
+32. Dailin ve Lung-çeng'in günleri, Söğüt Turu, Sayım Çetelesi (§12.2; K56).
+33. Araba kartı ve Araba Yeri; `padKinds` ve `homeKinds` (§7.8, §13.2, §14.1; K57).
+34. Ağaç Atölyesi'nin Oba'da açılışı ve kilitli kartı (§4.1; K52); sur parçasının odunu (§4.3, §7.6; K52).
+35. Kişilerin adları ve Kâhya'nın yüzü (§2.1, §5.2; K37, K43); Dülger adı ve unvan (K34).
+36. Küçük Yurt, Bey Otağı ve iç düzenler (§7.2; K51); Kuşhane (§7.3; `fauna.md`).
+37. Serbest Dolaşım'ın bitmiş perdenin Çekim ve akın tavanlarını taşıması; savaş mevsiminin tanımı (§5.3, §6.1, §15.4).
+38. (E6) Kâhya'nın şantiye eli: el tavanına dek doldur, sonra sıradakine; §4.2'nin sütunu Kâhya kuralı ve `k(W)` ile (§4.2, §6.2; K80).
+39. (E6) Takas Yeri gezgininin şafak stoğu, istediği mal ve stoktan türeyen kesesi (§7.6; K81).
+40. (E6) VI'da kervan akını yoktur: `ev_raid` payı 0 (§11.3; K55'in VI satırı).
+
+## 23. Kararlar ve açık konular
+
+Taslağın soruları baş tasarımcı kararıyla kapandı (`d2/core.md` §7):
+
+1. **Pay ve ilk ocak.** Mete'nin payı `tanhu_ordu`'dur; pay ve Köz Kabı `home` sinemasının devamında verilir, Teoman'ın avlusu yalnız sinemadır. Mete'nin anasının hanesi Lan Hatun'un hanesidir; ilk aileler Şiuşun, Ruodi ve Lan Hatun'un haneleridir (K37, `story.md` §11.1). Ambarcı önce Tola'dır (`tola_lives`), değilse Moyan (`story.md` §14.1). Göl Obası'nın ozanı II'de gelir, Köz Kabı'yla değil (K106); IV'ten ocağın ozanı Çocuktur (K79).
+2. **Perde başına oyun günü.** (K42 ile değişti) Perde son görevle biter, sayaç yoktur; K25'in II 12, III 12, IV 14, V 12, VI 16 günü (±%30) yalnız tasarım ölçüsüdür.
+3. **Emek ve malzeme önerileri.** (2026-11-04, E6 ile kapandı) † satırların emeği `labour-model.json` v3'ün `settlement` bloğuna adım tablosuyla, malzemesi `econ-model.json` v3'ün `structures`'ına aynı sayılarla girdi (Elçi Yurdu 1, Otacı Yurdu 1, Hazine 1,2, Takas Yeri 0,5, Gök Direği 0,6, Gözcü Konağı 0,4, Sur Kapısı 1,5, Keçe Göç Arabası 1,2 İG; Sancak Direği 40 İD, Fener Direği 10 İD); fener K21 gece ışığının kaynağıdır (`structures.md` §2.4). `ember_pot` K24'te (Köz Kabı / Ember Pot); Yem Bağı 2 Yük; `sky_pole` 12 taş.
+4. **Kar Kabuğu.** Hava belgesinde sıra kuralıyla (`weather.md` §5.9), 5–10 gün.
+5. **V. kademe yolu.** Tek seçim, geri alınmaz.
+6. **Üç Ocak Yeri.** Üçü de kalır; seçim oyuncunun ilk kalıcı kararıdır. Uzaklıklar Godot'da gerçek yol ağıyla ölçülür, sapma §3.2'ye işlenir (K57; Yol Haritası: `settlement-measure`).
+7. **Ağaç Atölyesi (#34, #37).** Oba'da açılır; kartı Ocak'ta kilitli görünür (K52).
+8. **Unvan ve usta adı (#35, #40).** Oyuncuya «Tanhu», «Hun Tanhuluğu», «Tanhu Avlusu»; «kağan» ve «hanlık» oyuncu metninde geçmez; «Dülger / Carpenter» (K34).
+9. **Surlu odunu (#36).** `rampart` 16 odun; Surlu odun ≈×1,4 ve emek ≈×1,7, Göçer keçe ≈×1,6, ip ≈×1,5, demir ≈×2; günler 8,1 ve 7,8 (K52).
+10. **Yazılmamış kişiler (#38).** Ustalar, Kâhya ve ilk ailelerin adları `story.md` §14'tedir (K37, K43).
+11. **Gelen hane (#39).** İki tür: Yüklü (yurtlu, çadırlı) ve İsteyen; paylar `bozkir-ekonomi.md` öneri 12'dir (K53).
+12. **Darı tarlası (#41).** Ekim 10–31 Mayıs, biçim 1–20 Eylül; V'in kışı tarlasız; Kronik'te tarla adımı (K54).
+13. **İlk kademede Ordu Payı (#42).** Ocak'ta kervan yok, Azıkçı var (K54).
+14. **Ordugâh baskını ve akın gücü (#43, #45).** Ay penceresi, perde tavanı, R tablosu, Ambarcı ×0,75; ordugâha küçük Gece Akını (K55). (E6.4) IV'ün sırası K33'ün takvimiyle düzeldi: Yüeçi sürülünce (17 Haziran 205) 6 / 4, Loufan ve Baiyang katılınca (25 Haziran 203) 0; toplantı günlerine 25 Haziran 203 (3.436) eklendi.
+15. **Dailin Sayımı (#44).** Dailin üç kez oynanır: yerleşimde III'te 16 Eylül 208 ve VI'da 9 Eylül 174, IV'te bir kez Ordos'ta 22 Eylül 203 (son görev, yerleşimin sayımı değildir); öteki yıllar Kronik satırıdır (K56). (E6.4) Lung-çeng günü IV'te 17 Haziran 205 (sunu) ve 25 Haziran 203 (toplantı), VI'da 2 Haziran 198 ve 4 Haziran 176 oynanır.
+16. **Eğim ve araba (#47, #48).** `padKinds` ve `homeKinds` ayrıldı; araba Atölye'de tek kart (K57).
+17. **Kâhya'nın şantiye eli (E6.2, `economy.md` §15 «Açık kalan» 1).** El tavanına dek doldur, sonra sıradakine; oyuncu el kilidiyle sınırlar; `typicalCrew` kalkar (K80 ile kapandı; §6.2, §4.2).
+18. **Takas Yeri gezgininin stoğu (E6.2, `economy.md` §15 «Açık kalan» 2).** Tuz ×4, Kandil Yağı ×6, sinir ×6, tutkal ×6, huş kabuğu ×10, tunç hurda ×2; Kıymet 120, kese 30 (K81 ile kapandı; §7.6).
+19. **Sefer ordugâhının süresi (E6.4).** Çadır ve konak K50'nin eğrisiyle: 4 elde ≈3,8 dk, konak ≈4 dk (K50 ile kapandı; Y3, §10.4).
+20. **Belge düzeltmeleri (E6.4).** Hazine'nin terazisinin yanında «≈{n} kabuk» (K48; §12.5); `steppe_south` kar payı 0,16 ve kabuk 0,62 (K49; §15.3); Sonsöz `court_path`'i Son Sayım'ın «Avlu» satırında okur, ozanın dizesi okumaz (K60; §4.3, §12.4); Plan Kipi'nde Q II'den hızlı silahtır (K82; §14.1); VI'da kervan akını 0 (K55; §11.3).
+
+**Açık kalan:** yok. Ölçüm işleri soru değildir (E6.3), Yol Haritası'ndadır. Yerleşim dünyasının taban çizim ve program sayısı (K63'ün `budget_probe` ölçümü, çimen payı ayrı satır): Yol Haritası: `settlement-measure` (`act-2-p2`); kampın tabanı Yol Haritası: `budget-probe` (`foundation-p3`). Üç Ocak Yeri'nin yol ağıyla uzaklıkları (K57): Yol Haritası: `settlement-measure`. `econ-sim`'in resmî koşusu, emek v3 `law.build`, Kâhya kuralı (K80), `k(W) × 24` İS ve IV'ün akın sırasıyla (K55); §4.2'nin kademe günleri ve §15.4'ün akın kayıpları bu koşudan basılır: Yol Haritası: `econ-sim-run` (`act-2-p2`). Godot ekonomisinin bu koşuyla eşliği (K49): Yol Haritası: `settlement-measure`. Kullanıcının onayını bekleyen yerleşim maddesi yoktur.
+
+## 24. Doğrulama durumu ve kaynaklar
+
+- **Okundu:** `decisions.md`; `architecture.md` §0, §1, §3.5, §3.7, §3.8, §3.11–§3.14, §3.16, §3.17, §3.20, §3.22, §5, §7, §8; `army.md` bütünü; `economy.md` §0–§4, §6, §8–§10, §12–§14; `travel.md` §0–§3, §7–§12; `structures.md` §0–§4, §6, §7, §10, §11, §13–§17; `progression.md` §4.3, §4.5, §5, §9–§13, §15; `act1.md` §1, §2, §9, §15–§17; `groups-research.md` §1, §3–§5; `audio.md`; d2 taslakları ve eleştirileri. Kod: `structure-defs.js` (bütün), `structure-logic.js` (kurulum, `advance`, `deliver`), `builders.js` (`HELP`, `workRate`), `keymap.js`; `tools/econ-sim.mjs`'in okuma yolları.
+- **Betikle hesaplandı** (geçici dizinde): §4.2 kademe emek toplamları, §7 yapıların 1/2/4/8 el süreleri, §5.3.1 çekim tablosu, hane çobanlık payı (taslak turu); son biçimde §3.2 Ocak Yeri uzaklıkları (dere çoklu çizgisinden ve kapı noktalarından), §15.2 günlük emek, perde başı tarihleri.
+- **Kaynaktan doğrulandı (2026-11-02):** Shiji 110 ve Hanshu 94A satırları (zh.wikisource); Ivolga ölçüleri, sur ve hendek, konut, zanaat, tarım, halk ve tarih (ru.wikipedia, Davydova ve Kradin'e dayanır).
+- **Hesap, koşulmadı:** §17 bütçe satırları (`act1.md` §15 ve `structures.md` §13 ölçümlerinden toplama), §16 boyutları, kervan akışı, baskın oranları; dalga sayılarının perde sonu hane hedeflerine ulaştığı (toplama, benzetim değil).
+- **Doğrulama turu (2026-11-03, `d2/core.md` §7.1):** II. Perde açılışının yün, keçe (≈60), demir (≈9 külçe) ve yiyecek dengesi elle; Surlu tarlası ve kulesi, Göçer ×1,2 kış dengesi ve garnizonlu baskın kaybı betikle (`economy.md` §7.1, §10.8). `d2/settlement-model.json` v2.1 o gün bu belgeyle aynıydı; bugün v3'tür (2026-11-04, aşağıda) (v2.1: armağan, `households.arrival`, `leave.storyGraceDawns`, `court_gathering`, `herdCapK` 1,2, Surlu etkileri, `raids.garrison`, Okçu Yurdu Binlik'te).
+- **Üçüncü tur (2026-11-04).** Okundu: `decisions.md` K29–K69, `d3/register.md`, `d3/brief.md`, `d3/oyun-durumu.md`, `story.md` §1, §2, §10–§14, `fauna.md` §2, §3, §5, §9, §12, `bozkir-ekonomi.md` §3–§8 ve öneri 5–15, `cadir-otag.md` öneri 2–21, `time.md` §2. Betikle sınandı: ay pencereleri `time.md` §2'nin formülüyle (`moon_illum(day_n + 0,5) ≥ 0,97`): III 1.693–1.695, IV 2.697–2.699 ve 3.435–3.437, V 4.321–4.323, V'ten sonra 4.351–4.353; II'nin 1.222–1.223'ü de açıktır ama R 0'dır. Gece Akını tablosu (`⌈R × 0,6⌉`; D 110 → %5,2, D 240 → %2,4, D 11–12 → %25–35), tek akın ve tavanla perde kaybı (III %7,9, IV %6,9, V Surlu %1,3, Göçer %2,8), kesirli tür sayacı (100 Çekim hanesinde 60 / 25 / 15), yurt eğrisi (60 × 0,75^7 = 8,0; dört elle söküm 8,9 dk), sur odunu (40 × 16 = 640; fark 480), kafile (59 + 9 + 2,2 ≈70; 16 + 9 + 2,2 ≈27). `econ-sim --strict` bu belgenin v3 modeliyle ve ekonomi alanının v3 modeliyle koşuldu (2026-11-04): model tutarlı, 0 işaret; kademe günleri T1 2,2, T2 3,0, T3 7,2, T4 4,6, T5 Surlu 8,1, Göçer 7,8; sim akını `perActDays` uyum alanından tavanla sayar: perde kaybı III %7,9, IV %6,9, V Surlu %1,3, Göçer %2,8 (hepsi ≤%10). Prototipin `test/herds.test.js` ve `test/supply.test.js`'inde bu modeli okuyan sınamalar geçer.
+- **E6 (2026-11-04).** Okundu: `d3/register.md` E6, `decisions.md` K48–K57, K60, K75–K88 ve E6 notları, `story.md` §11.3, §11.5, §12, §13, §14.1, `travel.md` §9.9, `d2/labour-model.json` v3 (`law.build`, `crew`, `settlement`, `defs`), `d2/econ-model.json` v3 (`structures`, `vendors`, `params`), `d2/weather-model.json` v2, Yol Haritası (`docs-app/content/progress.json`). Betikle hesaplandı: §4.2'nin Kâhya kuralıyla sütunu ve el-günü (`tiers.compose` × v3 el tavanları; `k(W) = (4/3)^(min(W, 8) − 1)`; eski `eff(4)` ve `k(4)` sütunlarıyla karşılaştırma), IV'ün yeni akın sırasıyla tek akın ve tavanla perde kaybı (R 6: %2,2; en çok %5,7), † türlerin emek ve malzemesinin v3 dosyalarıyla birebir aynı olduğu. Düzelenler: Y3, Y11, Y14, Y15, Y23; §2.1, §2.2, §3.2, §4.2, §4.3, §6.2, §6.5, §7.1, §7.6, §10.4, §11.3, §12.2, §12.4, §12.5, §14.1, §15.3, §15.4, §17, §19, §20, §21, §22, §23; `d2/settlement-model.json` (`raids`, `court`, `steward`, `caravans`, `buildings`, `households`). Başlık adları ve numaraları değişmedi; yalnız §2.1'in başlığından «(hikâye alanına öneri)» kalktı.
+- **Yapılmadı:** kod, arazi, tarayıcı ölçümü; Ocak Yeri koordinatları gerçek yol ağıyla sınanmadı (Yol Haritası: `settlement-measure`, K57); `econ-sim` yeni kuralla koşulmadı (Yol Haritası: `econ-sim-run`); Godot kodu ve verisi değişmedi; kredi harcanmadı.
+
+**Kaynaklar.**
+- [Shiji 110, Vikikaynak](https://zh.wikisource.org/wiki/史記/卷110)
+- [Hanshu 94A, Vikikaynak](https://zh.wikisource.org/wiki/漢書/卷094上)
+- [Иволгинское городище, Vikipedi (Rusça)](https://ru.wikipedia.org/wiki/Иволгинское_городище); [Ivolga archaeological site, Wikipedia](https://en.wikipedia.org/wiki/Ivolga_archaeological_site)
+- İç: `groups-research.md` §5 (Sanjiaocheng, Wang Jianxin), `economy.md` §15 (Terelj demiri, otlak), `army.md` §14.

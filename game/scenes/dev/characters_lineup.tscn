@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[sub_resource type="GDScript" id="GDScript_lineup"]
+script/source = "extends Node3D
+## Geliştirme sahnesi: Mete / kamp stilindeki tüm karakterler yan yana, gerçek boylarıyla.
+## Argümanlar: --lineup-pose=idle|sit|walk|run (varsayılan idle), --lineup-ids=mete,father (virgüllü),
+## --lineup-yaw=derece (karakterleri döndürür; 90 = sağ profil), --recolor (bölge maskesi denemesi:
+## abartılı saç/ten/göz renkleri), --pose=x,y,z,yaw,pitch ve --fov=derece (kamera).
+## Oturma aktarımı denemesi: --lineup-donors=father:limbs,elder:rot (her biri için --lineup-target modeline,
+## varsayılan mete, o bağışçının oturma klibi ClipRetarget ile anında aktarılır; rot = ROTATION, limbs = kol ve
+## bacak yönleri, legs = yalnızca bacak yönleri, all = tüm kemik yönleri).
+## Örnek: tools/capture.sh /tmp/dizi.png 120 --scene=res://scenes/dev/characters_lineup.tscn --lineup-pose=sit
+
+const IDS := [\"mete\", \"hero_f\", \"father\", \"mother\", \"elder\", \"child\"]
+const SPACING := 1.3
+
+@onready var _camera := $Camera as Camera3D
+
+
+func _ready() -> void:
+	var capture := get_node_or_null(^\"/root/DevCapture\")
+	if capture:
+		capture.pose_requested.connect(func(pos: Vector3, yaw: float, pitch: float) -> void:
+			_camera.global_transform = Transform3D(Basis.from_euler(Vector3(deg_to_rad(pitch), deg_to_rad(yaw), 0.0)), pos))
+		capture.fov_requested.connect(func(fov_deg: float) -> void: _camera.fov = fov_deg)
+	var args := preload(\"res://scripts/dev/capture.gd\").parse_args(OS.get_cmdline_user_args())
+	var pose := StringName(str(args.get(\"lineup-pose\", \"idle\")))
+	var ids: Array = str(args[\"lineup-ids\"]).split(\",\") if args.has(\"lineup-ids\") else IDS
+	var donors: Array = str(args[\"lineup-donors\"]).split(\",\") if args.has(\"lineup-donors\") else []
+	if not donors.is_empty():
+		ids = []
+		for d in donors:
+			ids.append(str(args.get(\"lineup-target\", \"mete\")))
+	var profile := CharacterProfile.new()
+	if args.has(\"recolor\"):
+		profile.hair_color = 9
+		profile.skin = 8
+		profile.eye_color = 5
+	for i in ids.size():
+		var avatar := CharacterAvatar.new()
+		avatar.profile = profile
+		avatar.model_override = ids[i]
+		avatar.start_pose = &\"sit\" if pose == &\"sit\" else &\"idle\"
+		avatar.position = Vector3((i - (ids.size() - 1) * 0.5) * SPACING, 0.0, 0.0)
+		avatar.rotation.y = deg_to_rad(float(args.get(\"lineup-yaw\", 0.0)))
+		add_child(avatar)
+		if i < donors.size():
+			_apply_donor(avatar, str(donors[i]))
+		if pose == &\"walk\":
+			avatar.set_locomotion(avatar.clip_speed(&\"walk\"))
+		elif pose == &\"run\":
+			avatar.set_locomotion(avatar.clip_speed(&\"run\"))
+
+
+## \"bağışçı:yöntem\" girdisine göre oturma klibini aktarıp karaktere verir.
+func _apply_donor(avatar: CharacterAvatar, spec: String) -> void:
+	var parts := spec.split(\":\")
+	var donor := (load(CharacterOptions.model_path(parts[0])) as PackedScene).instantiate()
+	var player := donor.find_children(\"*\", \"AnimationPlayer\", true, false)[0] as AnimationPlayer
+	var skel := donor.find_children(\"*\", \"Skeleton3D\", true, false)[0] as Skeleton3D
+	var clip: String = CharacterAvatar.map_clips(player.get_animation_list(), []).get(&\"sit\", \"\")
+	var how := parts[1] if parts.size() > 1 else \"limbs\"
+	var mode := ClipRetarget.Mode.ROTATION if how == \"rot\" else ClipRetarget.Mode.DIRECTION
+	var keys: Array[String] = ClipRetarget.LIMB_KEYS
+	if how == \"legs\":
+		keys = [\"leg\", \"foot\"]
+	elif how == \"all\":
+		keys = [\"*\"]
+	if not clip.is_empty():
+		avatar.set_role_clip(&\"sit\", ClipRetarget.retarget(player.get_animation(clip), skel, avatar.get_skeleton(), mode, ClipRetarget.DEFAULT_FPS, keys))
+		avatar.play_pose(&\"sit\")
+	donor.free()
+"
+
+[sub_resource type="Environment" id="Environment_lineup"]
+background_mode = 1
+background_color = Color(0.32, 0.42, 0.55, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.6, 0.75, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(20, 8)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.36, 0.5, 0.26, 1)
+
+[node name="CharactersLineup" type="Node3D"]
+script = SubResource("GDScript_lineup")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lineup")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 4, 0)
+light_color = Color(1, 0.95, 0.88, 1)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("Material_ground")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98481, 0.17365, 0, -0.17365, 0.98481, 0, 1.5, 7.6)
+fov = 45.0

@@ -1,0 +1,136 @@
+{
+  "id": "deer_bark",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.5,
+  "rate": 22050,
+  "seed": 7231,
+  "loop": false,
+  "source": "code",
+  "note": "Maralın alarm havlaması (ses-tasarimi.md §7.2): kısa, boğuk. Ceylan 1,5, zeren 1,4, sayga 1,3 perdeyle aynı tamponu çalar (audio.md §4). Böğürme (stag_bugle) güzdedir, Kışlak'ta yoktur. Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              190
+            ],
+            [
+              0.05,
+              228.0
+            ],
+            [
+              0.32,
+              152.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.01,
+              1
+            ],
+            [
+              0.192,
+              0.5
+            ],
+            [
+              0.32,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              600,
+              2.5,
+              1
+            ],
+            [
+              1400,
+              3.5,
+              0.5
+            ],
+            [
+              2600,
+              5,
+              0.18
+            ]
+          ],
+          "breath": 0.6,
+          "jitter": 28,
+          "burst": 0.55,
+          "burst_hz": 900
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              205
+            ],
+            [
+              0.05,
+              246.0
+            ],
+            [
+              0.28,
+              164.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.01,
+              1
+            ],
+            [
+              0.168,
+              0.5
+            ],
+            [
+              0.28,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              600,
+              2.5,
+              1
+            ],
+            [
+              1400,
+              3.5,
+              0.5
+            ],
+            [
+              2600,
+              5,
+              0.18
+            ]
+          ],
+          "breath": 0.6,
+          "jitter": 28,
+          "burst": 0.55,
+          "burst_hz": 900
+        }
+      ]
+    }
+  ]
+}

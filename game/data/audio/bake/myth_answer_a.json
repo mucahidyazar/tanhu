@@ -1,0 +1,17 @@
+{
+  "id": "myth_answer_a",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "tempo": 52,
+  "bars": 2,
+  "mode": "d_dorian",
+  "density": 0.65,
+  "phrase": "A",
+  "position": "lower",
+  "seed": 5241,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "myth: kopuzun cevabı (answer katmanı): satır bitince sözün altındaki kopuzun 6 dB üstünde ≥1,5 sn (panolarda 2 sn); düşüş A G F D alt konumda. Önsöz'ün mit sineması, myth durumu (audio.md §3: D Dorian 52, dron ve seyrek kopuz motor 0,2 anlatıcının sözü altında; satır bitince kopuz cevap verir). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler (Karar Bekleyenler)."
+}

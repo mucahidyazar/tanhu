@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/painterly_overlay.gd" id="1_overlay"]
+[ext_resource type="Shader" path="res://shaders/painterly.gdshader" id="2_painterly"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_painterly"]
+resource_local_to_scene = true
+shader = ExtResource("2_painterly")
+shader_parameter/strength = 0.58
+shader_parameter/reference_height = 1080.0
+shader_parameter/sharpness = 300.0
+shader_parameter/detail_protect = 0.8
+shader_parameter/grain = 0.026
+shader_parameter/vignette = 0.3
+shader_parameter/vignette_tint = Color(0.56, 0.6, 0.8, 1)
+shader_parameter/saturation = 0.06
+
+[node name="PainterlyOverlay" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1_overlay")
+
+[node name="Filter" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_painterly")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

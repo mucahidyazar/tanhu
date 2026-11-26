@@ -1,0 +1,12 @@
+{
+  "id": "breath",
+  "kind": "sfx",
+  "instrument": "breath",
+  "inhale": true,
+  "seconds": 1.7,
+  "seed": 6131,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "Doğum yurdunun nefesi: mit sinemasının 6. panosunda (story.md §3: keçe, nefes, tek tel). Kulak onayı bekler."
+}

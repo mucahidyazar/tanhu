@@ -1,0 +1,14 @@
+{
+  "id": "winter_day_harp_c",
+  "kind": "music",
+  "instrument": "harp",
+  "phrase": "open",
+  "tempo": 72,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 7309,
+  "rate": 44100,
+  "loop": false,
+  "note": "winter_day: Yüeçi arpı ezgisi (audio.md §3), cümle «open»; motifin düşüşü D'ye varmaz: A G F (K59). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

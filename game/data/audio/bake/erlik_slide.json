@@ -1,0 +1,17 @@
+{
+  "id": "erlik_slide",
+  "kind": "music",
+  "instrument": "throat",
+  "role": "slide",
+  "from": 45,
+  "to": 38,
+  "growl": 0.7,
+  "tempo": 52,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 5254,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "erlik: A↘D kargıra kayışı (A2 tutar, 1,7 sn'de D2'ye iner, söner); boş cümle kopyalarının arasında seyrek. Ters motifin (D F G A) yerine (audio.md §3). Önsöz'ün Erlik panosu, erlik durumu (audio.md §3: E Frigyen 52, kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

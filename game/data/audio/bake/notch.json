@@ -1,0 +1,11 @@
+{
+  "id": "notch",
+  "kind": "sfx",
+  "instrument": "notch",
+  "seconds": 0.6,
+  "seed": 2348,
+  "rate": 32000,
+  "loop": false,
+  "source": "code",
+  "note": "Sayıcının çentiği (Önsöz 3:22,0; audio.md §3–§4): bıçak tahta çubuğa iki kesik atar, yonga düşer (scripts/audio/synth/notch.gd). Sayılan sayan olur (K32): I. Perde'de çentik ölçüyü tutar. Kulak onayı bekler."
+}

@@ -1,0 +1,7 @@
+{
+	"id": "kislak_folk",
+	"doc": "Kışlak'ın kişi katmanı (Yol Haritası folk-generator, npc-schedules, crowd-tiers; map.json «layers» «folk»; FolkLayer kurar, düğüm «Layers/Folk»): kişi programı data/story/act_1/npcs.json'dadır (Schedule: adlıların vakit blokları, gece nöbeti, kalabalık öbekleri). Gündüz Ulu Ocak'ın çevresinde 40 kişilik pazar; gece dokuz nöbet ateşinin nöbetçisi; Esir Çukuru'nda 31 esir (16'sı Esir Yolu'nun kolu: 07:00 gidiş, 17:00 dönüş); Demir Diş'te gündüz 16 esir ve 2 nöbetçi; adlı kişiler vakit bloklarına göre yerlerinde (act1.md §5). Tam kişi ≤16 (adlılar önce; kalan yuvalara yakındaki kalabalık kişisi geçer), kalabalık T1–T3 (CrowdField). Saat oturumunkidir; oturum yoksa local_clock (deneme ve sınama). Görünüşler Folk'tan (data/character/folk.json).",
+	"script": "res://scripts/crowd/folk_layer.gd",
+	"npcs": "res://data/story/act_1/npcs.json",
+	"local_clock": {"day": 1042, "time": "10:30"}
+}

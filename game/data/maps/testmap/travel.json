@@ -1,0 +1,34 @@
+{
+	"id": "testmap_travel",
+	"script": "res://scripts/world/travel_layer.gd",
+	"doc": "Deneme haritasının Menzil ağı (Yol Haritası roads-relays; map.json «layers» «travel»; TravelLayer kurar). Kışlak'ın kurallarını küçük bir ağda sınar: üç durak (Deneme Menzili, Doğu Durağı, Batı Durağı), iki Yol Kemiği (bağlı direkler), Kantu'nun arabası Deneme Menzili'nde. Ağın düğümleri ve kenarları haritanın yolları üstündedir (map.json ground.paths: doğu ve batı patikası); burada yol dosyası yoktur, kenarlar düz çizgi ve ara noktadır. Durakların rütbesi 0'dır (bölge hep açık), ağ bayrak istemez (requires_flag boş: Kışlak'ta tally_kantu). stop arabanın dingil noktası (yolun 1,6 m yanı), post Menzil Direği (yolun öbür yanında), deliver varışta yükün gittiği kap (stores: Ambar; yoksa durağın Menzil Ambarı). cart_heading arabanın parkta yönü (derece, travel.md'nin kuralı: 0 güney, 90 doğu). Hız sınırı: ocağın çevresi 3,2 m/sn. Kuzey −Z.",
+	"requires_flag": "",
+	"graph": {
+		"nodes": {
+			"n_tm_camp": [0.0, 12.0],
+			"n_tm_yard": [56.0, 11.31],
+			"n_tm_mid": [96.0, 9.0],
+			"n_tm_east": [140.0, 6.0],
+			"n_tm_west": [-110.0, 26.0]
+		},
+		"edges": [
+			{"id": "tm1", "road": "path_east", "a": "n_tm_camp", "b": "n_tm_yard", "via": [[44.0, 12.0]], "ground": "road", "width": 2.6},
+			{"id": "tm2", "road": "path_east", "a": "n_tm_yard", "b": "n_tm_mid", "via": [], "ground": "road", "width": 2.6},
+			{"id": "tm3", "road": "path_east", "a": "n_tm_mid", "b": "n_tm_east", "via": [], "ground": "road", "width": 2.6},
+			{"id": "tm4", "road": "path_west", "a": "n_tm_camp", "b": "n_tm_west", "via": [[-48.0, 22.0]], "ground": "road", "width": 2.6}
+		],
+		"caps": [
+			{"id": "cap_tm_camp", "at": [0.0, 6.0], "r": 12.0, "speed": 3.2}
+		]
+	},
+	"stations": [
+		{"id": "way_tm_yard", "name": {"tr": "Deneme Menzili", "en": "Trial Waystation"}, "at": [56.0, 11.3], "node": "n_tm_yard", "bone": "", "region": "testmap", "rank": 0, "post": [56.0, 15.0], "stop": [56.0, 9.7], "deliver": "stores"},
+		{"id": "way_tm_east", "name": {"tr": "Doğu Durağı", "en": "East Halt"}, "at": [140.0, 6.0], "node": "n_tm_east", "bone": "RB_TM1", "region": "testmap", "rank": 0, "post": [140.0, 9.6], "stop": [140.0, 4.4]},
+		{"id": "way_tm_west", "name": {"tr": "Batı Durağı", "en": "West Halt"}, "at": [-110.0, 26.0], "node": "n_tm_west", "bone": "RB_TM2", "region": "testmap", "rank": 0, "post": [-110.0, 29.6], "stop": [-110.0, 24.4]}
+	],
+	"bones": [
+		{"id": "RB_TM1", "at": [124.0, 10.6], "road": "path_east"},
+		{"id": "RB_TM2", "at": [-96.0, 28.6], "road": "path_west"}
+	],
+	"cart": {"id": "cart_kantu", "park": "way_tm_yard", "horse_mount": "yakwe", "horse_model": "res://assets/animals/horse_brown/horse_brown.glb", "driver": "kantu", "effects": true}
+}

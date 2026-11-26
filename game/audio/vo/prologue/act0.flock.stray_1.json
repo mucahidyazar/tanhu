@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.stray_1",
+	"take": 0,
+	"seed": 865456578,
+	"hash": "3395d1c27d31",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.16,
+	"words": [
+		{"w": "One's", "t0": 0.0, "t1": 0.24},
+		{"w": "getting", "t0": 0.28, "t1": 0.56},
+		{"w": "away!", "t0": 0.624, "t1": 0.96},
+		{"w": "Head", "t0": 1.056, "t1": 1.44},
+		{"w": "it", "t0": 1.467, "t1": 1.52},
+		{"w": "off!", "t0": 1.64, "t1": 2.16}
+	]
+}

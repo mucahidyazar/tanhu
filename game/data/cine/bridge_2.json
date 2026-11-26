@@ -1,0 +1,43 @@
+{
+	"id": "bridge_2",
+	"title": "Köprü 2 (K36, K67, K93; story.md §6, act0-text.md «Köprüler», act1.md §12, Yol Haritası bridge-two): Yola Çıkış'tan I. Perde'ye, anlatıcı N6–N7 (Eldrin, kararlılık 0,5). Görüntü parşömen videosudur (assets/cine/video/bridge_2.ogv; motion-studio Tanhu-Kopru-2, süresi segment + 1,0 sn; yoksa kara ekran ve altyazı). Çekim adları videonun kesmeleridir: road kar yolu, gate Kemik Boğazı'nda kapı, ankle bileğe bağlanan çan, counted sayıcı ve sığırların arasında rehine (N6'nın sonu ve N7'nin ilk cümlesi), bell yürüyen ayak ve çan (N7'nin ikinci cümlesi). Satır arası 0,9 sn; altta dron ve seyrek kopuz (myth klibi), çan ve çentik satırın sözcüklerindedir. Perde son satırdan sonra 1,0 sn'de kapanır, müzik onunla söner: bittiğinde ekran karadır ve sessizdir, I. Perde'nin kara ekranı ve çanı oradan açılır. bed ve cue sahnenin olaylarıdır (prologue_bridge.gd → AudioManager). Satır yeniden okunursa video yeniden işlenir (test_bridges.gd).",
+	"scene": "res://scenes/cine/bridge.tscn",
+	"world": "none",
+	"view": "overlay",
+	"length": "act0.narr.7_end+1.7",
+	"events": [
+		{"t": 0, "type": "release_camp"},
+		{"t": 0, "type": "fade", "to": 1, "dur": 0},
+		{"id": "open", "t": 0, "type": "fade", "to": 0, "dur": 0.6},
+		{"t": 0, "type": "shot", "name": "road"},
+		{"t": 0, "type": "music", "bank": "prologue_myth", "state": "myth", "fade": 0.6},
+		{"t": 0, "type": "bed", "bed": "wind_steppe", "db": -16, "dur": 0.6},
+		{"t": 0.6, "type": "line", "line": "act0.narr.6"},
+		{"t": "act0.narr.6+0.5", "type": "cue", "sfx": "horse_snort", "db": -22, "pitch": 0.92},
+
+		{"t": "act0.narr.6+3.3", "type": "shot", "name": "gate"},
+		{"t": "gate", "type": "bed", "bed": "wind_steppe", "db": -22, "dur": 0.8},
+
+		{"t": "act0.narr.6+4.75", "type": "shot", "name": "ankle"},
+		{"id": "tie", "t": "act0.narr.6+5.04", "type": "cue", "sfx": "bell_step", "db": -13, "pitch": 1.0},
+		{"t": "act0.narr.6+5.78", "type": "cue", "sfx": "bell_step", "db": -16, "pitch": 1.04},
+
+		{"t": "act0.narr.6+6.3", "type": "shot", "name": "counted"},
+		{"t": "act0.narr.6+7.02", "type": "cue", "sfx": "notch", "db": -13, "pitch": 1.0},
+		{"t": "act0.narr.6+8.08", "type": "cue", "sfx": "notch", "db": -12, "pitch": 0.94},
+		{"t": "act0.narr.6_end+0.2", "type": "cue", "sfx": "bell_step", "db": -24, "pitch": 1.0},
+		{"t": "act0.narr.6_end+0.9", "type": "line", "line": "act0.narr.7"},
+		{"t": "act0.narr.7+1.2", "type": "cue", "sfx": "bell_step", "db": -26, "pitch": 0.98},
+		{"t": "act0.narr.7+2.5", "type": "cue", "sfx": "bell_step", "db": -26, "pitch": 1.02},
+
+		{"t": "act0.narr.7+3.4", "type": "shot", "name": "bell"},
+		{"t": "bell", "type": "bed", "bed": "wind_steppe", "db": -28, "dur": 0.8},
+		{"t": "bell+0.55", "type": "cue", "sfx": "bell_step", "db": -14, "pitch": 1.0},
+		{"t": "bell+2.05", "type": "cue", "sfx": "bell_step", "db": -14, "pitch": 0.98},
+
+		{"id": "close", "t": "act0.narr.7_end+0.4", "type": "fade", "to": 1, "dur": 1.0},
+		{"t": "close-0.6", "type": "layer", "layer": "kopuz", "db": -80, "dur": 1.0},
+		{"t": "close", "type": "layer", "layer": "drone", "db": -80, "dur": 1.2},
+		{"t": "close", "type": "bed", "bed": "wind_steppe", "db": -80, "dur": 1.2}
+	]
+}

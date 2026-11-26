@@ -1,0 +1,18 @@
+{
+	"id": "act0.storm.boru_scared",
+	"take": 0,
+	"seed": 719822875,
+	"hash": "2ae7a01b5e5b",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 3.12,
+	"words": [
+		{"w": "My", "t0": 0.0, "t1": 0.24},
+		{"w": "sister", "t0": 0.286, "t1": 0.56},
+		{"w": "was", "t0": 0.62, "t1": 0.8},
+		{"w": "crying", "t0": 0.857, "t1": 1.2},
+		{"w": "out.", "t0": 1.26, "t1": 1.52},
+		{"w": "I'm", "t0": 1.8, "t1": 2.24},
+		{"w": "scared.", "t0": 2.343, "t1": 3.12}
+	]
+}

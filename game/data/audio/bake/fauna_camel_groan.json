@@ -1,0 +1,148 @@
+{
+  "id": "camel_groan",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 2.3,
+  "rate": 16000,
+  "seed": 7151,
+  "loop": false,
+  "source": "code",
+  "note": "Deve homurtusu (ses-tasarimi.md §7.2: F0 80–160 Hz, 20–30 Hz genlik gurultusu, burun biçimlendiricisi). Kışlak'ın çevresindeki develer. Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              86
+            ],
+            [
+              0.63,
+              146.2
+            ],
+            [
+              1.26,
+              124.7
+            ],
+            [
+              2.1,
+              77.4
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.15,
+              1
+            ],
+            [
+              1.5750000000000002,
+              0.8
+            ],
+            [
+              2.1,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              480,
+              3,
+              1
+            ],
+            [
+              1050,
+              4,
+              0.6
+            ],
+            [
+              2100,
+              5,
+              0.2
+            ]
+          ],
+          "vib": 20,
+          "vib_rate": 3.5,
+          "jitter": 14,
+          "breath": 0.25,
+          "growl": 0.72,
+          "growl_rate": 24
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              98
+            ],
+            [
+              0.57,
+              166.6
+            ],
+            [
+              1.14,
+              142.1
+            ],
+            [
+              1.9,
+              88.2
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.15,
+              1
+            ],
+            [
+              1.4249999999999998,
+              0.8
+            ],
+            [
+              1.9,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              480,
+              3,
+              1
+            ],
+            [
+              1050,
+              4,
+              0.6
+            ],
+            [
+              2100,
+              5,
+              0.2
+            ]
+          ],
+          "vib": 20,
+          "vib_rate": 3.5,
+          "jitter": 14,
+          "breath": 0.25,
+          "growl": 0.72,
+          "growl_rate": 24
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.feast.walk",
+	"take": 0,
+	"seed": 4268568562,
+	"hash": "fe6d2ff2b870",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 2.56,
+	"words": [
+		{"w": "Nobody", "t0": 0.0, "t1": 0.48},
+		{"w": "goes", "t0": 0.544, "t1": 0.8},
+		{"w": "to", "t0": 0.827, "t1": 0.88},
+		{"w": "a", "t0": 0.96, "t1": 1.04},
+		{"w": "watch-night", "t0": 1.093, "t1": 1.6},
+		{"w": "empty-handed.", "t0": 1.653, "t1": 2.56}
+	]
+}

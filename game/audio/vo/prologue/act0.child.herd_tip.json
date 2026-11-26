@@ -1,0 +1,18 @@
+{
+	"id": "act0.child.herd_tip",
+	"take": 0,
+	"seed": 7779253,
+	"hash": "0076b3b5b8dc",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 3.2,
+	"words": [
+		{"w": "Walk", "t0": 0.0, "t1": 0.16},
+		{"w": "behind", "t0": 0.217, "t1": 0.56},
+		{"w": "them.", "t0": 0.624, "t1": 0.96},
+		{"w": "They", "t0": 1.248, "t1": 2.4},
+		{"w": "run", "t0": 2.46, "t1": 2.64},
+		{"w": "from", "t0": 2.688, "t1": 2.88},
+		{"w": "you.", "t0": 2.94, "t1": 3.2}
+	]
+}

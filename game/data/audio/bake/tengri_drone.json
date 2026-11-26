@@ -1,0 +1,15 @@
+{
+  "id": "tengri_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "sky_f",
+  "tempo": 48,
+  "bars": 8,
+  "mode": "major_pent",
+  "seed": 4801,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2,
+  "source": "code",
+  "note": "tengri'nin 0. katmanı: gök dronu F2 üstünde açık beşli ve ıslık (8, 10, 9, 12. harmonikler: F A G C, hepsi kipte). Önsöz'ün gök panosu, tengri durumu (audio.md §3: majör pentatonik kök F, 48; koro açık beşli D–A, kıl kobuz ana renk, hucia; kopuz yok). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

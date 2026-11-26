@@ -1,0 +1,16 @@
+{
+	"id": "act0.milk.churn_done",
+	"take": 0,
+	"seed": 420526267,
+	"hash": "1910b8bb7a1f",
+	"model": "eleven_v3",
+	"voice": "VNHNa6nN6yJdVF3YRyuF",
+	"seconds": 2.24,
+	"words": [
+		{"w": "Twenty.", "t0": 0.0, "t1": 0.88},
+		{"w": "You've", "t0": 0.96, "t1": 1.36},
+		{"w": "a", "t0": 1.4, "t1": 1.44},
+		{"w": "strong", "t0": 1.497, "t1": 1.84},
+		{"w": "arm.", "t0": 1.92, "t1": 2.24}
+	]
+}

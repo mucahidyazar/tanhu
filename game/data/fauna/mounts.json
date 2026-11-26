@@ -1,0 +1,158 @@
+{
+	"version": 1,
+	"doc": "Binekler (fauna.md §2.1, §10; godot.md §3 «Binicilik», §6.7; K65). Mount (scripts/sim/riding/mount.gd) okur. Her satır bir binek türüdür; zorunlu alanlar fauna.md'nin sütunlarıdır: base koşu tuşuyla varılan hız (atta dörtnal), trot tırıs hızı (m/sn), stamina at staminası çarpanı, load terki yükü, fall_damage düşüşte hasar. Öteki alanlar binişin ayarıdır, yazılmazsa Mount.DEFAULTS geçer: walk adım hızı (m/sn; hızlanırken ve yavaşlarken yürüme klibi bunun çevresinde oynar), accel, decel (m/sn²), turn dönüş keskinliği, radius engel yarıçapı (m), reach binme erimi (m), mount_s ve dismount_s geçiş süresi (sn), dismount_side inilen noktanın eksenden uzaklığı (m), graze_every otlamak için durma aralığı (sn; 0 ya da yoksa binek otlamaz, atın satırı böyledir). stride yürüyüşün, tırısın ve dörtnalın adım boyu (m; fauna.md yürüyüş tablosu, plan bovid_s, omuz 0,75 m). Koyunun dörtnal klibi yoktur: base hızlı tırıstır, tırıs klibi (run, 2,5 m/sn) en çok 1,23 kat hızlanır, bu yüzden 3 m/sn ve dörtnal adımı tırısınkidir. seat binicinin oturduğu yer ve pozun ölçüleri (metre, binek düğümünün uzayında, ön +Z): saddle_y sırtın yünü (binicinin oturduğu yüz), saddle_z ileri payı; ikisi modelin ölçüsünden okunur (<model>.json: saddle_y, saddle_z; tools/blender/quadruped_rig.py yazar), buradaki değer yalnız model yokken geçer ve modelinkine eşittir. Binicinin kalçası sırtın kendi oturuş yüksekliği kadar üstündedir (ClipLibrary.hips_height_for, sit); straddle bu yüksekliğe eklenen ata ata binişin payıdır (m; yerde bağdaşta kalçanın altı yere değer, atta uyluğun içi ve eteği eyere: 2026-11-08 ölçüsüyle 4,5 cm, eteğin arka katı eyere girmesin, K58 M6, M9). girth uyluk hizasında gövdenin yarı genişliği, shin_girth baldır hizasında (atta 2026-11-08 ölçüsüyle 0,35 ve 0,37: binicinin dizi ve kavalı gövdeye 1 cm'den az girer, K58 M10; RideFit, test_mete_riding.gd), hand_forward, hand_up, hand_side elin kalçaya göre yeri. Kampın atı (horse, 2026-11-07): ahırdaki iki atın satırı. I. Perde'nin binekleri (2026-11-08, Yol Haritası riding; progression.md §6.4): yakwe, offering_stallion, spare_horse; like «horse» satırından başlar (aynı model ve klipler), kendi base, trot, stamina (at staminası çarpanı: gider bölünür), load (terki) ve klip eşikleri walk_top, gallop_from'u (RideableHorse.role_for; satırın adımıyla tırısı ve tırısıyla dörtnalı arası) yazar; Yakve mahmuzsuzdur (spur 0, act1.md §6.4 «Mahmuz yok»), Adak Aygırı eyersiz ve gemsiz gelir (act1.md §8.8: eyeri 20 sn'de vurulur). Atı tutma (catch_s, 2026-11-09, Yol Haritası mount-bond-actions): başı çıplak at (bridle yuvası boş: ahırdaki eyersiz, yularsız at, Adak Aygırı) yanaşmadan sonra yeleden tutulur, catch_s × (1 − Bağ/100) sn bekler; yular ya da gem takılı at hemen tutulur (yuların «binme süresi −1 sn»si çıplak başa göredir; MountStable.take_seconds, PlayerController.mount_take_seconds). Atın ek alanları: input_gait «walk» ise giriş adım yürütür, koşu tuşu önce tırıs, gallop_after_s saniye basılı kalınca dörtnal (Mount.step); turn_fast dörtnaldaki dönüş keskinliği (hızla turn'den ona iner), half_length gövdenin yarı boyu (çarpışma: önde ve arkada iki daire), mount_style «vault» binicinin yanaşıp sıçrayarak oturması (koyunda «hop»), riders binebilenler (child, adult; yoksa herkes). Adım boyları atın kliplerindendir (assets/animals/horse_brown/horse_brown.json; tools/blender/quadruped_horse.json): adım 1,5 m, tırıs 2,3 m, dörtnal 3,9 m. Mahmuz (spur, 2026-11-08; act1.md §10, progression.md §2.3 spur +3): dörtnalda koşu tuşunu bırakıp spur_tap_s içinde yeniden basmak mahmuzlar, at spur kadar hızlanır ve staminası (0,27 − 0,09 × Bağ/100)/sn gider (eyersiz ×1,3); stamina biterse at soluğu kesilir, spur_min'e dolana dek mahmuz yoktur (Mount). gear satırın varsayılan at eşyasıdır (MountStable bineğin ilk kaydında takar; kampın atlarının modelinde eyer ve gem vardır: Keçe Eyer, Kemik Gem; üzengi dönem dışıdır, K58). Sıçrama (jump, 2026-11-08; Boşluk binekteyken): yalnız satırında jump olan binek sıçrar (at); koyunun satırında yoktur, koyun binicisini taşır, sıçramaz. height gövdenin havadaki yayının tepesi (m), air_s havada kalış (sn): üç değer duruş, tırıs ve dörtnal hızındadır, arası doğrusal (durarak 0,3 m ve 0,5 sn, dörtnalda 0,78 m ve 0,72 sn: ≈7,5 m yol). run_from'dan hızlısı koşarak sıçramadır (hız korunur, inişte land_keep'i kalır; hazırlık prep_s'in ikincisi), yavaşı durarak (at toplanır, push hızıyla fırlar). land_rate inişin klip hızı (durarak, koşarak), air_turn havadaki dönüşün payı. Klibi atın modelindedir (assets/animals/horse_*/<id>.json clips.jump; tools/blender/quadruped_horse.json).",
+	"mounts": {
+		"sheep": {
+			"tr": "Koyun",
+			"en": "Sheep",
+			"plan": "bovid_s",
+			"base": 3.0,
+			"trot": 2.5,
+			"walk": 1.1,
+			"stamina": 1.0,
+			"load": 0.0,
+			"fall_damage": false,
+			"accel": 5.0,
+			"decel": 7.0,
+			"turn": 6.0,
+			"radius": 0.42,
+			"reach": 1.35,
+			"mount_s": 0.62,
+			"dismount_s": 0.56,
+			"dismount_side": 0.85,
+			"graze_every": 10.0,
+			"stride": {
+				"walk": 0.86,
+				"trot": 1.19,
+				"gallop": 1.19
+			},
+			"seat": {
+				"saddle_y": 0.707,
+				"saddle_z": 0.03,
+				"girth": 0.23,
+				"shin_girth": 0.21,
+				"hand_forward": 0.26,
+				"hand_up": -0.03,
+				"hand_side": 0.1
+			},
+			"riders": [
+				"child"
+			]
+		},
+		"horse": {
+			"tr": "At",
+			"en": "Horse",
+			"plan": "equid",
+			"base": 10.5,
+			"trot": 4.0,
+			"walk": 1.6,
+			"input_gait": "walk",
+			"gallop_after_s": 0.9,
+			"stamina": 1.0,
+			"load": 50.0,
+			"fall_damage": true,
+			"accel": 4.5,
+			"decel": 6.5,
+			"turn": 4.5,
+			"turn_fast": 1.9,
+			"radius": 0.42,
+			"half_length": 0.62,
+			"reach": 2.1,
+			"mount_style": "vault",
+			"mount_s": 0.62,
+			"catch_s": 1.0,
+			"dismount_s": 0.6,
+			"dismount_side": 0.95,
+			"riders": [
+				"child",
+				"adult"
+			],
+			"stride": {
+				"walk": 1.5,
+				"trot": 2.3,
+				"gallop": 3.9
+			},
+			"seat": {
+				"saddle_y": 1.291,
+				"saddle_z": -0.03,
+				"straddle": 0.045,
+				"girth": 0.35,
+				"shin_girth": 0.37,
+				"hand_forward": 0.3,
+				"hand_up": 0.06,
+				"hand_side": 0.09
+			},
+			"jump": {
+				"run_from": 2.6,
+				"height": [
+					0.3,
+					0.6,
+					0.78
+				],
+				"air_s": [
+					0.5,
+					0.62,
+					0.72
+				],
+				"prep_s": [
+					0.3,
+					0.12
+				],
+				"land_rate": [
+					1.0,
+					1.3
+				],
+				"push": 2.5,
+				"land_keep": 0.88,
+				"air_turn": 0.15
+			},
+			"spur": 3.0,
+			"spur_tap_s": 0.3,
+			"spur_min": 0.3,
+			"walk_top": 2.6,
+			"gallop_from": 6.2,
+			"gear": {
+				"saddle": "saddle_felt",
+				"bridle": "bridle_bone"
+			}
+		},
+		"yakwe": {
+			"like": "horse",
+			"tr": "Yakve",
+			"en": "Yakwe",
+			"base": 8.5,
+			"trot": 5.5,
+			"stamina": 0.8,
+			"load": 40.0,
+			"spur": 0.0,
+			"walk_top": 3.55,
+			"gallop_from": 7.0
+		},
+		"offering_stallion": {
+			"like": "horse",
+			"tr": "Adak Aygırı",
+			"en": "Offering Stallion",
+			"base": 12.0,
+			"trot": 6.4,
+			"stamina": 1.0,
+			"load": 50.0,
+			"walk_top": 4.0,
+			"gallop_from": 9.2,
+			"gear": {
+				"saddle": null,
+				"bridle": null
+			}
+		},
+		"spare_horse": {
+			"like": "horse",
+			"tr": "Yedek At",
+			"en": "Spare Horse",
+			"base": 10.0,
+			"trot": 6.0,
+			"stamina": 0.9,
+			"load": 30.0,
+			"walk_top": 3.8,
+			"gallop_from": 8.0
+		}
+	}
+}

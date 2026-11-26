@@ -1,0 +1,667 @@
+{
+ "taken": "2026-11-04",
+ "callouts": [
+  {
+   "id": "c01",
+   "kind": "ACIK",
+   "page": "buildings/catalog",
+   "line": 112,
+   "section": "Öteki yapılar",
+   "text": "Ağaç Atölyesi'nin kademesi: [settlement.md §4.1](/docs/source/design/settlement#4-1-tablo) kademe 1'de dülger varsa açar, §7.5 tablosu kademe 2 yazar. İlk dülger II. Perde'nin ilk aileleriyle geldiği için bu sayfa §4.1'i izledi."
+  },
+  {
+   "id": "c02",
+   "kind": "CELISKI",
+   "page": "buildings/construction-labour",
+   "line": 192,
+   "section": "Not ile K21",
+   "text": "**Yurt süresi.** Notun 60 / 45 / 33,75 dk diyor: her ek kişi süreyi 0,75 ile çarpar, T(n) = 60 × 0,75^(n−1). K21 60,0 / 30,6 / 21,7 dk diyor: eff(W) = min(W, 10·(1 − 0,9^W)). İkisi yalnız 1 elde aynıdır.\n\n| El | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n|---|---|---|---|---|---|---|---|---|\n| Not, gerçek dk | 60,00 | 45,00 | 33,75 | 25,31 | 18,98 | 14,24 | 10,68 | 8,01 |\n| K21, gerçek dk | 60,0 | 30,6 | 21,7 | 17,3 | 14,7 | 13,0 | 11,9 | 11,2 |\n| Not, oyun saati | 24 sa | 18 sa | 13 sa 30 dk | 10 sa 8 dk | 7 sa 36 dk | 5 sa 42 dk | 4 sa 16 dk | 3 sa 12 dk |\n| K21, oyun saati | 24 sa | 12 sa 14 dk | 8 sa 40 dk | 6 sa 54 dk | 5 sa 52 dk | 5 sa 11 dk | 4 sa 46 dk | 4 sa 28 dk |\n| Not, işçi × dk | 60 | 90 | 101 | 101 | 95 | 85 | 75 | 64 |\n| K21, işçi × dk | 60 | 61 | 65 | 69 | 73 | 78 | 83 | 89 |\n\n2–6 elde K21 daha kısa, 7 ve 8 elde not daha kısadır. K21'de her yeni el toplam emeği biraz artırır. Notta toplam emek 3–4 elde tepe yapar, sonra düşer.\n\n**«Çadır» sözü.** Notta yurt anlamında kullanılmış. Tasarımda çadır (`tent`) ayrı, daha küçük bir yapıdır: 216 İD; 1 el 9,0, 2 el 4,1, 4 el 2,3 gerçek dk ([Yurtlar ve Çadırlar](/docs/buildings/yurts)). Bu tablo yurdu karşılaştırır.\n\n**Not benimsenirse değişenler.**\n\n**1. Üçüncü yurdun saat çizelgesi.** Aynı adım emekleri ve öğün sırası, yalnız ekip verimi notun eğrisi: (4/3)^(W−1). Aynı hesap K21 eğrisiyle yukarıdaki dört saati birebir verir.\n\n| Durum | K21 ilk duman | Not ilk duman | K21 gerçek dk | Not gerçek dk |\n|---|---|---|---|---|\n| Yardımsız | 00:55 | ≈05:25 | 25,0 | ≈36,3 |\n| Yalnız ayak işi | 00:27 | ≈05:01 | 23,9 | ≈35,3 |\n| Yalnız katılma | 23:37 | ≈03:33 | 21,8 | ≈31,6 |\n| Katılma ve ayak işi | 23:11 | ≈03:13 | 20,7 | ≈30,8 |\n\nTündük 18:02'den ≈19:57'ye, bütün yardımla 17:34'ten ≈19:05'e gider: ikisi de batıştan (18:38) sonradır. 22:30'da yurt aşama 3 ya da 4'tedir (K21'de 6 ya da 7), «Aile bekler» kuralı (aşama ≥5) tetiklenmez; ilk dumanı gece ateş başında gören kalmaz. Kural ya da ekip yeniden yazılır.\n\n**2. Kışlak.** Nanay ve iki el 21,7 yerine 33,75 dk. Gün V yaması 07:00–08:42 yerine ≈07:00–09:35. `act1.md` §9.3 takvimi yeniden hesaplanır.\n\n**3. Kademe günleri ve econ-sim.** K24 hedefleri aynı kalır (T1 Ocak … T5 Tanhu Avlusu): T1 2–5, T2 2,5–7, T3 3–8, T4 4–9, T5 4–12. Sim kurmayı tipik 4 elle sayar: ekip payı ×1,16 yerine ×1,69, kurma emeği ve meşale ×1,45. Bugünkü `econ-sim` çıktısı ile eğrisi değiştirilmiş geçici kopyası (proje dosyası değişmedi): T1 2,2 → 2,3; T2 3,0 → 3,4; T3 7,2 → 7,8; T4 4,6 → 4,9; T5 Surlu 6,7 → 7,3; T5 Göçer 7,8 → 8,1 gün. Hepsi hedefte kalır, T3 üst sınıra yaklaşır. Resmî koşu yeniden yapılır.\n\n**4. Veri ve kod.** `labour-model.json` (`law`, `crew`, `scenarios`), `src/game/labour.js` (`eff` ve sınaması), `structures.md` §2.4 ve §17 kabul sayıları, `d2/core.md` §2.3 ve §2.11, K21'in metni. Tezgâhlar da aynı `eff`'i okur: eğri yalnız yurda mı, bütün işe mi uygulanacak ayrıca seçilir.\n\n**5. Adım tablosu ve tavan.** Notun sayılarına bugünkü adımlarla tam varılmaz: ekip emeği 1.376 İD, ocak tek el, bosağa ve tündük en çok 6 el olduğundan hesap 2 elde 43,2, 3 elde 32,6, 8 elde 9,4 dk verir. Tam 45 ve 33,75 için adımlar ya da el sınırları yeniden ölçeklenir. Formülün tavanı da yoktur: Otağ'ın 12 eli 150 × 0,75^11 = 6,3 dk verir (K21 22,4).\n\n**6. Oyuncunun seçimi.** K21'de 8 eli ikiye bölmek kazandırır: iki yurt 4 + 4 elle 17,3 dk, 8 elle sırayla ≈22,4 dk. Notta toplamak kazandırır: 25,3 dk ve 16,0 dk. Çocuğun ve çırağın katkısı da düşer: usta + Çocuk 39,8 → 52,0 dk; usta + çırak 34,4 → 48,4 dk."
+  },
+  {
+   "id": "c03",
+   "kind": "ACIK",
+   "page": "buildings/construction-labour",
+   "line": 231,
+   "section": "Not ile K21",
+   "text": "- K21 ve `d2/core.md` §2.10 Çocuğun yardımını «sekiz tür» diye sayar; `structures.md` §11.6 altı fiil ve üç ayak işi, toplam dokuz ad listeler.\n- `economy.md` §10.6'daki kademe günü sonuçları (T1 3,0; T2 2,7; T3 3,4; T4 4,4; T5 4,1 ve 4,9) bugünkü `econ-sim` çıktısıyla (2,2; 3,0; 7,2; 4,6; 6,7 ve 7,8) aynı değil. Belge tablosu geçici bir koşudan basılmış, henüz yenilenmemiş. Hedefler iki koşuda da tutuyor."
+  },
+  {
+   "id": "c04",
+   "kind": "ACIK",
+   "page": "buildings/yurts",
+   "line": 81,
+   "section": "İç tasarımlar",
+   "text": "Ad kesişiyor. «Bey Otağı» adlı iç tasarım Otağ yapısında kullanılmıyor: Tanhu Otağı'nın içi Şölen Yurdu'dur, Bey Otağı içi Yurt B'de ve Elçi Yurdu'ndadır ([structures.md §3.5](/docs/source/design/structures#3-5-hazir-ayarlar)). Belgeler bunu ele almıyor."
+  },
+  {
+   "id": "c05",
+   "kind": "CELISKI",
+   "page": "buildings/yurts",
+   "line": 97,
+   "section": "Boylar",
+   "text": "Notun yurtlar için 3 büyüklük istiyor. Bugünkü tasarımda yurt gövdesi tek boydur: hane yurdu r ≈7 m ve aynı gövdeyi paylaşan yapılar. Üstünde yalnız Otağ vardır (×1,4, r 9,9), o da Mete'nin avlusudur. Hane yurdundan küçük yurt yoktur; altındaki basamak ayrı bir yapı olan çadırdır (r 2,6).\n\nNot benimsenirse: yeni bir yapı türü, onun emek ve malzeme satırı, kademe yeri gerekir (`labour-model.json`, `economy.md` §6.12, `settlement.md` §4.1 ve §7.2, `structures.md` §3.5). Kerege takımı ve uuk demeti bölünmediği için iki yeni parça tarifi gerekir. Kademe bileşimi ve ekonomi koşusu yenilenir."
+  },
+  {
+   "id": "c06",
+   "kind": "ACIK",
+   "page": "buildings/yurts",
+   "line": 129,
+   "section": "Boylar",
+   "text": "[settlement.md §7.2](/docs/source/design/settlement#7-2-konut) Otağ pedine r 11,5 der. Ölçek kuralı (§3.5) 8,5 × 1,4 = 11,9 verir."
+  },
+  {
+   "id": "c07",
+   "kind": "ACIK",
+   "page": "development/architecture",
+   "line": 227,
+   "section": "Açık sorular",
+   "text": "Üstünlük sırası iki yerde farklı okunuyor. `d2/core.md` ve bu sitenin yazım kuralı `architecture.md`'yi alan belgelerinin üstüne koyar. `architecture.md`'nin kendi girişi «Sayı için alan belgesi, arayüz için bu belge kazanır» der. Bir sayı ikisinde farklıysa hangisi geçerli?"
+  },
+  {
+   "id": "c08",
+   "kind": "ACIK",
+   "page": "development/architecture",
+   "line": 230,
+   "section": "Açık sorular",
+   "text": "`architecture.md` §7 Serbest Gez için en çok 4,06 milyon üçgen yazar, aynı bölümün K27 ölçümü en kötü pozda 4,40 milyon, 429 çizim verir ve «yön bütçeyi aşmaz» der. Dış arazi (K27) sonrası tablo satırı güncellenmeli mi, yoksa bütçe aşılıyor mu?"
+  },
+  {
+   "id": "c09",
+   "kind": "ACIK",
+   "page": "development/architecture",
+   "line": 233,
+   "section": "Açık sorular",
+   "text": "`architecture.md` §2.7 aynı işe iki süre verir: Faz 7 ölçümünde kamp değişimi 1,5–1,7 sn, birkaç satır altında kampa dönüş kurulumu 4,5–7 sn, en kötü 17 sn. İkinci sayı Faz 7'den eski görünüyor."
+  },
+  {
+   "id": "c10",
+   "kind": "ACIK",
+   "page": "economy/balance",
+   "line": 76,
+   "section": "Kademe günleri",
+   "text": "Belgeler bu koşunun gerisindedir. K24, [d2/core.md §5.9](/docs/source/design/d2/core#5-9-model-ve-benzetim) ve [economy.md §10.8](/docs/source/design/economy#10-8-denge-modeli) «bugünkü koşu K24 öncesidir» der. [d2/core.md §7.1](/docs/source/design/d2/core#7-1-dogrulama-turu-2026-11-03-v1-v39) durum notu sim ve modelin K24'te olduğunu, tabloların son koşudan sonra yeniden basılacağını yazar. Bugünkü koşu K24 hedefleriyle 0 işaret verir; yeniden basım yapılmadı.\n\n| Kademe günü | T1 | T2 | T3 | T4 | T5 Surlu | T5 Göçer |\n|---|---|---|---|---|---|---|\n| economy.md §10.6 | 3,0 | 2,7 | 3,4 | 4,4 | 4,1 | 4,9 |\n| d2/core.md §7.1 durum notu | 2,2 | 3,0 | 6,9 | 4,6 | 6,7 | 7,8 |\n| 2026-11-04 koşusu | 2,2 | 3,0 | 7,2 | 4,6 | 6,7 | 7,8 |\n\nAynı gerilik §7.1'in yem ve ot sütunlarında (T1 derin kar 31, koşuda 33), §8.5'in hanenin gününde, §10.7'nin perde dakikasında (II 70,7, koşuda 62,6) ve §10.8'in baskın kaybında da var. Derin kar payı da ayrışır: [d2/core.md §3.6](/docs/source/design/d2/core#3-6-kar-ortusu-ve-kar-kabugu-zud) ve [economy.md §3.11](/docs/source/design/economy#3-11-suru) Tanhu Ordusu için %13,5 yazar, `weather-model.json` ve koşu %16,0 kullanır."
+  },
+  {
+   "id": "c11",
+   "kind": "ACIK",
+   "page": "economy/inventory-load",
+   "line": 93,
+   "section": "Terki",
+   "text": "[economy.md §3.1](/docs/source/design/economy#3-1-etkilesim-kurallari) at üstünde toplanmaz, düğüme tıklamak önce indirir der. [§4.7](/docs/source/design/economy#4-7-terki-binek-ve-kervan-yuku) ve [progression.md §6.4](/docs/source/design/progression#6-4-binek) «atlıyken toplanan önce heybeye, dolunca terkiye» der. Atlıyken neyin toplandığını belge söylemez."
+  },
+  {
+   "id": "c12",
+   "kind": "ACIK",
+   "page": "economy/money-traders",
+   "line": 99,
+   "section": "Hazine",
+   "text": "Sürü Kıymeti: belge yalnız koyunu (48) ve atı (336) yazar. Econ-sim sığırı 120 sayar, Han arabası ganimetinin 175,2'si bundan çıkar. Takas kodu sığırı at eşdeğeriyle 336, keçiyi 40, deveyi 437 sayar. Belge hangisinin geçerli olduğunu söylemez.\n\nTahıl Çuvalı: [economy.md §9.4](/docs/source/design/economy#9-4-sonraki-ticaret-mallari) ilk perdesini V yazar, [§9.5](/docs/source/design/economy#9-5-ii-perde-ve-sonrasi-saticilari) Hexi vahası IV'te satar.\n\nArbalet okunun Kıymeti yazılı değildir; ganimet hesabı onu 0 sayar."
+  },
+  {
+   "id": "c13",
+   "kind": "CELISKI",
+   "page": "economy/money-traders",
+   "line": 115,
+   "section": "Para birimi sorusu",
+   "text": "**Notun:** «yine bir para birimi ve bu parayı harcayacak satıcılar etc olacak».\n\n**Tasarım:** para yok, satıcılar var. [economy.md §9.1](/docs/source/design/economy#9-1-kural): gümüş ve tunç tartılır, sayılmaz; satıcı takas eder, ölçü gizli Kıymet'tir, oyuncu sayı görmez. [progression.md §16.1](/docs/source/design/progression#16-1-istek-ve-tasarim-celiskileri) karar 6: rastgele ganimet, aşınma ve para «hepsi yok». [economy.md §14](/docs/source/design/economy#14-kararlar-ve-sapmalar) karar 8'in gerekçesi: modern para hissi olmasın, kod yine tek sayıyla çalışsın. Notunun satıcı yarısı tasarımda zaten var, para birimi yarısı yok.\n\n**Para eklenirse ne değişir:**\n\n- **Fiyat ölçeği değişmez.** Kıymet zaten fiyattır: 1 Aş 4, 1 Ham Deri 8, 1 Demir Külçe 16, 1 Gümüş Parça 32, 1 koyun 48, Yurt Yükü 240, 1 at 336. Yeni fiyat listesi gerekmez, oran seçilir.\n- **Satıcı formülü değişir.** Para her satıcıda `sellK` 1 sayılan mal olur. Bugün satıcının almadığı mal (`sellK` 0) o takasa giremez, her alışveriş uygun mal ister. Parayla alım ve satım iki ayrı işleme döner. «Üstü verilmez» kuralı yeniden yazılır. %11 kâr tavanı ve stok sınırı kalır, ama kâr için satıcının istediği mal elde olmak gerekmez.\n- **Terazi değişir.** Bugün kefe, kiriş, «Denk / Eksik / Fazla» var, sayı yok. Para sayıyla gösterilecekse fiyat etiketi ve kese gerekir. Yalnız kefeye konacaksa Terazi kalır.\n- **Gizli Kıymet görünür olabilir.** Bilerek kayıplı tarifler (Kak, Kurut, Kömür, külçe), Söz'ün −%3'ü ve bağın etkisi sayıyla okunur. Kıymet ayarı oyuncuya görünen fiyat değişikliğine döner.\n- **Tarih gerekçesi.** Belge Han sikkesini V. Perde'ye koyar ve onu da tartar. Araştırma belgelerinde para üstüne ayrı kaynak yoktur: gerekçe bu satırlardır. Para I. Perde'den varsa bu çerçeve yeniden yazılır.\n- **Bağlı kurallar.** Yol bedeli (Aş, Kıymet ÷ 4), Hazine'nin «sayı yok» defteri, ganimet paylaşımı ve Kurultay dağıtımı parayla da ölçülür mü sorusu açılır.\n- **I. Perde.** K24 I. Perde'nin sayılarını dondurur. Satıcı tabloları oradadır, para oraya girerse bu kuralın kapsamı konuşulur."
+  },
+  {
+   "id": "c14",
+   "kind": "ACIK",
+   "page": "gameplay/army",
+   "line": 192,
+   "section": "Ordugâh (K23)",
+   "text": "II. Perde ve sonrası taslaktır: ölçek tablosu, olay değerleri ve talim ekonomisi II. Perde yazılınca ayarlanır (`army.md` §13). Yedek usta Eski Binbaşı, Mete'nin anasının hanesi ve ret sahnelerinin metni yazılmadı. Toplu savaşın kuralı (≤100 gerçek ok, üstü oran formülü) tahmindir. Belge Barfield 1981 ve Di Cosmo 2002'yi taramadığını, II. Perde yazılırken okunması gerektiğini söyler."
+  },
+  {
+   "id": "c15",
+   "kind": "CELISKI",
+   "page": "gameplay/camera-controls",
+   "line": 134,
+   "section": "Tuş tablosu",
+   "text": "Notun «istediğim açılara» diyor. K27 yalnız yatay açıyı oyuncuya verir: 360° döner, eğim ön ayarda kalır (yürürken 28°, atta 22°). Oyuncu eğimi değiştiremez; kamera yalnız engele çarpınca kendiliğinden en çok 64°'ye yükselir. Not yalnız yatay açıyı kastediyorsa ayrışma yoktur. Eğimi de kastediyorsa K27'ye dikey bir girdi eklenir ve 28°'ye göre hesaplanan kadraj sayıları (ileri 79 m, üst ışın ufkun 9° altında, gök görünmez) sabit kalmaz: `act1.md` §4'ün seviye kuralları yeniden hesaplanır."
+  },
+  {
+   "id": "c16",
+   "kind": "ACIK",
+   "page": "gameplay/camera-controls",
+   "line": 137,
+   "section": "Tuş tablosu",
+   "text": "K27 kamerayı her yöne çevirirken I. Perde'nin kadraj hesapları kuzeye bakan kamerayla kalır. «Sana zarar verebilen her şey kadrajdadır» sözleşmesi ve takipçinin kadraj içine çıkması ([act1.md §10](/docs/source/design/act1#10-kovalamaca-kara-boran-black-blizzard)) dönük kamerada nasıl korunacak, belgelerde yazmıyor. Kovalamacada döndürme açık mı kalacak, o da yazmıyor."
+  },
+  {
+   "id": "c17",
+   "kind": "ACIK",
+   "page": "gameplay/camera-controls",
+   "line": 140,
+   "section": "Tuş tablosu",
+   "text": "Kamera dönüş hızı için ayar yok: hız 110°/sn'ye sabittir. Eski karar (`architecture.md` §8 karar 19) ayarı «Diablo kamerasında oyuncu yaw döndürmez» diye kaldırmıştı; K27 bu gerekçeyi ortadan kaldırdı, karar yeniden yazılmadı. K27 tuşları «yeniden atanabilir» diyor, ama atamayı kalıcı tutacak ayar anahtarı hâlâ açık istektir ([contract-requests.md](/docs/source/design/contract-requests))."
+  },
+  {
+   "id": "c18",
+   "kind": "ACIK",
+   "page": "gameplay/combat",
+   "line": 173,
+   "section": "Atlı dövüş",
+   "text": "Gizlilik sayıları I. Perde için kalibredir (koni 16 m, çan yarıçapları). Çan gittikten sonraki gürültü tablosu var, ama II. Perde ve sonrasının nöbetçi sayıları, koni menzilleri ve gizlilik görevleri yazılmadı. II+ düşman satırları da içerik yazılırken değişebilir."
+  },
+  {
+   "id": "c19",
+   "kind": "ACIK",
+   "page": "gameplay/fire-cooking-hunting",
+   "line": 176,
+   "section": "Serbest Gez ve sonraki perdeler",
+   "text": "Ateşe yakıt nasıl eklenir? `survival.md` §1 «besler» der, en çok 720 sn sınırı da bunu ister; ama ateşte `E` dokunuşu tarif çemberini, 3 sn basılı Dinlen'i açar. Yakıt ekleme girdisi yazılı değildir."
+  },
+  {
+   "id": "c20",
+   "kind": "CELISKI",
+   "page": "gameplay/open-world-quests",
+   "line": 142,
+   "section": "Görev yapısı",
+   "text": "Notun tutsaklıktan itibaren açık dünya ve GTA, RDR, Witcher, Diablo tarzı görevlere giderek ilerleyen bir senaryo diyor. Belgeler bu dört oyunu görev tasarımında örnek almaz. Tasarım: I. Perde 1.400×1.050 m'lik tek vadide altı günlük, saatli, hikâye sürükleyen bir perdedir; rehine vadiden çıkmaz. Sonrası tek parça dünya değildir: iç haritalar (1.400×1.050 m) ve 10–30 gerçek sn'lik atlas yolculuğu ([travel.md §0](/docs/source/design/travel#0-karar-ozeti): harita yürünmez).\n\n**Uyuşan.** Görevlere yürünerek gidilir. I. Perde'de 22 ana, 23 yan görev kişilerden ve yerlerden alınır. Seçimler aynı perdede yankılanır. Duvar yoktur, gizlice her yere gidilir. İkinci notun da kısıtı kabul eder: yerleşim ve ordugâh I. Perde'den sonradır (K23). II. Perde'den Serbest Dolaşım gelir.\n\n**Ayrışan.** (1) I. Perde'de vakit oyuncuyu çağırır, geç kalanı 3 sn karartmayla götürür; altı gün sabittir. (2) Alan 1,47 km²'dir, atlı uçtan uca 2,7 dk'da geçer. (3) Son Gece ve kovalamaca açık değildir: saat ve yol kilitlidir. (4) II. Perde'den sonra da iç haritalar arası yürünmez. (5) Perdeler takvimde başlar, aradaki yıllar Kronik'le atlanır.\n\n**Not tam benimsenirse.** I. Perde'nin vakit tablosu, karartma ve kilitleri kalkar ya da seçenek olur (`act1.md` §5, `time.md` §9, K20); Son Gece'nin süre dengesi ve sahne ışıkları yeniden kurulur. Haritanın yürünmesi 51.020 iç harita ya da gerçek km ölçeği ister: bellekte tek iç harita ve 1000 m = 1 atlas birimi kuralı değişir (`travel.md` §1)."
+  },
+  {
+   "id": "c21",
+   "kind": "ACIK",
+   "page": "gameplay/open-world-quests",
+   "line": 154,
+   "section": "Görev yapısı",
+   "text": "K25'in perde günü bütçesi (12–16 gün, ±%30) bir sayaç mıdır? Oyuncu bütçeyi aşarsa ne olur, perde neyle biter, belgeler yazmıyor."
+  },
+  {
+   "id": "c22",
+   "kind": "ACIK",
+   "page": "gameplay/open-world-quests",
+   "line": 157,
+   "section": "Görev yapısı",
+   "text": "II–VI. Perde'nin görev listesi yoktur: yalnız XP bütçesi ve `settlement.md` §2.1–§2.2'nin «hikâye alanına öneri» satırları var. «Görevlere giderek» yapının sonraki perdelerde nasıl görüneceği yazılmadı."
+  },
+  {
+   "id": "c23",
+   "kind": "CELISKI",
+   "page": "gameplay/overnight-camp",
+   "line": 54,
+   "section": "Eksik olan",
+   "text": "Notun oyuncunun malzemeyle küçük, tek gecelik kamp kurmasını istiyor. Tasarımda bu döngü yok: Uyu yalnız döşekte (K20), tanımlı döşekler Rehine Yurdu, aile döşeği ve kendi yurdun; `bedroll` tek cümlede adı geçen bir sözcüktür; `tent` 16 Yük, 216 İD ve 5 er içindir. Not benimsenirse K20 bozulmak zorunda değildir: çadırın içine döşek konur. Değişecek yerler: yeni bir karar; `time.md` §7.1 ve §7.3; `structures.md` §4.5'e yeni satır; `economy.md` §2.8 ve §6.10'a kimlik ve tarif; `survival.md` §2'nin çukur kuralı; `weather.md` §8.6 ve barınak listesi; `Y` tuşuna basılı tutuş. Karar senindir."
+  },
+  {
+   "id": "c24",
+   "kind": "ACIK",
+   "page": "gameplay/overnight-camp",
+   "line": 135,
+   "section": "Öneri",
+   "text": "Sağlam çadırın sökümü ne verir? `economy.md` §2.8 Çadır Yükü'nün kaynağına «Söküm» yazar. Aynı belgenin [§3.13](/docs/source/design/economy#3-13-sokum-ve-kurtarma)'ü yalnız yurdu bohça olarak verir, «öteki yapılar» için ham malzemenin yarısını yazar."
+  },
+  {
+   "id": "c25",
+   "kind": "ACIK",
+   "page": "gameplay/overnight-camp",
+   "line": 138,
+   "section": "Öneri",
+   "text": "Sönen ateşin çukuru ne zaman kalkar? `survival.md` §2 ve `time.md` §10.2 «uyanınca `cold_pit`» der, aynı satırlar çukurun ertesi şafakta kalktığını söyler. Şafak olayı Tan başındadır, sivil şafaktan 30 dk önce; «Tanla uyan» sivil şafaktadır. Gece sönen ateşin çukuru oyuncu uyanmadan kalkmış olur."
+  },
+  {
+   "id": "c26",
+   "kind": "ACIK",
+   "page": "gameplay/overnight-camp",
+   "line": 141,
+   "section": "Öneri",
+   "text": "`time.md` §7.3 «uykuda tehlike yoktur (döşek barınaktır)» der. Cümle Rehine Yurdu ve aile döşeği için yazılmıştır; açık arazide ve düşman zonunda da geçerli mi, belge söylemiyor. Yukarıdaki sabah zarı bu soruya bir cevaptır, tek cevap değildir."
+  },
+  {
+   "id": "c27",
+   "kind": "ACIK",
+   "page": "gameplay/progression",
+   "line": 202,
+   "section": "Zorluk",
+   "text": "II–VI. Perde sayıları (XP bütçesi, görev puanı, usta rolleri) bütçe ve kancadır: «o perdeler yazılırken bu tablolar okunur, aşılırsa burası güncellenir» (`progression.md` giriş). Eski Binbaşı ve öteki rol kişileri henüz yazılmadı."
+  },
+  {
+   "id": "c28",
+   "kind": "ACIK",
+   "page": "presentation/sound-music",
+   "line": 167,
+   "section": "Açık sorular",
+   "text": "K12 hazır sesi 40 MB ile sınırlar, ama parça sınırları toplamı 48 MB eder: müzik 16, efekt ve ortam 16, satır 16. `architecture.md` §3.6 hâlâ «satır 8» yazar, §8 karar 31 onu 16'ya çıkarıp toplamı «≈27 MB» diye verir. Belge sırasına göre K12 kazanır: parça sınırları ona göre kısılacak mı?"
+  },
+  {
+   "id": "c29",
+   "kind": "ACIK",
+   "page": "presentation/sound-music",
+   "line": 170,
+   "section": "Açık sorular",
+   "text": "`audio.md` §2 koro için «Yalnız Tengri ve şafak» der; aynı belgenin §3'ü koroyu `crane` ve `court` durumlarına da koyar, `crane` kodda da koro çalar. Kural mı, tablo mu geçerli?"
+  },
+  {
+   "id": "c30",
+   "kind": "ACIK",
+   "page": "presentation/sound-music",
+   "line": 173,
+   "section": "Açık sorular",
+   "text": "`audio.md` aynı çekilen çalgıya hem dombra hem kopuz der: kampta dombra, I. Perde'de kopuz; kodda ikisi tek çalgıdır. Yaylı kobuz ayrı çalgıdır. Ozanın çalgısının adı [Seslendirme](/docs/presentation/voice-over) sayfasında açık soru olarak duruyor."
+  },
+  {
+   "id": "c31",
+   "kind": "ACIK",
+   "page": "presentation/ui-menus",
+   "line": 165,
+   "section": "Açık sorular ve öneriler",
+   "text": "Defter'in sekmeleri tek yerde yazılı değil. `progression.md` §14.1 dört sekme sayar: Künye, Beceriler, Çeteleler, Adlar. `economy.md` Kış Hesabı ve Zula sekmesi ekler, Faz 8.7 yapı sayfası, `settlement.md` §14.2 Yerleşim Defteri. `act1.md` §2 ise Kış Hesabı'nı İş Tahtası'nda gösterir."
+  },
+  {
+   "id": "c32",
+   "kind": "ACIK",
+   "page": "presentation/visual-language",
+   "line": 134,
+   "section": "Açık sorular",
+   "text": "Dört yeni ışık durağının sayıları ekranda denenmedi. `time.md` §5.3 onları «boyalı hedef» sayar ve ayarı 8.9'un ekran görüntülerine bırakır; o klasör (`docs/research/time-shots/`) daha yok."
+  },
+  {
+   "id": "c33",
+   "kind": "ACIK",
+   "page": "presentation/visual-language",
+   "line": 137,
+   "section": "Açık sorular",
+   "text": "Mete'nin modeli yalnız oluşturucu fonunda görüldü. Kamp ışığında, boya filtresi altında ve at üstünde nasıl durduğu oyun durumu gelince (8.8) sınanacak. Pelerinin atın sırtından geçtiği biliniyor (`contract-requests.md`, paket 2.1)."
+  },
+  {
+   "id": "c34",
+   "kind": "ACIK",
+   "page": "presentation/visual-language",
+   "line": 140,
+   "section": "Açık sorular",
+   "text": "Ekran yağışının boyalı görüntüde okunup okunmadığı ölçülmedi (`weather.md` §15 W16). Çizgi zayıfsa katman alfası 0,5'ten 0,65'e çıkarılacak."
+  },
+  {
+   "id": "c35",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 31,
+   "section": "Özü",
+   "text": "Notun «saz» diyor, K19 ve `audio.md` §3 ozanın çalgısına dombra diyor, `audio.md` §2 aynı çalgıyı «dombra / kopuz» diye yazıyor: oyunda ozanın çalgısının adı hangisi olacak?"
+  },
+  {
+   "id": "c36",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 85,
+   "section": "Bütçe",
+   "text": "K5 ve `act1.md` §17 tavanı «kredi» diye yazıyor; `audio.md` §5, `act1.md` §14 ve sayaç «karakter» sayıyor. Eleven Music çekimlerinin tuttuğu kredi hiçbir belgede yok. Bütçe yalnız konuşma karakteri mi, bütün ElevenLabs harcaması mı?"
+  },
+  {
+   "id": "c37",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 136,
+   "section": "Açık sorular",
+   "text": "Şarkının üslup isteği dombrayı «plucked and strummed» diye tarif eder. `audio.md` §2–§3 ve `act1.md` §14 «strummed» yok der. Bu kural yalnız kodla üretilen müziğin kuralı mı?"
+  },
+  {
+   "id": "c38",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 139,
+   "section": "Açık sorular",
+   "text": "`audio.md` §3 ikinci dizenin sonunda A G F D motifi olduğunu yazar. Besteleme planında böyle bir istek yok, araç kipi ve hızı da sınamaz: yalnız sözcükleri ve süreleri sınar. Motif, kip ve hız kulakla denetlenmeli. Satır eski bestelenmiş şarkıdan kalmış olabilir."
+  },
+  {
+   "id": "c39",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 142,
+   "section": "Açık sorular",
+   "text": "K6 «ozan dörtlüğü» der, K19 ve `act0-text.md` iki dizedir. Kitaptaki Destan sayfası dörtlüktür, şarkı değil. K6'nın sözü düzeltilmeli mi?"
+  },
+  {
+   "id": "c40",
+   "kind": "ACIK",
+   "page": "presentation/voice-over",
+   "line": 145,
+   "section": "Açık sorular",
+   "text": "`act0-text.md`'nin sonu şarkı için «≈110 kredi» ve eski kaynak klasörünü anıyor. O hat K28 ile kalktı (`contract-requests.md`), satır güncel değil."
+  },
+  {
+   "id": "c41",
+   "kind": "ACIK",
+   "page": "settlement/court",
+   "line": 148,
+   "section": "Açık sorular",
+   "text": "Dailin Sayımı hangi perdede oynanır? Günü güzün ilk dolunayıdır. Perde başlarına göre güz yalnız III'te oynanır (1 Eylül MÖ 208'den 12 gün). Takvim formülüyle (`time.md` §2) o güzün ilk dolunayı 16 Eylül'e düşer: 12 günün dışında, ±%30 esnemenin sınırında (hesap). Yerleşim belgesinin yayı Dailin'i VI'ya yazar ([settlement.md §2.2](/docs/source/design/settlement#2-2-perde-perde)), VI 1 Haziran'da açılır ve perde içi yıl sıçramasının hangi mevsime indiği yazılı değildir. K25 bu soruyu yalnız Kış Toplantısı için kapattı."
+  },
+  {
+   "id": "c42",
+   "kind": "ACIK",
+   "page": "settlement/court",
+   "line": 154,
+   "section": "Açık sorular",
+   "text": "Akın gücü R'nin perde tablosu hikâye alanına bırakıldı (`settlement.md` §23), yukarıdaki sayılar varsayılandır. Ambarcı'nın «baskında ambar kaybı −%25»i de ([progression.md §4.3](/docs/source/design/progression#4-3-usta-rolleri-ii-perde-ve-sonrasi)) tek kuralın formülünde yazmıyor: kap kaybına çarpan mı olur, beklenen kayıp tablosuna girer mi, belli değil."
+  },
+  {
+   "id": "c43",
+   "kind": "ACIK",
+   "page": "settlement/encampment",
+   "line": 149,
+   "section": "Açık sorular",
+   "text": "Notun «kağanlık» ve «hanlık» diyor. Belgelerde «kağan» sözcüğü hiç geçmez: dönemin unvanı Tanhu'dur (Shiji 110, 單于), son kademe Tanhu Avlusu'dur, atlastaki ülke adı «Hun Tanhuluğu»dur (K8). «Kağan» sonraki yüzyılların unvanıdır; bu bilgi tasarım belgelerinde yazmıyor. «Hanlık» belgelerin alan adıdır (K23), ama kademe adı olarak «Han» bilerek alınmadı ve oyuncu metinlerinde «hanlık» geçmiyor. Oyuncuya yazılacak söz karara bağlanmamış."
+  },
+  {
+   "id": "c44",
+   "kind": "ACIK",
+   "page": "settlement/encampment",
+   "line": 152,
+   "section": "Açık sorular",
+   "text": "Surlu yolun odun bedeli. [settlement.md §4.3](/docs/source/design/settlement#4-3-v-kademe-yolu) «odun ≈2×», §3.2 «Göçer Avlu az odun ister» der. [economy.md §10.6](/docs/source/design/economy#10-6-kademeler) ise Göçer'in Surlu'dan ≈%10 çok malzeme istediğini yazar (ham 6.951 Yük, Surlu 6.205; işçi emeği 465 İG, Surlu 388). Kataloğun malzemesinden toplayınca iki yolun odunu da ≈1.200 kütük çıkıyor (hesap: Surlu ≈1.178, Göçer ≈1.195). Surlu'nun farkı kurma emeğidir. «Odun ≈2×» satırı düzeltilmeli mi, yoksa Surlu'nun malzemesi mi artmalı?"
+  },
+  {
+   "id": "c45",
+   "kind": "ACIK",
+   "page": "settlement/encampment",
+   "line": 155,
+   "section": "Açık sorular",
+   "text": "Ağaç Atölyesi hangi kademede açılır? [settlement.md §4.1](/docs/source/design/settlement#4-1-tablo) Ocak'ta açar der (dülger varsa), §7.5 ve yapı verisi kademe 2 der, §4.2 Oba'nın bileşimine yazar. II. Perde'nin demir hesabı (§2.1) atölyenin demirciden önce kurulmasını varsayar. Plan Kipi'nin kartı hangisini gösterecek?"
+  },
+  {
+   "id": "c46",
+   "kind": "ACIK",
+   "page": "settlement/households",
+   "line": 205,
+   "section": "Açık sorular",
+   "text": "Mete'nin anasının hanesi perde yazarına bırakıldı (`settlement.md` §23). İlk ailelerin 2–3 adedi ve ustaların adları da orada kesinleşir."
+  },
+  {
+   "id": "c47",
+   "kind": "ACIK",
+   "page": "settlement/households",
+   "line": 208,
+   "section": "Açık sorular",
+   "text": "Yükü olmayan hane ne getirir? [d2/core.md §4.4](/docs/source/design/d2/core#4-4-hane-ve-buyume) gelen her hanenin çadırı ya da yurt yüküyle geldiğini yazar. [settlement.md §5.3](/docs/source/design/settlement#5-3-katilim) ise kaçkın ve sığınanda «Yok» der ve yükü olmayan hanenin çadır ya da kulübe isteyeceğini, yoksa açıkta bekleyip 3 gün sonra gideceğini ekler. Kaçkın çadırıyla mı gelir, çadır mı ister?"
+  },
+  {
+   "id": "c48",
+   "kind": "ACIK",
+   "page": "settlement/households",
+   "line": 211,
+   "section": "Açık sorular",
+   "text": "Aynı rolün iki adı var: yerleşim belgesi «Ağaç Ustası», ekonomi belgesi ve K23 «Dülger» der. Oyuncunun göreceği ad seçilmeli."
+  },
+  {
+   "id": "c49",
+   "kind": "ACIK",
+   "page": "settlement/plan-mode",
+   "line": 166,
+   "section": "Açık sorular",
+   "text": "Üç Ocak Yeri'nin uzaklıkları dere çizgisinden betikle hesaplandı, koordinatlar gerçek yol ağıyla sınanmadı. Arazi Faz 13'te yazılırken doğrulanacak; sapma belgeye işlenecek."
+  },
+  {
+   "id": "c50",
+   "kind": "ACIK",
+   "page": "settlement/plan-mode",
+   "line": 169,
+   "section": "Açık sorular",
+   "text": "Eğim kuralında «konut» kimdir? [settlement.md §13.2](/docs/source/design/settlement#13-2-kurallar) beş tür sayar. Yapı verisi Elçi Yurdu, Otacı Yurdu, Ambar Yurdu, Buyruk Yurdu, Okçu Yurdu, Silahlık ve Erzak Ambarı'nı da aynı ≤6° sınıfına alır. Hepsi yurt gövdelidir, ped gerekçesi onlara da uyar."
+  },
+  {
+   "id": "c51",
+   "kind": "ACIK",
+   "page": "settlement/plan-mode",
+   "line": 172,
+   "section": "Açık sorular",
+   "text": "Alt şeridin yedi kategorisinde taşıt yok. Araba şantiyede, Ağaç Atölyesi'nin yanında kurulur (§7.8), yapı verisi onu iş parselinde sayar, ama hangi kartta seçileceği yazılı değil."
+  },
+  {
+   "id": "c52",
+   "kind": "ACIK",
+   "page": "settlement/production-storage",
+   "line": 183,
+   "section": "Açık sorular",
+   "text": "Darı Tarlası ne zaman işler? Ekim bahardadır, biçim güzdedir. Surlu yol V. Perde'de (20 Kasım'dan sonra) seçilir, VI. Perde 1 Haziran'da açılır: ikisinin oynanan günleri ne ekime ne biçime denk gelir. Kronik'in yazılı adımlarında ([settlement.md §16.2](/docs/source/design/settlement#16-2-perde-gecisi-kronik-k25)) tarla yok, kodda yazılan yıllık adımda da yok. %102'lik kış payı bu hasada dayanıyor."
+  },
+  {
+   "id": "c53",
+   "kind": "ACIK",
+   "page": "settlement/war-camp-caravans",
+   "line": 152,
+   "section": "Açık sorular",
+   "text": "Ocak kademesinde Ordu Payı nasıl gider? Kervan Oba'yla açılır ([settlement.md §4.1](/docs/source/design/settlement#4-1-tablo)), ama Ordu Payı tablosu Onluk Ateşi satırında da «kervanla 2 öğün» yazar ([economy.md §8.5](/docs/source/design/economy#8-5-hane-ordu-payi-ordugah-k23-k24)). Ocak'ta araba Teoman'ın armağanından vardır, sürücü iş ataması yoktur."
+  },
+  {
+   "id": "c54",
+   "kind": "ACIK",
+   "page": "settlement/war-camp-caravans",
+   "line": 158,
+   "section": "Açık sorular",
+   "text": "Ordugâh baskına uğrar mı? [army.md §3.7](/docs/source/design/army#3-7-ordugah-the-army-camp-k23) Gözcü Kulesi ve Konağı'nı ordugâhta baskın savunmasına yazar, ama baskın sıklığı tablosu ([settlement.md §15.4](/docs/source/design/settlement#15-4-baskin)) yalnız yerleşime tehdidi sayar. Tek kural: [Hanlık Merkezi](/docs/settlement/court)."
+  },
+  {
+   "id": "c55",
+   "kind": "ACIK",
+   "page": "story/act-1-days",
+   "line": 204,
+   "section": "Yan görevler",
+   "text": "Zula için `act1.md` çelişiyor. §7 onu «Hüküm el koymasından kurtulan tek eşya» diye yazar, §8.4 ise Çığırtkan, çentik çubuğu, çizmedeki bıçak ve çetele yarımlarının da kaldığını söyler."
+  },
+  {
+   "id": "c56",
+   "kind": "ACIK",
+   "page": "story/act-1",
+   "line": 148,
+   "section": "Tanhu 1'den fark",
+   "text": "Metin kesin değil. `act1.md` başında yazar: satırlar sesi vermek içindir, asıl diyalog sonra yazılır. Süreler, kamera kadrajları ve kışın görünümü de ölçülmedi ([act1.md §18](/docs/source/design/act1#18-dogrulama-durumu)). K11: Faz 10 sonunda Gün I ve Tipi prototipi oynanır, Faz 11'in kapsamı buna göre açılır."
+  },
+  {
+   "id": "c57",
+   "kind": "ACIK",
+   "page": "story/act-1",
+   "line": 151,
+   "section": "Tanhu 1'den fark",
+   "text": "Açılış takvimle tam oturmuyor. Perde «her güz» yapılan gösteriden dönen arabada açılır, Gün I ise 2 Aralık'tır; oyunun takviminde kış 16 Kasım'da başlar ([time.md §2](/docs/source/design/time#2-takvim)). Kemik Boğazı aynı vadidedir, Kış Yolu 857 m'dir. Gösterinin kış başına kaydığı mı, başka bir neden mi var, belgede yazmıyor."
+  },
+  {
+   "id": "c58",
+   "kind": "ACIK",
+   "page": "story/cast",
+   "line": 136,
+   "section": "Adların kaynağı",
+   "text": "Mete'nin pelerini tasarımda soğuk mavi-yeşildir (`#3e5f6b`), «kalabalığın tek soğuk vurgusu» ([act1.md §1](/docs/source/design/act1#1-oncul-sure-ton)). Kodda rehine kılığının pelerini solgun yün kahvesidir (`#5d4a3a`), oluşturucu da pelerini boyatır. Hangisinin geçerli olduğu belgede kapanmamış."
+  },
+  {
+   "id": "c59",
+   "kind": "ACIK",
+   "page": "story/chronicle",
+   "line": 171,
+   "section": "Yazılmamış yerler",
+   "text": "Perde adları karara bağlanmamış. Yalnız I'in adı kesin: Rehine. `economy.md` §8.4 III–VI için Bin Li At, Batı Rüzgârı, Ak Dağ, Eksik Görü der; bu adlar Tanhu 1'in perde adlarıdır ([özeti](/docs/source/research/progression#2-story-bible-distilled)). II için tasarım belgelerinde ad yok."
+  },
+  {
+   "id": "c60",
+   "kind": "ACIK",
+   "page": "story/history-sources",
+   "line": 65,
+   "section": "Öteki dayanaklar",
+   "text": "Çince alıntılar bir getirme aracından geçti, Hanshu 96 sayfaları «düzeltilmemiş» uyarısı taşır. Araştırma bir satırı oyuna basmadan önce denetlemeyi öğütlüyor. Bu denetimin ne zaman yapılacağı yazılı değil."
+  },
+  {
+   "id": "c61",
+   "kind": "ACIK",
+   "page": "story/history-sources",
+   "line": 125,
+   "section": "Tarih ile kurgu",
+   "text": "Tanrıların çağı incelenmemiş. K13 yalnız «mitolojidir, listeye girmez» der. Belgelerde Tengri, Erlik ve Umay adlarının Mete çağına bağlanıp bağlanamadığına dair bir araştırma yok. Notun mitolojik açılışı benimsenirse bu soru önem kazanır ([Giriş Sineması](/docs/story/prologue))."
+  },
+  {
+   "id": "c62",
+   "kind": "ACIK",
+   "page": "story/history-sources",
+   "line": 137,
+   "section": "Ad kuralları",
+   "text": "Yazımlar tek değil. Tung-hu: anlatıcı ve atlas; Tunghu: `act1.md`, `settlement.md`, `travel.md`. Bu sayfalar alıntıda birini, tasarım özetinde ötekini kullanır. EN'de atlas «Xiongnu» der, anlatıcı ve diyaloglar «Hun» der. Telli çalgı K19'da dombra, Destan Kitabı'nda dombıra, I. Perde müziğinde kopuzdur. Hangisinin kalacağı belgede kapanmamış."
+  },
+  {
+   "id": "c63",
+   "kind": "CELISKI",
+   "page": "story/prologue",
+   "line": 111,
+   "section": "Not ile karşılaştırma",
+   "text": "Notun mitolojik bir açılış istiyor: ozan sazıyla Erlik'i ve öteki tanrıları anlatır, anlatı Mete'nin doğumuna gelir. Şu anki sinema mitolojik değil: ozan iki dize söylüyor (≈26 sn), anlatıcı yedi satırda (≈62 sn) Ç'in'i, Tung-hu'yu, Yüeçi'yi, Teoman'ı ve rehineliği anlatıyor. Erlik, tanrılar ve Mete'nin doğumu yok.\n\nNot benimsenirse: giriş metni yeniden yazılır (K6), şarkı yeniden bestelenip çekilir ya da yerini ozanın konuşmasına bırakır (K19, K28), kamera planı uzar, Act 0'ın payı K5'in 45.000 kredisi içinde büyür."
+  },
+  {
+   "id": "c64",
+   "kind": "ACIK",
+   "page": "story/spine",
+   "line": 67,
+   "section": "Mete'nin hayatı",
+   "text": "Doğum yılının dayanağı yok. Araştırma c. MÖ 234 için birincil kaynak bulamadı, Vikipedi dipnotsuz verir ([groups-research.md §6](/docs/source/research/groups-research#6-other-uncertain-points)). Tasarım bu yılı yetişkin Mete modeliyle tutsun diye almış ([act1.md §17](/docs/source/design/act1#17-kullanici-isteklerinden-sapmalar), satır 14). Bir sahne bu yılı oyuncuya söylerse kurgu tercihi diye işaretlenip işaretlenmeyeceği yazılı değil."
+  },
+  {
+   "id": "c65",
+   "kind": "CELISKI",
+   "page": "story/spine",
+   "line": 100,
+   "section": "Notunla ayrışan yerler",
+   "text": "Notun hikâyenin bebeklikten başlamasını istiyor. Tasarım Mete'yi MÖ 210'da, 24 yaşında, rehine olarak başlatıyor ([act1.md §1](/docs/source/design/act1#1-oncul-sure-ton)). Doğumdan rehineliğin ilk gününe 22 yıl, I. Perde'nin ilk gününe 24 yıl var; bu yıllar ne oynanıyor ne anlatılıyor. Ayrıca K6 «Ana kampta Mete yoktur» diyor, K7 ana kampta oyuncuyu Çocuk yapıp yetişkin Mete'yi ona atla getiriyor: ikisi de kampta oynanan çocuğun Mete olmadığını varsayıyor.\n\nNot benimsenirse: giriş sineması doğuma varacak biçimde yeniden yazılır, atlasın hayat çizgisine doğum eklenir. Serbest Gez'in Çocuğu küçük Mete olacaksa K6, K7 ve K23'ün Ev ve II. Perde açılışı sahneleri de değişir."
+  },
+  {
+   "id": "c66",
+   "kind": "CELISKI",
+   "page": "story/spine",
+   "line": 110,
+   "section": "Notunla ayrışan yerler",
+   "text": "Notun tarihin sürekli akmasını istiyor. K25 perdeler arasında yılları Kronik'le atlıyor: II → III 445 gün, III → IV 991, IV → V 1.618, V → VI 911. Oysa MÖ 234–174 arası 60 yıl 21.900 oyun günüdür; 1 oyun günü 60 dk olduğu için (K20) ≈21.900 gerçek saat eder, kesintisiz oynansa ≈912 gün. Tasarımın oynattığı 72 oyun günü ≈39 gerçek saattir. Bütün hayat 39 saate sığsın diye oran değişseydi 1 oyun günü ≈6,4 sn olurdu. Yani atlama olmadan oynanamaz; hangi biçimde atlanacağı karar konusu.\n\nNotun karşılanan yanı: Perde içinde saat 60 dk'lık günle akar, takvim gerçek tarihtir, sayım tek sayaçtır ve geri gitmez (K20). Not olduğu gibi benimsenirse K25'in kapalı atlaması ya da K20'nin 60 dakikası değişir."
+  },
+  {
+   "id": "c67",
+   "kind": "CELISKI",
+   "page": "world/map",
+   "line": 153,
+   "section": "Çelişkiler ve öneriler",
+   "text": "**Dünya boyutu.** Notun 1.500 km² diyor. Tasarım ve kod 75.000 km² ([travel.md §0](/docs/source/design/travel#0-karar-ozeti), [act1.md §4](/docs/source/design/act1#4-dunya); `src/map/geography.js` içinde `AREA_KM2 = 75000`). Kodda 1.500 sayısı da var ama başka şeydir: `MAP_AREA_UNITS = 1500` harita biriminin alanıdır, km² değildir. Daha önce 1.500'den 75.000'e sen geçmiştin; bu not eski olabilir, karar senin.\n\nNot benimsenirse sonuç neyin istendiğine bağlıdır:\n\n- **Harita yine yürünmez, yalnız ölçek küçülür.** Bir birim 1 km olur, harita 50,4×29,8 km, görüntü aynı kalır, 7 kat büyütme kalkar. Bir iç harita 1,47 km² olduğu için haritayı doldurmak 1.020 iç harita eder (75.000'de 51.020). Yol km'leri 7,07'ye bölünür: Hexi → Tanhu 63,6 km'den 9,0 km'ye iner. Bugünkü hızlarla 12 Uzak Yol'un hepsi at, araba ve öküzle yarım güne düşer, yol günü ve erzak bedeli farkını yitirir: hız tablosu yeniden yazılır.\n- **Yürünen tek parça dünya.** 50,4×29,8 km kesintisiz arazi demektir. Baştan başa yürüyüş 3 sa 11 dk (3,2 oyun günü), araba 2 sa 11 dk, sürekli dörtnal 1 sa 38 dk gerçek süre. Hexi'den Tanhu Kampı'na (kuş uçuşu 7,6 km) yürüyüş 29 dk. Kışlak yoğunluğunda doldurmak 1.020 Kışlak elle kurmak demektir. Bugün bellekte tek iç harita durur, parça parça yükleme yoktur, bir iç haritanın kurulumu 4,5–7 sn (en kötü 17 sn) sürer: akan dünya için yeni bir yükleme sistemi gerekir. Uzak Yol, atlas yolculuğu ve yol olayları kalkar.\n\nAynı hesap 75.000 km² için: 356,5×210,4 km, baştan başa yürüyüş 22,5 saat, 51.020 Kışlak."
+  },
+  {
+   "id": "c68",
+   "kind": "CELISKI",
+   "page": "world/map",
+   "line": 163,
+   "section": "Çelişkiler ve öneriler",
+   "text": "**Haritadan oyuna geçiş.** Notun: çok yakınlaşınca Diablo görünümüne geçilsin, oyun sürsün, M'ye basıp çıkmak gerekmesin. Bugünkü kod: görüş 2,9 birimin altına inince kısa kararmayla gerçek sahneye geçiliyor, dünya akıyor. Ama harita durumu kapanmıyor: oyuncu oynayamıyor, saat durmuş, çıkış yine M, Esc ya da kapat düğmesi (`src/map/atlas.js`, `src/app/states/map.js`).\n\nNot benimsenirse: harita ile oyun arasındaki ≈0,9 sn'lik karartma kalkar, yerine kamera karışımı gelir; en yakın düzey yalnız bakılan yer olmaktan çıkar. Saat kuralı değişmez: harita açıkken durur, oyuna geçince akar.\n\n**Yapılabilirlik, kaynaktan:**\n\n- Yüklü iç haritanın üstünde yapılabilir. Gerçek düzey oyunun kendi sahnesini ve aktörlerini çiziyor, yeni yükleme gerekmez. Eksik olan denetimi oyuna geri vermek ve iki kamerayı karıştırmak: harita kamerası bu düzeyde 46°, oyun kamerası 28° eğimli. Menüden Serbest Gez'e inişte aynı işi yapan 1,6 sn'lik karışım zaten var.\n- Başka yerde yapılamaz. Sahne yalnız yüklü iç harita için vardır ([travel.md §1.2](/docs/source/design/travel#1-2-ic-harita-haritaya-nasil-oturur)), iç haritalar arasında zemin yoktur ([travel.md §2](/docs/source/design/travel#2-hizlar-ve-neden-hizli-yolculuk)), başka iç haritanın kurulumu 4,5–7 sn sürer."
+  },
+  {
+   "id": "c69",
+   "kind": "ACIK",
+   "page": "world/map",
+   "line": 173,
+   "section": "Çelişkiler ve öneriler",
+   "text": "Başka bir yere yakınlaşınca ne olacak? Belgelerde cevap yok. Kod bugün yüklü iç haritanın uzağında yakınlaşmayı 6 birimde durduruyor ve kampın dışındaki bölgelerin henüz tasarlanmadığını yazıyor. Yakınlaşmanın başka yere götürmesi «Işınlanma yok» kuralına da değer ([travel.md §0](/docs/source/design/travel#0-karar-ozeti))."
+  },
+  {
+   "id": "c70",
+   "kind": "ACIK",
+   "page": "world/regions",
+   "line": 209,
+   "section": "Çelişkiler ve açık sorular",
+   "text": "Islık Alanı'nın batı kapısı ve altı Uzak Yol Tanhu Kampı'nda biter, ama Mete oyuncuyken kamp hiç yüklenmez (K6). Soru ve öneri: [Yolculuk](/docs/world/travel)."
+  },
+  {
+   "id": "c71",
+   "kind": "ACIK",
+   "page": "world/regions",
+   "line": 212,
+   "section": "Çelişkiler ve açık sorular",
+   "text": "[act1.md §4](/docs/source/design/act1#4-dunya) ve [§10](/docs/source/design/act1#10-kovalamaca-kara-boran-black-blizzard) kadraj hesaplarını kuzeye bakan kamerayla yapar: kuzeye 79 m, arkaya 12 m. K27 kamerayı serbest bıraktı; oyuncu döndürürse «ev kuzeyde» kurgusu ve kovalamacanın kadraj sözleşmesi bu sayılarla tutmaz. Belge bunu karşılamıyor. Kışlak kurulurken karara bağlanmalı."
+  },
+  {
+   "id": "c72",
+   "kind": "CELISKI",
+   "page": "world/time-calendar",
+   "line": 180,
+   "section": "Çelişkiler ve öneriler",
+   "text": "**Tarih.** Notun: «tarih sürekli akacak». K20: takvim gerçek tarihle akar, Gün I = 2 Aralık MÖ 210, tek sayaç. K25: perdeler arasında yıllar atlanır, saat Kronik'le sıçrar, o günler oynanmaz. I. Perde başından VI. Perde sonuna takvimde 4.212 gün var, oynanan 72 gün: %1,7. Tarih ileri gider ama sürekli akmaz. «Gerçek zamanlı» saatin hiç durmaması demekse, K20 onu da karşılamaz: diyalog, sinema ve haritada durur, uyku ve bekleme atlar.\n\nNot harfi harfine benimsenirse:\n\n- 60 dakikalık günle I. Perde başından VI. Perde başına 4.196 gerçek saat gerekir: kesintisiz ≈175 gün. MÖ 174'e dek ≈13.000 saat: ≈540 gün. Tasarımın bütçesi ≈39 saattir: I. Perde ana yol 3 sa 40 dk, II–VI perde başına ≈420 dk.\n- Bütün takvimi 39 saate sığdırmak bir günü 33 saniyeye indirir. Bu da «1 gün 60dk» notunla çelişir: ikisi birden harfi harfine tutmaz.\n- Değişecekler: K25'in perde başları ve gün bütçesi; Kronik; K24'ün perde başına kurulu sürü, hane ve kış stoğu hedefleri; Kış Toplantısı'nın perde dışı kuralı."
+  },
+  {
+   "id": "c73",
+   "kind": "ACIK",
+   "page": "world/time-calendar",
+   "line": 197,
+   "section": "Çelişkiler ve öneriler",
+   "text": "Belgenin açık bıraktığı: dört yeni ışık durağının renkleri hedeftir, ekran görüntüleriyle ayarlanacak. 15° gölge sınırının Kışlak sabah ve akşamındaki görünüşü ölçülecek ([time.md §19](/docs/source/design/time#19-kararlar-ve-acik-konular))."
+  },
+  {
+   "id": "c74",
+   "kind": "ACIK",
+   "page": "world/travel",
+   "line": 232,
+   "section": "Çelişkiler ve açık sorular",
+   "text": "**Tanhu Kampı ucundaki yollar.** K6 ve [d2/core.md §4.2](/docs/source/design/d2/core#4-2-acilis): Mete oyuncuyken kamp dünyası hiç yüklenmez. Ama altı Uzak Yol Tanhu Kampı'nda biter, Balamir'in hattı orada çalışır, Islık Alanı'nın batı kapısı oraya açılır ([settlement.md §3.3](/docs/source/design/settlement#3-3-whistle-field-ic-haritasi-taslak)). II. Perde açılışının cevabı var: bacak sinemadan sonra başlar. Lung-çeng, Hangay, Tunghu ve Dingling yollarının cevabı yok: Mete o yollara nereden biner, bir yol kampta biterse ne yüklenir?"
+  },
+  {
+   "id": "c75",
+   "kind": "ACIK",
+   "page": "world/travel",
+   "line": 238,
+   "section": "Çelişkiler ve açık sorular",
+   "text": "Dünya boyutu çelişkisi bu sayfanın sayılarını doğrudan değiştirir: 1.500 km²'de bütün Uzak Yollar yarım güne düşer, yürünen dünya seçilirse Uzak Yol kalkar. Karar [Harita ve Ölçek](/docs/world/map) sayfasında."
+  },
+  {
+   "id": "c76",
+   "kind": "ACIK",
+   "page": "world/weather",
+   "line": 234,
+   "section": "Açık sorular",
+   "text": "Belgenin açık bıraktığı: yeni görünümlerin ve ekran yağışının boyalı süzgeçteki okunurluğu denenmedi. Kar örtüsü payları yaklaşık benzetimden gelir, gerçek çekirdekle yeniden üretilecek ([weather.md §18](/docs/source/design/weather#18-kararlar-ve-acik-konular))."
+  }
+ ],
+ "pending": [
+  {
+   "id": "p01",
+   "title": "Yurt süresi"
+  },
+  {
+   "id": "p02",
+   "title": "Para birimi"
+  },
+  {
+   "id": "p03",
+   "title": "Dünya büyüklüğü"
+  },
+  {
+   "id": "p04",
+   "title": "Haritadan oyuna geçiş"
+  },
+  {
+   "id": "p05",
+   "title": "Giriş sineması"
+  },
+  {
+   "id": "p06",
+   "title": "Bebeklik"
+  },
+  {
+   "id": "p07",
+   "title": "Kamera eğimi"
+  },
+  {
+   "id": "p08",
+   "title": "Açık dünya ve görevler"
+  },
+  {
+   "id": "p09",
+   "title": "Sürekli akan tarih"
+  },
+  {
+   "id": "p10",
+   "title": "Üç yurt boyu"
+  },
+  {
+   "id": "p11",
+   "title": "Tek gecelik kamp"
+  },
+  {
+   "id": "p12",
+   "title": "Savaştan malzeme"
+  },
+  {
+   "id": "p13",
+   "title": "Adlar"
+  }
+ ]
+}

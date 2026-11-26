@@ -1,0 +1,18 @@
+{
+  "id": "erlik_answer",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "mute": true,
+  "tempo": 52,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "density": 0.55,
+  "phrase": "A2",
+  "position": "upper",
+  "seed": 5256,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "erlik: kopuzun cevabı yine yalnız mute (1:20,9'da rüzgâr kesilince 2 sn); sözün altındaki kopuzun 6 dB üstünde. Önsöz'ün Erlik panosu, erlik durumu (audio.md §3: E Frigyen 52, kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

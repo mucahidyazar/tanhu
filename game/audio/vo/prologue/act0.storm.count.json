@@ -1,0 +1,13 @@
+{
+	"id": "act0.storm.count",
+	"take": 0,
+	"seed": 2757259875,
+	"hash": "a4587263024a",
+	"model": "eleven_v3",
+	"voice": "VNHNa6nN6yJdVF3YRyuF",
+	"seconds": 1.12,
+	"words": [
+		{"w": "One", "t0": 0.0, "t1": 0.16},
+		{"w": "more.", "t0": 0.224, "t1": 1.12}
+	]
+}

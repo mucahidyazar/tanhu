@@ -1,0 +1,41 @@
+{
+	"version": 2,
+	"source": "progression.md §2.2; act1.md §11; decisions.md K104",
+	"doc": "Köken: oluşturucuda seçilir, değişmez; veliahdın rehinelikten önce nasıl yetiştiğini anlatır (K104: oluşturucu Mete 20 yaşındayken, rehin gitmeden açılır). Etki yolculuğun başında statlara eklenir (başlangıç hepsi 3, köken +1; stat toplamı 15 + köken + (seviye − 1)); bond At Bağı'na (0–100, Adak Aygırı) eklenir. Sıra oluşturucunun «Köken» satırının sırasıdır; ilk köken varsayılandır. Kayıtta kimlik yazılır (profile.origin, progression.origin). former_ids kökenin eski kimlikleridir (K104'ten önceki üç köken): eski kayıttaki eski kimlik yenisine göçer (CharacterOptions.index_of_id, Progression.current_origin). Tablo değişirse önce progression.md §2.2 değişir, sonra bu dosya.",
+	"origins": [
+		{
+			"id": "origin_riders",
+			"former_ids": ["origin_load"],
+			"name": "Zırhlı Atlılar Arasında",
+			"name_en": "Among the Armored Riders",
+			"line": "Tanhu'nun zırhlı atlılarıyla yay gererek büyüdün.",
+			"line_en": "You grew up drawing the bow among the Chanyu's armored riders.",
+			"effect": "Bilek +1",
+			"effect_en": "Grip +1",
+			"stats": {"grip": 1}
+		},
+		{
+			"id": "origin_tent",
+			"former_ids": ["origin_listener"],
+			"name": "Otağda Yetişen",
+			"name_en": "Raised in the Royal Tent",
+			"line": "Babanın otağında elçileri ve beyleri dinleyerek büyüdün.",
+			"line_en": "You grew up in your father's tent, listening to envoys and lords.",
+			"effect": "Söz +1",
+			"effect_en": "Word +1",
+			"stats": {"word": 1}
+		},
+		{
+			"id": "origin_herds",
+			"former_ids": ["origin_stable"],
+			"name": "Yılkı Beyi",
+			"name_en": "Lord of the Herds",
+			"line": "Tanhu'nun yılkısını yaylaya sürerek büyüdün; atlar seni tanır.",
+			"line_en": "You grew up driving the Chanyu's herds to summer pasture; the horses know you.",
+			"effect": "Ayak +1, Bağ +10",
+			"effect_en": "Foot +1, Bond +10",
+			"stats": {"foot": 1},
+			"bond": 10
+		}
+	]
+}

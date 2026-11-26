@@ -1,0 +1,12 @@
+{
+	"id": "act0.wrestle.start",
+	"take": 0,
+	"seed": 3538515197,
+	"hash": "d2e974fd5294",
+	"model": "eleven_v3",
+	"voice": "CDdUdrzh7qrDE2xpRZyQ",
+	"seconds": 0.48,
+	"words": [
+		{"w": "Grip!", "t0": 0.0, "t1": 0.48}
+	]
+}

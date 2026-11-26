@@ -1,0 +1,30 @@
+{
+  "id": "childhood_kopuz_a",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "tempo": 72,
+  "bars": 2,
+  "mode": "major_pent",
+  "density": 0.7,
+  "position": "upper",
+  "melody": [
+    "C5",
+    "C5",
+    "D5",
+    "C5",
+    "A4",
+    "G4",
+    "F4",
+    "G4",
+    "A4",
+    "C5",
+    "A4",
+    "G4"
+  ],
+  "seed": 7211,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "childhood: kopuz hızlanır (motor 0,7), cümle A; F majör pentatonik (F G A C D), ters akort, üst konum; A (kipin üçüncüsü) yalnız fiskede. Motifin bütünü burada çalmaz (doğuma ve III'e saklı). Kulak onayı bekler."
+}

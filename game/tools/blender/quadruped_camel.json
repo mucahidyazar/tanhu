@@ -1,0 +1,115 @@
+{
+  "id": "camel",
+  "doc": "Baktriya devesinin sayıları (tools/blender/quadruped_rig.py; fauna.md §10 camelid planı: hörgüç 2,30 m; deve tırısta yan yürür: aynı yanın arka ve ön bacağı birlikte). normalize bölümü ham Meshy biriminde (x gövde hattına göre, y taban üstü), ötekiler oyun metresindedir. Oyun uzayı: y yukarı, +z ileri, +x hayvanın solu. Açılar derece: +pitch burun aşağı (+x ekseni), +yaw sola (+y), +roll sol yan yukarı (+z). Meshy ağında ayaklar adımlıdır (sol ön ve sol arka öndedir): omuz ve kalça eklemi iki yanda aynı z'dedir (top.z), bacak eklemden eğik iner; yürüyüşte ayaklar çiftin ortasına toplanır (gait.symmetry 1). Ön bacağın üst eklemi kürek kemiğinin dönme noktasıdır (y 1,62): düz duran uzun bacağa salınım payı verir. Ham ağda burun ≈20° sağa dönüktür: neck_twist başı gövde hattına çevirir. Ayak yastığı geniştir: bacak borusu tabanda 0,17 m (yastığın kenarı gövdeye bağlı kalmasın), salınımda ayağın yatışı atınkinin yarısıdır. Kemikler: gövde 4 (kalça, omurga, göğüs, karın), boyun 3, baş, iki kulak, kuyruk 4, bacak başına 4 (üst eklem, dirsek ya da diz, bilek ya da sıçrama eklemi, topuk ve taban yastığı): 30 deforme kemik (K65: binek ≈30). Klipler: idle, graze (boyun ön bacakların önünden iner, ağız 0,35 m'de: çalı ve kar), walk, trot (yan yürüyüş), gallop (çapraz dörtnal). Adım boyları fauna.md'nin camelid satırından kısadır (tırıs 2,9 → 2,6, dörtnal 4,93 → 4,6 m): Meshy ağında bacak dinlenmede düzdür, basan ayağın erişimi gövdenin inişiyle (crouch_m) sınırlıdır; oyun oynatma hızını f = v / L ile ayarlar.",
+  "source": "assets/_meshy_raw/camel/camel.glb",
+  "output_dir": "assets/animals/camel",
+  "texture_class": "mount",
+  "import_fps": 120,
+
+  "normalize": {
+    "torso_z": [-0.45, 0.15],
+    "torso_min_height": 0.75,
+    "shoulder_z": 0.0,
+    "shoulder_probe": 0.06,
+    "uniform_length_m": 3.04,
+    "neck_twist": {
+      "doc": "Ham ağda burun ≈20° sağa (−x) dönük; baş gövde hattına döner. Dönüş y'den bağımsızdır (y0..y1 tabanda), z_zero'dan z_full'a artar; baş çevresi rijit döner. Eksen ham birimde başın kökündedir.",
+      "angle_deg": -20.0,
+      "y0": 0.0, "y1": 0.01,
+      "center_low": [0.0, 0.6627], "center_high": [0.0, 0.6627],
+      "z_zero": 0.5742, "z_full": 0.745,
+      "y_free0": 9.0, "y_free1": 10.0,
+      "head_center": [-0.0632, 1.2964, 0.8525], "head_radius_zero": 0.1897, "head_radius_full": 0.1265
+    }
+  },
+
+  "skeleton": {
+    "hips": [0, 1.60, -0.78],
+    "spine": [0, 1.66, -0.28],
+    "chest": [0, 1.62, 0.30],
+    "belly": [0, 1.24, -0.18],
+    "neck": [[0, 1.50, 0.70], [0, 1.50, 0.98], [0, 1.72, 1.18]],
+    "head": [0, 2.02, 1.34],
+    "nose": [0, 2.00, 1.80],
+    "ears": {
+      "L": {"base": [0.10, 2.17, 1.33], "tip": [0.18, 2.17, 1.30]},
+      "R": {"base": [-0.14, 2.17, 1.33], "tip": [-0.255, 2.13, 1.23]}
+    },
+    "tail": [[0, 1.58, -0.97], [0, 1.40, -1.03], [0, 1.20, -1.08], [0, 1.00, -1.13], [0, 0.78, -1.14]],
+    "legs": {
+      "front": {"parent": "Chest", "fetlock_y": 0.18, "low_y": 0.58, "mid": {"y": 1.02, "dz": -0.10}, "top": {"y": 1.62, "z": 0.40, "dz": 0.0, "x_factor": 0.85}, "track_top_y": 0.78, "track_radius": 0.10},
+      "hind": {"parent": "Hips", "fetlock_y": 0.18, "low_y": 0.63, "mid": {"y": 1.06, "dz": 0.25}, "top": {"y": 1.50, "z": -0.76, "dz": 0.0, "x_factor": 0.8}, "track_top_y": 0.88, "track_radius": 0.10}
+    }
+  },
+
+  "weights": {
+    "dark_lum": [0.0, 0.01],
+    "body_blend": {"hips_spine": [-0.70, -0.38], "spine_chest": [-0.05, 0.25]},
+    "belly": {"y": [1.22, 1.02], "z": [-0.62, -0.42, 0.28, 0.48], "share": 0.5},
+    "tail": {"point": [0, 1.55, -1.0], "normal": [0, 0, -1.0], "blend": [-0.01, 0.04], "smooth": 6, "chain": 0.3},
+    "neck": {"point": [0, 1.5, 0.75], "normal": [0, 0.6, 0.8], "blend": [-0.08, 0.10], "smooth": 12, "exclude_box": [[-0.5, 1.85, -0.3], [0.5, 2.45, 0.66]], "exclude_margin": 0.05},
+    "head": {"center": [0, 2.05, 1.50], "radii": [0.26, 0.20, 0.32], "reach": 0.45, "collar": [1.0, 1.35], "smooth": 4},
+    "ear": {"radius": 0.06, "start": -0.005, "full": 0.03},
+    "leg": {
+      "tube": "chain",
+      "tube_radius": 0.24,
+      "tube_radius_top": 0.18,
+      "hem_y": {"front": 0.80, "hind": 0.95},
+      "hem_fade": 0.07,
+      "skin_smooth": 8,
+      "wool_near": 0.08, "wool_far": 0.25,
+      "wool_top": {"front": 1.30, "hind": 1.40},
+      "wool_share": {"front": 0.55, "hind": 0.35},
+      "wool_smooth": 8,
+      "blend": {"hoof": 0.03, "low": 0.05, "mid": 0.08}
+    }
+  },
+
+  "saddle": {"z": -0.02, "probe": [0.06, 0.05], "sink": 0.02, "bone": "Spine"},
+
+  "gait": {"symmetry": 1.0},
+
+  "clips": {
+    "idle": {"length_s": 8.0, "rate": 30, "swish_deg": 8.0, "tail_share": [0.35, 0.35, 0.3, 0.25], "tail_lag_s": 0.06},
+    "graze": {"length_s": 10.0, "rate": 30, "mouth_y": 0.35, "head_pitch": 45.0, "neck_split": [0.5, 0.3, 0.2], "chest_pitch": 6.0, "spine_pitch": 1.5, "swish_deg": 6.0, "tail_share": [0.35, 0.35, 0.3, 0.25]},
+    "walk": {
+      "doc": "Dört vuruşlu adım (fauna.md §10): sol arka, sol ön, sağ arka, sağ ön. Deve yürürken yana sallanır, başını adımla öne iter.",
+      "stride_m": 1.5, "speed_mps": 1.3, "samples": 60, "duty": 0.58, "lift_m": 0.12,
+      "phases": {"HindL": 0.0, "FrontL": 0.25, "HindR": 0.5, "FrontR": 0.75},
+      "stance_shift": {"front": 0.0, "hind": 0.0},
+      "stance_give": {"front": 0.0, "hind": 4.0},
+      "roll_off": {"front": 8.0, "hind": 6.0},
+      "swing_peak": {"front": 12.0, "hind": 10.0},
+      "flex": {"front": 65.0, "hind": 40.0},
+      "body": {"crouch_m": 0.08, "bob_m": 0.012, "sway_m": 0.02, "hip_yaw": 2.5, "chest_yaw": 2.0, "hip_roll": 3.0, "chest_roll": 2.5, "neck_pitch": 3.0, "head_pitch": -2.0, "nod": 3.0, "tail_yaw": 4.0, "tail_pitch": 2.0, "belly_m": 0.008, "ear": 3.0,
+        "tail_share": [0.35, 0.3, 0.3, 0.25], "tail_yaw_lag": [0.18, 0.26, 0.34, 0.42], "tail_pitch_lag": [0.28, 0.4, 0.52, 0.64]}
+    },
+    "trot": {
+      "doc": "Yan yürüyüş (pace; fauna.md §10 camelid): aynı yanın arka ve ön bacağı birlikte basar, gövde iki yana yatar.",
+      "stride_m": 2.6, "speed_mps": 4.2, "samples": 60, "duty": 0.36, "lift_m": 0.18,
+      "phases": {"HindL": 0.0, "FrontL": 0.0, "HindR": 0.5, "FrontR": 0.5},
+      "stance_shift": {"front": 0.02, "hind": -0.02},
+      "stance_give": {"front": 0.0, "hind": 5.0},
+      "roll_off": {"front": 10.0, "hind": 8.0},
+      "swing_peak": {"front": 16.0, "hind": 14.0},
+      "flex": {"front": 85.0, "hind": 50.0},
+      "body": {"crouch_m": 0.13, "bob_m": 0.02, "sway_m": 0.05, "hip_yaw": 1.5, "chest_yaw": 1.5, "hip_roll": 5.0, "chest_roll": 5.0, "neck_pitch": 6.0, "head_pitch": -4.0, "nod": 2.0, "tail_yaw": 5.0, "tail_pitch": 6.0, "belly_m": 0.012, "ear": 4.0,
+        "tail_share": [0.35, 0.3, 0.3, 0.25], "tail_yaw_lag": [0.18, 0.26, 0.34, 0.42], "tail_pitch_lag": [0.28, 0.4, 0.52, 0.64], "tail_lift": [-6.0, -3.0, -2.0, 0.0]}
+    },
+    "gallop": {
+      "doc": "Çapraz dörtnal, sağ öncü: sol arka, sağ arka, sol ön, sağ ön, sonra havada kalış. Gövde öne arkaya yatar, boyun pompalar.",
+      "stride_m": 4.6, "speed_mps": 9.0, "samples": 90, "duty": 0.2, "lift_m": 0.28,
+      "phases": {"HindL": 0.0, "HindR": 0.1, "FrontL": 0.38, "FrontR": 0.5},
+      "stance_shift": {"front": 0.0, "hind": -0.05},
+      "stance_give": {"front": 0.0, "hind": 6.0},
+      "roll_off": {"front": 5.0, "hind": 4.0},
+      "swing_peak": {"front": 20.0, "hind": 16.0},
+      "flex": {"front": 95.0, "hind": 60.0},
+      "body": {"crouch_m": 0.16, "bob_m": 0.0, "sway_m": 0.006, "hip_yaw": 1.0, "chest_yaw": 1.0, "hip_roll": 1.0, "chest_roll": 1.0, "neck_pitch": 8.0, "head_pitch": -5.0, "nod": 0.0, "tail_yaw": 3.0, "tail_pitch": 8.0, "belly_m": 0.02, "ear": 3.0,
+        "rock_deg": 4.0, "rock_phase": 0.55, "bob1_m": 0.04, "bob1_phase": 0.82, "spine_flex_deg": 3.0, "neck_pump_deg": 8.0, "pump_lag": 0.08,
+        "tail_share": [0.35, 0.3, 0.3, 0.25], "tail_yaw_lag": [0.18, 0.26, 0.34, 0.42], "tail_pitch_lag": [0.1, 0.2, 0.3, 0.4], "tail_pitch_cycles": 1, "tail_lift": [-20.0, -10.0, -6.0, -4.0]}
+    }
+  },
+
+  "far": {"triangles": 1600, "keep_below": 1.0, "keep_factor": 1.0, "wool_smooth": 10, "patch_texels": 1.5, "samples": 24}
+}

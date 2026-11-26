@@ -1,0 +1,15 @@
+{
+	"id": "act0.child.my_bird",
+	"take": 0,
+	"seed": 1997153263,
+	"hash": "770a23ef65ee",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.44,
+	"words": [
+		{"w": "Count", "t0": 0.0, "t1": 0.24},
+		{"w": "my", "t0": 0.293, "t1": 0.4},
+		{"w": "bird", "t0": 0.496, "t1": 0.88},
+		{"w": "too!", "t0": 0.98, "t1": 1.44}
+	]
+}

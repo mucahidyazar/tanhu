@@ -1,0 +1,17 @@
+{
+	"id": "act0.child.race_late",
+	"take": 0,
+	"seed": 3260810324,
+	"hash": "c25c0454d3d5",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.6,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "old", "t0": 0.14, "t1": 0.32},
+		{"w": "one", "t0": 0.36, "t1": 0.48},
+		{"w": "made", "t0": 0.528, "t1": 0.72},
+		{"w": "it", "t0": 0.747, "t1": 0.8},
+		{"w": "anyway.", "t0": 0.88, "t1": 1.6}
+	]
+}

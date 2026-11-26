@@ -1,0 +1,14 @@
+{
+  "id": "hoof_b",
+  "kind": "sfx",
+  "instrument": "hoof",
+  "seconds": 0.26,
+  "seed": 4412,
+  "rate": 22050,
+  "loop": false,
+  "thump_hz": 116,
+  "clop_hz": 1040,
+  "dirt": 0.55,
+  "source": "code",
+  "note": "Atın toynak vuruşu, b çeşidi (audio.md §4 «Hayvan»): bozkırın sıkışık toprağında nalsız toynak, alçak gümleme, kuru tok ve savrulan toprak (scripts/audio/synth/hoof.gd). Kampın atı sürülürken her vuruşta çalar (scripts/player/ride_effects.gd; üç çeşit AudioStreamRandomizer'da, perde ve yükseklik rastgele). Kulak onayı bekler."
+}

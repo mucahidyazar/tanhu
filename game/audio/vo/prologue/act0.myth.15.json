@@ -1,0 +1,18 @@
+{
+	"id": "act0.myth.15",
+	"take": 0,
+	"seed": 3402813822,
+	"hash": "0b3a519d8ac8",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 3.158,
+	"block": {"id": "block:act0.myth.3..act0.myth.25", "t0": 73.488, "t1": 76.646},
+	"words": [
+		{"w": "Nobody", "t0": 0.05, "t1": 0.432},
+		{"w": "counted", "t0": 0.472, "t1": 0.752},
+		{"w": "them.", "t0": 0.816, "t1": 1.187},
+		{"w": "Nobody", "t0": 1.891, "t1": 2.192},
+		{"w": "needed", "t0": 2.249, "t1": 2.592},
+		{"w": "to.", "t0": 2.672, "t1": 2.998}
+	]
+}

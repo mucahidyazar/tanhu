@@ -1,0 +1,20 @@
+keys,tr,en
+SAVE_LOAD_FAILED,Bu kayıt açılamadı.,This save could not be opened.
+SAVE_SPACE_FULL,Kayıt alanı doldu.,Save space is full.
+SAVE_AUTO,Otomatik kayıt,Autosave
+SAVE_WRITTEN,Yolculuk kaydedildi,Journey saved
+SAVE_CAMP_NAME,Gece Kampı,Night Camp
+MODE_ROAM,Serbest Gez,Free Roam
+MODE_STORY,Yolculuk,Journey
+PLACE_OCAK,Ocak başı,By the hearth
+PLACE_AHIR,Ahırın önü,Before the stable
+PLACE_YAMAC,Göle bakan yamaç,The slope above the lake
+PLACE_KAYA,Yosunlu kayalar,The mossy rocks
+PLACE_KUME,Dikili kayalar,The standing stones
+PLACE_KAMP,Yurtların arası,Among the yurts
+PLACE_CAYIR,Çayır,The meadow
+CLOCK_SUMMON,Seni çağırıyorlar.,They are calling for you.
+CLOCK_TIME_CAME,Vakit geldi: {task},It is time: {task}
+WORK_EAT_FIRST,Önce bir şey ye.,Eat something first.
+LEVEL_POINT_WAITS,Puanın bekler. Her beceriyi bir usta öğretir.,Your point will wait. Every skill is taught by a master.
+ROAD_NOT_OPEN,Bu yol henüz açılmadı.,This road is not open yet.

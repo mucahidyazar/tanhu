@@ -1,0 +1,2735 @@
+{
+	"format": 2,
+	"source": "docs-app/content/encyclopedia.json",
+	"site_updated": "2026-11-06",
+	"note": "tools/import_encyclopedia.py yazar; unlock, game_group ve godot_only kayıtlar Godot'nundur, elle değişir.",
+	"chapters": [
+		{
+			"id": "gods",
+			"title": "Tanrılar ve Ruhlar",
+			"icon": "sun",
+			"summary": "Gök, yer ve alt dünya: Tengri ve Umay, yerin iyeleri, Od Ana ve Bayanay, Erlik ile dokuz oğlu, ruhlar, söylencenin kurdu, töre ve sunu. Mitin çağı yazılıdır: «Yıllıktan» Hun çağı Çin yıllıkları, «Taştan» Göktürk ve Uygur tanıkları, «Ozan der» geç derlemeler, «Bizim» oyunun seçimi."
+		}
+	],
+	"groups": [
+		"Gök",
+		"Yer",
+		"Alt",
+		"Hayvan",
+		"Töre ve sunu",
+		"Destan"
+	],
+	"myths": [
+		{
+			"id": "tengri",
+			"site_id": "tengri",
+			"section": "gods",
+			"group": "Gök",
+			"kind": "god",
+			"name": "Tengri",
+			"alt_names": [
+				"撐犁 (chengli, Hanshu 94A)",
+				"Tengri (Orhun yazıtları)",
+				"Gök"
+			],
+			"epithet": "Gök; Hun çağı metinlerinde adı geçen tek tanrı",
+			"era": "mit",
+			"era_note": "«Yıllıktan»: Hanshu 94A'nın 撐犁 sözü (MS 1. yüzyıl; MÖ 2.–1. yüzyıl olayları) ve Mete'nin MÖ 176 mektubu (Shiji 110). 撐犁'nin Tengri olduğu çoğunlukla kabul edilir, kanıtlanmış değildir. Kut ve Gök'ün buyruğu «Taştan»dır: Orhun yazıtları, 8. yüzyıl.",
+			"acts": [
+				"Önsöz",
+				"I",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Tengri göğün kendisi ve gökteki buyruktur. Hanshu 94A'ya göre Hunlar göğe 撐犁, oğula 孤塗 der; Tanhu'nun tam unvanı 撐犁孤塗單于, yani Göğün Oğlu Tanhu'dur. Mete MÖ 176'da Han imparatoruna yazdığı mektupta kendini «Göğün diktiği Hun Büyük Tanhu'su» (天所立匈奴大單于) diye anar ve işini «Göğün lütfuyla» (以天之福) yaptığını yazar. Hun çağı kaynaklarında tanrılar kadrosu yoktur: gök, yer, atalar ve ruhlar vardır."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Tengri'nin sureti yoktur; tapılan göğün kendisidir. Shiji 110'a göre Tanhu sabah konaktan çıkıp doğan güne, akşam aya eğilir (單于朝出營，拜日之始生，夕拜月). Takhiltyn Khotgor'daki büyük Hun mezarında tabut kapağına bir altın daire ve bir altın hilal konmuştur; bu çift Mete'den yaklaşık 150–250 yıl sonrasının işidir. Roux'nun aktardığına göre Kaşgarlı 11. yüzyılda «tengri» sözünü dev görünen her şey için de verir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Göktürk yazıtları aynı göğü yüzyıllar sonra kendi dilleriyle anar. Kül Tigin yazıtı dünyayı şöyle kurar: üstte mavi gök, altta yağız yer kılınınca ikisinin arasında insan oğlu kılınmış. Kut ve ülüş Gök'ten gelir: hükümdar Tengri buyurduğu için tahta oturur, kutu da halkına o dağıtır. Hun dili tartışmalıdır; Vovin yönetici katmanın bir Yenisey dili konuştuğunu önerir, «gök» sözü için de Yenisey kökeni önerilmiştir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Hun çağı Çin yıllıkları; Orhun yazıtları"
+				},
+				{
+					"label": "Alanı",
+					"value": "Gök, gökteki buyruk ve kut"
+				},
+				{
+					"label": "Motifler",
+					"value": "Doğan güne eğiliş · Altın daire ve hilal · «Gör.»"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "kayra_han",
+						"label": "Önsöz'de bir ad"
+					},
+					{
+						"id": "umay",
+						"label": "Tonyukuk'ta yanında"
+					},
+					{
+						"id": "yer_sub",
+						"label": "Karşısındaki yer ve su"
+					},
+					{
+						"id": "mete",
+						"label": "«Göğün diktiği» Tanhu"
+					}
+				],
+				"note": "Hun çağı metinleri Gök'e soy, eş ya da çocuk vermez; bağlar sonraki tanıklardandır. Tonyukuk yazıtında Gök, Umay ve kutsal Yer-Sub birlikte düşmanı bastırır; Radloff'un Altay derlemesinde gök katlarının tanrıları Kayra Han'dan çıkar."
+			},
+			"source_note": "Kaynak: Hanshu 94A ve Shiji 110 (Han yıllıkları); Kül Tigin ve Tonyukuk yazıtları (8. yüzyıl); Roux, «Tengri» (Encyclopedia of Religion); Miller vd. 2009 (Takhiltyn Khotgor). Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Tengri, the sky above the steppe. I set the Tanhu in his place, and at dawn he bows to my rising sun.",
+				"tr": "Ben Tengri'yim, bozkırın üstündeki gök. Tanhu'yu yerine ben diktim; şafakta doğan güneşime o eğilir."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan",
+				"Taştan"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/tengri/art.png",
+				"portrait": "res://assets/ui/encyclopedia/tengri/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/tengri/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/tengri/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/tengri.mp3"
+		},
+		{
+			"id": "kayra_han",
+			"site_id": "kayra-han",
+			"section": "gods",
+			"group": "Gök",
+			"kind": "god",
+			"name": "Kayra Han",
+			"alt_names": [
+				"Tengere Kaira Kan (Radloff)",
+				"Tengri Kayra Han (Önsöz)"
+			],
+			"epithet": "Altay yaratılış anlatısında her şeyin başı olan gök",
+			"era": "mit",
+			"era_note": "«Ozan der»: Radloff'un Altay derlemesi (Aus Sibirien II, 19. yüzyıl). Radloff aynı anlatıda Musa'nın yaratılış öyküsünün ve Budizmin izlerini kendisi yazar. Hun çağı metinlerinde Kayra adı geçmez.",
+			"acts": [
+				"Önsöz"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Radloff'un derlediği Altay anlatısında Tengere Kaira Kan tanrıların en yükseğidir: var olan her şeyin başı, insan soyunun babası ve anasıdır. 17 kat göğün en üstünde oturur ve evrenin yazgısını oradan yönetir. Bay Ülgen, Kızagan ve Mergen Tengere ondan çıkar. Oyunun Önsöz'ünde Kayra Han, Tengri'nin Altay adıdır ve ikisi birlikte söylenir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Radloff ona bir beden çizmez; Kayra yaratılışta kendine benzeyen bir varlık yaratır ve adını Kişi koyar. Önce her şey sudur; yer, gök, güneş ve ay yoktur. Kayra ile Kişi suyun üstünde iki kara kaz gibi süzülür. Kişi daha yükseğe çıkmak ister, gücünü yitirip dibe düşer ve Kayra'ya «merhametli gök» diye seslenir; Kayra sudan bir taş yükseltip onu üstüne oturtur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Kayra, Kişi'yi dibe daldırıp toprak getirtir; Kişi bir avucunu kendine yer yapmak için ağzında saklar, toprak şişer, tükürünce düz yer bataklık olur. Kayra ona Erlik adını verip onu ışıktan sürer, dokuz dallı bir ağaç bitirir ve her dalın altına bir insan, dokuz boyun atasını koyar. Radloff dünyayı taşıyan üç balığı ve günah öyküsünü Musa'nın etkisi, Mandışire ve Maytere adlarını Budist etki sayar. Sanın anlamı da ayrışır: Radloff ve Holmberg «merhametli» der; Anohin'in kamları «Kayrakan» sanını Erlik'e verir ve «kesen» diye açıklar."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Radloff)"
+				},
+				{
+					"label": "Alanı",
+					"value": "17. kat gök; yaratılış"
+				},
+				{
+					"label": "Motifler",
+					"value": "İlk su · İki kara kaz · Dokuz dallı ağaç"
+				}
+			],
+			"lineage": {
+				"down": [
+					{
+						"id": "erlik",
+						"label": "Yarattığı Kişi (Radloff)"
+					},
+					{
+						"id": "ulgen",
+						"label": "Ondan çıkan (Radloff)"
+					}
+				],
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Önsöz'de bir ad"
+					}
+				],
+				"note": "Soy bağları derlemeye göre değişir: Radloff'ta Kişi'yi Kayra yaratır, Ülgen de Kayra'dan çıkar; Verbitski'de Erlik'in adını Ülgen koyar; Anohin'in kamları «Kayrakan» sanını Erlik'e verir."
+			},
+			"source_note": "Kaynak: Radloff, Aus Sibirien II, sayfa 3–7 (19. yüzyıl); Holmberg 1927; Anohin 1924, I.A. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Kayra Khan, the beginning of all that is. Before earth and sky there was only water, and I flew over it like a black goose.",
+				"tr": "Ben Kayra Han'ım, var olan her şeyin başı. Yer ve gök yokken yalnız su vardı; ben onun üstünde kara bir kaz gibi uçtum."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/kayra_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/kayra_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/kayra_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/kayra_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/kayra_han.mp3"
+		},
+		{
+			"id": "ulgen",
+			"site_id": "ulgen",
+			"section": "gods",
+			"group": "Gök",
+			"kind": "god",
+			"name": "Ülgen",
+			"alt_names": [
+				"Bay Ülgen (Radloff: Bai Ülgön)",
+				"Ak Ayas, Ayas Kan (sanları)"
+			],
+			"epithet": "Altın dağdaki ak aydınlık; Altay kamlarının yaratıcısı",
+			"era": "mit",
+			"era_note": "«Ozan der»: Radloff (19. yüzyıl), Verbitski ve Anohin'in Altay derlemesi (1910–1912, baskı 1924). Hun çağı metinlerinde ve Orhun yazıtlarında Ülgen adı geçmez.",
+			"acts": [
+				"Önsöz"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Ülgen, Altay kamlarının iyilik veren yaratıcısıdır. Radloff'ta Bay Ülgen Kayra'dan çıkar ve 16. kat gökte altın bir dağın üstünde altın tahtta oturur. Anohin'in kamlarına göre ayın, güneşin ve yıldızların ötesinde yaşar; sarayının kapıları ve tahtı altındandır. Güneşi, ayı, gökkuşağını, başın kutunu, sürüyü ve otlağı o yaratır; gök gürültüsü, şimşek, yağmur ve dolu ondan gelir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kamlar onu insan biçiminde düşünür ve «babam Ülgen» diye çağırır. Dualardaki sanları ak Ayas «ak aydınlık», Ayas Kan «aydın han», gök gürleten ve şimşek çakandır; Ayas ayrı bir tanrı değildir. Ateş de ondan gelir: Ülgen ak ve kara iki taşı birbirine vurur, kıvılcım yere düşer (Holmberg); kam duası onu «üç ocak taşını diken» diye anar. Ona üç, altı, dokuz ya da on iki yılda bir, baharda ya da yazın, açık renkli üç yaşında bir kısrak sunulur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Ülgen'in yolu yalnız erkek kama açıktır: kam ona yedi ya da dokuz geçitle çıkar, beşincide Altın Kazık'ta durur ve geri döner; sunusuna yalnız erkekler girer. Verbitski'nin anlatısında Ülgen denizde insana benzer bir çamur görür, «kişi olsun» der ve adını Erlik koyar; Erlik önce onun dostu ve kardeşidir. Radloff'ta Ülgen'in iki oğlu vardır, Yayık ile insanın koruyucusu Maytere; Anohin'de yedi oğlu ve dokuz adsız ak kızı vardır. Anohin'in Yayık'ı ise Ülgen'in aracı ruhudur: kırmızı bulut kenarlı, gökkuşağı yularlı, soluk şimşek kamçılıdır ve kamı göğe o götürür."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Radloff, Verbitski, Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Gök, gök gürültüsü, yağmur ve ateş"
+				},
+				{
+					"label": "Motifler",
+					"value": "Altın dağ ve taht · Ak ve kara taş · Üç ocak taşı"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "kayra_han",
+						"label": "Çıktığı gök (Radloff)"
+					}
+				],
+				"down": [
+					{
+						"id": "od_ana",
+						"label": "Taşlarından düşen ateş"
+					}
+				],
+				"side": [
+					{
+						"id": "erlik",
+						"label": "Kardeşi (Verbitski)"
+					}
+				],
+				"note": "Derlemeler ayrışır: Radloff'ta Ülgen'in iki oğlu Yayık (Mai-änä) ile Maytere'dir, aynı kitabın alt dünya bölümünde Erlik'i Ülgen yaratır. Anohin'de yedi oğlu vardır: en çok sevilen büyük oğul Karşıt, Pura Kan, Burça Kan ve beşinci oğul kartal Karakuş bunlardandır, her soyun koruyucusu bir oğuldur; dokuz kızının adı yoktur, Yayık onun aracı ruhudur."
+			},
+			"source_note": "Kaynak: Radloff, Aus Sibirien II, sayfa 6–11 (19. yüzyıl); Anohin 1924, I.B ak ruhlar; Verbitski (Aça ve İnan üzerinden); Holmberg 1927, sayfa 449–450. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Ülgen, the white light on the golden mountain. I struck white stone on black and gave your hearth its first spark.",
+				"tr": "Ben Ülgen'im, altın dağdaki ak aydınlık. Ak taşı kara taşa vurdum, ocağınıza ilk kıvılcımı ben verdim."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/ulgen/art.png",
+				"portrait": "res://assets/ui/encyclopedia/ulgen/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/ulgen/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/ulgen/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/ulgen.mp3"
+		},
+		{
+			"id": "umay",
+			"site_id": "umay",
+			"section": "gods",
+			"group": "Gök",
+			"kind": "god",
+			"name": "Umay",
+			"alt_names": [
+				"Umay (Orhun yazıtları)",
+				"May-Ene (Altay; bağı açık değil)"
+			],
+			"epithet": "Doğumun, eşin ve çocuğun koruyucusu",
+			"era": "mit",
+			"era_note": "«Taştan»: Tonyukuk ve Kül Tigin yazıtları (8. yüzyıl), Kaşgarlı'nın sözlüğü (11. yüzyıl). Mete'den yaklaşık bin yıl sonradır; Hun çağı metinlerinde Umay adı geçmez.",
+			"acts": [
+				"Önsöz",
+				"I",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Umay doğumun, yeni doğanın ve eşin koruyucusudur; savaşta da yardım eder. Adı ilk kez 8. yüzyıl Türk yazıtlarında geçer. Tonyukuk yazıtında savaşın ortasında Gök, Umay ve kutsal Yer-Sub düşmanı bastırır (Tengri Umay ıduk yir sub basa birti erinç); burada Umay ebe değil, savaş yardımcısıdır."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Umay'ın yazıtlarda bir sureti yoktur; varlığı benzetmelerde ve doğumun işlerinde görünür. Kül Tigin yazıtında hükümdarın anası ona benzetilir: «Umay gibi anam hatunun kutuna» (Umay teg ögüm katun kutıña, doğu 31). Kaşgarlı 11. yüzyılda «umay» sözünü doğumdan sonra düşen eş diye açıklar ve «Umayga ogul bolur» atasözünü verir. Halk geleneğinde beşiğe küçük bir ok ve yay asılır; boncuk da Umay'la anılan ögelerdendir (Kayabaşı)."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Umay ile yazıtlardan bin yıl önceki Hunlar arasında yazılı bir bağ yoktur; oyun onu «Taştan» rozetiyle anar. Altay'ın May-Ene adıyla bağı açık değildir. Al Karısı onun karşısında durur; kimi araştırmacılar Al Karısı'nı Umay'dan bozulmuş sayar, ikisinin ortak ögesi boncuktur."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Orhun yazıtları (8. yüzyıl); Kaşgarlı (11. yüzyıl)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Doğum, eş ve çocuk; savaşta yardım"
+				},
+				{
+					"label": "Motifler",
+					"value": "Gömülen eş · Beşikte ok-yay · Boncuk"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Tonyukuk'ta yanında"
+					},
+					{
+						"id": "yer_sub",
+						"label": "Tonyukuk'ta yanında"
+					},
+					{
+						"id": "al_karisi",
+						"label": "Karşıtı"
+					}
+				],
+				"note": "Yazıtlar Umay'a soy vermez. Altay'ın May-Ene'siyle bağı açık değildir; kimi araştırmacılar Al Karısı'nı Umay'dan bozulmuş sayar."
+			},
+			"source_note": "Kaynak: Tonyukuk ve Kül Tigin yazıtları (8. yüzyıl); Kaşgarlı, Divanü Lügati't-Türk (Bayat 2007 üzerinden); Kayabaşı, «Türk Mitolojisinin Kutsal Dişisi: Umay». Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Umay, keeper of the newborn. Bury my share in the earth and hang a small bow above the cradle.",
+				"tr": "Ben Umay'ım, yeni doğanın koruyucusu. Payımı toprağa gömün, beşiğin üstüne küçük bir yay asın."
+			},
+			"speaks": false,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Taştan"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/umay/art.png",
+				"portrait": "res://assets/ui/encyclopedia/umay/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/umay/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/umay/thumb.png"
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "demirkazik",
+			"site_id": "demirkazik",
+			"section": "gods",
+			"group": "Gök",
+			"kind": "place",
+			"name": "Demirkazık",
+			"alt_names": [
+				"tämür qazuq (Kaşgarlı)",
+				"Altun Kazık (Uygur, Altay)",
+				"Kök Boz At ve Ak Boz At"
+			],
+			"epithet": "Göğün dönmeyen noktası ve çevresinde dönen iki at",
+			"era": "mit",
+			"era_note": "«Taştan»: Kaşgarlı'nın tämür qazuq'u (11. yüzyıl). İki at Kazak ve Kırgız anlatısıdır, «Ozan der» (Holmberg 1927). MÖ 209 göğünün hesabı oyunundur (presesyon, Lieske 1977 açıları), «Bizim».",
+			"acts": [
+				"Önsöz",
+				"I",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Yeri ve adı",
+					"text": "Demirkazık göğün kuzey kutbudur: gök onun çevresinde döner, kendisi yerinden oynamaz. Kaşgarlı 11. yüzyılda onu tämür qazuq, yani demir kazık diye yazar. Uygur ve Altay dilinde adı Altın Kazık'tır, Kırgız ve Başkurt dilinde demirdir. Anohin'in kamlarına göre Ülgen'e giden yolun beşinci geçidi de Altın Kazık'tır; kam orada durup geri döner. Anohin'in yayıncısı Altın Kazık'ı kutup yıldızı diye açıklar."
+				},
+				{
+					"title": "Gelenekte",
+					"text": "Kazak anlatısında kazığa iki at bağlıdır, Ak Boz At ve Kök Boz At; Yedi Karakçı, yani Büyük Ayı'nın yedi yıldızı, onları çalmak ister. Kırgız anlatısında kurt atları öldürünce dünya biter (Holmberg). Gök bir çadır gibi düşünülür: yıldızlar örtünün delikleridir, Ülker en kötü deliktir ve soğuk oradan girer. Yurt bu yüzden küçük bir evrendir; tündük göğün kapısı, ocak yerin göbeğidir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Yeri",
+					"value": "Göğün kuzey kutbu"
+				},
+				{
+					"label": "Gelenek",
+					"value": "Kaşgarlı (11. yüzyıl); Kazak ve Kırgız anlatıları"
+				},
+				{
+					"label": "Motifler",
+					"value": "Kök Boz At · Ak Boz At · Yedi Karakçı"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Göğün kazığı"
+					},
+					{
+						"id": "ulgen",
+						"label": "Kamın Ülgen yolunda Altın Kazık"
+					}
+				]
+			},
+			"source_note": "Kaynak: Kaşgarlı (Jiang 2026 ve Li 2014 üzerinden); Holmberg 1927, sayfa 336, 416–417 ve 425; Anohin 1924, I.B; Heguanzi ve Shiji 27; presesyon hesabı mitoloji araştırmasınındır (Lieske 1977 açıları). Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Taştan",
+				"Ozan der",
+				"Bizim"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "yer_sub",
+			"site_id": "yer-sub",
+			"section": "gods",
+			"group": "Yer",
+			"kind": "god",
+			"name": "Yer-Sub",
+			"alt_names": [
+				"yir sub (Orhun)",
+				"Yer-Su, Jer-su (Altay)"
+			],
+			"epithet": "Yerin ve suyun kutsal bütünü",
+			"era": "mit",
+			"era_note": "«Taştan»: Tonyukuk ve Kül Tigin yazıtları, 8. yüzyıl. Hun çağında yalnız yere sunu vardır (Shiji 110: 祭其先、天地、鬼神), adı yoktur; o «Yıllıktan»dır. Altay'ın Yer-Su hanları Radloff ve Anohin'dedir, «Ozan der».",
+			"acts": [
+				"Önsöz",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Yer-Sub yerin ve suyun birlikte anıldığı kutsal güçtür; adı ilk kez 8. yüzyılın Orhun yazıtlarında geçer. Tonyukuk'ta Gök, Umay ve kutsal Yer-Sub düşmanı bastırır. Kül Tigin yazıtı atalarımızın tuttuğu yer ve suyun sahipsiz kalmamasını ister: «Eçümüz apamız tutmış yir sub idisiz bolmazun» (doğu 19). Yazıttaki idi «sahip» demektir; sonraki iye sözü aynı köktendir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Hun çağının kaynağı adı değil sunuyu anar: beşinci ayda Lung-çeng'de atalara, göğe, yere ve ruhlara sunu verilir (Shiji 110). Radloff'a göre Altay'da Yer-Su, kaynak başlarında ve karlı dorukların üstünde oturan 17 handır; en güçlüsü yerin göbeğindeki Jö Kan'dır, orada tepesi Ülgen'in evine erişen dev bir köknar biter. İnsan bu hanlara doğrudan sunu verir; yüksek göğe ise ataları aracılığıyla ulaşır. Göktürkler ağaçsız yüksek dağa Yer Tanrısı der (Zhou Shu 50)."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Altay'da dağ ruhları ne Ülgen'e ne Erlik'e bağlıdır; sürüyü çoğaltır, kötü ruhu kovar, saygısızlığı hastalıkla cezalandırır (Anohin). Geçitteki taş yığınına taş eklenir; kumaş, yün ve at kılı bırakılır, kaza olursa yerin sahibi yapmıştır. Toprağı kazmak ve otu kökünden çekmek günahtır; tarla bozulunca «yerin kutu gitti» denir (Holmberg). Radloff'ta denizin hanı ve ölülerin koruyucusu Talay Kan da Yer-Su hanlarındandır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Orhun yazıtları (8. yüzyıl); Altay derlemeleri"
+				},
+				{
+					"label": "Alanı",
+					"value": "Yer, su, dağ ve kaynak başları"
+				},
+				{
+					"label": "Motifler",
+					"value": "Taş yığını · Kaynak başı · At kılı ve yün sunusu"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Üstteki gök"
+					},
+					{
+						"id": "umay",
+						"label": "Tonyukuk'ta yanında"
+					},
+					{
+						"id": "iyeler",
+						"label": "Yerin küçük sahipleri"
+					},
+					{
+						"id": "bayanay",
+						"label": "Avın sahibi"
+					}
+				],
+				"note": "Radloff'ta Yer-Su 17 handır: en güçlüsü Jö Kan, denizin hanı ve ölülerin koruyucusu Talay Kan, Altay halkının iyiliksever hanı Altay Kan; Jö Kan'ın oğulları Sö Kan ile Temir Kan'dır. Anohin'de Temir Kan Erlik'in oğludur: aynı ad iki derlemede iki ayrı soya girer."
+			},
+			"source_note": "Kaynak: Tonyukuk ve Kül Tigin yazıtları (8. yüzyıl); Shiji 110; Zhou Shu 50; Radloff, Aus Sibirien II, sayfa 7–8; Anohin 1924, I.B; Holmberg 1927, sayfa 457–471. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Yer-Sub, the holy earth and water. Leave a stone on my cairn at the pass, and I will keep your road.",
+				"tr": "Ben Yer-Sub'um, kutsal yer ve su. Geçitteki yığınıma bir taş bırak, yolunu ben korurum."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Taştan",
+				"Yıllıktan",
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/yer_sub/art.png",
+				"portrait": "res://assets/ui/encyclopedia/yer_sub/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/yer_sub/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/yer_sub/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/yer_sub.mp3"
+		},
+		{
+			"id": "iyeler",
+			"site_id": "iyeler",
+			"section": "gods",
+			"group": "Yer",
+			"kind": "group",
+			"name": "İyeler",
+			"alt_names": [
+				"idi (Orhun: sahip)",
+				"ee (Altay)",
+				"Su boğası, dağ iyesi, bozkır iyesi"
+			],
+			"epithet": "Her suyun, dağın, ocağın ve çalgının sahibi",
+			"era": "mit",
+			"era_note": "«Ozan der»: Holmberg 1927 (sayfa 457–470) ve Altay, Sakha, Buryat, Moğol derlemeleri, 19.–20. yüzyıl. «Sahip» anlamındaki idi sözü Orhun yazıtlarındadır, «Taştan».",
+			"acts": [
+				"I",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimlikleri",
+					"text": "İyeler her suyun, dağın, ocağın ve zanaatın sahibi olan ruhlardır. Orhun yazıtlarındaki idi «sahip» demektir; Altay'da dağ ve yer ruhlarının hepsine yer-su ya da ee, yani sahip, denir (Anohin). Yer-Sub yerin ve suyun bütünüyse iyeler tek tek yerlerin sahibidir: bir gölün, bir geçidin, bir körüğün."
+				},
+				{
+					"title": "Gelenekte",
+					"text": "Holmberg'in derlediği inançlara göre su boğası fırtınadan önce böğürür ve buzu kırar. Dağ iyesi rüzgârı tutar, yüksek dağın yanında yüksek sesle konuşulmaz; Moğollar fırtınalı günlere «koşan günler» der. Bozkır iyesi gece yalancı ışık yakar ve yolcuyu yoldan çıkarır; Moğol adı Albin'dir. Buryat çalgı iyesi Huri Ecin üç yol ağzında at kafatası üstünde çalana hüner verir; körükte baş iye oturur, demircilerin iyesi Boşintoy'un dokuz oğlu vardır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay, Sakha, Buryat ve Moğol derlemeleri"
+				},
+				{
+					"label": "Alanı",
+					"value": "Su, dağ, bozkır, ocak, çalgı ve körük"
+				},
+				{
+					"label": "Motifler",
+					"value": "Su boğası · Yalancı ışık · At kafatası"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "yer_sub",
+						"label": "Yerin ve suyun bütünü"
+					},
+					{
+						"id": "od_ana",
+						"label": "Ocağın iyesi"
+					},
+					{
+						"id": "bayanay",
+						"label": "Avın iyesi"
+					}
+				]
+			},
+			"source_note": "Kaynak: Holmberg 1927, sayfa 457–470; Anohin 1924, I.B; Kül Tigin yazıtı, doğu 19 (idi). Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der",
+				"Taştan"
+			],
+			"unlock": "ozan_dinledi",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/iyeler/art.png",
+				"portrait": "res://assets/ui/encyclopedia/iyeler/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/iyeler/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/iyeler/thumb.png"
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "od_ana",
+			"site_id": "od-ana",
+			"section": "gods",
+			"group": "Yer",
+			"kind": "god",
+			"name": "Od Ana",
+			"alt_names": [
+				"ot (Eski Türkçe: ateş)",
+				"Ana Ut (Moğol duası)",
+				"Otuz başlı ana, kırk başlı kız (Altay kam duası)"
+			],
+			"epithet": "Ocak ateşinin anası",
+			"era": "mit",
+			"era_note": "«Ozan der»: Holmberg 1927 (sayfa 449–455), Altay ve Moğol dualarından. Ateşe saygının en eski yazılı tanığı 6.–7. yüzyıldır: Theophylact ve Zemarkhos'un Türk elçiliği. Hun çağı metninde ateş sunusu yoktur; «Od Ana» biçimi çağdaş derlemelerin adıdır.",
+			"acts": [
+				"Önsöz",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Od Ana ocak ateşinin anası, her ocağın sahibidir. Altay kamı ateşe «otuz başlı ana, kırk başlı kız» der, Moğol duası «Ana Ut» der; sözcük Eski Türkçe ot, yani ateştir. «Od Ana» biçimi çağdaş derlemelerin adıdır; birincil tanıklık «ana ateş» ve «otuz başlı ana» biçimindedir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Ateşin yüzü yoktur; durumu evin durumunu gösterir: sunu veren evde semiz, cimri evde sıskadır (Holmberg). Yasakları sayılıdır: ateşe tükürülmez, suyla söndürülmez, üstünden atlanmaz, ateşe bıçak sokulmaz, yanında odun yarılmaz. İlk lokma ve ilk kâse ateşe gider; Çuvaş gelini baba ocağının külünü yeni evine taşır."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Ateşe saygının en eski yazılı tanığı 6.–7. yüzyıldır: Bizanslı Theophylact Türklerin ateşe aşırı saygı duyduğunu yazar, 568 ya da 569'da yola çıkan Zemarkhos elçiliği Türk hükümdarına varmadan iki ateşin arasından geçirilir. Hun çağı metninde ateş sunusu yoktur. Ateş gökten iner: Altay'da Ülgen ak ve kara taşı vurur, Yenisey'de yıldırım ağacı yakar ve ateşi insana ilk kam öğretir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay ve Moğol duaları; Holmberg derlemesi"
+				},
+				{
+					"label": "Alanı",
+					"value": "Ocak, köz ve ateş"
+				},
+				{
+					"label": "Motifler",
+					"value": "İlk lokma · Üç ocak taşı · Köz Kabı"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "ulgen",
+						"label": "Ateşi taşlardan çıkaran (Altay)"
+					}
+				],
+				"side": [
+					{
+						"id": "iyeler",
+						"label": "İyelerden biri"
+					},
+					{
+						"id": "al_karisi",
+						"label": "Ocak taşında duran gölge"
+					}
+				],
+				"note": "Ateşin kökü derlemeye göre değişir: Altay'da Ülgen ak ve kara taşı vurur; Sakha'da ateşin babası Ürüng Ayıı Toyon'dur (Holmberg, sayfa 449); Yenisey'de ateşi yıldırım yakar."
+			},
+			"source_note": "Kaynak: Holmberg 1927, sayfa 449–455; Theophylact Simocatta, 7.8; Menandros (Zemarkhos elçiliği); Anohin 1924, I.B. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Od Ana, mother of the hearth fire. Give me the first morsel and the first cup, and never spit into my flame.",
+				"tr": "Ben Od Ana'yım, ocak ateşinin anası. İlk lokmayı ve ilk kâseyi bana verin, alevime asla tükürmeyin."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/od_ana/art.png",
+				"portrait": "res://assets/ui/encyclopedia/od_ana/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/od_ana/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/od_ana/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/od_ana.mp3"
+		},
+		{
+			"id": "bayanay",
+			"site_id": "bayanay",
+			"section": "gods",
+			"group": "Yer",
+			"kind": "god",
+			"name": "Bayanay",
+			"alt_names": [
+				"Baay Bayanay (Sakha)",
+				"Payana, Bay-Ene (Altay-Sayan)"
+			],
+			"epithet": "Ormanın ve avın sahibi",
+			"era": "mit",
+			"era_note": "«Ozan der»: Sakha derlemeleri (Holmberg 1927, sayfa 466–467; Aça 2007), 19.–20. yüzyıl. Altay-Sayan'ın Payana ve Bay-Ene'si eski bir yankı olabilir; bu bir çıkarımdır. Bayanay adı Hun çağı metinlerinde geçmez.",
+			"acts": [
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Bayanay Sakha avcılarının orman ve av sahibidir; derlemelerde adı Baay Bayanay, yani zengin Bayanay'dır. Anlatı sever: av öncesi gece anlatı yoksa av tutmaz, gündüz ve yazın anlatmak yasaktır. Ürün avcı ile anlatıcı arasında bölünür ve gereğinden fazlası hoş görülmez (Aça 2007)."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Derlemeler ona açık bir beden vermez; varlığı avın tutup tutmamasında okunur. Avcı ilk ganimetten ona pay bırakır (Holmberg). Ayının adı anılmaz; oyunun kişileri ona «Yaşlı» der. Altay, Hakas, Şor ve Tıva avcıları da ava destancı götürür."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Bayanay adı Hun çağı metinlerinde geçmez; derlemeler 19. ve 20. yüzyıldandır. Altay-Sayan'ın Payana ve Bay-Ene adlı koruyucuları onun eski bir yankısı olabilir; bu bir çıkarımdır. Oyun töreyi bu yüzden ozanın ağzıyla verir: bir kişinin inancı olarak, Hun çağının kuralı olarak değil."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Sakha (Yakut) avcıları; Altay-Sayan"
+				},
+				{
+					"label": "Alanı",
+					"value": "Orman ve av"
+				},
+				{
+					"label": "Motifler",
+					"value": "Av öncesi anlatı · İlk ganimetten pay · Adı anılmayan ayı"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "yer_sub",
+						"label": "Yerin büyük sahibi"
+					},
+					{
+						"id": "iyeler",
+						"label": "İyelerden biri"
+					}
+				],
+				"note": "Derlemeler Bayanay'a soy vermez. Altay-Sayan'ın Payana ve Bay-Ene'si onun eski yankısı sayılabilir; bu çıkarımdır."
+			},
+			"source_note": "Kaynak: Holmberg 1927, sayfa 466–469; Aça 2007, «Mitten Destana»; Bayat 2007 (Payana). Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Bayanay, master of the forest and the hunt. Leave me my share, and never take more than you need.",
+				"tr": "Ben Bayanay'ım, ormanın ve avın sahibi. Payımı bırak, gereğinden fazlasını alma."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/bayanay/art.png",
+				"portrait": "res://assets/ui/encyclopedia/bayanay/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/bayanay/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/bayanay/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/bayanay.mp3"
+		},
+		{
+			"id": "yol_tengrisi",
+			"site_id": "yol-tengrisi",
+			"section": "gods",
+			"group": "Yer",
+			"kind": "god",
+			"name": "Yol Tengrisi",
+			"alt_names": [
+				"Yol Tengri (Irk Bitig)",
+				"Benekli Atlı (oyunda)",
+				"Yol tanrıları (Movses)"
+			],
+			"epithet": "Benekli atlı yol tanrısı, kırılanı onaran",
+			"era": "mit",
+			"era_note": "«Taştan»: Irk Bitig, Dunhuang, büyük olasılıkla 9. yüzyıl (Bazin: 930 ya da 942). Kafkas Hunlarının yol tanrılarına sunusu Movses Dasxuranci'dedir (olay 681–682, derleme 10. yüzyıl).",
+			"acts": [
+				"I",
+				"II",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Yol Tengrisi Eski Türkçe Irk Bitig'de konuşan yol tanrısıdır. Irk Bitig Dunhuang'da bulunmuş bir fal kitabıdır, büyük olasılıkla 9. yüzyıldandır. Tanrı iki falda konuşur: birinde korkan insana kut verir, ötekinde kırılanı onarır, yırtılanı diker (Tekin 1993)."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Bir falda benekli atlıdır ve sabah akşam gezer. Ötekinde yaşlıdır ve elinde iş vardır: kırılanı onarır, yırtılanı diker."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Yol Tengrisi adı Hun çağı metinlerinde geçmez; Irk Bitig Mete'den bin yıldan fazla sonradır ve oyun onu «Taştan» rozetiyle anar. Movses Dasxuranci de Kafkas Hunlarının ateşe, suya, aya ve yol tanrılarına sunu verdiğini yazar; olay 681–682'dir, derleme 10. yüzyıldandır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Irk Bitig (Dunhuang, 9. yüzyıl)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Yol ve yolcu"
+				},
+				{
+					"label": "Motifler",
+					"value": "Benekli at · Onarılan direk · Dikilen yırtık"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "yer_sub",
+						"label": "Yolun yeri ve suyu"
+					},
+					{
+						"id": "iyeler",
+						"label": "Geçitlerin sahipleri"
+					}
+				]
+			},
+			"source_note": "Kaynak: Irk Bitig (Tekin 1993; Bazin); Movses Dasxuranci, Albanya Tarihi II.40. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am the god of the road, rider of the dappled horse. I give luck to the fearful traveller, and I mend what is broken.",
+				"tr": "Ben yolun tengrisiyim, benekli atlı. Korkan yolcuya kut veririm, kırılanı onarırım."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Taştan"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/yol_tengrisi/art.png",
+				"portrait": "res://assets/ui/encyclopedia/yol_tengrisi/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/yol_tengrisi/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/yol_tengrisi/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/yol_tengrisi.mp3"
+		},
+		{
+			"id": "erlik",
+			"site_id": "erlik",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Erlik Han",
+			"alt_names": [
+				"Erlik (Altay derlemeleri)",
+				"Erklig Han (Uygur Budist metinleri)",
+				"Kara Nama (Hun ağzında: «kara nesne»)",
+				"Kişi (Radloff'un yaratılışında)"
+			],
+			"epithet": "Altay anlatılarında yeraltı hükümdarı",
+			"era": "mit",
+			"era_note": "«Ozan der»: figür Radloff'un (19. yüzyıl) ve Anohin'in Altay derlemelerindedir (1910–1912, baskı 1924). erklig sözcüğü Orhun yazıtlarında (8. yüzyıl) Gök'ün sıfatıdır, Uygur Budist metinlerinde Yama'nın adıdır. Hun çağı metinlerinde Erlik adı geçmez.",
+			"acts": [
+				"Önsöz",
+				"I",
+				"II",
+				"IV",
+				"VI",
+				"Sonsöz"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Erlik, Altay Türklerinden derlenen anlatılarda alt dünyanın ve ölülerin hükümdarıdır. Anohin'e göre en ağır belalar ondan gelir: insana ve sürüye salgın gönderir, sunu almak için hastalık verir, sunu verilmezse öldürür. Ölenin canını alt dünyaya götürür, orada yargılar ve kendine hizmetçi yapar. Yine de ona «Baba Erlik» denir, çünkü herkes sonunda ona varır ve can ipini o keser (Radloff, Anohin)."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kam dualarında atletik yapılı bir ihtiyardır: kaşları ve gözleri is gibi kara, çatal sakalı dizine iner, bıyığı diş gibi kıvrılıp kulaklarının ardına atılır, boynuzları ağaç kökü gibidir (Anohin). Radloff'un derlediği duada kara bir ata biner, kalçalarını kemer sarmaz, kulakları bir karıştır, yüzü kanlıdır ve kılıcı yeşil demirdendir. Kara bir kayıkla, kara bir yorgayla ya da alnı akıtmalı bir boğayla gezer, kırmızı yiyecek yer. Sarayı kara çamurdan ya da kara demirdendir, dokuz ırmağın Toybodım'da birleştiği yerdedir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Adın kökü eskidir, figür geçtir: Orhun yazıtlarında erklig Gök'ün sıfatıdır ve «kudretli» demektir, Uygur Budist metinlerinde Erklig Han ölülerin yargıcı Yama'nın adı olur, bugünkü Erlik biçimi ise Moğolca bir bozulmadır. Radloff'un yaratılışında Erlik, Kayra'nın yarattığı Kişi'dir; ışıktan sürülür, izinle kendi göğünü kurar, Mandışire o göğü mızrakla parçalar ve enkaz dağlar ile vadiler olur. Anohin'e göre adı söylenmez, yerine Kara Nama, «kara nesne» denir; korkulan bu bey yine de kandırılır: ona zayıf, hatta hasta hayvan sunulur, sunak kuzey yanda, çit dibinde, çöp atılan yere kurulur. Duanın özü vadelidir: sunu ona ulaşsın, baş sağ kalsın; üç yıl rahat yaşanırsa yine sunu gelir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Radloff, Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya, ölüler ve can"
+				},
+				{
+					"label": "Motifler",
+					"value": "Çatal kara sakal · Yeşil demir kılıç · Kara kayık"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "kayra_han",
+						"label": "Yaratanı (Radloff)"
+					}
+				],
+				"down": [
+					{
+						"id": "bay_mattir",
+						"label": "Oğlu"
+					},
+					{
+						"id": "karas_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "komur_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "temir_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Oğlu"
+					},
+					{
+						"id": "padish",
+						"label": "Oğlu"
+					}
+				],
+				"side": [
+					{
+						"id": "ulgen",
+						"label": "Kardeşi (Verbitski)"
+					},
+					{
+						"id": "kormos",
+						"label": "Buyruğundaki ruhlar"
+					}
+				],
+				"note": "Soy bağları anlatılara göre değişir. Radloff'un yaratılışında Kişi'yi Kayra yaratır, aynı kitabın alt dünya bölümünde Erlik'i Bay Ülgen'in yarattığı yazılır; Verbitski'de Ülgen sudaki çamura can verir ve adını Erlik koyar. Anohin'e göre oğulları yedi ya da dokuz, kızları iki (Sekiz Gözlü Kiştey Ene ve Erke Solton) ya da dokuzdur; kızlar kamı yoldan çıkarır."
+			},
+			"source_note": "Kaynak: Radloff, Aus Sibirien II, sayfa 3–5 ve 10 (19. yüzyıl); Anohin 1924, I.A; Sagaster, «Erlik» (Encyclopedia of Religion). Kara kaş, çatal sakal, boynuz ve yeşil demir kılıç kam dualarındadır; taç ve yılan kamçı kaynakta yoktur. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Erlik, lord of the world below. Every breath that leaves the steppe comes down to my river in the end.",
+				"tr": "Ben Erlik'im, alt dünyanın beyi. Bozkırdan çıkan her nefes sonunda benim ırmağıma iner."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/erlik/art.png",
+				"portrait": "res://assets/ui/encyclopedia/erlik/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/erlik/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/erlik/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/erlik.mp3"
+		},
+		{
+			"id": "bay_mattir",
+			"site_id": "bay-mattir",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Bay Mattır",
+			"alt_names": [
+				"Bay Mattır (Anohin)",
+				"Taş Bilekli Bay Mattır (kam duası)"
+			],
+			"epithet": "Erlik'in taş bilekli oğlu, dokuz kara kızın babası",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Bay Mattır, Anohin'in birinci ad dizisinde Erlik'in oğullarının başında gelir. Adındaki mattır «bahadır, yiğit» demektir; Anohin adı «taş bilekli Bay Bahadır» diye çevirir. Kapı bekçisi olarak anılan oğullardandır: her soyun yurdunda kapıyı Erlik'in bir ya da iki oğlu bekler."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kam duasında bilekleri taştandır. Anohin'e göre dokuz kızı vardır: dalgalanan kara saçlı, doğuştan kara, birbirinin eşi dokuz kız. Kızları yurdun kapı bekçisi sayılır ve dualarda kara yılanlara benzetilir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Anohin'in iki ad dizisi Erlik'e yedi ya da dokuz oğul verir ve kamlar aynı oğula başka adlar verebilir. Altaylılar oğulların alt dünyadaki işini Rus taşra yönetimine benzetir ve onlara «stanovoy pristav» der. Bu benzetme derlemenin geç katmanını gösterir: inanç 20. yüzyılın başında, Rus yönetimi altında yazıya geçmiştir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; yurdun kapısı"
+				},
+				{
+					"label": "Motifler",
+					"value": "Taş bilekler · Dokuz kara kız · Kara yılan"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir. Bay Mattır'ın dokuz kızının adı verilmez; kapı bekçisidirler."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Bay Mattır, the son of Erlik with wrists of stone. My nine dark daughters stand watch at your door.",
+				"tr": "Ben Bay Mattır'ım, Erlik'in taş bilekli oğlu. Dokuz kara kızım kapınızda nöbet tutar."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/bay_mattir/art.png",
+				"portrait": "res://assets/ui/encyclopedia/bay_mattir/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/bay_mattir/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/bay_mattir/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/bay_mattir.mp3"
+		},
+		{
+			"id": "karas_han",
+			"site_id": "karas-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Karaş",
+			"alt_names": [
+				"Karaş (Anohin)",
+				"Erlik'in Yılanlı Karaş'ı (kam duası)",
+				"Han Karaş, Bey Karaş (kam duası)"
+			],
+			"epithet": "Erlik'in yılanlı oğlu, yurdun kapı bekçisi",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"I",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Karaş, Anohin'in derlediği Altay inancında Erlik'in oğullarındandır; kamlar onlara «demir başlı kara oğullar» der. Erlik'in oğulları onun elçileridir: alt dünyadaki ve yeryüzündeki ruhlarını yönetirler. Her soyun yurdunda kapıyı bir ya da iki oğul bekler; Anohin kapı bekçisi olarak anılanların başında Karaş'ı sayar."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kam duasında «Erlik'in yılanlı Karaş'ı»dır: sağlam gövdeli Han Karaş, yüksek boylu Bey Karaş. Oğullar arasında yalnız ona bir sureti yapılır: dokuz şeritli bir parça kara bez, yurdun içinde kapının sol yanındaki sırığa asılır. Erlik'in yurttaki yeri de orasıdır: kapının solu, bulaşık suyunun durduğu köşe."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Kapı bekçisi oğullar yurda giren kötü ruhu yakalar ve alt dünyanın ağzındaki dört kulplu, hiç soğumayan dökme kazana atar. İnsan onları büyük iyilik sahibi sayar ve saygı gösterir, ama öfkelerinden korkar. Her soy kendi oğlunu kara tös, yani soyun kara koruyucusu olarak tanır, başka soyunkine kayıtsızdır; ona Erlik'inkiyle aynı türden hayvan sunulur."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; yurdun kapısı"
+				},
+				{
+					"label": "Motifler",
+					"value": "Yılan · Dokuz şeritli kara bez · Kapının solu"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Karash, the son of Erlik who carries snakes. Hang a black cloth with nine ribbons by your door, and I will guard it.",
+				"tr": "Ben Karaş'ım, Erlik'in yılanlı oğlu. Kapının yanına dokuz şeritli kara bir bez as, kapını ben beklerim."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/karas_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/karas_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/karas_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/karas_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/karas_han.mp3"
+		},
+		{
+			"id": "kerey_han",
+			"site_id": "kerey-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Kerey Kan",
+			"alt_names": [
+				"Kerey Kan (Anohin)",
+				"Bakır Bilekli Kerey Kan (kam duası)"
+			],
+			"epithet": "Erlik'in bakır bilekli oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Kerey Kan, Anohin'in iki ad dizisinde de Erlik'in oğulları arasında geçer. Kam duasında «bakır bilekli Kerey Kan» diye anılır. Erlik'in oğulları babalarının elçileridir: alt dünyadaki ve yeryüzündeki ruhları yönetirler, yeryüzünde en çok kötü ruhlara bakarlar."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Duadaki tek beden işareti bakır bilekleridir; Bay Mattır'ın taşına karşı bakır. Anohin'e göre oğullar alt dünyada göllerin ve ırmakların başında durur, kendi konakları vardır ve deniz canavarlarıyla dolu denizi yönetir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Anohin oğulların bir kısmını yurdun kapı bekçisi diye sayar. Kapı bekçisi oğul yurda giren kötü ruhu yakalar ve alt dünyanın ağzındaki hiç soğumayan dökme kazana atar. Oğulların adları kamdan kama değişir; adlar çoğu zaman oğlun bir özelliğini anlatır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; göller ve ırmaklar"
+				},
+				{
+					"label": "Motifler",
+					"value": "Bakır bilekler · Dökme kazan · Kapı bekçiliği"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Kerey Khan, the copper-wristed son of Erlik. I throw the hungry spirits into the cauldron that never cools.",
+				"tr": "Ben Kerey Kan'ım, Erlik'in bakır bilekli oğlu. Obur ruhları hiç soğumayan kazana ben atarım."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/kerey_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/kerey_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/kerey_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/kerey_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/kerey_han.mp3"
+		},
+		{
+			"id": "uchar_han",
+			"site_id": "uchar-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Uçar Kan",
+			"alt_names": [
+				"Uçar Kan (Anohin)"
+			],
+			"epithet": "Erlik'in yalnız adıyla bilinen oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Uçar Kan, Anohin'in birinci ad dizisinde Erlik'in oğulları arasında yalnız adıyla geçer. Ad Türkçe «uçan» diye okunabilir; bu bir çıkarımdır, kaynak açıklamaz. Anohin'e göre Erlik'in oğulları onun elçileridir; alt dünyanın ve yeryüzünün ruhlarını yönetirler."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kaynak Uçar Kan'ın görünüşünü yazmaz. Anohin'e göre Erlik'in oğullarına sureti yapılmaz, yalnız Karaş'a kara bir bez asılır. Levhadaki görünüş adın okunuşundan yapılmış özgün bir yorumdur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Kamlar oğulları farklı adlarla anar: bir kamın verdiği adı öbürü başka bir oğula verir. Anohin'e göre oğullar kurban günü kamı Erlik'in yanına götürür ve onunla pazarlıkta aracılık eder."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya"
+				},
+				{
+					"label": "Motifler",
+					"value": "Yalnız ad · Kara oğul · Kamın aracısı"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Görünüş kaynakta yoktur. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Uchar Khan, one of the black sons of Erlik. The kam speaks my name in his chant, and my name is all you will know of me.",
+				"tr": "Ben Uçar Kan'ım, Erlik'in kara oğullarından biri. Kam duasında adımı anar; benden bileceğin yalnız adımdır."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/uchar_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/uchar_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/uchar_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/uchar_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/uchar_han.mp3"
+		},
+		{
+			"id": "yabash_han",
+			"site_id": "yabash-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Yabaş",
+			"alt_names": [
+				"Yabaş Kan (Anohin)",
+				"Aygır Yeleli Bey Yabaş (kam duası)",
+				"Jabasch Kan (Radloff'ta bir Yer-Su hanı)"
+			],
+			"epithet": "Erlik'in aygır yeleli oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Radloff'ta (19. yüzyıl) aynı ad bir Yer-Su hanınındır.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Yabaş, Anohin'in iki ad dizisinde de Erlik'in oğulları arasında geçer. Kam duası onu «aygır yeleli Bey Yabaş» diye anar. Her soyun kendi kara tösü, yani soyu koruyan kara ruhu, Erlik'in oğullarından biridir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Duadaki tek beden işareti yelesidir: Yabaş'ın aygır yelesi vardır. Anohin oğullara sureti yapılmadığını yazar; levhadaki görünüş bu sözden yapılmış bir yorumdur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Aynı ad iki derlemede iki yere düşer: Radloff'un saydığı 17 Yer-Su hanının dokuzuncusu Jabasch Kan'dır, Anohin'de Yabaş Erlik'in oğludur. Her soy kendi oğlunu onurlandırır, başka soyunkine kayıtsızdır; ona Erlik'inkiyle aynı türden hayvan sunulur."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin; Radloff)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; soyun kara koruyucusu"
+				},
+				{
+					"label": "Motifler",
+					"value": "Aygır yelesi · Kara tös · Soy koruyuculuğu"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası (Anohin)"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir. Radloff'ta Jabasch Kan Erlik'e bağlı değildir, 17 Yer-Su hanının dokuzuncusudur."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar; Radloff, Aus Sibirien II, sayfa 7. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Yabash, the son of Erlik with a stallion's mane. Every clan keeps its own black guardian, and some clans keep me.",
+				"tr": "Ben Yabaş'ım, Erlik'in aygır yeleli oğlu. Her soyun kendi kara koruyucusu vardır; kimi soy beni tutar."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/yabash_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/yabash_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/yabash_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/yabash_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/yabash_han.mp3"
+		},
+		{
+			"id": "komur_han",
+			"site_id": "komur-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Kömür Kan",
+			"alt_names": [
+				"Kömür Kan (Anohin)"
+			],
+			"epithet": "Erlik'in adı kömürden gelen oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Kömür Kan, Anohin'in ad dizilerinde Erlik'in oğulları arasında geçer; adı «kömür» demektir. Erlik'in oğulları onun elçileridir: alt dünyanın ve yeryüzünün ruhlarını yönetirler, yeryüzünde en çok kötü ruhlara bakarlar."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kaynak Kömür Kan'a addan başka açık bir beden işareti vermez. Kara renk Erlik'in bütün soyunun rengidir: kendisi «büyük kara tös», oğulları «kara oğullar»dır. Levhadaki görünüş adın okunuşundan yapılmış bir yorumdur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Anohin'in derlemesinde oğulların adları kamdan kama değişir ve adlar çoğu zaman oğlun bir özelliğini anlatır. Kömür, demir, bakır ve taş sözleri oğulların ad ve sanlarında tekrar eder; alt dünyanın maden diliyle anlatılması bu adlardan çıkan bir okumadır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya"
+				},
+				{
+					"label": "Motifler",
+					"value": "Kömür · Kara renk · Kara oğul"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Görünüş kaynakta yoktur. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Kömür Khan, a son of Erlik named for coal. When the kam goes down to my father, he speaks my name on the way.",
+				"tr": "Ben Kömür Kan'ım, adı kömürden gelen Erlik oğlu. Kam babama inerken yolda adımı anar."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/komur_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/komur_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/komur_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/komur_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/komur_han.mp3"
+		},
+		{
+			"id": "temir_han",
+			"site_id": "temir-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Temir Kan",
+			"alt_names": [
+				"Temir Kan (Anohin)"
+			],
+			"epithet": "Erlik'in demir kürek kemikli oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Radloff'ta (19. yüzyıl) aynı ad bir Yer-Su hanının oğludur.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Temir Kan, Anohin'in listesinde Erlik'in oğullarındandır; adı «demir» demektir. Kam duası onu «babam Erlik'ten ayrılan» diye anar; Anohin'in yayıncısı aynı sözü Ülgen'in oğulları için açıklar: oğullar babalarının bedeninden kopmuş birer parçadır. Kapı bekçisi olarak anılan oğullardandır."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kam duası onu şöyle tarif eder: sağlam gövdeli, örgüsü yuvarlak, kürek kemikleri birbirine kaynamış demirden. Duanın son iki dizesi ona seslenir: «Sende kızaran kan yok, ölümden kaçan can yok.» Demirin alt dünyayla bağı başka yerde de vardır: Erlik'in sarayı kara çamurdan ya da kara demirdendir, oğullarına «demir başlı» denir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Aynı ad iki derlemede iki soya girer: Radloff'ta Temir Kan, yerin göbeğinde oturan Jö Kan'ın oğludur ve Yer-Su hanlarındandır; Anohin'de Erlik'in oğludur. Bu ayrım Altay inancının tek bir sistem olmadığını gösterir. Oyun ona bu sözlerin dışında bir öykü uydurmaz."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin; Radloff)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; yurdun kapısı"
+				},
+				{
+					"label": "Motifler",
+					"value": "Demir kürek kemikleri · Yuvarlak örgü · Kansız beden"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası (Anohin)"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir. Radloff'ta Temir Kan, Yer-Su hanlarının en güçlüsü Jö Kan'ın oğlu ve Sö Kan'ın kardeşidir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar; Radloff, Aus Sibirien II, sayfa 7. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Temir Khan, son of Erlik, with shoulder blades of iron. No blood reddens in me, and no soul in me shrinks from death.",
+				"tr": "Ben Temir Kan'ım, Erlik'in demir kürek kemikli oğlu. Bende kızaran kan yok, ölümden kaçan can yok."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/temir_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/temir_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/temir_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/temir_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/temir_han.mp3"
+		},
+		{
+			"id": "shingay_han",
+			"site_id": "shingay-han",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Şıngay",
+			"alt_names": [
+				"Şıngay Kan (Anohin)"
+			],
+			"epithet": "Taşkın gölün dalgasını kabartan Erlik oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Şıngay, Anohin'in ikinci ad dizisinde Erlik'in oğulları arasında geçer. Kam duası onu aburalı bir göl taşkınıyla anar: dalgaları kabartan Şıngay Kan. Anohin'e göre oğullar alt dünyada göllerin ve ırmakların başında durur ve deniz canavarlarıyla dolu denizi yönetir."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Duadaki imge sudur: taşan bir göl ve onun dalgası. Abura, Anohin'in yayıncısına göre kam giysisinde çizilen söylence hayvanıdır; Erlik'in sarayının yanındaki Bay Tengis denizinde de abra ya da yutpa adlı su canavarları yaşar. Levhadaki görünüş bu imgeden yapılmış bir yorumdur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Alt dünyanın suları Erlik'in ülkesinin sınırıdır: sarayı dokuz ırmağın Toybodım'da birleştiği yerdedir, kaçan can at kılı köprüden düşer ve ırmakla geri döner. Şıngay'ın adı bu sularla birlikte anılır; kaynak ona ayrıca bir öykü vermez."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünyanın gölleri ve taşkınları"
+				},
+				{
+					"label": "Motifler",
+					"value": "Taşkın göl · Dalga · Abura"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "padish",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Shingay, the son of Erlik who stirs the flooding lake. The beast abura swims in my waters.",
+				"tr": "Ben Şıngay'ım, taşkın gölün dalgasını kabartan Erlik oğlu. Sularımda abura yüzer."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/shingay_han/art.png",
+				"portrait": "res://assets/ui/encyclopedia/shingay_han/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/shingay_han/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/shingay_han/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/shingay_han.mp3"
+		},
+		{
+			"id": "padish",
+			"site_id": "padish",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Padış",
+			"alt_names": [
+				"Padış Bökö, Padış Bey (kam duası)",
+				"Padış Kara (kam duası)"
+			],
+			"epithet": "Erlik'in değirmen taşı yutan pehlivan oğlu",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi, I.A kara ruhlar (1910–1912 derlemesi, 1924 baskısı). Hun çağı metinlerinde ve Orhun yazıtlarında geçmez.",
+			"acts": [
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Padış, Anohin'in ikinci ad dizisinde Erlik'in oğulları arasında geçer; duada Padış Bökö, yani pehlivan Padış, ve Padış Bey diye anılır. Kapı bekçisi olarak anılan oğullardandır. Her soy kapısını bekleyen oğlu kendi koruyucusu sayar."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kam duası onu ağır ağır yürüyen bir pehlivan diye anlatır: dökme demirden kazıyıcısı ve kapanı, topraktan kazıyıcısı ve kapanı vardır, değirmen taşlarını yutar. Duanın başka bir yerinde Padış Kara küreksiz bir kayık, kanatsız soluk bir sal diye anılır; Erlik de kara, küreksiz bir kayıkla gezer."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Anohin'in ikinci dizisinde Padış adı iki ayrı satırda geçer; bunların aynı oğul mu, iki ayrı oğul mu olduğu derlemeden açık değildir. Mitoloji araştırması dokuz adın birleşik listesinde Padış'ı bir kez sayar."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya; yurdun kapısı"
+				},
+				{
+					"label": "Motifler",
+					"value": "Dökme demir kapan · Değirmen taşı · Küreksiz kayık"
+				}
+			],
+			"lineage": {
+				"up": [
+					{
+						"id": "erlik",
+						"label": "Babası"
+					}
+				],
+				"side": [
+					{
+						"id": "bay_mattir",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "karas_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "kerey_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "uchar_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "yabash_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "komur_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "temir_han",
+						"label": "Kardeşi"
+					},
+					{
+						"id": "shingay_han",
+						"label": "Kardeşi"
+					}
+				],
+				"note": "Anohin'e göre Erlik'in oğulları yedi ya da dokuzdur; aynı oğula iki kam iki ayrı ad verebilir. Sıra mitoloji araştırmasının birleşik listesindendir."
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A kara ruhlar. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am Padish the strongman, son of Erlik, swallower of millstones. My trap is cast iron, and my boat has no oar.",
+				"tr": "Ben Padış'ım, Erlik'in pehlivan oğlu, değirmen taşı yutan. Kapanım dökme demirden, kayığımın küreği yok."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/padish/art.png",
+				"portrait": "res://assets/ui/encyclopedia/padish/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/padish/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/padish/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/padish.mp3"
+		},
+		{
+			"id": "kormos",
+			"site_id": "kormos",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "group",
+			"name": "Körmös",
+			"alt_names": [
+				"körmös (Altay: alt dünyanın ruhları)",
+				"Etkär, Yaman Üsüt (Radloff)",
+				"Yek ve Aza (Anohin)",
+				"Abası (Sakha)"
+			],
+			"epithet": "Alt dünyanın ve yeryüzünün obur ruhları",
+			"era": "mit",
+			"era_note": "«Ozan der»: Radloff (19. yüzyıl, sayfa 9–10), Anohin'in Altay derlemesi (giriş, I.A, I.B) ve Holmberg 1927 (sayfa 486). Yek sözünün Sanskrit yakşa'dan Budist yolla geldiği düşünülür; kaynağı bulunamadı.",
+			"acts": [],
+			"sections": [
+				{
+					"title": "Kimlikleri",
+					"text": "Altay inancında ruhlar üç küreye ayrılır: yer altındakilere körmös, yerdekilere yer-su ya da altay, göktekilere kudai denir (Anohin). Altaylılar ruhları baştan beri var olan tös'ler ve sonradan olan nama'lar diye de ayırır; sonradan olan ruhların ortak adı körmös'tür, bunlar ölmüş kamların ve ataların canlarıdır. Körmös sözü Erlik'in soyu gibi baştan beri var olan kara ruhlar için de kullanılır."
+				},
+				{
+					"title": "Gelenekte",
+					"text": "Kötü körmösler ölmüş insanların canlarıdır; soylara ayrılır, bir zamanlar ait oldukları soyun yurdu çevresinde bölük bölük yaşar ve bir yurttan ötekine koşar. Obur ve doymazdırlar: insan hastalanınca «körmös onu yiyor», ölünce «körmös yedi» denir, yara körmösün ısırığı sayılır. Anohin onları oburlar (yek ya da aza), ölüm ruhları, ağır hastalık ruhları ve gözsüz, belsiz, kalçası kırık «eski babalar» diye sayar; Erlik'e bile zarar verirler, çünkü insanı yerken onun payını yerler. Radloff'ta alt dünyanın kalabalığı biçimsiz cinler, kuğu kızlar, körmösler, etkärler ve yaman üsütlerdir; dokuz kat alt dünya oranın kendi güneşinin gri ışığıyla aydınlanır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Altay ve Sakha anlatıları"
+				},
+				{
+					"label": "Alanı",
+					"value": "Alt dünya ve yeryüzü; hastalık ve ölüm"
+				},
+				{
+					"label": "Motifler",
+					"value": "Obur ruh · Isırık yara · Soy soy bölükler"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "erlik",
+						"label": "Efendileri"
+					},
+					{
+						"id": "karas_han",
+						"label": "Onları kapıdan kovan bekçi"
+					}
+				],
+				"note": "Anohin'e göre körmös sonradan olan ruhlardır; Erlik, oğulları ve kızları baştan beri var olan kara tös'tür. Erlik oğullarını kötü ruhlar arasında düzeni tutsun ve yurdun kapısını beklesin diye yeryüzüne gönderir."
+			},
+			"source_note": "Kaynak: Anohin 1924, giriş, I.A ve I.B; Radloff, Aus Sibirien II, sayfa 9–10; Holmberg 1927, sayfa 486. Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/kormos/art.png",
+				"portrait": "res://assets/ui/encyclopedia/kormos/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/kormos/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/kormos/thumb.png"
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "toybodim",
+			"site_id": "toybodim",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "place",
+			"name": "Toybodım",
+			"alt_names": [
+				"Toybodım (Altay: «doymadım»)",
+				"Kıl Köprü (at kılından köprü)"
+			],
+			"epithet": "Erlik'in gözyaşı ırmağı: «doymadım»",
+			"era": "mit",
+			"era_note": "«Ozan der»: Anohin'in Altay derlemesi (I.A, 1910–1912 derlemesi, 1924 baskısı). Sagaster de alt dünyada gözyaşı gölünü ve tek kıldan köprüyü anar. Kıl Köprü'nün oyundaki ölçüsü bir tasarım aracıdır, «Bizim».",
+			"acts": [
+				"Önsöz",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Yeri ve adı",
+					"text": "Anohin'e göre Erlik'in sarayı dokuz ırmağın tek bir ırmakta birleştiği yerdedir; o ırmağın adı Toybodım'dır, «doymadım» demektir. Irmak insan gözyaşıyla akar. Başka bir anlatıya göre saray, abra ya da yutpa adlı su canavarlarının yaşadığı Bay Tengis denizinin yanındadır."
+				},
+				{
+					"title": "Gelenekte",
+					"text": "Toybodım'ın üstünde at kılından bir köprü durur. Erlik'in ülkesinden izinsiz kaçmak isteyen köprüye basınca kopup dalgalara düşer, ırmak onu Erlik'in kıyısına geri getirir. Kıyıda yeşil kalçalı, büyük kayığa benzeyen su canavarları, yutpalar, yaşar ve Erlik'in sarayını bekler; Erlik'in ülkesi sayısız ölünün canıyla doludur."
+				}
+			],
+			"facts": [
+				{
+					"label": "Yeri",
+					"value": "Erlik'in sarayı, dokuz ırmağın birleştiği yer"
+				},
+				{
+					"label": "Gelenek",
+					"value": "Altay Türk anlatıları (Anohin)"
+				},
+				{
+					"label": "Motifler",
+					"value": "Gözyaşı ırmağı · At kılından köprü · Yutpa canavarları"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "erlik",
+						"label": "Sahibi"
+					},
+					{
+						"id": "mete",
+						"label": "VI'da köprüyü geçen"
+					}
+				]
+			},
+			"source_note": "Kaynak: Anohin 1924, I.A; Sagaster, «Erlik» (Encyclopedia of Religion). Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der",
+				"Bizim"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "al_karisi",
+			"site_id": "al-karisi",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "god",
+			"name": "Al Karısı",
+			"alt_names": [
+				"Albastı (Kırgız, Kazak)",
+				"Kara Albastı, Sarı Albastı"
+			],
+			"epithet": "Loğusanın düşmanı, ocaktan korkan kadın ruh",
+			"era": "mit",
+			"era_note": "«Ozan der»: halk inancı; Holmberg 1927 (sayfa 468) ve İnan'ın aktarımı (Polat 2020 üzerinden). Kökeni tartışmalıdır: İnan «al»ı ateşle bağlar, kimi araştırmacılar onu Umay'dan bozulmuş sayar.",
+			"acts": [
+				"Önsöz",
+				"III",
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Al Karısı ya da Albastı, doğum yapan kadını boğmaya gelen kadın ruhtur. Umay'ın karşısında durur: biri doğumu korur, öbürü doğuma saldırır. Hun çağı metinlerinde ve Orhun yazıtlarında adı geçmez; geç bir halk inancıdır."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Kırgız ve Kazak inancında Albastı'nın karası ve sarısı vardır. Kara olanı yalnız ocaklı evden korkar (İnan, Holmberg). Umay ile ortak ögeleri boncuktur."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Kökeni açık değildir: İnan «al» sözünü ateşle bağlar, kimi araştırmacılar onu Umay'dan bozulmuş sayar. Oyunun Al Karısı bu yüzden canavar değildir: bir gölge ve bir nefestir, ocak taşında durur."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Kırgız ve Kazak halk inancı"
+				},
+				{
+					"label": "Alanı",
+					"value": "Doğum yurdu ve loğusa"
+				},
+				{
+					"label": "Motifler",
+					"value": "Kara ve sarı Albastı · Ocak taşı · Boncuk"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "umay",
+						"label": "Karşıtı"
+					},
+					{
+						"id": "od_ana",
+						"label": "Korktuğu ocak"
+					}
+				],
+				"note": "Derlemeler Al Karısı'na soy vermez; kimi araştırmacılar onu Umay'dan bozulmuş sayar."
+			},
+			"source_note": "Kaynak: Holmberg 1927, sayfa 468; İnan (Polat 2020 üzerinden); Kayabaşı ve Park 2024. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am the Al spirit, who comes to the birth tent. Only the hearth stone stops me, so keep your fire burning.",
+				"tr": "Ben Al Karısı'yım, doğum yurduna gelirim. Beni yalnız ocak taşı durdurur; ateşinizi söndürmeyin."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Ozan der"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/al_karisi/art.png",
+				"portrait": "res://assets/ui/encyclopedia/al_karisi/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/al_karisi/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/al_karisi/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/al_karisi.mp3"
+		},
+		{
+			"id": "kizil_dag",
+			"site_id": "kizil-dag",
+			"section": "gods",
+			"group": "Alt",
+			"kind": "place",
+			"name": "Kızıl Dağ",
+			"alt_names": [
+				"赤山 (chishan, Hou Hanshu 90)",
+				"The Red Mountain"
+			],
+			"epithet": "Vuhuan ölülerinin canlarının döndüğü dağ",
+			"era": "mit",
+			"era_note": "«Yıllıktan»: Hou Hanshu 90 (5. yüzyıl), Vuhuan töresi (MS 1.–2. yüzyıl). Mete'den yaklaşık üç yüz yıl sonrasının tanıklığıdır; töreyi Mete çağının Tunghu'suna taşımak çıkarımdır.",
+			"acts": [
+				"III"
+			],
+			"sections": [
+				{
+					"title": "Yeri ve adı",
+					"text": "Hou Hanshu 90'a göre Vuhuan'ın ölüleri Kızıl Dağ'a, 赤山'e döner. Dağ Liaodong'un kuzeybatısında, binlerce li uzaktadır; yıllık bunu Çinlilerin ölü canlarının Tai Dağı'na dönmesine benzetir. Aynı bölüm Vuhuan'ın kökünü de yazar: Vuhuan aslen Tunghu'dur; Han'ın başında Hun Mete onların ülkesini yıkınca artakalanlar Vuhuan Dağı'na sığınmış ve adlarını oradan almıştır (烏桓者，本東胡也)."
+				},
+				{
+					"title": "Gelenekte",
+					"text": "Vuhuan savaşta ölmeyi yüceltir; ölüyü tabuta koyar, ağlar, gömerken şarkı söyleyip dans ederek uğurlar. Besili bir köpeği renkli bir iple yeder, ölünün bindiği atı ve giysilerini yakarak gönderir ve köpeğe, ölünün canını Kızıl Dağ'a dek korusun diye emanet eder (肥養一犬…使護死者神靈歸赤山). Göğe, yere, güneşe, aya, yıldızlara, dağlara ve ırmaklara sunu verirler; çadırlarının kapısı doğuya, doğan güne açılır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Yeri",
+					"value": "Liaodong'un kuzeybatısı, binlerce li uzakta"
+				},
+				{
+					"label": "Gelenek",
+					"value": "Vuhuan töresi (Hou Hanshu 90)"
+				},
+				{
+					"label": "Motifler",
+					"value": "Besili köpek · Renkli ip · Yakılan at ve giysi"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "donghu",
+						"label": "Töresini taşıyan Tunghu artığı"
+					},
+					{
+						"id": "mijia",
+						"label": "Kişisel görevi «Kızıl Dağ»"
+					}
+				]
+			},
+			"source_note": "Kaynak: Hou Hanshu 90 (Vuhuan bölümü). Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "old_wolf",
+			"site_id": "old-wolf",
+			"section": "gods",
+			"group": "Hayvan",
+			"kind": "animal",
+			"name": "Yaşlı Kurt",
+			"alt_names": [
+				"老狼 (laolang, Wei Shu 103)",
+				"Gaoçe'nin kurt atası"
+			],
+			"epithet": "Gaoçe söylencesinde Tanhu kızının eşi, bir halkın atası",
+			"era": "mit",
+			"era_note": "«Yıllıktan», geç: Wei Shu 103 (554), Gaoçe bölümü. Hun çağı tanıklığı değildir; 6. yüzyılda yazılmış bir türeyiş söylencesidir.",
+			"acts": [
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Wei Shu 103'e göre Gaoçe, yani Dingling, bir Hun Tanhu'sunun kızı ile yaşlı bir kurttan türemiştir. Yıllık Gaoçe'nin dilini Hun diline yakın bulur; kimine göre ataları Hunların yeğenleridir (其先匈奴之甥也). Hun çağı kaynağında da kurt kutsaldır: Usun bebeği Kunmo kıra bırakılınca karga et getirir, kurt onu emzirir ve Tanhu onu kutsal sayıp büyütür (Shiji 123)."
+				},
+				{
+					"title": "Söylencede",
+					"text": "Bir Tanhu'nun çok güzel iki kızı vardır ve halk onları tanrısal sayar. Tanhu «Bunları insana nasıl vereyim, göğe vereceğim» der, ülkesinin kuzeyinde ıssız bir yere yüksek bir kule yaptırıp kızları üstüne koyar. Dört yıl sonra yaşlı bir kurt gelir, gece gündüz kulenin dibinde ulur, altına bir in kazar ve gitmez. Küçük kız «Belki onu Gök gönderdi» der ve ablasının uyarısına karşın inip kurdun eşi olur; doğan oğullardan bir halk çıkar, bu yüzden Gaoçe uzun çekerek şarkı söyler ve sesleri kurt ulumasına benzer."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Gaoçe (Dingling) söylencesi, Wei Shu 103"
+				},
+				{
+					"label": "Soyu",
+					"value": "Tanhu'nun küçük kızı ile yaşlı kurt"
+				},
+				{
+					"label": "Motifler",
+					"value": "Yüksek kule · Kurt uluması · Uzun çekilen ezgi"
+				}
+			],
+			"lineage": {
+				"down": [
+					{
+						"id": "dingling",
+						"label": "Soyundan sayılan halk"
+					}
+				],
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Göğün gönderdiği sanılır"
+					}
+				],
+				"note": "Söylencede kurdun eşi bir Hun Tanhu'sunun küçük kızıdır; Tanhu'nun ve kızlarının adı verilmez. Kunmo'yu emziren kurt başka bir anlatıdır (Shiji 123)."
+			},
+			"source_note": "Kaynak: Wei Shu 103 (Gaoçe bölümü, 554); Shiji 123 ve Hanshu 61 (Kunmo). Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/old_wolf/art.png",
+				"portrait": "res://assets/ui/encyclopedia/old_wolf/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/old_wolf/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/old_wolf/thumb.png"
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "longcheng",
+			"site_id": "longcheng",
+			"section": "gods",
+			"group": "Töre ve sunu",
+			"kind": "place",
+			"name": "Lung-çeng",
+			"alt_names": [
+				"蘢城 (longcheng, Shiji 110)",
+				"Lung-ch'eng (Türk tarih yazınında)"
+			],
+			"epithet": "Beşinci ayın toplantısı: atalara, göğe, yere ve ruhlara sunu",
+			"era": "tarih",
+			"era_note": "«Yıllıktan»: Shiji 110 (五月，大會蘢城，祭其先、天地、鬼神). Adın «ejder»le açıklanması Cui Hao'nundur (5. yüzyıl, Suoyin'de); Güney Hunlarının yılda üç sunusu Hou Hanshu 89'dadır (MS 50 sonrası). Yerini kaynak vermez.",
+			"acts": [
+				"IV",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kaynakta",
+					"text": "Shiji 110'a göre Hunlar beşinci ayda Lung-çeng'de büyük toplantı yapar ve atalarına, göğe, yere ve ruhlara sunu verir. Bu, yılın üç toplantısının ortasıdır: yıl başında küçük toplantı Tanhu'nun avlusundadır, güzün Dailin gelir. Cui Hao adı «ejder»le açıklar ve batı Hu'larının hepsinin ejder tanrısına taptığını yazar."
+				},
+				{
+					"title": "Töresi",
+					"text": "Güney Hunlarında, MS 50'den sonra, yılda üç sunu vardır: birinci, beşinci ve dokuzuncu ayın wu günlerinde göğün tanrısına sunu verilir, at ve deve yarıştırılır (Hou Hanshu 89). Hunlar işe ayı ve yıldızı gözleyerek girer (舉事而候星月); oyunun ay takvimi bu kurala dayanır. Mete'nin hayatında da Lung-çeng bir dönüm yeridir: küçük oğul Gutu ve Mete'nin oğlu Jiyu bu toplantılarda doğar."
+				}
+			],
+			"facts": [
+				{
+					"label": "Zamanı",
+					"value": "Beşinci ayın dolunayı"
+				},
+				{
+					"label": "Kaynak",
+					"value": "Shiji 110; Hou Hanshu 89"
+				},
+				{
+					"label": "Sunu",
+					"value": "Atalara, göğe, yere ve ruhlara: 1 at, 2 kımız"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Göğe sunu"
+					},
+					{
+						"id": "yer_sub",
+						"label": "Yere sunu"
+					},
+					{
+						"id": "jiyu",
+						"label": "Lung-çeng'de doğan"
+					}
+				]
+			},
+			"source_note": "Kaynak: Shiji 110 ve Suoyin'deki Cui Hao şerhi; Hou Hanshu 89. Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "dailin",
+			"site_id": "dailin",
+			"section": "gods",
+			"group": "Töre ve sunu",
+			"kind": "place",
+			"name": "Dailin",
+			"alt_names": [
+				"蹛林 (dailin, Shiji 110)",
+				"Tai-lin (Türk tarih yazınında)",
+				"Dailin Sayımı"
+			],
+			"epithet": "Güz toplantısı: ağaç çevresinde sunu ve sayım",
+			"era": "tarih",
+			"era_note": "«Yıllıktan»: Shiji 110 (秋，馬肥，大會蹛林，課校人畜計). Ağaç çevresinde dönmek Yan Shigu'nun (7. yüzyıl) ve Zhengyi'nin (736) şerhidir, Xianbei töresini anlatır; üç turun Hun'a yansıtılması çıkarımdır. Fu Qian güz kurbanını sekizinci aya koyar.",
+			"acts": [
+				"Önsöz",
+				"Çocukluk",
+				"III",
+				"IV",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kaynakta",
+					"text": "Shiji 110 Hunların yılda üç toplantısını yazar: yıl başında beyler Tanhu'nun avlusunda küçük toplantıya gelir, beşinci ayda Lung-çeng'de büyük toplantı olur, güzün at semizken Dailin'de büyük toplantı olur ve insan ile hayvan sayılır. Fu Qian'a göre bu, Hunların sekizinci ayda hep birlikte toplandığı güz kurbanıdır. Adın yeri de töresi de tartışmalıdır: kimi şerhçi onu bir yer adı sayar, kimi bir tören."
+				},
+				{
+					"title": "Töresi",
+					"text": "Yan Shigu ve Zhengyi'ye göre Dailin ağaç çevresinde dönülerek yapılan sunudur. Xianbei'de güz sunusunda ağaç yoksa söğüt dalı dikilir, atlılar üç tur atıp durur; Yan Shigu bunun eski töreden kaldığını söyler. Türk tarih yazınında Tai-lin savaş ve sayım toplantısıdır: atlar güçlüdür, Çin'de harman vaktidir."
+				}
+			],
+			"facts": [
+				{
+					"label": "Zamanı",
+					"value": "Sekizinci ayın dolunayı, at semizken"
+				},
+				{
+					"label": "Kaynak",
+					"value": "Shiji 110; Yan Shigu ve Zhengyi şerhleri"
+				},
+				{
+					"label": "Töresi",
+					"value": "İnsan ve hayvan sayımı · Söğüt halkası · Üç tur"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Güz sunusu"
+					},
+					{
+						"id": "mete",
+						"label": "Dailin'de doğan, Dailin'de ölen"
+					},
+					{
+						"id": "tuchi",
+						"label": "Sayım Çetelesi'ni tutan"
+					}
+				]
+			},
+			"source_note": "Kaynak: Shiji 110 ve üç şerhi (Jijie, Suoyin, Zhengyi); Hanshu 94A, Yan Shigu notu. Görünüş: özgün sanatsal yorum.",
+			"intro": {},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		},
+		{
+			"id": "jinglu",
+			"site_id": "jinglu",
+			"section": "gods",
+			"group": "Töre ve sunu",
+			"kind": "god",
+			"name": "Kılıç Tanrısı",
+			"alt_names": [
+				"徑路 (jinglu)",
+				"Kıngrak (qingrak, oyundaki tarif)",
+				"Altın İnsan (祭天金人)"
+			],
+			"epithet": "Hun antının kılıcı ve göğe sununun altın insanı",
+			"era": "mit",
+			"era_note": "«Yıllıktan»: Shiji 110 (休屠王祭天金人), Hanshu 68 ve Hanshu 94B (徑路刀, MÖ 1. yüzyıl). Kılıç tanrısının tapınağı rivayeti 漢書音義 ve Kuodizhi (642) şerhlerindedir; Suoyin «doğru olmayabilir» (事恐不然) der.",
+			"acts": [
+				"IV",
+				"V",
+				"VI"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "徑路 sözcüğü hem bir kılıç türünün hem bir Hun tanrısının adı olarak kayıtlıdır. Hanshu 94B MÖ 1. yüzyıldaki bir antı anlatır: «Beyaz at kesilir; Tanhu jinglu kılıcı ve altın kaşıkla içkiyi karıştırır» (刑白馬，單于以徑路刀金留犁撓酒). Kaynaklarda az geçer, ama doğrudan Hun çağı tanıklığıdır."
+				},
+				{
+					"title": "Gelenekteki görünüşü",
+					"text": "Tanrının bir sureti anlatılmaz; görünen kılıçtır. Herodot'ta İskitler demir bir kılıcı çalı yığınının üstüne dikip Ares diye kurban sunar; Hun kılıç kültü bu bozkır geleneğiyle akrabadır. Shiji 110 bir Han generalinin Xiutu Kralı'nın göğe sunudaki altın insanını ele geçirdiğini yazar; olay MÖ 121'dir ve aynı altın insan Xiutu'nun oğlu Jin Midi'nin hayatında da geçer (Hanshu 68)."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Şerhler altın insan için anlaşmaz: 漢書音義'ye göre o, göğe sunan kişinin suretidir; Cui Hao ve Zhengyi onu Buda heykeli sayar. Kuodizhi'ye göre kılıç tanrısının tapınağı Yunyang'dadır ve Ç'in'in aldığı eski bir Hun sunu yeridir; Suoyin bu rivayete «doğru olmayabilir» der. MÖ 121'de Hexi'de bir Budist heykeli beklenmez; bu bir çıkarımdır."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Hun çağı Çin yıllıkları (Shiji, Hanshu)"
+				},
+				{
+					"label": "Alanı",
+					"value": "Ant ve göğe sunu"
+				},
+				{
+					"label": "Motifler",
+					"value": "Kılıç · Beyaz at · Altın kaşık · Altın insan"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "tengri",
+						"label": "Göğe sunu"
+					}
+				],
+				"note": "Kılıç tanrısına kaynak soy vermez. Altın insanın kimin sureti olduğu şerhlerde ayrışır: göğe sunan kişi ya da Buda."
+			},
+			"source_note": "Kaynak: Shiji 110 ve şerhleri (漢書音義, Cui Hao, Suoyin, Zhengyi, Kuodizhi); Hanshu 68 ve 94B; Herodot 4.62. Kıyafet ve zırh: özgün sanatsal yorum.",
+			"intro": {
+				"en": "I am the sword the Huns swear upon. A white horse is slain, I stir the wine, and the oath is drunk together.",
+				"tr": "Ben Hunların üstüne ant içtiği kılıcım. Beyaz at kesilir, içkiyi ben karıştırırım, ant birlikte içilir."
+			},
+			"speaks": true,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan"
+			],
+			"unlock": "",
+			"game_group": "",
+			"images": {
+				"art": "res://assets/ui/encyclopedia/jinglu/art.png",
+				"portrait": "res://assets/ui/encyclopedia/jinglu/portrait.png",
+				"pose": "res://assets/ui/encyclopedia/jinglu/pose.png",
+				"thumb": "res://assets/ui/encyclopedia/jinglu/thumb.png"
+			},
+			"intro_audio": "res://audio/vo/ency/jinglu.mp3"
+		},
+		{
+			"id": "birth",
+			"site_id": "",
+			"godot_only": true,
+			"section": "gods",
+			"group": "Destan",
+			"kind": "event",
+			"name": "Doğum",
+			"alt_names": [
+				"Mete'nin doğumu",
+				"Dailin şafağı"
+			],
+			"epithet": "27 Eylül MÖ 234 şafağı, Ordos",
+			"era": "tarih",
+			"era_note": "«Yıllıktan»: Shiji 110 (單于朝出營，拜日之始生，夕拜月 ve 秋，馬肥，大會蹛林，課校人畜計). Gün, yer, ebe, gölge ve beşik yayı oyunun seçimidir, «Bizim».",
+			"acts": [
+				"Önsöz"
+			],
+			"sections": [
+				{
+					"title": "Kimliği",
+					"text": "Mete 27 Eylül MÖ 234 şafağında Ordos'ta, Sarı Irmak kıvrımının içinde Teoman'ın güz otlağında doğar. Dailin'in günüdür: at semizdir, insan ve hayvan sayılır. Gök iki ışığını birden tutar, doğuda doğan gün, batıda batmayan dolunay; Tanhu sabah güne, akşam aya eğilir, o şafak ikisi aynı göktedir."
+				},
+				{
+					"title": "Anlatı notu",
+					"text": "Doğum Lan Hatun'un yurdundadır, kapısı doğuya bakar. Ebe Hereka'dır, yanında Lan soyundan iki kadın. Al Karısı'nın gölgesi eşikten girer, ocak taşında durur, öteye geçemez. Hereka kapıdan sayım hattına seslenir: «Bir eklendi.» Sayıcı çubuğa bir çentik atar. Eş yurdun yanında toprağa gömülür, beşiğe küçük bir ok-yay asılır; uzakta turnalar güneye geçer. Ad konmaz."
+				}
+			],
+			"facts": [
+				{
+					"label": "Gelenek",
+					"value": "Shiji 110: Dailin sayımı, Tanhu'nun güne ve aya eğilişi"
+				},
+				{
+					"label": "Alanı",
+					"value": "Ordos, Lan Hatun'un yurdu"
+				},
+				{
+					"label": "Motifler",
+					"value": "Doğan gün ve batmayan dolunay · Ocak taşında duran gölge · Beşikte ok-yay"
+				}
+			],
+			"lineage": {
+				"side": [
+					{
+						"id": "mete",
+						"label": "Doğan"
+					},
+					{
+						"id": "lan_hatun",
+						"label": "Anası"
+					},
+					{
+						"id": "teoman",
+						"label": "Babası, güne eğilen"
+					},
+					{
+						"id": "hereka",
+						"label": "Ebesi"
+					},
+					{
+						"id": "counter",
+						"label": "Çentiği atan"
+					},
+					{
+						"id": "al_karisi",
+						"label": "Eşikteki gölge"
+					},
+					{
+						"id": "umay",
+						"label": "Payı gömülen"
+					},
+					{
+						"id": "dailin",
+						"label": "Günün sayımı"
+					}
+				]
+			},
+			"source_note": "Kaynak: Shiji 110. Beşik yayı ve eş gömme töresi Kaşgarlı (Umay) ve Kayabaşı'ndadır. Doğum yeri çıkarımdır: Hun MÖ 215'e dek Ordos'tadır (悉收河南地).",
+			"intro": {},
+			"speaks": false,
+			"voice_pending": false,
+			"model": "",
+			"badges": [
+				"Yıllıktan",
+				"Bizim"
+			],
+			"unlock": "onsoz",
+			"game_group": "",
+			"images": {
+				"art": "",
+				"portrait": "",
+				"pose": "",
+				"thumb": ""
+			},
+			"intro_audio": ""
+		}
+	]
+}

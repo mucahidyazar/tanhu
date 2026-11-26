@@ -1,0 +1,18 @@
+{
+	"id": "act0.feast.kunay_gift",
+	"take": 0,
+	"seed": 4008321542,
+	"hash": "eeea2206b001",
+	"model": "eleven_v3",
+	"voice": "9XELrPIyVsbmAjCB3Bwh",
+	"seconds": 3.84,
+	"words": [
+		{"w": "From", "t0": 0.0, "t1": 0.24},
+		{"w": "your", "t0": 0.288, "t1": 0.48},
+		{"w": "mother's", "t0": 0.526, "t1": 0.96},
+		{"w": "hands?", "t0": 1.053, "t1": 1.6},
+		{"w": "It's", "t0": 1.867, "t1": 2.48},
+		{"w": "still", "t0": 2.547, "t1": 2.88},
+		{"w": "warm.", "t0": 3.008, "t1": 3.84}
+	]
+}

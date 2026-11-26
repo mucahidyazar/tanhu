@@ -1,0 +1,73 @@
+{
+  "id": "wind_gale",
+  "kind": "ambience",
+  "instrument": "wind",
+  "seconds": 12.0,
+  "fold": 2.0,
+  "seed": 4521,
+  "rate": 22050,
+  "loop": true,
+  "top_hz": 5000,
+  "rms": 0.15,
+  "bands": [
+    {
+      "f": 90.0,
+      "q": 0.9,
+      "gain": [
+        0.5,
+        1.0
+      ],
+      "points": 5
+    },
+    {
+      "f": 300.0,
+      "q": 0.6,
+      "gain": [
+        0.5,
+        1.0
+      ],
+      "points": 7
+    },
+    {
+      "f": 700.0,
+      "q": 10.0,
+      "sweep": [
+        600.0,
+        800.0
+      ],
+      "gain": [
+        0.1,
+        0.4
+      ],
+      "points": 6
+    },
+    {
+      "f": 850.0,
+      "q": 10.0,
+      "sweep": [
+        780.0,
+        900.0
+      ],
+      "gain": [
+        0.05,
+        0.3
+      ],
+      "points": 7
+    },
+    {
+      "f": 1200.0,
+      "q": 1.2,
+      "sweep": [
+        800.0,
+        1600.0
+      ],
+      "gain": [
+        0.3,
+        0.7
+      ],
+      "points": 9
+    }
+  ],
+  "note": "Fırtına (audio.md §4 «Hava döngüleri» wind_gale: wind_winter deseni, 90 Hz uğultu, 600–900 Hz Q 10 iki uluma). Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

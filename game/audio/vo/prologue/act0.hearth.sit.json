@@ -1,0 +1,15 @@
+{
+	"id": "act0.hearth.sit",
+	"take": 0,
+	"seed": 1497144045,
+	"hash": "593c9aed2d80",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 1.68,
+	"words": [
+		{"w": "Come,", "t0": 0.0, "t1": 0.48},
+		{"w": "sit", "t0": 0.54, "t1": 0.72},
+		{"w": "by", "t0": 0.8, "t1": 0.96},
+		{"w": "me.", "t0": 1.093, "t1": 1.68}
+	]
+}

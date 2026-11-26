@@ -1,0 +1,15 @@
+{
+  "id": "camp_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "camp",
+  "tempo": 52,
+  "bars": 8,
+  "mode": "d_dorian",
+  "seed": 5201,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2.0,
+  "source": "code",
+  "note": "camp ve camp_bard'ın 0. katmanı: D2 boğaz dronu, çok hafif sıgıt (8., 9., 12. harmonik). Kamp bankası (data/audio/banks/camp.json); kulak onayı bekler (Karar Bekleyenler), onaya dek menü ElevenLabs parçasını çalar."
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.depart.huyan_road",
+	"take": 0,
+	"seed": 3101901447,
+	"hash": "b8e34287421d",
+	"model": "eleven_v3",
+	"voice": "r1KmysJdVYZjJCm4mL3b",
+	"seconds": 1.68,
+	"words": [
+		{"w": "May", "t0": 0.0, "t1": 0.16},
+		{"w": "your", "t0": 0.192, "t1": 0.32},
+		{"w": "road", "t0": 0.368, "t1": 0.56},
+		{"w": "be", "t0": 0.613, "t1": 0.72},
+		{"w": "clear,", "t0": 0.773, "t1": 1.12},
+		{"w": "Mete.", "t0": 1.18, "t1": 1.68}
+	]
+}

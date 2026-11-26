@@ -1,0 +1,138 @@
+{
+  "id": "goat",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.8,
+  "rate": 22050,
+  "seed": 7131,
+  "loop": false,
+  "source": "code",
+  "note": "Keçi meleme (ses-tasarimi.md §7.2: koyundan titrek). II. Perde'nin sürüsü için; Kışlak'ta keçi yoktur. Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              390
+            ],
+            [
+              0.0682,
+              440.69999999999993
+            ],
+            [
+              0.48360000000000003,
+              378.3
+            ],
+            [
+              0.62,
+              351.0
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              1
+            ],
+            [
+              0.372,
+              0.8
+            ],
+            [
+              0.62,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              900,
+              4,
+              1
+            ],
+            [
+              2000,
+              6,
+              0.55
+            ]
+          ],
+          "vib": 60,
+          "vib_rate": 15,
+          "jitter": 10,
+          "breath": 0.15,
+          "trem": 0.5,
+          "trem_rate": 15
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              415
+            ],
+            [
+              0.077,
+              468.94999999999993
+            ],
+            [
+              0.5459999999999999,
+              402.55
+            ],
+            [
+              0.7,
+              373.5
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              1
+            ],
+            [
+              0.42,
+              0.8
+            ],
+            [
+              0.7,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              950,
+              4,
+              1
+            ],
+            [
+              2100,
+              6,
+              0.5
+            ]
+          ],
+          "vib": 60,
+          "vib_rate": 16,
+          "jitter": 10,
+          "breath": 0.15,
+          "trem": 0.55,
+          "trem_rate": 16
+        }
+      ]
+    }
+  ]
+}

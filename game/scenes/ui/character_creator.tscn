@@ -1,0 +1,209 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/character_creator.gd" id="1_creator"]
+[ext_resource type="Theme" path="res://ui/creator_theme.tres" id="2_theme"]
+[ext_resource type="Shader" path="res://shaders/ui/creator_background.gdshader" id="3_background"]
+[ext_resource type="Script" path="res://scripts/ui/creator_shader_rect.gd" id="4_shader_rect"]
+[ext_resource type="PackedScene" path="res://scenes/ui/creator_turntable.tscn" id="5_turntable"]
+[ext_resource type="Shader" path="res://shaders/ui/creator_brush.gdshader" id="6_brush"]
+[ext_resource type="Shader" path="res://shaders/ui/creator_parchment.gdshader" id="7_parchment"]
+[ext_resource type="Script" path="res://scripts/ui/creator_brush_button.gd" id="8_brush_button"]
+[ext_resource type="Script" path="res://scripts/ui/creator_baked_rect.gd" id="9_baked_rect"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_background"]
+resource_local_to_scene = true
+shader = ExtResource("3_background")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_banner"]
+resource_local_to_scene = true
+shader = ExtResource("6_brush")
+shader_parameter/stroke_color = Color(0.14, 0.11, 0.1, 0.95)
+shader_parameter/seed = 7.0
+shader_parameter/thickness = 0.8
+shader_parameter/open_start = 1.0
+shader_parameter/tail = 0.24
+shader_parameter/bristle = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paper"]
+resource_local_to_scene = true
+shader = ExtResource("7_parchment")
+shader_parameter/margin = 40.0
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_creator")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_baked_rect")
+bake_material = SubResource("ShaderMaterial_background")
+
+[node name="PreviewArea" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_right = 0.6
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Turntable" parent="PreviewArea" instance=ExtResource("5_turntable")]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="Hint" type="Label" parent="PreviewArea"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -60.0
+offset_right = 760.0
+offset_bottom = -28.0
+grow_vertical = 0
+theme_type_variation = &"CreatorHint"
+text = "Sürükleyerek döndür  ·  Tekerlek ya da Tab ile yakınlaştır"
+vertical_alignment = 1
+
+[node name="TitleBanner" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+offset_top = 18.0
+offset_right = 1060.0
+offset_bottom = 104.0
+mouse_filter = 2
+
+[node name="Stroke" type="ColorRect" parent="TitleBanner"]
+material = SubResource("ShaderMaterial_banner")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_shader_rect")
+
+[node name="Texts" type="HBoxContainer" parent="TitleBanner"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_right = 1000.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="TitleBanner/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CreatorTitle"
+text = "YOLA HAZIRLAN"
+vertical_alignment = 1
+
+[node name="SubtitleMargin" type="MarginContainer" parent="TitleBanner/Texts"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 14
+
+[node name="Subtitle" type="Label" parent="TitleBanner/Texts/SubtitleMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CreatorSubtitle"
+text = "Mete · 20 yaşında · 10 Eylül MÖ 213"
+vertical_alignment = 1
+
+[node name="Panel" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -722.0
+offset_top = -355.0
+offset_right = -42.0
+offset_bottom = 483.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Content" type="Control" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Paper" type="Control" parent="Panel/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_baked_rect")
+bake_material = SubResource("ShaderMaterial_paper")
+transparent = true
+
+[node name="Rows" type="VBoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 26.0
+offset_bottom = 640.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="UndoButton" type="BaseButton" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 116.0
+offset_top = 668.0
+offset_right = 336.0
+offset_bottom = 730.0
+script = ExtResource("8_brush_button")
+key_text = "Esc"
+text = "Geri Al"
+stroke_color = Color(0.17, 0.14, 0.13, 1)
+stroke_seed = 3.0
+
+[node name="AcceptButton" type="BaseButton" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 380.0
+offset_top = 668.0
+offset_right = 632.0
+offset_bottom = 730.0
+script = ExtResource("8_brush_button")
+key_text = "E"
+text = "Onayla"
+stroke_color = Color(0.15, 0.44, 0.46, 1)
+stroke_seed = 11.0

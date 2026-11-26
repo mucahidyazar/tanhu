@@ -1,0 +1,104 @@
+[gd_resource type="Theme" format=3]
+
+[sub_resource type="SystemFont" id="SystemFont_serif"]
+font_names = PackedStringArray("Cinzel", "Trajan Pro", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Georgia", "serif")
+
+[sub_resource type="SystemFont" id="SystemFont_sans_bold"]
+font_names = PackedStringArray("Avenir Next", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif")
+font_weight = 700
+
+[sub_resource type="SystemFont" id="SystemFont_sans_book"]
+font_names = PackedStringArray("Avenir", "Avenir Next", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif")
+
+[sub_resource type="FontVariation" id="FontVariation_title"]
+base_font = SubResource("SystemFont_serif")
+variation_embolden = 0.15
+spacing_glyph = 6
+
+[sub_resource type="FontVariation" id="FontVariation_subtitle"]
+base_font = SubResource("SystemFont_sans_book")
+variation_embolden = 0.35
+spacing_glyph = 2
+
+[sub_resource type="FontVariation" id="FontVariation_label"]
+base_font = SubResource("SystemFont_sans_book")
+variation_embolden = 0.95
+spacing_glyph = 3
+
+[sub_resource type="FontVariation" id="FontVariation_value"]
+base_font = SubResource("SystemFont_sans_bold")
+
+[sub_resource type="FontVariation" id="FontVariation_button"]
+base_font = SubResource("SystemFont_sans_bold")
+spacing_glyph = 1
+
+[sub_resource type="FontVariation" id="FontVariation_chip"]
+base_font = SubResource("SystemFont_sans_bold")
+
+[sub_resource type="FontVariation" id="FontVariation_detail"]
+base_font = SubResource("SystemFont_sans_book")
+variation_embolden = 0.3
+variation_transform = Transform2D(1, 0, 0.16, 1, 0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_hint"]
+base_font = SubResource("SystemFont_sans_book")
+variation_embolden = 0.3
+spacing_glyph = 1
+
+[resource]
+default_font = SubResource("SystemFont_sans_book")
+default_font_size = 20
+Label/colors/font_color = Color(0.22, 0.19, 0.17, 1)
+CreatorTitle/base_type = &"Label"
+CreatorTitle/colors/font_color = Color(0.95, 0.91, 0.82, 1)
+CreatorTitle/colors/font_shadow_color = Color(0, 0, 0, 0.35)
+CreatorTitle/constants/shadow_offset_x = 0
+CreatorTitle/constants/shadow_offset_y = 2
+CreatorTitle/font_sizes/font_size = 40
+CreatorTitle/fonts/font = SubResource("FontVariation_title")
+CreatorSubtitle/base_type = &"Label"
+CreatorSubtitle/colors/font_color = Color(0.86, 0.83, 0.75, 1)
+CreatorSubtitle/font_sizes/font_size = 18
+CreatorSubtitle/fonts/font = SubResource("FontVariation_subtitle")
+CreatorFieldLabel/base_type = &"Label"
+CreatorFieldLabel/colors/font_color = Color(0.45, 0.4, 0.35, 1)
+CreatorFieldLabel/font_sizes/font_size = 16
+CreatorFieldLabel/fonts/font = SubResource("FontVariation_label")
+CreatorValue/base_type = &"Label"
+CreatorValue/colors/font_color = Color(0.21, 0.18, 0.16, 1)
+CreatorValue/font_sizes/font_size = 25
+CreatorValue/fonts/font = SubResource("FontVariation_value")
+CreatorDetail/base_type = &"Label"
+CreatorDetail/colors/font_color = Color(0.38, 0.33, 0.28, 1)
+CreatorDetail/font_sizes/font_size = 15
+CreatorDetail/fonts/font = SubResource("FontVariation_detail")
+CreatorButtonText/base_type = &"Label"
+CreatorButtonText/colors/font_color = Color(0.97, 0.94, 0.87, 1)
+CreatorButtonText/colors/font_shadow_color = Color(0, 0, 0, 0.25)
+CreatorButtonText/constants/shadow_offset_x = 0
+CreatorButtonText/constants/shadow_offset_y = 1
+CreatorButtonText/font_sizes/font_size = 25
+CreatorButtonText/fonts/font = SubResource("FontVariation_button")
+CreatorKeyChip/base_type = &"Label"
+CreatorKeyChip/colors/font_color = Color(0.2, 0.18, 0.17, 1)
+CreatorKeyChip/font_sizes/font_size = 16
+CreatorKeyChip/fonts/font = SubResource("FontVariation_chip")
+CreatorHint/base_type = &"Label"
+CreatorHint/colors/font_color = Color(0.95, 0.96, 0.9, 0.8)
+CreatorHint/colors/font_shadow_color = Color(0, 0, 0, 0.22)
+CreatorHint/constants/shadow_offset_x = 0
+CreatorHint/constants/shadow_offset_y = 1
+CreatorHint/font_sizes/font_size = 17
+CreatorHint/fonts/font = SubResource("FontVariation_hint")
+CreatorRow/colors/label_focus = Color(0.72, 0.28, 0.21, 1)
+CreatorRow/colors/marker = Color(0.18, 0.3, 0.31, 1)
+CreatorRow/colors/rule = Color(0.33, 0.27, 0.22, 0.55)
+CreatorArrow/colors/arrow = Color(0.15, 0.53, 0.58, 1)
+CreatorArrow/colors/arrow_hover = Color(0.2, 0.67, 0.72, 1)
+CreatorArrow/colors/arrow_pressed = Color(0.1, 0.4, 0.44, 1)
+CreatorSwatches/colors/ring = Color(0.14, 0.33, 0.33, 1)
+CreatorSwatches/colors/hover_ring = Color(0.15, 0.53, 0.58, 0.75)
+CreatorSwatches/colors/natural_fill = Color(0.97, 0.95, 0.9, 1)
+CreatorSwatches/colors/natural_line = Color(0.4, 0.38, 0.36, 1)
+CreatorBrushButton/colors/chip = Color(0.88, 0.86, 0.82, 1)
+CreatorBrushButton/colors/chip_shadow = Color(0, 0, 0, 0.3)

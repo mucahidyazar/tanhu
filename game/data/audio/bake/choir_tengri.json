@@ -1,0 +1,23 @@
+{
+  "id": "choir_tengri",
+  "kind": "music",
+  "instrument": "choir",
+  "notes": [
+    50,
+    57,
+    62
+  ],
+  "arc": [
+    0.12,
+    0.86
+  ],
+  "tempo": 48,
+  "bars": 12,
+  "mode": "major_pent",
+  "seed": 4811,
+  "rate": 22050,
+  "loop": true,
+  "fold": 1,
+  "source": "code",
+  "note": "Sinemanın tek korosu (K59, #53): açık beşli D–A (D3, A3, D4), altı testere ve a/o biçimlendiricileri; dosyanın içinde bir kez kabarır ve söner (30 sn, gök panosu ≈28 sn). Kuru mono, yankı Music yolunda. Koro katmanı yalnız tengri ve dawn kliplerinde kurulur (test_music_choir.gd). Önsöz'ün gök panosu, tengri durumu (audio.md §3: majör pentatonik kök F, 48; koro açık beşli D–A, kıl kobuz ana renk, hucia; kopuz yok). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

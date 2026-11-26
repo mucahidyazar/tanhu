@@ -1,0 +1,14 @@
+{
+	"id": "act0.wrestle.win",
+	"take": 0,
+	"seed": 2189692854,
+	"hash": "82840fb6695d",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 1.68,
+	"words": [
+		{"w": "Grandma", "t0": 0.0, "t1": 0.56},
+		{"w": "was", "t0": 0.64, "t1": 0.88},
+		{"w": "right.", "t0": 0.987, "t1": 1.68}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"id": "act0.depart.yanchi_hush",
+	"take": 0,
+	"seed": 2544027312,
+	"hash": "97a2c6b0b1f2",
+	"model": "eleven_v3",
+	"voice": "E4IXevHtHpKGh0bvrPPr",
+	"seconds": 2.56,
+	"words": [
+		{"w": "Shh.", "t0": 0.0, "t1": 0.84},
+		{"w": "He", "t0": 0.987, "t1": 1.28},
+		{"w": "just", "t0": 1.376, "t1": 1.76},
+		{"w": "fell", "t0": 1.792, "t1": 1.92},
+		{"w": "asleep.", "t0": 1.989, "t1": 2.56}
+	]
+}

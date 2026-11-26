@@ -1,0 +1,20 @@
+{
+	"id": "testmap_stable",
+	"script": "res://scripts/world/stable_layer.gd",
+	"doc": "Deneme haritasının ahırı (Yol Haritası mount-bond-actions; map.json «layers» «stable»; StableLayer kurar). Ahır ocağın güneyindeki at alanıdır (Doru ve Akbulut; haritanın at kayıtları: ref). Atın başında E Yem Ver (Bağ +5, günde 3) ya da 2 otla Yem Bağı yap, E basılı Tımar (4 sn, Bağ +2, günde 1), F Ad Koy (Bağ +10, bir kez; öneri listesi names ya da yazı), Ant İç (oath: Akbulut'ta aygırın antı denenir, act1.md §8.8 oath_stallion; Bağ +10, bir kez), Yular Tak ya da Çıkar. Yeni yolculukta ahırın ilk atının terkisine deneme takımı (kit: 3 Yem Bağı, 1 yular; Heybe'ye Envanter'in Terki sekmesinden alınır, Heybe'nin hafif takımı bozulmasın). Atlar haritanın kaydında eyerli ve gemlidir (mounts.json horse gear); Yular Tak gemi heybeye alır. Kuzey −Z.",
+	"stables": [
+		{"id": "testmap_stable", "name": {"tr": "Deneme Ahırı", "en": "Trial Stable"}, "at": [0.0, 11.0], "radius": 18.0,
+			"horses": [
+				{"ref": "doru"},
+				{"ref": "akbulut", "oath": "oath_stallion"}
+			]}
+	],
+	"kit": {"fodder": 3, "halter": 1},
+	"names": [
+		{"tr": "Boz", "en": "Boz"},
+		{"tr": "Kula", "en": "Kula"},
+		{"tr": "Yağız", "en": "Yagiz"},
+		{"tr": "Çal", "en": "Chal"},
+		{"tr": "Tolpar", "en": "Tolpar"}
+	]
+}

@@ -1,0 +1,42 @@
+{
+	"id": "feast",
+	"title": {"tr": "Şilde Gecesi", "en": "The Watch-Night"},
+	"doc": "Önsöz «Şilde Gecesi» ve «Güreş» (9 Nisan MÖ 209 gecesi; Göl Obası'ndan Kayın Obası'na; K110; story.md §3; e21-atmosphere.md; Ö2). Yeni doğanın ilk gecelerinde ocak sönmez, gülüşme eksik olmaz. Dereden davul ve ağız kopuzu (mus_shilde, Kayın Obası'nın ateşinden konumlu; yer tutucusu kodla basılan shilde_drum_jaw); Ana keçe kundağı verir, aile Çocuk'la yola çıkar (feast_walk; ormanın içinde kısa kararma yolu kısaltır). Şildede dolaşmak serbest: Saruk göğe, yere ve ocağa serper, kımızı uzatır (E basılı, iki el); kundak Künay'a verilir, Tonga beşiğin yayını anlatır (feast_roam). Sonra güreş (wrestle_ring: kuşak güreşi, BeltWrestle) ve eve dönüş (feast_home, night_end). Gökte ay yok, yıldızlar açık.",
+	"clock": {"start": "20:40", "seconds_per_minute": 2.5},
+	"player": {"at": "gol_family_door", "face": "gol_road_start"},
+	"family_yurt": "closed",
+	"weather": {"type": "clear", "snow": 0.3, "mist": 0.0},
+	"music": "mus_prologue_night",
+	"beds": [
+		{"id": "amb_camp_spring_night", "at": "gol_center", "radius": 60},
+		{"id": "amb_stream", "at": "ford", "radius": 25}
+	],
+	"cast": {
+		"mother": {"at": "gol_family_door", "face": "gol_road_start", "work": "stand"},
+		"father": {"at": [-0.6, 3.4], "face": "gol_road_start", "work": "stand"},
+		"older_brother": {"at": [1.2, 2.6], "face": "gol_road_start", "work": "stand"},
+		"bard": {"at": "gol_bard_door", "face": "gol_fire", "work": "kopuz"},
+		"saruk": {"at": [-247.6, 196.4], "face": "feast_fire", "work": "stand"},
+		"kunay": {"at": [-238.6, 210.8], "face": [-250.0, 198.0], "work": "sit"},
+		"tonga": {"at": [-240.4, 207.0], "face": "feast_fire", "work": "talk_hands_open"},
+		"boru": {"at": "birch_play", "face": "feast_fire", "work": "play"},
+		"birch_woman": {"at": [-252.6, 195.2], "face": "feast_fire", "work": "sitting_clap"},
+		"birch_man": {"at": [-253.8, 200.6], "face": "feast_fire", "work": "talk_passionately"},
+		"birch_elder": {"at": [-248.2, 201.4], "face": "feast_fire", "work": "sit_cross_legged"},
+		"birch_girl": {"at": [-245.0, 200.0], "face": "feast_fire", "work": "play"}
+	},
+	"steps": [
+		{"id": "walk", "kind": "feast_walk",
+			"objective": {"tr": "Ana'yı dinle", "en": "Listen to Mother"},
+			"fire": "feast_fire", "gate": "birch_gate",
+			"route": ["gol_road_start", "road_descent", "road_forest", "road_open", "ford", "birch_gate"]},
+		{"id": "roam", "kind": "feast_roam",
+			"objective": {"tr": "Şildede dolaş", "en": "Join the watch-night"},
+			"fire": "feast_fire", "kunay": [-238.6, 210.8], "cradle": [-237.2, 211.4]},
+		{"id": "wrestle", "kind": "wrestle_ring",
+			"objective": {"tr": "Halkaya gir", "en": "Step into the ring"},
+			"ring": "wrestle_ring", "seed": 20900409, "wrestle": {}},
+		{"id": "home", "kind": "feast_home", "road": "birch_gate"},
+		{"id": "night", "kind": "night_end", "fade_s": 0.3, "hold_s": 0.8}
+	]
+}

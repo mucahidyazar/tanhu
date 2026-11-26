@@ -1,0 +1,14 @@
+{
+	"id": "act0.flock.water_cold",
+	"take": 0,
+	"seed": 2990430219,
+	"hash": "b23e580b5434",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.68,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "water's", "t0": 0.16, "t1": 0.72},
+		{"w": "freezing!", "t0": 0.809, "t1": 1.68}
+	]
+}

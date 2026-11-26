@@ -1,0 +1,212 @@
+{
+  "_aciklama": "Uzun giysinin ağırlık alanı: tools/garment_weights.py okur, tools/rig_fix.py --apply sırasında uygulanır. Listede olmayan kişinin ağırlığı değişmez (kısa giysi). leg_radius: etek ucunun üstünde bacak ekseninden bu kadar (metre) yakın köşe pantolon ve bacaktır, alana az girer. boot_radius: etek ucunun altında aynısı (çizme; kürk ve saçak uçları bundan uzaktır). hem_y: etek ucunun yüksekliği (metre). knee_share: diz hizasında kalça payı. hem_share: etek ucunda kalça payı (kalça ekleminde 0, arası doğrusal). side_blend: orta çizgide sol ve sağ uyluğun yumuşak geçişinin yarı genişliği (metre; önü açık giyside dar, kapalı etekte geniş). calf_band: baldır payının eksenden uzaklaştıkça söndüğü bant (metre). Değerler kadroda oturuş kliplerinde ölçülerek seçildi (davul alanı, kapak yüksekliği, en çok gerilen yüzey, diz ve kalçanın kumaş içinde kalması); yeni kişi için başlangıç önerisi: tools/garment_weights.py --suggest <id>.",
+  "people": {
+    "father": {
+      "hem_y": 0.38,
+      "boot_radius": 0.15,
+      "leg_radius": 0.1,
+      "knee_share": 0.2,
+      "hem_share": 0.35,
+      "side_blend": 0.06,
+      "calf_band": 0.08
+    },
+    "mother": {
+      "hem_y": 0.22,
+      "boot_radius": 0.12,
+      "leg_radius": 0.06,
+      "knee_share": 0.3,
+      "hem_share": 0.55,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "counter": {
+      "hem_y": 0.35,
+      "boot_radius": 0.15,
+      "leg_radius": 0.09,
+      "knee_share": 0.15,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "hereka": {
+      "hem_y": 0.3,
+      "boot_radius": 0.15,
+      "leg_radius": 0.11,
+      "knee_share": 0.2,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "hereka_young": {
+      "hem_y": 0.31,
+      "boot_radius": 0.12,
+      "leg_radius": 0.06,
+      "knee_share": 0.25,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "elder": {
+      "hem_y": 0.34,
+      "boot_radius": 0.12,
+      "leg_radius": 0.08,
+      "knee_share": 0.25,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "lan_hatun": {
+      "hem_y": 0.22,
+      "boot_radius": 0.12,
+      "leg_radius": 0.06,
+      "knee_share": 0.25,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "crowd_hun_woman": {
+      "hem_y": 0.37,
+      "boot_radius": 0.15,
+      "leg_radius": 0.11,
+      "knee_share": 0.15,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "crowd_hun_man": {
+      "hem_y": 0.52,
+      "boot_radius": 0.15,
+      "leg_radius": 0.09,
+      "knee_share": 0.25,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "teoman": {
+      "hem_y": 0.33,
+      "boot_radius": 0.14,
+      "leg_radius": 0.08,
+      "knee_share": 0.35,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "yanchi": {
+      "hem_y": 0.35,
+      "boot_radius": 0.09,
+      "leg_radius": 0.07,
+      "knee_share": 0.25,
+      "hem_share": 0.45,
+      "side_blend": 0.15,
+      "calf_band": 0.08
+    },
+    "eskam": {
+      "hem_y": 0.28,
+      "boot_radius": 0.14,
+      "leg_radius": 0.12,
+      "knee_share": 0.3,
+      "hem_share": 0.55,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "huyan_hatun": {
+      "hem_y": 0.21,
+      "boot_radius": 0.1,
+      "leg_radius": 0.08,
+      "knee_share": 0.3,
+      "hem_share": 0.55,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "gutu": {
+      "hem_y": 0.18,
+      "boot_radius": 0.09,
+      "leg_radius": 0.07,
+      "knee_share": 0.25,
+      "hem_share": 0.45,
+      "side_blend": 0.15,
+      "calf_band": 0.06
+    },
+    "amaga": {
+      "hem_y": 0.29,
+      "boot_radius": 0.12,
+      "leg_radius": 0.1,
+      "knee_share": 0.3,
+      "hem_share": 0.55,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "farnak": {
+      "hem_y": 0.4,
+      "boot_radius": 0.11,
+      "leg_radius": 0.09,
+      "knee_share": 0.2,
+      "hem_share": 0.35,
+      "side_blend": 0.15,
+      "calf_band": 0.08
+    },
+    "nanay": {
+      "hem_y": 0.47,
+      "boot_radius": 0.12,
+      "leg_radius": 0.1,
+      "knee_share": 0.25,
+      "hem_share": 0.45,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "ardoksha": {
+      "hem_y": 0.34,
+      "boot_radius": 0.12,
+      "leg_radius": 0.1,
+      "knee_share": 0.25,
+      "hem_share": 0.45,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "kantu": {
+      "hem_y": 0.43,
+      "boot_radius": 0.15,
+      "leg_radius": 0.13,
+      "knee_share": 0.2,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "mene": {
+      "hem_y": 0.35,
+      "boot_radius": 0.14,
+      "leg_radius": 0.12,
+      "knee_share": 0.25,
+      "hem_share": 0.45,
+      "side_blend": 0.15,
+      "calf_band": 0.06
+    },
+    "palak": {
+      "hem_y": 0.45,
+      "boot_radius": 0.15,
+      "leg_radius": 0.13,
+      "knee_share": 0.2,
+      "hem_share": 0.35,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "atsho": {
+      "hem_y": 0.31,
+      "boot_radius": 0.14,
+      "leg_radius": 0.12,
+      "knee_share": 0.3,
+      "hem_share": 0.55,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    },
+    "kujul": {
+      "hem_y": 0.5,
+      "boot_radius": 0.15,
+      "leg_radius": 0.13,
+      "knee_share": 0.25,
+      "hem_share": 0.4,
+      "side_blend": 0.2,
+      "calf_band": 0.08
+    }
+  }
+}

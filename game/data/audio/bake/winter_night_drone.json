@@ -1,0 +1,15 @@
+{
+  "id": "winter_night_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "low_e",
+  "tempo": 58,
+  "bars": 8,
+  "mode": "e_phrygian",
+  "seed": 5831,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2.0,
+  "note": "winter_night'ın 0. katmanı: alçak E2 dronu; 22:30'dan Tan'a (audio.md §3). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

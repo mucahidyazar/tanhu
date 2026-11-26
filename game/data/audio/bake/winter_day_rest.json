@@ -1,0 +1,11 @@
+{
+  "id": "winter_day_rest",
+  "kind": "music",
+  "instrument": "rest",
+  "tempo": 72,
+  "bars": 2,
+  "rate": 22050,
+  "loop": false,
+  "note": "72'de iki ölçülük boş cümle (Playlist'in boş kopyası; perde rengi rest_copies).",
+  "source": "code"
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.swim_deep",
+	"take": 0,
+	"seed": 338527575,
+	"hash": "142d85573ff5",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.32,
+	"words": [
+		{"w": "It's", "t0": 0.0, "t1": 0.24},
+		{"w": "deep", "t0": 0.304, "t1": 0.56},
+		{"w": "out", "t0": 0.62, "t1": 0.8},
+		{"w": "there,", "t0": 0.853, "t1": 1.36},
+		{"w": "come", "t0": 1.408, "t1": 1.6},
+		{"w": "back!", "t0": 1.712, "t1": 2.32}
+	]
+}

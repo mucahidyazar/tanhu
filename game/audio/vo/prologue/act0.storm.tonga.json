@@ -1,0 +1,15 @@
+{
+	"id": "act0.storm.tonga",
+	"take": 0,
+	"seed": 1030272830,
+	"hash": "3d68b73e9cc3",
+	"model": "eleven_v3",
+	"voice": "CDdUdrzh7qrDE2xpRZyQ",
+	"seconds": 1.28,
+	"words": [
+		{"w": "Who", "t0": 0.0, "t1": 0.16},
+		{"w": "brought", "t0": 0.21, "t1": 0.56},
+		{"w": "the", "t0": 0.6, "t1": 0.72},
+		{"w": "fire?", "t0": 0.8, "t1": 1.28}
+	]
+}

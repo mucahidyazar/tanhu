@@ -1,0 +1,12 @@
+{
+	"id": "act0.lambs.one",
+	"take": 0,
+	"seed": 1984511343,
+	"hash": "76493d6fdaf5",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 0.48,
+	"words": [
+		{"w": "One.", "t0": 0.0, "t1": 0.48}
+	]
+}

@@ -1,0 +1,297 @@
+---
+title: Haneler ve Kâhya
+order: 20
+status: tasarim
+summary: 'Yerleşimin birimi beş kişilik hanedir; hane çoğunlukla olayla, evi yüklü ya da barınak isteyerek gelir, Gönül''le kalır ya da gider; işleri Kâhya dağıtır, yoldaş usta ya da nöbetçi olarak görevlendirilir, esir yoktur.'
+sources:
+  - docs/design/decisions.md
+  - docs/design/settlement.md
+  - docs/design/d2/settlement-model.json
+  - docs/design/story.md
+  - docs/design/economy.md
+  - docs/design/progression.md
+  - docs/design/companions.md
+  - docs/design/fauna.md
+  - docs/research/bozkir-ekonomi.md
+  - docs/design/d3/register.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+## Özet
+
+Yerleşimde tek tek kişiler değil, haneler yaşar. Kapıdan bir kafile girer: kimi evini kendi at ve develerinde getirir, boş bir parsele yurdunu kurar, sürüsünü otlağa salar; kimi yalnız azığıyla gelir, barınak ister. Oyuncu kimseye tek tek iş vermez: Kâhya her oyun saati işleri dağıtır, oyuncu istediği yere kilit koyar. Partideki yoldaşlar da yerleşimde ya da ordugâhta bir işe verilebilir. Halkın durumunu Yerleşim Defteri gösterir: hane ve gün sayıdır, Gönül düğümlü bir iptir.
+
+[K23](/docs/source/design/decisions#k23): esir yoktur; hanenin ekseni Gönül'dür; işleri Kâhya dağıtır.
+
+## Hane
+
+| Alan | Değer |
+|---|---|
+| Kişi | 5: iki yetişkin, bir genç, bir yaşlı, bir çocuk |
+| Öğün | 4,3 öğün/gün (yetişkin ve genç 1, yaşlı 0,8, çocuk 0,5) |
+| İş ağırlığı | Yetişkin 1, genç 0,75, yaşlı 0,5, çocuk 0; ev işi −0,5. Toplam 2,75 |
+| Sürü | 35 koyun, 10 keçi, 7 at, 4 sığır, ½ deve: ≈18 at eşdeğeri |
+| Çobanlık | Hane başına ≈0,65 işçi; geriye ≈2,1 yetişkin iş gücü kalır |
+| Emek | ≈44 İS/gün (yazın ≈47, güzün ≈43, kışın ≈42). İS iş saatidir: bir işçinin bir oyun saati |
+| Yakacak | Günde 3 birim, kışın 3,5: pişirme ve ışık. Isınma yok (K1) |
+| Konut | Bir yurt (Küçük Yurt ya da Hane Yurdu; bey hanesinde Bey Otağı) ya da bir yarı gömük ev. Geçici: çadır ya da kamış kulübe, ½ hane ([K51](/docs/source/design/decisions#k51)) |
+
+**Yaşlı** tezgâhta, ev işinde (keçe, ip, kurut) ve şantiyede çalışır; kendi zanaatında usta sayılır, şantiyeyi tek başına yürütebilir; sürüye ve nöbete atanmaz. **Genç** çıraktır, usta işi yapamaz. **Çocuk** iş havuzuna girmez; hanenin av payını genç ve çocuk getirir (Shiji 110: çocuk koyuna biner, yayla kuş ve fare vurur).
+
+Nüfus kademeyle büyür: Ocak sonunda 3 hane, 15 can; Oba 10, 50; Boy Yurdu 22, 110; Toy Yeri 45, 225; Tanhu Avlusu 80, 400. Tavan 90 hanedir.
+
+## Hane nasıl gelir
+
+Hane çoğunlukla olayla gelir, günlük Çekim küçük bir ektir (K23). Böylece 60 dakikalık günde beklemek, uyumak ya da iki yer arasında gidip gelmek yerleşimi büyütmez; büyüten hikâye, zafer, toplantı ve armağandır. Yükü olmayan hane için cevabın şuydu (#39):
+
+> [!NOT]
+> «bazilari cadiriyla at ve develerine yuklemis bazilari benden isteyecek.»
+
+Cevap iki tür haneye döndü ([K53](/docs/source/design/decisions#k53)). **Yüklü Hane / Laden Household** evini kendi at ve develerinde getirir: yurtlu (Yurt Yükü) ya da çadırlı (Çadır Yükü). Kâhya ona boş bir konut parseli verir, hane yurdunu kendisi kurar: 3 elle 33,75 dakika ([K50](/docs/source/design/decisions#k50)). **İsteyen Hane / Asking Household** yalnız azığıyla gelir ve barınak ister. Tür kaynağa göre kesirli bir sayaçla gelir, rastgele çekiliş yoktur: her gelen hanede kaynağın üç payı üç sayaca eklenir, en büyük sayacın türü gelir. Gelen yurt ve çadır kendi milletinin görünüşünü taşır: III'te [Tunghu](/encyclopedia/donghu), IV'te [Yüeçi](/encyclopedia/yuezhi), [Loufan](/encyclopedia/loufan) ve [Baiyang](/encyclopedia/baiyang), V'te Han.
+
+| Kaynak | Ne zaman | Adet | Tür: yurtlu / çadırlı / isteyen | Sürü | Gönül başı |
+|---|---|---|---|---|---|
+| İlk aileler | II, Kendi Ocağın'dan sonra | 3: Şiuşun'un ailesi, dülger Ruodi'nin hanesi, Lan Hatun'un hanesi | 0 / 0 / 1 | 4 at eşdeğeri | 70 |
+| I. Perde yankısı | II | I. Perde'de ≥12 ad bilindiyse +1; Tola yaşıyorsa +1 | 0 / 0 / 1 | Yok | 65 |
+| Oba dalgası | II, Oba görevi, 4 Haziran'dan | 4, biri demirci Dutu | 1 / 0 / 0 | Tam | 55 |
+| Avlu göçü | III başı | 8 | 1 / 0 / 0 | Tam | 45 |
+| Yenilenlerin seçimi | Zaferden sonra | III 2–6, IV 3–6, V 4–8 | 0,3 / 0,4 / 0,3 | Yarısı | 40; Korku ile gelen 30 |
+| Armağan | IV ve sonrası, Divan'dan | 2–4, 3 gün sonra; soy başına perdede bir, en çok 3 soy | 1 / 0 / 0 | Tam | 60 |
+| Loufan ve Baiyang | IV, Ordos'tan sonra | 6–10 | 1 / 0 / 0 | Tam | 50 |
+| Avlu Toplantısı dalgası | V, Baideng zaferinden sonra | 8–12 | 1 / 0 / 0 (bey hanesi Otağ Yükü'yle) | Tam | 55 |
+| Kaçkın | Yol olayında «Paylaş», kervanın töresi | 1–2 | 0 / 0,5 / 0,5 | Yok | 70 |
+| Sığınan | V (Mayi, [Han Xin](/encyclopedia/han-xin)); IV'te seçmeli | 6–12 | 0 / 0 / 1 (Surlu yolda yarı gömük ev) | Yok; Toprak Ustası, çiftçilik ve kerpiç bilgisi getirir | 50 |
+| Heqin maiyeti | V–VI | 1–2 | 0 / 0 / 1 | Yok; Hazine malı | 50 |
+| Kurultay | VI | 2–4 | 1 / 0 / 0 (bey hanesi Otağ Yükü'yle) | Tam | 60 |
+| Çekim | Şafakta, tavanlı | Perde başına en çok 3 / 4 / 6 / 8 / 10 | 0,6 / 0,25 / 0,15 | Tam | 50 + 2 × Kut − Korku (25–80) |
+
+Kaçkın kervanın töresinden gelir, Çekim tavanına girmez. Perde başına beklenen sayım ([bozkir-ekonomi.md](/docs/source/research/steppe-economy) öneri 12): yurtlu II 5,8 (ve Mete'nin yurdu), III 11,6, IV 22,0, V 16,6, VI 9,0; çadırlı 0,8 / 3,4 / 3,3 / 4,4 / 2,5; isteyen 4,0 / 2,5 / 2,2 / 13,5 / 1,5. V'in 13,5 isteyeni Surlu yolun 12 yarı gömük evine denk gelir. Kademe günlerini taşıyan, Yüklü Hane'nin getirdiği hazır Yurt Yükü'dür (1 / 6 / 12 / 22 / 17); bu sayılar değişmedi.
+
+| Perde | Açılış tabanı (Kronik) | Çekim tavanı | Beklenen son |
+|---|---|---|---|
+| II | 0 | 3 | ≈10 |
+| III | 10 | 4 | ≈22 |
+| IV | 22 | 6 | ≈45 |
+| V | 45 | 8 | ≈80 |
+| VI | 80 | 10 | ≤90 |
+
+**Kafile** ([fauna.md §2.3](/docs/source/design/fauna#2-3-gelen-hanenin-hayvanlari-39)). Yük hayvanları hanenin sürüsüne girer: kafile ayrı hayvan değildir. Kafile parsele gelir; deve diz çöker, at durur, yük 8 saniyede iner.
+
+| Görünüş | Yük | Kafile |
+|---|---|---|
+| Yurtlu, atlı | ≈70 | 3 Yük Atı |
+| Yurtlu, deveyle (iki hanede bir) | ≈70 | 1 Yük Devesi, 1 Yük Atı |
+| Gobi, Ordos ve Hexi hanesi | ≈70 | 2 Yük Devesi |
+| Arabalı (IV'ten yurtluların %30'u) | ≈70 | 1 keçe araba; yün ve azık binicilerin terkisinde |
+| Çiang hanesi (IV) | Kara çadır | 3 yak |
+| Bey hanesi | Otağ Yükü, 109 | 2 Yük Devesi ve 1 Yük Atı ya da 1 Ordu Arabası |
+| Çadırlı | ≈27 | 1 Yük Atı |
+| İsteyen | 2,2 | Yaya ya da tek at |
+
+```varlik
+camel, yak, pack_saddle_horse, pack_saddle_camel, tent_kit, otag_kit
+```
+
+**İsteyen Hane kartı:** «{n} hane barınak istiyor.» / «{n} households ask for shelter.» Seçenek hanenin başlangıç Gönül'üne eklenir.
+
+| Seçenek | Bedel | Sonuç |
+|---|---|---|
+| Çadır ver / Give a tent | 1 Çadır Yükü (16 Yük) | Gönül başı +8; hane konutta sayılır, çadır kuralı sürer |
+| Yurt ver / Give a yurt | 1 Yurt Yükü | Gönül başı +15 |
+| Yarı gömük ev kur / Raise a pit house | Şantiye; yalnız Surlu yolda | Gönül başı +10; ev kurulana dek hane çadırdadır |
+| Bekleyin / Wait | Yok | Gönül −1/gün, 3 gün sonra gider; hikâye haneleri gitmez |
+
+Kâhya'nın Oba'dan başlayan sürekli emri «Çadır Yükü 2 tut»tur: ambarda çadır yükü varsa Kâhya onu kendiliğinden verir, kart çıkmaz. İlk kart II'de ilk ailelerle gelir ve öğretir (İlk Yurtlar görevi); Ocak'ın iki çadırı onlar içindir. Hikâye haneleri «Bekleyin»de gitmez: Kâhya ve dülger bu hanelerdedir.
+
+**Gelen hanenin yükü** (bütün kaynaklar): çadırı, yurt yükü ya da yalnız azığı; 5 günlük azığı (≈22 öğün) ve kırkım mevsimi geçmişse son kırkımının yarısı (yaz başında hane başına ≈18 yün). Gelen hane yiyecek çizgisini seyreltmez, II. Perde'nin keçesi yalnız armağana kalmaz.
+
+**Gelince ne olur.** Yüklü Hane'ye Kâhya boş bir konut parseli verir, hane kendi yurdunu ya da çadırını kurar (yurt 1 İG, 3 elle 33,75 dakika; boştaki eller katılabilir, şantiye gece de sürer). İsteyen Hane kartı alır; karar beklerken açıkta bekler. Çadırdaki, kulübedeki ve Küçük Yurt'taki hane Oba kapısında konutlu sayılır; Küçük Yurt yurt sayılır.
+
+## Çekim
+
+Yerleşimin kendiliğinden hane çekmesidir. Her şafak birikir:
+
+```
+Çekim += kademe tabanı × (1 + 0,03·Kut + 0,015·Korku) × yiyecek × yer × Gönül × akın
+```
+
+| Çarpan | Değer |
+|---|---|
+| Kademe tabanı | Ocak 0,25, Oba 0,4, Boy Yurdu 0,6, Toy Yeri 0,9, Tanhu Avlusu 1,2 hane/gün |
+| Yiyecek | ≥15 gün: 1. 5–15 gün: 0,5. <5 gün: 0 |
+| Yer | Hane tavanın altında ve boş konut parseli var: 1. Değilse 0 |
+| Gönül (ortalama) | ≥70: 1,25. <40: 0,5. Arası 1 |
+| Akın | Akın penceresi açık ve yerleşime perdenin akın tavanı dolmamış: 0,5. Değilse 1 ([K55](/docs/source/design/decisions#k55)) |
+
+Çekim yalnız önceki gün Mete yerleşimde ya da ordugâhta en az 1 oyun saati uyanık kaldıysa işler. Toplam 1'i geçince bir hane yola çıkar, 0,5–1,5 gün sonra kapıdan gelir. Perdenin tavanı dolunca birikmez. Perde sayacı yoktur ([K42](/docs/source/design/decisions#k42)): son görevden sonraki Serbest Dolaşım bitmiş perdenin tavanını taşır.
+
+| Kademe, örnek Kut / Korku | Günlük (Mete'nin olduğu gün) | Perde tavanı |
+|---|---|---|
+| Ocak, 6 / 2 | 0,30 | 3 (II) |
+| Oba, 6 / 2 | 0,48 | 3 (II) |
+| Boy Yurdu, 10 / 4 | 0,82 | 4 (III) |
+| Toy Yeri, 14 / 6 | 1,36 | 6 (IV) |
+| Tanhu Avlusu, 18 / 8 | 1,99 | 8 (V), 10 (VI) |
+
+Korku da çeker: bozkırda insan korktuğu için de güçlüye sığınır. Ama Korku ile gelen düşük Gönülle gelir ve ilk kıtlıkta gider. Kut sadık hane çeker. Defter ikisinin sayısını göstermez, Çekim'i dört kademeli bir işaretle gösterir.
+
+## Gönül
+
+Ordunun sadakat ekseninin yerleşimdeki eşidir: hane başına 0–100. Günlük değişim şafakta, olaylar anında işlenir.
+
+| Olay | Değişim |
+|---|---|
+| Yiyecek ≥5 gün | +0,3/gün |
+| Yiyecek <5 gün | −1/gün |
+| Kıtlık, yiyecek <2 gün | −3/gün |
+| Çadır ya da kulübede, 3 günden uzun | −0,5/gün |
+| İçinde hane yatan yapı suya >150 m | −0,3/gün |
+| Duman ve koku yurda geliyor | −0,2/gün, atölye başına |
+| Toy (hane başına 2 öğün, 1 kımız) | +6, 10 günde bir; hane başına 1 kabuk saçıyla +8 ([K48](/docs/source/design/decisions#k48)) |
+| Avlu Toplantısı | +5 |
+| Beşinci Ay Sunusu (yalnız IV ve VI) | +3 ([K35](/docs/source/design/decisions#k35)) |
+| Ganimetin halka payı | +2/gün, 5 gün |
+| Akın def edildi | +1 (K55) |
+| Akın zarar verdi | −6 |
+| Divan'da sert yargı | −3, o kökenin bütün haneleri |
+| Mete 10 günde en az bir gün avluda | +1 |
+| Seferberlikte 10 günden uzun | −0,2/gün, o hane |
+| Üretimde gece vardiyası | −0,2, gece başına |
+| Boşta, ev işinde | +0,05/gün |
+
+| Gönül | Etki |
+|---|---|
+| <25 | Ayrılış adayı |
+| <40 | O hanenin işçileri ×0,85 |
+| 40–69 | Yok |
+| ≥70 | ×1,1; ortalama ≥70 ise Çekim ×1,25 |
+
+Ortalama Gönül kademe kapısıdır: Toy Yeri ≥50, Tanhu Avlusu ≥55. Defter Gönül'ü beş düğümlü iple gösterir, sayı yazmaz.
+
+**Ayrılış.** Her şafak hane başına: Gönül <25 ise %3; yiyecek <2 gün ise ek %5. Korku ≥14 ve Kut <4 ise Gönül ayrılışı ×2. Kut ≥14 ise yalnız kıtlık ayrılışı kalır. Hikâye dalgalarının haneleri (ilk aileler, Oba) gelişlerinden sonraki ilk 5 şafak yiyecek yüzünden ayrılmaz; Gönül'leri yine düşer. Giden hane yurdunu söker (dört elle Hane Yurdu 8,9 dakika), sürüsünü ve yükünü alır, kapıdan çıkar. Kart: «{n} hane göçüp gitti.» / «{n} households have moved away.»
+
+## Ustalar
+
+Usta, hane kaydında zanaat ve ağırlık taşıyan yetişkindir. Kişilerin adları [story.md §14.1](/docs/source/design/story#14-1-ustalar)'dedir ([K37](/docs/source/design/decisions#k37), [K43](/docs/source/design/decisions#k43)). Rolü önce I. Perde'nin ilk onluğundaki adlı kişi üstlenir; usta kaybolursa eşdeğeri bir perde sonra gelir.
+
+| Usta | Kim | Ne yapar | Nasıl gelir |
+|---|---|---|---|
+| Dülger / Carpenter | [Ruodi](/encyclopedia/ruodi) | Ağaç Atölyesi'nin usta işi: kerege takımı (iki boy), tündük, ulu tündük; arabacı gelene dek teker çifti | II, ilk ailelerle; atölyeyi Oba açılınca kurar ([K52](/docs/source/design/decisions#k52)); III'te avlu göçüyle ikinci dülger |
+| Demirci / Smith | [Dutu](/encyclopedia/dutu) | Demirci Ocağı'nın usta işi: eritme, tunç, kazan, demir teçhizat; IV'ten tunç kabuk (1 tunç hurda → 3 kabuk) | II, Oba göreviyle |
+| Yaycı / Bowyer | [Yudan](/encyclopedia/yudan) | Okçu Yurdu'nda yay | II'de yay öğretir; III'te Okçu Yurdu'nun ustası |
+| Arabacı / Cartwright | | Teker çifti | III |
+| Saraç / Saddler | | Sepi Yeri'nde savaş eyeri ve at zırhı | IV |
+| Otacı / Healer | [Dangyu](/encyclopedia/dangyu); VI-b'den [Liuli](/encyclopedia/liuli) | Otacı Yurdu: yaralı iyileşmesi ×2 | IV, ocak kamı ve otacı; aynı zamanda çekirdek yoldaştır |
+| Toprak Ustası / Earth Builder | | Sur, kuyu, yarı gömük ev, ocak ve fırın | V, Han Xin'in sığınan haneleriyle (Surlu yol) |
+| Ambarcı / Quartermaster | [Tola](/encyclopedia/tola) yaşıyorsa Tola, değilse [Moyan](/encyclopedia/moyan) | Kâhya'nın sesi; akında kap kaybı ×0,75, akının başarısına dokunmaz (K55) | II; Moyan Lan Hatun'un hanesiyle gelir |
+| Seyis / Groom | [Şulü](/encyclopedia/shulu) | Ahır ve at hattı; ordugâhta kışın at semizliği +1/gün; V'te dört renk atı sayar | II, armağan sürüyle |
+| Töreci / Keeper of Custom | [Tuçi](/encyclopedia/tuchi) | Toplantı ve Divan'ın töresi; Sayım Çetelesi'ni tutar; Kurultay | III, avlu göçüyle |
+| Kuşçu / Falconer | [Sungur](/encyclopedia/sungur) | Kuşhane: doğan (IV) ve kartal (V) | IV, Altay'dan konuk usta |
+| Eski Binbaşı / The Old Commander | [Dulongçi](/encyclopedia/dulongchi) | Ordugâhta Baş Talimi ×1,25 | II, Pay'da on binle; V→VI Kroniği'nde ölür |
+
+Ustanın adı «Dülger / Carpenter»dır; «Ağaç Ustası» kalktı ([K34](/docs/source/design/decisions#k34)). Keçeci II'de her hanede vardır, Sepici ve Aşçı II'de gelir (aşçı toplu yemeği ×1,25 hızla pişirir). Beceri öğreten öteki ustalar (Keşif Eri [Guşi](/encyclopedia/gushi), Kılıç Ustası [Huluzi](/encyclopedia/huluzi)) yerleşimde mal üretmez: [İlerleme](/docs/gameplay/progression). Yapının zanaatından usta yoksa yapı emeği ×0,7 işler; her yetişkin ev işinin ustasıdır. Usta tarifi ustasız hiç işlemez: parçada kalite yoktur, ustasız ve dayanıksız kerege yolu açılmaz. Kendi zanaatında 120 İS çalışan çırak usta olur.
+
+```varlik
+ruodi, dutu, moyan, tola, shulu, yudan, tuchi, dulongchi
+```
+
+## İşler ve Kâhya
+
+Altı iş vardır. Bir kişi bir iştedir. Boştakiler ev işinde Gönül kazanır.
+
+| İş | Kim | Ne üretir | Ölçü |
+|---|---|---|---|
+| Sürü / Herding | Yetişkin, genç | Sürü güvenliği; sağım ve kırkımın eli | Kapsam çoban başına baş; kış ×1,5. Kapsanmayan pay kurt kaybına girer: günde %1 temelden, ambarın stoğu azaldıkça ×2,5'e dek; kışın ve siste ×1,5, köpekle ×0,4, ağılda ×0,3; kapsanan sürüde kayıp yoktur ([K65](/docs/source/design/decisions#k65)) |
+| Toplama / Gathering | Yetişkin, genç | Kümeden ham mal, av kolu | Küme ve tür seçilir; kalıcı küme tükenir |
+| Zanaat / Craft | Yetişkin, genç, yaşlı | Tezgâhta tarif, sürekli emirle | Tezgâhın el sınırı |
+| İnşa / Building | Yetişkin, genç, yaşlı | Şantiye emeği | Yapının el tavanı |
+| Nöbet / Guard | Yetişkin | Akın savunması, gece uyarısı | Barışta 8 hanede 1, savaş mevsiminde 4 hanede 1; savaş mevsimi yerleşime akın gücü olan perdedir (III–V) |
+| Taşıma / Haul | Yetişkin | Kervan sürücüsü | Araba başına 1 |
+
+**Kâhya / Steward.** Bir rol değil, yerleşimin dağıtıcısıdır. Yüzü II–IV'te [Lan Hatun](/encyclopedia/lan-hatun), V'ten [Yimo](/encyclopedia/yimo)'dur (K43; Lan Hatun 16 Kasım 203'te ölür, IV→V Kroniği). Açıkken (varsayılan) her oyun saatinin başında dağıtır. Sırası:
+
+1. Sürü kapsamı tam.
+2. Nöbet tabanı.
+3. Yiyecek ≥15 gün; yoksa av kolu ve süt işleme.
+4. Yem: güz sonunda kış için atlı başına 100 gün; yaz sonundan ot biçimi.
+5. Yakacak ≥10 gün.
+6. İnşa sırası (öncelik 0–3).
+7. Zanaat sürekli emirleri.
+8. Kervan sürücüleri (kalkıştan 2 saat önce ayrılır).
+
+Kâhya'nın öteki işleri: Surlu yolda darı tarlasını kendisi eker ve biçer, kart çıkmaz ([K54](/docs/source/design/decisions#k54)); İsteyen Hane'ye ambardaki çadır yükünü kendiliğinden verir (K53); akın penceresi açılırken uyarır: «Ay doluyor. Atları içeri alın.» / «The moon is filling. Bring the horses in.» (K55). Kâhya kabuk harcamaz (K48).
+
+**Şantiye eli** ([K80](/docs/source/design/decisions#k80)). Kâhya'nın kuralı «el tavanına dek doldur, sonra sıradakine»dir: inşa sırasındaki ilk şantiye yapının el tavanına dek el alır, artan eller sıradaki şantiyeye gider. El tavanı Küçük Yurt'ta 6, Hane Yurdu'nda ve yurt gövdeli yapılarda 8, Otağ ve Bey Otağı'nda 12'dir; katsayı 8'de durur, 9.–12. eller malı ambardan taşır. Neden: senin 60 / 45 / 33,75 dakikanla (K50) n el tek elin n × 0,75^(n−1) katı emek harcar; el başına verim bunun tersidir: yurtta 8 el 0,94, 6 el 0,70, 3–4 el 0,59. Kural yurdu en çabuk bitirir, oyuncu kişi arttıkça sürenin kısaldığını görür. Bedeli küçük yapılardadır: el tavanı 2–6 olan yapıda tavana dek doldurmak verimi 0,59–0,70'e indirir, ama bunlar yerleşim emeğinin küçük payıdır. Sabit 4 el yurtta en pahalı ekipti; her yapıya tek el vermek toplam verimi artırırdı ama yarım yapı kalabalığı doğururdu, bu yüzden oyuncunun kilidine kaldı. Kademe günlerine etkisi: [Obadan Hanlığa](/docs/settlement/encampment#bes-kademe).
+
+**Kilit.** Oyuncunun kilidi önce gelir: iş başına en az ve en çok; şantiye başına el (+ / −; tavana dek doldurmayı sınırlar, tek elli şantiyeleri çoğaltabilir); tezgâh başına el. «Kâhya'yı kapat» dağıtımı dondurur, gelen ve giden iş gücü boşta kalır.
+
+**Ordu eli ve Mete.** İş Kolu: ordugâhtan gelen erler yerleşim havuzuna «Er» olarak girer (ağırlık 1), yiyeceği birliğin erzağından düşer, o saatte talim kazanmaz; kademe başına 5, 15, 20, 30, 50 er. Mete şantiyede «Çalış» ile 1 ağırlık ve emek becerileriyle girer; Kâhya onu saymaz.
+
+**İş saati.** Üretim ve ev işi 16 saatlik penceredir (yazın 05:30–21:30, kışın 07:00–23:00), çobanlık 24 saattir. Şantiye varsayılan olarak gece de çalışır: atanan el nöbetleşmez, bedeli meşaledir (karanlığın 4 saatinde 1), Gönül bedeli yoktur; «Gece dinlenilsin» emri ekibi pencereye çeker. Üretimde gece vardiyası oyuncunun emridir: Gönül düşer, meşale yanar. Fener Direği 8 m ışık verir, 3 gecede 1 Kandil Yağı yakar.
+
+## Yoldaşın görevlendirilmesi
+
+Mete'nin yanında en çok 10 yoldaş gezer ([K70](/docs/source/design/decisions#k70); [Yoldaşlar](/docs/gameplay/companions)). Yoldaş partiden alınıp yerleşimde ya da ordugâhta bir işe verilebilir: **Görevlendir / Assign**, yoldaşla konuşarak ya da Defter > Yoldaşlar'dan. Bir yoldaş bir iştedir; görevdeki yoldaş partiden çıkar, yerleşimin iş gücüne ve Kâhya'nın dağıtımına girmez, hane sayılmaz, Gönül'ü yoktur.
+
+| Görev | Yer | Kim | Etki |
+|---|---|---|---|
+| Usta / Master | Yerleşim ya da ordugâh yapısı | Rolüne uyan çekirdek yoldaş | Yoldaşın yapı etkisi (aşağıda); aynı etkiyi veren usta varsa büyüğü sayılır, birikmez |
+| Kâhya / Steward | Yalnız ana ordugâh ya da sefer ordugâhı | Onayı (`ties`) ≥6 çekirdek yoldaş | Mete yokken ordugâhı yönetir: Azıkçı boş dönmez (ambarda 2 öğün yoksa yerleşimden ister), 10 atlıya 1 ateş yanar, İş Kolu sırayla gider; birliğin sadakati +0,1/gün (tavan 70); Gece Akını'nın savunmasına +2 |
+| Nöbet / Guard | Yerleşim ya da ordugâh | Savaşan çekirdek yoldaş | Akın savunmasında 3 nöbetçi sayılır; akından ≈22 sn önce uyarır (yerden 200 m görür; [K55](/docs/source/design/decisions#k55)); Gece Akını'nda at hattında durur |
+
+| Yoldaş | Yapı | Etki |
+|---|---|---|
+| [Uldın](/encyclopedia/uldin) | Talim Alanı | Baş Talimi ×1,25 (Dulongçi'yle birikmez); Toy'da güreş, moral +4 |
+| [Berik](/encyclopedia/berik) | Gözcü Konağı | Görüş 400 → 500 m (uyarı ≈44 → ≈56 sn); kervanın yol akını payı −%10 |
+| [Luhun](/encyclopedia/luhun) | [Jiyu](/encyclopedia/jiyu)'nun hanesi, Okçu Yurdu | Kişisel görevinin 2. adımı (üç oyun günü); ok yapımı ×1,1 |
+| [Mijia](/encyclopedia/mijia), [Kunduz](/encyclopedia/kunduz) | Av kolu | Av kolu verimi +%20; Kunduz'la kürk +%25 |
+| [Dangyu](/encyclopedia/dangyu) | Otacı Yurdu | Yaralı iyileşmesi %15 → %20/gün; yatak 8 → 10 |
+| [Loufan okçusu](/encyclopedia/loufan-archer) | Okçu Yurdu | Ok yapımı ×1,15; okçu talimi ×1,1 |
+| [Kozı](/encyclopedia/kozi) | At Hattı, Ağıl | Kışın at semizliği +1/gün (Seyis'le birikmez); tay kaybı yok |
+| [Zang Yan](/encyclopedia/zang-yan), [Zhang Sheng](/encyclopedia/zhang-sheng), [Tuidang](/encyclopedia/tuidang) | Elçi Yurdu | Han heyetinde ek seçenek; Zhang Sheng'le Han satıcısına takas −%5 |
+
+- **Öğün** ([K88](/docs/source/design/decisions#k88), 5. madde). Görevdeki yoldaş yerleşimde ambardan günde 1 öğün yer, ordugâhtaysa birliğin erzağından. Partideyken de onluğun erzakından günde 1 öğün eder (07:00 ve 18:00'de yarımşar): görev yeri değişince tüketim değişmez, yalnız kaynağı değişir.
+- **Çağır.** Kartta sağ tık ya da Defter: aynı iç haritadaysa yoldaş hemen yürür, başka yerdeyse haberci atlas günü kadar sürer. Görevdeki usta da çağrılabilir. Ağır Yaralı yoldaş yalnız Otacı Yurdu'na yatırılır.
+- **Yerleşimin Kâhya'sı değişmez.** Dağıtım, söz ve kartlar Lan Hatun'un ve Yimo'nundur (K43). Yoldaş yerleşimin değil ordugâhın kâhyası olur; yerleşimde yalnız usta ya da nöbetçidir.
+- **Nöbetin sayısı.** III'te nöbetçi bir yoldaş yerleşimin savunmasını 26,0'dan 29,0'a çıkarır (kulesiz), akının başarısı %18,8'den %17,1'e iner. Birlik seferdeyken ordugâhta kalan bekçi Onluk'ta savunmayı 11–12'den 14–18'e çıkarır: dört atlılık akının başarısı %25–27'den %18–22'ye iner. Partideki yoldaş Mete'yle zondaysa garnizonun içindedir, ayrıca sayılmaz.
+- **Gelen yoldaş hane değildir.** Hane başı olan yoldaş (Berik V'te, Mijia VI-a'da) partiden çıkar ve yerleşimin hanesi olur: o andan Gönül, iş ve konut kuralları ona işler; Berik'in Hane Yurdu 8 elde 8,0 dakikada kurulur.
+- **Kişisel görev yerinde ilerler.** Görevin adımı o yapıdaysa (Luhun'un Jiyu'ya yay öğretmesi) üç oyun günü çalışınca adım biter.
+- **Kronik.** Akan Kronik'te görevdeki yoldaş yerinde kalır, etkisi Kronik'in toplu hesabına girer; tarihli kişisel görev adımı Kronik'e satır yazar.
+
+Subay Yap ve Baş Yap ordunun işidir: [Ordu](/docs/gameplay/army).
+
+## Seferberlik
+
+Shiji 110: yay çeken her er atlıdır. Divan ya da Defter'de «Ere Çağır / Call to Arms»: hane başına en çok bir yetişkin bir birliğe katılır, başlangıç sadakati hanenin Gönül'üdür. Hanenin ağırlığı −1; birlik dönünce geri gelir. 10 günden uzun seferde o hanenin Gönül'ü −0,2/gün. III. Perde'de Mete'nin toplanma yasası (令國中有後者斬: geride kalanın başı vurulur) çağrıyı zorunlu yapar: Korku +1, çağrılmayan hanede Gönül −3.
+
+## Esir yoktur
+
+- Eşya tablosunda insan yoktur. Hane yalnız yukarıdaki kaynaklardan gelir. Ganimet tablosu insan döndürmez. Esir emeği yoktur (K21, K23).
+- Hayvan ganimet olur, insan olmaz. Tarihte tutsak alınmıştır (Shiji 110, Tunghu); kazılan Ivolga'nın halkında da savaş tutsakları sayılır. Bu bir tasarım tercihidir, Destan Kitabı'nda yazılır: «Tarih Tunghu halkının alındığını yazar. Bu oyunda yenilen kendi yolunu seçer.» / «History says the Donghu were taken. In this game the defeated choose their own road.»
+- **Yenilenlerin seçimi.** Zaferden sonra yenilen topluluğun katılan payı `0,15 + 0,02·Kut + 0,015·Korku`, en az %10, en çok %60. Bunların `Korku / (Kut + Korku + 1)` kadarı Korku ile gelir (Gönül 30). Kalanlar sürülerinin yarısıyla çekilir, sahnede atlı kafile uzaklaşır.
+
+## Oyunda şu an
+
+> [!DURUM]
+> Godot'da yok: hane kaydı, gelen hane ve İsteyen Hane kartı, Çekim, Gönül, ayrılış, ustalar, Kâhya ve iş ataması, seferberlik, yenilenlerin seçimi, yoldaş partisi ve görevlendirme. Menü kampında ateş başında oturan beş kişi sahnenin kişileridir, hane kaydı değildir ([d3/game-state](/docs/source/design/d3/game-state)). Prototipte denendi (saf kod ve sınama, oyuna bağlanmadı): emek yasasının rol ağırlıkları, hanenin öğün ve yakacak sayıları, usta rolleri verisi, insan içermeyen ganimet tablosu.
+
+## Yol haritası
+
+Haneler, Gönül, Kâhya ve iş ataması II. Perde'nin «Yerleşim, ordugâh ve ekonomi» fazındadır ([madde](/roadmap#item-households)); yoldaşın görevlendirilmesi yoldaş partisi fazındadır ([madde](/roadmap#item-party-jobs)). İlk aileler ve İsteyen Hane kartının öğretimi II'nin yan görevlerindedir ([madde](/roadmap#item-act2-side-household-road)).
+
+```ilerleme
+act-2-p2
+act-2-p3
+```
+
+## Kaynaklar
+
+- [decisions.md: K23, K34, K37, K43, K50, K53, K55, K70, K80, K88](/docs/source/design/decisions#k53)
+- [settlement.md §5: hane ve nüfus](/docs/source/design/settlement#5-hane-ve-nufus), [§5.2: ustalar](/docs/source/design/settlement#5-2-kisi-kaydi), [§5.3: katılım, kafile, İsteyen Hane](/docs/source/design/settlement#5-3-katilim), [§5.4: Gönül](/docs/source/design/settlement#5-4-gonul)
+- [settlement.md §6: iş ataması](/docs/source/design/settlement#6-is-atamasi), [§6.2: Kâhya ve şantiye eli](/docs/source/design/settlement#6-2-kahya-steward), [§6.5: yoldaş görevlendirme](/docs/source/design/settlement#6-5-yoldas-gorevlendirme-k70)
+- [story.md §14.1: ustalar](/docs/source/design/story#14-1-ustalar), [§14.2: yeni kişiler](/docs/source/design/story#14-2-yeni-kisiler)
+- [economy.md §6.8: zanaatçılar](/docs/source/design/economy#6-8-zanaatcilar), [§8.5: hane ve Ordu Payı](/docs/source/design/economy#8-5-hane-ordu-payi-ordugah-k23-k24), [§4.8: yoldaşın payı](/docs/source/design/economy#4-8-yoldasin-yuku-payi-bakimi-k70)
+- [progression.md §4.3: öğretmen ustalar](/docs/source/design/progression#4-3-usta-rolleri-ii-perde-ve-sonrasi)
+- [bozkir-ekonomi.md: gelen hane payları](/docs/source/research/steppe-economy), [yoldaslar.md](/docs/source/research/companions)
+- [d3/register.md: cevap 39](/docs/source/design/d3/register), [d3/game-state](/docs/source/design/d3/game-state)
+- `docs/design/companions.md` §3.3: yerleşimde görevlendirme; `docs/design/d2/settlement-model.json`: `households`, `steward`

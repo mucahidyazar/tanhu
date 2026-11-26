@@ -1,0 +1,37 @@
+{
+	"version": 1,
+	"source": "K20, K25, K42, K55, K56, K67, K76; time.md §2, §5.5, §8.1, §11, §13; godot.md §3.5",
+	"doc": "Tek takvim (K67): oyun ve Serbest Gez aynı saati okur (GameClock), 1 oyun günü 60 gerçek dakikadır, takvim gerçek tarihlidir (GameCalendar). calendar bölümü GameCalendar'ın sabitleriyle aynıdır (test_game_calendar.gd ve test_roam_time.gd karşılaştırır). roam bölümü Serbest Gez'indir (RoamTime): kayıtlı saat yoksa 11 Nisan MÖ 209 (day_n 1.171) 14:46,2'de (886,18) ana kampta açılır; Godot'nun menüsü gece kampıdır (K76), açılış gece menüsünden 2,4 sn süzülmeyle gelir (sineInOut, yön küresel aradeğerle, yön farkı 30°'yi aşarsa ortada ışık katsayısı 0,4'e iner); menüye dönüşte uçuş boyunca (1,7 sn) ışık kimliğe döner. Eski Serbest Gez kaydının günü göçer (clock.day → day_n = 1.171 + day); clock yoksa ve kayıtta mood > 0,75 ise 18:38 (prototipin akşamı). Tan'da 2 sn yalnız tarih yazılır («12 Nisan MÖ 209»), gün sayısı yazılmaz (sayım rehinenindir; time.md §8.1, §11). Mevsim görünüşü: 15 Mayıs'tan yaz (baharın görünüşü), 23 Ağustos'tan güz tonu, 16 Kasım'dan kış kar örtüsü (SnowPack, hava); menüye dönüşte görünüş kimliğe döner.",
+	"calendar": {
+		"day1": {"year_bc": 212, "doy": 25, "tr": "26 Ocak MÖ 212", "en": "26 January 212 BC"},
+		"year_days": 365,
+		"seasons": [["winter", 319, 73], ["spring", 74, 133], ["summer", 134, 233], ["autumn", 234, 318]],
+		"synodic": 29.530588,
+		"moon_epoch": 1044.75,
+		"solstice_doy": 354,
+		"acts": {"1": 1041, "2": 1222, "3": 1679, "4": 2682, "5": 4314, "6": 5237},
+		"meetings": {"winter_meet": {"month": 1, "moon": "new"}, "longcheng": {"month": 5, "moon": "full"}, "dailin": {"month": 8, "moon": "full"}},
+		"raid_illum": 0.97
+	},
+	"roam": {
+		"place": "camp",
+		"day_n": 1171,
+		"minute": 886.18,
+		"date": {"tr": "11 Nisan MÖ 209", "en": "11 April 209 BC"},
+		"migrate": {"old_day_base": 1171, "mood_dusk": 0.75, "dusk_minute": 1118.0},
+		"fade_seconds": 2.4,
+		"fade_dip_angle": 30.0,
+		"fade_dip_k": 0.4,
+		"return_seconds": 1.7,
+		"dawn_card_seconds": 2.0,
+		"sample_hz": 4.0,
+		"looks": {
+			"doc": "Mevsimin görünüşü: grade_autumn güz tonunun payıdır (gündüz renk ayarına karışır: yeşiller sarı-zeytine kayar; çimen ve kampın öteki yeşilleri, ağaçlar dahil, aynı tondan; yeni doku ve program yok; 0,7 ilk değerdir, göz onayı bekler), snow kar örtüsünün hedefidir (hava ajanının SnowPack'i okur; bugün yalnız değer). Mevsim geçişi 3 oyun gününde yumuşar (gerçek 3 saat).",
+			"spring": {"grade_autumn": 0.0, "snow": 0.0},
+			"summer": {"grade_autumn": 0.0, "snow": 0.0},
+			"autumn": {"grade_autumn": 0.7, "snow": 0.0},
+			"winter": {"grade_autumn": 0.35, "snow": 1.0},
+			"blend_days": 3.0
+		}
+	}
+}

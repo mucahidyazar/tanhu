@@ -1,0 +1,14 @@
+{
+	"id": "act0.child.bark.graze.luhun_child.1",
+	"take": 0,
+	"seed": 964883142,
+	"hash": "3982f2c6aa82",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.44,
+	"words": [
+		{"w": "She's", "t0": 0.0, "t1": 0.24},
+		{"w": "eating", "t0": 0.286, "t1": 0.56},
+		{"w": "again!", "t0": 0.64, "t1": 1.44}
+	]
+}

@@ -1,0 +1,15 @@
+{
+	"id": "act0.depart.lan_days",
+	"take": 0,
+	"seed": 932503421,
+	"hash": "3794df7dee9d",
+	"model": "eleven_v3",
+	"voice": "LI283TzJcIwSKqsXiH7u",
+	"seconds": 2.24,
+	"words": [
+		{"w": "Forty-two", "t0": 0.0, "t1": 0.56},
+		{"w": "days", "t0": 0.688, "t1": 1.2},
+		{"w": "of", "t0": 1.307, "t1": 1.52},
+		{"w": "road.", "t0": 1.616, "t1": 2.24}
+	]
+}

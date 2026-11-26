@@ -1,0 +1,193 @@
+---
+title: Mitoloji
+order: 65
+status: tasarim
+summary: 'Oyun Türk mitolojisinin bütününden yararlanır ama her ögeyi çağıyla yazar: Hun çağında tek tanrı adı Tengri''dir, Umay ve Yer-Sub 8. yy yazıtlarındadır, Kayra Han, Ülgen ve bugünkü Erlik geç derlemelerdendir; mit ozanın ağzından anlatılır ve oynanışa Kut, Kül Borcu, Düşüş, Av Payı ve Taş Yığını gibi kurallarla bağlanır.'
+sources:
+  - docs/research/mitoloji.md
+  - docs/design/story.md
+  - docs/design/decisions.md
+  - docs/design/act0-text.md
+  - docs/design/act1.md
+  - docs/design/audio.md
+  - docs/design/godot.md
+  - docs/design/d3/register.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+## Özet
+
+Mitoloji geniştir: yalnız Tengri, Erlik ve Umay değil, Türk mitolojisinin bütünü kullanılır ([K35](/docs/source/design/decisions#k35), [mitoloji.md](/docs/source/research/mythology)). Ama her öge hangi çağda belgelendiğiyle yazılır, çünkü oyun MÖ 3. yüzyılda geçer, Türk mitolojisi dediğimiz malzemenin çoğu ise MS 8. ile 20. yüzyıllar arasında yazıya geçti. Hun çağı metninde tek tanrı adı Tengri'dir (撐犁, Hanshu 94A); Umay, Yer-Sub ve kut 8. yy yazıtlarındadır; Kayra Han, Ülgen, bugünkü Erlik figürü, Kızagan ve Bayanay geç derlemelerdir.
+
+Oyun hepsini kullanır ve kimin ağzından söylendiğini ayırır: mit ozanın, tarih anlatıcının ağzındadır. Tanrılar görünmez ya da en çok iki cümle konuşur. Önsöz'de çerçeve ozanın kopuzudur, mitin sözünü anlatıcı okur ([K68](/docs/source/design/decisions#k68)); oyunun içinde (ateş başı, Kopuz Gecesi, Destan girdileri) mit ozanındır. Mitoloji kurgu listesine girmez; uydurulan kamlar girer; Kara Yol ve Kıl Köprü tasarım aracıdır ([K13](/docs/source/design/decisions#k13)).
+
+> [!NOT]
+> «Ilk basta Ozan sazını çaldığında mitolojik bir hikaye anlatacak burası tamamen sinematik olacak, erlik ve diğer tanrılar hakkında ve sonra Metenin doğumuna gelecek anlatı»
+
+> [!NOT]
+> «sadece bu tanrilara bagli kalma arastir ve gelistir turk mitolojisi cok buyuk ve gelsimis herseyden faydalan»
+
+## Çağ ayrımı
+
+Destan Kitabı her mit girdisine bir çağ rozeti koyar. Rozet Önsöz'ün panolarında ekrana yazılmaz, Destan Kitabı'ndadır (K68).
+
+| Katman | Çağ | Ne | Oyun için anlamı | Rozet |
+|---|---|---|---|---|
+| Hun çağı | MÖ 2. yy – MS 5. yy Çin metinleri (Shiji, Hanshu, Hou Hanshu), Hun mezarları | Dıştan yazılmış kısa notlar; ad yok, uygulama var | Oyunun gerçek olanı: kişiler bunu yaşar | «Yıllıktan» |
+| Göktürk ve Uygur | 6.–11. yy yazıtlar, Irk Bitig, Kaşgarlı | Türklerin kendi sözü, ilk tanrı adları | Mete'den 800–1300 yıl sonra; ozan dili | «Taştan» |
+| Orta çağ destanları | 13.–17. yy: Oğuz-name, Dede Korkut, Ebulgazi | Yazıya geçmiş soy ve kahraman anlatıları | Ozan dili, serbest yankı | «Ozan der» |
+| Etnografya derlemeleri | 19.–20. yy: Radloff, Anohin, Holmberg | Altay, Sakha, Kırgız sözlü inancı; en zengin katman | En çok ayrıntı buradan gelir; geç ve karışıktır | «Ozan der» |
+| Oyunun seçimi | | Kaynağı olmayan bağ ve sahne | Destan'da açıkça söylenir | «Bizim» |
+| Popüler derleme | Çağdaş sözlükler, ağ siteleri | Hepsini tek panteonda toplar, çağ ayırmaz | Yalnız ipucu, kaynak sayılmaz | Yok |
+
+Shiji ve Hanshu'nun şerhleri ayrı bir katmandır (3.–8. yy), Hun çağı tanıklığı sayılmaz. Radloff Altay anlatılarında Musa'nın yaratılış öyküsünün ve Budizmin izlerini kendisi yazar; bu yüzden «Türklerin eski inancı» diye tek bir sistem anlatılmaz ([mitoloji.md §1](/docs/source/research/mythology#1-taniklik-katmanlari)).
+
+## Hun çağında olan ve olmayan
+
+**Olan** ([mitoloji.md §2](/docs/source/research/mythology#2-hun-cagi-tanikliklari)):
+
+- **Gök.** Hun göğe 撐犁, oğula 孤塗 der; Tanhu'nun unvanı 撐犁孤塗單于: Göğün Oğlu Tanhu (HS 94A). MÖ 176 mektubunda Mete kendini «Göğün diktiği büyük Tanhu» diye yazar (SJ 110 天所立匈奴大單于).
+- **Güneş ve ay.** Tanhu sabah konaktan çıkar, doğan güneşe eğilir, akşam aya (SJ 110). Hun mezarlarında tabut kapağında altın daire ve altın hilal bulunur.
+- **Toplantılar.** Yıl başı sunu; 5. ayda Lung-çeng'de atalara, göğe, yere ve ruhlara sunu; güzün, at semizken Dailin'de sayım.
+- **Ay ve ölüm.** İşe yıldızı ve ayı gözleyerek girilir; gömüde tabut, altın, kürk vardır, höyük, ağaç ve yas giysisi yoktur (無封樹喪服).
+- **Kam (胡巫).** Hükümdarın yanındadır, ölü Tanhu adına konuşur: «Ölü Tanhu kızgın» (HS 94A); Han ordusunun yollarına ve sularına koyun ve sığır gömüp lanet eder (Luntai fermanı).
+- **Kılıç ve ant.** Göğe sunudaki altın insan, kılıç tanrısı (徑路); Beyaz At Antı: beyaz at kesilir, Tanhu kılıç ve altın kaşıkla içkiyi karıştırır (HS 94B).
+- **Kurt ve karga.** Usun bebeği Kunmo kıra bırakılır, karga et getirir, kurt emzirir; Tanhu onu kutsal sayıp büyütür (SJ 123, HS 61).
+
+**Olmayan.** Hun çağı metinlerinde şu adlar geçmez: Erlik, Umay, Yer-Sub, kut, Kayra, Ülgen, Ak Ana, Bayanay, Od Ana, Demirkazık, Hayat Ağacı, Tülpar, Bozkurt, Asena. Oyun «Hunlar bunlara inanıyordu» demez; ozan «sonraki bozkır halkları böyle anlatmıştır» der. Geç tanıklıklar da çağıyla yazılır: Gaoçe'nin kurt atası Wei Shu 103'tedir (554); bilinen tek Hun şarkısı sayılan Qilian şarkısı yalnız Tang şerhlerinde korunur; geyik taşları MÖ 1200–600'dür ve kuzeydedir; Hun mezarlarının taş sıraları Mete'den ≈150–250 yıl sonradır.
+
+## Tanrılar ve ruhlar
+
+Her adın ansiklopedide kaydı vardır: sitenin kitabı Destan Kitabı'nın görünümündedir, tanrıların bölümü «Tanrılar ve Ruhlar»dır ([Ansiklopedi](/encyclopedia)).
+
+| Ad | Ne | En eski tanıklık | Oyunda |
+|---|---|---|---|
+| [Tengri](/encyclopedia/tengri) | Gök | HS 94A 撐犁 «Yıllıktan» | Hun ağzındaki tek tanrı adı; görünmez, tek sözcük («Gör.»); Kut onun ekseni; I'de Yar Bakışı'nda Gök Açılır |
+| [Kayra Han](/encyclopedia/kayra-han) | En yüksek, «merhametli»; Önsöz'de iki kara kazdan biri | Radloff, 19. yy «Ozan der» | Önsöz'ün 3–6. satırları |
+| [Ülgen](/encyclopedia/ulgen) | Yaratan, gök gürültüsü ve yağmur; lakabı Ayas | Radloff, Anohin | Kam sözü, Destan |
+| [Umay](/encyclopedia/umay) | Son (eş) ve doğum; savaşta yardım | Tonyukuk, Kül Tigin «Taştan» | Görünmez, konuşmaz: doğumda eş toprağa gömülür, beşiğe ok-yay asılır; Düşüş'ün Umay Eşiği |
+| [Demirkazık](/encyclopedia/demirkazik) | Gökte dönmeyen nokta; çevresinde Kök Boz At ve Ak Boz At | Kaşgarlı `tämür qazuq` (11. yy) «Taştan»; iki at «Ozan der» | Önsöz'ün 7. satırı; gece göğü |
+| [Yer-Sub](/encyclopedia/yer-sub) | Yer ve suyun bütünü | Orhun «Taştan» | Taş Yığını; aşırı otlakta «Yer küstü» |
+| [İyeler](/encyclopedia/iyeler) | Her suyun, dağın, bozkırın sahibi; fırtınadan önce böğüren su boğası | Holmberg «Ozan der» | Hava işareti satırları; göl boğasının sesi |
+| [Od Ana](/encyclopedia/od-ana) | Ocak ateşi | Theophylact (7. yy) ateşe saygı; Holmberg «Ozan der» | Küle Yatır, Ocağa Pay, Köz Kabı |
+| [Bayanay](/encyclopedia/bayanay) | Avın ve ormanın iyesi | Sakha, Holmberg «Ozan der» | Av Payı, Kopuz Gecesi |
+| [Yol Tengrisi](/encyclopedia/yol-tengrisi) | «Benekli Atlı», kırılanı onaran | Irk Bitig (9. yy) «Taştan» | Yol olayı, perdede bir kez |
+| [Erlik](/encyclopedia/erlik) | Alt dünyanın beyi: adı anılmaz, korkulur, kandırılır, kurbanı vadeli verilir | Söz Orhun'da Gök'ün sıfatı (`erklig`, 8. yy); figür Uygur ve Anohin «Ozan der» | Önsöz'de yüzsüz; I'de Teoman'ın yüzüyle; VI'da Kıl Köprü'nün ucunda Mete'nin yüzüyle; Hun ağzında Kara Nama |
+| Erlik'in oğulları | [Bay Mattır](/encyclopedia/bay-mattir), [Karaş](/encyclopedia/karas-han), [Kerey](/encyclopedia/kerey-han), [Uçar](/encyclopedia/uchar-han), [Yabaş](/encyclopedia/yabash-han), [Kömür](/encyclopedia/komur-han), [Temir](/encyclopedia/temir-han), [Şıngay](/encyclopedia/shingay-han), [Padış](/encyclopedia/padish) | Anohin «Ozan der» | Erlik'in Yolu kartı her kullanımda birini anar |
+| [Körmös](/encyclopedia/kormos) | Alt dünya kalabalığı | Radloff | Ozan dili |
+| [Toybodım](/encyclopedia/toybodim) | Erlik'in ırmağı, «doymadım»; insan gözyaşıyla akar, üstünde at kılından köprü | Anohin «Ozan der» | Önsöz'ün 9. satırı; VI'da Kıl Köprü |
+| [Al Karısı](/encyclopedia/al-karisi) | Loğusayı boğan ruh; ocak taşını geçemez | Halk inancı, Holmberg «Ozan der» | Önsöz'ün 11. satırı ve doğum; yerleşimde «Loğusa boğuluyor» |
+| [Kızıl Dağ](/encyclopedia/kizil-dag) | Vuhuan'ın, yani Tunghu kalıntısının ölüler dağı: köpek ruhu oraya götürür | HHS 90 «Yıllıktan» | III, yenilenlerin seçimi |
+| [Yaşlı Kurt](/encyclopedia/old-wolf) | Gaoçe'nin kurt atası; Kunmo'yu emziren kurt | Wei Shu 103 (geç); SJ 123 | VI |
+| [Kılıç Tanrısı](/encyclopedia/jinglu) | Hun kılıç kültü (徑路) | SJ 110, HS 68 ve şerhleri «Yıllıktan» | IV, Gök Dağı; kıngrak kılıcının tarifi |
+
+| | | | |
+|---|---|---|---|
+| ![Tengri](/media/docs/assets/encyclopedia/tengri/portrait.webp) | ![Kayra Han](/media/docs/assets/encyclopedia/kayra-han/portrait.webp) | ![Ülgen](/media/docs/assets/encyclopedia/ulgen/portrait.webp) | ![Umay](/media/docs/assets/encyclopedia/umay/portrait.webp) |
+| ![Yer-Sub](/media/docs/assets/encyclopedia/yer-sub/portrait.webp) | ![İyeler](/media/docs/assets/encyclopedia/iyeler/portrait.webp) | ![Od Ana](/media/docs/assets/encyclopedia/od-ana/portrait.webp) | ![Bayanay](/media/docs/assets/encyclopedia/bayanay/portrait.webp) |
+| ![Yol Tengrisi](/media/docs/assets/encyclopedia/yol-tengrisi/portrait.webp) | ![Erlik Han](/media/docs/assets/encyclopedia/erlik/portrait.webp) | ![Bay Mattır](/media/docs/assets/encyclopedia/bay-mattir/portrait.webp) | ![Karaş](/media/docs/assets/encyclopedia/karas-han/portrait.webp) |
+
+Görseller ansiklopedinin profil görselleridir: önce tam boy art üretilir, profil ve T-poz art'tan türer ([K85](/docs/source/design/decisions#k85)).
+
+## Erlik
+
+Kaynağı Anohin'in 20. yy başı Altay derlemesidir ([mitoloji.md §6.4](/docs/source/research/mythology#6-4-erlik-ayrinti)). Adı söylenmez, yerine Kara Nama («kara nesne») denir; korkulsa da kandırılır; kurbanı zayıf hayvandır, sunağı kuzey yanda, çit dibindedir; Karaş'a siyah bez üstünde dokuz şerit asılır. Yeri kara çamurdan ya da kara demirden bir saraydır, dokuz nehrin birleştiği yerde; nehrin adı Toybodım'dır, insan gözyaşıyla akar, üstünde at kılından köprü vardır.
+
+Oyunun Erlik'i bu anlatıya uyar: oturur, aşık oynar, acelesizdir, vade sayar gibi konuşur. «Tüccar» benzetmesi kaynakta yoktur, Tanhu 1'in ses tarifine denk düştüğü için kalktı ([K32](/docs/source/design/decisions#k32)). Yüzü Teoman'ın yüzüdür: bu kurgudur. Yama'nın aynası ve taşları alınmaz. Hun kişileri adını anmaz, «Kara Nama» der; adı yalnız ozan, kam ve Erlik'in kendisi söyler; Yüeçiler onu bilmez. Sesi Kall'dır: ateşten gelen alçak ses. Ansiklopedide kendini iki cümleyle tanıtır; bugünkü kayıt başka bir sesledir (Lucifer), oyunun sesiyle yeniden okunur ([K86](/docs/source/design/decisions#k86)):
+
+![Erlik Han'ın tanıtımı: «I am Erlik, lord of the world below. Every breath that leaves the steppe comes down to my river in the end.»](/media/docs/media/audio/vo/en/ency.erlik.mp3)
+
+```varlik
+erlik, fx_erlik_face, black_banner, fx_umay_shimmer, fx_fallen_threshold
+```
+
+## Önsöz'ün miti
+
+Önsöz'ün mit sineması sudan başlar, doğumda biter: su ve iki kara kaz (Tengri Kayra Han ile Kişi), sudan yükselen taş, dalış ve bataklık, Kişi'nin Erlik adını alıp ışıktan sürülmesi, dokuz dallı ağaç ve dokuz insan, gök çadırı ve Demirkazık, üç dünya, ilk ölü ve Toybodım, ak taşla kara taştan ilk ateş, Al Karısı'nın gölgesi ve Umay'ın payı. Ardından tek Hun çağı satırı gelir: Tanhu şafakta çıkar, doğan güne eğilir. Satırlar, panolar ve rozetleri: [Önsöz: Kopuz Söyler](/docs/story/prologue#mit-sinemasi).
+
+**Anlatılmayanlar (K35).** Ak Ana (birincil yeri bulunamadı), tufan (Kitab-ı Mukaddes'e çok yakın), Kızagan, Gün Ana ve Ay Ata, Bay Terek ve Yel Ana (kaynak bulunamadı). Kurt VI. Perde'nin Kunmo'suna saklıdır. Kopuz ve ozan adları dönemden sonradır; oyun bilerek kullanır, Destan notu bunu yazar.
+
+## Oynanışa bağlanışı
+
+Sayılar sahibi belgelerdedir ([story.md §9](/docs/source/design/story#9-mitolojinin-oynanisa-baglanisi)); burada mitin hangi kurala döndüğü yazılır.
+
+| Öge | Nerede | Kural |
+|---|---|---|
+| Tengri | I'de Yar Bakışı'nda Gök Açılır; II'den Şafak Selamı; VI'da 176 mektubu | Kut ekseni «Göğün rızası»dır; Kut ≥10'da Divan'da unvan «Göğün diktiği» |
+| Erlik, Kara Nama | I'de Donuk Kamp; Çukur'un kuzey çitinde dokuz şeritli kara bez | Kül Borcu: söndürülen ocak kadar borç; Kül Ödemesi: borç açıkken yerleşimde yanan her 5 yeni ocak bir sönmüş ocağı siler, perde başına en çok 2; Korku ≥18'de Erlik'in Yolu |
+| Toybodım ve Kıl Köprü | VI'da tek sahnelik geçiş | Köprü 24 m, eni `max(0,4; 2,0 − 0,1 × sönmüş ocak)` m; düşen ölmez, nehir geri getirir; ip görüntüsü yoktur |
+| Gök çadırı, Demirkazık | Yurdun tündüğü; gece göğü | camp3'ün tündüğü gece kalkar, ozan bir satır söyler, Destan girdisi açılır. Gök kubbesine MÖ 209'un gerçek yerinde adlı dokuz yıldız girer: Kök Boz At (Kochab, kutba 7,7°), Ak Boz At (Pherkad, 10,9°), Yedi Karakçı (18–29°); MÖ 209'da kutupta parlak yıldız yoktur, kazık dönmeyen bir noktadır. Gece ateş başında Dinlen'in ilk kullanımında 6 sn'lik «Göğe Bak» çekimi; Tipi'de Kut ≥6 iki atı gösterir: ev kuzeyde |
+| Umay | Doğum; Düşüş | Umay Eşiği: uyanınca başucunda küçük ok-yay (kız kişide ak bez ve boncuk); ilk Düşüş kartı tek sözdür |
+| Al Karısı | Yerleşim | Perde başına en çok bir «Loğusa boğuluyor» olayı: ocak taşı (Gönül +3, o hane 1 gün yarım iş), Otacı (IV'ten, Gönül +5) ya da geç (Gönül −5) |
+| Yer-Sub | Keşif durağı | Taş Yığını: harita başına 2–4; taş ya da kıl bırakılır, o seferde yol olayı %25 → %20 |
+| Od Ana | Her ateş | Küle Yatır (kor evresinde `F` basılı 2 sn: ışık 0, duman yok); Ocağa Pay; Köz Kabı: «Ateş başka ateşten doğar» |
+| Bayanay | Av | Av Payı (`E` 2 sn, bölge başına günde 1); bir günde stoğun %30'undan fazlası vurulursa «Yer küstü» |
+| Yol Tengrisi | Atlas | «Benekli Atlı» yol olayı, perdede bir kez: Selam Ver ya da Geç |
+| Kam (胡巫) | Şidu (II–III), Nangçi (V), Dangyu (IV–VI-b) | Divan'da «Kamın Alameti» perde başına 1: Dinle ya da Sustur; V'te yol laneti, Han moral −5; kamın çalgısı yaylı kıl kobuzdur, elde görünmez |
+| Beşinci Ay Sunusu | IV'te Gök Dağı eteğinde, VI'da avluda | 1 at ve 2 kımız: Gönül +3, moral +5, Kut +1 |
+| Dailin ve Üç Tur | III, IV ve VI | Söğüt dalı halkası, üç tur ≈60 sn, bitiren her baş sadakat +1 |
+| Iduk | Adak Aygırı | Hun ağzında: sağılmaz, yük vurulmaz |
+| Beyaz At Antı | V, Han'la barış | Beyaz at, kılıç, altın kaşık |
+| Cenaze ve yoğ | II'de Teoman, VI'da Mete | Höyüksüz gömü, son kare ot; Divan'da Yoğ Aşı |
+| Kurt ve karga bebeği | VI, Kunmo | Kut +1, seçim yok |
+| Ozanı dinlemek | Ateş başı | 5 sn dinleyince Destan'ın «Gök ve Yer» bölümünde bir girdi açılır |
+
+```varlik
+stone_cairn, hearth_stones, sky_pole, deer_stone, skill_iron_stake, fx_sky
+```
+
+## Perde perde açılma
+
+| Bölüm | Yeni ögeler |
+|---|---|
+| Önsöz | Kayra Han ve Kişi, yüzsüz Erlik, dokuz dallı ağaç, gök çadırı ve Demirkazık, üç dünya, Toybodım, ilk ateş, Al Karısı, Umay, Yer-Sub; doğumda Tanhu'nun güne eğilişi |
+| I | Hun ağzında Tengri; Kara Nama; Umay; Yüeçi ateşi; Yol Tengrisi; su boğası; Tipi'de iki at; Çiang'ın Yanmayan Kölesi; Geyik Taşları |
+| II | Şafak Selamı; güneş ve ay çifti; avlu kamı; Av Payı; Köz Kabı ve Od Ana; Taş Yığını; Demirkazık; Teoman'ın gömülmesi |
+| III | Tunghu'nun köpeği ve Kızıl Dağ; söğüt halkası; Yer-Sub'un yankısı; bozkır iyesi |
+| IV | Beşinci Ay; Lung-çeng sunusu; at ve deve yarışı; Gök Dağı; altın insan; ocak kamı; Yüeçi sunağı |
+| V | Han sunakları ve Göğün Oğlu; yol laneti; yada taşı; Beyaz At Antı; yıldırım |
+| VI | Gaoçe'nin kurt atası; Usun'un kurt ve karga bebeği; «Göğün diktiği» mektubu; Üç Tur; Kıl Köprü; Mete'nin yoğu; ozanın son beyti |
+
+## Yerel inançlar
+
+Her halkın bir gök sözü, bir ölüm kuralı ve bir yasağı vardır; kişi satırları buradan yazılır.
+
+- **Yüeçi (I, IV).** Ateş ve sayı dili; Atşo'nun kutlu ateşi söndürülmez. Erlik'i bilmez: Donuk Kamp'ta Mene'nin onu duymaması bununla da uyuşur.
+- **Tunghu (III).** Köpek ruhu Kızıl Dağ'a götürür; söğüt halkası; yenilenlerin seçiminde bir satır: «köpeğim benimle gelsin».
+- **Çiang (I, IV).** Yuan, Demir Diş'te Yanmayan Köle'yi anlatır: Ç'in'den kaçan köle ateş yakmaz.
+- **Han (II, V).** Göğün Oğlu; Han için gök «Tian»dır, Hun mektubu bu yüzden küstah okunur. Büyük Ayı'nın mevsim söylediği söz Han bilgisidir, Han kişisi ya da kâtip söyler.
+- **Saka (son).** Güneşe at, kılıca sunu; VI'da ve Sonsöz'de adı geçer.
+
+```varlik
+belief_yuezhi, belief_tunghu, belief_ciang, belief_han
+```
+
+## Yazım ve sınırlar
+
+- **Tek yazım (K35).** Tengri, Kayra Han, Ülgen (lakabı Ayas), Erlik, Kara Nama, Umay, Yer-Sub, Od Ana, Bayanay, kam, Demirkazık. Hun ağzında «Tanrı» değil «Tengri» denir; «şaman» sözcüğü kullanılmaz.
+- **Tanhu 1 sınırı (K32).** Kamlar Kam Bögü'ye benzemez: baykuş tüyü başlık, gök boyalı tüngür ve demir çıngırak yoktur. Kartallı taç Teoman'ın başlığına konmaz, Avlu'nun tören nesnesidir. Bin li'lik at ozan ağzında Tülpar'dır, özel ad olmaz. Kıl Köprü'de ip görüntüsü yoktur; VI'nın «antların terazisi» kalktı.
+- **Geyik taşları.** MÖ 1200–600'dür; Destan Kitabı bunu yazar.
+
+## Destan Kitabı'nda «Gök ve Yer»
+
+- Destan Kitabı'na «Gök ve Yer» bölümü girer: en çok 24 girdi; gruplar Gök, Yer, Alt, Hayvan, Destan; her girdi çağ rozeti taşır (K35). Girdiler Önsöz'le ve ateş başında ozanı 5 sn dinleyince açılır.
+- Kişi ve tanrı sayfaları ansiklopedi düzenine geçer (K85): portreli dizin ve arama, ortada art ve altında profil ile T-poz, sağda numaralı bölümler, bilgi satırı, soy bağları, kaynak notu. Tuşlar: Q / E bölüm değiştirir, ↑ / ↓ kişi seçer, ← / → görsel değiştirir, Enter görseli büyütür, Esc geri döner.
+- Tanrılar en çok iki cümle konuşur; kişi tanıtımı da iki cümledir. Umay görünmez ve konuşmaz: sesle tanıtılmaz, iki cümlesi sayfada yazıdır (K86).
+
+> [!DURUM]
+> Godot'da bugün: Önsöz'ün mit sineması parşömen videosunda oynar, ozan söyler (K93, K96); dosya yoksa keçe panolar yedektir. Destan Kitabı'nda «Gök ve Yer» bölümü var: 29 girdi (28 tanrı kaydı ve «Doğum»; K35 ≤24 der), çağ rozetleri, ansiklopedi düzeni. Önsöz'ün 11 mit girdisi ve «Doğum» Önsöz'le açılır, iyeler ateş başında ozanın yanında 5 sn kalınca. Tanrıların tanıtım sesleri kitapta ve sitenin ansiklopedisinde çalar. Gök kubbesinin yıldız katmanı menüde kapalıdır, Yeni Oyun'da %35'e açılır; adlı yıldızlar yoktur. Yok: Kül Borcu, Düşüş ve Umay Eşiği, Av Payı, Taş Yığını, Küle Yatır, kamlar.
+
+```ilerleme
+prologue-p3
+```
+
+## Kaynaklar
+
+- [mitoloji.md](/docs/source/research/mythology): [Özet](/docs/source/research/mythology#ozet), [§1](/docs/source/research/mythology#1-taniklik-katmanlari), [§2](/docs/source/research/mythology#2-hun-cagi-tanikliklari), [§3](/docs/source/research/mythology#3-gokturk-ve-uygur-cagi), [§4](/docs/source/research/mythology#4-kozmoloji), [§6](/docs/source/research/mythology#6-tanri-ve-ruh-kadrosu), [Oyuna öneriler](/docs/source/research/mythology#oyuna-oneriler), [Perde perde açılma](/docs/source/research/mythology#perde-perde-acilma)
+- [story.md §3](/docs/source/design/story#3-onsoz-kopuz-soyler), [§8.9](/docs/source/design/story#8-9-tanrilar-ve-ruhlar), [§9](/docs/source/design/story#9-mitolojinin-oynanisa-baglanisi)
+- [decisions.md](/docs/source/design/decisions): [K13](/docs/source/design/decisions#k13), [K32](/docs/source/design/decisions#k32), [K35](/docs/source/design/decisions#k35), [K36](/docs/source/design/decisions#k36), [K68](/docs/source/design/decisions#k68), [K85](/docs/source/design/decisions#k85), [K86](/docs/source/design/decisions#k86)
+- [act0-text.md, Mit sineması ve doğum](/docs/source/design/act0-text#mit-sinemasi-ve-dogum)
+- [act1.md §3](/docs/source/design/act1#3-kadro), [audio.md §5](/docs/source/design/audio#5-seslendirme-elevenlabs), [godot.md §3.8](/docs/source/design/godot#3-8-destan-kitabi-ansiklopedi-duzeni-k85-k86)
+- [d3/register.md](/docs/source/design/d3/register): #8, E5
+
+İlgili sayfalar: [Önsöz: Kopuz Söyler](/docs/story/prologue), [Kadro](/docs/story/cast), [Tarih ve Kaynaklar](/docs/story/history-sources), [Seviye ve Gelişim](/docs/gameplay/progression), [Hikâye Omurgası](/docs/story/spine).

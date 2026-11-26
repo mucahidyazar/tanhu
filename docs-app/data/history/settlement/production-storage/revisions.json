@@ -1,0 +1,29 @@
+[
+ {
+  "n": 1,
+  "at": "2026-11-04T02:54:01.862Z",
+  "kind": "ilk",
+  "message": "İlk kayıt",
+  "hash": "3dc0a7c13075a28c",
+  "added": 198,
+  "removed": 0
+ },
+ {
+  "n": 2,
+  "at": "2026-11-04T12:07:57.585Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "796be952be693ce3",
+  "added": 14,
+  "removed": 14
+ },
+ {
+  "n": 3,
+  "at": "2026-11-04T23:12:09.085Z",
+  "kind": "disaridan",
+  "message": "Uygulama dışında değişti",
+  "hash": "fef0cc49048e4990",
+  "added": 96,
+  "removed": 70
+ }
+]

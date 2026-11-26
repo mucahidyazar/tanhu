@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[sub_resource type="GDScript" id="GDScript_walk"]
+script/source = "extends Node3D
+## Geliştirme sahnesi: karakter düz bir zeminde, oyuncu gibi (set_locomotion) yürür ya da koşar; kamera yandan izler.
+## Zemindeki çizgiler 0.25 m aralıklıdır: ardışık karelerde yere basan ayak çizgilere göre kaymamalıdır.
+## Argümanlar: --walk-id=mete|hero_f, --walk-speed=m/s (varsayılan 2.2 = oyuncunun yürüyüşü; koşu 4.6),
+## --walk-shots=/yol/onek (100. kareden sonra 2 karede bir 6 görüntü kaydeder: onek_0.png ... onek_5.png).
+## Örnek: tools/capture.sh /tmp/yuru.png 150 --scene=res://scenes/dev/characters_walk.tscn --walk-speed=2.2
+
+const LINE_GAP := 0.25
+
+@onready var _camera := $Camera as Camera3D
+var _avatar: CharacterAvatar
+var _speed := 2.2
+var _shots := \"\"
+var _frame := 0
+
+
+func _ready() -> void:
+	var args := preload(\"res://scripts/dev/capture.gd\").parse_args(OS.get_cmdline_user_args())
+	_speed = float(args.get(\"walk-speed\", 2.2))
+	_shots = str(args.get(\"walk-shots\", \"\"))
+	_avatar = CharacterAvatar.new()
+	_avatar.model_override = str(args.get(\"walk-id\", \"mete\"))
+	_avatar.rotation.y = PI * 0.5
+	add_child(_avatar)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.95, 0.92, 0.8)
+	for i in 400:
+		var line := MeshInstance3D.new()
+		var box := BoxMesh.new()
+		box.size = Vector3(0.02, 0.004, 1.2)
+		line.mesh = box
+		line.material_override = mat
+		line.position = Vector3(i * LINE_GAP - 10.0, 0.002, 0.0)
+		add_child(line)
+
+
+func _process(delta: float) -> void:
+	_avatar.position.x += _speed * delta
+	_avatar.set_locomotion(_speed)
+	_camera.position = Vector3(_avatar.position.x, 0.75, 4.2)
+	_frame += 1
+	if not _shots.is_empty() and _frame >= 100 and _frame < 112 and (_frame - 100) % 2 == 0:
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png(\"%s_%d.png\" % [_shots, (_frame - 100) / 2])
+"
+
+[sub_resource type="Environment" id="Environment_walk"]
+background_mode = 1
+background_color = Color(0.32, 0.42, 0.55, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.6, 0.75, 1)
+ambient_light_energy = 0.8
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(200, 8)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.36, 0.5, 0.26, 1)
+
+[node name="CharactersWalk" type="Node3D"]
+script = SubResource("GDScript_walk")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_walk")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 4, 0)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 0)
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("Material_ground")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 4.2)
+fov = 35.0

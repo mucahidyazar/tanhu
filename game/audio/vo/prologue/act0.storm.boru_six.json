@@ -1,0 +1,14 @@
+{
+	"id": "act0.storm.boru_six",
+	"take": 0,
+	"seed": 3642112089,
+	"hash": "d9163859e988",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 1.6,
+	"words": [
+		{"w": "Six.", "t0": 0.0, "t1": 0.48},
+		{"w": "We're", "t0": 0.56, "t1": 0.88},
+		{"w": "halfway.", "t0": 0.95, "t1": 1.6}
+	]
+}

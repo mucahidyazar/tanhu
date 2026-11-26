@@ -1,0 +1,12 @@
+{
+	"id": "act0.flock.count_39",
+	"take": 0,
+	"seed": 2217364735,
+	"hash": "842a4cffc1e6",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 0.88,
+	"words": [
+		{"w": "Thirty-nine.", "t0": 0.0, "t1": 0.88}
+	]
+}

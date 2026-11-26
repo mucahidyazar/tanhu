@@ -1,0 +1,10 @@
+# Godot'un ürettiği önbellek klasörü (her makinede yeniden oluşur)
+.godot/
+*.translation
+
+# API anahtarları asla depoya girmemeli
+.env
+.env.*
+
+# Geliştirme ekran görüntüleri
+/captures/

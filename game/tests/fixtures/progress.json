@@ -1,0 +1,7207 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/progression.mjs",
+		"proto": ["src/game/progress.js", "src/game/cond.js"],
+		"proto_sha": {
+			"src/game/progress.js": "0289ea0c836e92863046377e42bb908d9b42fb26",
+			"src/game/cond.js": "472ec94b53ca675cab82cbce6f363074081c569f"
+		},
+		"kind": "exact",
+		"tol": 0,
+		"note": "Seviye, XP, perde tavanı, aşkın puan, köken, stat, beceri durum makinesi, mods katlama ve oyuncu kaydı. Beceri tablosu skills (sentetik; gerçek tablo data/progression/skills.json, K32 ve K43 ile değişti). script durumlarında her işlemden sonra { op, r, s } yazılır; s oyuncunun durumudur (teach ve lostMaster ekleniş sırasıyla). flag işlemi bayrağı yazar ve ilerlemenin bayrak dinleyicisini çağırır (sentenced → onSentenced, öteki → checkTeach). Koşul bağlamı: level, act, stat.<id>, skill:<id> ilerlemeden; gerisi bayraklardan."
+	},
+	"constants": {
+		"xpCurve": [0, 250, 800, 1700, 3000, 4600, 6600, 9000, 11800, 15000, 18600, 22600, 27000, 31800, 37000, 42600, 48600, 55000, 61800, 69000],
+		"levelCaps": [5, 8, 11, 14, 17, 20],
+		"statCaps": [7, 8, 9, 10, 11, 12],
+		"xpScale": [1, 1.75, 2.6, 3.5, 4.4, 5],
+		"axisCaps": {
+			"kut": [16, 20, 24, 28, 32, 36],
+			"korku": [13, 18, 23, 28, 32, 36]
+		},
+		"origins": {
+			"origin_load": {
+				"stats": {
+					"grip": 1
+				},
+				"bond": 0
+			},
+			"origin_listener": {
+				"stats": {
+					"word": 1
+				},
+				"bond": 0
+			},
+			"origin_stable": {
+				"stats": {
+					"foot": 1
+				},
+				"bond": 10
+			}
+		},
+		"STAT_IDS": ["grip", "wind", "foot", "eye", "word"]
+	},
+	"skills": [
+		{
+			"id": "free_a",
+			"tree": "t1",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": true,
+			"requires": [],
+			"teach": {
+				"who": "farnak",
+				"when": "gift"
+			},
+			"mods": {
+				"mount": true
+			}
+		},
+		{
+			"id": "pt_a",
+			"tree": "t1",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": "ardoksha",
+				"when": "quest:q1.done"
+			},
+			"mods": {
+				"load": 8,
+				"slowFrom": {
+					"set": 0.5
+				}
+			}
+		},
+		{
+			"id": "pt_b",
+			"tree": "t1",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": "ardoksha",
+				"when": "trust>=40"
+			},
+			"mods": {
+				"load": 2,
+				"draw": {
+					"mul": 0.85
+				},
+				"form": ["line"]
+			}
+		},
+		{
+			"id": "pt_c",
+			"tree": "t1",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "active",
+			"free": false,
+			"requires": ["pt_a"],
+			"teach": {
+				"who": ["opia", "palak"],
+				"when": "opia_fate==covered || quest:q2.done"
+			},
+			"mods": {
+				"dmg": {
+					"mul": 1.3
+				}
+			},
+			"cooldown": 6,
+			"stamina": 8
+		},
+		{
+			"id": "pt_d",
+			"tree": "t2",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": ["stat.wind>=5"],
+			"teach": {
+				"who": "kantu",
+				"when": "tally_kantu"
+			},
+			"mods": {
+				"draw": {
+					"mul": 0.9
+				},
+				"form": ["crescent", "line"],
+				"slowFrom": {
+					"set": 0.4
+				},
+				"windArrow": true
+			}
+		},
+		{
+			"id": "tier_h",
+			"tree": "t2",
+			"tier": 2,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": "mene",
+				"when": "!crow_hush && ties.mene>=2"
+			},
+			"mods": {
+				"turn": {
+					"mul": 1.25
+				},
+				"sense": 6
+			}
+		},
+		{
+			"id": "act2_e",
+			"tree": "t2",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["pt_b"],
+			"teach": {
+				"who": "m_quarter",
+				"when": "m_quarter"
+			},
+			"mods": {
+				"sense": 4,
+				"turn": {
+					"mul": 1.2
+				}
+			}
+		},
+		{
+			"id": "hid_f",
+			"tree": "t3",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["whistling_arrow"],
+			"teach": {
+				"who": "m_bowyer",
+				"when": "m_bowyer"
+			},
+			"hideName": true,
+			"mods": {
+				"spread": {
+					"mul": 0.8
+				}
+			}
+		},
+		{
+			"id": "no_master_g",
+			"tree": "t3",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["act1_done"],
+			"teach": {},
+			"mods": {
+				"overhear": ["hun", "yuezhi"]
+			}
+		},
+		{
+			"id": "either_i",
+			"tree": "t3",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:pt_a || skill:pt_b", "level>=3"],
+			"teach": {
+				"who": "uldin",
+				"when": "names_known>=10"
+			},
+			"mods": {
+				"dodgeT": {
+					"set": 0.35
+				},
+				"dodgeCost": {
+					"set": 10
+				}
+			}
+		}
+	],
+	"cases": [
+		{
+			"id": "scaleXp/0/1",
+			"fn": "scaleXp",
+			"in": [0, 1],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/2",
+			"fn": "scaleXp",
+			"in": [0, 2],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/3",
+			"fn": "scaleXp",
+			"in": [0, 3],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/4",
+			"fn": "scaleXp",
+			"in": [0, 4],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/5",
+			"fn": "scaleXp",
+			"in": [0, 5],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/6",
+			"fn": "scaleXp",
+			"in": [0, 6],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/0/7",
+			"fn": "scaleXp",
+			"in": [0, 7],
+			"out": 0
+		},
+		{
+			"id": "scaleXp/1/1",
+			"fn": "scaleXp",
+			"in": [1, 1],
+			"out": 1
+		},
+		{
+			"id": "scaleXp/1/2",
+			"fn": "scaleXp",
+			"in": [1, 2],
+			"out": 2
+		},
+		{
+			"id": "scaleXp/1/3",
+			"fn": "scaleXp",
+			"in": [1, 3],
+			"out": 3
+		},
+		{
+			"id": "scaleXp/1/4",
+			"fn": "scaleXp",
+			"in": [1, 4],
+			"out": 4
+		},
+		{
+			"id": "scaleXp/1/5",
+			"fn": "scaleXp",
+			"in": [1, 5],
+			"out": 4
+		},
+		{
+			"id": "scaleXp/1/6",
+			"fn": "scaleXp",
+			"in": [1, 6],
+			"out": 5
+		},
+		{
+			"id": "scaleXp/1/7",
+			"fn": "scaleXp",
+			"in": [1, 7],
+			"out": 5
+		},
+		{
+			"id": "scaleXp/10/1",
+			"fn": "scaleXp",
+			"in": [10, 1],
+			"out": 10
+		},
+		{
+			"id": "scaleXp/10/2",
+			"fn": "scaleXp",
+			"in": [10, 2],
+			"out": 18
+		},
+		{
+			"id": "scaleXp/10/3",
+			"fn": "scaleXp",
+			"in": [10, 3],
+			"out": 26
+		},
+		{
+			"id": "scaleXp/10/4",
+			"fn": "scaleXp",
+			"in": [10, 4],
+			"out": 35
+		},
+		{
+			"id": "scaleXp/10/5",
+			"fn": "scaleXp",
+			"in": [10, 5],
+			"out": 44
+		},
+		{
+			"id": "scaleXp/10/6",
+			"fn": "scaleXp",
+			"in": [10, 6],
+			"out": 50
+		},
+		{
+			"id": "scaleXp/10/7",
+			"fn": "scaleXp",
+			"in": [10, 7],
+			"out": 50
+		},
+		{
+			"id": "scaleXp/18/1",
+			"fn": "scaleXp",
+			"in": [18, 1],
+			"out": 18
+		},
+		{
+			"id": "scaleXp/18/2",
+			"fn": "scaleXp",
+			"in": [18, 2],
+			"out": 32
+		},
+		{
+			"id": "scaleXp/18/3",
+			"fn": "scaleXp",
+			"in": [18, 3],
+			"out": 47
+		},
+		{
+			"id": "scaleXp/18/4",
+			"fn": "scaleXp",
+			"in": [18, 4],
+			"out": 63
+		},
+		{
+			"id": "scaleXp/18/5",
+			"fn": "scaleXp",
+			"in": [18, 5],
+			"out": 79
+		},
+		{
+			"id": "scaleXp/18/6",
+			"fn": "scaleXp",
+			"in": [18, 6],
+			"out": 90
+		},
+		{
+			"id": "scaleXp/18/7",
+			"fn": "scaleXp",
+			"in": [18, 7],
+			"out": 90
+		},
+		{
+			"id": "scaleXp/20/1",
+			"fn": "scaleXp",
+			"in": [20, 1],
+			"out": 20
+		},
+		{
+			"id": "scaleXp/20/2",
+			"fn": "scaleXp",
+			"in": [20, 2],
+			"out": 35
+		},
+		{
+			"id": "scaleXp/20/3",
+			"fn": "scaleXp",
+			"in": [20, 3],
+			"out": 52
+		},
+		{
+			"id": "scaleXp/20/4",
+			"fn": "scaleXp",
+			"in": [20, 4],
+			"out": 70
+		},
+		{
+			"id": "scaleXp/20/5",
+			"fn": "scaleXp",
+			"in": [20, 5],
+			"out": 88
+		},
+		{
+			"id": "scaleXp/20/6",
+			"fn": "scaleXp",
+			"in": [20, 6],
+			"out": 100
+		},
+		{
+			"id": "scaleXp/20/7",
+			"fn": "scaleXp",
+			"in": [20, 7],
+			"out": 100
+		},
+		{
+			"id": "scaleXp/25/1",
+			"fn": "scaleXp",
+			"in": [25, 1],
+			"out": 25
+		},
+		{
+			"id": "scaleXp/25/2",
+			"fn": "scaleXp",
+			"in": [25, 2],
+			"out": 44
+		},
+		{
+			"id": "scaleXp/25/3",
+			"fn": "scaleXp",
+			"in": [25, 3],
+			"out": 65
+		},
+		{
+			"id": "scaleXp/25/4",
+			"fn": "scaleXp",
+			"in": [25, 4],
+			"out": 88
+		},
+		{
+			"id": "scaleXp/25/5",
+			"fn": "scaleXp",
+			"in": [25, 5],
+			"out": 110
+		},
+		{
+			"id": "scaleXp/25/6",
+			"fn": "scaleXp",
+			"in": [25, 6],
+			"out": 125
+		},
+		{
+			"id": "scaleXp/25/7",
+			"fn": "scaleXp",
+			"in": [25, 7],
+			"out": 125
+		},
+		{
+			"id": "scaleXp/30/1",
+			"fn": "scaleXp",
+			"in": [30, 1],
+			"out": 30
+		},
+		{
+			"id": "scaleXp/30/2",
+			"fn": "scaleXp",
+			"in": [30, 2],
+			"out": 53
+		},
+		{
+			"id": "scaleXp/30/3",
+			"fn": "scaleXp",
+			"in": [30, 3],
+			"out": 78
+		},
+		{
+			"id": "scaleXp/30/4",
+			"fn": "scaleXp",
+			"in": [30, 4],
+			"out": 105
+		},
+		{
+			"id": "scaleXp/30/5",
+			"fn": "scaleXp",
+			"in": [30, 5],
+			"out": 132
+		},
+		{
+			"id": "scaleXp/30/6",
+			"fn": "scaleXp",
+			"in": [30, 6],
+			"out": 150
+		},
+		{
+			"id": "scaleXp/30/7",
+			"fn": "scaleXp",
+			"in": [30, 7],
+			"out": 150
+		},
+		{
+			"id": "scaleXp/35/1",
+			"fn": "scaleXp",
+			"in": [35, 1],
+			"out": 35
+		},
+		{
+			"id": "scaleXp/35/2",
+			"fn": "scaleXp",
+			"in": [35, 2],
+			"out": 61
+		},
+		{
+			"id": "scaleXp/35/3",
+			"fn": "scaleXp",
+			"in": [35, 3],
+			"out": 91
+		},
+		{
+			"id": "scaleXp/35/4",
+			"fn": "scaleXp",
+			"in": [35, 4],
+			"out": 123
+		},
+		{
+			"id": "scaleXp/35/5",
+			"fn": "scaleXp",
+			"in": [35, 5],
+			"out": 154
+		},
+		{
+			"id": "scaleXp/35/6",
+			"fn": "scaleXp",
+			"in": [35, 6],
+			"out": 175
+		},
+		{
+			"id": "scaleXp/35/7",
+			"fn": "scaleXp",
+			"in": [35, 7],
+			"out": 175
+		},
+		{
+			"id": "scaleXp/40/1",
+			"fn": "scaleXp",
+			"in": [40, 1],
+			"out": 40
+		},
+		{
+			"id": "scaleXp/40/2",
+			"fn": "scaleXp",
+			"in": [40, 2],
+			"out": 70
+		},
+		{
+			"id": "scaleXp/40/3",
+			"fn": "scaleXp",
+			"in": [40, 3],
+			"out": 104
+		},
+		{
+			"id": "scaleXp/40/4",
+			"fn": "scaleXp",
+			"in": [40, 4],
+			"out": 140
+		},
+		{
+			"id": "scaleXp/40/5",
+			"fn": "scaleXp",
+			"in": [40, 5],
+			"out": 176
+		},
+		{
+			"id": "scaleXp/40/6",
+			"fn": "scaleXp",
+			"in": [40, 6],
+			"out": 200
+		},
+		{
+			"id": "scaleXp/40/7",
+			"fn": "scaleXp",
+			"in": [40, 7],
+			"out": 200
+		},
+		{
+			"id": "scaleXp/177/1",
+			"fn": "scaleXp",
+			"in": [177, 1],
+			"out": 177
+		},
+		{
+			"id": "scaleXp/177/2",
+			"fn": "scaleXp",
+			"in": [177, 2],
+			"out": 310
+		},
+		{
+			"id": "scaleXp/177/3",
+			"fn": "scaleXp",
+			"in": [177, 3],
+			"out": 460
+		},
+		{
+			"id": "scaleXp/177/4",
+			"fn": "scaleXp",
+			"in": [177, 4],
+			"out": 620
+		},
+		{
+			"id": "scaleXp/177/5",
+			"fn": "scaleXp",
+			"in": [177, 5],
+			"out": 779
+		},
+		{
+			"id": "scaleXp/177/6",
+			"fn": "scaleXp",
+			"in": [177, 6],
+			"out": 885
+		},
+		{
+			"id": "scaleXp/177/7",
+			"fn": "scaleXp",
+			"in": [177, 7],
+			"out": 885
+		},
+		{
+			"id": "scaleXp/178/1",
+			"fn": "scaleXp",
+			"in": [178, 1],
+			"out": 178
+		},
+		{
+			"id": "scaleXp/178/2",
+			"fn": "scaleXp",
+			"in": [178, 2],
+			"out": 312
+		},
+		{
+			"id": "scaleXp/178/3",
+			"fn": "scaleXp",
+			"in": [178, 3],
+			"out": 463
+		},
+		{
+			"id": "scaleXp/178/4",
+			"fn": "scaleXp",
+			"in": [178, 4],
+			"out": 623
+		},
+		{
+			"id": "scaleXp/178/5",
+			"fn": "scaleXp",
+			"in": [178, 5],
+			"out": 783
+		},
+		{
+			"id": "scaleXp/178/6",
+			"fn": "scaleXp",
+			"in": [178, 6],
+			"out": 890
+		},
+		{
+			"id": "scaleXp/178/7",
+			"fn": "scaleXp",
+			"in": [178, 7],
+			"out": 890
+		},
+		{
+			"id": "scaleXp/192/1",
+			"fn": "scaleXp",
+			"in": [192, 1],
+			"out": 192
+		},
+		{
+			"id": "scaleXp/192/2",
+			"fn": "scaleXp",
+			"in": [192, 2],
+			"out": 336
+		},
+		{
+			"id": "scaleXp/192/3",
+			"fn": "scaleXp",
+			"in": [192, 3],
+			"out": 499
+		},
+		{
+			"id": "scaleXp/192/4",
+			"fn": "scaleXp",
+			"in": [192, 4],
+			"out": 672
+		},
+		{
+			"id": "scaleXp/192/5",
+			"fn": "scaleXp",
+			"in": [192, 5],
+			"out": 845
+		},
+		{
+			"id": "scaleXp/192/6",
+			"fn": "scaleXp",
+			"in": [192, 6],
+			"out": 960
+		},
+		{
+			"id": "scaleXp/192/7",
+			"fn": "scaleXp",
+			"in": [192, 7],
+			"out": 960
+		},
+		{
+			"id": "scaleXp/205/1",
+			"fn": "scaleXp",
+			"in": [205, 1],
+			"out": 205
+		},
+		{
+			"id": "scaleXp/205/2",
+			"fn": "scaleXp",
+			"in": [205, 2],
+			"out": 359
+		},
+		{
+			"id": "scaleXp/205/3",
+			"fn": "scaleXp",
+			"in": [205, 3],
+			"out": 533
+		},
+		{
+			"id": "scaleXp/205/4",
+			"fn": "scaleXp",
+			"in": [205, 4],
+			"out": 718
+		},
+		{
+			"id": "scaleXp/205/5",
+			"fn": "scaleXp",
+			"in": [205, 5],
+			"out": 902
+		},
+		{
+			"id": "scaleXp/205/6",
+			"fn": "scaleXp",
+			"in": [205, 6],
+			"out": 1025
+		},
+		{
+			"id": "scaleXp/205/7",
+			"fn": "scaleXp",
+			"in": [205, 7],
+			"out": 1025
+		},
+		{
+			"id": "scaleXp/206/1",
+			"fn": "scaleXp",
+			"in": [206, 1],
+			"out": 206
+		},
+		{
+			"id": "scaleXp/206/2",
+			"fn": "scaleXp",
+			"in": [206, 2],
+			"out": 361
+		},
+		{
+			"id": "scaleXp/206/3",
+			"fn": "scaleXp",
+			"in": [206, 3],
+			"out": 536
+		},
+		{
+			"id": "scaleXp/206/4",
+			"fn": "scaleXp",
+			"in": [206, 4],
+			"out": 721
+		},
+		{
+			"id": "scaleXp/206/5",
+			"fn": "scaleXp",
+			"in": [206, 5],
+			"out": 906
+		},
+		{
+			"id": "scaleXp/206/6",
+			"fn": "scaleXp",
+			"in": [206, 6],
+			"out": 1030
+		},
+		{
+			"id": "scaleXp/206/7",
+			"fn": "scaleXp",
+			"in": [206, 7],
+			"out": 1030
+		},
+		{
+			"id": "scaleXp/2460/1",
+			"fn": "scaleXp",
+			"in": [2460, 1],
+			"out": 2460
+		},
+		{
+			"id": "scaleXp/2460/2",
+			"fn": "scaleXp",
+			"in": [2460, 2],
+			"out": 4305
+		},
+		{
+			"id": "scaleXp/2460/3",
+			"fn": "scaleXp",
+			"in": [2460, 3],
+			"out": 6396
+		},
+		{
+			"id": "scaleXp/2460/4",
+			"fn": "scaleXp",
+			"in": [2460, 4],
+			"out": 8610
+		},
+		{
+			"id": "scaleXp/2460/5",
+			"fn": "scaleXp",
+			"in": [2460, 5],
+			"out": 10824
+		},
+		{
+			"id": "scaleXp/2460/6",
+			"fn": "scaleXp",
+			"in": [2460, 6],
+			"out": 12300
+		},
+		{
+			"id": "scaleXp/2460/7",
+			"fn": "scaleXp",
+			"in": [2460, 7],
+			"out": 12300
+		},
+		{
+			"id": "dreadEffects/0",
+			"fn": "dreadEffects",
+			"in": [0],
+			"out": {
+				"trustGainK": 1,
+				"guardPause": 0
+			}
+		},
+		{
+			"id": "dreadEffects/3",
+			"fn": "dreadEffects",
+			"in": [3],
+			"out": {
+				"trustGainK": 1,
+				"guardPause": 0
+			}
+		},
+		{
+			"id": "dreadEffects/4",
+			"fn": "dreadEffects",
+			"in": [4],
+			"out": {
+				"trustGainK": 0.9,
+				"guardPause": 0.5
+			}
+		},
+		{
+			"id": "dreadEffects/9",
+			"fn": "dreadEffects",
+			"in": [9],
+			"out": {
+				"trustGainK": 0.9,
+				"guardPause": 0.5
+			}
+		},
+		{
+			"id": "dreadEffects/10",
+			"fn": "dreadEffects",
+			"in": [10],
+			"out": {
+				"trustGainK": 0.8,
+				"guardPause": 0.5
+			}
+		},
+		{
+			"id": "dreadEffects/36",
+			"fn": "dreadEffects",
+			"in": [36],
+			"out": {
+				"trustGainK": 0.8,
+				"guardPause": 0.5
+			}
+		},
+		{
+			"id": "script/xp_act1",
+			"fn": "script",
+			"in": {
+				"origin": "origin_load",
+				"ops": [
+					["addXp", 249],
+					["addXp", 1],
+					["addXp", 2615],
+					["addXp", 1710],
+					["addXp", 425],
+					["addXp", 0],
+					["addXp", -5],
+					["addXp", 2.4],
+					["addXp", 0.4],
+					["actChange", 2],
+					["actChange", 2],
+					["actChange", 1],
+					["addXp", 1600],
+					["actChange", 4],
+					["addXp", 3000]
+				]
+			},
+			"out": [
+				{
+					"op": ["addXp", 249],
+					"r": 249,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 249,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1],
+					"r": 1,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 2615],
+					"r": 2615,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 2865,
+						"statPoints": 3,
+						"skillPoints": 3,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1710],
+					"r": 1710,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 425],
+					"r": 425,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 5000,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 0],
+					"r": 0,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 5000,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", -5],
+					"r": 0,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 5000,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 2.4],
+					"r": 2,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 5002,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 0.4],
+					"r": 0,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 5002,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 5002,
+						"statPoints": 5,
+						"skillPoints": 5,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": false,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 5002,
+						"statPoints": 5,
+						"skillPoints": 5,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 1],
+					"r": false,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 5002,
+						"statPoints": 5,
+						"skillPoints": 5,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1600],
+					"r": 1600,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6602,
+						"statPoints": 6,
+						"skillPoints": 6,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 4],
+					"r": true,
+					"s": {
+						"act": 4,
+						"level": 7,
+						"xp": 6602,
+						"statPoints": 6,
+						"skillPoints": 6,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 6,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 3000],
+					"r": 3000,
+					"s": {
+						"act": 4,
+						"level": 8,
+						"xp": 9602,
+						"statPoints": 7,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 6,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/xp_overflow",
+			"fn": "script",
+			"in": {
+				"origin": "origin_stable",
+				"ops": [
+					["actChange", 6],
+					["addXp", 69000],
+					["addXp", 1799],
+					["addXp", 1],
+					["addXp", 3600],
+					["addXp", 1800],
+					["addXp", 9000]
+				]
+			},
+			"out": [
+				{
+					"op": ["actChange", 6],
+					"r": true,
+					"s": {
+						"act": 6,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 69000],
+					"r": 69000,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 69000,
+						"statPoints": 19,
+						"skillPoints": 19,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1799],
+					"r": 1799,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 70799,
+						"statPoints": 19,
+						"skillPoints": 19,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1],
+					"r": 1,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 70800,
+						"statPoints": 19,
+						"skillPoints": 20,
+						"pointsGranted": [],
+						"overflowPoints": 1,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 3600],
+					"r": 3600,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 74400,
+						"statPoints": 19,
+						"skillPoints": 22,
+						"pointsGranted": [],
+						"overflowPoints": 3,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1800],
+					"r": 1800,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 76200,
+						"statPoints": 19,
+						"skillPoints": 22,
+						"pointsGranted": [],
+						"overflowPoints": 3,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 9000],
+					"r": 9000,
+					"s": {
+						"act": 6,
+						"level": 20,
+						"xp": 85200,
+						"statPoints": 19,
+						"skillPoints": 22,
+						"pointsGranted": [],
+						"overflowPoints": 3,
+						"respecTokens": 10,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/xp_budget_k43",
+			"fn": "script",
+			"in": {
+				"origin": "origin_listener",
+				"ops": [
+					["addXp", 4575],
+					["actChange", 2],
+					["addXp", 7175],
+					["actChange", 3],
+					["addXp", 49],
+					["addXp", 1]
+				]
+			},
+			"out": [
+				{
+					"op": ["addXp", 4575],
+					"r": 4575,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 7175],
+					"r": 7175,
+					"s": {
+						"act": 2,
+						"level": 8,
+						"xp": 11750,
+						"statPoints": 7,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 3],
+					"r": true,
+					"s": {
+						"act": 3,
+						"level": 8,
+						"xp": 11750,
+						"statPoints": 7,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 4,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 49],
+					"r": 49,
+					"s": {
+						"act": 3,
+						"level": 8,
+						"xp": 11799,
+						"statPoints": 7,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 4,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1],
+					"r": 1,
+					"s": {
+						"act": 3,
+						"level": 9,
+						"xp": 11800,
+						"statPoints": 8,
+						"skillPoints": 8,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 4,
+						"origin": "origin_listener",
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/stats",
+			"fn": "script",
+			"in": {
+				"origin": "origin_load",
+				"ops": [
+					["spendStat", "grip"],
+					["addXp", 4575],
+					["spendStat", "grip"],
+					["spendStat", "grip"],
+					["spendStat", "grip"],
+					["spendStat", "grip"],
+					["spendStat", "luck"],
+					["spendStat", "word"],
+					["spendStat", "eye"],
+					["actChange", 2],
+					["addXp", 6000],
+					["spendStat", "grip"],
+					["spendStat", "grip"]
+				]
+			},
+			"out": [
+				{
+					"op": ["spendStat", "grip"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 4575],
+					"r": 4575,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 4,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 3,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 5,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 2,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 6,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 1,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 1,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "luck"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 1,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "word"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 0,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "eye"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 0,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 5,
+						"xp": 4575,
+						"statPoints": 0,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 6000],
+					"r": 6000,
+					"s": {
+						"act": 2,
+						"level": 8,
+						"xp": 10575,
+						"statPoints": 3,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 7,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 8,
+						"xp": 10575,
+						"statPoints": 2,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 8,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "grip"],
+					"r": false,
+					"s": {
+						"act": 2,
+						"level": 8,
+						"xp": 10575,
+						"statPoints": 2,
+						"skillPoints": 7,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 8,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 4
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/no_origin",
+			"fn": "script",
+			"in": {
+				"origin": null,
+				"ops": [
+					["addXp", 250],
+					["spendStat", "eye"],
+					["spendStat", "eye"],
+					["spendStat", "foot"]
+				]
+			},
+			"out": [
+				{
+					"op": ["addXp", 250],
+					"r": 250,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": null,
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "eye"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": null,
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 4,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "eye"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 0,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": null,
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 5,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["spendStat", "foot"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 0,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": null,
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 5,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/unknown_origin",
+			"fn": "script",
+			"in": {
+				"origin": "origin_nope",
+				"ops": [
+					["states"]
+				]
+			},
+			"out": [
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 1,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": null,
+						"originBond": 0,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/skills_flow",
+			"fn": "script",
+			"in": {
+				"origin": "origin_load",
+				"ops": [
+					["states"],
+					["block", "pt_a"],
+					["flag", "trust", 45],
+					["states"],
+					["flag", "quest:q1.done", true],
+					["states"],
+					["block", "pt_a"],
+					["learn", "pt_a"],
+					["flag", "gift", true],
+					["states"],
+					["addXp", 250],
+					["block", "pt_a"],
+					["learn", "pt_a"],
+					["mods"],
+					["block", "pt_b"],
+					["learn", "pt_b"],
+					["addXp", 550],
+					["block", "pt_b"],
+					["learn", "pt_b"],
+					["mods"],
+					["block", "pt_c"],
+					["flag", "opia_fate", "other"],
+					["block", "pt_c"],
+					["flag", "opia_fate", "covered"],
+					["block", "pt_c"],
+					["grantPoint", "mq_herd_school"],
+					["grantPoint", "mq_herd_school"],
+					["grantPoint", ""],
+					["learn", "pt_c"],
+					["mods"],
+					["setBar", 0, "pt_c"],
+					["setBar", 1, "pt_c"],
+					["setBar", 6, "pt_c"],
+					["setBar", -1, "pt_c"],
+					["setBar", 2, "dried_meat"],
+					["setBar", 3, "act2_e"],
+					["setBar", 2, null],
+					["block", "pt_d"],
+					["flag", "tally_kantu", true],
+					["block", "pt_d"],
+					["flag", "ties.mene", 1],
+					["block", "tier_h"],
+					["flag", "ties.mene", 2],
+					["block", "tier_h"],
+					["flag", "crow_hush", true],
+					["block", "tier_h"],
+					["flag", "crow_hush", false],
+					["addXp", 900],
+					["learn", "tier_h"],
+					["block", "either_i"],
+					["flag", "names_known", 10],
+					["block", "either_i"],
+					["learn", "either_i"],
+					["teach", "pt_d"],
+					["teach", "pt_d"],
+					["teach", "nope"],
+					["block", "pt_d"],
+					["learn", "pt_d"],
+					["learn", "nope"],
+					["block", "nope"],
+					["mods"],
+					["mod", "load", 0],
+					["mod", "draw", 1],
+					["mod", "slowFrom", 0],
+					["mod", "turn", 1],
+					["mod", "sense", 0],
+					["mod", "missing", 5],
+					["mod", "missing", null]
+				]
+			},
+			"out": [
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_a"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "trust", 45],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "ready",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "quest:q1.done", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b", "pt_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b", "pt_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_a"],
+					"r": "points",
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b", "pt_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_a"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_b", "pt_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "gift", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 250],
+					"r": 250,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_a"],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_a"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"mount": true,
+						"load": 8,
+						"slowFrom": 0.5
+					},
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_b"],
+					"r": "level",
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_b"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 2,
+						"xp": 250,
+						"statPoints": 1,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 550],
+					"r": 550,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_b"],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_b"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"mount": true,
+						"load": 10,
+						"slowFrom": 0.5,
+						"draw": 0.85,
+						"form": ["line"]
+					},
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_c"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "opia_fate", "other"],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_c"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "opia_fate", "covered"],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_c"],
+					"r": "points",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["grantPoint", "mq_herd_school"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["grantPoint", "mq_herd_school"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["grantPoint", ""],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_c"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"mount": true,
+						"load": 10,
+						"slowFrom": 0.5,
+						"draw": 0.85,
+						"form": ["line"]
+					},
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 0, "pt_c"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": ["pt_c", null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 1, "pt_c"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 6, "pt_c"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", -1, "pt_c"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 2, "dried_meat"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 3, "act2_e"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["setBar", 2, null],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_d"],
+					"r": "locked",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "tally_kantu", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_d"],
+					"r": "locked",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "ties.mene", 1],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "tier_h"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "ties.mene", 2],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "tier_h"],
+					"r": "points",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "crow_hush", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "tier_h"],
+					"r": "points",
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "crow_hush", false],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 3,
+						"xp": 800,
+						"statPoints": 2,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 900],
+					"r": 900,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "tier_h"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "either_i"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "names_known", 10],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "either_i"],
+					"r": "points",
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "either_i"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["teach", "pt_d"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["teach", "pt_d"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["teach", "nope"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_d"],
+					"r": "locked",
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_d"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "nope"],
+					"r": false,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "nope"],
+					"r": "unknown",
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"mount": true,
+						"load": 10,
+						"slowFrom": 0.5,
+						"draw": 0.85,
+						"form": ["line"],
+						"turn": 1.25,
+						"sense": 6
+					},
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "load", 0],
+					"r": 10,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "draw", 1],
+					"r": 0.85,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "slowFrom", 0],
+					"r": 0.5,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "turn", 1],
+					"r": 1.25,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "sense", 0],
+					"r": 6,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "missing", 5],
+					"r": 5,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "missing", null],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1700,
+						"statPoints": 3,
+						"skillPoints": 0,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 3,
+								"src": "point"
+							},
+							"tier_h": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_b", "pt_a", "free_a", "pt_c", "tier_h", "either_i", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, "pt_c", null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/sentenced",
+			"fn": "script",
+			"in": {
+				"origin": "origin_stable",
+				"ops": [
+					["flag", "quest:q1.done", true],
+					["flag", "trust", 50],
+					["flag", "gift", true],
+					["states"],
+					["flag", "sentenced", true],
+					["states"],
+					["block", "pt_b"],
+					["block", "pt_d"],
+					["flag", "tally_kantu", true],
+					["states"],
+					["teach", "pt_d"],
+					["states"],
+					["actChange", 2],
+					["states"]
+				]
+			},
+			"out": [
+				{
+					"op": ["flag", "quest:q1.done", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "trust", 50],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["pt_a", "pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "gift", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "sentenced", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "lost_master",
+						"pt_d": "lost_master",
+						"tier_h": "lost_master",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "lost_master"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_b"],
+					"r": "level",
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "pt_d"],
+					"r": "lost_master",
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "tally_kantu", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "lost_master",
+						"pt_d": "lost_master",
+						"tier_h": "lost_master",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "lost_master"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a"],
+						"lostMaster": ["pt_c", "pt_d", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["teach", "pt_d"],
+					"r": true,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_d"],
+						"lostMaster": ["pt_c", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "lost_master",
+						"pt_d": "locked",
+						"tier_h": "lost_master",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "lost_master"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_d"],
+						"lostMaster": ["pt_c", "tier_h", "either_i"],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "ready",
+						"pt_b": "ready",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 3,
+							"wind": 3,
+							"foot": 4,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_d"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/hidden_and_masterless",
+			"fn": "script",
+			"in": {
+				"origin": "origin_load",
+				"ops": [
+					["states"],
+					["flag", "whistling_arrow", true],
+					["states"],
+					["actChange", 2],
+					["states"],
+					["flag", "m_bowyer", true],
+					["states"],
+					["flag", "act1_done", true],
+					["states"],
+					["block", "no_master_g"],
+					["addXp", 4600],
+					["block", "no_master_g"],
+					["learn", "no_master_g"],
+					["block", "hid_f"],
+					["learn", "hid_f"],
+					["addXp", 2000],
+					["block", "act2_e"],
+					["flag", "trust", 40],
+					["flag", "m_quarter", true],
+					["block", "act2_e"],
+					["learn", "pt_b"],
+					["block", "act2_e"],
+					["learn", "act2_e"],
+					["mods"]
+				]
+			},
+			"out": [
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "whistling_arrow", true],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "locked",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 1,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "teachable",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": [],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "m_bowyer", true],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "ready",
+						"no_master_g": "locked",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "act1_done", true],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "teachable",
+						"pt_a": "teachable",
+						"pt_b": "teachable",
+						"pt_c": "locked",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "ready",
+						"no_master_g": "ready",
+						"either_i": "locked"
+					},
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "no_master_g"],
+					"r": "level",
+					"s": {
+						"act": 2,
+						"level": 1,
+						"xp": 0,
+						"statPoints": 0,
+						"skillPoints": 0,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 4600],
+					"r": 4600,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 4600,
+						"statPoints": 5,
+						"skillPoints": 5,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "no_master_g"],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 4600,
+						"statPoints": 5,
+						"skillPoints": 5,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "no_master_g"],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 4600,
+						"statPoints": 5,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "hid_f"],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 4600,
+						"statPoints": 5,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "hid_f"],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 6,
+						"xp": 4600,
+						"statPoints": 5,
+						"skillPoints": 3,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 2000],
+					"r": 2000,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "act2_e"],
+					"r": "locked",
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "trust", 40],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["flag", "m_quarter", true],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "act2_e"],
+					"r": "locked",
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 4,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "pt_b"],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 3,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 7,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b", "act2_e"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["block", "act2_e"],
+					"r": null,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 3,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 7,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b", "act2_e"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["learn", "act2_e"],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 2,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 7,
+								"src": "point"
+							},
+							"act2_e": {
+								"at": 7,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b", "act2_e"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"overhear": ["hun", "yuezhi"],
+						"spread": 0.8,
+						"load": 2,
+						"draw": 0.85,
+						"form": ["line"],
+						"sense": 4,
+						"turn": 1.2
+					},
+					"s": {
+						"act": 2,
+						"level": 7,
+						"xp": 6600,
+						"statPoints": 6,
+						"skillPoints": 2,
+						"pointsGranted": [],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_load",
+						"originBond": 0,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 3,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"no_master_g": {
+								"at": 6,
+								"src": "point"
+							},
+							"hid_f": {
+								"at": 6,
+								"src": "point"
+							},
+							"pt_b": {
+								"at": 7,
+								"src": "point"
+							},
+							"act2_e": {
+								"at": 7,
+								"src": "point"
+							}
+						},
+						"teach": ["hid_f", "no_master_g", "pt_b", "act2_e"],
+						"lostMaster": [],
+						"bar": [null, null, null, null, null, null]
+					}
+				}
+			]
+		},
+		{
+			"id": "script/restore",
+			"fn": "script",
+			"in": {
+				"origin": "origin_load",
+				"ops": [
+					[
+						"restore",
+						{
+							"name": "Mete",
+							"origin": "origin_stable",
+							"appearance": null,
+							"level": 4,
+							"xp": 1800,
+							"statPoints": 1,
+							"skillPoints": 1,
+							"pointsGranted": ["mq_herd_school"],
+							"overflowPoints": 0,
+							"respecTokens": 0,
+							"stats": {
+								"grip": 4,
+								"wind": 3,
+								"foot": 5,
+								"eye": 3,
+								"word": 3
+							},
+							"skills": {
+								"pt_b": {
+									"at": 3,
+									"src": "point"
+								},
+								"free_a": {
+									"at": 1,
+									"src": "free"
+								},
+								"pt_a": {
+									"at": 2,
+									"src": "point"
+								},
+								"pt_c": {
+									"at": 4,
+									"src": "point"
+								}
+							},
+							"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+							"lostMaster": ["pt_d"],
+							"bar": ["pt_c", null, "dried_meat", null, null, null]
+						},
+						1
+					],
+					["states"],
+					["mods"],
+					["mod", "load", 0],
+					["mod", "slowFrom", 0],
+					["mod", "draw", 1],
+					["addXp", 1200],
+					["block", "tier_h"],
+					["actChange", 2],
+					["states"]
+				]
+			},
+			"out": [
+				{
+					"op": [
+						"restore",
+						{
+							"name": "Mete",
+							"origin": "origin_stable",
+							"appearance": null,
+							"level": 4,
+							"xp": 1800,
+							"statPoints": 1,
+							"skillPoints": 1,
+							"pointsGranted": ["mq_herd_school"],
+							"overflowPoints": 0,
+							"respecTokens": 0,
+							"stats": {
+								"grip": 4,
+								"wind": 3,
+								"foot": 5,
+								"eye": 3,
+								"word": 3
+							},
+							"skills": {
+								"pt_b": {
+									"at": 3,
+									"src": "point"
+								},
+								"free_a": {
+									"at": 1,
+									"src": "free"
+								},
+								"pt_a": {
+									"at": 2,
+									"src": "point"
+								},
+								"pt_c": {
+									"at": 4,
+									"src": "point"
+								}
+							},
+							"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+							"lostMaster": ["pt_d"],
+							"bar": ["pt_c", null, "dried_meat", null, null, null]
+						},
+						1
+					],
+					"r": null,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "learned",
+						"pt_b": "learned",
+						"pt_c": "learned",
+						"pt_d": "lost_master",
+						"tier_h": "teachable",
+						"act2_e": "locked",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "teachable"
+					},
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["mods"],
+					"r": {
+						"load": 10,
+						"draw": 0.85,
+						"form": ["line"],
+						"mount": true,
+						"slowFrom": 0.5
+					},
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "load", 0],
+					"r": 10,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "slowFrom", 0],
+					"r": 0.5,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["mod", "draw", 1],
+					"r": 0.85,
+					"s": {
+						"act": 1,
+						"level": 4,
+						"xp": 1800,
+						"statPoints": 1,
+						"skillPoints": 1,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["addXp", 1200],
+					"r": 1200,
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 3000,
+						"statPoints": 2,
+						"skillPoints": 2,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["block", "tier_h"],
+					"r": "master",
+					"s": {
+						"act": 1,
+						"level": 5,
+						"xp": 3000,
+						"statPoints": 2,
+						"skillPoints": 2,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 0,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": ["pt_d"],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["actChange", 2],
+					"r": true,
+					"s": {
+						"act": 2,
+						"level": 5,
+						"xp": 3000,
+						"statPoints": 2,
+						"skillPoints": 2,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				},
+				{
+					"op": ["states"],
+					"r": {
+						"free_a": "learned",
+						"pt_a": "learned",
+						"pt_b": "learned",
+						"pt_c": "learned",
+						"pt_d": "locked",
+						"tier_h": "teachable",
+						"act2_e": "teachable",
+						"hid_f": "hidden",
+						"no_master_g": "locked",
+						"either_i": "teachable"
+					},
+					"s": {
+						"act": 2,
+						"level": 5,
+						"xp": 3000,
+						"statPoints": 2,
+						"skillPoints": 2,
+						"pointsGranted": ["mq_herd_school"],
+						"overflowPoints": 0,
+						"respecTokens": 2,
+						"origin": "origin_stable",
+						"originBond": 10,
+						"stats": {
+							"grip": 4,
+							"wind": 3,
+							"foot": 5,
+							"eye": 3,
+							"word": 3
+						},
+						"skills": {
+							"pt_b": {
+								"at": 3,
+								"src": "point"
+							},
+							"free_a": {
+								"at": 1,
+								"src": "free"
+							},
+							"pt_a": {
+								"at": 2,
+								"src": "point"
+							},
+							"pt_c": {
+								"at": 4,
+								"src": "point"
+							}
+						},
+						"teach": ["pt_a", "pt_b", "free_a", "pt_c"],
+						"lostMaster": [],
+						"bar": ["pt_c", null, "dried_meat", null, null, null]
+					}
+				}
+			]
+		}
+	]
+}

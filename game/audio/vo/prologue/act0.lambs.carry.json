@@ -1,0 +1,18 @@
+{
+	"id": "act0.lambs.carry",
+	"take": 0,
+	"seed": 3464927750,
+	"hash": "ce869a061ec3",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 2.56,
+	"words": [
+		{"w": "Pick", "t0": 0.0, "t1": 0.16},
+		{"w": "it", "t0": 0.187, "t1": 0.24},
+		{"w": "up.", "t0": 0.347, "t1": 0.64},
+		{"w": "Its", "t0": 0.8, "t1": 1.28},
+		{"w": "mother", "t0": 1.337, "t1": 1.68},
+		{"w": "will", "t0": 1.728, "t1": 1.92},
+		{"w": "follow.", "t0": 1.989, "t1": 2.56}
+	]
+}

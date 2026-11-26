@@ -1,0 +1,4658 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/gathering.mjs",
+		"proto": ["src/world/node-store.js", "src/game/gather.js", "src/data/node-kinds.js", "src/core/math.js"],
+		"proto_sha": {
+			"src/world/node-store.js": "d3dd2843608c4c43d223168bd795b495cabc9a12",
+			"src/game/gather.js": "0a4d4b203f2c7d4e9e01f931078b39d35b5a9c99",
+			"src/data/node-kinds.js": "a43fe956d3d3293a8b870a169d6198ca474342ed",
+			"src/core/math.js": "b1a6be5e88466a749d1856de49659279e9df48f8"
+		},
+		"kind": "math",
+		"tol": 1e-9,
+		"note": "Yerleşim ve kayıt bit bit (float32 konumlar), saf hesaplar 1e-9; senaryolar dt 0,02 ile birebir. Yer yığını Inventory'nindir: sahte heybe sığmayanı pile sayar. Godot'nun eklediği alanlar (clip) ve K58 türü (node_woad) tabloya prototipten sonra girdi."
+	},
+	"constants": {
+		"gather": {
+			"contactK": 0.72,
+			"window": 0.18,
+			"wideK": 1.5,
+			"staCost": {
+				"axe": 5,
+				"pick": 6,
+				"knife": 5
+			},
+			"cleanStaK": 0.5,
+			"tiredK": 1.5,
+			"cleanBonus": 0.5,
+			"firstK": 0.5,
+			"quietFoot": 4,
+			"reachEvery": 0.9,
+			"crouch": 0.7,
+			"approach": 0.8
+		},
+		"child": {
+			"loadMax": 6,
+			"speedK": 0.8
+		},
+		"tools": {
+			"axe_bronze": {
+				"name": {
+					"tr": "Tunç Balta",
+					"en": "Bronze Axe"
+				},
+				"cls": "axe",
+				"tier": 1,
+				"T0": 1,
+				"gesture": "chop"
+			},
+			"axe_iron": {
+				"name": {
+					"tr": "Demir Balta",
+					"en": "Iron Axe"
+				},
+				"cls": "axe",
+				"tier": 2,
+				"T0": 1,
+				"gesture": "chop"
+			},
+			"pick_bronze": {
+				"name": {
+					"tr": "Tunç Kazma",
+					"en": "Bronze Pick"
+				},
+				"cls": "pick",
+				"tier": 1,
+				"T0": 1.1,
+				"gesture": "pick"
+			},
+			"pick_iron": {
+				"name": {
+					"tr": "Demir Kazma",
+					"en": "Iron Pick"
+				},
+				"cls": "pick",
+				"tier": 2,
+				"T0": 1.1,
+				"gesture": "pick"
+			},
+			"knife_iron": {
+				"name": {
+					"tr": "Demir Bıçak",
+					"en": "Iron Knife"
+				},
+				"cls": "knife",
+				"tier": 2,
+				"T0": 1,
+				"gesture": "chop"
+			},
+			"net": {
+				"name": {
+					"tr": "Ağ",
+					"en": "Net"
+				},
+				"cls": "net",
+				"tier": 1
+			},
+			"snare": {
+				"name": {
+					"tr": "Tuzak",
+					"en": "Snare"
+				},
+				"cls": "snare",
+				"tier": 1
+			},
+			"site_axe": {
+				"name": {
+					"tr": "Kütük Baltası",
+					"en": "Block Axe"
+				},
+				"cls": "axe",
+				"tier": 1,
+				"T0": 1,
+				"gesture": "chop",
+				"fixed": true
+			},
+			"site_wedge": {
+				"name": {
+					"tr": "Kama ve Tokmak",
+					"en": "Wedge and Maul"
+				},
+				"cls": "pick",
+				"tier": 1,
+				"T0": 1.1,
+				"gesture": "pick",
+				"fixed": true
+			},
+			"site_chisel": {
+				"name": {
+					"tr": "Buz Keskisi",
+					"en": "Ice Chisel"
+				},
+				"cls": "chisel",
+				"tier": 1,
+				"gesture": "saw",
+				"fixed": true
+			}
+		},
+		"kinds": {
+			"node_first_stones": {
+				"name": {
+					"tr": "İlk Taşlar",
+					"en": "First Stones"
+				},
+				"prompt": {
+					"tr": "Taşı",
+					"en": "Carry"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 1,
+				"yield": [
+					{
+						"item": "stone",
+						"n": 1
+					}
+				],
+				"charges": 6,
+				"renew": "none",
+				"when": "quest:mq_first_tally.active",
+				"r": 0.6,
+				"h": 0.5,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "stones",
+					"depleted": "shrink",
+					"shrink": 0.85
+				},
+				"pool": 1
+			},
+			"node_woodpile": {
+				"name": {
+					"tr": "Odunluk Kütüğü",
+					"en": "Chopping Block"
+				},
+				"prompt": {
+					"tr": "Yar",
+					"en": "Split"
+				},
+				"tool": null,
+				"fixed": "site_axe",
+				"action": "strike",
+				"hits": 2,
+				"yield": [
+					{
+						"item": "wood_pine",
+						"n": 1
+					}
+				],
+				"charges": 16,
+				"renew": "none",
+				"r": 0.6,
+				"h": 0.9,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "block",
+					"depleted": "keep"
+				},
+				"pool": 1
+			},
+			"node_pine": {
+				"name": {
+					"tr": "Çam",
+					"en": "Pine"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Fell"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 5,
+				"yield": [
+					{
+						"item": "wood_pine",
+						"n": 3
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.45,
+				"h": 12,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "pine",
+					"depleted": "stump"
+				},
+				"pool": 120
+			},
+			"node_juniper": {
+				"name": {
+					"tr": "Ardıç",
+					"en": "Juniper"
+				},
+				"prompt": {
+					"tr": "Dal Kır",
+					"en": "Break Sprigs"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "sprig_juniper",
+						"n": 2
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"then": {
+					"prompt": {
+						"tr": "Kes",
+						"en": "Fell"
+					},
+					"tool": "axe_bronze",
+					"action": "strike",
+					"hits": 5,
+					"yield": [
+						{
+							"item": "wood_juniper",
+							"n": 2
+						}
+					],
+					"charges": 1,
+					"renew": "perm"
+				},
+				"tree": true,
+				"r": 0.45,
+				"h": 3.5,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "juniper",
+					"depleted": "stump"
+				},
+				"pool": 64
+			},
+			"node_willow": {
+				"name": {
+					"tr": "Söğüt",
+					"en": "Willow"
+				},
+				"prompt": {
+					"tr": "Kabuk Soy",
+					"en": "Strip Bark"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "bark_willow",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"then": {
+					"prompt": {
+						"tr": "Kes",
+						"en": "Fell"
+					},
+					"tool": "axe_bronze",
+					"action": "strike",
+					"hits": 3,
+					"yield": [
+						{
+							"item": "wood_willow",
+							"n": 2
+						}
+					],
+					"charges": 1,
+					"renew": "perm"
+				},
+				"tree": true,
+				"r": 0.45,
+				"h": 5,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "willow",
+					"depleted": "stump"
+				},
+				"pool": 44
+			},
+			"node_deadfall": {
+				"name": {
+					"tr": "Kuru Dal",
+					"en": "Deadfall"
+				},
+				"prompt": {
+					"tr": "Topla",
+					"en": "Gather"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "branch",
+						"n": 2
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.7,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "deadfall",
+					"depleted": "hide"
+				},
+				"pool": 48
+			},
+			"node_resin": {
+				"name": {
+					"tr": "Reçineli Gövde",
+					"en": "Resin Scar"
+				},
+				"prompt": {
+					"tr": "Reçine Al",
+					"en": "Take Resin"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "resin",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.35,
+				"h": 1.8,
+				"block": true,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "resin",
+					"depleted": "dim"
+				},
+				"pool": 40
+			},
+			"node_mushroom": {
+				"name": {
+					"tr": "Ağaç Mantarı",
+					"en": "Tree Fungus"
+				},
+				"prompt": {
+					"tr": "Kopar",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "mushroom",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"sense": true,
+				"weather": {
+					"rainH": 12,
+					"minH": 1,
+					"wet": 2,
+					"dry": 0.5
+				},
+				"r": 0.3,
+				"h": 0.6,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "mushroom",
+					"depleted": "hide"
+				},
+				"pool": 50
+			},
+			"node_rosehip": {
+				"name": {
+					"tr": "Kuşburnu",
+					"en": "Rosehip Bush"
+				},
+				"prompt": {
+					"tr": "Topla",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "berry_rosehip",
+						"n": 3
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.6,
+				"h": 1.1,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "bush",
+					"berry": "#b8322a",
+					"depleted": "keep"
+				},
+				"pool": 16
+			},
+			"node_buckthorn": {
+				"name": {
+					"tr": "Topalak",
+					"en": "Sea Buckthorn"
+				},
+				"prompt": {
+					"tr": "Topla",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "berry_buckthorn",
+						"n": 3
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.6,
+				"h": 1.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "bush",
+					"berry": "#e08a2a",
+					"leaf": "#6a705a",
+					"depleted": "keep"
+				},
+				"pool": 18
+			},
+			"node_wormwood": {
+				"name": {
+					"tr": "Yavşan",
+					"en": "Wormwood Tuft"
+				},
+				"prompt": {
+					"tr": "Kopar",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "herb_wormwood",
+						"n": 2
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.3,
+				"h": 0.35,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "herb",
+					"leaf": "#7f8f7c",
+					"depleted": "hide"
+				},
+				"pool": 20
+			},
+			"node_herb_sacred": {
+				"name": {
+					"tr": "Kutlu Ot",
+					"en": "Sacred Herb"
+				},
+				"prompt": {
+					"tr": "Kopar",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "herb_sacred",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.3,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "herb",
+					"leaf": "#5d7a4c",
+					"tip": "#b04a3a",
+					"depleted": "hide"
+				},
+				"pool": 10
+			},
+			"node_herb_sleep": {
+				"name": {
+					"tr": "Uyku Otu",
+					"en": "Sleep Herb"
+				},
+				"prompt": {
+					"tr": "Kopar",
+					"en": "Pick"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "herb_sleep",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"sense": true,
+				"r": 0.3,
+				"h": 0.35,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "herb",
+					"leaf": "#56607e",
+					"tip": "#8a7ab0",
+					"depleted": "hide"
+				},
+				"pool": 12
+			},
+			"node_reed": {
+				"name": {
+					"tr": "Saz Kümesi",
+					"en": "Reed Clump"
+				},
+				"prompt": {
+					"tr": "Biç",
+					"en": "Cut"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "reed",
+						"n": 2
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"r": 0.5,
+				"h": 1.8,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "reed",
+					"depleted": "stubble",
+					"shrink": 0.8
+				},
+				"pool": 140
+			},
+			"node_dung": {
+				"name": {
+					"tr": "Tezek",
+					"en": "Dung Patties"
+				},
+				"prompt": {
+					"tr": "Topla",
+					"en": "Gather"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "dung",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"weather": {
+					"afterH": 6,
+					"yieldK": 0.5
+				},
+				"r": 0.4,
+				"h": 0.15,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "dung",
+					"depleted": "hide"
+				},
+				"pool": 36
+			},
+			"node_hay": {
+				"name": {
+					"tr": "Ot Yığını",
+					"en": "Hay Cock"
+				},
+				"prompt": {
+					"tr": "Yükle",
+					"en": "Fork"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "hay",
+						"n": 2
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.8,
+				"h": 1.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "heap",
+					"color": "#a8935a",
+					"depleted": "shrink",
+					"shrink": 0.8
+				},
+				"pool": 40
+			},
+			"node_straw": {
+				"name": {
+					"tr": "Saman Yığını",
+					"en": "Straw Heap"
+				},
+				"prompt": {
+					"tr": "Yükle",
+					"en": "Fork"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "straw",
+						"n": 2
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.8,
+				"h": 1,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "heap",
+					"color": "#c2aa6c",
+					"depleted": "shrink",
+					"shrink": 0.8
+				},
+				"pool": 24
+			},
+			"node_wool_bale": {
+				"name": {
+					"tr": "Yün Balyası",
+					"en": "Wool Bale"
+				},
+				"prompt": {
+					"tr": "Çek",
+					"en": "Pull"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "wool",
+						"n": 2
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.6,
+				"h": 0.8,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "heap",
+					"color": "#d6cdb6",
+					"squash": 0.75,
+					"depleted": "shrink",
+					"shrink": 0.8
+				},
+				"pool": 8
+			},
+			"node_kitchen_scraps": {
+				"name": {
+					"tr": "Mutfak Artığı",
+					"en": "Kitchen Scraps"
+				},
+				"prompt": {
+					"tr": "Ayıkla",
+					"en": "Sort"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [],
+				"seqItems": ["bone", "hide", "sinew", "bone", "hide", "bone", "hide", "horn", "bone"],
+				"charges": 3,
+				"renew": "dawn",
+				"r": 0.6,
+				"h": 0.5,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "scraps",
+					"depleted": "keep"
+				},
+				"pool": 1
+			},
+			"node_milk": {
+				"name": {
+					"tr": "Süt Kovası",
+					"en": "Milk Pail"
+				},
+				"prompt": {
+					"tr": "Doldur",
+					"en": "Fill"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 1,
+				"yield": [
+					{
+						"item": "milk",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.4,
+				"h": 0.5,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "pail",
+					"depleted": "keep"
+				},
+				"pool": 1
+			},
+			"node_bone_pile": {
+				"name": {
+					"tr": "Çukur Kemikleri",
+					"en": "Hollow Bones"
+				},
+				"prompt": {
+					"tr": "Al",
+					"en": "Take"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "bone",
+						"n": 1
+					}
+				],
+				"charges": 10,
+				"renew": "none",
+				"when": "ties.hereka>=1",
+				"r": 0.6,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "bones",
+					"depleted": "shrink",
+					"shrink": 0.93
+				},
+				"pool": 1
+			},
+			"node_scree": {
+				"name": {
+					"tr": "Taşlık Bloğu",
+					"en": "Scree Block"
+				},
+				"prompt": {
+					"tr": "Kopar",
+					"en": "Break"
+				},
+				"tool": null,
+				"fixed": "site_wedge",
+				"action": "strike",
+				"hits": 3,
+				"yield": [
+					{
+						"item": "stone",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"r": 0.8,
+				"h": 0.9,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "scree",
+					"depleted": "shrink",
+					"shrink": 0.8
+				},
+				"pool": 18
+			},
+			"node_boulder": {
+				"name": {
+					"tr": "Kaya",
+					"en": "Boulder"
+				},
+				"prompt": {
+					"tr": "Kır",
+					"en": "Break"
+				},
+				"tool": "pick_bronze",
+				"action": "strike",
+				"hits": 3,
+				"yield": [
+					{
+						"item": "stone",
+						"n": 1
+					}
+				],
+				"charges": 4,
+				"renew": "perm",
+				"r": 0.9,
+				"h": 1.4,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "boulder",
+					"depleted": "rubble",
+					"shrink": 0.85
+				},
+				"pool": 24
+			},
+			"node_vein_iron": {
+				"name": {
+					"tr": "Demir Damarı",
+					"en": "Iron Vein"
+				},
+				"prompt": {
+					"tr": "Kaz",
+					"en": "Mine"
+				},
+				"tool": "pick_bronze",
+				"action": "strike",
+				"hits": 5,
+				"yield": [
+					{
+						"item": "ore_iron",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"ore": true,
+				"r": 0.9,
+				"h": 1.3,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "vein",
+					"ore": "#7a4a32",
+					"depleted": "dim"
+				},
+				"pool": 14
+			},
+			"node_vein_copper": {
+				"name": {
+					"tr": "Bakır Damarı",
+					"en": "Copper Vein"
+				},
+				"prompt": {
+					"tr": "Kaz",
+					"en": "Mine"
+				},
+				"tool": "pick_bronze",
+				"action": "strike",
+				"hits": 5,
+				"yield": [
+					{
+						"item": "ore_copper",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"ore": true,
+				"r": 0.9,
+				"h": 1.3,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "vein",
+					"ore": "#3f8f6f",
+					"depleted": "dim"
+				},
+				"pool": 10
+			},
+			"node_bronze_find": {
+				"name": {
+					"tr": "Toprak Altı Tunç",
+					"en": "Buried Bronze"
+				},
+				"prompt": {
+					"tr": "Kazıp Al",
+					"en": "Dig Out"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "bronze_scrap",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"sense": true,
+				"r": 0.5,
+				"h": 0.3,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "mound",
+					"glint": "#a07a3a",
+					"depleted": "hide"
+				},
+				"pool": 6
+			},
+			"node_kiln": {
+				"name": {
+					"tr": "Kömür Ocağı",
+					"en": "Charcoal Kiln"
+				},
+				"prompt": {
+					"tr": "Kömür Al",
+					"en": "Take Charcoal"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "charcoal",
+						"n": 2
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"r": 1.4,
+				"h": 1.4,
+				"block": true,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "kiln",
+					"depleted": "dim"
+				},
+				"pool": 4
+			},
+			"node_clay": {
+				"name": {
+					"tr": "Kil Yarı",
+					"en": "Clay Bank"
+				},
+				"prompt": {
+					"tr": "Çıkar",
+					"en": "Dig"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "clay",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"r": 0.8,
+				"h": 0.7,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "heap",
+					"color": "#8f5f43",
+					"squash": 0.6,
+					"depleted": "shrink",
+					"shrink": 0.85
+				},
+				"pool": 8
+			},
+			"node_salt": {
+				"name": {
+					"tr": "Tuz Kabuğu",
+					"en": "Salt Crust"
+				},
+				"prompt": {
+					"tr": "Kazı",
+					"en": "Scrape"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "salt",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.8,
+				"h": 0.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "salt",
+					"depleted": "dim"
+				},
+				"pool": 40
+			},
+			"node_ice_hole": {
+				"name": {
+					"tr": "Buz Deliği",
+					"en": "Ice Hole"
+				},
+				"prompt": {
+					"tr": "Buz Kes",
+					"en": "Cut Ice"
+				},
+				"tool": null,
+				"fixed": "site_chisel",
+				"action": "hold",
+				"holdS": 4,
+				"gesture": "saw",
+				"yield": [
+					{
+						"item": "waterskin",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"alt": {
+					"prompt": {
+						"tr": "Ağ At",
+						"en": "Cast Net"
+					},
+					"tool": "net",
+					"action": "hold",
+					"holdS": 8,
+					"yield": [
+						{
+							"item": "fish",
+							"seq": [1, 2]
+						}
+					],
+					"charges": 1,
+					"renew": "dawn"
+				},
+				"r": 0.7,
+				"h": 0.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "hole",
+					"depleted": "dim"
+				},
+				"pool": 16
+			},
+			"node_fish_spot": {
+				"name": {
+					"tr": "Balık Yeri",
+					"en": "Fishing Spot"
+				},
+				"prompt": {
+					"tr": "Ağ At",
+					"en": "Cast Net"
+				},
+				"tool": "net",
+				"action": "hold",
+				"holdS": 8,
+				"yield": [
+					{
+						"item": "fish",
+						"seq": [1, 2]
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.5,
+				"h": 0.9,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "stake",
+					"depleted": "keep"
+				},
+				"pool": 10
+			},
+			"node_fish_hole": {
+				"name": {
+					"tr": "Ağ Deliği",
+					"en": "Net Hole"
+				},
+				"prompt": {
+					"tr": "Ağ Kur",
+					"en": "Set Net"
+				},
+				"tool": "net",
+				"action": "hold",
+				"holdS": 3,
+				"yield": [],
+				"charges": 1,
+				"renew": "dawn",
+				"use": "fish_hole",
+				"r": 0.6,
+				"h": 0.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "hole",
+					"depleted": "keep"
+				},
+				"pool": 16
+			},
+			"node_snare_spot": {
+				"name": {
+					"tr": "Tuzak Yeri",
+					"en": "Snare Trail"
+				},
+				"prompt": {
+					"tr": "Tuzak Kur",
+					"en": "Set Snare"
+				},
+				"tool": "snare",
+				"action": "hold",
+				"holdS": 1,
+				"yield": [],
+				"charges": 1,
+				"renew": "dawn",
+				"use": "snare",
+				"r": 0.4,
+				"h": 0.5,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "snare",
+					"depleted": "keep"
+				},
+				"pool": 10
+			},
+			"node_pilfer": {
+				"name": {
+					"tr": "Ambar Dikişi",
+					"en": "Stores Seam"
+				},
+				"prompt": {
+					"tr": "Aşır",
+					"en": "Pilfer"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "millet",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"silent": 1,
+				"over": [
+					["axis", "trust", -4],
+					["toast", "econ.pilfer_seen"]
+				],
+				"r": 0.5,
+				"h": 1,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "sack",
+					"depleted": "keep"
+				},
+				"pool": 1
+			},
+			"node_stores_sack": {
+				"name": {
+					"tr": "Ambar Çuvalı",
+					"en": "Stores Sack"
+				},
+				"prompt": {
+					"tr": "Sırtla",
+					"en": "Shoulder"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 4,
+				"yield": [
+					{
+						"item": "qurt",
+						"n": 6
+					}
+				],
+				"charges": 1,
+				"renew": "none",
+				"when": "a1_last_night",
+				"fx": [
+					["ledger", "food", -3]
+				],
+				"r": 0.5,
+				"h": 0.9,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "sack",
+					"depleted": "hide"
+				},
+				"pool": 2
+			},
+			"node_cache": {
+				"name": {
+					"tr": "Zula Yuvası",
+					"en": "Cache Nest"
+				},
+				"prompt": {
+					"tr": "Zulaya Koy",
+					"en": "Hide in Cache"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [],
+				"charges": 1,
+				"renew": "dawn",
+				"use": "cache",
+				"alt": {
+					"prompt": {
+						"tr": "Zuladan Al",
+						"en": "Take from Cache"
+					},
+					"tool": null,
+					"action": "hold",
+					"holdS": 1,
+					"yield": [],
+					"charges": 1,
+					"renew": "dawn"
+				},
+				"r": 0.5,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "mound",
+					"glint": "#8a7a5a",
+					"depleted": "keep"
+				},
+				"pool": 6
+			},
+			"node_ground_pile": {
+				"name": {
+					"tr": "Yer Yığını",
+					"en": "Ground Pile"
+				},
+				"prompt": {
+					"tr": "Yerden Al",
+					"en": "Pick Up"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 1,
+				"yield": [],
+				"charges": 1,
+				"renew": "none",
+				"r": 0.6,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "pile",
+					"depleted": "hide"
+				},
+				"pool": 24
+			},
+			"node_camp_logs": {
+				"name": {
+					"tr": "Kamp Odunu",
+					"en": "Camp Logs"
+				},
+				"prompt": {
+					"tr": "Kütük Al",
+					"en": "Take Log"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 1.5,
+				"yield": [],
+				"charges": 6,
+				"renew": "dawn",
+				"child": true,
+				"carry": {
+					"item": "log",
+					"load": 4
+				},
+				"r": 0.6,
+				"h": 0.8,
+				"noise": {
+					"hand": 3
+				},
+				"look": null,
+				"pool": 0
+			},
+			"node_birch": {
+				"name": {
+					"tr": "Huş",
+					"en": "Birch"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Fell"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 5,
+				"yield": [
+					{
+						"item": "wood_birch",
+						"n": 3
+					},
+					{
+						"item": "birch_bark",
+						"n": 1
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.4,
+				"h": 10,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "birch",
+					"depleted": "stump"
+				},
+				"pool": 64,
+				"act": 2
+			},
+			"node_elm": {
+				"name": {
+					"tr": "Karaağaç",
+					"en": "Elm"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Fell"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 6,
+				"yield": [
+					{
+						"item": "wood_elm",
+						"n": 3
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.5,
+				"h": 9,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "broadleaf",
+					"leaf": "#4a5a32",
+					"depleted": "stump"
+				},
+				"pool": 64,
+				"act": 2
+			},
+			"node_tamarisk": {
+				"name": {
+					"tr": "Ilgın",
+					"en": "Tamarisk"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Cut"
+				},
+				"tool": "axe_bronze",
+				"toolAlt": "knife_iron",
+				"action": "strike",
+				"hits": 3,
+				"yield": [
+					{
+						"item": "wood_tamarisk",
+						"n": 4
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.4,
+				"h": 2.8,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "willow",
+					"leaf": "#8a6a7a",
+					"depleted": "stump"
+				},
+				"pool": 48,
+				"act": 2
+			},
+			"node_saxaul": {
+				"name": {
+					"tr": "Saksavul",
+					"en": "Saxaul"
+				},
+				"prompt": {
+					"tr": "Kır",
+					"en": "Break"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 4,
+				"yield": [
+					{
+						"item": "wood_saxaul",
+						"n": 2
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.45,
+				"h": 2.4,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "juniper",
+					"leaf": "#6a6a4a",
+					"depleted": "stump"
+				},
+				"pool": 48,
+				"act": 2
+			},
+			"node_larch": {
+				"name": {
+					"tr": "Melez",
+					"en": "Larch"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Fell"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 6,
+				"yield": [
+					{
+						"item": "wood_larch",
+						"n": 3
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.45,
+				"h": 13,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "pine",
+					"depleted": "stump"
+				},
+				"pool": 120,
+				"act": 3
+			},
+			"node_quarry": {
+				"name": {
+					"tr": "Taş Ocağı",
+					"en": "Quarry Face"
+				},
+				"prompt": {
+					"tr": "Kır",
+					"en": "Break"
+				},
+				"tool": "pick_bronze",
+				"action": "strike",
+				"hits": 3,
+				"yield": [
+					{
+						"item": "stone",
+						"n": 1
+					}
+				],
+				"charges": 6,
+				"renew": "dawn",
+				"r": 1,
+				"h": 1.6,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "scree",
+					"depleted": "shrink",
+					"shrink": 0.8
+				},
+				"pool": 18,
+				"act": 2
+			},
+			"node_madder": {
+				"name": {
+					"tr": "Kökboya",
+					"en": "Madder"
+				},
+				"prompt": {
+					"tr": "Sök",
+					"en": "Dig Up"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 2,
+				"yield": [
+					{
+						"item": "madder",
+						"n": 2
+					}
+				],
+				"charges": 1,
+				"renew": "dawn",
+				"r": 0.3,
+				"h": 0.4,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "herb",
+					"leaf": "#5e7a46",
+					"tip": "#8d3722",
+					"depleted": "hide"
+				},
+				"pool": 20,
+				"act": 2
+			},
+			"node_poplar": {
+				"name": {
+					"tr": "Toğrak",
+					"en": "Desert Poplar"
+				},
+				"prompt": {
+					"tr": "Kes",
+					"en": "Fell"
+				},
+				"tool": "axe_bronze",
+				"action": "strike",
+				"hits": 5,
+				"yield": [
+					{
+						"item": "wood_poplar",
+						"n": 2
+					}
+				],
+				"charges": 1,
+				"renew": "perm",
+				"tree": true,
+				"r": 0.5,
+				"h": 8,
+				"block": true,
+				"noise": {
+					"axe": 24,
+					"knife": 24
+				},
+				"look": {
+					"geo": "broadleaf",
+					"leaf": "#7a7a3a",
+					"depleted": "stump"
+				},
+				"pool": 48,
+				"act": 4
+			},
+			"node_vein_tin": {
+				"name": {
+					"tr": "Kalay Damarı",
+					"en": "Tin Vein"
+				},
+				"prompt": {
+					"tr": "Kaz",
+					"en": "Mine"
+				},
+				"tool": "pick_iron",
+				"action": "strike",
+				"hits": 4,
+				"yield": [
+					{
+						"item": "ore_tin",
+						"n": 1
+					}
+				],
+				"charges": 3,
+				"renew": "dawn",
+				"ore": true,
+				"r": 0.9,
+				"h": 1.3,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "vein",
+					"ore": "#8a8a92",
+					"depleted": "dim"
+				},
+				"pool": 10,
+				"act": 4
+			},
+			"node_vein_turquoise": {
+				"name": {
+					"tr": "Firuze Damarı",
+					"en": "Turquoise Vein"
+				},
+				"prompt": {
+					"tr": "Kaz",
+					"en": "Mine"
+				},
+				"tool": "pick_iron",
+				"action": "strike",
+				"hits": 4,
+				"yield": [
+					{
+						"item": "turquoise_raw",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"ore": true,
+				"r": 0.9,
+				"h": 1.3,
+				"block": true,
+				"noise": {
+					"pick": 28
+				},
+				"look": {
+					"geo": "vein",
+					"ore": "#3aa6a0",
+					"depleted": "dim"
+				},
+				"pool": 10,
+				"act": 4
+			},
+			"node_placer_gold": {
+				"name": {
+					"tr": "Altın Kumu",
+					"en": "Placer Gold"
+				},
+				"prompt": {
+					"tr": "Yıka",
+					"en": "Pan"
+				},
+				"tool": null,
+				"action": "hold",
+				"holdS": 3,
+				"yield": [
+					{
+						"item": "gold_dust",
+						"n": 1
+					}
+				],
+				"charges": 2,
+				"renew": "dawn",
+				"r": 0.6,
+				"h": 0.2,
+				"noise": {
+					"hand": 3
+				},
+				"look": {
+					"geo": "hole",
+					"depleted": "dim"
+				},
+				"pool": 10,
+				"act": 4
+			}
+		},
+		"kind_ids": ["node_first_stones", "node_woodpile", "node_pine", "node_juniper", "node_willow", "node_deadfall", "node_resin", "node_mushroom", "node_rosehip", "node_buckthorn", "node_wormwood", "node_herb_sacred", "node_herb_sleep", "node_reed", "node_dung", "node_hay", "node_straw", "node_wool_bale", "node_kitchen_scraps", "node_milk", "node_bone_pile", "node_scree", "node_boulder", "node_vein_iron", "node_vein_copper", "node_bronze_find", "node_kiln", "node_clay", "node_salt", "node_ice_hole", "node_fish_spot", "node_fish_hole", "node_snare_spot", "node_pilfer", "node_stores_sack", "node_cache", "node_ground_pile", "node_camp_logs", "node_birch", "node_elm", "node_tamarisk", "node_saxaul", "node_larch", "node_quarry", "node_madder", "node_poplar", "node_vein_tin", "node_vein_turquoise", "node_placer_gold"],
+		"dynamic": ["node_fish_hole", "node_ground_pile", "node_cache"],
+		"nodes_v": 1,
+		"act1_nodes": [
+			{
+				"id": "a1_cut_yard",
+				"kind": "node_pine",
+				"at": [430, 10],
+				"r": 90,
+				"n": 420
+			},
+			{
+				"id": "a1_lightning_pine",
+				"kind": "node_pine",
+				"at": [470, 150],
+				"r": 70,
+				"n": 260
+			},
+			{
+				"id": "a1_slope",
+				"kind": "node_pine",
+				"at": [560, 120],
+				"r": 130,
+				"n": 520
+			},
+			{
+				"id": "a1_black_hills",
+				"kind": "node_pine",
+				"at": [770, -490],
+				"r": 120,
+				"n": 120
+			},
+			{
+				"id": "a1_juniper_ridge",
+				"kind": "node_juniper",
+				"at": [640, 180],
+				"r": 60,
+				"n": 70
+			},
+			{
+				"id": "a1_hunt_ledge",
+				"kind": "node_juniper",
+				"at": [720, -610],
+				"r": 50,
+				"n": 30
+			},
+			{
+				"id": "a1_west_reeds_willow",
+				"kind": "node_willow",
+				"at": [-50, -190],
+				"r": 60,
+				"n": 40
+			},
+			{
+				"id": "a1_ford_willow",
+				"kind": "node_willow",
+				"at": [140, -155],
+				"r": 50,
+				"n": 25
+			},
+			{
+				"id": "a1_reedbed_willow",
+				"kind": "node_willow",
+				"at": [320, -205],
+				"r": 70,
+				"n": 30
+			},
+			{
+				"id": "a1_bridge_willow",
+				"kind": "node_willow",
+				"at": [500, -230],
+				"r": 50,
+				"n": 20
+			},
+			{
+				"id": "a1_black_slope_brook",
+				"kind": "node_willow",
+				"at": [300, 60],
+				"r": 40,
+				"n": 30
+			},
+			{
+				"id": "a1_cut_yard_deadfall",
+				"kind": "node_deadfall",
+				"at": [430, 10],
+				"r": 110,
+				"n": 90
+			},
+			{
+				"id": "a1_slope_deadfall",
+				"kind": "node_deadfall",
+				"at": [560, 120],
+				"r": 130,
+				"n": 90
+			},
+			{
+				"id": "a1_juniper_deadfall",
+				"kind": "node_deadfall",
+				"at": [640, 180],
+				"r": 60,
+				"n": 20
+			},
+			{
+				"id": "a1_winter_camp_deadfall",
+				"kind": "node_deadfall",
+				"at": [-40, 50],
+				"r": 60,
+				"n": 10
+			},
+			{
+				"id": "a1_camp_east_deadfall",
+				"kind": "node_deadfall",
+				"at": [60, -40],
+				"r": 50,
+				"n": 6
+			},
+			{
+				"id": "a1_lightning_resin",
+				"kind": "node_resin",
+				"at": [470, 150],
+				"r": 70,
+				"n": 30
+			},
+			{
+				"id": "a1_slope_resin",
+				"kind": "node_resin",
+				"at": [560, 120],
+				"r": 130,
+				"n": 30
+			},
+			{
+				"id": "a1_lightning_fungus",
+				"kind": "node_mushroom",
+				"at": [470, 150],
+				"r": 70,
+				"n": 40
+			},
+			{
+				"id": "a1_slope_fungus",
+				"kind": "node_mushroom",
+				"at": [560, 120],
+				"r": 120,
+				"n": 40
+			},
+			{
+				"id": "a1_brook_rosehip",
+				"kind": "node_rosehip",
+				"at": [300, 60],
+				"r": 40,
+				"n": 14
+			},
+			{
+				"id": "a1_ridge_rosehip",
+				"kind": "node_rosehip",
+				"at": [640, 180],
+				"r": 60,
+				"n": 10
+			},
+			{
+				"id": "a1_upper_folds_rosehip",
+				"kind": "node_rosehip",
+				"at": [440, -475],
+				"r": 70,
+				"n": 12
+			},
+			{
+				"id": "a1_deer_stones_buckthorn",
+				"kind": "node_buckthorn",
+				"at": [-100, 135],
+				"r": 50,
+				"n": 14
+			},
+			{
+				"id": "a1_west_reeds_buckthorn",
+				"kind": "node_buckthorn",
+				"at": [-50, -190],
+				"r": 60,
+				"n": 12
+			},
+			{
+				"id": "a1_ford_buckthorn",
+				"kind": "node_buckthorn",
+				"at": [140, -155],
+				"r": 50,
+				"n": 8
+			},
+			{
+				"id": "a1_white_pasture_wormwood",
+				"kind": "node_wormwood",
+				"at": [170, -340],
+				"r": 160,
+				"n": 60
+			},
+			{
+				"id": "a1_offering_fold_wormwood",
+				"kind": "node_wormwood",
+				"at": [-90, 165],
+				"r": 60,
+				"n": 12
+			},
+			{
+				"id": "a1_deer_stones_sacred",
+				"kind": "node_herb_sacred",
+				"at": [-100, 135],
+				"r": 30,
+				"n": 10
+			},
+			{
+				"id": "a1_upper_folds_sleep",
+				"kind": "node_herb_sleep",
+				"at": [440, -475],
+				"r": 70,
+				"n": 10
+			},
+			{
+				"id": "a1_brook_sleep",
+				"kind": "node_herb_sleep",
+				"at": [300, 60],
+				"r": 40,
+				"n": 10
+			},
+			{
+				"id": "a1_west_reeds",
+				"kind": "node_reed",
+				"at": [-50, -190],
+				"r": 70,
+				"n": 160
+			},
+			{
+				"id": "a1_ford_reeds",
+				"kind": "node_reed",
+				"at": [140, -155],
+				"r": 60,
+				"n": 70
+			},
+			{
+				"id": "a1_reedbed",
+				"kind": "node_reed",
+				"at": [320, -205],
+				"r": 80,
+				"n": 120
+			},
+			{
+				"id": "a1_bridge_reeds",
+				"kind": "node_reed",
+				"at": [500, -230],
+				"r": 60,
+				"n": 60
+			},
+			{
+				"id": "a1_east_arm_reeds",
+				"kind": "node_reed",
+				"at": [760, -260],
+				"r": 60,
+				"n": 40
+			},
+			{
+				"id": "a1_salt_shore_reeds",
+				"kind": "node_reed",
+				"at": [-180, -510],
+				"r": 60,
+				"n": 40
+			},
+			{
+				"id": "a1_winter_camp_dung",
+				"kind": "node_dung",
+				"at": [0, 0],
+				"r": 90,
+				"n": 30
+			},
+			{
+				"id": "a1_white_pasture_dung",
+				"kind": "node_dung",
+				"at": [170, -340],
+				"r": 170,
+				"n": 140
+			},
+			{
+				"id": "a1_upper_folds_dung",
+				"kind": "node_dung",
+				"at": [440, -475],
+				"r": 70,
+				"n": 20
+			},
+			{
+				"id": "a1_shepherd_stop_hay",
+				"kind": "node_hay",
+				"at": [210, -250],
+				"r": 70,
+				"n": 40
+			},
+			{
+				"id": "a1_stable_hay",
+				"kind": "node_hay",
+				"at": [-84, 30],
+				"r": 8,
+				"n": 2
+			},
+			{
+				"id": "a1_fork_hay",
+				"kind": "node_hay",
+				"at": [300, -340],
+				"r": 60,
+				"n": 20
+			},
+			{
+				"id": "a1_upper_folds_straw",
+				"kind": "node_straw",
+				"at": [440, -475],
+				"r": 60,
+				"n": 24
+			},
+			{
+				"id": "a1_felt_yard_wool",
+				"kind": "node_wool_bale",
+				"at": [42, 42],
+				"r": 8,
+				"n": 3
+			},
+			{
+				"id": "a1_upper_folds_wool",
+				"kind": "node_wool_bale",
+				"at": [440, -475],
+				"r": 50,
+				"n": 4
+			},
+			{
+				"id": "a1_cliff_foot_scree",
+				"kind": "node_scree",
+				"at": [-20, -105],
+				"r": 18,
+				"n": 18
+			},
+			{
+				"id": "a1_iron_tooth_boulders",
+				"kind": "node_boulder",
+				"at": [-310, -100],
+				"r": 110,
+				"n": 40
+			},
+			{
+				"id": "a1_black_hills_boulders",
+				"kind": "node_boulder",
+				"at": [770, -490],
+				"r": 150,
+				"n": 70
+			},
+			{
+				"id": "a1_black_slope_boulders",
+				"kind": "node_boulder",
+				"at": [510, 90],
+				"r": 220,
+				"n": 60
+			},
+			{
+				"id": "a1_kurgans_boulders",
+				"kind": "node_boulder",
+				"at": [470, -308],
+				"r": 80,
+				"n": 12
+			},
+			{
+				"id": "a1_gallery_mouth_iron",
+				"kind": "node_vein_iron",
+				"at": [-300, -170],
+				"r": 28,
+				"n": 14
+			},
+			{
+				"id": "a1_black_hills_iron",
+				"kind": "node_vein_iron",
+				"at": [720, -560],
+				"r": 40,
+				"n": 12
+			},
+			{
+				"id": "a1_copper_vein",
+				"kind": "node_vein_copper",
+				"at": [-350, -150],
+				"r": 22,
+				"n": 10
+			},
+			{
+				"id": "a1_kurgans_bronze",
+				"kind": "node_bronze_find",
+				"at": [470, -308],
+				"r": 80,
+				"n": 6
+			},
+			{
+				"id": "a1_charcoal_kilns",
+				"kind": "node_kiln",
+				"at": [590, 30],
+				"r": 14,
+				"n": 3
+			},
+			{
+				"id": "a1_bellows_kiln",
+				"kind": "node_kiln",
+				"at": [-270, -90],
+				"r": 6,
+				"n": 1
+			},
+			{
+				"id": "a1_landing_clay",
+				"kind": "node_clay",
+				"at": [345, -192],
+				"r": 40,
+				"n": 8
+			},
+			{
+				"id": "a1_salt_crust",
+				"kind": "node_salt",
+				"at": [-180, -510],
+				"r": 40,
+				"n": 40
+			},
+			{
+				"id": "a1_ford_ice",
+				"kind": "node_ice_hole",
+				"at": [140, -155],
+				"r": 50,
+				"n": 12
+			},
+			{
+				"id": "a1_west_reeds_ice",
+				"kind": "node_ice_hole",
+				"at": [-50, -190],
+				"r": 60,
+				"n": 12
+			},
+			{
+				"id": "a1_reedbed_ice",
+				"kind": "node_ice_hole",
+				"at": [320, -205],
+				"r": 70,
+				"n": 10
+			},
+			{
+				"id": "a1_bridge_ice",
+				"kind": "node_ice_hole",
+				"at": [500, -230],
+				"r": 60,
+				"n": 6
+			},
+			{
+				"id": "a1_mirror_lake_ice",
+				"kind": "node_ice_hole",
+				"at": [-250, -500],
+				"r": 50,
+				"n": 12
+			},
+			{
+				"id": "a1_landing_fish",
+				"kind": "node_fish_spot",
+				"at": [345, -192],
+				"r": 40,
+				"n": 8
+			},
+			{
+				"id": "a1_ford_fish",
+				"kind": "node_fish_spot",
+				"at": [140, -155],
+				"r": 50,
+				"n": 8
+			},
+			{
+				"id": "a1_mirror_lake_fish",
+				"kind": "node_fish_spot",
+				"at": [-290, -500],
+				"r": 60,
+				"n": 10
+			},
+			{
+				"id": "a1_white_pasture_snares",
+				"kind": "node_snare_spot",
+				"at": [170, -340],
+				"r": 160,
+				"n": 16
+			},
+			{
+				"id": "a1_black_slope_snares",
+				"kind": "node_snare_spot",
+				"at": [510, 90],
+				"r": 200,
+				"n": 8
+			},
+			{
+				"id": "a1_first_stones",
+				"kind": "node_first_stones",
+				"at": [-14, -8]
+			},
+			{
+				"id": "a1_woodpile",
+				"kind": "node_woodpile",
+				"at": [78, 8]
+			},
+			{
+				"id": "a1_kitchen_scraps",
+				"kind": "node_kitchen_scraps",
+				"at": [28, 22]
+			},
+			{
+				"id": "a1_milk_pail",
+				"kind": "node_milk",
+				"at": [22, 18]
+			},
+			{
+				"id": "a1_hollow_bones",
+				"kind": "node_bone_pile",
+				"at": [92, 165]
+			},
+			{
+				"id": "a1_stores_seam",
+				"kind": "node_pilfer",
+				"at": [74, -24]
+			},
+			{
+				"id": "a1_stores_sack",
+				"kind": "node_stores_sack",
+				"at": [62, -12]
+			},
+			{
+				"id": "a1_stores_sack",
+				"kind": "node_stores_sack",
+				"at": [63.2, -12.4]
+			}
+		],
+		"camp_nodes": [
+			{
+				"id": "camp_logs",
+				"kind": "node_camp_logs",
+				"at": [6.12, -5.75]
+			}
+		]
+	},
+	"cases": [
+		{
+			"id": "hash32/0/0",
+			"fn": "hash32",
+			"in": [0, 0],
+			"out": 1418517484
+		},
+		{
+			"id": "hash32/1/0",
+			"fn": "hash32",
+			"in": [1, 0],
+			"out": 1744951230
+		},
+		{
+			"id": "hash32/0/1",
+			"fn": "hash32",
+			"in": [0, 1],
+			"out": 2508480445
+		},
+		{
+			"id": "hash32/42/1042",
+			"fn": "hash32",
+			"in": [42, 1042],
+			"out": 1580057821
+		},
+		{
+			"id": "hash32/3269/7",
+			"fn": "hash32",
+			"in": [3269, 7],
+			"out": 330143130
+		},
+		{
+			"id": "hash32/4294967295/0",
+			"fn": "hash32",
+			"in": [4294967295, 0],
+			"out": 1845989243
+		},
+		{
+			"id": "hash32/123456789/987654321",
+			"fn": "hash32",
+			"in": [123456789, 987654321],
+			"out": 576945096
+		},
+		{
+			"id": "hash32/7/-1",
+			"fn": "hash32",
+			"in": [7, -1],
+			"out": 76753030
+		},
+		{
+			"id": "hash32/2147483648/5",
+			"fn": "hash32",
+			"in": [2147483648, 5],
+			"out": 787032450
+		},
+		{
+			"id": "noise2/0/0",
+			"fn": "noise2",
+			"in": [0, 0],
+			"out": 0
+		},
+		{
+			"id": "fbm2/0/0",
+			"fn": "fbm2",
+			"in": [0, 0, 2],
+			"out": -0.06785974272000017
+		},
+		{
+			"id": "noise2/0.5/0.25",
+			"fn": "noise2",
+			"in": [0.5, 0.25],
+			"out": -0.534423828125
+		},
+		{
+			"id": "fbm2/0.5/0.25",
+			"fn": "fbm2",
+			"in": [0.5, 0.25, 2],
+			"out": -0.20934334440333288
+		},
+		{
+			"id": "noise2/12.9/-3.3",
+			"fn": "noise2",
+			"in": [12.9, -3.3],
+			"out": -0.2423324035200004
+		},
+		{
+			"id": "fbm2/12.9/-3.3",
+			"fn": "fbm2",
+			"in": [12.9, -3.3, 2],
+			"out": -0.24098745024000068
+		},
+		{
+			"id": "noise2/-100.25/47.5",
+			"fn": "noise2",
+			"in": [-100.25, 47.5],
+			"out": -0.465576171875
+		},
+		{
+			"id": "fbm2/-100.25/47.5",
+			"fn": "fbm2",
+			"in": [-100.25, 47.5, 2],
+			"out": -0.35765215596999916
+		},
+		{
+			"id": "noise2/13.37/2.71",
+			"fn": "noise2",
+			"in": [13.37, 2.71],
+			"out": 0.4134013883677585
+		},
+		{
+			"id": "fbm2/13.37/2.71",
+			"fn": "fbm2",
+			"in": [13.37, 2.71, 2],
+			"out": 0.31891483173630775
+		},
+		{
+			"id": "noise2/14.936/-1.697",
+			"fn": "noise2",
+			"in": [14.936, -1.697],
+			"out": -0.35478177068444294
+		},
+		{
+			"id": "fbm2/14.936/-1.697",
+			"fn": "fbm2",
+			"in": [14.936, -1.697, 2],
+			"out": -0.29286456140021044
+		},
+		{
+			"id": "rng/7002",
+			"fn": "rng",
+			"in": [7002, 6],
+			"out": [0.9247844768688083, 0.7968442442361265, 0.16347392206080258, 0.598349864827469, 0.17064476036466658, 0.9086893133353442]
+		},
+		{
+			"id": "base64/0",
+			"fn": "base64",
+			"in": [
+				[]
+			],
+			"out": ""
+		},
+		{
+			"id": "base64/1",
+			"fn": "base64",
+			"in": [
+				[1]
+			],
+			"out": "AQ=="
+		},
+		{
+			"id": "base64/2",
+			"fn": "base64",
+			"in": [
+				[1, 2]
+			],
+			"out": "AQI="
+		},
+		{
+			"id": "base64/4",
+			"fn": "base64",
+			"in": [
+				[1, 2, 3, 4]
+			],
+			"out": "AQIDBA=="
+		},
+		{
+			"id": "base64/5",
+			"fn": "base64",
+			"in": [
+				[255, 0, 128, 7, 9]
+			],
+			"out": "/wCABwk="
+		},
+		{
+			"id": "placement/hexi_winter",
+			"fn": "placement",
+			"in": ["hexi_winter", 0],
+			"out": {
+				"count": 3270,
+				"by_kind": {
+					"node_pine": 1320,
+					"node_juniper": 100,
+					"node_willow": 145,
+					"node_deadfall": 216,
+					"node_resin": 60,
+					"node_mushroom": 80,
+					"node_rosehip": 36,
+					"node_buckthorn": 34,
+					"node_wormwood": 72,
+					"node_herb_sacred": 10,
+					"node_herb_sleep": 20,
+					"node_reed": 490,
+					"node_dung": 190,
+					"node_hay": 62,
+					"node_straw": 24,
+					"node_wool_bale": 7,
+					"node_scree": 18,
+					"node_boulder": 182,
+					"node_vein_iron": 26,
+					"node_vein_copper": 10,
+					"node_bronze_find": 6,
+					"node_kiln": 4,
+					"node_clay": 8,
+					"node_salt": 40,
+					"node_ice_hole": 52,
+					"node_fish_spot": 26,
+					"node_snare_spot": 24,
+					"node_first_stones": 1,
+					"node_woodpile": 1,
+					"node_kitchen_scraps": 1,
+					"node_milk": 1,
+					"node_bone_pile": 1,
+					"node_pilfer": 1,
+					"node_stores_sack": 2
+				},
+				"hash": 307236395,
+				"sample": [
+					[0, "node_pine", 487.44036865234375, -27.588808059692383, 4.132343769073486, 0.8740004301071167, 79],
+					[1, "node_pine", 453.9755554199219, 30.11073875427246, 4.379443645477295, 1.1043241024017334, 132],
+					[2, "node_pine", 487.4458312988281, 7.357323169708252, 2.7212209701538086, 0.878316342830658, 32],
+					[3, "node_pine", 511.3853454589844, -3.3217668533325195, 2.578127861022949, 0.9304357171058655, 91],
+					[100, "node_pine", 382.75311279296875, -15.793252944946289, 3.661641836166382, 0.8640279769897461, 79],
+					[419, "node_pine", 456.4296569824219, -16.265424728393555, 0.43941062688827515, 1.0295636653900146, 196],
+					[420, "node_pine", 503.47705078125, 209.54698181152344, 0.1985163390636444, 0.8506465554237366, 118],
+					[500, "node_pine", 526.4866943359375, 186.2954864501953, 0.9838931560516357, 0.937984049320221, 5],
+					[1319, "node_pine", 760.2513427734375, -410.93475341796875, 2.3271737098693848, 0.8715870976448059, 70],
+					[1320, "node_juniper", 591.4796142578125, 149.15576171875, 3.9020256996154785, 1.1081814765930176, 72],
+					[1400, "node_juniper", 733.2108154296875, -631.2162475585938, 1.5489444732666016, 1.035435438156128, 238],
+					[1700, "node_deadfall", 584.6217651367188, 243.5074462890625, 3.021019697189331, 1.0885660648345947, 24],
+					[2000, "node_wormwood", 170.4087371826172, -334.9849853515625, 5.044857025146484, 1.1487655639648438, 140],
+					[2500, "node_reed", 490.9235534667969, -251.43775939941406, 5.63885498046875, 0.931915283203125, 129],
+					[3000, "node_boulder", 465.8442687988281, 193.05499267578125, 3.2638633251190186, 0.856227457523346, 94],
+					[3261, "node_snare_spot", 563.1968383789062, -87.69489288330078, 2.502019166946411, 0.8564915657043457, 145],
+					[3262, "node_first_stones", -14, -8, 6.221916198730469, 1.0528463125228882, 161],
+					[3269, "node_stores_sack", 63.20000076293945, -12.399999618530273, 0.08229755610227585, 0.875440239906311, 223]
+				],
+				"cx0": -500,
+				"cz0": -700,
+				"cw": 15,
+				"ch": 10,
+				"chunk_start": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 28, 28, 28, 28, 32, 61, 77, 77, 77, 77, 77, 81, 99, 99, 125, 175, 198, 199, 199, 199, 216, 252, 252, 270, 296, 316, 321, 360, 364, 385, 419, 449, 450, 450, 450, 450, 450, 450, 477, 501, 532, 545, 551, 556, 560, 572, 577, 577, 577, 577, 578, 581, 655, 676, 714, 785, 854, 892, 931, 931, 965, 968, 968, 968, 995, 1010, 1030, 1152, 1179, 1292, 1323, 1382, 1392, 1398, 1398, 1398, 1398, 1398, 1399, 1405, 1419, 1419, 1437, 1452, 1456, 1456, 1518, 1668, 1691, 1695, 1695, 1695, 1695, 1695, 1695, 1696, 1696, 1711, 1727, 1727, 1747, 1869, 2108, 2284, 2391, 2393, 2393, 2393, 2393, 2393, 2393, 2411, 2428, 2429, 2429, 2430, 2431, 2695, 2916, 3094, 3095, 3095, 3095, 3095, 3095, 3095, 3095, 3096, 3096, 3096, 3096, 3099, 3147, 3216, 3270, 3270, 3270, 3270],
+				"queries": [
+					[
+						[380, -40, 480, 60],
+						235,
+						[1, 5, 16, 20, 22, 23, 25, 27, 28, 29, 30, 32],
+						551410745
+					],
+					[
+						[-400, -600, -100, -300],
+						102,
+						[2543, 2544, 2545, 2546, 2547, 2548, 2549, 2550, 2551, 2552, 2553, 2554],
+						299111979
+					],
+					[
+						[0, 0, 1, 1],
+						0,
+						[],
+						0
+					],
+					[
+						[-60, -200, 160, -140],
+						147,
+						[1433, 1434, 1437, 1442, 1443, 1448, 1453, 1454, 1460, 1461, 1462, 1467],
+						316322927
+					]
+				]
+			}
+		},
+		{
+			"id": "placement/seed1",
+			"fn": "placement_seed",
+			"in": [
+				"hexi_winter",
+				1,
+				[0, 500, 1320, 3000]
+			],
+			"out": [
+				[407.9722900390625, 59.35707092285156, 242],
+				[463.52789306640625, 218.66893005371094, 11],
+				[606.871826171875, 160.6861572265625, 163],
+				[614.2122802734375, 276.248291015625, 200]
+			]
+		},
+		{
+			"id": "placement/reject",
+			"fn": "placement_reject",
+			"in": [
+				[-5, -5, 5, 5],
+				3
+			],
+			"out": [
+				[8.317680358886719, -0.5877813100814819],
+				[-5.097206115722656, 1.0162553787231445],
+				[5.634849548339844, 5.236277103424072],
+				[2.9719276428222656, 5.5485520362854],
+				[-1.4993315935134888, 5.450229167938232],
+				[0.1616194099187851, 6.981459617614746],
+				[-7.205373287200928, -0.873701274394989],
+				[-5.798092365264893, 10.445290565490723],
+				[8.410440444946289, -6.146401405334473],
+				[4.665609836578369, 9.675325393676758],
+				[5.3450846672058105, -1.755277395248413],
+				[6.549333095550537, 2.4618184566497803],
+				[-5.7404985427856445, 4.862578868865967],
+				[6.741552829742432, 2.5203640460968018],
+				[8.409185409545898, -1.0620633363723755],
+				[-8.160844802856445, 2.9091460704803467],
+				[9.447487831115723, 4.790142059326172],
+				[8.063942909240723, -3.5676798820495605],
+				[0.9410409331321716, 8.366279602050781],
+				[-10.401830673217773, 1.7384614944458008],
+				[-7.006939888000488, 9.557419776916504],
+				[-6.234598159790039, 7.050572872161865],
+				[-4.331862926483154, 10.809311866760254],
+				[5.3852643966674805, 3.561793327331543],
+				[-9.793920516967773, 4.781589508056641],
+				[9.492574691772461, 4.882395267486572],
+				[6.719598770141602, 5.134201526641846],
+				[-6.926927089691162, 5.8210930824279785],
+				[-9.527918815612793, 4.474615573883057],
+				[-8.309581756591797, -3.329253911972046],
+				[22.80101203918457, -5.243287563323975],
+				[18.300006866455078, 0.8359672427177429],
+				[23.343137741088867, -0.6189873218536377],
+				[16.473342895507812, 3.8334596157073975],
+				[15.999701499938965, -3.9947822093963623],
+				[19.712055206298828, -3.841073513031006],
+				[17.46586799621582, -1.4343326091766357],
+				[14.412089347839355, -1.428539514541626]
+			]
+		},
+		{
+			"id": "store/consume_dawn",
+			"fn": "consume_dawn",
+			"in": [
+				{
+					"pine": 0,
+					"reed": 2093,
+					"juniper": 1320,
+					"boulder": 2884,
+					"woodpile": 3263
+				}
+			],
+			"out": {
+				"log": [
+					["consume", 0, 0],
+					["consume", 2093, 2],
+					["consume", 2093, 1],
+					["consume", 2093, 0],
+					["consume", 1320, 2],
+					["consume", 1320, 1],
+					["consume", 1320, 1],
+					["hit", 1320, 1],
+					["hit", 1320, 2],
+					["consume", 1320, 2],
+					["consume", 1320, 1],
+					["consume", 1320, 1],
+					["consume", 1320, 0]
+				],
+				"before": {
+					"perm": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA==",
+					"part": [
+						[2884, 2]
+					],
+					"day": [
+						[1320, 1, 2, 1],
+						[2093, 0]
+					],
+					"seq": [],
+					"struck": []
+				},
+				"renewed": 2,
+				"after": {
+					"perm": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA==",
+					"part": [
+						[2884, 2]
+					],
+					"day": [],
+					"seq": [],
+					"struck": []
+				},
+				"final": {
+					"perm": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA==",
+					"part": [
+						[2884, 2]
+					],
+					"day": [],
+					"seq": [],
+					"struck": []
+				},
+				"states": [
+					[0, 3, false],
+					[3, 0, true],
+					[0, 7, false],
+					[2, 0, true],
+					[0, 3, false]
+				]
+			}
+		},
+		{
+			"id": "store/dawn_weather",
+			"fn": "dawn_weather",
+			"in": [1042, 1043],
+			"out": {
+				"dry": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0],
+				"wet": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+			}
+		},
+		{
+			"id": "store/save",
+			"fn": "save",
+			"in": [
+				{
+					"pines": 40
+				}
+			],
+			"out": {
+				"saved": {
+					"perm": "//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+					"part": [
+						[2884, 3]
+					],
+					"day": [
+						[1320, 1, 1, 1],
+						[2093, 2],
+						[2100, 3, 1]
+					],
+					"seq": [
+						[3264, 2]
+					],
+					"struck": [500]
+				},
+				"stale": {
+					"perm": "//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+					"part": [
+						[2884, 3]
+					],
+					"day": [],
+					"seq": [
+						[3264, 2]
+					],
+					"struck": [500]
+				},
+				"broken": {
+					"perm": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+					"part": [],
+					"day": [],
+					"seq": [],
+					"struck": []
+				}
+			}
+		},
+		{
+			"id": "store/apply_taken",
+			"fn": "apply_taken",
+			"in": ["a1_cut_yard", 100],
+			"out": {
+				"taken": 100,
+				"perm_once": "wJIkBKgAQYBEkIQUC8goYAgqQEQ5eDiEAQRA1MAYpKEQEkYBEMBECJBgAAACBtEgRACIRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+				"same_again": true,
+				"order_head": [180, 386, 137, 255, 163, 235, 310, 302, 186, 353, 273, 230, 111, 35, 274, 361, 18, 15, 87, 139, 126, 231, 268, 260, 92, 174, 6, 66, 97, 315],
+				"order_len": 420,
+				"order_sum": 298009406,
+				"reed_order": [2237, 2250, 2247, 2147, 2144, 2231, 2125, 2167, 2213, 2119, 2111, 2115],
+				"reed_json": [
+					[2119, 0],
+					[2125, 0],
+					[2144, 0],
+					[2147, 0],
+					[2167, 0],
+					[2213, 0],
+					[2231, 0],
+					[2237, 0],
+					[2247, 0],
+					[2250, 0]
+				],
+				"willow": [1474, 7, 1467, 4, 1],
+				"unknown": 0,
+				"by_kind": [937, 803, 1004, 835, 684, 770, 1016, 990]
+			}
+		},
+		{
+			"id": "strike_t/1/1/false",
+			"fn": "strike_t",
+			"in": [1, 1, false],
+			"out": 1
+		},
+		{
+			"id": "strike_t/1/1.12/false",
+			"fn": "strike_t",
+			"in": [1, 1.12, false],
+			"out": 0.8928571428571428
+		},
+		{
+			"id": "strike_t/1.1/1/false",
+			"fn": "strike_t",
+			"in": [1.1, 1, false],
+			"out": 1.1
+		},
+		{
+			"id": "strike_t/1/1/true",
+			"fn": "strike_t",
+			"in": [1, 1, true],
+			"out": 1.5
+		},
+		{
+			"id": "strike_t/1.1/0.88/true",
+			"fn": "strike_t",
+			"in": [1.1, 0.88, true],
+			"out": 1.875
+		},
+		{
+			"id": "strike_t/1/0.05/false",
+			"fn": "strike_t",
+			"in": [1, 0.05, false],
+			"out": 10
+		},
+		{
+			"id": "ring_window/null/1/off",
+			"fn": "ring_window",
+			"in": [null, 1, "off"],
+			"out": 0.18
+		},
+		{
+			"id": "ring_window/0.3/1/off",
+			"fn": "ring_window",
+			"in": [0.3, 1, "off"],
+			"out": 0.3
+		},
+		{
+			"id": "ring_window/null/1.3/off",
+			"fn": "ring_window",
+			"in": [null, 1.3, "off"],
+			"out": 0.23399999999999999
+		},
+		{
+			"id": "ring_window/null/0.8/off",
+			"fn": "ring_window",
+			"in": [null, 0.8, "off"],
+			"out": 0.144
+		},
+		{
+			"id": "ring_window/null/1/wide",
+			"fn": "ring_window",
+			"in": [null, 1, "wide"],
+			"out": 0.27
+		},
+		{
+			"id": "ring_window/0.3/0.8/wide",
+			"fn": "ring_window",
+			"in": [0.3, 0.8, "wide"],
+			"out": 0.36
+		},
+		{
+			"id": "ring_window/null/1.3/auto",
+			"fn": "ring_window",
+			"in": [null, 1.3, "auto"],
+			"out": 0.23399999999999999
+		},
+		{
+			"id": "ring_judge/0.72/1/0.18",
+			"fn": "ring_judge",
+			"in": [0.72, 1, 0.18],
+			"out": true
+		},
+		{
+			"id": "ring_judge/0.81/1/0.18",
+			"fn": "ring_judge",
+			"in": [0.81, 1, 0.18],
+			"out": true
+		},
+		{
+			"id": "ring_judge/0.82/1/0.18",
+			"fn": "ring_judge",
+			"in": [0.82, 1, 0.18],
+			"out": false
+		},
+		{
+			"id": "ring_judge/0.62/1/0.18",
+			"fn": "ring_judge",
+			"in": [0.62, 1, 0.18],
+			"out": false
+		},
+		{
+			"id": "ring_judge/0.63/1/0.18",
+			"fn": "ring_judge",
+			"in": [0.63, 1, 0.18],
+			"out": true
+		},
+		{
+			"id": "ring_judge/1.584/2/0.18",
+			"fn": "ring_judge",
+			"in": [1.584, 2, 0.18],
+			"out": false
+		},
+		{
+			"id": "ring_judge/0.792/1.1/0.3",
+			"fn": "ring_judge",
+			"in": [0.792, 1.1, 0.3],
+			"out": true
+		},
+		{
+			"id": "strike_hits/all",
+			"fn": "strike_hits",
+			"in": [],
+			"out": {
+				"node_woodpile|": 2,
+				"node_woodpile|axe_bronze": 2,
+				"node_woodpile|axe_iron": 2,
+				"node_woodpile|pick_bronze": 2,
+				"node_woodpile|pick_iron": 2,
+				"node_woodpile|knife_iron": 2,
+				"node_woodpile|site_axe": 2,
+				"node_woodpile|site_wedge": 2,
+				"node_pine|": 5,
+				"node_pine|axe_bronze": 5,
+				"node_pine|axe_iron": 4,
+				"node_pine|pick_bronze": 5,
+				"node_pine|pick_iron": 4,
+				"node_pine|knife_iron": 4,
+				"node_pine|site_axe": 5,
+				"node_pine|site_wedge": 5,
+				"node_juniper.then|": 5,
+				"node_juniper.then|axe_bronze": 5,
+				"node_juniper.then|axe_iron": 4,
+				"node_juniper.then|pick_bronze": 5,
+				"node_juniper.then|pick_iron": 4,
+				"node_juniper.then|knife_iron": 4,
+				"node_juniper.then|site_axe": 5,
+				"node_juniper.then|site_wedge": 5,
+				"node_willow.then|": 3,
+				"node_willow.then|axe_bronze": 3,
+				"node_willow.then|axe_iron": 2,
+				"node_willow.then|pick_bronze": 3,
+				"node_willow.then|pick_iron": 2,
+				"node_willow.then|knife_iron": 2,
+				"node_willow.then|site_axe": 3,
+				"node_willow.then|site_wedge": 3,
+				"node_scree|": 3,
+				"node_scree|axe_bronze": 3,
+				"node_scree|axe_iron": 3,
+				"node_scree|pick_bronze": 3,
+				"node_scree|pick_iron": 3,
+				"node_scree|knife_iron": 3,
+				"node_scree|site_axe": 3,
+				"node_scree|site_wedge": 3,
+				"node_boulder|": 3,
+				"node_boulder|axe_bronze": 3,
+				"node_boulder|axe_iron": 2,
+				"node_boulder|pick_bronze": 3,
+				"node_boulder|pick_iron": 2,
+				"node_boulder|knife_iron": 2,
+				"node_boulder|site_axe": 3,
+				"node_boulder|site_wedge": 3,
+				"node_vein_iron|": 5,
+				"node_vein_iron|axe_bronze": 5,
+				"node_vein_iron|axe_iron": 4,
+				"node_vein_iron|pick_bronze": 5,
+				"node_vein_iron|pick_iron": 4,
+				"node_vein_iron|knife_iron": 4,
+				"node_vein_iron|site_axe": 5,
+				"node_vein_iron|site_wedge": 5,
+				"node_vein_copper|": 5,
+				"node_vein_copper|axe_bronze": 5,
+				"node_vein_copper|axe_iron": 4,
+				"node_vein_copper|pick_bronze": 5,
+				"node_vein_copper|pick_iron": 4,
+				"node_vein_copper|knife_iron": 4,
+				"node_vein_copper|site_axe": 5,
+				"node_vein_copper|site_wedge": 5,
+				"node_birch|": 5,
+				"node_birch|axe_bronze": 5,
+				"node_birch|axe_iron": 4,
+				"node_birch|pick_bronze": 5,
+				"node_birch|pick_iron": 4,
+				"node_birch|knife_iron": 4,
+				"node_birch|site_axe": 5,
+				"node_birch|site_wedge": 5,
+				"node_elm|": 6,
+				"node_elm|axe_bronze": 6,
+				"node_elm|axe_iron": 5,
+				"node_elm|pick_bronze": 6,
+				"node_elm|pick_iron": 5,
+				"node_elm|knife_iron": 5,
+				"node_elm|site_axe": 6,
+				"node_elm|site_wedge": 6,
+				"node_tamarisk|": 3,
+				"node_tamarisk|axe_bronze": 3,
+				"node_tamarisk|axe_iron": 2,
+				"node_tamarisk|pick_bronze": 3,
+				"node_tamarisk|pick_iron": 2,
+				"node_tamarisk|knife_iron": 2,
+				"node_tamarisk|site_axe": 3,
+				"node_tamarisk|site_wedge": 3,
+				"node_saxaul|": 4,
+				"node_saxaul|axe_bronze": 4,
+				"node_saxaul|axe_iron": 3,
+				"node_saxaul|pick_bronze": 4,
+				"node_saxaul|pick_iron": 3,
+				"node_saxaul|knife_iron": 3,
+				"node_saxaul|site_axe": 4,
+				"node_saxaul|site_wedge": 4,
+				"node_larch|": 6,
+				"node_larch|axe_bronze": 6,
+				"node_larch|axe_iron": 5,
+				"node_larch|pick_bronze": 6,
+				"node_larch|pick_iron": 5,
+				"node_larch|knife_iron": 5,
+				"node_larch|site_axe": 6,
+				"node_larch|site_wedge": 6,
+				"node_quarry|": 3,
+				"node_quarry|axe_bronze": 3,
+				"node_quarry|axe_iron": 2,
+				"node_quarry|pick_bronze": 3,
+				"node_quarry|pick_iron": 2,
+				"node_quarry|knife_iron": 2,
+				"node_quarry|site_axe": 3,
+				"node_quarry|site_wedge": 3,
+				"node_poplar|": 5,
+				"node_poplar|axe_bronze": 5,
+				"node_poplar|axe_iron": 4,
+				"node_poplar|pick_bronze": 5,
+				"node_poplar|pick_iron": 4,
+				"node_poplar|knife_iron": 4,
+				"node_poplar|site_axe": 5,
+				"node_poplar|site_wedge": 5,
+				"node_vein_tin|": 4,
+				"node_vein_tin|axe_bronze": 4,
+				"node_vein_tin|axe_iron": 4,
+				"node_vein_tin|pick_bronze": 4,
+				"node_vein_tin|pick_iron": 4,
+				"node_vein_tin|knife_iron": 4,
+				"node_vein_tin|site_axe": 4,
+				"node_vein_tin|site_wedge": 4,
+				"node_vein_turquoise|": 4,
+				"node_vein_turquoise|axe_bronze": 4,
+				"node_vein_turquoise|axe_iron": 4,
+				"node_vein_turquoise|pick_bronze": 4,
+				"node_vein_turquoise|pick_iron": 4,
+				"node_vein_turquoise|knife_iron": 4,
+				"node_vein_turquoise|site_axe": 4,
+				"node_vein_turquoise|site_wedge": 4
+			}
+		},
+		{
+			"id": "scenario/pine_held",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 5.3,
+							"held": true
+						},
+						{
+							"run": 0.2
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 3
+				},
+				"hits": [0, 0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 3, "node_pine", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 75,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/tap_once_then_move",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 1.1
+						},
+						{
+							"act": "tap"
+						},
+						{
+							"run": 0.3
+						},
+						{
+							"run": 0.6,
+							"axis": [1, 0]
+						},
+						{
+							"dawn": 2
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [0],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false]
+				],
+				"judged": [],
+				"stamina": 95,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/clean_last_strikes",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "p",
+							"kind": "node_pine",
+							"at": [1, 0]
+						},
+						{
+							"id": "q",
+							"kind": "node_pine",
+							"at": [0, 1]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "tap",
+							"i": 0
+						},
+						{
+							"run": 5.2,
+							"held": true,
+							"press": [0.72]
+						},
+						{
+							"run": 0.2
+						},
+						{
+							"act": "tap",
+							"i": 1
+						},
+						{
+							"run": 5.2,
+							"held": true,
+							"press": [0.72]
+						},
+						{
+							"run": 0.2
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 7
+				},
+				"hits": [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+				"yields": [
+					["wood_pine", 3, "node_pine", 0, true],
+					["wood_pine", 4, "node_pine", 0, true]
+				],
+				"depleted": [0, 1],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [true, true, true, true, true, true, true, true, true, true],
+				"stamina": 75,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0, 0],
+				"flags": [3, 3],
+				"store_hits": [0, 0]
+			}
+		},
+		{
+			"id": "scenario/held_no_clean",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 5.3,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 3
+				},
+				"hits": [0, 0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 3, "node_pine", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 75,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/miss_early",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 1.1,
+							"press": [0.5]
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [0],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false]
+				],
+				"judged": [false],
+				"stamina": 95,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [1]
+			}
+		},
+		{
+			"id": "scenario/skill_window",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"mods": {
+						"strikeWindow": 0.3,
+						"cleanBonus": 1
+					},
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 5.2,
+							"held": true,
+							"press": [0.72]
+						},
+						{
+							"run": 0.2
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 4
+				},
+				"hits": [0, 0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 4, "node_pine", 0, true]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.3, false],
+					[1, 0.3, false],
+					[1, 0.3, false],
+					[1, 0.3, false],
+					[1, 0.3, true]
+				],
+				"judged": [true, true, true, true, true],
+				"stamina": 87.5,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/assist_wide_story",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"assist": "wide",
+					"diff": "story",
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 0.1
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [
+					[1, 0.351, false]
+				],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "swing",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/assist_auto",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "p",
+							"kind": "node_pine",
+							"at": [1, 0]
+						},
+						{
+							"id": "q",
+							"kind": "node_pine",
+							"at": [0, 1]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"assist": "auto",
+					"mods": {
+						"cleanBonus": 1
+					},
+					"steps": [
+						{
+							"act": "tap",
+							"i": 0
+						},
+						{
+							"run": 5.2,
+							"held": true
+						},
+						{
+							"run": 0.2
+						},
+						{
+							"act": "tap",
+							"i": 1
+						},
+						{
+							"run": 5.2,
+							"held": true
+						},
+						{
+							"run": 0.2
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 7
+				},
+				"hits": [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+				"yields": [
+					["wood_pine", 3, "node_pine", 0, true],
+					["wood_pine", 4, "node_pine", 0, true]
+				],
+				"depleted": [0, 1],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [true, true],
+				"stamina": 55,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0, 0],
+				"flags": [3, 3],
+				"store_hits": [0, 0]
+			}
+		},
+		{
+			"id": "scenario/first_ring_half_speed",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"seen": false,
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 2.1
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [0],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [
+					[2, 0.18, false]
+				],
+				"judged": [],
+				"stamina": 95,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [1]
+			}
+		},
+		{
+			"id": "scenario/tired",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"sta": 0
+						},
+						{
+							"act": "tap"
+						},
+						{
+							"run": 1.6
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [0],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 0,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [1]
+			}
+		},
+		{
+			"id": "scenario/iron_axe",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_iron"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 4.3,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 3
+				},
+				"hits": [0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 3, "node_pine", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 80,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/no_tool",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 1
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {},
+				"hits": [],
+				"yields": [],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/pile_overflow",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pine",
+							"kind": "node_pine",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"cap": 1,
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 5.3,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 1
+				},
+				"hits": [0, 0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 3, "node_pine", 2, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 75,
+				"axes": [],
+				"ledger": [],
+				"toasts": 1,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/reed_hold",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_reed",
+							"kind": "node_reed",
+							"at": [1, 0]
+						}
+					],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "cancel"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"run": 1
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "tap"
+						},
+						{
+							"run": 2.1
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"reed": 4
+				},
+				"hits": [],
+				"yields": [
+					["reed", 2, "node_reed", 0, false],
+					["reed", 2, "node_reed", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/kitchen_scraps_three_days",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_kitchen_scraps",
+							"kind": "node_kitchen_scraps",
+							"at": [1, 0]
+						}
+					],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"dawn": 0
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"dawn": 1
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"bone": 4,
+					"hide": 3,
+					"horn": 1,
+					"sinew": 1
+				},
+				"hits": [],
+				"yields": [
+					["bone", 1, "node_kitchen_scraps", 0, false],
+					["hide", 1, "node_kitchen_scraps", 0, false],
+					["sinew", 1, "node_kitchen_scraps", 0, false],
+					["bone", 1, "node_kitchen_scraps", 0, false],
+					["hide", 1, "node_kitchen_scraps", 0, false],
+					["bone", 1, "node_kitchen_scraps", 0, false],
+					["hide", 1, "node_kitchen_scraps", 0, false],
+					["horn", 1, "node_kitchen_scraps", 0, false],
+					["bone", 1, "node_kitchen_scraps", 0, false]
+				],
+				"depleted": [0, 0, 0],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [2],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/fish_seq",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_fish_spot",
+							"kind": "node_fish_spot",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["net"],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"fish": 3
+				},
+				"hits": [],
+				"yields": [
+					["fish", 1, "node_fish_spot", 0, false],
+					["fish", 2, "node_fish_spot", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [2],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/ice_hole_net_then_ice",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_ice_hole",
+							"kind": "node_ice_hole",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["net"],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"fish": 1,
+					"waterskin": 1
+				},
+				"hits": [],
+				"yields": [
+					["fish", 1, "node_ice_hole", 0, false],
+					["waterskin", 1, "node_ice_hole", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/night_noise",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "p",
+							"kind": "node_pine",
+							"at": [1, 0]
+						},
+						{
+							"id": "r",
+							"kind": "node_reed",
+							"at": [0, 1]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"dark": true,
+					"steps": [
+						{
+							"act": "tap",
+							"i": 0
+						},
+						{
+							"run": 1
+						},
+						{
+							"act": "start",
+							"i": 1
+						},
+						{
+							"act": "complete",
+							"i": 1
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"reed": 2
+				},
+				"hits": [0],
+				"yields": [
+					["reed", 2, "node_reed", 0, false]
+				],
+				"depleted": [],
+				"noise": [24, 3],
+				"rings": [
+					[1, 0.18, false]
+				],
+				"judged": [],
+				"stamina": 95,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1, 2],
+				"flags": [0, 0],
+				"store_hits": [1, 0]
+			}
+		},
+		{
+			"id": "scenario/night_quiet_foot",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_reed",
+							"kind": "node_reed",
+							"at": [1, 0]
+						}
+					],
+					"dark": true,
+					"foot": 4,
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"reed": 2
+				},
+				"hits": [],
+				"yields": [
+					["reed", 2, "node_reed", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [2],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/dung_after_rain",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_dung",
+							"kind": "node_dung",
+							"at": [1, 0]
+						}
+					],
+					"yieldK": 0.5,
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"dung": 1
+				},
+				"hits": [],
+				"yields": [
+					["dung", 1, "node_dung", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [2],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/pilfer_over",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pilfer",
+							"kind": "node_pilfer",
+							"at": [1, 0]
+						}
+					],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"millet": 2
+				},
+				"hits": [],
+				"yields": [
+					["millet", 1, "node_pilfer", 0, false],
+					["millet", 1, "node_pilfer", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [
+					["trust", -4]
+				],
+				"ledger": [],
+				"toasts": 1,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/pilfer_ledger_eye",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_pilfer",
+							"kind": "node_pilfer",
+							"at": [1, 0]
+						}
+					],
+					"mods": {
+						"hiddenPilfer": 1
+					},
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"millet": 2
+				},
+				"hits": [],
+				"yields": [
+					["millet", 1, "node_pilfer", 0, false],
+					["millet", 1, "node_pilfer", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [1],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/stores_sack",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_stores_sack",
+							"kind": "node_stores_sack",
+							"at": [1, 0]
+						}
+					],
+					"cond": {
+						"a1_last_night": true
+					},
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"qurt": 6
+				},
+				"hits": [],
+				"yields": [
+					["qurt", 6, "node_stores_sack", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [],
+				"judged": [],
+				"stamina": 100,
+				"axes": [],
+				"ledger": [
+					["food", -3]
+				],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/juniper_stages",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_juniper",
+							"kind": "node_juniper",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["axe_bronze"],
+					"steps": [
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "start"
+						},
+						{
+							"act": "complete"
+						},
+						{
+							"act": "tap"
+						},
+						{
+							"run": 5.3,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"sprig_juniper": 6,
+					"wood_juniper": 2
+				},
+				"hits": [0, 0, 0, 0, 0],
+				"yields": [
+					["sprig_juniper", 2, "node_juniper", 0, false],
+					["sprig_juniper", 2, "node_juniper", 0, false],
+					["sprig_juniper", 2, "node_juniper", 0, false],
+					["wood_juniper", 2, "node_juniper", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, false],
+					[1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 75,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [7],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/ore_bonus_every",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_vein_iron",
+							"kind": "node_vein_iron",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["pick_bronze"],
+					"mods": {
+						"oreBonusEvery": 2
+					},
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 16.6,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"ore_iron": 4
+				},
+				"hits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				"yields": [
+					["ore_iron", 1, "node_vein_iron", 0, false],
+					["ore_iron", 2, "node_vein_iron", 0, false],
+					["ore_iron", 1, "node_vein_iron", 0, false]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true]
+				],
+				"judged": [],
+				"stamina": 10,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [2],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/boulder_pick",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_boulder",
+							"kind": "node_boulder",
+							"at": [1, 0]
+						}
+					],
+					"tools": ["pick_bronze"],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 13.5,
+							"held": true,
+							"press": [0.792]
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"stone": 6
+				},
+				"hits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				"yields": [
+					["stone", 1, "node_boulder", 0, true],
+					["stone", 2, "node_boulder", 0, true],
+					["stone", 1, "node_boulder", 0, true],
+					["stone", 2, "node_boulder", 0, true]
+				],
+				"depleted": [0],
+				"noise": [],
+				"rings": [
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true],
+					[1.1, 0.18, false],
+					[1.1, 0.18, false],
+					[1.1, 0.18, true]
+				],
+				"judged": [true, true, true, true, true, true, true, true, true, true, true, true],
+				"stamina": 64,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "idle",
+				"charges": [0],
+				"flags": [3],
+				"store_hits": [0]
+			}
+		},
+		{
+			"id": "scenario/woodpile_fixed",
+			"fn": "scenario",
+			"in": [
+				{
+					"nodes": [
+						{
+							"id": "node_woodpile",
+							"kind": "node_woodpile",
+							"at": [1, 0]
+						}
+					],
+					"steps": [
+						{
+							"act": "tap"
+						},
+						{
+							"run": 6.1,
+							"held": true
+						}
+					]
+				}
+			],
+			"out": {
+				"items": {
+					"wood_pine": 3
+				},
+				"hits": [0, 0, 0, 0, 0, 0],
+				"yields": [
+					["wood_pine", 1, "node_woodpile", 0, false],
+					["wood_pine", 1, "node_woodpile", 0, false],
+					["wood_pine", 1, "node_woodpile", 0, false]
+				],
+				"depleted": [],
+				"noise": [],
+				"rings": [
+					[1, 0.18, false],
+					[1, 0.18, true],
+					[1, 0.18, false],
+					[1, 0.18, true],
+					[1, 0.18, false],
+					[1, 0.18, true],
+					[1, 0.18, false]
+				],
+				"judged": [],
+				"stamina": 70,
+				"axes": [],
+				"ledger": [],
+				"toasts": 0,
+				"state": "swing",
+				"charges": [13],
+				"flags": [0],
+				"store_hits": [0]
+			}
+		}
+	]
+}

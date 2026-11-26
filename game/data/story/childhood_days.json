@@ -1,0 +1,11 @@
+{
+	"id": "childhood_days",
+	"version": 1,
+	"doc": "Çocukluk'un günleri (E21, K110; story.md §5 «İki yeni gün»; docs/design/d3/e21-childhood-api.md §1). ChildhoodDays (scripts/story/childhood_days.gd) okur, main.gd sırayla oynatır: her gün bir ChildhoodScene dosyasıdır, gün bitince sıradaki aynı Ordos dünyasında açılır (dünya, sürü ve iki binek koyun yerinde kalır, kişiler yeni günün verisinden kurulur). card false olan gün aynı akşamın devamıdır: kısa kararma, kart yok; öteki günler kara perdede kendi date kartıyla açılır. Dosyası olmayan ya da adımsız gün atlanır. Takvim her günün day_n'idir (K67, yalnız ileri): 20 Eylül MÖ 228 −5.602, 21 Eylül −5.601, 22 Eylül (sayım günü) −5.600. «Çocukluğu geç» bütün günleri birlikte atlar.",
+	"days": [
+		{"id": "day1_flock", "path": "res://data/story/childhood_days/day1_flock.json", "doc": "20 Eylül sabahtan akşamüstüne: «Çobanlık» (Ç1)"},
+		{"id": "day1_bone", "path": "res://data/story/childhood_days/day1_bone.json", "card": false, "doc": "20 Eylül akşamı, dolunay doğarken: «Ak Kemik» (Ç2)"},
+		{"id": "day2_tally", "path": "res://data/story/childhood_days/day2_tally.json", "doc": "21 Eylül sabahtan öğleye: «Ebenin Çetelesi» (Ç2)"},
+		{"id": "count", "path": "res://data/story/childhood/scene.json", "doc": "22 Eylül: sayım günü «Koyun Sırtında» (değişmez)"}
+	]
+}

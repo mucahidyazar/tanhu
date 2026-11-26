@@ -1,0 +1,15 @@
+{
+  "id": "camp_night_drone",
+  "kind": "music",
+  "instrument": "drone",
+  "drone": "low",
+  "tempo": 46,
+  "bars": 8,
+  "mode": "d_dorian",
+  "seed": 4601,
+  "rate": 22050,
+  "loop": true,
+  "fold": 2.0,
+  "source": "code",
+  "note": "camp_night'ın 0. katmanı: alçak D2 dronu, sıgıtsız. Kamp bankası (data/audio/banks/camp.json); kulak onayı bekler (Karar Bekleyenler), onaya dek menü ElevenLabs parçasını çalar."
+}

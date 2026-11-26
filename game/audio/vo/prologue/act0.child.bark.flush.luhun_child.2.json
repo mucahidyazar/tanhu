@@ -1,0 +1,15 @@
+{
+	"id": "act0.child.bark.flush.luhun_child.2",
+	"take": 0,
+	"seed": 1876149182,
+	"hash": "6fd3c3be5827",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.44,
+	"words": [
+		{"w": "Keep", "t0": 0.0, "t1": 0.24},
+		{"w": "low,", "t0": 0.3, "t1": 0.56},
+		{"w": "keep", "t0": 0.608, "t1": 0.8},
+		{"w": "low.", "t0": 0.88, "t1": 1.44}
+	]
+}

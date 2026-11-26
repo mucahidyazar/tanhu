@@ -1,0 +1,14 @@
+{
+	"id": "act0.bone.other_won",
+	"take": 0,
+	"seed": 3489344824,
+	"hash": "cffb2d386891",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.04,
+	"words": [
+		{"w": "I", "t0": 0.0, "t1": 0.16},
+		{"w": "made", "t0": 0.208, "t1": 0.4},
+		{"w": "it!", "t0": 0.48, "t1": 1.04}
+	]
+}

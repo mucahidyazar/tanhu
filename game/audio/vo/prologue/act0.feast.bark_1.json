@@ -1,0 +1,17 @@
+{
+	"id": "act0.feast.bark_1",
+	"take": 0,
+	"seed": 626201324,
+	"hash": "255312ec87b1",
+	"model": "eleven_v3",
+	"voice": "KvaCHcJoMXfOzwtsULOZ",
+	"seconds": 3.2,
+	"words": [
+		{"w": "Laugh!", "t0": 0.0, "t1": 0.56},
+		{"w": "A", "t0": 0.8, "t1": 1.04},
+		{"w": "watch-night", "t0": 1.093, "t1": 1.68},
+		{"w": "is", "t0": 1.787, "t1": 2.0},
+		{"w": "never", "t0": 2.067, "t1": 2.4},
+		{"w": "quiet.", "t0": 2.507, "t1": 3.2}
+	]
+}

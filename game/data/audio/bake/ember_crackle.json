@@ -1,0 +1,15 @@
+{
+  "id": "ember_crackle",
+  "kind": "ambience",
+  "instrument": "ember",
+  "role": "ember",
+  "grains": "assets/_free/sound/fire_crackling/fire-1.wav",
+  "seconds": 12,
+  "fold": 0.5,
+  "density": 3.2,
+  "seed": 2349,
+  "rate": 22050,
+  "loop": true,
+  "source": "code",
+  "note": "Ocağın közü (Önsöz 7a, doğum yurdunun içi): ücretsiz çıtırtı kaydının (fire_crackling: OpenGameArt «Fire Crackling», antumdeluge, CC0) tek atımları seyrek serpilir, altında közün alçak hışırtısı (scripts/audio/synth/ember.gd). 22,05 kHz mono QOA, ileri döngü. Kulak onayı bekler."
+}

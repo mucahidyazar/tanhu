@@ -1,0 +1,52 @@
+{
+  "id": "childhood_kaval_a",
+  "kind": "music",
+  "instrument": "kaval",
+  "rows": [
+    [
+      0,
+      3,
+      "C5",
+      0.8
+    ],
+    [
+      3,
+      3,
+      "D5",
+      0.75
+    ],
+    [
+      6,
+      6,
+      "F5",
+      0.85
+    ],
+    [
+      12,
+      3,
+      "D5",
+      0.7
+    ],
+    [
+      15,
+      3,
+      "C5",
+      0.7
+    ],
+    [
+      18,
+      6,
+      "A4",
+      0.8
+    ]
+  ],
+  "variant": "tone",
+  "tempo": 72,
+  "bars": 2,
+  "mode": "major_pent",
+  "seed": 7231,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "childhood: kaval cümlesi (F majör pentatonik), boş kopyaların arasında seyrek. Kulak onayı bekler."
+}

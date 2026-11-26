@@ -1,0 +1,2339 @@
+{
+	"version": 1,
+	"source": "progression.md §4.1–§4.11 (2026-11-08; K32, K43, K46, K79); act1.md §11; prototipin src/data/skills.js ve i18n/strings/skills.js (yapı ve kilitli olmayan ipuçları)",
+	"doc": "Beceri tablosu (Progression okur): yedi dal, 93 beceri (90'ı puanla, riding, hand_signs ve lead_count bedava). Satır: tree dal, tier T (tier tabanı seviyesi data/progression/progression.json skills.tierLevels; level yüksekse o geçer), act P (perde), kind passive | active | toggle (P, E, A), free bedava; requires her öğesi tutmalı: beceri kimliği öğrenilmiş olmalı, başka her öğe koşul dilidir (Cond, scripts/sim/story/cond.gd; trust>=40, stat.wind>=5, quest:id.done, skill:id || skill:id …); teach {who, when}: who kişi (data/story kimliği) ya da usta rolü (masters; II. Perde'den rol bir kişiyle dolunca aynı adlı bayrak yazılır), iki ustalı satırda dizi; when usta koşuludur (koşul dili). teach boş olan üç beceri usta istemez: lead_count, two_tongues (I'in mirası) ve tumen_call (ustası ölen dal); öteki her beceriyi bir insan öğretir. mods: sayı toplanır, {mul} çarpılır, {set} ezer; bool ve yazı ezer, dizi birleşir; yalnız edilgen (passive) satırlar katlanır, etkin ve aç-kapa becerinin mods'u kullanım anının değeridir. Her mods anahtarının okuyucusu readers'tadır (§4.11; okuyucusuz anahtar sınamada düşer). cooldown sn (oyun zamanı), stamina kullanım başına; limit {per: region | day, n} bekleme yerine kullanım sınırıdır; hideName nameFlag'e (whistling_arrow) dek ad yerine «—»dir; glyph simgenin adıdır. name, desc ve hint oyuncu metnidir (TR, EN); desc locked durumda gösterilmez, hint kilitli satırın ipucu ya da ustanın sözüdür. Belgeden sonra gelen değişiklikler: K32 adları (over_shoulder, pointing_arrow, volley, tulpar_run; anahtarlar volleyR, tulparT), K46 knee_steer rideGather, K43 steady_arm ve quick_nock kendi yayı ister (mq2_strung_bow), K79 bard_friend'i ocağın ozanı öğretir (bard_night: ozanı ateş başında gece ≥1 oyun saati dinlemek, Kopuz Gecesi kuralı), eagle_shooter sınavı eagle_exam (avına inen yaban kartalını tek okla düşürmek, fauna.md §5.2). Tablo değişirse önce progression.md, sonra bu dosya.",
+	"trees": [
+		{
+			"id": "labour",
+			"name": {"tr": "Emek", "en": "Labour"},
+			"tag": {"tr": "Yük, erzak, onarım", "en": "Load, provisions, repair"},
+			"master": "m_quarter"
+		},
+		{
+			"id": "shadow",
+			"name": {"tr": "Gölge", "en": "Shadow"},
+			"tag": {"tr": "Gece, iz, soluk", "en": "Night, tracks, breath"},
+			"master": "m_scout"
+		},
+		{
+			"id": "saddle",
+			"name": {"tr": "Eyer", "en": "Saddle"},
+			"tag": {"tr": "At, araba, yol", "en": "Horse, cart, road"},
+			"master": "m_groom"
+		},
+		{
+			"id": "bow",
+			"name": {"tr": "Yay", "en": "Bow"},
+			"tag": {"tr": "Kiriş, temren, menzil", "en": "String, head, range"},
+			"master": "m_bowyer"
+		},
+		{
+			"id": "blade",
+			"name": {"tr": "Bıçak", "en": "Blade"},
+			"tag": {"tr": "Yakın dövüş, bayıltma, kesiş", "en": "Close fight, takedown, cut"},
+			"master": "m_blade"
+		},
+		{
+			"id": "word",
+			"name": {"tr": "Söz", "en": "Word"},
+			"tag": {"tr": "Güven, ant, kurultay", "en": "Trust, oath, assembly"},
+			"master": "m_custom"
+		},
+		{
+			"id": "command",
+			"name": {"tr": "Buyruk", "en": "Command"},
+			"tag": {"tr": "Birlik, düzen, yasa", "en": "Unit, order, law"},
+			"master": "qianzhang_old"
+		}
+	],
+	"masters": {
+		"m_quarter": {"tr": "Ambarcı", "en": "Quartermaster"},
+		"m_scout": {"tr": "Keşif Eri", "en": "Scout"},
+		"m_groom": {"tr": "Seyis", "en": "Groom"},
+		"m_bowyer": {"tr": "Yaycı", "en": "Bowyer"},
+		"m_blade": {"tr": "Kılıç Ustası", "en": "Blademaster"},
+		"m_custom": {"tr": "Töreci", "en": "Keeper of Custom"},
+		"qianzhang_old": {"tr": "Eski Binbaşı", "en": "The Old Commander"},
+		"gudu_hou": {"tr": "Gudu", "en": "Gudu"},
+		"wanqi": {"tr": "Tümen Beyi", "en": "Lord of Ten Thousand"}
+	},
+	"kinds": {
+		"passive": {"tr": "Pasif", "en": "Passive"},
+		"active": {"tr": "Etkin", "en": "Active"},
+		"toggle": {"tr": "Aç-kapa", "en": "Toggle"}
+	},
+	"masterless": ["lead_count", "two_tongues", "tumen_call"],
+	"readers": {
+		"game/derive": ["load", "slowFrom", "dodgeT", "dodgeCost", "deepSnowSpeed", "deepSnowRegen", "draw", "spread", "rideSpread", "gallopDrawPenalty", "pen", "slingRange", "slingStun", "sense", "oreSense", "turn", "horseDrain", "gallop", "cartSpeed", "jolt", "bondGain", "mount", "saddleShot", "speed"],
+		"game/stealth": ["noiseCrouch", "tracks", "coneReveal", "trackAge", "trackInfo", "coverStillR", "trackLife", "catchErase", "guardTalkRoute", "lureR", "lureT", "ghostT", "noise", "vis", "earR", "earT", "range", "hoofNoise"],
+		"game/gather": ["strikeWindow", "cleanBonus", "oreBonusEvery", "ledgerOut", "hiddenPilfer", "mealFull", "curedYield", "fullnessDecay", "forageT", "forageFull", "sharedStash", "ledgerDecay", "rideGather"],
+		"world/structure": ["repairCost", "repairTime", "buildTime", "helpers", "slashBands", "slashReed", "tentFold", "chestLiving", "chestNoSlow", "ringR", "memberRegen"],
+		"game/weather": ["skyRead", "northMark"],
+		"game/travel": ["fare", "arriveFull", "rbNodes", "passengers", "fareReward", "rumour", "driveSelf", "upkeep", "callR", "roadEventK"],
+		"game/trade": ["barterK"],
+		"game/party": ["range"],
+		"game/hunting": ["windArrow", "huntYield", "skinT", "animalSense", "cookQuality", "strikeWindow"],
+		"game/combat": ["dmg", "drawStrike", "rideMelee", "rideDmg", "parryT", "stun", "reflect", "throw", "lunge", "armorDown", "whirlR", "targets", "koTime", "koSleep", "root", "slowRider", "slow", "markT", "markDmg", "dismount", "volleyR", "fogPenalty", "steadyT", "horseSta", "tulparT", "captain", "dreadR", "stagger", "wound", "moraleFloor", "foeTell", "guardDr"],
+		"game/squad": ["signs", "unitCard", "drillT", "drillGain", "silentOrder", "orderDist", "form", "bootyShare", "cup", "cmdCarry", "carryLoyalty", "carrySpeed", "memberDeath", "food", "fodder", "detail", "moonCap", "moonPenalty", "moonCard", "cmdFeint", "feintR", "rallyT", "fatigueGain", "relayDay", "appointCost", "ambush", "rallyR", "encircle", "morale", "noFlee", "ownLand", "moralePerName", "surrender", "markSpread"],
+		"game/quests": ["trustGain", "vouchThreshold", "overhear", "wordCheckYuezhi", "regionTrustStart", "bardRumour", "envoyOption", "envoyLedger", "councilCheck", "councilVote", "oathKept", "oathBroken", "landRefuseKut"],
+		"game/pursuit": ["shriekerR", "habitGain", "habit", "enemyHorseSpook", "rideRegen", "rideWoundHeal", "rideHorseRegen", "northMark"],
+		"game/derive (gear)": ["dr.*", "hp", "snowSpeed", "trackMul", "noise", "visMul", "load", "runMul", "drawMul", "spreadMul", "turnMul", "statBonus", "courtOnly"]
+	},
+	"skills": [
+		{
+			"id": "carry_pack",
+			"tree": "labour",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "ardoksha", "when": "tally_ardoksha"},
+			"mods": {
+				"load": 8,
+				"slowFrom": {"set": 0.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "pack",
+			"name": {"tr": "Sırt Yükü", "en": "Pack Back"},
+			"desc": {
+				"tr": "Yükü omurgana bindirirsin: 8 birim fazla taşır, yarım yüke dek yavaşlamazsın.",
+				"en": "You set the load on your spine: carry 8 more and do not slow until half load."
+			},
+			"hint": {
+				"tr": "Üç işini gör; güvenini kazanınca çetelesini seninle böler.",
+				"en": "Do three of her jobs; once she trusts you, she splits her tally with you."
+			}
+		},
+		{
+			"id": "hearth_craft",
+			"tree": "labour",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "hereka", "when": "quest:sq_fever.done"},
+			"mods": {
+				"mealFull": {"mul": 1.5},
+				"cookQuality": 1
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "pot",
+			"name": {"tr": "Ocak Bilgisi", "en": "Hearth Craft"},
+			"desc": {
+				"tr": "Az malzemeden doyuran aş, temiz sargı. Ocak başında bir yara kapanır.",
+				"en": "A filling meal from little, and a clean bandage. At the hearth, one wound closes."
+			},
+			"hint": {"tr": "Çukur'un hummasına çare bul.", "en": "Find a cure for the fever in the Hollow."}
+		},
+		{
+			"id": "clean_strike",
+			"tree": "labour",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "kujul", "when": "quest:sq_iron_tooth.done"},
+			"mods": {
+				"strikeWindow": {"set": 0.3},
+				"cleanBonus": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "axe",
+			"name": {"tr": "Tam Vuruş", "en": "Clean Strike"},
+			"desc": {
+				"tr": "Halkayı gözle değil bilekle tutarsın. Son vuruş temizse ürün kesin bir fazla.",
+				"en": "You catch the ring with the wrist, not the eye. A clean last strike always yields one more."
+			},
+			"hint": {"tr": "Demir Diş'te körüğün ritmini tut.", "en": "Keep the bellows' rhythm at the Iron Tooth."}
+		},
+		{
+			"id": "ledger_eye",
+			"tree": "labour",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "ardoksha", "when": "trust>=40"},
+			"mods": {
+				"ledgerOut": {"mul": 1.3},
+				"hiddenPilfer": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "tally",
+			"name": {"tr": "Hesap Gözü", "en": "Ledger Eye"},
+			"desc": {
+				"tr": "Ardokşa gibi sayarsın: işin Kış Hesabı'na %30 fazla yazılır, günde bir avuç ambardan görünmeden çıkar.",
+				"en": "You count like Ardoksha: your work adds 30% more to the Winter Ledger, and one handful a day leaves the stores unseen."
+			},
+			"hint": {
+				"tr": "Kışlakta Güven 40'a varınca sayımını öğretir.",
+				"en": "Once the camp's Trust reaches 40, she teaches you her count."
+			}
+		},
+		{
+			"id": "repair",
+			"tree": "labour",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "nanay", "when": "quest:mq_crown.done"},
+			"mods": {
+				"repairCost": {"set": 0.25},
+				"repairTime": {"mul": 0.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "needle",
+			"name": {"tr": "Onarım", "en": "Repair"},
+			"desc": {
+				"tr": "Yırtığı dikmek yeniden kurmaktan ucuzdur: onarım dörtte bir malzeme, yarı süre.",
+				"en": "Mending is cheaper than raising: repairs take a quarter of the materials and half the time."
+			},
+			"hint": {"tr": "Tündük kalkarken sırığa omuz ver.", "en": "Put your shoulder to the pole when the crown goes up."}
+		},
+		{
+			"id": "drying_rack",
+			"tree": "labour",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["hearth_craft"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"curedYield": {"mul": 2},
+				"fullnessDecay": {"mul": 0.85}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "rack",
+			"name": {"tr": "Kurutma Sırığı", "en": "Drying Rack"},
+			"desc": {
+				"tr": "Et ve süt beklemeyi öğrenir: kak ve kurut iki kat çıkar, Tokluk %15 yavaş düşer.",
+				"en": "Meat and milk learn to wait: dried meat and curd yield double, and Fullness falls 15% slower."
+			},
+			"hint": {"tr": "Önce ambar senin olmalı.", "en": "First the stores must be yours."}
+		},
+		{
+			"id": "ore_nose",
+			"tree": "labour",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["clean_strike"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"oreSense": 15,
+				"oreBonusEvery": {"set": 4}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "ore",
+			"name": {"tr": "Cevher Burnu", "en": "Ore Nose"},
+			"desc": {
+				"tr": "Damarı kayadan önce koklarsın: cevher 15 m daha uzaktan belli olur, her dördüncüde bir fazla.",
+				"en": "You smell the vein before the rock: ore shows 15 m farther, and every fourth gives one more."
+			},
+			"hint": {"tr": "Körükten uzakta öğrenilir.", "en": "Learned far from the bellows."}
+		},
+		{
+			"id": "quick_raise",
+			"tree": "labour",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["repair", "quest:mq2_own_hearth.done"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"buildTime": {"mul": 0.7},
+				"helpers": 1
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "pole",
+			"name": {"tr": "Çabuk Kurulum", "en": "Quick Raise"},
+			"desc": {
+				"tr": "Sırığı kime uzatacağını bilirsin: aşamalar %30 hızlı, bir yardımcı fazla gelir.",
+				"en": "You know who to hand the pole to: stages go 30% faster and one more helper comes."
+			},
+			"hint": {"tr": "Önce bir yurdu bitir.", "en": "First finish one yurt."}
+		},
+		{
+			"id": "provisioner",
+			"tree": "labour",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["ledger_eye"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"upkeep": {"mul": 0.75},
+				"fare": {"mul": 0.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "sack",
+			"name": {"tr": "Ordu Ambarcısı", "en": "Provisioner"},
+			"desc": {
+				"tr": "Bin karnı saymak bir karnı saymaktan zor değildir: birlik tüketimi %25 az, Yolu Kısalt bedeli yarı.",
+				"en": "Counting a thousand bellies is no harder than one: unit upkeep down 25%, Shorten the Road at half fare."
+			},
+			"hint": {"tr": "Bir karnı sayan bini de sayar.", "en": "Who counts one belly can count a thousand."}
+		},
+		{
+			"id": "wagon_ring",
+			"tree": "labour",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["quick_raise", "carter"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"ringR": {"set": 14},
+				"memberRegen": {"set": 0.01}
+			},
+			"cooldown": 240,
+			"stamina": 20,
+			"glyph": "wheel",
+			"name": {"tr": "Araba Halkası", "en": "Wagon Ring"},
+			"desc": {
+				"tr": "Arabaları halka yaparsın: süvari geçemez, içindekiler soluklanır.",
+				"en": "You draw the carts into a ring: cavalry cannot pass, those inside catch their breath."
+			},
+			"hint": {"tr": "Kendi araban olmadan halka olmaz.", "en": "No ring without carts of your own."}
+		},
+		{
+			"id": "great_stores",
+			"tree": "labour",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "passive",
+			"free": false,
+			"requires": ["provisioner"],
+			"teach": {"who": "m_quarter", "when": "m_quarter"},
+			"mods": {
+				"sharedStash": true,
+				"ledgerDecay": {"mul": 0.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "store",
+			"name": {"tr": "Ulu Ambar", "en": "Great Stores"},
+			"desc": {
+				"tr": "Her ambar aynı defterdir: Menzil'e bıraktığını Menzil'den alırsın, şafak kaybı yarıya iner.",
+				"en": "Every storehouse is one ledger: what you leave at one waystation you take at another, and the loss at dawn halves."
+			},
+			"hint": {"tr": "Bir gün her ambar senin olacak.", "en": "One day every storehouse will be yours."}
+		},
+		{
+			"id": "hand_signs",
+			"tree": "shadow",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "active",
+			"free": true,
+			"requires": [],
+			"teach": {"who": "mene", "when": "hand_signs"},
+			"mods": {
+				"signs": ["come", "stay", "look"]
+			},
+			"cooldown": 1,
+			"stamina": 0,
+			"glyph": "hand",
+			"name": {"tr": "El Dili", "en": "Hand Signs"},
+			"desc": {
+				"tr": "Sesin geçmediği yerde el konuşur: Gel, Kal, Bak.",
+				"en": "Where sound cannot go, the hand speaks: Come, Stay, Look."
+			},
+			"hint": {"tr": "Sürü Okulu'nda yanında dur.", "en": "Stand beside her at Herd School."}
+		},
+		{
+			"id": "snow_step",
+			"tree": "shadow",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "mene", "when": "quest:sq_pebbles.done"},
+			"mods": {
+				"noiseCrouch": {"set": 1.2},
+				"tracks": false
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "step",
+			"name": {"tr": "Kar Adımı", "en": "Snow Step"},
+			"desc": {
+				"tr": "Karın üstünde yürür, içine basmazsın: çömelik gürültün 1,2 m, iz yok.",
+				"en": "You walk on the snow, not in it: crouched noise 1.2 m, no tracks."
+			},
+			"hint": {"tr": "Ona altı yerden çakıl getir.", "en": "Bring her pebbles from six places."}
+		},
+		{
+			"id": "bone_throw",
+			"tree": "shadow",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "active",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "mene", "when": "quest:mq_herd_school.done"},
+			"mods": {
+				"range": {"set": 22},
+				"lureR": {"set": 14},
+				"habit": {"mul": 1.5}
+			},
+			"cooldown": 8,
+			"stamina": 5,
+			"glyph": "bone",
+			"name": {"tr": "Kemik Atışı", "en": "Bone Throw"},
+			"desc": {
+				"tr": "Kemiği atarsın, nöbetçi sese gider, at kemiğe döner.",
+				"en": "You throw the bone; the guard goes to the sound, the horse turns to the bone."
+			},
+			"hint": {"tr": "Sürü Okulu'nu sonuna dek götür.", "en": "See Herd School through to the end."}
+		},
+		{
+			"id": "read_watch",
+			"tree": "shadow",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": ["opia", "palak"],
+				"when": "opia_fate==covered || quest:sq_lamp_oil.done"
+			},
+			"mods": {
+				"coneReveal": {"set": 18}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "watch",
+			"name": {"tr": "Nöbet Okuma", "en": "Read the Watch"},
+			"desc": {
+				"tr": "Nöbetçinin omzundan nereye bakacağını okursun: 18 m içinde görüş konileri yerde belirir.",
+				"en": "You read where a guard will look from his shoulder: within 18 m, sight cones show on the ground."
+			},
+			"hint": {
+				"tr": "Opia'nın açığını kendi emeğinle kapat ya da nöbetin fenerlerini doldur.",
+				"en": "Cover Opia's shortfall with your own work, or fill the watch lamps."
+			}
+		},
+		{
+			"id": "tracking",
+			"tree": "shadow",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:snow_step || skill:read_watch"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {"trackAge": 120, "trackInfo": true, "sense": 6},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "track",
+			"name": {"tr": "İz Okuma", "en": "Tracking"},
+			"desc": {
+				"tr": "İzin yaşı, yükü, atlısı: 120 sn eski izler belirir, sahibinin türü okunur.",
+				"en": "A track's age, load, rider: marks up to 120 s older show, and you read who left them."
+			},
+			"hint": {
+				"tr": "Kaçan iz bırakır, kovalayan okur. Önce kaç.",
+				"en": "The runner leaves tracks; the hunter reads them. Run first."
+			}
+		},
+		{
+			"id": "hunter",
+			"tree": "shadow",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:tracking || quest:sq_wolf.done"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"huntYield": 1,
+				"skinT": {"mul": 0.5},
+				"animalSense": {"mul": 0.8}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "hunt",
+			"name": {"tr": "Avcı", "en": "Hunter"},
+			"desc": {
+				"tr": "Hayvanı nereden vuracağını, nasıl yüzeceğini bilirsin: her avda bir ürün fazla, yüzmek yarı sürede, hayvan seni geç duyar.",
+				"en": "You know where to strike a beast and how to skin it: one more yield per hunt, skinning in half the time, and game hears you late."
+			},
+			"hint": {
+				"tr": "Avı Farnak'la öğrendin; sonrası sende.",
+				"en": "You learned the hunt from Farnak; the rest is up to you."
+			}
+		},
+		{
+			"id": "drift_walker",
+			"tree": "shadow",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["stat.wind>=5"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"deepSnowSpeed": {"set": 0.85},
+				"deepSnowRegen": {"set": 1},
+				"trackLife": {"mul": 0.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "drift",
+			"name": {"tr": "Kürtük Yürüyüşü", "en": "Drift Walker"},
+			"desc": {
+				"tr": "Karla pazarlık etmez, içinden geçersin: Derin Kar'da hız ×0,85, dolum düşmez, izin yarı sürede silinir.",
+				"en": "You do not bargain with the snow, you go through it: in Deep Snow speed ×0.85, recovery holds, and your tracks fade in half the time."
+			},
+			"hint": {"tr": "Bir kışı dışarıda geçirmeden olmaz.", "en": "Not until you have spent a winter outdoors."}
+		},
+		{
+			"id": "iron_stake",
+			"tree": "shadow",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["tracking"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"northMark": true,
+				"skyRead": {"set": 6}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "star",
+			"name": {"tr": "Demirkazık", "en": "The Iron Stake"},
+			"desc": {
+				"tr": "Gökte dönmeyen noktayı ve bulutun yolunu bilirsin: gece ve körde kuzey ekranda kalır, göğe bakınca önümüzdeki altı saati okursun.",
+				"en": "You know the point in the sky that does not turn and the road the clouds travel: at night and in whiteout north stays on your screen, and one look at the sky tells you the next six hours."
+			},
+			"hint": {"tr": "Çatı altında yıldız öğrenilmez.", "en": "You cannot learn the stars under a roof."}
+		},
+		{
+			"id": "reed_lie",
+			"tree": "shadow",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["snow_step"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"coverStillR": {"set": 6}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "reed",
+			"name": {"tr": "Saza Yatış", "en": "Lying in the Reeds"},
+			"desc": {
+				"tr": "Sazda, otta, karda kıpırdamazsan yoksun: 6 m ötesi seni göremez.",
+				"en": "In reeds, grass or snow, if you stay still you are not there: past 6 m no one can see you."
+			},
+			"hint": {"tr": "Saklanmak başka, yok olmak başka.", "en": "Hiding is one thing; being gone is another."}
+		},
+		{
+			"id": "decoy_fire",
+			"tree": "shadow",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["bone_throw"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"lureR": {"set": 30},
+				"lureT": {"set": 25}
+			},
+			"cooldown": 60,
+			"stamina": 10,
+			"glyph": "smoke",
+			"name": {"tr": "Sahte Ocak", "en": "False Hearth"},
+			"desc": {
+				"tr": "Bir avuç dal, uzak bir duman: nöbet ocağa koşar.",
+				"en": "A handful of twigs, a far-off smoke: the watch runs to the hearth."
+			},
+			"hint": {"tr": "Önce bir ordunun ocaklarını gör.", "en": "First, see an army's hearths."}
+		},
+		{
+			"id": "steppe_table",
+			"tree": "shadow",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["drift_walker"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"forageT": {"set": 3},
+				"forageFull": 10
+			},
+			"cooldown": 5,
+			"stamina": 0,
+			"glyph": "grass",
+			"name": {"tr": "Bozkır Sofrası", "en": "Steppe Table"},
+			"desc": {
+				"tr": "Bozkır soranı aç bırakmaz: 3 sn ara, Tokluk +10 ya da 1 yem bul.",
+				"en": "The steppe feeds those who ask: search 3 s for +10 Fullness or 1 fodder."
+			},
+			"hint": {
+				"tr": "Ambar senin değilken bozkır da senin değil.",
+				"en": "While the stores are not yours, nor is the steppe."
+			}
+		},
+		{
+			"id": "ground_ear",
+			"tree": "shadow",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["tracking"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"earR": {"set": 250},
+				"earT": {"set": 6}
+			},
+			"cooldown": 30,
+			"stamina": 0,
+			"glyph": "ear",
+			"name": {"tr": "Yer Kulağı", "en": "Ear to the Ground"},
+			"desc": {
+				"tr": "Kulağını yere verirsin: 250 m içindeki atlılar 6 sn görünür, sayısı yazılır.",
+				"en": "You lay your ear to the ground: riders within 250 m show for 6 s, with their number."
+			},
+			"hint": {"tr": "Atlıları duymak için önce atlı ol.", "en": "To hear riders, first be one."}
+		},
+		{
+			"id": "steppe_ghost",
+			"tree": "shadow",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["reed_lie", "ground_ear"],
+			"teach": {"who": "m_scout", "when": "m_scout"},
+			"mods": {
+				"ghostT": {"set": 8},
+				"noise": {"set": 0},
+				"vis": {"mul": 0.2}
+			},
+			"cooldown": 120,
+			"stamina": 30,
+			"glyph": "ghost",
+			"name": {"tr": "Bozkır Hayaleti", "en": "Steppe Ghost"},
+			"desc": {
+				"tr": "Bir soluk boyunca kimse değilsin: gürültü yok, görülme beşte bir, 8 sn.",
+				"en": "For one breath you are no one: no noise, one fifth the sight, 8 s."
+			},
+			"hint": {"tr": "Kimsenin sana bakmadığı bir gün gelecek.", "en": "A day will come when no one looks at you."}
+		},
+		{
+			"id": "riding",
+			"tree": "saddle",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": true,
+			"requires": [],
+			"teach": {"who": "farnak", "when": "riding"},
+			"mods": {"mount": true},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "horse",
+			"name": {"tr": "Binicilik", "en": "Riding"},
+			"desc": {
+				"tr": "Yakve önce seni taşır, sonra sen onu sürersin: bin, tırıs, dörtnal.",
+				"en": "Yakwe carries you first; then you drive her: mount, trot, gallop."
+			},
+			"hint": {"tr": "İlk çetelede Yakve'ye bin.", "en": "Mount Yakwe at the first tally."}
+		},
+		{
+			"id": "downwind",
+			"tree": "saddle",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "farnak", "when": "quest:sq_wolf.done"},
+			"mods": {
+				"bondGain": {"mul": 1.25},
+				"windArrow": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "wind",
+			"name": {"tr": "Rüzgâr Altı", "en": "Downwind"},
+			"desc": {
+				"tr": "Ata rüzgâr altından yaklaşırsın, kokun ondan önce varmaz: Bağ kazancı %25 fazla.",
+				"en": "You come at a horse from downwind, your scent does not arrive first: Bond gains 25% more."
+			},
+			"hint": {"tr": "Sürüye dadanan kurtlara karşı onunla sür.", "en": "Ride with him against the wolves at the flock."}
+		},
+		{
+			"id": "shared_breath",
+			"tree": "saddle",
+			"tier": 1,
+			"level": 1,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "kantu", "when": "tally_kantu"},
+			"mods": {
+				"horseDrain": {"mul": 0.8}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "breath",
+			"name": {"tr": "Soluk Paylaşımı", "en": "Shared Breath"},
+			"desc": {
+				"tr": "Atla aynı soluğu alırsın: at staminası %20 yavaş biter.",
+				"en": "You and the horse breathe as one: its stamina drains 20% slower."
+			},
+			"hint": {
+				"tr": "Kırık tekerini onar; çetelesini seninle böler.",
+				"en": "Mend her broken wheel and she splits her tally with you."
+			}
+		},
+		{
+			"id": "knee_steer",
+			"tree": "saddle",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "uldin", "when": "names_known>=10"},
+			"mods": {
+				"turn": {"mul": 1.25},
+				"saddleShot": true,
+				"rideGather": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "knee",
+			"name": {"tr": "Dizle Sürme", "en": "Knee Steer"},
+			"desc": {
+				"tr": "Dizginsiz sürersin: dönüş %25 iyi, eller boşta, eyerden atılır.",
+				"en": "You ride without the rein: turns 25% better, hands free, shots from the saddle."
+			},
+			"hint": {"tr": "Otuz bir addan onunu say.", "en": "Count ten of the thirty-one names."}
+		},
+		{
+			"id": "carter",
+			"tree": "saddle",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "kantu", "when": "quest:sq_fares.done"},
+			"mods": {
+				"cartSpeed": 1,
+				"jolt": {"mul": 0.5},
+				"driveSelf": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "cart",
+			"name": {"tr": "Arabacı", "en": "Carter"},
+			"desc": {
+				"tr": "Kantu'nun eli: araba 1 m/sn hızlı, sarsıntı yarı, Kendin Sür açılır.",
+				"en": "Kantu's hand: the cart runs 1 m/s faster, jolts halve, Drive Yourself opens."
+			},
+			"hint": {"tr": "Yolcularını taşı.", "en": "Carry her passengers."}
+		},
+		{
+			"id": "horse_call",
+			"tree": "saddle",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["riding", "bond>=30"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"callR": {"set": 300}
+			},
+			"cooldown": 20,
+			"stamina": 2,
+			"glyph": "call",
+			"name": {"tr": "At Çağrısı", "en": "Horse Call"},
+			"desc": {
+				"tr": "Parmakla çağırırsın: atın 300 m içindeyse dörtnal gelir.",
+				"en": "You call with two fingers: within 300 m your horse comes at a gallop."
+			},
+			"hint": {"tr": "Önce seni tanıyan bir at bul.", "en": "First find a horse that knows you."}
+		},
+		{
+			"id": "spare_mount",
+			"tree": "saddle",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["shared_breath", "spare_horse"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"horseSta": {"set": 1}
+			},
+			"cooldown": 90,
+			"stamina": 10,
+			"glyph": "spare",
+			"name": {"tr": "Yedek At", "en": "Spare Mount"},
+			"desc": {
+				"tr": "Atlı tek atla yola çıkmaz: eyerden yedeğe geçer, tam staminayla sürersin.",
+				"en": "No rider leaves with one horse: you cross to the spare from the saddle and ride on at full stamina."
+			},
+			"hint": {"tr": "Bozkırda kimse tek atla yola çıkmaz.", "en": "No one on the steppe sets out with one horse."}
+		},
+		{
+			"id": "trample",
+			"tree": "saddle",
+			"tier": 3,
+			"level": 8,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["knee_steer", "bond>=50"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"chestLiving": {"set": 25},
+				"chestNoSlow": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "chest",
+			"name": {"tr": "Göğüsle Vuruş", "en": "Breast Strike"},
+			"desc": {
+				"tr": "Atın göğsü kapı açar: dörtnalda çarpınca hız düşmez, yayaya 25, yapıya 30.",
+				"en": "A horse's chest opens gates: at a gallop you lose no speed, 25 to men, 30 to structures."
+			},
+			"hint": {"tr": "At kapıyı senden iyi açar. Sonra.", "en": "A horse opens gates better than you. Later."}
+		},
+		{
+			"id": "road_friend",
+			"tree": "saddle",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["carter"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"passengers": 2,
+				"fareReward": {"mul": 1.5},
+				"rumour": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "road",
+			"name": {"tr": "Yol Dostu", "en": "Friend of the Road"},
+			"desc": {
+				"tr": "Yolcu sana yolunu ve haberini verir: 2 yolcu fazla, ücret ×1,5, her yolcu haritaya bir durak fısıldar.",
+				"en": "A passenger gives you the road and the news: 2 more passengers, fare ×1.5, and each one whispers a stop onto the map."
+			},
+			"hint": {"tr": "Kendi araban olduğunda.", "en": "When the cart is your own."}
+		},
+		{
+			"id": "ulak",
+			"tree": "saddle",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:road_friend || skill:spare_mount"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"fare": {"set": 0},
+				"arriveFull": true,
+				"rbNodes": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "relay",
+			"name": {"tr": "Ulak", "en": "Relay Mount"},
+			"desc": {
+				"tr": "Her Menzil'de yedek at bekler: Yolu Kısalt bedava, atın dinç, onarılmış her direk durak olur.",
+				"en": "A fresh horse waits at every waystation: Shorten the Road is free, your horse arrives rested, every mended post becomes a stop."
+			},
+			"hint": {"tr": "Menzil ağı büyüyünce.", "en": "When the waystation road has grown."}
+		},
+		{
+			"id": "saddle_sleep",
+			"tree": "saddle",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["shared_breath"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"rideRegen": {"set": 2},
+				"rideWoundHeal": {"set": 180},
+				"rideHorseRegen": {"mul": 1.25}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "sleep",
+			"name": {"tr": "Eyerde Uyku", "en": "Saddle Sleep"},
+			"desc": {
+				"tr": "At yürür, sen dinlenirsin: tırısta Can 2/sn, 180 sn'de bir yara kapanır, atın soluğu %25 çabuk toparlanır.",
+				"en": "The horse walks, you rest: at a trot Health +2/s, one wound closes every 180 s, and the horse recovers 25% faster."
+			},
+			"hint": {"tr": "Yol uzamadan öğrenilmez.", "en": "Not learned until the road grows long."}
+		},
+		{
+			"id": "herd_voice",
+			"tree": "saddle",
+			"tier": 5,
+			"level": 13,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:bone_throw || skill:downwind"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"shriekerR": 20,
+				"habitGain": {"mul": 1.5},
+				"enemyHorseSpook": {"set": 3}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "herd",
+			"name": {"tr": "Sürü Sesi", "en": "Voice of the Herd"},
+			"desc": {
+				"tr": "Çağrın sürüyü de düşman atını da döndürür: Çığırtkan 20 m uzağa, Alışkanlık ×1,5, düşman atı 3 sn ürker.",
+				"en": "Your call turns herds and enemy mounts alike: shrieker reach +20 m, Habit ×1.5, enemy horses shy for 3 s."
+			},
+			"hint": {"tr": "Sürü sana döndüğünde anlarsın.", "en": "You will know when the herd turns to you."}
+		},
+		{
+			"id": "tulpar_run",
+			"tree": "saddle",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["saddle_sleep", "bond>=90"],
+			"teach": {"who": "m_groom", "when": "m_groom"},
+			"mods": {
+				"tulparT": {"set": 20},
+				"horseDrain": {"set": 0},
+				"gallop": 2,
+				"horseSta": {"set": 0.3}
+			},
+			"cooldown": 180,
+			"stamina": 0,
+			"glyph": "tulpar",
+			"name": {"tr": "Tülpar Koşusu", "en": "Tulpar's Run"},
+			"desc": {
+				"tr": "At sana güveniyorsa ondan ozanın Tülpar'ı gibi koşmasını isteyebilirsin: 20 sn stamina harcanmaz, 2 m/sn fazla; sonra soluk soluğa kalır.",
+				"en": "If the horse trusts you, you may ask it to run like the bard's Tulpar: for 20 s no stamina is spent and you gain 2 m/s; then it is winded."
+			},
+			"hint": {"tr": "Bin li'lik at, bin li'lik soru.", "en": "A thousand-li horse, a thousand-li question."}
+		},
+		{
+			"id": "steady_arm",
+			"tree": "bow",
+			"tier": 1,
+			"level": 1,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["quest:mq2_strung_bow.done"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"spread": {"mul": 0.8}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "arm",
+			"name": {"tr": "Sabit Kol", "en": "Steady Arm"},
+			"desc": {"tr": "Kol taş, kiriş soluk: yayılma %20 az.", "en": "Arm of stone, string of breath: spread down 20%."},
+			"hint": {"tr": "Rehineye yay verilmez.", "en": "No one hands a hostage a bow."}
+		},
+		{
+			"id": "quick_nock",
+			"tree": "bow",
+			"tier": 1,
+			"level": 1,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["quest:mq2_strung_bow.done"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"draw": {"mul": 0.85}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "nock",
+			"name": {"tr": "Çabuk Gez", "en": "Quick Nock"},
+			"desc": {
+				"tr": "Ok gezini bakmadan bulur: çekiş %15 kısa.",
+				"en": "The nock finds the string unseen: draw 15% shorter."
+			},
+			"hint": {"tr": "Önce kendi yayın olmalı.", "en": "First you need a bow of your own."}
+		},
+		{
+			"id": "gallop_shot",
+			"tree": "bow",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["knee_steer", "steady_arm"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"rideSpread": {"mul": 0.6},
+				"gallopDrawPenalty": {"set": 0}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "gallop",
+			"name": {"tr": "Dörtnal Atışı", "en": "Gallop Shot"},
+			"desc": {
+				"tr": "Dört ayak havadayken bırakırsın: eyerde yayılma %40 az, dörtnalda çekiş cezası yok.",
+				"en": "You loose when all four hooves are in the air: saddle spread down 40%, no draw penalty at a gallop."
+			},
+			"hint": {"tr": "Önce elini dizginden kurtar.", "en": "First free your hand from the rein."}
+		},
+		{
+			"id": "over_shoulder",
+			"tree": "bow",
+			"tier": 2,
+			"level": 5,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["gallop_shot"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"dmg": {"mul": 1.3},
+				"slow": {"set": 1.5}
+			},
+			"cooldown": 6,
+			"stamina": 8,
+			"glyph": "shoulder",
+			"name": {"tr": "Omuz Üstü", "en": "Over the Shoulder"},
+			"desc": {
+				"tr": "Atın başı ileri, okun ucu geri: arkandakini vurursun, %30 fazla hasar, o 1,5 sn yavaşlar.",
+				"en": "The horse's head forward, the arrowhead back: you hit the one behind you for 30% more damage, and he slows for 1.5 s."
+			},
+			"hint": {"tr": "Bozkırda kaçmak utanç sayılmaz.", "en": "On the steppe there is no shame in riding away."}
+		},
+		{
+			"id": "pointing_arrow",
+			"tree": "bow",
+			"tier": 2,
+			"level": 5,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["whistling_arrow"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"markT": {"set": 12},
+				"markDmg": {"mul": 1.15},
+				"markSpread": {"set": 0}
+			},
+			"cooldown": 3,
+			"stamina": 4,
+			"hideName": true,
+			"glyph": "whistle",
+			"name": {"tr": "Gösteren Ok", "en": "The Pointing Arrow"},
+			"desc": {
+				"tr": "Öten ok hedefi gösterir: 12 sn herkes orayı görür, işarete %15 fazla vurulur, kendi okun da saçılmaz.",
+				"en": "The singing arrow points out a target: for 12 s all can see it, it takes 15% more, and your own shot flies true."
+			},
+			"hint": {"tr": "Bir ses eksik.", "en": "A sound is missing."}
+		},
+		{
+			"id": "trilobate",
+			"tree": "bow",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["quick_nock"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {"pen": 0.15},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "head",
+			"name": {"tr": "Üç Kanat Temren", "en": "Three-Winged Head"},
+			"desc": {
+				"tr": "Üç kanatlı temren dönerek girer: tunç ve demir temren dökersin, delme %15 artar.",
+				"en": "A three-winged head spins as it enters: you cast bronze and iron heads, and piercing rises 15%."
+			},
+			"hint": {"tr": "Kemik temren kürkte kalır.", "en": "A bone head stops at the fur."}
+		},
+		{
+			"id": "fire_arrow",
+			"tree": "bow",
+			"tier": 3,
+			"level": 8,
+			"act": 3,
+			"kind": "toggle",
+			"free": false,
+			"requires": ["trilobate"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {},
+			"cooldown": 2,
+			"stamina": 6,
+			"glyph": "fire",
+			"name": {"tr": "Ateşli Ok", "en": "Fire Arrow"},
+			"desc": {
+				"tr": "Reçineli sargı, köz, uzak bir çatı. Yerleşime atan bunu unutmaz.",
+				"en": "Resin wrap, an ember, a distant roof. Whoever shoots at a home does not forget it."
+			},
+			"hint": {
+				"tr": "Yakmayı, yananı gördükten sonra öğrenirsin.",
+				"en": "You learn to burn after you have watched things burn."
+			}
+		},
+		{
+			"id": "pin_shot",
+			"tree": "bow",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["steady_arm"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"root": {"set": 2.5},
+				"slowRider": {"set": 3}
+			},
+			"cooldown": 12,
+			"stamina": 10,
+			"glyph": "pin",
+			"name": {"tr": "Çivi Atış", "en": "Pinning Shot"},
+			"desc": {
+				"tr": "Yayayı yere çivilersin: 2,5 sn kıpırdamaz; atlı 3 sn yavaşlar.",
+				"en": "You pin a man to the ground for 2.5 s; a rider slows for 3 s."
+			},
+			"hint": {"tr": "Önce durmayan bir hedefe isabet ettir.", "en": "First hit something that will not stand still."}
+		},
+		{
+			"id": "horse_feller",
+			"tree": "bow",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["gallop_shot"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"dismount": true,
+				"stun": {"set": 4}
+			},
+			"cooldown": 20,
+			"stamina": 12,
+			"glyph": "fall",
+			"name": {"tr": "At Düşüren", "en": "Horse Feller"},
+			"desc": {
+				"tr": "Binicinin değil atın soluğunu kesersin: atlı yere iner, 4 sn kalkamaz. Bozkır bunu sayar.",
+				"en": "You stop the horse's breath, not the rider's: he falls and stays down 4 s. The steppe keeps count."
+			},
+			"hint": {"tr": "Bazı oklar affedilmez.", "en": "Some arrows are never forgiven."}
+		},
+		{
+			"id": "volley",
+			"tree": "bow",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["pin_shot", "item:heavy_bow || item:horn_bow || item:great_bow"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"volleyR": {"set": 6}
+			},
+			"cooldown": 18,
+			"stamina": 20,
+			"glyph": "volley",
+			"name": {"tr": "Yaylım", "en": "Volley"},
+			"desc": {
+				"tr": "Kiriş boşalır, gök kararır: 6 ok, 6 m'lik halka.",
+				"en": "The string empties, the sky darkens: 6 arrows into a 6 m ring."
+			},
+			"hint": {"tr": "Ağır yayı gerebildiğin gün.", "en": "The day you can draw the heavy bow."}
+		},
+		{
+			"id": "sound_shot",
+			"tree": "bow",
+			"tier": 5,
+			"level": 13,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["skill:pin_shot || skill:ground_ear"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"dmg": {"mul": 0.8},
+				"fogPenalty": {"set": 0}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "sound",
+			"name": {"tr": "Sese Atış", "en": "Shooting at Sound"},
+			"desc": {
+				"tr": "Sis, gece, tipi: kulağın nişan alır. Görmediğini gürültüsünden vurursun.",
+				"en": "Fog, night, blizzard: your ear takes aim. You strike what you cannot see by its noise."
+			},
+			"hint": {"tr": "Tipide kulağını dinle.", "en": "In the blizzard, trust your ears."}
+		},
+		{
+			"id": "eagle_shooter",
+			"tree": "bow",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["skill:sound_shot || skill:over_shoulder", "eagle_exam"],
+			"teach": {"who": "m_bowyer", "when": "m_bowyer"},
+			"mods": {
+				"steadyT": {"set": 2},
+				"dmg": {"mul": 2},
+				"pen": {"set": 1}
+			},
+			"cooldown": 15,
+			"stamina": 15,
+			"glyph": "eagle",
+			"name": {"tr": "Kartal Vuran", "en": "Eagle Shooter"},
+			"desc": {
+				"tr": "Han yıllıklarının korkuyla andığı unvan: 2 sn kıpırdamazsan sonraki ok zırh tanımaz, iki kat vurur.",
+				"en": "The title the Han annals name in fear: hold still 2 s and the next arrow ignores armour at double damage."
+			},
+			"hint": {"tr": "Hanlar bu unvandan korkar.", "en": "The Han fear this title."}
+		},
+		{
+			"id": "slip",
+			"tree": "blade",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "palak", "when": "quest:sq_wager.done"},
+			"mods": {
+				"dodgeT": {"set": 0.35},
+				"dodgeCost": {"set": 10}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "slip",
+			"name": {"tr": "Savuş", "en": "Slip"},
+			"desc": {
+				"tr": "Palak'ın tek dersi: vurulacağın yerde olma. 0,35 sn, bedel 10.",
+				"en": "Palak's one lesson: do not be where the blow lands. 0.35 s, cost 10."
+			},
+			"hint": {"tr": "Bahsini kabul et ve sonuna dek götür.", "en": "Take his wager and see it through."}
+		},
+		{
+			"id": "sleeper_hold",
+			"tree": "blade",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "active",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "uldin", "when": "wager_thrown"},
+			"mods": {
+				"koTime": {"set": 2.2},
+				"koSleep": {"set": 90}
+			},
+			"cooldown": 0,
+			"stamina": 8,
+			"glyph": "hold",
+			"name": {"tr": "Uyku Kolu", "en": "Sleeper Hold"},
+			"desc": {"tr": "Arkadan kol, 2,2 sn: öldürmeden uyutur.", "en": "An arm from behind, 2.2 s: sleep without a kill."},
+			"hint": {"tr": "Bahsin güreşinde ona bile bile yenil.", "en": "Lose the wager's bout to him on purpose."}
+		},
+		{
+			"id": "sling_hand",
+			"tree": "blade",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "farnak", "when": "quest:mq_hunt.done"},
+			"mods": {
+				"slingRange": {"set": 26},
+				"slingStun": {"set": 2}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "sling",
+			"name": {"tr": "Sapan Eli", "en": "Sling Hand"},
+			"desc": {
+				"tr": "Farnak gibi döndürürsün: 26 m, 2 sn sersemletir.",
+				"en": "You whirl it like Farnak: 26 m, stuns for 2 s."
+			},
+			"hint": {"tr": "Onunla ava çık.", "en": "Go on the hunt with him."}
+		},
+		{
+			"id": "one_span",
+			"tree": "blade",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"drawStrike": {"mul": 1.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "span",
+			"name": {"tr": "Bir Karış", "en": "One Span"},
+			"desc": {
+				"tr": "Hun yasası: bir karış çeken ölür. Çektiysen vurmak için çekersin: kından ilk vuruş ×1,5.",
+				"en": "Hun law: draw a span and you die. If you draw, you draw to strike: first blow from the sheath ×1.5."
+			},
+			"hint": {"tr": "Hun kampında kılıç yarı çekilmez.", "en": "In a Hun camp no blade is half drawn."}
+		},
+		{
+			"id": "counter_cut",
+			"tree": "blade",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["slip"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"parryT": {"set": 0.4},
+				"stun": {"set": 1},
+				"reflect": {"set": 0.5}
+			},
+			"cooldown": 5,
+			"stamina": 12,
+			"glyph": "parry",
+			"name": {"tr": "Karşılama", "en": "Counter Cut"},
+			"desc": {
+				"tr": "Çizilen darbeyi 0,4 sn içinde karşıla: vuran 1 sn sersem, hasarının yarısı ona döner.",
+				"en": "Meet a telegraphed blow within 0.4 s: the striker reels for 1 s and takes half of it back."
+			},
+			"hint": {"tr": "Savuşmak yetmeyince.", "en": "When slipping aside is not enough."}
+		},
+		{
+			"id": "wrestler_throw",
+			"tree": "blade",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["skill:sleeper_hold || stat.grip>=5"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"throw": {"set": 2},
+				"stun": {"set": 1.5}
+			},
+			"cooldown": 10,
+			"stamina": 15,
+			"glyph": "throw",
+			"name": {"tr": "Güreş Atışı", "en": "Wrestler's Throw"},
+			"desc": {
+				"tr": "Kuşağından tut, kalçandan geçir: pulsuz düşman 2 m uçar, 1,5 sn yerde.",
+				"en": "Grip the belt, pass him over the hip: an unscaled foe flies 2 m and lies 1.5 s."
+			},
+			"hint": {"tr": "Güreş yerinde yenilmek de öğretir.", "en": "Losing on the wrestling ground teaches too."}
+		},
+		{
+			"id": "chan_thrust",
+			"tree": "blade",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": ["item:chan_spear || item:gate_spear"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"lunge": {"set": 4},
+				"dmg": {"mul": 1.4},
+				"rideDmg": {"mul": 1.6}
+			},
+			"cooldown": 8,
+			"stamina": 14,
+			"glyph": "spear",
+			"name": {"tr": "Süngü Hamlesi", "en": "Spear Lunge"},
+			"desc": {
+				"tr": "Kısa süngüyle 4 m atılırsın: hasar ×1,4, atlıyken ×1,6.",
+				"en": "You lunge 4 m with the short spear: damage ×1.4, ×1.6 mounted."
+			},
+			"hint": {
+				"tr": "Kısa silah iki türdür; birini henüz tutmadın.",
+				"en": "There are two short weapons; you have yet to hold one."
+			}
+		},
+		{
+			"id": "rope_cutter",
+			"tree": "blade",
+			"tier": 3,
+			"level": 8,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["one_span"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"slashBands": {"mul": 2},
+				"slashReed": {"mul": 1.5},
+				"tentFold": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "rope",
+			"name": {"tr": "Kolan Kesen", "en": "Rope Cutter"},
+			"desc": {
+				"tr": "Önce ipi kesersin: kolana kesme iki kat daha, saza ×1,5 daha, çadır tek vuruşta aşama düşer.",
+				"en": "You cut the rope first: slash twice again on bands, ×1.5 on reed, and a tent loses a stage at one blow."
+			},
+			"hint": {
+				"tr": "Bir yurdu kuran, onu nereden keseceğini bilir.",
+				"en": "Whoever raises a yurt knows where to cut it."
+			}
+		},
+		{
+			"id": "saddle_cut",
+			"tree": "blade",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["knee_steer", "one_span"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"rideMelee": {"set": 0.041666666666666664}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "cut",
+			"name": {"tr": "Eyerden Kesiş", "en": "Saddle Cut"},
+			"desc": {
+				"tr": "Hız kılıcı bileyler: dörtnal kesişi hızla büyür, 12 m/sn'de ×1,5.",
+				"en": "Speed sharpens the blade: mounted cuts grow with pace, ×1.5 at 12 m/s."
+			},
+			"hint": {
+				"tr": "Önce elin dizginden, sonra kılıç kından.",
+				"en": "First your hand from the rein, then the blade from the sheath."
+			}
+		},
+		{
+			"id": "armor_breaker",
+			"tree": "blade",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["skill:wrestler_throw || stat.grip>=7"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"armorDown": {"set": 6},
+				"dmg": {"mul": 1.2}
+			},
+			"cooldown": 12,
+			"stamina": 12,
+			"glyph": "mace",
+			"name": {"tr": "Zırh Kıran", "en": "Armour Breaker"},
+			"desc": {
+				"tr": "Topuz pulu, sagaris perçini açar: zırhlı hedef 6 sn deri sayılır.",
+				"en": "A mace opens scale, a sagaris opens rivets: for 6 s the armoured target counts as leather."
+			},
+			"hint": {"tr": "Pulu kılıç açmaz.", "en": "A blade does not open scale."}
+		},
+		{
+			"id": "whirl_cut",
+			"tree": "blade",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["counter_cut"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"whirlR": {"set": 2.5},
+				"targets": {"set": 3},
+				"dmg": {"mul": 0.9}
+			},
+			"cooldown": 14,
+			"stamina": 22,
+			"glyph": "whirl",
+			"name": {"tr": "Halka Kesiş", "en": "Ring Cut"},
+			"desc": {
+				"tr": "Kuşatılınca dönersin: 2,5 m halkada en çok 3 düşman.",
+				"en": "Surrounded, you turn: up to 3 foes in a 2.5 m ring."
+			},
+			"hint": {"tr": "Çevren sarılmadan olmaz.", "en": "Not until you have been surrounded."}
+		},
+		{
+			"id": "last_tooth",
+			"tree": "blade",
+			"tier": 5,
+			"level": 13,
+			"act": 5,
+			"kind": "passive",
+			"free": false,
+			"requires": ["counter_cut"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {
+				"dmg": {"mul": 1.25},
+				"speed": {"mul": 1.15}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "tooth",
+			"name": {"tr": "Son Diş", "en": "Last Tooth"},
+			"desc": {
+				"tr": "Bir yaran kaldıysa dişin kalır: hasar %25, hız %15 artar.",
+				"en": "One wound from falling, you still have teeth: damage +25%, speed +15%."
+			},
+			"hint": {"tr": "Yaran yoksa dişin de yok.", "en": "No wounds, no teeth."}
+		},
+		{
+			"id": "champion_ground",
+			"tree": "blade",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["whirl_cut", "kut>=8 || korku>=8"],
+			"teach": {"who": "m_blade", "when": "m_blade"},
+			"mods": {"captain": true},
+			"cooldown": 300,
+			"stamina": 0,
+			"glyph": "ground",
+			"name": {"tr": "Er Meydanı", "en": "Champion's Ground"},
+			"desc": {
+				"tr": "Başbuğu er meydanına çağırırsın: ordular durur; yenersen karşı taraf dağılır.",
+				"en": "You call their captain to the ground: the armies halt; win, and his side breaks."
+			},
+			"hint": {"tr": "Adın meydana çağrılınca.", "en": "When your name is called to the ground."}
+		},
+		{
+			"id": "camp_speech",
+			"tree": "word",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "atsho", "when": "quest:sq_fire_watch.done"},
+			"mods": {
+				"trustGain": {"mul": 1.15},
+				"guardTalkRoute": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "mouth",
+			"name": {"tr": "Kışlak Ağzı", "en": "Camp Speech"},
+			"desc": {
+				"tr": "Onların ağzıyla konuşursun: Güven %15 fazla, nöbet sohbeti rota işaretler.",
+				"en": "You speak in their mouth: Trust gains 15% more, and watch talk marks their routes."
+			},
+			"hint": {"tr": "Ocağının nöbetini tut.", "en": "Keep the watch at her fire."}
+		},
+		{
+			"id": "vouch_word",
+			"tree": "word",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "amaga", "when": "trust>=50"},
+			"mods": {"vouchThreshold": -5},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "vouch",
+			"name": {"tr": "Kefil Sözü", "en": "Vouching Word"},
+			"desc": {
+				"tr": "Sözün başkasının boynunu da tutar: kefil eşikleri 5 düşer.",
+				"en": "Your word holds another's neck too: guarantor thresholds drop by 5."
+			},
+			"hint": {"tr": "Kışlakta Güven 50'ye varınca öğretir.", "en": "Once the camp's Trust reaches 50, she teaches you."}
+		},
+		{
+			"id": "liar_face",
+			"tree": "word",
+			"tier": 2,
+			"level": 3,
+			"act": 1,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "eskam", "when": "quest:mq_envoy.done || news_eskam"},
+			"mods": {
+				"catchErase": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "mask",
+			"name": {"tr": "Yalan Yüz", "en": "Liar's Face"},
+			"desc": {
+				"tr": "Yüzün yalan söylemeyi öğrenir: gecede bir yakalanma silinir.",
+				"en": "Your face learns to lie: one capture a night is erased."
+			},
+			"hint": {
+				"tr": "Elçiyi gezdir ya da kervanın haberini ona götür.",
+				"en": "Guide the envoy, or carry the caravan's news to him."
+			}
+		},
+		{
+			"id": "two_tongues",
+			"tree": "word",
+			"tier": 2,
+			"level": 4,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["act1_done"],
+			"teach": {},
+			"mods": {
+				"overhear": ["hun", "yuezhi"],
+				"wordCheckYuezhi": -1
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "tongues",
+			"name": {"tr": "İki Dil", "en": "Two Tongues"},
+			"desc": {
+				"tr": "Yüeçice düşünür, Hunca küfredersin: iki dilde kulak misafiri, Yüeçilerle Söz eşiği 1 düşer.",
+				"en": "You think in Yuezhi and curse in Hun: you overhear both, and Word checks with the Yuezhi drop by 1."
+			},
+			"hint": {
+				"tr": "Üç kış sana bir dil verdi; adını sonra koyacaksın.",
+				"en": "Three winters gave you a tongue; you will name it later."
+			}
+		},
+		{
+			"id": "bard_friend",
+			"tree": "word",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["camp_speech"],
+			"teach": {"who": "bard", "when": "bard_night"},
+			"mods": {
+				"regionTrustStart": 10,
+				"bardRumour": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "bard",
+			"name": {"tr": "Ozan Dostu", "en": "Friend of Bards"},
+			"desc": {
+				"tr": "Ozana pay verirsen ün senden önce varır: yeni bölgede Güven 10 yüksek başlar, bir dize bir yer fısıldar.",
+				"en": "Feed the bard and your name arrives first: Trust starts 10 higher in new regions, and a verse whispers a place."
+			},
+			"hint": {"tr": "Ozanın senin için bir dizesi olunca.", "en": "When a bard has a verse about you."}
+		},
+		{
+			"id": "oath_weight",
+			"tree": "word",
+			"tier": 3,
+			"level": 8,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["oaths_kept>=1"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {"oathKept": 1, "oathBroken": -1},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "oath",
+			"name": {"tr": "Ant Ağırlığı", "en": "Weight of the Oath"},
+			"desc": {
+				"tr": "Tuttuğun ant bir fazla ışır, bozduğun bir fazla yakar.",
+				"en": "A kept oath shines one brighter; a broken one burns one hotter."
+			},
+			"hint": {"tr": "Önce bir ant tut.", "en": "First keep an oath."}
+		},
+		{
+			"id": "envoy_read",
+			"tree": "word",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["two_tongues"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {"envoyOption": 1, "envoyLedger": true},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "envoy",
+			"name": {"tr": "Elçi Okuma", "en": "Reading Envoys"},
+			"desc": {
+				"tr": "Elçinin asıl isteği son cümlesindedir: her elçi sahnesinde bir seçenek fazla, gizli istek Defter'e yazılır.",
+				"en": "An envoy's real demand is in his last sentence: one more option in each envoy scene, and the hidden demand goes in your Ledger."
+			},
+			"hint": {"tr": "Bir elçi gördün; bir de senin elçin olsun.", "en": "You have seen one envoy. Now have your own."}
+		},
+		{
+			"id": "ransom",
+			"tree": "word",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": ["sleeper_hold"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {},
+			"cooldown": 30,
+			"stamina": 0,
+			"glyph": "bind",
+			"name": {"tr": "Fidye", "en": "Ransom"},
+			"desc": {
+				"tr": "Bağlı düşman ölünce bir baş, yaşayınca bir sürüdür: bayılttığını fidyeye çevirirsin.",
+				"en": "A bound foe dead is one head; alive he is a herd: you turn the fallen into ransom."
+			},
+			"hint": {"tr": "Esir almak için önce esir olmayı bitir.", "en": "Finish being a captive before you take any."}
+		},
+		{
+			"id": "name_keeper",
+			"tree": "word",
+			"tier": 4,
+			"level": 11,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["names_known>=10"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {
+				"moralePerName": {"set": 1},
+				"surrender": 0.1
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "names",
+			"name": {"tr": "Ad Bilen", "en": "Keeper of Names"},
+			"desc": {
+				"tr": "Her adı bilirsin: birlik her adla %1 moral kazanır, en çok %20; adını duyan düşman kolay teslim olur.",
+				"en": "You know every name: each lifts unit morale 1%, up to 20%; foes who hear theirs yield sooner."
+			},
+			"hint": {"tr": "Adları saymayı sürdür.", "en": "Keep counting the names."}
+		},
+		{
+			"id": "kurultay_voice",
+			"tree": "word",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["envoy_read"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {"councilCheck": -2, "councilVote": 1},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "council",
+			"name": {"tr": "Kurultay Sesi", "en": "Voice in the Kurultay"},
+			"desc": {
+				"tr": "Konuşunca beyler susar: kurultayda Söz eşiği 2 düşer, bir oy sende kalır.",
+				"en": "When you speak the lords fall silent: Word checks at the kurultay drop by 2, and one vote stays yours."
+			},
+			"hint": {"tr": "Kurultay seni çağırdığında.", "en": "When the kurultay calls you."}
+		},
+		{
+			"id": "dread_name",
+			"tree": "word",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["korku>=10"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {
+				"dreadR": {"set": 12},
+				"morale": -30,
+				"stagger": {"set": 1}
+			},
+			"cooldown": 45,
+			"stamina": 10,
+			"glyph": "dread",
+			"name": {"tr": "Korkunç Ad", "en": "Dreadful Name"},
+			"desc": {
+				"tr": "Adın kılıçtan önce varır: 12 m içinde moral 30 düşer, herkes 1 sn duraksar.",
+				"en": "Your name arrives before the blade: within 12 m morale falls 30 and everyone falters for 1 s."
+			},
+			"hint": {"tr": "Korku adını bulduğunda.", "en": "When dread finds your name."}
+		},
+		{
+			"id": "sky_witness",
+			"tree": "word",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "active",
+			"free": false,
+			"requires": ["kut>=10"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {
+				"wound": -1,
+				"moraleFloor": {"set": 60}
+			},
+			"cooldown": 180,
+			"stamina": 0,
+			"glyph": "sky",
+			"name": {"tr": "Gök Tanığı", "en": "Sky Witness"},
+			"desc": {
+				"tr": "Gök tanıksa ayakta kalırsın: bir yara kapanır, birlik 10 sn korkmaz.",
+				"en": "With the sky as witness you stay standing: one wound closes and the unit knows no fear for 10 s."
+			},
+			"hint": {"tr": "Gök sana bir kez daha baktığında.", "en": "When the sky looks at you again."}
+		},
+		{
+			"id": "brother_oath",
+			"tree": "word",
+			"tier": 5,
+			"level": 13,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["envoy_read"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {},
+			"cooldown": 0,
+			"stamina": 0,
+			"limit": {"per": "region", "n": 1},
+			"glyph": "cup",
+			"name": {"tr": "Kardeşlik Antı", "en": "Oath of Brotherhood"},
+			"desc": {
+				"tr": "Düşman yorulduysa kılıç değil kâse uzatırsın: morali 40'ın altındaysa çatışma antla biter.",
+				"en": "If the foe is spent you offer the cup, not the blade: below 40 morale the fight ends in an oath."
+			},
+			"hint": {"tr": "Düşmanın da bir ocağı var.", "en": "Your enemy has a hearth too."}
+		},
+		{
+			"id": "land_root",
+			"tree": "word",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "passive",
+			"free": false,
+			"requires": ["kurultay_voice"],
+			"teach": {"who": "m_custom", "when": "m_custom"},
+			"mods": {
+				"ownLand": {"mul": 1.1},
+				"landRefuseKut": 2
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "root",
+			"name": {"tr": "Yerin Kökü", "en": "Root of the Land"},
+			"desc": {
+				"tr": "Toprak devletin temelidir, yer ve su sahipsiz kalmaz: kendi toprağında birlik %10 güçlü, toprak isteğini reddetmek Kut +2.",
+				"en": "Land is the root of the state, and land and water are never left masterless: on your own ground the unit is 10% stronger, and refusing a demand for land gives Kut +2."
+			},
+			"hint": {"tr": "Senden bir karış toprak istediklerinde.", "en": "When they ask you for a span of land."}
+		},
+		{
+			"id": "lead_count",
+			"tree": "command",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": true,
+			"requires": ["act1_done"],
+			"teach": {},
+			"mods": {"unitCard": true},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "count",
+			"name": {"tr": "Sayım", "en": "The Count"},
+			"desc": {
+				"tr": "Palak gibi sayarsın: Birlik Kartı açılır, kaç atlı var, kaçı ıslığa uyar görünür.",
+				"en": "You count like Palak: the Unit Card opens, showing how many ride and how many answer the whistle."
+			},
+			"hint": {"tr": "Bir gün sen de sayacaksın.", "en": "One day you will do the counting."}
+		},
+		{
+			"id": "lead_drill",
+			"tree": "command",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["whistling_arrow"],
+			"teach": {
+				"who": ["uldin", "qianzhang_old"],
+				"when": "first_ten==uldin || qianzhang_old"
+			},
+			"mods": {
+				"drillT": {"set": 60},
+				"drillGain": {"mul": 1.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"hideName": true,
+			"glyph": "drill",
+			"name": {"tr": "Islık Talimi", "en": "Whistle Drill"},
+			"desc": {
+				"tr": "Tur 60 sn'ye iner, disiplin kazancı yarı yarıya artar.",
+				"en": "Drill rounds shrink to 60 s and discipline gains rise by half."
+			},
+			"hint": {"tr": "Bir ses eksik; sonra bir emir.", "en": "A sound is missing; then an order."}
+		},
+		{
+			"id": "lead_signs",
+			"tree": "command",
+			"tier": 3,
+			"level": 6,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": ["hand_signs"],
+			"teach": {"who": "mene", "when": "skill:hand_signs"},
+			"mods": {
+				"silentOrder": true,
+				"orderDist": {"set": 0}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "chain",
+			"name": {"tr": "El Zinciri", "en": "Hand Chain"},
+			"desc": {
+				"tr": "El, elden ele geçer: buyruk sessizdir, gecikmez, nöbet duymaz.",
+				"en": "Hand passes to hand: the order is silent, instant, and no watch hears it."
+			},
+			"hint": {"tr": "Mene'nin dili bir gün bir orduya yeter.", "en": "Mene's tongue will one day serve an army."}
+		},
+		{
+			"id": "lead_line",
+			"tree": "command",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": ["uldin", "qianzhang_old"],
+				"when": "first_ten==uldin || qianzhang_old"
+			},
+			"mods": {
+				"form": ["line"]
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "line",
+			"name": {"tr": "Saf", "en": "Line"},
+			"desc": {
+				"tr": "Yan yana, aynı menzilde: saf düzeni açılır.",
+				"en": "Side by side, one range: the line formation opens."
+			},
+			"hint": {"tr": "Önce yanında duracak biri olsun.", "en": "First have someone to stand beside you."}
+		},
+		{
+			"id": "lead_share",
+			"tree": "command",
+			"tier": 3,
+			"level": 7,
+			"act": 2,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "hereka", "when": "smuggled || quest:sq_names.done"},
+			"mods": {
+				"bootyShare": {"mul": 1.5},
+				"cup": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "share",
+			"name": {"tr": "Pay", "en": "The Share"},
+			"desc": {
+				"tr": "Ele geçiren alır, payı sen kesersin: ganimet payı %50 daha çok bağlar, kâse açılır.",
+				"en": "Who takes it keeps it, and you cut the shares: sharing binds 50% more, and the cup opens."
+			},
+			"hint": {"tr": "Önce paylaşacak bir şeyin olsun.", "en": "First have something to share."}
+		},
+		{
+			"id": "lead_carry",
+			"tree": "command",
+			"tier": 3,
+			"level": 8,
+			"act": 2,
+			"kind": "active",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": ["palak", "qianzhang_old"],
+				"when": "saw_palak==carry || qianzhang_old"
+			},
+			"mods": {
+				"cmdCarry": true,
+				"carryLoyalty": {"set": 9},
+				"carrySpeed": {"set": 1.8},
+				"memberDeath": {"mul": 0.3}
+			},
+			"cooldown": 20,
+			"stamina": 10,
+			"glyph": "carry",
+			"name": {"tr": "Düşeni Taşı", "en": "Carry the Fallen"},
+			"desc": {
+				"tr": "Düşeni getiren malını alır: Taşı buyruğu açılır, bağ daha çok artar, 1,8 m/sn taşırsın.",
+				"en": "Who brings back the fallen takes his goods: the Carry order opens, loyalty rises more, and you carry at 1.8 m/s."
+			},
+			"hint": {"tr": "Birini hiç taşıdın mı?", "en": "Have you ever carried someone?"}
+		},
+		{
+			"id": "lead_crescent",
+			"tree": "command",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["second_arrow"],
+			"teach": {"who": "qianzhang_old", "when": "qianzhang_old"},
+			"mods": {
+				"form": ["crescent"]
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "crescent",
+			"name": {"tr": "Hilal", "en": "Crescent"},
+			"desc": {
+				"tr": "Uçlar öne: hilal düzeni açılır, kuşatma başlar.",
+				"en": "Horns forward: the crescent formation opens and envelopment begins."
+			},
+			"hint": {"tr": "Ay kadar sabırlı ol.", "en": "Be as patient as the moon."}
+		},
+		{
+			"id": "lead_forage",
+			"tree": "command",
+			"tier": 4,
+			"level": 9,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["ledger_eye"],
+			"teach": {"who": "ardoksha", "when": "skill:ledger_eye"},
+			"mods": {
+				"food": {"mul": 0.8},
+				"fodder": {"mul": 0.8},
+				"detail": {"mul": 1.25}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "pasture",
+			"name": {"tr": "Otlak Hesabı", "en": "Pasture Ledger"},
+			"desc": {
+				"tr": "Ardokşa gibi sayarsın: yiyecek ve yem %20 az gider, iş kolu ×1,25.",
+				"en": "You count like Ardoksha: food and fodder go 20% further, work details ×1.25."
+			},
+			"hint": {"tr": "Ardokşa'nın defteri büyür.", "en": "Ardoksha's ledger grows."}
+		},
+		{
+			"id": "lead_moon",
+			"tree": "command",
+			"tier": 4,
+			"level": 10,
+			"act": 3,
+			"kind": "passive",
+			"free": false,
+			"requires": ["camp_speech"],
+			"teach": {"who": "atsho", "when": "skill:camp_speech"},
+			"mods": {
+				"moonCap": {"set": 12},
+				"moonPenalty": {"set": 3},
+				"moonCard": true
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "moon",
+			"name": {"tr": "Ay Hesabı", "en": "Moon Reckoning"},
+			"desc": {
+				"tr": "Ay dolarken vurur, eksilirken çekilirsin: dolunay moral tavanı +12, eksilen ayın cezası −3, kartta ay görünür.",
+				"en": "You strike as the moon grows and withdraw as it wanes: full-moon morale cap +12, waning penalty −3, the moon on your card."
+			},
+			"hint": {"tr": "Ayı saymayı biliyorsun.", "en": "You already know how to count the moon."}
+		},
+		{
+			"id": "lead_feint",
+			"tree": "command",
+			"tier": 4,
+			"level": 11,
+			"act": 3,
+			"kind": "active",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": ["farnak", "qianzhang_old"],
+				"when": "feigned_seen || qianzhang_old"
+			},
+			"mods": {
+				"cmdFeint": true,
+				"feintR": {"set": 30},
+				"rallyT": {"set": 6}
+			},
+			"cooldown": 40,
+			"stamina": 0,
+			"glyph": "feint",
+			"name": {"tr": "Sahte Kaçış", "en": "Feigned Flight"},
+			"desc": {
+				"tr": "Yenilmiş gibi dağılırsın: moral yitmez, 30 m açılır, 6 sn'de toplanır.",
+				"en": "You scatter as if beaten: no morale lost, 30 m out, regrouped in 6 s."
+			},
+			"hint": {"tr": "Farnak sana bir şey göstermişti.", "en": "Farnak showed you something once."}
+		},
+		{
+			"id": "lead_remount",
+			"tree": "command",
+			"tier": 5,
+			"level": 12,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["herd_habit>=60"],
+			"teach": {"who": "qianzhang_old", "when": "qianzhang_old"},
+			"mods": {
+				"fatigueGain": {"mul": 0.7}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "string",
+			"name": {"tr": "Yedek Dizisi", "en": "Remount String"},
+			"desc": {
+				"tr": "Atlar sırayla dinlenir: yorgunluk kazancı %30 az.",
+				"en": "Horses rest in turn: fatigue gains 30% less."
+			},
+			"hint": {"tr": "Bir at yorulur, dizi yorulmaz.", "en": "A horse tires; a string does not."}
+		},
+		{
+			"id": "lead_relay",
+			"tree": "command",
+			"tier": 5,
+			"level": 13,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": ["road_sung"],
+			"teach": {"who": "qianzhang_old", "when": "qianzhang_old"},
+			"mods": {
+				"relayDay": {"set": 1}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "rider",
+			"name": {"tr": "Haber Atlısı", "en": "Relay Rider"},
+			"desc": {
+				"tr": "Uzak birliğe Atlas'tan buyruk: kenar başına 1 gün.",
+				"en": "Orders to distant units from the atlas: one day per leg."
+			},
+			"hint": {"tr": "Yol Kemikleri öttükçe haber de gider.", "en": "As the Road Bones sing, news travels too."}
+		},
+		{
+			"id": "lead_appoint",
+			"tree": "command",
+			"tier": 5,
+			"level": 14,
+			"act": 4,
+			"kind": "passive",
+			"free": false,
+			"requires": [],
+			"teach": {
+				"who": ["eskam", "gudu_hou"],
+				"when": "gudu_hou"
+			},
+			"mods": {
+				"appointCost": {"set": 0}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"glyph": "chief",
+			"name": {"tr": "Baş Seçme", "en": "Naming Chiefs"},
+			"desc": {
+				"tr": "Başı sen seçersin: atama soy bedeli yok.",
+				"en": "You name the chiefs: appointments cost no lineage price."
+			},
+			"hint": {"tr": "Soylu olmayan da baş olur. Sonra.", "en": "The lowborn can lead too. Later."}
+		},
+		{
+			"id": "feign_weakness",
+			"tree": "command",
+			"tier": 6,
+			"level": 15,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["lead_feint"],
+			"teach": {"who": "qianzhang_old", "when": "qianzhang_old"},
+			"mods": {
+				"ambush": {"mul": 1.5}
+			},
+			"cooldown": 0,
+			"stamina": 0,
+			"limit": {"per": "region", "n": 1},
+			"glyph": "weak",
+			"name": {"tr": "Zayıf Görün", "en": "Feign Weakness"},
+			"desc": {
+				"tr": "Seçkinleri saklar, zayıfları gösterirsin: düşman seni küçük görür, ilk çarpışmada %50 fazla vurursun.",
+				"en": "You hide the elite and show the weak: the enemy thinks you small, and the first clash hits 50% harder."
+			},
+			"hint": {"tr": "Semiz atı saklamayı öğren.", "en": "Learn to hide the fat horses."}
+		},
+		{
+			"id": "lead_banner",
+			"tree": "command",
+			"tier": 6,
+			"level": 16,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": [],
+			"teach": {"who": "wanqi", "when": "wanqi"},
+			"mods": {
+				"rallyR": {"set": 120}
+			},
+			"cooldown": 120,
+			"stamina": 10,
+			"glyph": "banner",
+			"name": {"tr": "Sancak Çağrısı", "en": "Banner Call"},
+			"desc": {
+				"tr": "Sancak uzaktan görünür: toplanma 40 m'den 120 m'ye çıkar.",
+				"en": "The banner is seen from afar: rally reach grows from 40 m to 120 m."
+			},
+			"hint": {"tr": "O sancağı uzaktan gördün.", "en": "You saw that banner from afar."}
+		},
+		{
+			"id": "four_winds",
+			"tree": "command",
+			"tier": 6,
+			"level": 16,
+			"act": 5,
+			"kind": "active",
+			"free": false,
+			"requires": ["lead_crescent", "thousands>=4"],
+			"teach": {"who": "qianzhang_old", "when": "qianzhang_old"},
+			"mods": {
+				"encircle": true,
+				"morale": -50,
+				"noFlee": {"set": 20}
+			},
+			"cooldown": 300,
+			"stamina": 0,
+			"glyph": "winds",
+			"name": {"tr": "Dört Yel", "en": "Four Winds"},
+			"desc": {
+				"tr": "Dört renk at, dört yön: kuşatılanın morali 50 düşer, 20 sn kaçamaz.",
+				"en": "Four colours of horse, four directions: the surrounded lose 50 morale and cannot flee for 20 s."
+			},
+			"hint": {"tr": "Dört yel, dört renk.", "en": "Four winds, four colours."}
+		},
+		{
+			"id": "tumen_call",
+			"tree": "command",
+			"tier": 6,
+			"level": 17,
+			"act": 6,
+			"kind": "active",
+			"free": false,
+			"requires": ["lead_relay"],
+			"teach": {},
+			"mods": {},
+			"cooldown": 0,
+			"stamina": 0,
+			"limit": {"per": "day", "n": 4},
+			"glyph": "tumen",
+			"name": {"tr": "Tümen Çağrısı", "en": "Call of the Tümen"},
+			"desc": {
+				"tr": "On bin at bir sesle kalkar: tümenini Menzil'e çağırır, ≤100 atlıyla yanında yürürsün.",
+				"en": "Ten thousand horses rise at one sound: you call your tümen to a waystation and march with up to 100 at your side."
+			},
+			"hint": {"tr": "Önce onlara kendi sesini öğret.", "en": "First teach them your sound."}
+		}
+	]
+}

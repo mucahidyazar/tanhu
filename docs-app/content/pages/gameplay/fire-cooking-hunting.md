@@ -1,0 +1,298 @@
+---
+title: 'Ateş, Yemek ve Av'
+order: 50
+status: kismen
+summary: 'Av ve toplama ateşe, ateş yemeğe, yemek güce gider; ateş `Y` ile kurulur ve beslenir, sönünce 24 oyun saati çukur kalır, asıl işi pişirmektir, Üşüme yoktur (K1, K45), açlık öldürmez; av bölge stoğu ve Bayanay töresiyle tek döngüdür, II–VI''da Kopuz Gecesi''ni Mete''nin ocağının ozanı çalar (K79).'
+sources:
+  - docs/design/survival.md
+  - docs/design/fauna.md
+  - docs/design/decisions.md
+  - docs/design/economy.md
+  - docs/design/time.md
+  - docs/design/weather.md
+  - docs/design/act1.md
+  - docs/design/companions.md
+  - docs/design/story.md
+  - docs/design/structures.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+## Özü
+
+Bu üç şey tek döngüdür: av ve toplama, ateş, yemek, güç ve dayanıklılık, daha uzağa gitme, yolda gece. Oyuncu odun, tezek, kav ve taş toplar, `Y` ile ateş kurar ve besler, avını pişirir, yediğiyle koşar ve taşır. Ateş ısıtmaz: Üşüme yoktur. Açlık öldürmez: Tokluk düşükse stamina dolumu ve koşu düşer. Ceza yumuşaktır: Can bitince ölüm yerine Umay Eşiği çalışır.
+
+> [!NOT]
+> «kamp ateşi kurma, yemek yapma, avcılık etc de olacak; aralarda boşluklar olabilir, sen en iyi şekilde doldur ve entegre et»
+
+> [!NOT]
+> «oyunda üşüme olmayacak; kamp ateşi pişirme, yemek hazırlamada kullanılacak»
+
+[K1](/docs/source/design/decisions#k1): üşüme, ekipman sütunu, zorluk satırı ve HUD göstergesi bütün tasarımdan kalktı. «Işık ısıtır ama ele verir» ilkesi «ışık gösterir ama ele verir» oldu. Kurt Postu ve İri Post sıcaklık vermez.
+
+```varlik
+campfire, firewood, cauldron, pot, spit_roast, firestriker, torch, ember_pot
+```
+
+## Kamp ateşi kurma
+
+Ateşin ya da çukurun 3 m'sinden uzaktayken `Y` yer seçim kipini açar (dokunmatikte Ateş düğmesi): ayak dibinde halka önizlemesi. Geçerli yer düzdür (normal.y ≥0,9), su ve buz değildir, yapı içi değildir (orada ocak vardır), yapıya ve başka ateşe ≥6 m'dir. Geçersizse halka kızarır, nedeni yazar. Bir zonda ateş ve çukur toplam en çok 6 olur; yenisi önce en eski çukuru, çukur yoksa en eski ateşi siler; Eski Ocak bu sayıya girmez.
+
+| Adım | Girdi | Süre | Sonuç |
+|---|---|---|---|
+| Taş halkası (isteğe bağlı) | 6 taş (30 Yük) | 2 sn | Tüketim üçte ikiye iner, rüzgâra dayanır, kazan asılır; Eski Ocak'ta hazırdır |
+| Yakıt dizme | 3 odun, 4 tezek ya da 12 dal (üçü de 720 sn) | 2 sn | Koni |
+| Kav | 1 kav: huş kabuğu, kuru saz, reçine | Kendiliğinden | |
+| Yakma | Çakmak taşı, köz (II'den Köz Kabı da köz taşır) ya da yakın ateşten meşale | 3 sn basılı; 0,18 sn'lik halka | Kıvılcım, duman, alev |
+
+## Yakıt ve evreler
+
+Yakıt gerçek saniyeyle sayılır, en çok 720 sn'dir. 150 sn bir oyun saatidir: dolu ateş taşsız 4 sa 48 dk, taş halkasıyla 7 sa 12 dk yanar.
+
+| Yakıt | Yük | Ateş süresi | Oyun saati | Yük verimi |
+|---|---|---|---|---|
+| Tezek | 0,5 | 180 sn | 1 sa 12 dk | 360 sn/Yük |
+| Dal | 0,5 | 60 sn | 24 dk | 120 sn/Yük |
+| Odun | 2–5 (çam 4) | 240 sn | 1 sa 36 dk | 60 sn/Yük (çam) |
+
+| Evre | Yakıt | Işık | Pişirme |
+|---|---|---|---|
+| Kor | <60 sn | Çok az | Yalnız köz pişirme, kalite güvenli; Küle Yatır yalnız bu evrede |
+| Küçük | 60–240 sn | 6 m | Şiş ve kazan, süre ×1,2 |
+| Orta | 240–480 sn | 10 m | Şiş ve kazan, süre ×1 |
+| Büyük | >480 sn | 14 m | Süre ×0,8; şişte et %30 hızlı yanar |
+
+## Yakıt ekleme
+
+`Y` ateş tuşudur, girdisi yere göre değişir ([K45](/docs/source/design/decisions#k45)).
+
+| Yer | Kısa basış | Basılı tutuş |
+|---|---|---|
+| Ateşin ya da çukurun 3 m içinde | 1 yakıt ekler; 0,8 sn, oyun durmaz | 0,5 sn'de bir 1 yakıt ekler |
+| Uzakta | Ateş yeri seçimi | 0,6 sn: Gecelik Çadır yeri (II'den) |
+
+- Eklenen yakıtın türü tarif çemberinin Yakıt dilimindedir. Sıra Yük verimine göredir: tezek, dal, odun. Seçim oturum boyunca kalır.
+- Ateş 720 sn'de doludur. Doluyken `Y` «Ateş dolu.» yazar, malzeme gitmez; 720'yi aşan yakıtın yalnız sığan kısmı sayılır. Ateşin 6 m içinde ince bir halka evreyi ve kalan süreyi gösterir.
+- Çukuru yeniden yakmak 1 odun ya da 2 tezek ister; Yakıt dilimi dalsa `Y` önce iki tezeği, tezek yoksa odunu alır.
+- `E` değişmez: dokunuş tarif çemberini, 3 sn basılı tutuş Dinlen'i açar. Neden `Y`: ateşte `E`'nin zaten iki işi vardı, üçüncüsü dokunuşu belirsiz yapardı; `Y` yakında besler, uzakta yer seçer. Çocukta (Serbest Gez) malzeme sayılmaz; dokunmatikte Ateş düğmesi aynı işi görür.
+
+## Sönme ve çukur
+
+Ateş yakıtı bitince ya da hava söndürünce söner: Tipi, Kara Boran, fırtına ve tozda taşsız ateş 40 sn'de, sağanak, gök gürültülü fırtına ve doluda 60 sn'de. Taş halkası ve barınak korur. Bakımsız ateş uykuda söner: uyku yaz gecesinde bile ≈9 saati aşar, ateş en çok 4 sa 48 dk (taşlı 7 sa 12 dk) yanar. Sönen ateş çukur olur: kül halkası, ışık ve duman yok ([K45](/docs/source/design/decisions#k45)).
+
+| Kural | Değer |
+|---|---|
+| Kalkış | Sönüşten 24 oyun saati (60 gerçek dk) sonra |
+| Erteleme | Oyuncu 30 m içindeyse kalkmaz, uzaklaşınca kalkar |
+| Çadır | Gecelik Çadır yerindeyken kalkmaz; çadır toplanınca 24 saat sönüş anından sayılmaya devam eder |
+| Yeniden yakma | 1 odun ya da 2 tezek; kav istemez; yakıcı çakmak taşı, köz ya da meşaledir |
+| Uzun atlama | 24 oyun saatinden uzun atlama (atlas yolculuğu, Akan Kronik) bütün çukurları kaldırır |
+
+Neden 24 saat: uyku en çok 15 oyun saatidir, gece sönen ateşin çukuru uyanan oyuncuyu bekler. Eski «ertesi şafakta kalkar» kuralı çukuru oyuncu uyanmadan kaldırıyordu.
+
+## Küle Yatır, söndürme, Ocağa Pay
+
+[Od Ana](/encyclopedia/od-ana)'nın töresi ateşe iki iş ekler ([K35](/docs/source/design/decisions#k35)). Ateşin 3 m içinde `F` basılı tutulursa ateş işidir; kısa basış sapandır.
+
+| Eylem | Girdi | Koşul | Sonuç |
+|---|---|---|---|
+| Söndür | `F` basılı 1 sn | Küçük, Orta ya da Büyük evre; tulumda su ya da yerde kar | Ateş söner, buhar yükselir, çukur kalır |
+| Küle Yatır | `F` basılı 2 sn | Yalnız Kor evresi | Işık 0, duman yok, yakıt sayacı durur; köz ertesi doğuştan 1 oyun saati sonrasına dek yaşar |
+| Közü uyandır | `Y` | Küllenmiş köz | 1 yakıt ateşi kav ve yakıcı istemeden yakar |
+| Ocağa Pay | Tarif çemberinde seçenek | Pişirirken | Yemeğin Tokluk'u −%10, ateşin o günkü yakıt tüketimi ×0,9; ateş başına günde bir |
+
+Küllenmiş köz ateş sayılmaz: nöbetçinin gözüne girmez, hayvanı uzak tutmaz, pişirmez; Uyku Zarı'nda ateşsiz saattir. Ateşe tüküren ya da üstünden atlayan kişiye Hun kişisi bir satır söyler, ceza yoktur.
+
+## Ateş ne işe yarar
+
+- **Pişirme** asıl iştir: şiş, kazan ve kor burada kullanılır. **Dinlen.** `E` basılı 3 sn Bekle tekerini ateş başı kipinde açar: Stamina hemen dolar; ≥2 oyun saati dinlenince ve Tokluk ≥25 ise Yara −1, 6 oyun saatinde bir; Tokluk yarı hızla düşer. Tek bekleme en çok 12 oyun saatidir. Bedeli geçen saattir. **Göğe Bak:** gece ateş başında ilk Dinlen 6 sn'lik bir çekim açar: kamera kuzeye döner, 40° yukarı bakar; gökte dönmeyen nokta ([Demirkazık](/encyclopedia/demirkazik)) ve adlı dokuz yıldız görünür ([K35](/docs/source/design/decisions#k35)).
+- **Gece işi.** Işığı şantiye merkezine 4 m payla erişen ateş gece inşaatını ×1 yürütür (küçük 6, orta 10, büyük 14 m); Gecelik Çadır'ın kurulumu da böyle aydınlanır.
+- **Uyku.** Ateş Gecelik Kamp'ın yarısıdır: boş arazide ateş korur, düşman zonunda ele verir; uykuda ateşin yandığı saat Uyku Zarı'nı belirler ([K45](/docs/source/design/decisions#k45); [Tek Gecelik Kamp](/docs/gameplay/overnight-camp)).
+- **Kayıt ve hayvan.** İlk yakış, her dinlenme ve uyku sonu otomatik kayıt yazar: kayıt noktası oyuncunun kurduğu yerdir. Kurt ve yaban hayvanı Orta evrede 8 m, Büyük evrede 12 m içine girmez; küllenmiş köz korumaz. **Görünürlük.** Duman 60 m'den, ışık yarıçapının 3 katından (Küçük 18, Orta 30, Büyük 42 m) fark edilir, nöbetçi yoklamaya gelir. I. Perde'de yasak bölgede kurulursa Güven −2. Küle Yatır bu izi siler.
+- **Söyleşi.** Ateş başında oturunca yanındakiler de oturur: Serbest Gez'de ocak halkı (Ana, Baba, Ozan, Ağabey), II'den onluk ve yoldaşlar; onluğun morali dakikada +1 artar. Ozanı ateş başında 5 sn dinlemek Destan Kitabı'nın «Gök ve Yer» bölümünden bir girdi açar; ozanla gece dinlemek Kopuz Gecesi'dir (Bayanay'ın payı, aşağıda).
+
+**Ocağın ozanı ([K79](/docs/source/design/decisions#k79)).** II–VI'da ateş başındaki ozan Mete'nin ocağının ozanıdır. II–III'te Göl Obası'nın [ozanı](/encyclopedia/bard) Mete'nin ocağına gelir, III sonuna dek orada çalar. Köz Kabı'yla gelmez; nasıl geldiği II'de yazılır ([K106](/docs/source/design/decisions#k106)). III→IV Kroniği'nde ölür, kopuzu ocağın [Çocuğuna](/encyclopedia/child) kalır: IV–VI'da Kopuz Gecesi'ni ve Ozan'a Anlattır'ı genç ozan Çocuk çalar (MÖ 209'da yedi yaşında bir Hun kızıdır, MÖ 174'te 42 yaşında kadın ozan olur). Genç ozanın modeli ve Çocuğun sesi kullanıcının onayını bekler ([Karar Bekleyenler](/docs/general/pending-decisions)).
+
+**Yoldaşlar ateş başında** ([K70](/docs/source/design/decisions#k70), [K72](/docs/source/design/decisions#k72)). I. Perde'de ateş başında yalnız Ku yatar. II'den Mete Dinlen'e geçince partideki yoldaşlar ateşin 3–5 m'lik halkasına oturur, en çok 10 yer; ateşin ışığı halkayı kapsamıyorsa (Küçük evre 6 m) halka 3 m'de kalır. Yoldaş ateşi beslemez, söndürmez; Ocağa Pay'ı ve Küle Yatır'ı Mete yapar. Yoldaşın yarası Mete'ninki gibi kapanır, Tokluk şartı yoktur; Dangyu partideyken aralık 3 oyun saatine iner; Ağır Yaralı yoldaş ateş başında da Ağır Yaralı kalır, uykuyla ya da 24 oyun saatiyle biter. Gecede en çok bir kamp sahnesi gelir; ozan ateşteyse sahne ozan susunca gelir. Kunduz'un ezgisi (kişisel görevinin 1. adımı) o gecenin moralini dakikada +1 artırır. Mete uyuyunca yoldaşlar da uyur; parti yanındaki Gecelik Kamp güvenli bir sefer ordugâhıdır ([K88](/docs/source/design/decisions#k88); [Tek Gecelik Kamp](/docs/gameplay/overnight-camp)).
+
+## Havada ateş
+
+Sayılar yakıt tüketim çarpanıdır; süre yazan hücre «o sürede söner» demektir ([K22](/docs/source/design/decisions#k22)). Yurt ocağında ve sundurmada çarpan hep ×1'dir.
+
+| Hava | Taşsız | Taşlı | Yakma | Pişirme |
+|---|---|---|---|---|
+| Açık, bulut, kapalı, sis | ×1 | ×1 | 3 sn | Olağan |
+| Rüzgâr | ×1,25 | ×1,1 | 3 sn | Şiş ×0,9 süre |
+| Fırtına (rüzgâr) | 40 sn | ×1,5 | Taşsız yakılmaz | Şiş ×1,1 |
+| Çisenti | ×1,25 | ×1,1 | 4 sn | ×1,1 |
+| Yağmur, sulu kar | ×1,5 | ×1,25 | 5 sn; reçine ya da huş kabuğu gerekir | ×1,2; korda ×1,5 |
+| Sağanak, gök gürültülü fırtına | 60 sn | ×2 | Açıkta yakılmaz | Kor yok |
+| Dolu | 60 sn | ×1,5 | Yakılmaz | Yok |
+| Kar | ×1,5 | ×1,25 | 4 sn | ×1,1 |
+| Yoğun kar | ×2 | ×1,5 | 5 sn | ×1,2 |
+| Tipi, Kara Boran | 40 sn | ×2 | Taşsız yakılmaz | Şiş yok |
+| Toz fırtınası | 40 sn | ×1,5 | Taşsız yakılmaz | Kalite −1 |
+
+Meşale yağmurda yarı sürede yanar, sağanak ve dolu altında 20 sn'de söner. Yağmurdan sonraki 6 oyun saati toplanan tezeğin yakıtı yarıdır. Ağır hava en az 1 oyun saati önce okunur (Hikâye 1,5; Zor 0,75): ateşi taşla çevirmek hazırlıktır.
+
+## Yemek
+
+| İstasyon | Nerede | Yapar |
+|---|---|---|
+| Şiş | Her ateş, dal ile | Kızartma |
+| Kazan | Taş halkalı ateş ve küçük kazan; Eski Ocak; Mutfak; yurt ocağı (II'den Kazan Ocağı tezgâhı) | Haşlama, çorba, lapa |
+| Kor | Kor evresi | Balık, kök, yemiş keki |
+| Kurutma Sırığı | Kışlak; kurulur (4 odun, 2 ip) | Kak, kurut; 2 oyun saati, uykuda da kurur; yağmurda durur, rüzgârda ×1,3 |
+| Tulum | Taşınır | Kımız; 12 oyun saati |
+
+Ateşin yanında `E` küçük tarif çemberini açar, oyun durmaz. Çemberde tariflerin yanında iki dilim vardır: Yakıt ve Ocağa Pay. Pişirirken oyuncu oturur; yürürse iş bırakılır, malzeme gitmez. Şiş ve korda Tam Vuruş halkası vardır: doğru an ★3, geç ★1, çok geç Yanık (Tokluk +5). Kazan ve kurutma zamanlama istemez. Kalite 1, 2, 3 yıldızdır: etki ×0,75, ×1, ×1,3. Yıldız yalnız ateş başında hemen yenince geçer, heybeye giren yemek olağandır. Tarif ilk kez yapılınca +20 XP. Aynı anda en çok 2 süreli etki olur, yenisi en eskisini siler.
+
+| Yemek | Girdi | İstasyon, süre | Tokluk | Ek etki | Öğreten |
+|---|---|---|---|---|---|
+| Şiş Et | 1 et | Şiş, 12 sn | +30 | Bilek +1, 3 dk | Başta |
+| Korda Balık | 1 balık | Kor, 8 sn | +25 | Göz +1, 2 dk | Başta |
+| Aş | 2 darı, su | Kazan, 15 sn | +35 | | Başta |
+| Yahni | 1 et, 1 ot, su | Kazan, 25 sn | +55 | Bilek +1, dolum +%20, 6 dk | Hereka |
+| Kemik Suyu | 2 kemik, su | Kazan, 30 sn | +20 | Can +30, Yara −1 | Hereka |
+| Sütlü Lapa | 1 darı, 1 süt | Kazan, 15 sn | +30 | Dolum +%30, 5 dk | Nanay |
+| Bozkır Çayı | 1 ot, su | Kazan, 10 sn | +5 | Stamina +30, Yara −1 | Atşo |
+| Kak | 1 et, 1 tuz | Sırık, 2 sa | +20 | Bozulmaz, yürürken yenir | Ardokşa |
+| Kurut | 1 süt, 1 tuz | Sırık, 2 sa | +12 | Yürürken yenir | Ardokşa |
+| Kımız | 2 kısrak sütü, tulum | Tulum, 12 sa | +10 | Stamina tavanı +15, gizlilik −%10, 8 dk | Kantu |
+| Yemiş Keki | 2 yemiş, 1 darı | Kor, 10 sn | +18 | Koşu +%5, 3 dk | Mene |
+| Avcı Çorbası | 1 et, 1 kemik, 1 ot, 1 tuz | Kazan, 40 sn | +70 | Bütün statlar +1, 8 dk | Sürüde Kurt görevi |
+
+```varlik
+spit_meat, ember_fish, meal, stew, bone_broth, herb_tea, dried_meat, qurt, kumis, wolf_soup
+```
+
+**Bozulma.** Çiğ et ve balık edinildiği hikâye gününden sonraki ikinci şafakta bozulur (24–48 oyun saati), köpeğe verilir. Kışlak'ta balık donuktur, bozulmaz: bu dünya kuralıdır, soğuk mekaniği değil. Pişmiş ve kurutulmuş yemek bozulmaz. Açıkta sırıkta asılı yiyeceğin sağanakta %10'u, küçük doluda %20'si, iri doluda %50'si bozulur. **Paylaşma.** Kişiye `Ver`: onay +1 (günde bir). I. Perde'de Çukur'un esirlerine yiyecek Kut +1 (günde en çok bir). Ata yem Bağ +5 (günde en çok üç). Köpeğe et: Ku yanında daha uzun kalır. Avdan ozana pay (Ozanın Payı) onay +1 verir, Kut vermez. II'den yoldaşa armağan iki oyun gününde bir verilir: sıradan +0,5, sevdiği +1.
+
+## Tokluk
+
+Tokluk 0–100'dür. Uyanıkken −5 / oyun saati, ateş başında dinlenirken ×0,5, uykuda ×0,25; hepsi × zorluk (Hikâye 0,7, Normal 1, Zor 1,15). Kışlak'ta 16 saat uyanık ve 8 saat uyku günde −90 eder: tayın (2 Aş) ve akşam kasesiyle tutar. Serbest Gez'de Tokluk yoktur. Paylaşan oyuncu aç kalır, günde bir Erzak Yolu işiyle (≈1 dk) açığını kapatır: «Merhamet bir dakikalık emek eder.»
+
+| Tokluk | Etiket | Etki |
+|---|---|---|
+| ≥75 | Tok | Dolum ×1,15 |
+| 25–74 | | Yok |
+| <25 | Aç | Dolum ×0,6 (Soluk ≥7 muaf), koşu ×0,95 |
+| 0 | Bitkin | Ek olarak Can dolumu ×0,5, koşu gideri ×1,25 |
+
+## Av
+
+Türlerin canı, hızı, sürüsü ve verimi [Hayvanlar](/docs/world/animals) sayfasındadır ([K65](/docs/source/design/decisions#k65)); burada yöntem, töre ve perde perde av takımı yazar. Sonuç kansızdır: toz ve tüy, hayvan yere çöker.
+
+### I. Perde'nin av takımı
+
+I. Perde 2–7 Aralık MÖ 210'dur, kıştır. Rehineye silah verilmez: elde oyuncak yay vardır; sapan (Rehine Yurdu'nda 1 deri ve 1 yünle), kapan ve ağ edinilir. Ödünç yay yalnız Gün III'ün avında eldedir (14:00–16:30), 17:30'da geri alınır. Mızrak yoktur: yaban domuzu ve kurt I. Perde'de av değil tehlikedir. Tarbagan kış uykusundadır, kapana tavşan düşer. Gökte altın kartal süzülür: kadrajda yalnız gölgesi ve sesi vardır, av değildir. Ak Otlak'taki 60 at ve 200 koyun evcildir, nişan evcile kilitlenmez.
+
+| Hayvan | Bölge | Can | Davranış | Nasıl | Verim |
+|---|---|---|---|---|---|
+| Karga | Kışlak, Çukur, Ak Otlak | 1 | Sırıkta oturur, ürker | Oyuncak yay, sapan, taş | 1 tüy |
+| Tavşan | Ak Otlak, Sazlık, Kuzey Düzü | 8 | Zikzak kaçar | Sapan, kapan | 1 et, küçük post |
+| Keklik | Kara Yamaç, Kara Tepeler | 4 | Sürüyle havalanır | Sapan | Küçük et, tüy |
+| Tilki | Ak Otlak, Sazlık | 14 | Gece gezer | Kapan, sapan | Tilki kürkü |
+| Ceylan | Kuzey Düzü, Ak Otlak | 26 | Sürü 2–9; kaçar, durur, bakar; görüş 40 m | Ödünç yay | 3 et, deri, 2 sinir, boynuz, 2 kemik |
+| Yaban Keçisi | Kara Tepeler (Av Sekisi) | 32 | Kaçış yamacından 350 m öteye gitmez | Av görevi: ödünç yayla 2 keçi | 3 et, deri, 2 boynuz, 2 sinir, 2 kemik |
+| Maral | Kara Yamaç ormanı | 36 | Tan ve akşam açıkta, rüzgâra duyarlı | İz sürme, ödünç yay | 4 et, deri, 2 sinir, geyik boynuzu, 3 kemik, iç yağı |
+| Yaban Domuzu | Kara Yamaç, Sazlık | 44 | Küme 6–20, vurulunca saldırır | Tehlike: uzak dur | 4 et, 2 iç yağı, deri, 2 kemik |
+| Kurt | Ak Otlak, Kara Yamaç, Kara Tepeler | 30 | Gece sürüye iner, ateşten çekinir | Sürüde Kurt görevi: dişi kurdu bırak ya da vur | Kurt kürkü, sinir, kemik |
+| Balık | Buz Kolu, Ayna Göl | | Ağ ya da buz deliği | Ağ, olta | 1–2 balık |
+
+### Sonraki perdelerde gelen av
+
+Yeni türler perdenin iç haritasıyla gelir. II'den Hun Yayı (40 m) eldedir, atlı av Bağ ≥40 ister. I'in türleri sonraki perdelerde de vardır; tarbagan bahardan güze görünür.
+
+| Perde | Yeni av | Nerede, nasıl |
+|---|---|---|
+| II | Zeren, kulan, argali, toy kuşu, kaz, turna | Zeren ve kulanın süreğine tek atlı yetişemez: sürek ya da pusu; kulan gece Islık Alanı'nın beş pınarına iner; zeren Haziran–Temmuz, argali Mayıs–Haziran doğurur |
+| III | Mançurya marali, karaca, ayı, vaşak, kaplan, sincap, taymen | Tunghu toprağı, orman, ırmak; ayı Ekim–Mart indedir, adı anılmaz, «Yaşlı» denir; akar suda ağ açılır |
+| IV | Sülün, sayga, taki, kar leoparı, akbaba | Ordos sazlığı, Gobi, Çilyan; taki at sürüsüne karışır, nişan evcil ata kilitlenmez; doğan yoldaş olur |
+| V | Yeni yaban av yok | Kartal yoldaş olur; avına inen yaban kartalını tek okla düşürmek Kartal Vuran sınavıdır |
+| VI | Samur, sığın, ren (seçmeli), yaban devesi | Tayga, Hentiy, Loulan; Ak Maral ıduktur |
+
+### Algı
+
+Hayvanların görüş konisi, duyma yarıçapı ve rüzgâr kokusu vardır. Rüzgâr altından yaklaşırsan algı ×0,5, üstünden ×2; durgun havada yön yoktur, fırtınada üstü ×2,5, altı ×0,4. Alacakaranlıkta görüş ×0,8, duyma ×1,2; gece görüş ×0,6 (tilki ve kurt ×1), duyma ×1,3. Siste ve sağanakta algı yavaşlar. Çan avı kaçırır: I. Perde'de av çanla zordur, keçe tıkaç gerçek işe yarar. Pay Bırak o gün algıyı ×0,9, Kurt Postu ×0,8 yapar. II'den ürken hayvan yakındaki nöbetçinin şüphesine +0,3 yazar; düşman atı 20 m'de huylanır. Ters yönde oyuncu da okur: kaz sustuysa yakında biri vardır.
+
+| Tür | Görüş m | Duyma m | Koku | Alarm |
+|---|---|---|---|---|
+| Karga | 20 | 16 | | Havalanır, 30 m |
+| Kaz | 30 | 24 | | Bağırır, 50 m |
+| Tarbagan | 30 | 20 | | Islık çalar, 40 m |
+| Ceylan | 40 | 30 | ×1 | Toz kaldırır, 60 m |
+| Zeren, sayga | 60 | 30 | ×1 | Toplu döner, 80 m |
+| Kulan, taki | 50 | 30 | ×1,5 | Kişner, 60 m |
+| Maral, karaca | 30 | 30 | ×1,5 | Böğürür, 40 m |
+| Domuz, ayı | 12 | 24 | ×2 | |
+| Kurt | 30, gece ×1 | 40 | ×2 | Ulur, 120 m |
+
+### Avlanma yöntemleri
+
+| Yöntem | Araç | Oynanış |
+|---|---|---|
+| Yakın av | Sapan, ok | Sağ tık nişan: mesafe halkası, tutuş süresi isabeti artırır |
+| Kapan | 2 ip | İz üstüne kur, en çok 4; zar 00:00, 06:00, 12:00 ve 18:00'de; tavşan, tarbagan, tilki, sincap, samur, vaşak |
+| İz sürme | İz Okuma becerisi | İz yerde görünür, tazelik renkle okunur; kar ömrü ×0,5, yoğun kar ×0,25, yağmur ×0,6; yazın iz yalnız çamurda kalır |
+| Pusu (II) | Çömelik, rüzgâraltı | Gece su başına inen sürüyü bekle: Pınar Pususu görevi, kulan |
+| Atlı av (II) | Bağ ≥40, Hun Yayı | Dörtnalda yan atış. Hun Atı ceylana ancak 12. saniyeden sonra yetişir: d m açıkla ≈30 + d sn |
+| Yoldaşla av (II) | Avla `8`, İz Sür `9` | Yaylı yoldaş 120 m içinde küçük ve orta av vurur; doğum penceresinde ve yasak avda reddeder. İz Sür'de Mijia, Kunduz ya da Berik en taze izi 400 m'ye dek önden yürütür. Yoldaşın vurduğu av Mete'nindir: ilk av XP'si ve Pay Bırak işler, et ve post yoldaşın terkisine girer |
+| Sürek avı (IV) | Onluk, halka düzeni | On avcı 6 oyun saatinde 8 et, 2 deri, 1 boynuz, 4 kemik, 4 sinir, 1 iç yağı getirir; kışın yerleşimin öğün açığını kapatır |
+| Kuşla av | Doğan (IV), kartal (V) | 120 m içinde: doğan tavşan, keklik, sülün, genç tarbagan; kartal tilki, tavşan, tarbagan; başarı `0,55 + 0,05 × Göz`, karda +0,2; ok harcanmaz |
+| Ağ ve buz | Ağ, olta | Delik aç (4 sn), ağ at, 8 sn bekle, çek; akar suda ağ III'ten |
+
+- **Yüzme.** `E` basılı 2 sn, bıçak ister; yoksa yalnız küçük av. Tek okta düşen avda +1 deri. Ok %60 geri alınır. Kaplan ve kar leoparı 1 İri Post verir: 1,5 Yük, Kıymet 48, sıcaklık vermez.
+- **XP.** Tür başına yalnız ilk av +40; perde başına en çok 4 tür sayılır (160 XP), kalanı Destan dizesidir. Maral, yaban keçisi ve ceylanın ilk avı Destan Kitabı'na dize düşürür. Araçlar kırılmaz: daha iyi araç hız ve verimdir, ok ve taş sarf edilir.
+
+### Stok, pay ve yasak av
+
+**Stok.** Bölgenin büyük av stoğu bozkırda 40, dağda 25, ormanda 30'dur; küçük av bunun 3 katıdır. Her şafakta %30 geri gelir; kırılırsa o bölgede o gün av yoktur. Kaplan, sığın ve kar leoparı stok dışıdır: zon başına perdede en çok 1. Fırtına öncesi hayvan inine çekilir: okunur bir işarettir. **[Bayanay](/encyclopedia/bayanay)'ın payı.** Av iyesi Bayanay 19. ve 20. yüzyıl derlemelerindendir, Hun çağı metninde geçmez: töre ozanın ağzıyla gelir ([mitoloji.md](/docs/source/research/mythology)).
+
+| Töre | Girdi | Etki |
+|---|---|---|
+| Pay Bırak | Yüzdükten sonra `E` basılı 2 sn: 1 küçük et ya da 1 iç yağı; bölge başına günde bir | O gün o bölgede hayvan algısı ×0,9; sonraki şafakta geri gelme %30 → %35 |
+| Kopuz Gecesi | Mete'nin ocağının ozanı yanındayken akşam ya da gece ≥1 oyun saati dinlemek; günde bir. Ozan II–III'te Göl Obası'nın ozanı, IV–VI'da Çocuktur (K79, K106) | Ertesi gün ilk büyük avda +1 verim; gündüz çalınmaz, kopuzsuz avın cezası yoktur |
+| Ozanın Payı | Avdan bir parça ozana `Ver` | Onay +1; Kut vermez |
+| Yer küstü | Bir günde stoğun %30'undan fazlası vurulur | 2 şafak boyunca geri gelme %15; HUD sayı vermez: kuş sesi yarıya iner, uzakta kurt ulur, Mene ya da kam uyarır |
+
+| Yasak av | Sonuç |
+|---|---|
+| Doğum penceresinde yavrulu sürüyü kırmak (zeren Haziran–Temmuz, karaca Mayıs–Temmuz, argali Mayıs–Haziran) | Korku +1, zon başına bir; I'de Mene ya da Atşo, II'den kam sözle uyarır |
+| Ak Maral (VI, ıduk) | Bırakmak Kut +1; vurmak Korku +1 ve Yer küstü |
+| Adak Aygırı | Sağılmaz, kervana yük hayvanı olmaz |
+| Evcil hayvan | Avlanmaz; et sürüden kesimle gelir |
+| Kurt | Yasak yok: Hun kurdu öldürmeyi suç saymaz; ama Mijia ile Kunduz bunu sevmez |
+
+II. Perde 1–15 Haziran MÖ 209'dur: zeren ve argali doğum penceresinin içindedir; Zeren Doğumu görevi bu yüzden av yasağı ister. **Tehlikeli hayvanlar.** Kurt, yaban domuzu, ayı, kaplan, kar leoparı ve sığın tehlikedir; sayıları [Dövüş](/docs/gameplay/combat) sayfasındadır. 20 m içindeki tehlikeli hayvan Bekle'yi keser (köpek yanındaysa 60 m). Kurt gözü iki parlak noktadır, ışık değildir; 23:00'ten sonra uzak uluma 6–10 dk'da bir gelir, stok düşükse aralık yarıya iner.
+
+```varlik
+gazelle, ibex, deer, hare, marmot, fox, wolf, boar, dzeren, kulan, crow, partridge, snare, net
+```
+
+## Serbest Gez ve sonraki perdeler
+
+**Serbest Gez.** Oluşturulan yetişkin değil Çocuk yürür ([K37](/docs/source/design/decisions#k37)). Dal toplar, ocak başında Ana'ya yardım eder, oyuncak yayla karga, tavşan ve tarbagan vurur, ormanda maral izi sürer ama avlayamaz. Getirdiği av Ana'nın kazanına girer. Küçük ateş kurar ve besler: Heybe yoktur, malzeme sayılmaz; Baba ve Ana yanına gelip oturur. Ana kampta en çok 40 koyun, 16 karga ve uyuyan bir köpek vardır; Gecelik Kamp Serbest Gez'de yoktur. **Aile bekler** ([K83](/docs/source/design/decisions#k83)): üçüncü yurdun gecesinde Ozan, Ana ve Baba 23:00'e dek ateş başında kalır; 23:00'te yurt aşama ≥4 ise ilk dumana dek bekler, 05:00'te duman yoksa Ana közü getirir. Çocuk ustalara katılırsa aile ilk dumanı gece görür: yalnız katılmada 04:02'de, bütün yardımla 03:43'te; yardımsız duman 05:48'de şafakla çıkar. **Çocukluk «Koyun Sırtında»** (22 Eylül MÖ 228, Ordos): küçük Mete koyun sırtından iki kuş ve bir fare vurur; fareyi vurmamak bir bayrak yazar. Dayanak Shiji 110'dur: Hun çocukları koyuna biner, kuşa ve fareye ok atar, büyüyünce tilki ve tavşan avlar.
+
+**II. Perde'den.** Hane günde 4,3 öğün yer; kış payı saklananla %75–115, bilerek dardır. Kazanda 1 et ve su 5 öğün eder: tek başına yenen et +30 Tokluk'tur, kazanda beş kişiyi doyurur. Ordugâhın öğününün onda biri yerleşimden gelir (Ordu Payı); Ocak'ta kervan yoktur, onluğun Azıkçısı iki günde bir 2 öğün alır ([K54](/docs/source/design/decisions#k54)). Bir onluk günde 10 öğün yer; partideki yoldaş da onluğun erzakından günde 1 öğün yer ([K88](/docs/source/design/decisions#k88)); aç birlik moral kaybeder, kurtuluş av ve akındır. Pazarda bir Aş bir kabuktur ([K48](/docs/source/design/decisions#k48)). Şölen (Toy) moral verir ve Kut etkiler.
+
+> [!DURUM]
+> Oyunda: ana kampın sahne ateşi. Taş halka ve odunlar Meshy modelidir; alev, kıvılcım, titreyen sıcak ışık ve konumlu çıtırtı sesi koddan gelir. Ateşin görünüşü bu olacaktır. Ahırın yanında iki at durur. Yok: oyuncu ateşi ve `Y`, yakıt ve evreler, çukur, Küle Yatır, Dinlen, tarif çemberi ve pişirme, Tokluk, hayvan davranışı, av, kapan, iz, Serbest Gez'de Çocuk ([d3/oyun-durumu.md](/docs/source/design/d3/game-state)). Prototipte denendi: Tokluk, eşya ve kaplar, toplama, zanaat ve hava çekirdeği; Godot'a taşınmadı.
+
+## Yol haritası
+
+Ateş, pişirme, av ve Tokluk I. Perde'nin oyuncu ve dünya çekirdeğindedir ([ateş ve av](/roadmap#item-fire-hunting), [Tokluk ve yara](/roadmap#item-hunger-wounds), [Bekle ve Uyu](/roadmap#item-wait-sleep)); hayvanlar Kışlak fazında; sürü, atlı av, Kopuz Gecesi ve Gecelik Kamp II'nin yerleşim fazında ([sürü ve av](/roadmap#item-hunt-herds), [Gecelik Kamp](/roadmap#item-overnight-camp)).
+
+```ilerleme
+act-1-p1
+act-1-p2
+act-2-p2
+```
+
+## Kaynaklar
+
+- [survival.md §2](/docs/source/design/survival#2-kamp-atesi), [§2.3](/docs/source/design/survival#2-3-yakit-ekleme-23), [§2.4](/docs/source/design/survival#2-4-sonme-ve-cukur-25), [§2.5](/docs/source/design/survival#2-5-kule-yatir-sondurme-ocaga-pay-k35), [§2.9](/docs/source/design/survival#2-9-yoldaslar-ates-basinda-k70-k72), [§3](/docs/source/design/survival#3-yemek-yapma), [§4](/docs/source/design/survival#4-avcilik), [§4.7](/docs/source/design/survival#4-7-stok-pay-ve-yasak-av-k65), [§5](/docs/source/design/survival#5-bosluklari-dolduran-ek-kararlar)
+- [fauna.md §1](/docs/source/design/fauna#1-tur-katalogu), [§4](/docs/source/design/fauna#4-av), [§5.2](/docs/source/design/fauna#5-2-dogan-ve-kartal), [§9](/docs/source/design/fauna#9-perde-perde-acilis)
+- [economy.md §5.2](/docs/source/design/economy#5-2-yiyecek-tablosu), [§5.5](/docs/source/design/economy#5-5-pisirme), [§8.3](/docs/source/design/economy#8-3-ii-perde-kendi-ocagin)
+- [time.md §7.1](/docs/source/design/time#7-1-tus-yer-sure), [§10.2](/docs/source/design/time#10-2-ates-ve-yemek-survival-md); [weather.md §8.5](/docs/source/design/weather#8-5-kamp-atesi-pisirme-kurutma)
+- [decisions.md](/docs/source/design/decisions): [K1](/docs/source/design/decisions#k1), [K22](/docs/source/design/decisions#k22), [K35](/docs/source/design/decisions#k35), [K37](/docs/source/design/decisions#k37), [K45](/docs/source/design/decisions#k45), [K48](/docs/source/design/decisions#k48), [K54](/docs/source/design/decisions#k54), [K65](/docs/source/design/decisions#k65), [K70](/docs/source/design/decisions#k70), [K72](/docs/source/design/decisions#k72), [K79](/docs/source/design/decisions#k79), [K83](/docs/source/design/decisions#k83), [K88](/docs/source/design/decisions#k88)
+- [Tek Gecelik Kamp](/docs/gameplay/overnight-camp), [Dövüş](/docs/gameplay/combat), [Hayvanlar](/docs/world/animals), [Yoldaşlar](/docs/gameplay/companions), [Toplama ve Kaynaklar](/docs/economy/gathering), [Hava](/docs/world/weather), [Zaman ve Takvim](/docs/world/time-calendar)

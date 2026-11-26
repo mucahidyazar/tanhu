@@ -1,0 +1,79 @@
+{
+  "id": "kislak",
+  "version": 1,
+  "note": "Kışlak dünyasının müzik bankası (audio.md §3, act1.md §14; K59, K61; Yol Haritası kislak-ambience). Gündelik müzik saatle seçilir (MapSoundscape, data/audio/profiles/kislak.json): winter_day Sabah, Öğle, İkindi; winter_evening Tan ve 22:30'a dek Akşam ve Gece; winter_night 22:30'dan Tan'a. Sahne müziği (tension, raid, erlik, chase) her zaman önce gelir: gündelik olmayan bir durum çalarken saat ona dokunmaz. I. Perde'nin rengi data/music/act_1.tres'tir: ezgiyi Yüeçi arpı taşır (lead harp), kopuz kaçış gecesine dek müzikte yoktur; nabız iş 72, dinlenme 58; E Frigyen, kerbez; motifin düşüşü D'ye varmaz (A G F). Çan ve çentik ölçü başındadır (meter, öbeksiz). Katman sesleri dB'dir; bankanın oynatıcısı menü parçasının düzeyindedir (AudioManager.MUSIC_VOLUME). Kodla basılır (data/audio/bake/winter_*.json); kulak onayı bekler.",
+  "menu_source": "elevenlabs",
+  "transition": {
+    "from": "next_bar",
+    "to": "start",
+    "fade": "cross",
+    "beats": 2
+  },
+  "transitions": [
+    {"from_clip": "winter_day", "to_clip": "winter_evening", "beats": 4},
+    {"from_clip": "winter_evening", "to_clip": "winter_day", "beats": 4},
+    {"from_clip": "winter_evening", "to_clip": "winter_night", "beats": 4},
+    {"from_clip": "winter_night", "to_clip": "winter_evening", "beats": 4}
+  ],
+  "clips": [
+    {
+      "name": "winter_day",
+      "tempo": 72,
+      "mode": "e_phrygian",
+      "layers": [
+        {"name": "drone", "file": "winter_day_drone", "db": -9.0},
+        {"name": "harp", "group": "lead", "db": 4.0, "phrases": [
+          {"file": "winter_day_harp_a", "copies": 3},
+          {"file": "winter_day_harp_b", "copies": 2},
+          {"file": "winter_day_harp_c", "copies": 2},
+          {"file": "winter_day_rest", "copies": 1, "rest": true}
+        ]},
+        {"name": "drum", "group": "drum", "db": -9.0, "phrases": [
+          {"file": "winter_day_drum", "copies": 3},
+          {"file": "winter_day_rest", "copies": 1, "rest": true}
+        ]},
+        {"name": "meter", "db": -9.0, "phrases": [
+          {"file": "winter_day_meter", "copies": 1}
+        ]}
+      ]
+    },
+    {
+      "name": "winter_evening",
+      "tempo": 58,
+      "mode": "e_phrygian",
+      "layers": [
+        {"name": "drone", "file": "winter_evening_drone", "db": -8.0},
+        {"name": "kaval", "group": "add", "db": -12.0, "phrases": [
+          {"file": "winter_evening_kaval_a", "copies": 2},
+          {"file": "winter_evening_kaval_b", "copies": 1},
+          {"file": "winter_rest_58", "copies": 3, "rest": true}
+        ]},
+        {"name": "hujia", "group": "add", "db": -14.0, "phrases": [
+          {"file": "winter_evening_hujia", "copies": 1},
+          {"file": "winter_rest_58", "copies": 5, "rest": true}
+        ]}
+      ]
+    },
+    {
+      "name": "winter_night",
+      "tempo": 58,
+      "mode": "e_phrygian",
+      "layers": [
+        {"name": "drone", "file": "winter_night_drone", "db": -8.0},
+        {"name": "hujia", "group": "add", "db": -16.0, "phrases": [
+          {"file": "winter_night_hujia", "copies": 1},
+          {"file": "winter_rest_58", "copies": 6, "rest": true}
+        ]},
+        {"name": "jaw", "group": "add", "db": -10.0, "phrases": [
+          {"file": "winter_night_jaw", "copies": 1},
+          {"file": "winter_rest_58", "copies": 4, "rest": true}
+        ]},
+        {"name": "harp", "group": "lead", "db": 6.0, "phrases": [
+          {"file": "winter_night_harp_e", "copies": 2},
+          {"file": "winter_night_harp_f", "copies": 1},
+          {"file": "winter_rest_58", "copies": 4, "rest": true}
+        ]}
+      ]
+    }
+  ]
+}

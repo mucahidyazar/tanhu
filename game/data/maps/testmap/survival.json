@@ -1,0 +1,23 @@
+{
+	"id": "testmap_survival",
+	"doc": "Deneme haritasının ateş ve av katmanı (Yol Haritası fire-hunting, hunger-wounds; map.json «layers»; SurvivalLayer kurar). Mete burada ateş yakar, besler, pişirir, avını yüzer; Tokluk ve yara HUD'dadır. kit: yeni yolculukta (Session.fresh «inventory»; kayıttan dönen heybeye eklenmez) Heybe'ye konan hafif deneme takımı: 10 Yük, Bilek 3'ün 21 Yük'ünün yarısının altında (koşu ve zıplama açık; hız Bilek 3'te ×0,86, Bilek 4'te ×0,88); bıçak kuşanılır. saddlebags: yedek yakıt ve erzak Doru'nun terkisinde (mount: map.json'daki at kaydı; 16,2 / 50 Yük; Heybe'ye Envanter'in Terki sekmesinden alınır). Haritanın ocağı (campfire) yerleşimin ocağıdır: başında E dokunuşu tarif çemberi, 3 sn basılı tutuş Dinlen; halk besler. old_hearths: Eski Ocak (survival.md §7.8: 6 taşlık halka ve kalıcı çukur; ilk yakış 1 odun ya da 2 tezek, kav istemez; kazan hazırdır). snares: sabah kurulmuş kapan ve düşmüş avı (kapan zarı; bahar: tarbagan inden çıkmıştır). shelters: Umay Eşiği'nin uyanış yeri (son barınak: kuzey yurdunun kapısı). zone: ateşin zonu. Yerler haritanın düz alanındadır (ocağın ve belirmenin düz yeri), yurtlara ve ocağa ≥6 m.",
+	"script": "res://scripts/survival/survival_layer.gd",
+	"zone": "testmap",
+	"kit": {"firestriker": 1, "resin": 2, "dung": 8, "branch": 2, "meat": 1, "meat_small": 2, "fish": 1, "millet": 2, "waterskin": 1},
+	"saddlebags": {"mount": "doru", "items": {"reed": 1, "branch": 10, "wood_pine": 2, "dung": 4, "meat": 1, "millet": 2}},
+	"equip": {"blade": "knife_iron"},
+	"old_hearths": [
+		{"id": "old_hearth_west", "at": [-11.0, 3.0], "name": {"tr": "Eski Ocak", "en": "Old Hearth"}}
+	],
+	"snares": [
+		{"id": "snare_marmot", "at": [12.5, 17.0], "kind": "marmot", "facing": 40.0}
+	],
+	"shelters": [
+		{"id": "yurt_north_door", "at": [1.2, -16.6], "facing": 200.0, "name": {"tr": "Kuzey yurdunun kapısı", "en": "The north yurt's door"}}
+	],
+	"structures_gap": [
+		{"id": "wood", "radius": 0.6},
+		{"id": "barrel", "radius": 0.5},
+		{"id": "bags", "radius": 0.5}
+	]
+}

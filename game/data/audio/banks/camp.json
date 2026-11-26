@@ -1,0 +1,142 @@
+{
+  "id": "camp",
+  "version": 1,
+  "note": "Kamp dünyasının müzik bankası (audio.md §3; K59, K61). camp_bard Yeni Oyun'un geri çekilmesi ve ozanın şarkısıdır (dron; kampın kopuzu susar, kopuz şarkının dosyasındadır; dron şarkının son 4,6 sn'sinde set_layer_db ile söner). camp ve camp_night kulak onayı adaylarıdır (Karar Bekleyenler): onaya dek menü ElevenLabs parçasını çalar (menu_source elevenlabs), onaydan sonra baked. Katman sesleri dB'dir; bankanın oynatıcısı menü parçasının düzeyindedir (AudioManager.MUSIC_VOLUME).",
+  "menu_source": "elevenlabs",
+  "transition": {
+    "from": "next_bar",
+    "to": "start",
+    "fade": "cross",
+    "beats": 2
+  },
+  "transitions": [
+    {
+      "from_clip": "camp",
+      "to_clip": "camp_night",
+      "beats": 4
+    },
+    {
+      "from_clip": "camp_night",
+      "to_clip": "camp",
+      "beats": 4
+    }
+  ],
+  "clips": [
+    {
+      "name": "camp",
+      "tempo": 52,
+      "mode": "d_dorian",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "camp_drone",
+          "db": -6.0
+        },
+        {
+          "name": "kopuz",
+          "group": "lead",
+          "db": 0.0,
+          "phrases": [
+            {
+              "file": "camp_kopuz_a",
+              "copies": 4
+            },
+            {
+              "file": "camp_kopuz_a2",
+              "copies": 2
+            },
+            {
+              "file": "camp_kopuz_b",
+              "copies": 2
+            },
+            {
+              "file": "camp_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "hujia",
+          "group": "add",
+          "db": -7.0,
+          "phrases": [
+            {
+              "file": "camp_hujia_a",
+              "copies": 1
+            },
+            {
+              "file": "camp_hujia_b",
+              "copies": 1
+            },
+            {
+              "file": "camp_rest",
+              "copies": 6,
+              "rest": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "camp_night",
+      "tempo": 46,
+      "mode": "d_dorian",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "camp_night_drone",
+          "db": -6.0
+        },
+        {
+          "name": "kopuz",
+          "group": "lead",
+          "db": -2.0,
+          "phrases": [
+            {
+              "file": "camp_night_kopuz_b",
+              "copies": 2
+            },
+            {
+              "file": "camp_night_kopuz_open",
+              "copies": 2
+            },
+            {
+              "file": "camp_night_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "kaval",
+          "group": "add",
+          "db": -15.0,
+          "phrases": [
+            {
+              "file": "camp_night_kaval",
+              "copies": 1
+            },
+            {
+              "file": "camp_night_rest",
+              "copies": 8,
+              "rest": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "camp_bard",
+      "tempo": 52,
+      "mode": "d_dorian",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "camp_drone",
+          "db": -4.0
+        }
+      ]
+    }
+  ]
+}

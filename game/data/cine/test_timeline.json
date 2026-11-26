@@ -1,0 +1,14 @@
+{
+	"id": "test",
+	"title": "Sinema çalıştırıcısının deneme çizelgesi (cine-runner): kamp dünyasında müzik işareti, şarkı ve iki dizesi sözcük zamanlı altyazıyla, sözcük zamanı olmayan anlatıcı satırı (act0.narr.1) seconds süresince altyazıyla, 1 sn kararma.",
+	"world": "camp",
+	"view": "main",
+	"scene": null,
+	"length": "out_end",
+	"events": [
+		{"id": "bard", "t": 0, "type": "music", "bank": "camp", "state": "camp_bard", "fade": 2.0},
+		{"id": "song", "t": 1.0, "type": "song", "line": "act0.bard.song"},
+		{"id": "narr", "t": "song_end+0.6", "type": "line", "line": "act0.narr.1"},
+		{"id": "out", "t": "narr_end+0.4", "type": "fade", "to": 1.0, "dur": 1.0}
+	]
+}

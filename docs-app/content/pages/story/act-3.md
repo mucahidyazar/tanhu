@@ -1,0 +1,284 @@
+---
+title: 'III. Perde: Boş Toprak'
+order: 52
+status: tasarim
+summary: '1 Eylül–1 Ekim MÖ 208: Tanhu Mete Tunghu''ya babasının atını ve bir hatunu verir, Dailin Sayımı''nda boş toprağı vermez, eksilen ayın şafağında Tunghu''yu hazırlıksız yakalar ve yenilenlerin yolunu seçtirir; Boy Yurdu, Divan, Elçi Yurdu, Dailin ve ilk toplu savaş bu perdede açılır.'
+sources:
+  - docs/design/story.md
+  - docs/design/decisions.md
+  - docs/design/settlement.md
+  - docs/design/army.md
+  - docs/design/companions.md
+  - docs/design/progression.md
+  - docs/design/travel.md
+  - docs/design/economy.md
+  - docs/design/fauna.md
+  - docs/design/audio.md
+  - docs/design/weather.md
+  - docs/design/godot.md
+  - docs/design/d3/oyun-durumu.md
+  - docs/research/mete-tarih.md
+  - docs/research/groups-research.md
+---
+
+## Özet
+
+III. Perde «Boş Toprak / The Empty Land» 1 Eylül–1 Ekim MÖ 208'de geçer (`dayN` 1.679–1.709), güzün başında. [Mete](/encyclopedia/mete) bir yıldır Tanhu'dur. Doğuda güçlü [Tunghu](/encyclopedia/donghu), babasını vurup tahta çıkan Mete'nin korktuğunu sanır (東胡以爲冒頓畏之) ve üç şey ister: Teoman'ın bin li'lik atını, bir hatunu, sonra iki halkın arasındaki boş toprağı. Mete ilk ikisini verir. Üçüncüsünü Dailin Sayımı'nda vermez: «Toprak devletin temelidir.» Halkı ata bindirir, eksilen ayın şafağında doğuya vurur; Tunghu hazırlıksız yakalanır (不爲備). Perde, yenilenlerin kendi yolunu seçmesiyle biter.
+
+**Ad.** «Boş Toprak» Tunghu'nun üçüncü isteğidir ([K32](/docs/source/design/decisions#k32)): iki halkın arasında, kimsenin oturmadığı, bin li'den geniş toprak (中有棄地，莫居，千餘里). Tanhu 1'in perde adları ve sahneleri alınmaz: bin li'lik at üstüne ant, gece baskını ya da açık savaş seçimi bu perdede yoktur.
+
+**Boyut.** 13 ana görev (açılış 2, üç kol × 3, kapanış 2), beş aileden 15 yan görev, en çok 8 XP'li keşif durağı ve bir yeni iç harita, Tunghu Yurdu; seviye 9–11 ([K43](/docs/source/design/decisions#k43)). Perdenin XP'si 10.800'dür: ana görev 6.490 (13 × 192 × 2,6), yan görev 2.990, iş 1.060, keşif 260. Tasarım ölçüsü ≈420 gerçek dakika ve 12 oyun günüdür; oyunda sayaç yoktur, perde son görevle biter ([K42](/docs/source/design/decisions#k42)).
+
+## Perdenin sorusu
+
+- **Soru.** Neyi verirsin, neyi vermezsin?
+- **Fiil.** Vermek ya da vermemek. II buyurmayı öğretti; III buyruğun neyi korumak için olduğunu sorar.
+- **Tema.** Sayılan sayan olur, her sayı bir borçtur. Palak'ın «Bin kırk birinci gün»ü burada Mete'nin ağzında «Sayımın bin altı yüz doksan dördüncü günü» olur. Toprak da sayıya döner: Defter Tunghu'nun istediği toprağı otlak hesabıyla gösterir, 1.000 km² bir tümene 45 kış günü eder; oyuncu «Toprak devletin temelidir» cümlesini kurmadan önce bu hesabı görmüştür.
+- **Önce ver, sonra al.** Mete önce at ve hatun verir, sonra toprağı, halkı ve sürüyü alır; verilen [Yimo](/encyclopedia/yimo) baskında geri alınır.
+- **Yankı.** Kopuzun motifi oyunda ilk kez bütün çalar: yükseliş, uzun ara, düşüş. Mete son karede iki gözcü konağının arasında durur: toprak artık boş değildir.
+
+## Tarih ve takvim
+
+8. ay 1 Eylül'ün yeni ayıyla açılır. Dailin 16 Eylül'ün dolunayıdır, baskın 26 Eylül şafağıdır (ay %23), perde 1 Ekim'in yeni ayında biter. Oynanan 12 gün şunlardır: 1–3, 9, 12–16, 26 ve 30 Eylül, 1 Ekim. 17–25 Eylül yürüyüşü (≈470 km, yedek atla günde 60 km) hikâyeyle atlanır. Mete perde açılırken 25 yaşındadır; 27 Eylül'de, baskının ertesi günü, 26'sına girer. Tarihler oyuncuya kesin söylenir ([K33](/docs/source/design/decisions#k33)): tarihli göreve erken gelinirse saat tablodaki güne atlar, geç gelinirse sahne yılı ve mevsimi söyler; saat durmaz.
+
+## Açılış
+
+- **II → III Kroniği.** 15 Haziran 209'dan 1 Eylül 208'e 443 gün, 30 sn: Teoman höyüksüz gömülür; ilk Lung-çeng'de Mete babasının hatunlarını alır, Yimo onun hatunu olur; Mete'nin Tanhu olarak ilk Dailin'i sayılır; avlu göçü başlar. Kronik Kararı Huyan'ın makamıdır. Ayrıntı [II. Perde](/docs/story/act-2) sayfasının sonundadır.
+- **Dönüş (1 Eylül).** III–VI'nın ilk oynanan görevi Dönüş'tür: yerleşimde yürüyüş, değişen 3–5 kişi ve yapı ([K43](/docs/source/design/decisions#k43)). Bir yıl geçmiştir: avlu göçüyle sekiz hane yurtlarıyla gelmiş, Tanhu Otağı'nın ve Elçi Yurdu'nun kazıkları çakılmıştır. Huyan'ın yurt yeri boştur, Teoman'ın gömüldüğü yer otlanmıştır. Yimo Mete'nin hatunudur (SJ 99 妻群母), Töreci [Tuçi](/encyclopedia/tuchi) avludadır. Zonun adı artık «Tanhu Ordusu · Boy Yurdu»dur; Tanhu Kampı konağı «Eski Avlu» olur ([K41](/docs/source/design/decisions#k41)).
+
+## Ana görev zinciri
+
+| # | Görev | Gün | Yer | Ne olur |
+|---|---|---|---|---|
+| 1 | Dönüş (`mq3_return`) | 1 Eylül | Tanhu Ordusu | Bir yıl sonra yerleşim; avlu göçünün sekiz hanesi |
+| 2 | Babanın Atı (`mq3_first_ask`) | 3 Eylül | Elçi Yurdu | Tunghu elçisi [Tadun](/encyclopedia/tadun) Teoman'ın bin li'lik atını ister. Beyler «verme» der; Mete: «Komşuyla bir at için mi bozuşalım?» / «Shall we fall out with a neighbour over one horse?» (柰何與人鄰國而愛一馬乎). Ozan atı Tülpar diye anar |
+| 3 | Gözcü Konakları (`mq3_watch_posts`) | Serbest, kol A | Doğu kapısının ötesi | İki Gözcü Konağı kurulur (各居其邊爲甌脫); Keşif Eri [Guşi](/encyclopedia/gushi) başlarına geçer |
+| 4 | Boş Toprak (`mq3_empty_land`) | Serbest, kol A | Boş toprak | Bin li'den geniş, kimsenin oturmadığı toprak Keşif Eri'yle geçilir: su, Taş Yığını, Tunghu çobanları. Görev puanı verir |
+| 5 | Tunghu Nöbeti (`mq3_tunghu_watch`) | Serbest, kol A | Tunghu Yurdu | Gizlilik (≤10 nöbetçi, [K44](/docs/source/design/decisions#k44)): Tunghu ordugâhının çadırı, atı ve kapısı sayılır; sonuç (tam, yarım, yok) baskının zorluğunu ±%20 değiştirir. At sınıra elle götürüldüyse bir nöbet yolu önceden bilinir |
+| 6 | İkinci İstek (`mq3_second_ask`) | 9 Eylül, kol B | Tanhu Otağı | Tunghu bir hatun ister; beyler öfkelenir (東胡無道，乃求閼氏！請擊之). Mete: «Komşuyla bir kadın için mi bozuşalım?» / «Shall we fall out with a neighbour over one woman?» Yimo verilir (遂取所愛閼氏予東胡) |
+| 7 | Hatunun Yolu (`mq3_hatun_road`) | 9–12 Eylül, kol B | Gözcü Konağı | Yimo sınıra götürülür, bir şey ister: «Ocağım sönmesin.» / «Do not let my hearth go out.» Kâhya her akşam yakar |
+| 8 | Ölü Tanhu (`mq3_dead_tanhu`) | Serbest, kol B | Teoman'ın otluğu | Kam [Şidu](/encyclopedia/shidu): «Ölü Tanhu kızgın.» / «The dead Tanhu is angry.» Dinle (1 koyun, Gönül +2) ya da Sustur (Korku +1): perdenin Kamın Alameti |
+| 9 | Ere Çağır (`mq3_muster`) | Serbest, kol C | Beylerin yurtları | [Yirmi dört başın](/encyclopedia/twenty-four-chiefs) atlıları Dailin'e çağrılır; Binlik Ordugâhı kurulur |
+| 10 | Sayım Çetelesi (`mq3_tally`) | Serbest, kol C | Tanhu Otağı | Tuçi ile çentik çubukları hazırlanır: «Hun yazmaz, çentikler.» / «The Hun does not write; he notches.» ([K62](/docs/source/design/decisions#k62)) |
+| 11 | Dailin (`mq3_dailin`) | 16 Eylül, kol C | Avlunun güz otlağı | Söğüt dikilir, üç tur atılır; Mete sayar: «Sayımın bin altı yüz doksan dördüncü günü.» / «Day one thousand six hundred and ninety-four of the count.» Tunghu elçisi boş toprağı ister (吾欲有之); kimi bey «versen de olur, vermesen de» der. Mete: «Toprak devletin temelidir.» / «Land is the root of the state.» (地者，國之本也). Toplantı seferberliğe döner (令國中有後者斬). Görev puanı verir |
+| 12 | Doğuya (`mq3_east`) | 17–26 Eylül | Tunghu Yurdu | Yürüyüş atlanır. 26 Eylül şafağı, eksilen ay: «Hun eksilen ayda gelmez. Onlar da bilir.» / «Huns do not ride under a waning moon. They know it too.» Baskın; [Kebi](/encyclopedia/kebi)'nin ölümü ekran dışıdır; Yimo geri alınır |
+| 13 | Yenilenlerin Seçimi (`mq3_choosing`) | 30 Eylül–1 Ekim | Tunghu kampı | Son görev |
+
+**Kollar.** Üç kol aynı anda açılır, sıraları serbesttir; tarihli olan iki istek (9 ve 16 Eylül) kendi gününü bekler. Biri bitince ötekilerin satırı değişir; her kol en az bir kez yerleşim ya da ordugâh dışına çıkarır ([story.md §10.1](/docs/source/design/story#10-1-kalip)).
+
+```varlik
+envoy_yurt, otag_hun, outpost, ui_tally_card, thousand_li_horse
+```
+
+## Dailin Sayımı
+
+Dailin 8. ayın dolunayıdır; oyunda üç kez oynanır ve ilki budur ([K56](/docs/source/design/decisions#k56)): III'te 16 Eylül 208 (`dayN` 1.694) Tanhu Ordusu'nun güz otlağında, IV'te 22 Eylül 203 Ordos'ta, VI'da 9 Eylül 174 yine burada. Sayımın başında güz otlağına söğüt dalı dikilir, atlılar üç tur atar (yarıçap ≈27 m, ≈510 m, dörtnalla ≈60 sn); bitiren her baş sadakat +1 alır, kazanan yoktur. Sayım Çetelesi kartı: «Sayımın {n}. günü. {h} hane, {p} can, {s} sürü.» Gün açıktır, rüzgâr ≤3 m/sn ([weather.md §6.4](/docs/source/design/weather#6-4-sonraki-perde-kancalari)). Dailin günü akın yazılmaz ([K55](/docs/source/design/decisions#k55)). Sayım ordunun gücünü, yedek atları, atların semizliğini ve ıslığa uyanları yeniden sayar; toplantı «versen de olur» diyen beylerin kararıyla seferberliğe döner.
+
+## Baskın: ilk toplu savaş
+
+- **Nöbetin sonucu.** Tunghu Nöbeti'nde tam bilgi alındıysa düşmanın verdirdiği kayıp ×0,8, yarım bilgide ×1, bilgisizde ×1,2'dir ([army.md §5.8](/docs/source/design/army#5-8-toplu-savas-mass-battle-k47)).
+- **Ay ve sis.** 26 Eylül şafağında ay %23'tür: eksilen ayın cezası (moral −6) işler, oyuncu bunu görür. Karşılığında Tunghu nöbeti seyrek başlar. Şafakta sis vardır, görüş 60 m'dir.
+- **Kural ([K47](/docs/source/design/decisions#k47), [K77](/docs/source/design/decisions#k77)).** Mete'ye en yakın 100 atlı (iki yan birlikte) gerçek okla atar ve gerçek vuruşla düşer; ötesi oran formülüdür, kesir birikip tam sayıya varınca bir atlı düşer. Mete'ye kadraj dışından ok gelmez. Birlik başlangıç gücünün her %5'ini yitirdikçe moral −6 olur, moral 15'in altına inince dağılır; sancağa 40 m'den yakın atlı saniyede +6 moral kazanır. Ordu: kâğıtta 10.000, ıslığa uyan 3.000, sahnede üç binlik.
+- **Sefer ordugâhı.** Tunghu Yurdu'nun iki ordugâh yerinden birinde kurulur (suya ≤200 m, eğim ≤8°, düşman kampına ≥600 m); her onluk kendi çadırını ≈4 gerçek dakikada kurar, bırakılan ordugâh 10 gün sonra kaybolur.
+- **Düşenler.** Alanı tutan yanın düşenlerinin yarısı yaralı döner, yarısı ölüdür; taşınan yaralıdır.
+- **Ganimet ([K49](/docs/source/design/decisions#k49)).** Tunghu atlısı başına 6 tunç temrenli ok, 0,3 deri, 0,15 tilki kürkü, 0,4 tunç hurda ve yakalanırsa 0,4 at; seçkin atlı 6 ok, 2 tunç hurda, 0,6 demir hurda ve 0,5 at verir. Tunghu kabuk düşürmez. Havuz toplananın 0,6'sıdır; Paylaş ambara %25 bırakır (sadakat +8, moral +6), Alıkoy %75 (sadakat −10, moral −4, Korku +1). Esir yoktur.
+
+> [!NOT]
+> «malzemeler açık dünyada savaşlarla, ağaç kesere, avlanarak eti toplacanak»
+
+Ganimet II'den her dövüşte düşman türüne göre belirli gelir, rastgele düşme yoktur; toplu savaşın ganimeti de aynı tablodan okunur. Malzemenin öteki yolları av ve ağaç kesimidir. Bu perdede sürüler baskınla düşer, yakıt tezeğe döner.
+
+```varlik
+crowd_tunghu_rider, crowd_tunghu_man, crowd_tunghu_woman, war_horn
+```
+
+## Son görev: Yenilenlerin Seçimi
+
+Yenilen haneler kendi yolunu seçer ([settlement.md §5.7](/docs/source/design/settlement#5-7-esir-yoktur)). Katılan pay Kut ve Korku'yla büyür (`0,15 + 0,02 × Kut + 0,015 × Korku`, %10 ile %60 arası); III'te 2–6 hane katılır. Bir kısmı Korku'yla gelir ve Gönül'ü 30'dan başlar, ötekilerinki 40'tan. Katılanlar sürülerinin yarısıyla gelir; türleri 0,3 yurtlu, 0,4 çadırlı, 0,3 barınak isteyendir, yurt ve çadırları Tunghu görünüşündedir ([K51](/docs/source/design/decisions#k51), [K53](/docs/source/design/decisions#k53)). Oyuncunun seçimi gidenlerin sürüsüdür:
+
+| Seçim | Sonuç |
+|---|---|
+| Sürüsüyle gitsin | Kut +1; Mijia katılır |
+| Yarısıyla (varsayılan) | Mijia katılır |
+| Sürüsüz | Korku +1; tarihe en yakını (虜其民人及畜產); Mijia gelmez, IV'te Vuhuan haraç kervanıyla gelir: «Sürümüzü saydın.» |
+
+Kalanlar iki dağa çekilir: Vuhuan Dağı (餘類保烏桓山) ve Xianbei Dağı (別依鮮卑山, HHS 90). Bir Tunghu kadını ölü kocasının atını ve giysisini süslü bir köpeğe bağlar, köpek doğuya, [Kızıl Dağ](/encyclopedia/kizil-dag)'a yürür (使護死者神靈歸赤山); kadın katıldıysa [Mijia](/encyclopedia/mijia)'dır. Mete iki gözcü konağının arasında durur. Kopuz motifi ilk kez bütün çalar. Perde kartı gelir. Destan Kitabı şunu yazar: «Tarih Tunghu halkının alındığını yazar. Bu oyunda yenilen kendi yolunu seçer.»
+
+## Yan görev aileleri
+
+Beş aile etkindir; Elçi ailesi ilk kez açılır, Yol ailesi dinlenir, çünkü Tunghu'ya yürüyüş hikâyeyle atlanır ([story.md §10.3](/docs/source/design/story#10-3-yan-gorev-aileleri)). Açık yan görev sessizce düşmez ([K42](/docs/source/design/decisions#k42)).
+
+| Aile | Görevler |
+|---|---|
+| Elçi | Elçi Yurdu (heyet ağırlanır: ne görürse Kebi onu duyar); Doğuya Armağan (küçük armağan Tunghu'yu küçümsetir, 東胡初輕冒頓); Huimo (Tunghu düşünce doğudan ilk heyet; atlas adı) |
+| Hane | Avlu Göçü (sekiz hane, parsel); Loğusa ([Al Karısı](/encyclopedia/al-karisi): ocak taşı ya da geç; otacı IV'ten gelir); Huyan Yurtları (darbenin dul haneleri, Gönül) |
+| Ordu | Geride Kalan (seferberlik yasası: «Kanun» ya da «Yarın»); Gece Akını (15 Eylül gecesi dört Tunghu atlısı at hattına gelir); Okçu Yurdu (Yaycı [Yudan](/encyclopedia/yudan) Okçu Yurdu'nun ustası olur) |
+| Töre | Gök Direği (Kutlu Tepe; Mete'nin ilk Şafak Selamı); Divan (ilk Huzur ve ilk Yargı); Kan Bedeli (Tunghu'da ölüm sürüyle ödenir, 聽出馬牛羊以贖死; Hun'da bıçak çeken ölür) |
+| Av | Kızıl Köpek; Kış Kurdu; Böğürme (maral böğürmesi: Pay Bırak ya da «Yer küstü») |
+
+## Seçimler ve sonuçları
+
+| Seçim | Ne zaman | Seçenekler ve sonuç |
+|---|---|---|
+| Atın yolu | Babanın Atı | At elçiyle gider ya da Mete onu sınıra kendi götürür: Tunghu'yu görür, küçümsenir, Tunghu Nöbeti'nde bir nöbet yolunu önceden bilir |
+| «Versen de olur» diyenler | Dailin | «Kanun»: başları kesilir, ekran dışı, Korku +1 (tarih: 諸言予之者，皆斬之). «Sür»: haneleri göçer. II'de Eskam için «Kalsın» denildiyse o da onlardandır |
+| Yimo'nun ocağı | Dailin gecesi | Yakacak azdır, Kâhya sorar: «Yimo'nun ocağı mı, ordunun ateşi mi?» / «Yimo's hearth, or the army's fires?» Ocak yanarsa o gece ordunun morali −1 olur; yakılmazsa Yimo'nun ocağı söner |
+| Kamın Alameti | Ölü Tanhu | Dinle: 1 koyun, Gönül +2. Sustur: Korku +1 |
+| Geride kalan bey | Ordu ailesi | «Kanun»: Korku +1. «Yarın»: o bey bir gün geç gelir, Gönül +2 |
+| Kan Bedeli | Töre ailesi | Tunghu töresi ya da Hun töresi; Mijia Hun töresini sevmez |
+| Süslü köpek | Kızıl Köpek'in yanında, Mijia katıldıysa | Sürünün öteki çoban köpeği verilir (Kut +1, Mijia'nın bağı +2) ya da verilmez (−1) |
+| Gidenlerin sürüsü | Son görev | Sürüsüyle, Yarısıyla ya da Sürüsüz |
+
+Hikâye seçimlerini tanınan bütün yoldaşlar duyar: yenilenlerin sürüsü ve «versen de olur» diyenlerin yazgısı onlara ×0,5 ile ve tek satırla gelir ([K72](/docs/source/design/decisions#k72)). Luhun «Kanun»u sevmez, Mijia «Sürüsüz»ü sevmez.
+
+## Önceki perdelerin okunuşu
+
+- **I. Perde'nin antları bu perdede okunmaz.** Tunghu'nun istekleri eski bir antı vurmaz. Elçi Adak Aygırı'nı görür, istemez: «Kül renkli at Yüeçi'nin adağıdır. Biz Teoman'ın atını isteriz.» / «That ash-grey is a Yuezhi offering. We want Teoman's horse.» Aygırın adını Mete'nin verdiği adla söyler. Aygıra verilen ant IV'tedir ([IV. Perde](/docs/story/act-4)).
+- **II'den.** II'de Eskam için «Kalsın» denildiyse III'te avludadır ve «verelim» diyenlerdendir. Luhun bağışlandıysa kişisel görevinin 2. adımı III'te ya da IV'te gelebilir: yerleşimde usta olarak görevlendirilirse üç oyun günü Jiyu'ya yay öğretir. II'de seçilen Ocak Yeri Gök Direği'nin durduğu Kutlu Tepe'ye uzaklığı belirler: Kuytu'da 127 m, Seki'de 502 m.
+
+## Açılan sistemler
+
+III bu sırada gelir, çünkü Mete artık Tanhu'dur (avlu işlevleri III'ü ister) ve ordu II'de 1.000 ıslık atlısına varmıştır; ordunun işi önce yapılır, çünkü perdenin doruğu toplu savaştır.
+
+| Sistem | III'te ne açılır | Sayfa |
+|---|---|---|
+| Boy Yurdu | III. kademe: perde III ve ≥10 hane; Ahır, Ambar Yurdu, Demirci Ocağı, Ağaç Atölyesi ve Sundurma ister; en çok 25 hane; 10 → ≈22 hane (avlu göçü 8, yenilenler 2–6, Çekim ≤4). Açtıkları: Tanhu Otağı, Elçi Yurdu, Gök Direği, Toy Alanı, Tahıl Ambarı, Okçu Yurdu, Gözcü Kulesi, Takas Yeri, Gözcü Konağı, Yüksek Teker araba (80 Yük, 2 at) | [Obadan Hanlığa](/docs/settlement/encampment) |
+| Divan | Tanhu Otağı'nda: Huzur (hanelerin küçük dilekleri, Gönül +3), Yargı (15 günde bir dava), Atama, Armağan, Kamın Alameti (perde başına 1), Elçi Kabulü, Ere Çağır, Toy Ver. Oturak kuzeye, kapı doğuya bakar; kamera yalnız bu odada güneye döner. Kut ≥10'da kam Gök'e Tanhu'dan yakın konuşamaz: «Göğün diktiği» | [Hanlık Merkezi](/docs/settlement/court) |
+| Gök Direği | Kutlu Tepe'de; Şafak Selamı: avludaki birlik moral +2, avlu haneleri Gönül +0,5, günde bir, Kut vermez; yıldırım alameti perde başına bir kez («Gök gördü» Kut +1 ya da «Gök kızdı» Korku +1) | [Hanlık Merkezi](/docs/settlement/court) |
+| Ordugâh ve ordu | Binlik Ordugâhı (200 yerleşik, Dailin'de 1.000), Okçu Yurdu, iki Gözcü Konağı; seferberlik: hane başına bir yetişkin, bu perdede zorunludur (Korku +1, çağrılmayan hanede Gönül −3); ilk toplu savaş | [Ordu](/docs/gameplay/army), [Ordugâh ve Kervan](/docs/settlement/war-camp-caravans) |
+| Akın | Pencere 15–17 Eylül; akın gecesi 15 Eylül (16'sı Dailin). Akının gücü yerleşime 6, ordugâha 4; yerleşime perdede en çok 2, ordugâha 1; Tunghu Yurdu kazanılınca 0. Binlik'te başarı %1,6'dır, akın savunması küçük olan yere gider. Uyarı Gözcü Konağı'ndan ≈44, kuleden ≈33, köpekten ≈20 sn önce; pencere açılırken Kâhya: «Ay doluyor. Atları içeri alın.» Def edilen akın Gönül +1. Kervan yolunda da akın olayı başlar ([K55](/docs/source/design/decisions#k55)) | [Ordugâh ve Kervan](/docs/settlement/war-camp-caravans) |
+| Para ve satıcılar | Tanhu pazarı her gün Tanhu Ordusu'ndadır. Takas Yeri'nin Hun gezgini üç günde bir gelir: tuz ×4, Kandil Yağı ×6, sinir ×6, tutkal ×6, huş kabuğu ×10, tunç hurda ×2 (Kıymet 120); keçe, yün, deri, boynuz, kurut, kuru et ve kürk ister; kesesi 30 kabuk, üstü verir ([K81](/docs/source/design/decisions#k81)) | [Para ve Satıcılar](/docs/economy/money-traders) |
+| Yurtlar | Tanhu Otağı Otağ boyundadır (×1,4, 8 kanat, ≈7,5 m, 12 ak keçe, 16 m süslü çit). Tunghu yurdu kubbelidir, kapısı doğuya bakar, tepesinden 13 kızıl ışın iner; zon başına en çok 2 gövde biçimi ([K51](/docs/source/design/decisions#k51)) | [Yurtlar ve Çadırlar](/docs/buildings/yurts) |
+| Av ve hayvanlar | Yeni türler: Mançurya marali, karaca, ayı, vaşak, kaplan (olay, zon başına perdede en çok 1), sincap, taymen; akar suda ağ; maral böğürmesi, turna göçü, zeren akını. Tür başına ilk av 104 XP (40 × 2,6), perdede en çok 4 tür | [Hayvanlar](/docs/world/animals) |
+| Seviye ve beceri | Seviye 9–11; 3 seviye ve 2 görev puanı, stat tavanı 9, 18 yeni beceri (Söz: Ant Ağırlığı, Elçi Okuma, Fidye; Buyruk: Hilal, Otlak Hesabı, Ay Hesabı, Sahte Kaçış); Kut tavanı 24, Korku tavanı 23. Yerin Kökü becerisinin sözü bu perdenin Dailin'indendir, beceri V'te açılır | [Seviye ve Gelişim](/docs/gameplay/progression) |
+| Atlas ve yol | Issız Toprak, Tunghu'nun düşüşü, kalıntıları, Huimo ve Çoson açılır. Tunghu Yurdu'na yol Tanhu Ordusu'ndan Islık Alanı ve Eski Avlu üstünden zincirlenir: 30 + 36,2 + 73,1 km, atla 4 gün, yolculuk 30 sn | [Yolculuk](/docs/world/travel) |
+
+```varlik
+sky_pole, gathering_ground, fletchery, barter_ground, yurt_tunghu, otag_tunghu, cart_high
+```
+
+## Yoldaşlar
+
+Açık çekirdek en çok 4'tür; Luhun II'de öldüyse 3 ([K71](/docs/source/design/decisions#k71)). Yüzbaşı yapmak III'ten açılır, bağ ≥6 ister ([K70](/docs/source/design/decisions#k70)).
+
+| Yoldaş | Katılış | Kişisel görev | Not |
+|---|---|---|---|
+| Mijia, iz sürücü (Tunghu, 22) | Yenilenlerin Seçimi'nde (1 Ekim 208), «Sürüsüyle» ya da «Yarısıyla» seçildiyse Mete'nin yanında kalmayı seçer (bağ 3); «Sürüsüz» ise IV'te gelir (bağ 1) | Kızıl Dağ, 1. adım: perde sonunda, Kızıl Köpek'in yanında, kocasının ruhunu Kızıl Dağ'a götürecek süslü bir köpek ister | Kocası 26 Eylül baskınında ölmüştür; boynuz yay ve kapan taşır; kırmızı çizgisi zorla erzaktır |
+| Luhun (bağışlandıysa) | II'den | Gergin Yay, 2. adım III'te ya da IV'te: Jiyu'ya yay öğretir | |
+| Uldın, Berik | II'den | 2. adımları IV'tedir | |
+
+- **Gizlilik.** Tunghu Nöbeti'nde en çok 2 yoldaş izler.
+- **İkililer.** Uldın ile Mijia çatışma ikilisi III'ten açılır: «Yenilen Sayılır mı? / Are the Defeated Counted?»
+- **Kural.** Kişisel görev XP vermez, bağ verir ([K88](/docs/source/design/decisions#k88)). Kurallar [Yoldaşlar](/docs/gameplay/companions) sayfasındadır.
+
+```varlik
+mijia, uldin, berik, luhun
+```
+
+## Kişiler
+
+Kadro [Kadro](/docs/story/cast) sayfasındadır ([story.md §8.11](/docs/source/design/story#8-11-perde-perde-kadro)).
+
+| Kişi | Bu perdede | Kaynak |
+|---|---|---|
+| Mete | Tanhu; 25 yaşında, 27 Eylül'de 26'sına girer | Tarihî (冒頓) |
+| Yimo | Mete'nin hatunu; Tunghu'ya verilir, baskında geri alınır | Kurgu; kişi SJ 110'da adsız (所愛閼氏) |
+| [Lan Hatun](/encyclopedia/lan-hatun) | Mete'nin anası, yerleşimin Kâhya'sı | Kurgu; soy SJ 110 蘭氏 |
+| Tuçi | Töreci; Sayım Çetelesi'ni tutar, Divan'da söz alır | Kurgu; ad SJ 110 屠耆 «bilge» |
+| Şidu | Avlu kamı: «Ölü Tanhu kızgın.» | Kurgu; ad HS 94B 醯櫝 |
+| Guşi, Yudan | Gözcü Konakları'nın başı; Okçu Yurdu'nun ustası | Kurgu; adlar HS 94A ve 94B'den |
+| [Huluzi](/encyclopedia/huluzi) | Uldın yoksa Kılıç Ustası olarak avlu göçüyle gelir | Kurgu; ad HS 94A |
+| Ozan | Göl Obası'nın ozanı ([K106](/docs/source/design/decisions#k106)); III sonuna dek Mete'nin ocağında çalar | Kurgu |
+| [Eskam](/encyclopedia/eskam) | II'de «Kalsın» denildiyse avludadır; «verelim» diyenlerdendir | Kurgu |
+| Kebi | Tunghu Kralı; at, hatun ve toprak ister; 26 Eylül'de ekran dışı ölür | Kurgu; kişi SJ 110 東胡王, ad Sanguozhi 30'dan |
+| Tadun | Tunghu elçisi; alaycı, yavaş | Kurgu; ad HHS 90, Sanguozhi 30 蹋頓 |
+| [Nanlou](/encyclopedia/nanlou) | Vuhuan Dağı'na çekilenlerin başı; haracı yılda 20 deri | Kurgu; ad HHS 90 難樓 |
+| Mijia | Yenilen Tunghu hanelerinden genç kadın, iz sürücü | Kurgu; ad Xianbei kaydından (Sanguozhi 30) |
+| Haneler | Avlu göçünün sekiz hanesi; Huyan soyunun dul haneleri | Kurgu |
+| Tanrılar ve ruhlar | Al Karısı (Loğusa), [Bayanay](/encyclopedia/bayanay) (Böğürme, Pay Bırak), [Tengri](/encyclopedia/tengri) (Gök Direği), Kızıl Dağ (ölünün ruhunun gittiği dağ) | Mitoloji |
+
+```varlik
+kebi, tadun, nanlou, yimo, tuchi, shidu, gushi, yudan, elder
+```
+
+## Mekânlar
+
+| Yer | Ne | Not |
+|---|---|---|
+| Tanhu Ordusu (`tanhu_ordu`) · Boy Yurdu | Mete'nin yerleşimi, artık avlu | Tanhu Otağı, Elçi Yurdu, Toy Alanı, sayımın yapıldığı güz otlağı, Kutlu Tepe'de Gök Direği, Teoman'ın otluğu; doğu kapısı Ordos'a, Mayi'ye ve Tunghu'ya açılır |
+| Islık Alanı | Binlik Ordugâhı | Okçu Yurdu, Gece Akını'nın at hattı |
+| Boş toprak | Bin li'den geniş, kimsenin oturmadığı toprak | Su, Taş Yığını, Tunghu çobanları; iki yanında Gözcü Konakları (甌脫) |
+| Tunghu Yurdu (`donghu_land`) | Yeni iç harita; Tula ve Kerulen iklimi | İki sefer ordugâhı yeri, Tunghu ordugâhı; doğusunda kaplan |
+| Eski Avlu | Tanhu Kampı konağı | Mete inmez; Tunghu yolu üstünden zincirlenir |
+| Vuhuan ve Xianbei dağları | Kalanların çekildiği iki dağ | Vuhuan'a çekilenler her yıl haraç verir |
+
+Tunghu Yurdu K43'ün reçetesiyle kurulur; tek yeni harita olduğu için 15 durak taşımaz, en çok 8 XP'li durakta kalır ([progression.md §1.2](/docs/source/design/progression#1-2-perde-xp-butcesi)).
+
+## Mitoloji, ses ve hava
+
+- **Mitoloji ([K35](/docs/source/design/decisions#k35)).** Söğüt Turu'nda Tuçi: «Söğüdü doğu boyları da diker.» / «The eastern clans plant the willow too.» (Yan Shigu'nun Xianbei kaydı, 此其遺法). Tunghu'nun köpeği ve Kızıl Dağ. Şidu'nun «Ölü Tanhu kızgın.» sözü HS 94A'nın 先單于怒 dilidir, geç tanıktır.
+- **Müzik ([K59](/docs/source/design/decisions#k59)).** Boynuz ve kopuz; Elçi Yurdu'nda hiçbir şey çalmaz. Uzun dron, tempo 54'ten 126'ya, D Dorian. Üç istek üç dron olur; davul savaşa dek yoktur, toprak kararında girer. Motif oyunda ilk kez bütün çalar: yükseliş, uzun ara, düşüş. Boynuz ordunun işaretidir.
+- **Hava.** Dailin günü açık ve durgundur; baskın şafağında sis vardır (görüş 60 m). Sis tasarım tercihidir, dayanağı Tunghu'nun hazırlıksızlığıdır (不爲備).
+
+## Tarih ve kurgu
+
+Etiketler belgede kalır, oyuncuya hepsi kesin söylenir ([K33](/docs/source/design/decisions#k33)).
+
+| Olay | Kaynak ne der | Oyunda |
+|---|---|---|
+| Üç istek | Tunghu at, sonra hatun, sonra boş toprak ister; beyler öfkelenir, Mete ilk ikisini verir (SJ 110) | Sıra tarih; günler (3, 9, 16 Eylül) ve üçüncü isteğin Dailin'de gelmesi oyunun seçimi |
+| Verilen hatun | SJ 110 adını vermez (所愛閼氏) | Yimo kurgu; baskında geri alınması kurgu |
+| Boş toprak | İki halkın arasında bin li'den geniş boş toprak, iki yanında gözcü konakları (甌脫) | Tarih |
+| «Toprak devletin temelidir» | Mete «verelim» diyenleri keser, geride kalanın kesileceğini buyurur (令國中有後者斬) | Söz ve yasa tarih; «Sür» seçeneği oyunun |
+| Baskın | Mete doğuya vurur; Tunghu onu küçümsemiştir, hazırlıksızdır (東胡初輕冒頓，不爲備) | Yıl sıradan çıkar (tahtın ardından); 26 Eylül, eksilen ay ve sis oyunun seçimi |
+| Yenilenler | Tunghu Kralı yok edilir, halkı ve sürüsü alınır (虜其民人及畜產) | Oyunda esir yoktur, yenilen kendi yolunu seçer; Destan tarihi yazar |
+| Vuhuan ve Xianbei | Kalanlar iki dağa çekilir, Vuhuan her yıl sığır, at ve koyun derisi öder (HHS 90) | Tarih; Kronik yılda 20 deri işler ([K65](/docs/source/design/decisions#k65)) |
+| Kızıl Dağ'ın köpeği | Vuhuan'ın MS 1.–2. yüzyıl töresi: besili köpek ölünün ruhunu Kızıl Dağ'a götürür (HHS 90) | Töreyi Tunghu'ya taşımak çıkarımdır |
+| Kebi, Tadun, Nanlou, Mijia | Tunghu Kralı kaynakta adsızdır, ötekiler yoktur; adlar sonraki Vuhuan ve Xianbei kayıtlarından | Kurgu ([K13](/docs/source/design/decisions#k13)) |
+
+Ayrıntı [Tarih ve Kaynaklar](/docs/story/history-sources) sayfasında ve [mete-tarih.md](/docs/source/research/mete-history)'dedir.
+
+## Perde sonu ve III → IV Kroniği
+
+- **Son Görev Kapısı ([K42](/docs/source/design/decisions#k42)).** Yenilenlerin Seçimi yalnız üç kol bitince açılır; kart: «Bu yol perdeyi kapatır. Sonra {y} yıl geçer.» Açık yan görevler sonucuyla listelenir; kartta saat durur. Son görev açıldıktan sonra 3., 6. ve 9. günde kişiler sabırsızlanır, bedel yoktur.
+- **Serbest Dolaşım.** Perde kartından sonra dünya açık kalır, takvim akar; kış 16 Kasım'da başlar ve ordugâh kendiliğinden dağılır ([K23](/docs/source/design/decisions#k23)). «Kronik'e bırak» perde kartında, duraklatma kitabında ve Mete'nin her ocağında durur; hedef `max(1 Haziran 205, bugün + 30 gün)`'dür.
+- **III → IV Kroniği.** 1 Ekim 208 → 1 Haziran 205: 973 gün, ≈53 sn; süre K42'nin formülüyle son görev gününden hesaplanır. Vuhuan her yıl haraç verir; Ç'in yıkılır (Ziying teslim olur, SJ 8), Çu ile Han savaşı başlar; üç Kış Toplantısı ve üç Dailin toplu işlenir. Göl Obası'nın ozanı ölür, kopuzu ocağın Çocuğuna kalır; IV'ten Mete'nin ocağının ozanı Çocuktur ([K79](/docs/source/design/decisions#k79)). Satır: «Ç'in düştü, Han ile Çu birbirini yiyordu. Bozkır üç güz sayıldı.» / «Qin fell, and Han and Chu were devouring each other. The steppe was counted three autumns.»
+- **Kronik Kararı.** Tunghu'dan gelenlerin başı: «Kendi beyleri» (o haneler Gönül +5) ya da «Bir Hun beyi» (Korku +1). IV yerleşimi 22 haneyle açar. Parti donar, tarihli kişisel görev adımı Kronik'e yazılır.
+
+Sonraki perde: [IV. Perde: Borç](/docs/story/act-4).
+
+## Oyunda şu an
+
+> [!DURUM]
+> Oyunda: III. Perde yok. Tunghu Yurdu, Boy Yurdu, Divan, Elçi Yurdu, Gök Direği, Dailin Sayımı, toplu savaş, akın, Takas Yeri ve Tunghu yurtları yok; görev, diyalog, saat ve takvim de yok (gece sabittir). Yimo, Tuçi, Kebi, Tadun, Nanlou ve Mijia'nın modeli yok; Godot'daki iki keçe yurt Hun Hane Yurdu'dur, Tanhu Otağı yoktur. Hazır olan temel II. Perde'ninkiyle aynıdır: Serbest Gez, takip kamerası, kayıt, ayarlar, Destan Kitabı, boyalı görünüm. Prototipte denendi: atlas, emek yasası ve yapı aşamaları; Godot'a taşınmadı ([oyun-durumu.md](/docs/source/design/d3/game-state)).
+
+## Yol Haritası
+
+Perdenin dört fazı ve 19 maddesi Yol Haritası'ndan canlı gelir: önce ordu (sefer, toplu savaş, akın), sonra Boy Yurdu, Divan ve Dailin, sonra ana zincir, en son yan aileler ve III → IV Kroniği ([godot.md §9.7](/docs/source/design/godot#9-7-iii-perde-bos-toprak-act-3)).
+
+```ilerleme
+act-3
+```
+
+## Doğrulanacaklar
+
+Bunlar soru değildir; ölçülür ya da oynanarak ayarlanır.
+
+- Doğrulanacak: toplu savaşın moral ve dağılma değerleri ilk değerdir; oran formülü gerçek ok katmanıyla 30., 60. ve 90. saniyede ±%10 içinde tutmalı, sahne kalabalık bütçesinde kalmalıdır (20 / 28 ms, ≤1.000 görünür çizim) ([Yol Haritası](/roadmap#item-army)).
+- Doğrulanacak: akın yalnız ay penceresinde gelir, aynı kayıt aynı akını verir; III'ün penceresi 15–17 Eylül'dür ([Yol Haritası](/roadmap#item-raids)).
+- Doğrulanacak: Tunghu Yurdu iç haritası reçeteye uyar: 14–18 adlı yer, 20–30 zemin işareti, en çok 8 XP'li durak ([Yol Haritası](/roadmap#item-donghu-land-map)).
+- Doğrulanacak: Boy Yurdu'nun kademe günü (bugünkü koşu 7,2 gün; yurt eğrisiyle 7,8) Kâhya kuralıyla econ-sim'in resmî koşusundan yeniden basılır ([Yol Haritası](/roadmap#item-econ-sim-run)).
+- Doğrulanacak: III'ün sesi kulakla ([Yol Haritası](/roadmap#item-act3-sound)).
+
+Kullanıcının onayını bekleyenler [Karar Bekleyenler](/docs/general/pending-decisions) sayfasındadır: Mijia ve öteki yoldaşların sesi ve varlık kredisi. Perdenin ana görev satırları III'ün metni kilitlenince sorulur.
+
+## Kaynaklar
+
+- [story.md §11.2](/docs/source/design/story#11-2-iii-perde-bos-toprak-the-empty-land), [§2](/docs/source/design/story#2-zaman-cizelgesi-1), [§10](/docs/source/design/story#10-gorev-yapisi-19-20-21), [§13](/docs/source/design/story#13-perde-arasi-akan-kronik), [§14.3](/docs/source/design/story#14-3-dailin-sayimi-44), [§14.4](/docs/source/design/story#14-4-yoldaslarin-kisisel-gorevleri-k71-k72)
+- [settlement.md §2.2](/docs/source/design/settlement#2-2-perde-perde), [§5.6](/docs/source/design/settlement#5-6-seferberlik), [§5.7](/docs/source/design/settlement#5-7-esir-yoktur), [§12.2](/docs/source/design/settlement#12-2-toplantilar-s3), [§12.3](/docs/source/design/settlement#12-3-divan-council), [§15.4](/docs/source/design/settlement#15-4-baskin)
+- [army.md §1.3](/docs/source/design/army#1-3-takvim), [§3.5](/docs/source/design/army#3-5-olaylar), [§3.8](/docs/source/design/army#3-8-gece-akini-night-raid-k55), [§5.8](/docs/source/design/army#5-8-toplu-savas-mass-battle-k47); `companions.md` §1.3, §2.2
+- [progression.md §1.2](/docs/source/design/progression#1-2-perde-xp-butcesi), [§4.10](/docs/source/design/progression#4-10-soz-word-word-14-beceri-ve-buyruk-command-command-17-beceri); [travel.md §9.2](/docs/source/design/travel#9-2-yollar); [fauna.md §9](/docs/source/design/fauna#9-perde-perde-acilis); [audio.md §3](/docs/source/design/audio#3-muzik-durumlari); [godot.md §9.7](/docs/source/design/godot#9-7-iii-perde-bos-toprak-act-3)
+- [mete-tarih.md](/docs/source/research/mete-history), [groups-research.md](/docs/source/research/groups-research): Shiji 110'un satırları, grupların açılma sırası
+- [decisions.md](/docs/source/design/decisions): K13, K23, K32, K33, K35, K41–K44, K47, K49, K51, K53, K55, K56, K59, K62, K65, K70–K72, K77, K79, K81, K88
+
+İlgili sayfalar: [II. Perde: Ok Neyi Gösterirse](/docs/story/act-2), [IV. Perde: Borç](/docs/story/act-4), [Perde Arası: Akan Kronik](/docs/story/chronicle), [Hikâye Omurgası](/docs/story/spine), [Kadro](/docs/story/cast), [Hanlık Merkezi](/docs/settlement/court).

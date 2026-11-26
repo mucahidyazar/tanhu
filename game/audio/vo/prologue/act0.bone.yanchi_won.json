@@ -1,0 +1,16 @@
+{
+	"id": "act0.bone.yanchi_won",
+	"take": 0,
+	"seed": 2530865438,
+	"hash": "96d9f11e97df",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.84,
+	"words": [
+		{"w": "I", "t0": 0.0, "t1": 0.08},
+		{"w": "got", "t0": 0.14, "t1": 0.32},
+		{"w": "there", "t0": 0.347, "t1": 0.48},
+		{"w": "first!", "t0": 0.56, "t1": 1.04},
+		{"w": "Me!", "t0": 1.253, "t1": 1.84}
+	]
+}

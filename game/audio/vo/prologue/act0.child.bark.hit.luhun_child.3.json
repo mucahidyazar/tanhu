@@ -1,0 +1,16 @@
+{
+	"id": "act0.child.bark.hit.luhun_child.3",
+	"take": 0,
+	"seed": 4121758083,
+	"hash": "f5ad09834f27",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.12,
+	"words": [
+		{"w": "Go", "t0": 0.0, "t1": 0.16},
+		{"w": "and", "t0": 0.18, "t1": 0.24},
+		{"w": "pick", "t0": 0.288, "t1": 0.48},
+		{"w": "it", "t0": 0.533, "t1": 0.64},
+		{"w": "up.", "t0": 0.72, "t1": 1.12}
+	]
+}

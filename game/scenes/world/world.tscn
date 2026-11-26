@@ -1,0 +1,283 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/world.gd" id="1_world"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_sky"]
+[ext_resource type="Script" path="res://scripts/world/terrain.gd" id="3_terrain"]
+[ext_resource type="Script" path="res://scripts/world/mountains.gd" id="4_mountains"]
+[ext_resource type="Script" path="res://scripts/world/water.gd" id="5_water"]
+[ext_resource type="Script" path="res://scripts/world/forest.gd" id="6_forest"]
+[ext_resource type="Script" path="res://scripts/world/meadow.gd" id="7_meadow"]
+[ext_resource type="Script" path="res://scripts/world/rock_field.gd" id="8_rocks"]
+[ext_resource type="Script" path="res://scripts/world/village_lights.gd" id="9_village"]
+[ext_resource type="Script" path="res://scripts/camp/yurt.gd" id="10_yurt"]
+[ext_resource type="Script" path="res://scripts/camp/campfire.gd" id="11_fire"]
+[ext_resource type="Script" path="res://scripts/camp/stable.gd" id="13_stable"]
+[ext_resource type="Script" path="res://scripts/camp/horse.gd" id="14_horse"]
+[ext_resource type="Script" path="res://scripts/camp/banner.gd" id="15_banner"]
+[ext_resource type="Script" path="res://scripts/camp/camp_prop.gd" id="16_prop"]
+[ext_resource type="Script" path="res://scripts/camp/rug.gd" id="17_rug"]
+[ext_resource type="Script" path="res://scripts/world/path_network.gd" id="18_paths"]
+[ext_resource type="PackedScene" path="res://scenes/world/camp_npcs.tscn" id="40_npcs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
+shader = ExtResource("2_sky")
+
+[sub_resource type="Sky" id="Sky_night"]
+sky_material = SubResource("ShaderMaterial_sky")
+process_mode = 3
+radiance_size = 3
+
+[sub_resource type="Environment" id="Environment_night"]
+background_mode = 2
+sky = SubResource("Sky_night")
+ambient_light_source = 3
+ambient_light_color = Color(0.3, 0.38, 0.66, 1)
+ambient_light_sky_contribution = 0.55
+ambient_light_energy = 0.5
+reflected_light_source = 1
+tonemap_mode = 2
+tonemap_white = 6.0
+ssao_enabled = true
+ssao_radius = 1.2
+ssao_intensity = 1.4
+glow_enabled = true
+glow_intensity = 0.7
+glow_bloom = 0.04
+glow_blend_mode = 1
+glow_hdr_threshold = 0.95
+fog_enabled = true
+fog_light_color = Color(0.18, 0.26, 0.46, 1)
+fog_density = 0.00045
+fog_aerial_perspective = 0.4
+fog_sky_affect = 0.0
+fog_height = -22.0
+fog_height_density = 0.015
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.006
+volumetric_fog_albedo = Color(0.55, 0.62, 0.9, 1)
+volumetric_fog_length = 48.0
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.12
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_world")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_night")
+
+[node name="MoonLight" type="DirectionalLight3D" parent="."]
+light_color = Color(0.66, 0.75, 1, 1)
+light_energy = 0.42
+light_angular_distance = 1.5
+shadow_enabled = true
+shadow_blur = 1.5
+directional_shadow_mode = 1
+directional_shadow_max_distance = 90.0
+
+[node name="Terrain" type="Node3D" parent="."]
+script = ExtResource("3_terrain")
+bake_id = "camp"
+
+[node name="Mountains" type="Node3D" parent="."]
+script = ExtResource("4_mountains")
+
+[node name="Water" type="Node3D" parent="."]
+script = ExtResource("5_water")
+
+[node name="Forest" type="Node3D" parent="."]
+script = ExtResource("6_forest")
+bake_id = "camp"
+
+[node name="RockField" type="Node3D" parent="."]
+script = ExtResource("8_rocks")
+
+[node name="VillageLights" type="Node3D" parent="."]
+script = ExtResource("9_village")
+
+[node name="Camp" type="Node3D" parent="."]
+
+[node name="Campfire" type="Node3D" parent="Camp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 0, 0, 0)
+script = ExtResource("11_fire")
+light_color = Color(1, 0.74, 0.42, 1)
+light_energy = 3.3
+light_range = 8.0
+
+[node name="YurtLeft" type="Node3D" parent="Camp"]
+transform = Transform3D(0.57204, 0, 0.82023, 0, 1, 0, -0.82023, 0, 0.57204, -6.18, 0, -4.31)
+script = ExtResource("10_yurt")
+radius = 3.35
+hanging_angle = 42.0
+
+[node name="YurtRight" type="Node3D" parent="Camp"]
+transform = Transform3D(0.73791, 0, -0.6749, 0, 1, 0, 0.6749, 0, 0.73791, 6.64, 0, -7.26)
+script = ExtResource("10_yurt")
+radius = 3.45
+wall_height = 1.6
+roof_height = 1.35
+has_smoke = false
+emblem_angle = -35.0
+
+[node name="RugLeft" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.73728, 0, -0.67559, 0, 1, 0, 0.67559, 0, -0.73728, -1.24, 0, -1.02)
+script = ExtResource("17_rug")
+size = Vector2(1.9, 1.4)
+
+[node name="RugRight" type="Node3D" parent="Camp"]
+transform = Transform3D(0.9563, 0, -0.29237, 0, 1, 0, 0.29237, 0, 0.9563, 1.63, 0, -1.1)
+script = ExtResource("17_rug")
+size = Vector2(2.35, 1.42)
+field_color = Color(0.27, 0.085, 0.06, 1)
+
+[node name="CampNpcs" parent="Camp" instance=ExtResource("40_npcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Stable" type="Node3D" parent="Camp"]
+transform = Transform3D(0.7289, 0, -0.68462, 0, 1, 0, 0.68462, 0, 0.7289, 13.76, 0, -14.65)
+script = ExtResource("13_stable")
+
+[node name="HorseBrown" type="Node3D" parent="Camp/Stable"]
+transform = Transform3D(0.17365, 0, -0.98481, 0, 1.00000, 0, 0.98481, 0, 0.17365, 0, 0, -0.8)
+script = ExtResource("14_horse")
+
+[node name="HorseWhite" type="Node3D" parent="Camp/Stable"]
+transform = Transform3D(-0.08716, 0, -0.99619, 0, 1.00000, 0, 0.99619, 0, -0.08716, 0.6, 0, 0.7)
+script = ExtResource("14_horse")
+coat_color = Color(0.93, 0.91, 0.87, 1)
+mane_color = Color(0.82, 0.82, 0.85, 1)
+blaze = false
+blanket_color = Color(0.2, 0.3, 0.55, 1)
+
+[node name="BannerLeft" type="Node3D" parent="Camp"]
+transform = Transform3D(0.96593, 0, 0.25882, 0, 1, 0, -0.25882, 0, 0.96593, -8.06406, 0, -0.61232)
+script = ExtResource("15_banner")
+
+[node name="BannerRight" type="Node3D" parent="Camp"]
+transform = Transform3D(0.86603, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86603, 17.57, 0, -13.83)
+script = ExtResource("15_banner")
+kind = 1
+pole_height = 2.9
+cloth_size = Vector2(0.62, 1.05)
+cloth_color = Color(0.94, 0.91, 0.84, 1)
+emblem_color = Color(0.3, 0.18, 0.12, 1)
+trim_color = Color(0.55, 0.3, 0.16, 1)
+tatter = 0.0
+
+[node name="Barrel1" type="Node3D" parent="Camp"]
+transform = Transform3D(0.98481, 0, -0.17365, 0, 1, 0, 0.17365, 0, 0.98481, -4.69221, 0, -0.22234)
+script = ExtResource("16_prop")
+
+[node name="Barrel2" type="Node3D" parent="Camp"]
+transform = Transform3D(0.54637, 0, 0.65114, 0, 0.85, 0, -0.65114, 0, 0.54637, -3.90135, 0, -0.66339)
+script = ExtResource("16_prop")
+
+[node name="Bucket" type="Node3D" parent="Camp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 4.89, 0, -0.3)
+script = ExtResource("16_prop")
+kind = 2
+
+[node name="Crate" type="Node3D" parent="Camp"]
+transform = Transform3D(0.96593, 0, 0.25882, 0, 1, 0, -0.25882, 0, 0.96593, 2.78619, 0, -5.035)
+script = ExtResource("16_prop")
+kind = 1
+
+[node name="WoodPile" type="Node3D" parent="Camp"]
+transform = Transform3D(0.86603, 0, 0.5, 0, 1, 0, -0.5, 0, 0.86603, 2.45738, 0, -10.2988)
+script = ExtResource("16_prop")
+kind = 7
+
+[node name="Shield" type="Node3D" parent="Camp"]
+transform = Transform3D(0.34202, 0, -0.93969, 0, 1, 0, 0.93969, 0, 0.34202, 10.2852, 0, -4.70758)
+script = ExtResource("16_prop")
+kind = 3
+
+[node name="SpearRack" type="Node3D" parent="Camp"]
+transform = Transform3D(0.76604, 0, -0.64279, 0, 1, 0, 0.64279, 0, 0.76604, -2.2306, 0, -4.37894)
+script = ExtResource("16_prop")
+kind = 8
+
+[node name="TripodPot" type="Node3D" parent="Camp"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, -0, 0, 0.9, 3.45, 0, 0.37)
+script = ExtResource("16_prop")
+kind = 5
+
+[node name="Stool" type="Node3D" parent="Camp"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, -0, 0, 0.9, -2.43, 0, 0.29)
+script = ExtResource("16_prop")
+kind = 6
+
+[node name="SaddleBags" type="Node3D" parent="Camp"]
+transform = Transform3D(0.93969, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.93969, 14.84, 0, -12.67)
+script = ExtResource("16_prop")
+kind = 10
+
+[node name="Cup1" type="Node3D" parent="Camp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, -0.94, 0, 0.48)
+script = ExtResource("16_prop")
+kind = 9
+blocks_movement = false
+
+[node name="Cup2" type="Node3D" parent="Camp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 1.22, 0, 0.37)
+script = ExtResource("16_prop")
+kind = 9
+blocks_movement = false
+
+[node name="Cup3" type="Node3D" parent="Camp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -0, 0, 1, 1.6, 0, -0.5)
+script = ExtResource("16_prop")
+kind = 9
+blocks_movement = false
+
+[node name="FenceLeft1" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.98104, 0, -0.19378, 0, 1, 0, 0.19378, 0, -0.98104, -5.47516, 0, -0.74164)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceLeft2" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.92402, 0, 0.38235, 0, 1, 0, -0.38235, 0, -0.92402, -7.57073, 0, -0.94907)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceLeft3" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.55728, 0, 0.83033, 0, 1, 0, -0.83033, 0, -0.55728, -9.20015, 0, -2.28301)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceRight1" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.90196, 0, -0.43181, 0, 1, 0, 0.43181, 0, -0.90196, 8.2557, 0, -3.88516)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceRight2" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.52476, 0, -0.85125, 0, 1, 0, 0.85125, 0, -0.52476, 9.82509, 0, -5.29653)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceRight3" type="Node3D" parent="Camp"]
+transform = Transform3D(0.14578, 0, 0.98932, 0, 1, 0, -0.98932, 0, 0.14578, 2.93832, 0, -7.80547)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="FenceLeft4" type="Node3D" parent="Camp"]
+transform = Transform3D(-0.00375, 0, 0.99999, 0, 1, 0, -0.99999, 0, -0.00375, -9.81728, 0, -4.29636)
+script = ExtResource("16_prop")
+kind = 11
+
+[node name="TripodPotRight" type="Node3D" parent="Camp"]
+transform = Transform3D(0.81568, 0, 0.38036, 0, 0.9, 0, -0.38036, 0, 0.81568, 11.2862, 0, -6.27242)
+script = ExtResource("16_prop")
+kind = 5
+
+[node name="Meadow" type="Node3D" parent="."]
+script = ExtResource("7_meadow")
+bake_id = "camp"
+foreground = Rect2(-10, 2.5, 20, 5)
+clump_count = 6200
+flower_count = 2200
+foreground_boost = 1.0
+trample_center = Vector2(0, 0)
+
+[node name="PathNetwork" type="Node3D" parent="."]
+script = ExtResource("18_paths")

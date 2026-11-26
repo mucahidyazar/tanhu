@@ -1,0 +1,782 @@
+{
+	"version": 1,
+	"note": "Önsöz'ün son keçe panosu (pano 8; Yol Haritası birth-scene; story.md §3 satır 8, godot.md §3.6): doğumun son karesinde beşiğin yayı keçe panoya döner, koyuna binen çocuk belirir, pano açılır, Çocukluk başlar. FeltPanel (F'nin takımı, scripts/cine/felt_panel.gd) panel sözlüğünden kurulur; ortak dikiş ve kalınlık myth_panels.json'dandır. Kancaların zamanı panonun başından (sn): 0'da yalnız yay görünür (gerçek yayla eşleşir, match), 2–3,4 sn'de koyun ve çocuk belirir, 4,5–9,5 sn'de kamera geri çekilir (pano açılır). gpt-image-2 kotası dolu: istem prompt'tadır; görsel gelince assets/cine/felt/fx_panel_sheep_child.png'ye konur ve image alanına yazılır. Kodla çizim kullanıcının göz onayını bekler.",
+	"panel": {
+		"id": "panel_8",
+		"catalog": "fx_panel_sheep_child",
+		"title": "Beşiğin yayı keçe panoya döner: koyuna binen çocuk belirir, pano açılır, Çocukluk başlar (story.md §3 satır 8; SJ 110 兒能騎羊，引弓射鳥鼠)",
+		"state": "childhood",
+		"lines": [],
+		"length": 10,
+		"image": null,
+		"ember": "",
+		"match": "bow",
+		"prompt": "Handmade Central Asian felt applique panel (Kazakh shyrdak and Altai felt craft): pieces of dyed wool felt cut out and stitched onto a dawn-blue felt ground, visible cream running stitches along every piece edge, soft raised felt edges, slight layered depth like a shadow box, fibrous wool texture. Deep red felt border with cream ram's-horn scroll motifs. Flat frontal view, warm soft light from the upper left, no text, no letters, no modern objects, 3rd century BC steppe. Landscape 3:2 (1536x1024); keep the action inside the central 16:9 band. Scene: autumn golden steppe hills at sunrise, a small Hun child in a red felt coat and dark cap riding a cream woolly sheep, drawing a tiny wooden bow with a red cord at a dark bird flying above; joyful, quiet, no adults.",
+		"camera": {
+			"doc": "Kamera önce yayın üstündedir (gerçek yayın ekrandaki yeri), 4,5–9,5 sn'de pano açılır: bütün pano kadraja girer.",
+			"keys": [
+				[
+					0,
+					0.16,
+					-0.12,
+					1.05
+				],
+				[
+					4.5,
+					0.12,
+					-0.18,
+					1.6
+				],
+				[
+					9.5,
+					0.0,
+					0.0,
+					5.6
+				],
+				[
+					10,
+					0.0,
+					0.0,
+					5.6
+				]
+			],
+			"fov": 30
+		},
+		"layers": [
+			{
+				"id": "base",
+				"shape": "rect",
+				"p": {
+					"w": 5.2,
+					"h": 2.8
+				},
+				"pos": [
+					0,
+					0
+				],
+				"z": 0.02,
+				"color": "#2c4660",
+				"shadow": false
+			},
+			{
+				"id": "sky_glow",
+				"shape": "ellipse",
+				"p": {
+					"rx": 2.2,
+					"ry": 0.7
+				},
+				"pos": [
+					0.9,
+					-0.3
+				],
+				"z": 0.03,
+				"color": "#8a5a48",
+				"shadow": false,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 0.4,
+						"t1": 2.2
+					}
+				]
+			},
+			{
+				"id": "sun",
+				"shape": "circle",
+				"p": {
+					"r": 0.3
+				},
+				"pos": [
+					1.75,
+					0.72
+				],
+				"z": 0.04,
+				"color": "#e8a03a",
+				"emission": 0.45,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 0.6,
+						"t1": 2.4
+					},
+					{
+						"type": "move",
+						"keys": [
+							[
+								0.6,
+								1.75,
+								0.55
+							],
+							[
+								10,
+								1.75,
+								0.78
+							]
+						]
+					}
+				]
+			},
+			{
+				"id": "hills_far",
+				"shape": "hills",
+				"p": {
+					"w": 5.6,
+					"h": 0.7,
+					"amp": 0.12,
+					"seed": 81
+				},
+				"pos": [
+					0,
+					-0.95
+				],
+				"z": 0.05,
+				"color": "#6b5a36",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 0.8,
+						"t1": 2.6
+					}
+				]
+			},
+			{
+				"id": "hills",
+				"shape": "hills",
+				"p": {
+					"w": 5.6,
+					"h": 0.55,
+					"amp": 0.06,
+					"seed": 82
+				},
+				"pos": [
+					0,
+					-1.18
+				],
+				"z": 0.07,
+				"color": "#a8883e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 1.0,
+						"t1": 2.8
+					}
+				]
+			},
+			{
+				"id": "bird",
+				"shape": "goose",
+				"p": {
+					"size": 0.34
+				},
+				"pos": [
+					1.5,
+					0.42
+				],
+				"z": 0.08,
+				"color": "#24242a",
+				"mirror": true,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 3.4,
+						"t1": 4.0
+					},
+					{
+						"type": "move",
+						"keys": [
+							[
+								3.4,
+								1.9,
+								0.5
+							],
+							[
+								10,
+								0.95,
+								0.62
+							]
+						]
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.04
+						],
+						"period": 0.9
+					}
+				]
+			},
+			{
+				"id": "sheep_leg_1",
+				"shape": "rect",
+				"p": {
+					"w": 0.06,
+					"h": 0.3
+				},
+				"pos": [
+					-0.38,
+					-0.86
+				],
+				"z": 0.1,
+				"color": "#2d241e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "sway",
+						"amp": 9,
+						"period": 0.9,
+						"phase": 0.0
+					}
+				]
+			},
+			{
+				"id": "sheep_leg_2",
+				"shape": "rect",
+				"p": {
+					"w": 0.06,
+					"h": 0.3
+				},
+				"pos": [
+					-0.22,
+					-0.86
+				],
+				"z": 0.1,
+				"color": "#2d241e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "sway",
+						"amp": 9,
+						"period": 0.9,
+						"phase": 3.14
+					}
+				]
+			},
+			{
+				"id": "sheep_leg_3",
+				"shape": "rect",
+				"p": {
+					"w": 0.06,
+					"h": 0.3
+				},
+				"pos": [
+					0.1,
+					-0.86
+				],
+				"z": 0.1,
+				"color": "#2d241e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "sway",
+						"amp": 9,
+						"period": 0.9,
+						"phase": 1.57
+					}
+				]
+			},
+			{
+				"id": "sheep_leg_4",
+				"shape": "rect",
+				"p": {
+					"w": 0.06,
+					"h": 0.3
+				},
+				"pos": [
+					0.26,
+					-0.86
+				],
+				"z": 0.1,
+				"color": "#2d241e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "sway",
+						"amp": 9,
+						"period": 0.9,
+						"phase": 4.71
+					}
+				]
+			},
+			{
+				"id": "sheep",
+				"shape": "ellipse",
+				"p": {
+					"rx": 0.44,
+					"ry": 0.25
+				},
+				"pos": [
+					-0.06,
+					-0.6
+				],
+				"z": 0.12,
+				"color": "#ece3cf",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "wool_1",
+				"shape": "circle",
+				"p": {
+					"r": 0.13
+				},
+				"pos": [
+					-0.34,
+					-0.45
+				],
+				"z": 0.125,
+				"color": "#e3d8c0",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "wool_2",
+				"shape": "circle",
+				"p": {
+					"r": 0.14
+				},
+				"pos": [
+					-0.06,
+					-0.41
+				],
+				"z": 0.125,
+				"color": "#e3d8c0",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "wool_3",
+				"shape": "circle",
+				"p": {
+					"r": 0.12
+				},
+				"pos": [
+					0.2,
+					-0.46
+				],
+				"z": 0.125,
+				"color": "#e3d8c0",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "sheep_head",
+				"shape": "ellipse",
+				"p": {
+					"rx": 0.1,
+					"ry": 0.15
+				},
+				"pos": [
+					0.42,
+					-0.47
+				],
+				"z": 0.13,
+				"color": "#2d241e",
+				"rot": -28,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.02
+						],
+						"period": 0.45,
+						"phase": 0.6
+					}
+				]
+			},
+			{
+				"id": "sheep_ear",
+				"shape": "ellipse",
+				"p": {
+					"rx": 0.07,
+					"ry": 0.03
+				},
+				"pos": [
+					0.36,
+					-0.36
+				],
+				"z": 0.135,
+				"color": "#2d241e",
+				"rot": 25,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.0,
+						"t1": 3.0
+					}
+				]
+			},
+			{
+				"id": "child_leg",
+				"shape": "rect",
+				"p": {
+					"w": 0.075,
+					"h": 0.3
+				},
+				"pos": [
+					-0.02,
+					-0.6
+				],
+				"z": 0.15,
+				"color": "#3b2a1e",
+				"rot": -18,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					}
+				]
+			},
+			{
+				"id": "child",
+				"shape": "ellipse",
+				"p": {
+					"rx": 0.12,
+					"ry": 0.21
+				},
+				"pos": [
+					-0.06,
+					-0.25
+				],
+				"z": 0.16,
+				"color": "#9c2f22",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "child_belt",
+				"shape": "rect",
+				"p": {
+					"w": 0.22,
+					"h": 0.04
+				},
+				"pos": [
+					-0.06,
+					-0.33
+				],
+				"z": 0.17,
+				"color": "#c99a3a",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "child_head",
+				"shape": "circle",
+				"p": {
+					"r": 0.085
+				},
+				"pos": [
+					-0.05,
+					0.02
+				],
+				"z": 0.17,
+				"color": "#d9b08a",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "child_hat",
+				"shape": "dome",
+				"p": {
+					"w": 0.2,
+					"h": 0.1
+				},
+				"pos": [
+					-0.05,
+					0.06
+				],
+				"z": 0.18,
+				"color": "#3b2a1e",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "child_arm",
+				"shape": "rect",
+				"p": {
+					"w": 0.06,
+					"h": 0.26
+				},
+				"pos": [
+					0.08,
+					-0.13
+				],
+				"z": 0.175,
+				"color": "#9c2f22",
+				"rot": -62,
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 2.4,
+						"t1": 3.4
+					},
+					{
+						"type": "bob",
+						"amp": [
+							0.0,
+							0.015
+						],
+						"period": 0.45
+					}
+				]
+			},
+			{
+				"id": "bow",
+				"shape": "arc",
+				"p": {
+					"r": 0.3,
+					"inner": 0.27,
+					"from": -75,
+					"to": 75
+				},
+				"pos": [
+					0.12,
+					-0.12
+				],
+				"z": 0.19,
+				"color": "#c48a48",
+				"stitch": 0.008,
+				"anim": [
+					{
+						"type": "move",
+						"keys": [
+							[
+								0,
+								0.12,
+								-0.12
+							],
+							[
+								10,
+								0.12,
+								-0.105
+							]
+						]
+					}
+				]
+			},
+			{
+				"id": "bow_string",
+				"shape": "rect",
+				"p": {
+					"w": 0.012,
+					"h": 0.56
+				},
+				"pos": [
+					0.2,
+					-0.12
+				],
+				"z": 0.195,
+				"color": "#e9dcc0",
+				"shadow": false
+			},
+			{
+				"id": "bow_knot",
+				"shape": "circle",
+				"p": {
+					"r": 0.03
+				},
+				"pos": [
+					0.42,
+					-0.12
+				],
+				"z": 0.2,
+				"color": "#a8281c",
+				"shadow": false
+			},
+			{
+				"id": "arrow",
+				"shape": "rect",
+				"p": {
+					"w": 0.42,
+					"h": 0.016
+				},
+				"pos": [
+					0.4,
+					-0.12
+				],
+				"z": 0.2,
+				"color": "#d4b07a",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 3.0,
+						"t1": 3.8
+					}
+				]
+			},
+			{
+				"id": "arrow_head",
+				"shape": "star",
+				"p": {
+					"r": 0.05,
+					"inner": 0.02,
+					"points": 3
+				},
+				"pos": [
+					0.62,
+					-0.12
+				],
+				"z": 0.205,
+				"color": "#9a9488",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 3.0,
+						"t1": 3.8
+					}
+				]
+			},
+			{
+				"id": "grass",
+				"shape": "wave_band",
+				"p": {
+					"w": 5.6,
+					"h": 0.22,
+					"amp": 0.04,
+					"waves": 9,
+					"phase": 0.4
+				},
+				"pos": [
+					0,
+					-1.3
+				],
+				"z": 0.22,
+				"color": "#c4a24a",
+				"anim": [
+					{
+						"type": "appear",
+						"t0": 1.2,
+						"t1": 3.0
+					}
+				]
+			}
+		]
+	}
+}

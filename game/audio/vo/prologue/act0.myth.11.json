@@ -1,0 +1,13 @@
+{
+	"id": "act0.myth.11",
+	"take": 0,
+	"seed": 3402813822,
+	"hash": "19c0bf01209e",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 0.804,
+	"block": {"id": "block:act0.myth.3..act0.myth.25", "t0": 52.63, "t1": 53.434},
+	"words": [
+		{"w": "Erlik.", "t0": 0.05, "t1": 0.644}
+	]
+}

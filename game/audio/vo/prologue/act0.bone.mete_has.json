@@ -1,0 +1,16 @@
+{
+	"id": "act0.bone.mete_has",
+	"take": 0,
+	"seed": 3035112517,
+	"hash": "b4e8244581fc",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.68,
+	"words": [
+		{"w": "He's", "t0": 0.0, "t1": 0.16},
+		{"w": "got", "t0": 0.22, "t1": 0.4},
+		{"w": "it!", "t0": 0.48, "t1": 0.92},
+		{"w": "Catch", "t0": 0.967, "t1": 1.2},
+		{"w": "him!", "t0": 1.28, "t1": 1.68}
+	]
+}

@@ -1,0 +1,144 @@
+{
+	"id": "kislak_stable",
+	"script": "res://scripts/world/stable_layer.gd",
+	"doc": "Kışlak'ın Ahırı ve Ağılı (act1.md §4 «Kışlak yerleşimi»: stable (−72, 34), rot 1,57, kapısı doğuya; Yakve ve 8 at; Yol Haritası mount-bond-actions; map.json «layers» «stable»; StableLayer kurar). Yapının kendisi yapı katmanınındır; bu katman ahırın atlarını (RideableHorse, binilir) ve Bağ'ın işlerini kurar: atın başında E Yem Ver (Bağ +5, günde 3) ya da 2 otla Yem Bağı yap (ahırın tarifi rc_fodder), E basılı Tımar (4 sn, +2, günde 1), F Ad Koy (+10, bir kez; adı sabit olan Yakve'ye ad konmaz), Yular Tak ya da Çıkar. Ahırdaki atlar eyersiz ve başı çıplak durur (gear: saddle, bridle boş): binince eyersiz binilir (at staminası ×1,3 hızlı biter), yularsız atı yeleden tutmak 1 sn × (1 − Bağ/100) sürer (MountStable.take_seconds); yular takılınca hemen tutulur. Yakve Mete'nin atıdır (I. Perde, Gün I–V) ve Kantu'nun arabasını çeker: eyerli ve yularlıdır, araba seferdeyken ahırda görünmez (TravelLayer, cart.stable_horse). Adak Aygırı ve antı (oath_stallion) Adak Ağılı'nın sahnesindedir (act1.md §8.8; act-1-p3). 8 atın yeri yapı katmanının ahırının bölmeleridir (record: haritanın yapı kaydı «stable»; StructureKit.stable_stalls: arka duvardan 1,7 m, önü kapıya); Yakve kapının önünde bağlıdır. Kuzey −Z, facing pusula derecesi.",
+	"stables": [
+		{
+			"id": "stable",
+			"name": {
+				"tr": "Ahır ve Ağıl",
+				"en": "Stable and Pen"
+			},
+			"at": [
+				-72.0,
+				34.0
+			],
+			"radius": 14.0,
+			"horses": [
+				{
+					"id": "yakwe",
+					"node": "Yakwe",
+					"mount": "yakwe",
+					"model": "horse_brown",
+					"name": {
+						"tr": "Yakve",
+						"en": "Yakwe"
+					},
+					"at": [
+						-66.5,
+						30.0
+					],
+					"facing": 90.0,
+					"gear": {
+						"saddle": "saddle_felt",
+						"bridle": "halter"
+					}
+				},
+				{
+					"id": "kh1",
+					"node": "StableHorse1",
+					"mount": "horse",
+					"model": "horse_white",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh2",
+					"node": "StableHorse2",
+					"mount": "horse",
+					"model": "horse_brown",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh3",
+					"node": "StableHorse3",
+					"mount": "horse",
+					"model": "horse_brown",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh4",
+					"node": "StableHorse4",
+					"mount": "horse",
+					"model": "horse_white",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh5",
+					"node": "StableHorse5",
+					"mount": "horse",
+					"model": "horse_brown",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh6",
+					"node": "StableHorse6",
+					"mount": "horse",
+					"model": "horse_white",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh7",
+					"node": "StableHorse7",
+					"mount": "horse",
+					"model": "horse_brown",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				},
+				{
+					"id": "kh8",
+					"node": "StableHorse8",
+					"mount": "horse",
+					"model": "horse_brown",
+					"gear": {
+						"saddle": null,
+						"bridle": null
+					}
+				}
+			],
+			"record": "stable"
+		}
+	],
+	"kit": {},
+	"names": [
+		{
+			"tr": "Boz",
+			"en": "Boz"
+		},
+		{
+			"tr": "Kula",
+			"en": "Kula"
+		},
+		{
+			"tr": "Yağız",
+			"en": "Yagiz"
+		},
+		{
+			"tr": "Çal",
+			"en": "Chal"
+		},
+		{
+			"tr": "Tolpar",
+			"en": "Tolpar"
+		}
+	]
+}

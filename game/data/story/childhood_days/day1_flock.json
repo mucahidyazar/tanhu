@@ -1,0 +1,693 @@
+{
+	"id": "mq0_flock",
+	"version": 1,
+	"doc": "Çocukluk'un ilk günü, 20 Eylül MÖ 228: «Çobanlık» (E21, K110; story.md §5 «İki yeni gün»; docs/design/d3/e21-childhood-api.md; atmosfer: docs/design/d3/e21-atmosphere.md «Çobanlık»). ChildhoodScene bu dosyayı sırayla oynatır; adım türleri scripts/story/steps/flock_*.gd'dir (ChildhoodSteps). Lan Hatun'un yurdunda uyanış (07:20), ağılın kapısı ve kırk başın çıkışı, sürüyü ılgınların ardındaki Kamışlı Göl'e sürmek (≈300 m; koyun sürücüden kaçar, dağılanın önüne geçilir, Luhun önde, Yançi sol kanatta; yolda Sarı Irmak'ın eski yatağı konuşulur, turnalar güneye geçer, ufukta Dailin'in dumanları), göl görününce kuzular suya koşar, yüzme (sığda yavaş yürüme, belden derinde yüzme, en derine girilmez), sazlığın dibinden ak taşı dalıp çıkarmak, öğle dinlencesinde bulutlar (saat ikindiye akar; bu sırada en küçük kuzu sazlığa gider), ikindi sayımı (iki taşın arası: otuz dokuz), balçıktaki kuzu ve tilki, güneş tepeye değince dönüş, ağılda sayarak sokmak: «Kırk çıktı, kırk döndü.» Gün aynı akşam Ak Kemik'le sürer (childhood_days.json: day1_bone, kartsız). Adımın clock'u tasarımdaki saatidir (geliştirme --step o saatten açar). lines e21-lines.json'dan eşitlenir (tools/sync_e21_lines.py); metne elle dokunulmaz. Ceza yoktur: geç bulunan kuzu, ıska dalış ve uzun yol sözü değiştirmez, günü bitirmez.",
+	"title": {
+		"tr": "Çobanlık",
+		"en": "Shepherding"
+	},
+	"date": {
+		"tr": "20 Eylül MÖ 228 · Ordos",
+		"en": "20 September 228 BC · Ordos"
+	},
+	"day_n": -5602,
+	"clock": {
+		"start": "07:20",
+		"seconds_per_minute": 2.5
+	},
+	"flags": {
+		"done": "mq0_flock"
+	},
+	"music": {
+		"bank": "ordos",
+		"state": "childhood",
+		"fade": 3.0
+	},
+	"ambience": {},
+	"atmos": {
+		"doc": "Sesin yatakları (ChildhoodAtmos; e21-atmosphere.md): en çok üç yatak, konumlu olanın merkezi ve yarıçapı; when koşulu (swimming: oyuncu yüzüyor).",
+		"beds": [
+			{
+				"id": "amb_ordos_steppe_day",
+				"db": -15.0,
+				"from": "06:30",
+				"to": "17:45"
+			},
+			{
+				"id": "amb_reed_lake",
+				"db": -9.0,
+				"at": "lake_center",
+				"radius": 62.0
+			},
+			{
+				"id": "amb_child_swim",
+				"db": -11.0,
+				"when": "swimming"
+			},
+			{
+				"id": "amb_ordos_dusk",
+				"db": -14.0,
+				"from": "17:35"
+			},
+			{
+				"id": "amb_dailin_far",
+				"db": -21.0,
+				"at": [
+					-380.0,
+					140.0
+				],
+				"radius": 380.0
+			}
+		]
+	},
+	"player": {
+		"start": "lan_bed",
+		"yaw_deg": 0.0,
+		"seated": false
+	},
+	"bow_from": "",
+	"herd_start": "pen",
+	"vo_prefix": "act0.flock.",
+	"speakers": {
+		"lan_hatun": {
+			"tr": "Lan Hatun",
+			"en": "Lan Hatun"
+		},
+		"luhun_child": {
+			"tr": "Luhun",
+			"en": "Luhun"
+		},
+		"yanchi_child": {
+			"tr": "Yançi",
+			"en": "Yanchi"
+		},
+		"mete_child": {
+			"tr": "Mete",
+			"en": "Mete"
+		}
+	},
+	"lines": {
+		"wake": {
+			"speaker": "lan_hatun",
+			"tr": "Kalk. Bugün sürüyü Kamışlı Göl'e üçünüz götüreceksiniz. Luhun yolu bilir.",
+			"en": "Up. Today the three of you are taking the flock to Reed Lake. Luhun knows the way."
+		},
+		"back": {
+			"speaker": "lan_hatun",
+			"tr": "Güneş tepeye inmeden dönün.",
+			"en": "Be back before the sun goes down behind the hill."
+		},
+		"go": {
+			"speaker": "luhun_child",
+			"tr": "Göl ötede, ılgınların ardında. Ardımdan gelin.",
+			"en": "The lake's that way, past the tamarisks. Follow me."
+		},
+		"stray_1": {
+			"speaker": "yanchi_child",
+			"tr": "Biri kaçıyor! Önüne geç!",
+			"en": "One's getting away! Head it off!"
+		},
+		"stray_2": {
+			"speaker": "luhun_child",
+			"tr": "Sağdakiler dağılıyor!",
+			"en": "The ones on the right are scattering!"
+		},
+		"lake": {
+			"speaker": "yanchi_child",
+			"tr": "Göl! Kuzular suyun kokusunu aldı.",
+			"en": "The lake! The lambs can smell the water."
+		},
+		"swim_dare": {
+			"speaker": "luhun_child",
+			"tr": "Kim yüzer? Son giren kurbağa!",
+			"en": "Who's swimming? Last one in is a frog!"
+		},
+		"swim_deep": {
+			"speaker": "yanchi_child",
+			"tr": "Orası derin, geri gel!",
+			"en": "It's deep out there, come back!"
+		},
+		"stone_dare": {
+			"speaker": "luhun_child",
+			"tr": "Sazlığın dibinde ak bir taş var. Çıkaran bey olur.",
+			"en": "There's a white stone at the bottom, by the reeds. Whoever brings it up is a lord."
+		},
+		"stone_got": {
+			"speaker": "yanchi_child",
+			"tr": "Çıkardı! Ak taş onun!",
+			"en": "He got it! The white stone's his!"
+		},
+		"noon_1": {
+			"speaker": "luhun_child",
+			"tr": "Şu bulut at gibi.",
+			"en": "That cloud looks like a horse."
+		},
+		"noon_2": {
+			"speaker": "yanchi_child",
+			"tr": "Tanhu'nun atı. Ak.",
+			"en": "The Tanhu's horse. A white one."
+		},
+		"noon_3": {
+			"speaker": "mete_child",
+			"tr": "Babamın.",
+			"en": "My father's."
+		},
+		"noon_4": {
+			"speaker": "luhun_child",
+			"tr": "Sayımda görürsün onu.",
+			"en": "You'll see him at the count."
+		},
+		"count_gate": {
+			"speaker": "yanchi_child",
+			"tr": "Sayalım. İki taşın arasından geçirin.",
+			"en": "Let's count them. Drive them between the two stones."
+		},
+		"count_38": {
+			"speaker": "yanchi_child",
+			"tr": "Otuz sekiz.",
+			"en": "Thirty-eight."
+		},
+		"count_39": {
+			"speaker": "yanchi_child",
+			"tr": "Otuz dokuz.",
+			"en": "Thirty-nine."
+		},
+		"missing": {
+			"speaker": "luhun_child",
+			"tr": "Bir eksik!",
+			"en": "One's missing!"
+		},
+		"lamb_found": {
+			"speaker": "yanchi_child",
+			"tr": "Sazlıkta! Balçığa saplanmış!",
+			"en": "In the reeds! It's stuck in the mud!"
+		},
+		"fox": {
+			"speaker": "luhun_child",
+			"tr": "Tilki! Kuzuyu bekliyor!",
+			"en": "A fox! It's waiting for the lamb!"
+		},
+		"fox_gone": {
+			"speaker": "luhun_child",
+			"tr": "Kaçtı!",
+			"en": "It ran off!"
+		},
+		"forty": {
+			"speaker": "mete_child",
+			"tr": "Kırk.",
+			"en": "Forty."
+		},
+		"home_call": {
+			"speaker": "yanchi_child",
+			"tr": "Güneş tepeye değdi, dönelim!",
+			"en": "The sun's touching the hill. Let's go back!"
+		},
+		"home_count": {
+			"speaker": "lan_hatun",
+			"tr": "Kırk çıktı, kırk döndü.",
+			"en": "Forty went out, forty came back."
+		},
+		"bow": {
+			"speaker": "yanchi_child",
+			"tr": "Yayını aldın mı? Gölde ördek olur.",
+			"en": "Did you bring your bow? There are ducks at the lake."
+		},
+		"walk_1": {
+			"speaker": "luhun_child",
+			"tr": "Babam der ki Sarı Irmak eskiden buradan akarmış. Göl ondan kalmış.",
+			"en": "My father says the Yellow River used to run through here. The lake is what it left behind."
+		},
+		"walk_2": {
+			"speaker": "yanchi_child",
+			"tr": "Irmak gitmiş de gölü unutmuş.",
+			"en": "The river left and forgot the lake."
+		},
+		"walk_3": {
+			"speaker": "mete_child",
+			"tr": "Unutmamış. Bekliyor.",
+			"en": "It didn't forget. It's waiting."
+		},
+		"cranes": {
+			"speaker": "luhun_child",
+			"tr": "Turnalar! Güneye gidiyorlar.",
+			"en": "Cranes! They're going south."
+		},
+		"cranes_2": {
+			"speaker": "yanchi_child",
+			"tr": "Biz de bir gün gideriz.",
+			"en": "One day we'll go too."
+		},
+		"dailin": {
+			"speaker": "yanchi_child",
+			"tr": "Bak, Dailin'in dumanları. Sayıma herkes geliyor.",
+			"en": "Look, the smoke from the Dailin. Everyone's coming to the count."
+		},
+		"water_cold": {
+			"speaker": "yanchi_child",
+			"tr": "Su buz gibi!",
+			"en": "The water's freezing!"
+		},
+		"fish": {
+			"speaker": "luhun_child",
+			"tr": "Ayağıma balık değdi!",
+			"en": "A fish touched my foot!"
+		},
+		"stone_mine": {
+			"speaker": "mete_child",
+			"tr": "Bunu anama vereceğim.",
+			"en": "I'll give this to my mother."
+		},
+		"noon_5": {
+			"speaker": "yanchi_child",
+			"tr": "Sayıcı bizi de sayacak mı?",
+			"en": "Will the counter count us too?"
+		},
+		"noon_6": {
+			"speaker": "luhun_child",
+			"tr": "Herkesi sayar. Saymazsa yoksun.",
+			"en": "He counts everyone. If he doesn't count you, you're not there."
+		},
+		"dusk": {
+			"speaker": "luhun_child",
+			"tr": "Ay doğmadan ağılda olalım. Kurt saatidir.",
+			"en": "Let's have them in the pen before the moon's up. It's the wolves' hour."
+		},
+		"lan_stone": {
+			"speaker": "lan_hatun",
+			"tr": "Ak taş… Sende kalsın. Ak taş yolu bilir.",
+			"en": "A white stone… You keep it. A white stone knows the way."
+		}
+	},
+	"barks": {
+		"cooldown": 45.0
+	},
+	"actors": {
+		"lan_hatun": {
+			"start": [
+				1.6,
+				-0.7
+			],
+			"face": "lan_bed",
+			"solid": true
+		},
+		"luhun_child": {
+			"start": [
+				28.4,
+				23.2
+			],
+			"face": "pen_gate"
+		},
+		"yanchi_child": {
+			"start": [
+				29.6,
+				29.4
+			],
+			"face": "pen_gate"
+		}
+	},
+	"steps": [
+		{
+			"id": "flock_wake",
+			"kind": "flock_wake",
+			"at": 0.0,
+			"objective": {
+				"tr": "Ağıla git",
+				"en": "Go to the pen"
+			},
+			"hint": {
+				"tr": "Kalkmak için yürü. Ağıl doğuda; Luhun ve Yançi kapıda bekliyor.",
+				"en": "Move to get up. The pen is to the east; Luhun and Yanchi are waiting at the gate."
+			},
+			"say": [
+				{
+					"line": "wake",
+					"at": 1.2
+				}
+			],
+			"in_bed": true,
+			"bed": "lan_bed",
+			"bed_yaw_deg": 0.0,
+			"rise_s": 1.8,
+			"show_controls": true,
+			"back_line": "back",
+			"back_near": 2.4,
+			"bow_line": "bow",
+			"bow_near": 14.0,
+			"target": "pen_gate",
+			"radius": 3.0
+		},
+		{
+			"id": "flock_gate",
+			"kind": "flock_gate",
+			"at": 40.0,
+			"clock": "07:36",
+			"objective": {
+				"tr": "Ağılın kapısını aç",
+				"en": "Open the pen gate"
+			},
+			"hint": {
+				"tr": "Kapının önünde E.",
+				"en": "Press E at the gate."
+			},
+			"out_objective": {
+				"tr": "Kırk baş çıksın",
+				"en": "Let all forty out"
+			},
+			"out_hint": {
+				"tr": "Koyunlar kapının önünde toplanıyor.",
+				"en": "The sheep are gathering outside the gate."
+			},
+			"gate": "pen_gate",
+			"radius": 2.6,
+			"gather": "flock_gather",
+			"gather_radius": 9.0,
+			"release_cadence": 0.2,
+			"release_pace": 1.8,
+			"go_share": 0.8,
+			"go_line": "go",
+			"kids": {
+				"luhun_child": [
+					33.0,
+					33.0
+				],
+				"yanchi_child": [
+					33.0,
+					21.0
+				]
+			}
+		},
+		{
+			"id": "flock_drive",
+			"kind": "flock_drive",
+			"at": 70.0,
+			"clock": "07:40",
+			"objective": {
+				"tr": "Sürüyü Kamışlı Göl'e sür",
+				"en": "Drive the flock to Reed Lake"
+			},
+			"hint": {
+				"tr": "Sürünün arkasından yürü: koyun senden kaçar, yola gider. Yaşlı koyuna binebilirsin.",
+				"en": "Walk behind the flock: sheep move away from you, along the path. You can ride the old sheep."
+			},
+			"stray_hint": {
+				"tr": "Dağılanların önüne geç: koyun senden kaçar, sürüye döner.",
+				"en": "Get ahead of the strays: they run from you, back to the flock."
+			},
+			"path": [
+				"flock_gather",
+				"flock_way_1",
+				"flock_way_2",
+				"flock_way_3",
+				"lake_view"
+			],
+			"goal_radius": 12.0,
+			"leader": "luhun_child",
+			"lead_ahead": 13.0,
+			"flank": "yanchi_child",
+			"flank_offset": [
+				9.0,
+				4.0
+			],
+			"stray_help_s": 30.0,
+			"stall_s": 18.0,
+			"events": [
+				{
+					"at": 0.05,
+					"say": "walk_1"
+				},
+				{
+					"at": 0.06,
+					"say": "walk_2"
+				},
+				{
+					"at": 0.07,
+					"say": "walk_3"
+				},
+				{
+					"at": 0.24,
+					"stray": 1.0,
+					"count": 4,
+					"dist": 26.0,
+					"line": "stray_2"
+				},
+				{
+					"at": 0.4,
+					"cranes": true,
+					"line": "cranes",
+					"then": "cranes_2",
+					"seconds": 46.0,
+					"look_s": 6.5
+				},
+				{
+					"at": 0.57,
+					"stray": -1.0,
+					"count": 2,
+					"dist": 24.0,
+					"line": "stray_1"
+				},
+				{
+					"at": 0.73,
+					"dailin": true,
+					"line": "dailin",
+					"look_s": 6.0
+				}
+			],
+			"lake_line": "lake",
+			"water_line": [
+				"lake_drink",
+				[
+					344.0,
+					24.0
+				],
+				[
+					346.0,
+					40.0
+				]
+			],
+			"graze_radius": 13.0
+		},
+		{
+			"id": "flock_lake",
+			"kind": "flock_lake",
+			"at": 200.0,
+			"clock": "08:35",
+			"objective": {
+				"tr": "Gölde yüz",
+				"en": "Swim in the lake"
+			},
+			"hint": {
+				"tr": "Sığda yürünür, belden derinde yüzülür. En derine girme.",
+				"en": "You wade in the shallows and swim where it's deeper than your waist. Keep out of the deepest part."
+			},
+			"dare_line": "swim_dare",
+			"cold_line": "water_cold",
+			"fish_line": "fish",
+			"deep_line": "swim_deep",
+			"kids": {
+				"luhun_child": "lake_swim",
+				"yanchi_child": "lake_wade"
+			},
+			"swim_s": 7.0,
+			"fish_after": 3.5
+		},
+		{
+			"id": "flock_stone",
+			"kind": "flock_stone",
+			"at": 230.0,
+			"clock": "08:50",
+			"objective": {
+				"tr": "Ak taşı çıkar",
+				"en": "Bring up the white stone"
+			},
+			"hint": {
+				"tr": "Taş sazlığın dibinde parlıyor: üstündeyken E ile dal.",
+				"en": "The stone glints at the bottom by the reeds: dive with E when you're above it."
+			},
+			"dare_line": "stone_dare",
+			"got_line": "stone_got",
+			"mine_line": "stone_mine",
+			"item": "white_stone",
+			"flag": "white_stone",
+			"kids": {
+				"luhun_child": [
+					352.0,
+					10.0
+				],
+				"yanchi_child": [
+					345.5,
+					9.0
+				]
+			}
+		},
+		{
+			"id": "flock_noon",
+			"kind": "flock_noon",
+			"at": 270.0,
+			"clock": "09:30",
+			"objective": {
+				"tr": "Kıyıda dinlen",
+				"en": "Rest on the shore"
+			},
+			"hint": {
+				"tr": "Çocukların yanına git, E ile uzan.",
+				"en": "Go over to the others and lie down with E."
+			},
+			"rest": "noon_rest",
+			"radius": 3.6,
+			"sit_after": 2.5,
+			"spots": {
+				"luhun_child": [
+					-1.5,
+					0.0
+				],
+				"yanchi_child": [
+					1.5,
+					0.4
+				]
+			},
+			"lines": [
+				"noon_1",
+				"noon_2",
+				"noon_3",
+				"noon_4",
+				"noon_5",
+				"noon_6"
+			],
+			"lapse_to": "15:50"
+		},
+		{
+			"id": "flock_count",
+			"kind": "flock_count",
+			"at": 320.0,
+			"clock": "15:55",
+			"objective": {
+				"tr": "Sürüyü iki taşın arasından geçir",
+				"en": "Drive the flock between the two stones"
+			},
+			"hint": {
+				"tr": "Sürüyü sayım taşlarına sür; Yançi sayıyor.",
+				"en": "Drive the flock to the counting stones; Yanchi is counting."
+			},
+			"path": [
+				"lake_graze",
+				[
+					330.0,
+					31.0
+				],
+				"count_gate",
+				"count_after"
+			],
+			"gate_a": "count_stone_a",
+			"gate_b": "count_stone_b",
+			"slack": 2.2,
+			"corridor": 3.0,
+			"counter": "yanchi_child",
+			"counter_at": [
+				318.4,
+				20.6
+			],
+			"lines": {
+				"start": "count_gate",
+				"38": "count_38",
+				"39": "count_39",
+				"missing": "missing"
+			}
+		},
+		{
+			"id": "flock_lamb",
+			"kind": "flock_lamb",
+			"at": 360.0,
+			"clock": "16:20",
+			"objective": {
+				"tr": "İzi sür",
+				"en": "Follow the trail"
+			},
+			"hint": {
+				"tr": "Eksik kuzunun izi sazlığa gidiyor.",
+				"en": "The missing lamb's tracks lead into the reeds."
+			},
+			"pull_objective": {
+				"tr": "Kuzuyu balçıktan çek",
+				"en": "Pull the lamb out of the mud"
+			},
+			"fox_hint": {
+				"tr": "Tilki bekliyor: yanına ok at ya da üstüne koş. Kuzunun yanında E'yi basılı tut.",
+				"en": "A fox is waiting: shoot an arrow near it or run at it. Hold E beside the lamb."
+			},
+			"pull_hint": {
+				"tr": "Kuzunun yanında E'yi basılı tut.",
+				"en": "Hold E beside the lamb."
+			},
+			"carry_objective": {
+				"tr": "Kuzuyu sürüye götür",
+				"en": "Carry the lamb back to the flock"
+			},
+			"carry_hint": {
+				"tr": "Kuzu kucağında.",
+				"en": "The lamb is in your arms."
+			},
+			"mud": "lake_mud",
+			"fox": "lake_fox",
+			"fox_scare_m": 7.0,
+			"arrow_scare_m": 6.0,
+			"found_near": 11.0,
+			"pull_reach": 2.0,
+			"pull_s": 2.4,
+			"deliver_m": 6.5,
+			"meet": [
+				322.0,
+				-2.0
+			],
+			"lines": {
+				"found": "lamb_found",
+				"fox": "fox",
+				"gone": "fox_gone",
+				"forty": "forty"
+			}
+		},
+		{
+			"id": "flock_home",
+			"kind": "flock_home",
+			"at": 420.0,
+			"clock": "17:32",
+			"objective": {
+				"tr": "Sürüyü ağıla döndür",
+				"en": "Bring the flock home to the pen"
+			},
+			"stone_objective": {
+				"tr": "Ak taşı anana göster",
+				"en": "Show your mother the white stone"
+			},
+			"home_at": "17:40",
+			"home_lapse_s": 5.0,
+			"path": [
+				"count_after",
+				"flock_way_3",
+				"flock_way_2",
+				"flock_way_1",
+				[
+					44.0,
+					30.0
+				],
+				[
+					27.0,
+					26.0
+				]
+			],
+			"dusk_at": 0.42,
+			"mother": "lan_hatun",
+			"mother_at": [
+				27.6,
+				21.4
+			],
+			"mother_reach": 2.6,
+			"item": "white_stone",
+			"lines": {
+				"call": "home_call",
+				"dusk": "dusk",
+				"count": "home_count",
+				"stone": "lan_stone"
+			}
+		}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"id": "act0.depart.huyan_wave",
+	"take": 0,
+	"seed": 76239199,
+	"hash": "048b515f0a3d",
+	"model": "eleven_v3",
+	"voice": "r1KmysJdVYZjJCm4mL3b",
+	"seconds": 1.52,
+	"words": [
+		{"w": "Wave", "t0": 0.0, "t1": 0.32},
+		{"w": "to", "t0": 0.347, "t1": 0.4},
+		{"w": "your", "t0": 0.432, "t1": 0.56},
+		{"w": "brother,", "t0": 0.59, "t1": 0.88},
+		{"w": "Gutu.", "t0": 0.94, "t1": 1.52}
+	]
+}

@@ -1,0 +1,48 @@
+{
+	"id": "depart_light",
+	"doc": "Yola Çıkış'ın ışığı (story.md §6; K67, K98; godot.md §4.9): 15 Aralık MÖ 213, dayN −41, kuzeydeki Tanhu Kampı ≈46,5°K, doy 349, yerel güneş saati 07:10, şafaktan önce: güneş ufkun ≈6° altında (doğuş ≈07:50), sivil alaca. Ay 22 günlük (son dördün; time.md §2'nin formülü), güneyde yüksek: ışık aydır, serin mavi, gölgeli; kar mavimsi beyazdır, yurtların kapısından ve ocaktan sıcak ışık sızar, Teoman'ın kapısı karanlıktır. Saat okunmaz (sahne 90 sn sürer, oyunun saati gelince bu örnek açılış dakikasıdır). Renkler ilk ayardır, göz onayı bekler. Panorama Ordos'unkidir (qwantani_sunrise_puresky): yalnız ortam ve yansımaya karışır, sönük.",
+	"date": {"day_n": -41, "tr": "15 Aralık MÖ 213", "en": "15 December 213 BC", "place_tr": "Tanhu Kampı", "place_en": "The Tanhu's Camp"},
+	"lat": 46.5,
+	"doy": 349,
+	"samples": {
+		"predawn": {
+			"doc": "07:10, şafaktan önce: ay ışığı güneyden (az ≈195°, ≈40°), sivil alacanın soğuk göğü; doğu ufku hafif pembe.",
+			"minute": 430.0,
+			"moon_age": 21.95,
+			"light_dir": [-0.2, 0.64, 0.74],
+			"light_color": [0.66, 0.74, 1.0],
+			"light_energy": 0.62,
+			"light_shadow": true,
+			"ambient_color": [0.36, 0.42, 0.64],
+			"ambient_energy": 0.34,
+			"ambient_sky": 0.42,
+			"exposure": 1.0,
+			"glint": "moon",
+			"sky": {
+				"zenith": [0.05, 0.08, 0.2],
+				"mid": [0.15, 0.21, 0.44],
+				"horizon": [0.56, 0.5, 0.64],
+				"ground": [0.14, 0.15, 0.21],
+				"sun_glow_color": [1.0, 0.56, 0.44],
+				"sun_glow_strength": 0.24,
+				"sun_glow_spread": 4.0,
+				"sun_glow_height": 0.3,
+				"sun_disc_size": 0.0,
+				"moon_energy": 1.8,
+				"moon_glow_strength": 0.3,
+				"star_brightness": 0.35,
+				"cloud_coverage": 0.32,
+				"cloud_lit_color": [0.62, 0.62, 0.78],
+				"cloud_shadow_color": [0.2, 0.23, 0.4],
+				"cloud_rim_color": [0.9, 0.8, 0.84],
+				"cloud_light_from_sun": 0.4,
+				"ambient_panorama": "res://assets/_free/hdri/qwantani_sunrise_puresky/qwantani_sunrise_puresky_2k.hdr",
+				"ambient_panorama_mix": 0.45,
+				"ambient_panorama_energy": 0.12,
+				"ambient_panorama_offset": 0.344,
+				"ambient_panorama_clamp": 4.0
+			},
+			"fog": {"color": [0.38, 0.44, 0.62], "density": 0.0042, "sky_affect": 0.0}
+		}
+	}
+}

@@ -1,0 +1,14 @@
+{
+  "id": "camp_hujia_b",
+  "kind": "music",
+  "instrument": "hujia",
+  "tempo": 52,
+  "bars": 2,
+  "mode": "d_dorian",
+  "phrase": "b",
+  "seed": 5222,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "camp: ara sıra hucia cümlesi (boş kopyaların arasında seyrek). Kamp bankası (data/audio/banks/camp.json); kulak onayı bekler (Karar Bekleyenler), onaya dek menü ElevenLabs parçasını çalar."
+}

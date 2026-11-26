@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.noon_2",
+	"take": 0,
+	"seed": 718342627,
+	"hash": "2ad109e34a97",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.72,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "Tanhu's", "t0": 0.16, "t1": 0.72},
+		{"w": "horse.", "t0": 0.813, "t1": 1.36},
+		{"w": "A", "t0": 1.72, "t1": 2.08},
+		{"w": "white", "t0": 2.12, "t1": 2.32},
+		{"w": "one.", "t0": 2.4, "t1": 2.72}
+	]
+}

@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_preview.gd" id="1_preview"]
+[ext_resource type="PackedScene" path="res://scenes/world/world.tscn" id="2_world"]
+[ext_resource type="PackedScene" path="res://scenes/ui/painterly_overlay.tscn" id="3_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/ui/main_menu.tscn" id="4_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_hud.tscn" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/camera/menu_camera.gd" id="6_cam"]
+
+[node name="MenuPreview" type="Node3D"]
+script = ExtResource("1_preview")
+
+[node name="World" parent="." instance=ExtResource("2_world")]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.99972, 0.0012805, -0.023455, 0, 0.99851, 0.054515, 0.02349, -0.054499, 0.99824, -0.143, 3.229, 18.259)
+current = true
+fov = 32.656
+near = 0.05
+far = 6000.0
+script = ExtResource("6_cam")
+design_fov = 32.656
+
+[node name="PainterlyOverlay" parent="." instance=ExtResource("3_overlay")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="MainMenu" parent="UI" instance=ExtResource("4_menu")]
+
+[node name="GameHud" parent="UI" instance=ExtResource("5_hud")]

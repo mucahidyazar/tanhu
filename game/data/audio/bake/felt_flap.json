@@ -1,0 +1,11 @@
+{
+  "id": "felt_flap",
+  "kind": "sfx",
+  "instrument": "felt_flap",
+  "seconds": 0.6,
+  "seed": 6111,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "Keçe panonun hışırtısı: mit sinemasının pano geçişlerinde (audio.md §4). Kulak onayı bekler."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "horse_neigh",
+  "kind": "sfx",
+  "source": "free:assets/_free/sound/horse_whinny/Whinny.ogg",
+  "start": 0.0,
+  "seconds": 1.6,
+  "gain_db": -3,
+  "rate": 22050,
+  "loop": false,
+  "note": "At kişnemesi (audio.md §4 «At» horse_neigh): sayım hattının atlıları (Dailin: at semizdir, sayılır). Kaynak ücretsiz kayıt (horse_whinny: OpenGameArt «Baby Animals Sounds Pack» Whinny, technopeasant / foxen10, CC0), mono 22,05 kHz QOA."
+}

@@ -1,0 +1,15 @@
+{
+	"id": "act0.hearth.three",
+	"take": 0,
+	"seed": 1020051058,
+	"hash": "3cccbe724258",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 3.44,
+	"words": [
+		{"w": "Three", "t0": 0.0, "t1": 0.48},
+		{"w": "stones.", "t0": 0.594, "t1": 1.36},
+		{"w": "Always", "t0": 1.543, "t1": 2.64},
+		{"w": "three.", "t0": 2.733, "t1": 3.44}
+	]
+}

@@ -1,0 +1,124 @@
+{
+	"version": 1,
+	"source": "structures.md §2.4, §2.5, §3.1, §10.2, §11.6, §14; act1.md §9.3; time.md §8.2, §8.3; d2/labour-model.json v3; K21, K50, K52, K83",
+	"doc": "Şantiyelerin verisi (SiteState ve CampLife okur; scripts/sim/labour/site_state.gd, scripts/world/camp_life.gd). costs: yurt gövdeli yapıların adım başına ham malı (I. Perde a1 biçimi, structures.md §3.1; rawWork false: parça yontulmuş gelir, emek 1.440 İD kalır); y_sirdak ambardan gelir, sayılmaz. sites: elle kurulan şantiyeler. Saatler gün dakikası ya da «hh:mm»dir. crew: üyeler Labour'un biçimindedir (role, w); meals [başlangıç, süre dk] günlük öğünlerdir (üye o arada ekipte sayılmaz), shift [başı, sonu] üyenin iş penceresidir. errands: ayak işleri (structures.md §11.6): eksik her birim için çırak (who) adımın başında trip_real_s gerçek saniyelik bir sefere gider ve o sürede ekipte sayılmaz; Çocuğun önceden getirdiği birim seferi düşürür (help_water, help_log), köz yığındaysa y_ocak workIfEmber'dir (help_ember). family: K83'ün «Aile bekler» kuralı (check saatinde aşama ≥ min_stage ise aile ilk dumana dek ateş başındadır; değilse yatar, y_ocak ember_at'ten önce başlamaz; ember_at'te Ana közü getirir; köz ember_life_min dakika sonra söner: y_ocak o vakte dek başlamadıysa ekip közü ateşten kendi alır, adım 20 İD olur). Tasarım boşluğu kararı (2026-11-09): közün ömrü 180 oyun dk'dır; böylece «Gece dinlenilsin» satırı belgedeki gibi ertesi 14:17'de biter (structures.md §11.6).",
+	"costs": {
+		"yurt": {
+			"y_site": {"stone": 6},
+			"y_bosaga": {"tag:wood": 3, "iron_bar": 1},
+			"y_kerege": {"tag:wood": 8, "rope": 2},
+			"y_bag": {"rope": 2},
+			"y_tunduk": {"yurt_crown": 1, "pole": 2},
+			"y_uuk": {"tag:wood": 12},
+			"y_liner": {"reed": 6},
+			"y_tuurduk": {"felt": 4},
+			"y_uzuk": {"felt": 2},
+			"y_kolan": {"rope": 3},
+			"y_esik": {"rope": 1},
+			"y_sirdak": {},
+			"y_ocak": {"ember": 1}
+		}
+	},
+	"sites": {
+		"camp3": {
+			"doc": "Göl Obası'nın üçüncü yurdu (K106; structures.md §11): Oktar ve Erka usta, Dengiz çırak; W 2,75. Yer Godot kampının çerçevesindedir (prototipin (−16,5; −21,5)'i Godot kampına uymaz: yurtlar ve ahır başka yerdedir): iki yurdun arkasında, kuzeyde (4, −18); ölçüldü (tools/camp_site_probe.gd, 2026-11-09): ped dairesinde (r 4) zemin farkı 0,07 m, en yakın engel (R8 kayası) duvarın 4,85 m dışında, Yurt B'nin duvarına 4,3 m, yola 12,3 m, ateşe 18,4 m. Hiçbir kaya ve ağaç taşınmaz; altındaki çayır tutamları yalnız Serbest Gez'de gizlenir (menüde geri gelir). Kapı hun aralığının (120 ±45) ateşe en yakın ucunda, 165° (güney-güneydoğu): avluya ve ateşe bakar. Menüde yoktur (yalnız Serbest Gez'de kurulur; menü karesi değişmez).",
+			"kind": "yurt",
+			"size": "m",
+			"style": "hun",
+			"layout": "otaci",
+			"preset": "hero",
+			"at": [4.0, -18.0],
+			"rot": 0.26,
+			"seed": 11,
+			"name": {"tr": "Yeni Yurt", "en": "New Yurt"},
+			"done_name": {"tr": "Otacı Yurdu", "en": "Healer's Yurt"},
+			"stock_at": [0.8, -13.0],
+			"stock_rot": 0.2,
+			"stock_half": [1.5, 1.2],
+			"entry": [2.0, -29.0],
+			"labour": {"raw": false, "torch_free": true, "fed": 1.0},
+			"arrival": {"delay_real_s": 20.0, "window": ["06:00", "22:00"]},
+			"torches_at": "sunset",
+			"crew": [
+				{"id": "oktar", "role": "usta", "w": 1.0, "meals": [["12:00", 30], ["18:30", 30]], "name": {"tr": "Oktar", "en": "Oktar"}},
+				{"id": "erka", "role": "usta", "w": 1.0, "meals": [["12:30", 30], ["19:00", 30]], "name": {"tr": "Erka", "en": "Erka"}},
+				{"id": "dengiz", "role": "apprentice", "w": 0.75, "meals": [["13:00", 30], ["19:30", 30]], "name": {"tr": "Dengiz", "en": "Dengiz"}}
+			],
+			"errands": {
+				"water": {"step": "y_site", "need": 2, "trip_real_s": 20.0, "who": "dengiz", "help": "help_water"},
+				"logs": {"step": "y_uuk", "need": 4, "trip_real_s": 26.0, "who": "dengiz", "help": "help_log"},
+				"ember": {"step": "y_ocak", "help": "help_ember"}
+			},
+			"rest_window": ["06:00", "22:00"],
+			"family": {"check": "23:00", "min_stage": 4, "ember_at": "05:00", "ember_life_min": 180, "brother_bed": "22:30", "family_bed": "23:00"},
+			"lines": {
+				"night": {"tr": "Yeni yurt gece kuruldu; ilk dumanı ozan gördü.", "en": "The new yurt went up in the night; the bard saw its first smoke."},
+				"dawn": {"tr": "Yeni yurt gece kuruldu; ocağını sabah ben yaktım.", "en": "The new yurt went up in the night; I lit its hearth this morning."},
+				"done_card": {"tr": "Yeni yurt kuruldu", "en": "The new yurt stands"},
+				"join": {"tr": "Ustalara Katıl (yarım el)", "en": "Join the Builders (half a hand)"},
+				"left": {"tr": "Ekipten ayrıldın", "en": "You left the crew"},
+				"no_child": {"tr": "Kapı keçesi çocuk işi değil", "en": "The door felt is not a child's job"},
+				"hearth_dawn": {"tr": "Ocak tanla yakılacak", "en": "The hearth will be lit at first light"},
+				"crew": {"tr": "Ekip: {n} el · ≈{h}", "en": "Crew: {n} hands · ≈{h}"},
+				"crew_you": {"tr": "Ekip: {n} el + sen · ≈{h}", "en": "Crew: {n} hands + you · ≈{h}"},
+				"hours": {"tr": "{n} saat", "en": "{n} hours"},
+				"hour": {"tr": "1 saat", "en": "1 hour"},
+				"water_take": {"tr": "Su Getir ({n}/2)", "en": "Bring Water ({n}/2)"},
+				"log_take": {"tr": "Kütük Getir ({n}/4)", "en": "Bring a Log ({n}/4)"},
+				"ember_take": {"tr": "Köz Getir", "en": "Bring an Ember"},
+				"water_drop": {"tr": "Kovayı Bırak", "en": "Set Down the Bucket"},
+				"log_drop": {"tr": "Kütüğü Bırak", "en": "Set Down the Log"},
+				"ember_drop": {"tr": "Közü Bırak", "en": "Set Down the Ember"},
+				"carry": {"tr": "Yığına götür", "en": "Take it to the pile"}
+			},
+			"speakers": {"mother": {"tr": "Ana", "en": "Mother"}},
+			"step_names": {
+				"y_site": {"tr": "Zemin", "en": "Ground"}, "y_bosaga": {"tr": "Bosağa", "en": "Door Frame"},
+				"y_kerege": {"tr": "Kerege", "en": "Lattice Walls"}, "y_bag": {"tr": "Bağ", "en": "Bands"},
+				"y_tunduk": {"tr": "Tündük", "en": "Crown"}, "y_uuk": {"tr": "Uuk", "en": "Roof Poles"},
+				"y_liner": {"tr": "Çiy", "en": "Reed Screen"}, "y_tuurduk": {"tr": "Tuurduk", "en": "Wall Felts"},
+				"y_uzuk": {"tr": "Üzük", "en": "Roof Felts"}, "y_kolan": {"tr": "Kolan", "en": "Girth Bands"},
+				"y_esik": {"tr": "Eşik", "en": "Door Felt"}, "y_sirdak": {"tr": "Şırdak", "en": "Rugs"}, "y_ocak": {"tr": "Ocak", "en": "Hearth"}
+			},
+			"say": {
+				"y_bosaga": ["oktar", {"tr": "Önce kapı. Ev kapıdan başlar.", "en": "The door first. A home begins at its door."}],
+				"y_bag": ["erka", {"tr": "Sıkı bağla. Rüzgâr sormadan girer.", "en": "Tie it tight. The wind comes in without asking."}],
+				"y_tunduk": ["oktar", {"tr": "Omuz ver, küçük. Üçe kadar sayamam, çabuk ol.", "en": "Shoulder in, little one. I can't count past three, be quick."}],
+				"y_ocak": ["erka", {"tr": "Ateş başka ateşten doğar.", "en": "Fire is born of another fire."}],
+				"done": ["oktar", {"tr": "Boş ev olmaz. Otacısı var artık.", "en": "No house stays empty. This one has its healer."}],
+				"dusk": ["erka", {"tr": "Meşaleleri dikin. Gece işi bitirmez, ışık olsun yeter.", "en": "Plant the torches. Night won't stop the work, so long as there is light."}],
+				"night": ["oktar", {"tr": "Karanlıkta düğüm parmakla görülür.", "en": "In the dark you see a knot with your fingers."}],
+				"rain": ["oktar", {"tr": "Keçeyi yağmura açmayız. Bekleyelim.", "en": "We don't open felt to the rain. We wait."}],
+				"join": ["oktar", {"tr": "Gel. Yarım el de eldir.", "en": "Come. Half a hand is still a hand."}],
+				"logs": ["dengiz", {"tr": "Kütük eksik. Ben getiririm.", "en": "We're short of logs. I'll fetch them."}],
+				"water": ["dengiz", {"tr": "Su mu? Sen olmasan kovaya ben koşacaktım.", "en": "Water? Without you I'd be running to the bucket."}]
+			}
+		},
+		"kislak_new_yurt": {
+			"doc": "Kışlak'ın Yeni Yurdu (act1.md §9.3, structures.md §14): Nanay usta 10:30–19:30, iki Yapı Eri 07:00–23:00; Ambar yalnız eksiği gönderir; y_tunduk mq_crown'u (Gün III 08:30, sahnede altı el), y_ocak mq_feast'in közünü bekler (Gün IV 17:00, Atşo tek başına). Bayrak ve görev bağları hikâye fazınındır (act-1-p3); bu satır şantiyenin emek tarafıdır.",
+			"kind": "yurt",
+			"size": "m",
+			"style": "yuezhi",
+			"layout": "otaci",
+			"preset": "winter",
+			"labour": {"raw": false, "torch_free": true, "fed": 1.0},
+			"crew": [
+				{"id": "nanay", "role": "usta", "w": 1.0, "shift": ["10:30", "19:30"]},
+				{"id": "builder_a", "role": "hand", "w": 1.0, "shift": ["07:00", "23:00"]},
+				{"id": "builder_b", "role": "hand", "w": 1.0, "shift": ["07:00", "23:00"]}
+			],
+			"deliveries": [
+				{"day": 2, "at": "09:00", "stage": 1},
+				{"day": 2, "at": "13:00", "stage": 2},
+				{"day": 3, "at": "13:00", "stage": 4},
+				{"day": 3, "at": "15:30", "stage": 5},
+				{"day": 4, "at": "09:00", "stage": 6},
+				{"day": 4, "at": "13:00", "stage": 7}
+			],
+			"gates": {
+				"y_tunduk": {"day": 3, "at": "08:30", "crew": 6},
+				"y_ocak": {"day": 4, "at": "17:00", "crew": [{"id": "atsho", "role": "usta", "w": 1.0}], "ember": true}
+			}
+		}
+	}
+}

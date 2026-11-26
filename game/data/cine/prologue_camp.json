@@ -1,0 +1,24 @@
+{
+	"id": "camp",
+	"title": "Önsöz 1, kamp ve şarkı (K68; story.md §3 satır 0a–0d; godot.md §3.6): menü kadrajından WIDE'a 6 sn geri çekilme, yıldızlar %35, 4,2 sn'de kopuz kalkar, şarkı kamera durunca 0:06,0'da, dron şarkının son 4,6 sn'sinde söner, avuç son vuruşu susturur, 3 sn alçak sessizlik, 2 sn kararma, 1 sn kara. Saniyeler Yeni Oyun'a basıştan; şarkıya bağlı her an şarkının seconds'ıyla kayar. Kol çekim 3104'ün zarfına ve vuruş ızgarasına bağlıdır (K95; tools/song/k75_measure.json info.strokeGrid: dönem 0,3989 sn): dosyanın sıfırı ilk −42 dB'lik sestir (baştaki sessizlik kesildi) ama kopuz 3,9 sn'de yükselerek girer, ilk duyulur vuruş şarkının 2,31. sn'si; son vuruş (avuç) 22,62. sn'si, ardından dosyanın 4,2 sn'si sönen kuyruktur. Bu yüzden strum song+2,3'te başlar, mute song+22,64'te gelir: ızgaranın o iki vuruşa en yakın noktaları (kol sessizde vurmaz, el telleri geçerken durur, sıçramaz; test_prologue_camp). Çekim değişirse bu iki sayı ölçüden yeniden alınır.",
+	"scene": "res://scenes/cine/prologue_camp.tscn",
+	"world": "camp",
+	"view": "main",
+	"length": "act0.bard.song_end+6.05",
+	"events": [
+		{"id": "bard", "t": 0, "type": "music", "bank": "camp", "state": "camp_bard", "fade": 2.0},
+		{"t": 0, "type": "ambience", "id": "wind_steppe", "db": -10.5, "dur": 6.0},
+		{"id": "pullback", "t": 0, "type": "shot", "name": "pullback", "dur": 6.0},
+		{"id": "stars", "t": 4.0, "type": "stars", "share": 0.35, "dur": 2.0},
+		{"id": "raise", "t": 4.2, "type": "raise_kopuz", "dur": 1.1},
+		{"id": "hold", "t": "pullback_end", "type": "shot", "name": "hold"},
+		{"id": "song", "t": "hold", "type": "song", "line": "act0.bard.song", "pan": 0.08},
+		{"id": "look", "t": "song", "type": "child_look", "dur": 1.5},
+		{"id": "strum", "t": "song+2.3", "type": "strum"},
+		{"id": "drone_out", "t": "song_end-4.6", "type": "layer", "layer": "drone", "db": -80.0, "dur": 4.6},
+		{"id": "mute", "t": "song+22.64", "type": "palm_mute"},
+		{"id": "silence", "t": "song_end+0.05", "type": "low_silence", "on": true, "fade": 1.0},
+		{"id": "out", "t": "silence+3.0", "type": "fade", "to": 1.0, "dur": 2.0},
+		{"id": "black", "t": "out_end", "type": "black", "dur": 1.0}
+	]
+}

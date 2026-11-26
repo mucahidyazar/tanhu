@@ -1,0 +1,520 @@
+{
+  "id": "gazelle",
+  "doc": "Karakuyruk ceylanın sayıları (tools/blender/quadruped_rig.py; fauna.md §10 cervid planı, ceylan: omuz 0,75 m, tırıs çapraz çift, dörtnal dönen, ceylan sıçramaz). normalize ham Meshy biriminde, ötekiler oyun metresindedir. Oyun uzayı: y yukarı, +z ileri, +x hayvanın solu. Ham ağda baş ≈22° sağa dönük: neck_twist başı ve boynuzları gövde hattına çevirir. Boynuz başın ek elipsoidiyle bütün kafaya bağlıdır. Kuyruk küçüktür ve sağrıya yapışıktır: kuyruk kemikleri ağırlık almaz (salınım görünmez). Kemikler: gövde 4, boyun 3, baş, iki kulak, kuyruk 3, bacak başına 4: 29 deforme kemik. Klipler: idle, graze, walk, trot, gallop (dönen dörtnal).",
+  "source": "assets/_meshy_raw/gazelle/gazelle.glb",
+  "output_dir": "assets/animals/gazelle",
+  "texture_class": "mount",
+  "import_fps": 120,
+  "normalize": {
+    "torso_z": [
+      -0.35,
+      0.2
+    ],
+    "torso_min_height": 0.78,
+    "shoulder_z": 0.2,
+    "shoulder_probe": 0.06,
+    "uniform_length_m": 0.945,
+    "neck_twist": {
+      "doc": "Ham ağda burun ≈22° sağa dönük; baş ve boynuz gövde hattına döner (y_free üstü, boynuz, bütün döner).",
+      "angle_deg": -22.0,
+      "y0": 0.0,
+      "y1": 0.01,
+      "center_low": [
+        0.0,
+        0.5197
+      ],
+      "center_high": [
+        0.0,
+        0.5197
+      ],
+      "z_zero": 0.4237,
+      "z_full": 0.6157,
+      "z_linear": false,
+      "y_free0": 1.4402,
+      "y_free1": 1.5602,
+      "head_center": [
+        -0.06,
+        1.5002,
+        0.6157
+      ],
+      "head_radius_zero": 0.3,
+      "head_radius_full": 0.18
+    }
+  },
+  "skeleton": {
+    "hips": [
+      0.0,
+      0.665,
+      -0.227
+    ],
+    "spine": [
+      0.0,
+      0.68,
+      -0.015
+    ],
+    "chest": [
+      0.0,
+      0.665,
+      0.166
+    ],
+    "belly": [
+      0.0,
+      0.514,
+      -0.03
+    ],
+    "neck": [
+      [
+        0.0,
+        0.665,
+        0.272
+      ],
+      [
+        0.0,
+        0.756,
+        0.348
+      ],
+      [
+        0.0,
+        0.847,
+        0.408
+      ]
+    ],
+    "head": [
+      0.0,
+      0.937,
+      0.454
+    ],
+    "nose": [
+      0.0,
+      0.832,
+      0.597
+    ],
+    "ears": {
+      "L": {
+        "base": [
+          0.045,
+          0.998,
+          0.438
+        ],
+        "tip": [
+          0.098,
+          1.043,
+          0.423
+        ]
+      },
+      "R": {
+        "base": [
+          -0.045,
+          0.998,
+          0.438
+        ],
+        "tip": [
+          -0.098,
+          1.043,
+          0.423
+        ]
+      }
+    },
+    "tail": [
+      [
+        0.0,
+        0.703,
+        -0.318
+      ],
+      [
+        0.0,
+        0.643,
+        -0.34
+      ],
+      [
+        0.0,
+        0.582,
+        -0.348
+      ],
+      [
+        0.0,
+        0.529,
+        -0.348
+      ]
+    ],
+    "legs": {
+      "front": {
+        "parent": "Chest",
+        "fetlock_y": 0.083,
+        "low_y": 0.302,
+        "mid": {
+          "y": 0.499,
+          "dz": -0.038
+        },
+        "top": {
+          "y": 0.665,
+          "z": 0.204,
+          "dz": 0.0,
+          "x_factor": 0.85
+        },
+        "track_top_y": 0.454,
+        "track_radius": 0.05
+      },
+      "hind": {
+        "parent": "Hips",
+        "fetlock_y": 0.083,
+        "low_y": 0.318,
+        "mid": {
+          "y": 0.514,
+          "dz": 0.091
+        },
+        "top": {
+          "y": 0.68,
+          "z": -0.212,
+          "dz": 0.0,
+          "x_factor": 0.8
+        },
+        "track_top_y": 0.454,
+        "track_radius": 0.05
+      }
+    }
+  },
+  "weights": {
+    "dark_lum": [
+      0.0,
+      0.01
+    ],
+    "body_blend": {
+      "hips_spine": [
+        -0.197,
+        -0.06
+      ],
+      "spine_chest": [
+        0.045,
+        0.151
+      ]
+    },
+    "belly": {
+      "y": [
+        0.544,
+        0.454
+      ],
+      "z": [
+        -0.189,
+        -0.113,
+        0.091,
+        0.166
+      ],
+      "share": 0.5
+    },
+    "tail": {
+      "point": [
+        0.0,
+        0.68,
+        -0.325
+      ],
+      "normal": [
+        0,
+        0.2,
+        -1.0
+      ],
+      "blend": [
+        -0.01,
+        0.03
+      ],
+      "smooth": 6
+    },
+    "neck": {
+      "point": [
+        0.0,
+        0.68,
+        0.249
+      ],
+      "normal": [
+        0,
+        0.45,
+        0.9
+      ],
+      "blend": [
+        -0.05,
+        0.07
+      ],
+      "smooth": 12
+    },
+    "head": {
+      "center": [
+        0.0,
+        0.892,
+        0.514
+      ],
+      "radii": [
+        0.076,
+        0.091,
+        0.136
+      ],
+      "pitch_deg": 35.0,
+      "reach": 0.3,
+      "collar": [
+        1.0,
+        1.35
+      ],
+      "smooth": 4,
+      "extra": [
+        {
+          "doc": "boynuz",
+          "center": [
+            0.0,
+            1.074,
+            0.416
+          ],
+          "radii": [
+            0.166,
+            0.151,
+            0.121
+          ]
+        }
+      ]
+    },
+    "ear": {
+      "radius": 0.04,
+      "start": -0.004,
+      "full": 0.02
+    },
+    "leg": {
+      "tube": "chain",
+      "tube_radius": 0.08,
+      "tube_radius_top": 0.08,
+      "hem_y": {
+        "front": 0.559,
+        "hind": 0.605
+      },
+      "hem_fade": 0.06,
+      "skin_smooth": 12,
+      "wool_near": 0.06,
+      "wool_far": 0.15,
+      "wool_top": {
+        "front": 0.68,
+        "hind": 0.718
+      },
+      "wool_share": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "wool_smooth": 8,
+      "blend": {
+        "hoof": 0.015,
+        "low": 0.03,
+        "mid": 0.05
+      }
+    }
+  },
+  "saddle": {
+    "z": 0.0,
+    "probe": [
+      0.04,
+      0.04
+    ],
+    "sink": 0.0,
+    "bone": "Spine"
+  },
+  "gait": {
+    "symmetry": 1.0
+  },
+  "clips": {
+    "idle": {
+      "length_s": 7.0,
+      "rate": 30,
+      "swish_deg": 8.0,
+      "tail_share": [
+        0.5,
+        0.5,
+        0.4
+      ]
+    },
+    "graze": {
+      "length_s": 9.0,
+      "rate": 30,
+      "mouth_y": 0.22,
+      "head_pitch": 60.0,
+      "neck_split": [
+        0.6,
+        0.25,
+        0.15
+      ],
+      "chest_pitch": 8.0,
+      "spine_pitch": 2.0,
+      "swish_deg": 6.0,
+      "tail_share": [
+        0.5,
+        0.5,
+        0.4
+      ]
+    },
+    "walk": {
+      "doc": "Dört vuruşlu adım (fauna.md §10).",
+      "stride_m": 0.7,
+      "speed_mps": 1.0,
+      "samples": 60,
+      "duty": 0.6,
+      "lift_m": 0.06,
+      "phases": {
+        "HindL": 0.0,
+        "FrontL": 0.25,
+        "HindR": 0.5,
+        "FrontR": 0.75
+      },
+      "stance_shift": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 4.0
+      },
+      "roll_off": {
+        "front": 14.0,
+        "hind": 12.0
+      },
+      "swing_peak": {
+        "front": 40.0,
+        "hind": 30.0
+      },
+      "flex": {
+        "front": 60.0,
+        "hind": 40.0
+      },
+      "body": {
+        "crouch_m": 0.03,
+        "bob_m": 0.006,
+        "sway_m": 0.004,
+        "hip_yaw": 2.0,
+        "chest_yaw": 1.5,
+        "hip_roll": 1.5,
+        "chest_roll": 1.0,
+        "neck_pitch": 3.0,
+        "head_pitch": -2.0,
+        "nod": 3.0,
+        "tail_yaw": 4.0,
+        "tail_pitch": 3.0,
+        "belly_m": 0.004,
+        "ear": 4.0
+      }
+    },
+    "trot": {
+      "doc": "Tırıs: çapraz çift (fauna.md §10 cervid).",
+      "stride_m": 1.0,
+      "speed_mps": 3.0,
+      "samples": 60,
+      "duty": 0.36,
+      "lift_m": 0.08,
+      "phases": {
+        "HindL": 0.0,
+        "FrontR": 0.0,
+        "HindR": 0.5,
+        "FrontL": 0.5
+      },
+      "stance_shift": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 4.0
+      },
+      "roll_off": {
+        "front": 18.0,
+        "hind": 14.0
+      },
+      "swing_peak": {
+        "front": 50.0,
+        "hind": 40.0
+      },
+      "flex": {
+        "front": 70.0,
+        "hind": 45.0
+      },
+      "body": {
+        "crouch_m": 0.05,
+        "bob_m": 0.012,
+        "sway_m": 0.003,
+        "hip_yaw": 2.0,
+        "chest_yaw": -1.5,
+        "hip_roll": 2.0,
+        "chest_roll": -2.0,
+        "neck_pitch": 6.0,
+        "head_pitch": -4.0,
+        "nod": 2.0,
+        "tail_yaw": 4.0,
+        "tail_pitch": 3.0,
+        "belly_m": 0.004,
+        "ear": 4.0
+      }
+    },
+    "gallop": {
+      "doc": "Dönen dörtnal (fauna.md §10 cervid; ceylan sıçramaz): sol arka, sağ arka, sağ ön, sol ön, sonra havada kalış.",
+      "stride_m": 1.7,
+      "speed_mps": 10.0,
+      "samples": 90,
+      "duty": 0.2,
+      "lift_m": 0.12,
+      "phases": {
+        "HindL": 0.0,
+        "HindR": 0.1,
+        "FrontR": 0.38,
+        "FrontL": 0.5
+      },
+      "stance_shift": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 4.0
+      },
+      "roll_off": {
+        "front": 18.0,
+        "hind": 16.0
+      },
+      "swing_peak": {
+        "front": 55.0,
+        "hind": 45.0
+      },
+      "flex": {
+        "front": 80.0,
+        "hind": 55.0
+      },
+      "body": {
+        "crouch_m": 0.07,
+        "bob_m": 0.0,
+        "sway_m": 0.003,
+        "hip_yaw": 2.0,
+        "chest_yaw": 1.5,
+        "hip_roll": 1.5,
+        "chest_roll": 1.0,
+        "neck_pitch": 8.0,
+        "head_pitch": -5.0,
+        "nod": 0.0,
+        "tail_yaw": 4.0,
+        "tail_pitch": 3.0,
+        "belly_m": 0.004,
+        "ear": 4.0,
+        "rock_deg": 5.0,
+        "rock_phase": 0.55,
+        "bob1_m": 0.025,
+        "bob1_phase": 0.82,
+        "spine_flex_deg": 3.0,
+        "neck_pump_deg": 6.0,
+        "pump_lag": 0.08,
+        "tail_pitch_cycles": 1,
+        "tail_lift": [
+          -20.0,
+          -10.0,
+          -6.0
+        ]
+      }
+    }
+  },
+  "far": {
+    "triangles": 1200,
+    "keep_below": 0.5,
+    "keep_factor": 1.0,
+    "wool_smooth": 6,
+    "patch_texels": 1.5,
+    "samples": 24
+  }
+}

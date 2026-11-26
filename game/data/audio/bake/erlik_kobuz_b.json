@@ -1,0 +1,15 @@
+{
+  "id": "erlik_kobuz_b",
+  "kind": "music",
+  "instrument": "kobuz",
+  "variant": "scrape",
+  "phrase": "erlik_b",
+  "tempo": 52,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 5253,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "erlik: kıl kobuz, G F E inişi (scrape). Önsöz'ün Erlik panosu, erlik durumu (audio.md §3: E Frigyen 52, kargıra dronu E'de, kıl kobuz ana renk, A↘D kargıra kayışı, kopuz yalnız mute 0,2). Banka data/audio/banks/prologue_myth.json; kulak onayı bekler."
+}

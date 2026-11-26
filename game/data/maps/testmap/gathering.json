@@ -1,0 +1,27 @@
+{
+	"version": 1,
+	"id": "testmap_gathering",
+	"script": "res://scripts/maps/gather_layer.gd",
+	"doc": "Deneme haritasının toplama ve zanaat katmanı (map.json «layers» «gathering»; MapLayers GatherLayer'ı kurar). nodes: NodeStore'un spec'i (economy.md §3.5 biçimi: {id küme, kind, at [x, z], r, n}; kök-düzgün disk, tohum 7000 + tür sırası; ret: yapıların ayak izi, ocağın 9 m'si, patikanın 3 m'si, tezgâhın 3 m'si). Beş iş bir arada, belirmenin (0, 12) 40 m'si içinde: ağaç (çam, ardıç, kuru dal, Odunluk Kütüğü), taş (kaya, taşlık bloğu), ot (saz, ot yığını, yavşan), tezek (atların çevresi), maden (demir ve bakır damarı). benches: tezgâhlar (station data/economy/stations.json; masters tezgâhta hazır duran Usta dereceli roller, crew yerleşik ellerin ağırlığı, chest sandığın ilk içeriği, act listelenen tezgâh tariflerinin perdesi). kit: deneme haritasında Mete'ye verilen araçlar (I. Perde'de tunç baltayı Ardokşa, tunç kazmayı Palak verir). Kuzey -Z.",
+	"seed": 0,
+	"kit": ["axe_bronze", "pick_bronze"],
+	"nodes": [
+		{"id": "tm_pines", "kind": "node_pine", "at": [-34.0, -22.0], "r": 7.0, "n": 6},
+		{"id": "tm_juniper", "kind": "node_juniper", "at": [-25.0, -31.0], "r": 3.0, "n": 2},
+		{"id": "tm_deadfall", "kind": "node_deadfall", "at": [-31.0, -16.0], "r": 6.0, "n": 3},
+		{"id": "tm_woodpile", "kind": "node_woodpile", "at": [-25.5, 9.0]},
+		{"id": "tm_boulders", "kind": "node_boulder", "at": [27.0, 21.0], "r": 3.0, "n": 3},
+		{"id": "tm_scree", "kind": "node_scree", "at": [23.0, 27.5]},
+		{"id": "tm_iron", "kind": "node_vein_iron", "at": [37.5, 17.0], "r": 2.0, "n": 2},
+		{"id": "tm_copper", "kind": "node_vein_copper", "at": [40.0, 23.5]},
+		{"id": "tm_reeds", "kind": "node_reed", "at": [-7.0, 31.0], "r": 4.0, "n": 6},
+		{"id": "tm_hay", "kind": "node_hay", "at": [-17.0, 27.0], "r": 2.0, "n": 2},
+		{"id": "tm_wormwood", "kind": "node_wormwood", "at": [6.0, 29.0], "r": 3.0, "n": 3},
+		{"id": "tm_dung_doru", "kind": "node_dung", "at": [13.0, 19.0], "r": 3.5, "n": 4},
+		{"id": "tm_dung_akbulut", "kind": "node_dung", "at": [-13.0, 20.0], "r": 2.5, "n": 2}
+	],
+	"benches": [
+		{"id": "bench_smithy", "station": "smithy", "at": [20.0, 2.0], "facing": 270.0, "masters": ["kujul", "cr_smith"], "crew": 1.0, "act": 1, "chest": {"charcoal": 2}},
+		{"id": "bench_wood", "station": "wood_shop", "at": [-20.0, 3.0], "facing": 90.0, "masters": ["cr_carpenter"], "crew": 1.0, "act": 2, "chest": {}}
+	]
+}

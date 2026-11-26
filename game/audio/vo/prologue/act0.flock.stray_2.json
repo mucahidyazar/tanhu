@@ -1,0 +1,18 @@
+{
+	"id": "act0.flock.stray_2",
+	"take": 0,
+	"seed": 1089259447,
+	"hash": "40ecc7b763e0",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.76,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "ones", "t0": 0.128, "t1": 0.32},
+		{"w": "on", "t0": 0.347, "t1": 0.4},
+		{"w": "the", "t0": 0.42, "t1": 0.48},
+		{"w": "right", "t0": 0.52, "t1": 0.72},
+		{"w": "are", "t0": 0.76, "t1": 0.88},
+		{"w": "scattering!", "t0": 0.931, "t1": 1.76}
+	]
+}

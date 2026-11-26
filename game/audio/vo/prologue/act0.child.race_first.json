@@ -1,0 +1,13 @@
+{
+	"id": "act0.child.race_first",
+	"take": 0,
+	"seed": 1310630999,
+	"hash": "4e1ea45747f3",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 0.88,
+	"words": [
+		{"w": "I'm", "t0": 0.0, "t1": 0.24},
+		{"w": "first!", "t0": 0.32, "t1": 0.88}
+	]
+}

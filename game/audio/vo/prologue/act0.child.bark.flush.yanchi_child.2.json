@@ -1,0 +1,14 @@
+{
+	"id": "act0.child.bark.flush.yanchi_child.2",
+	"take": 0,
+	"seed": 1093159625,
+	"hash": "41284ac92702",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.12,
+	"words": [
+		{"w": "You", "t0": 0.0, "t1": 0.16},
+		{"w": "scared", "t0": 0.229, "t1": 0.64},
+		{"w": "it!", "t0": 0.747, "t1": 1.12}
+	]
+}

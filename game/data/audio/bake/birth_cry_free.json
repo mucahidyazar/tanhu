@@ -1,0 +1,13 @@
+{
+  "id": "newborn_cry_free",
+  "kind": "wav",
+  "source": "free:assets/_free/_staging/wikimedia/crying_newborn_baby/Crying_newborn_baby.ogg",
+  "start": 13.4,
+  "seconds": 6.5,
+  "gain_db": 0,
+  "rms": 0.12,
+  "instrument": "cry",
+  "rate": 32000,
+  "loop": false,
+  "note": "Karşılaştırma adayı (oyuna girmez, ara WAV): ücretsiz newborn_cry kaydının 13,4–19,9 sn'si (sürekli ağlama), mono 32 kHz. Kulak kodla basılanı seçmezse newborn_cry.json'un source'u bu yola geçer ve varlık _staging'den assets/_free/sound/newborn_cry/'ye taşınır (usage.jsonl)."
+}

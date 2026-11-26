@@ -1,0 +1,100 @@
+{
+  "id": "sheep",
+  "doc": "Yağlı kuyruklu bozkır koyununun sayıları (tools/blender/quadruped_rig.py). normalize bölümü ham Meshy biriminde (x gövde hattına göre, y taban üstü), ötekiler oyun metresindedir. Oyun uzayı: y yukarı, +z ileri, +x hayvanın solu. Açılar derece: +pitch burun aşağı (+x ekseni), +yaw sola (+y), +roll sol yan yukarı (+z).",
+  "source": "assets/_meshy_raw/sheep/sheep.glb",
+  "output_dir": "assets/animals/sheep",
+  "texture_class": "mount",
+  "import_fps": 60,
+
+  "normalize": {
+    "torso_z": [-0.5, 0.5],
+    "torso_min_height": 0.45,
+    "neck_twist": {
+      "doc": "Ham modelde baş gövdeye dik bakar. Her yatay dilim kendi merkezinde döner; dönüş y0'dan y1'e artar, z maskesi gövdeye bağlı arkayı tutar, baş çevresi rijit döner.",
+      "angle_deg": 90.0,
+      "y0": 0.6155, "y1": 1.0955,
+      "center_low": [0.0, 0.58], "center_high": [0.05, 0.63],
+      "z_zero": 0.0, "z_full": 0.7, "z_linear": true,
+      "y_free0": 1.1655, "y_free1": 1.3155,
+      "head_center": [0.29, 1.24, 0.68], "head_radius_zero": 0.46, "head_radius_full": 0.34
+    },
+    "shoulder_z": 0.3,
+    "shoulder_probe": 0.08,
+    "shoulder_m": 0.75,
+    "length_m": 1.25,
+    "z_squash_limit": 0.92
+  },
+
+  "skeleton": {
+    "hips": [0, 0.56, -0.20],
+    "spine": [0, 0.56, -0.02],
+    "chest": [0, 0.56, 0.12],
+    "belly": [0, 0.46, 0.0],
+    "neck": [[0, 0.50, 0.17], [0, 0.66, 0.27], [0, 0.78, 0.34]],
+    "head": [0, 0.865, 0.405],
+    "nose": [0, 0.815, 0.625],
+    "ears": {
+      "L": {"base": [0.07, 0.90, 0.45], "tip": [0.156, 0.835, 0.50]},
+      "R": {"base": [-0.09, 0.88, 0.44], "tip": [-0.185, 0.82, 0.45]}
+    },
+    "tail": [[0, 0.62, -0.36], [0, 0.50, -0.49], [0, 0.37, -0.52], [0, 0.24, -0.50]],
+    "legs": {
+      "front": {"parent": "Chest", "fetlock_y": 0.068, "low_y": 0.195, "mid": {"y": 0.33, "dz": -0.115}, "top": {"y": 0.57, "dz": 0.02, "x_factor": 0.8}},
+      "hind": {"parent": "Hips", "fetlock_y": 0.068, "low_y": 0.235, "mid": {"y": 0.42, "dz": 0.16}, "top": {"y": 0.64, "dz": 0.02, "x_factor": 0.85}}
+    }
+  },
+
+  "weights": {
+    "dark_lum": [0.5, 0.6],
+    "body_blend": {"hips_spine": [-0.2, -0.02], "spine_chest": [-0.02, 0.12]},
+    "belly": {"y": [0.44, 0.28], "z": [-0.28, -0.12, 0.14, 0.28], "share": 0.6},
+    "tail": {"point": [0, 0.48, -0.375], "normal": [0, -0.34, -0.94], "blend": [-0.03, 0.05], "smooth": 6},
+    "neck": {"point": [0, 0.58, 0.27], "normal": [0, 0.52, 0.855], "blend": [-0.10, 0.16], "smooth": 12},
+    "head": {"center": [0, 0.875, 0.48], "radii": [0.13, 0.14, 0.20], "reach": 0.32, "collar": [1.0, 1.35], "smooth": 4},
+    "ear": {"radius": 0.05, "start": -0.005, "full": 0.035},
+    "leg": {
+      "tube_radius": 0.08,
+      "hem_y": {"front": 0.30, "hind": 0.285},
+      "hem_fade": 0.035,
+      "skin_smooth": 6,
+      "wool_near": 0.08, "wool_far": 0.2,
+      "wool_top": {"front": 0.5, "hind": 0.56},
+      "wool_share": {"front": 0.5, "hind": 0.6},
+      "wool_smooth": 8,
+      "blend": {"hoof": 0.014, "low": 0.028, "mid": 0.05}
+    }
+  },
+
+  "saddle": {"z": 0.03, "probe": [0.06, 0.05], "sink": 0.008, "bone": "Spine"},
+
+  "gait": {"symmetry": 0.7},
+
+  "clips": {
+    "idle": {"length_s": 6.0, "rate": 30},
+    "graze": {"length_s": 9.0, "rate": 30, "mouth_y": 0.035, "head_pitch": 62.0, "neck_split": [0.70, 0.18, 0.12], "chest_pitch": 5.0, "spine_pitch": 2.0},
+    "walk": {
+      "doc": "Adım boyu ve hız data/fauna/kinds.json ile aynı (fauna.md §10): f = v / L.",
+      "stride_m": 0.86, "speed_mps": 1.1, "samples": 48, "duty": 0.55, "lift_m": 0.04,
+      "phases": {"HindL": 0.0, "FrontL": 0.25, "HindR": 0.5, "FrontR": 0.75},
+      "stance_shift": {"front": 0.0, "hind": 0.0},
+      "stance_give": {"front": 0.0, "hind": 5.0},
+      "roll_off": {"front": 26.0, "hind": 22.0},
+      "swing_peak": {"front": 45.0, "hind": 38.0},
+      "flex": {"front": 40.0, "hind": 24.0},
+      "body": {"crouch_m": 0.006, "bob_m": 0.006, "sway_m": 0.006, "hip_yaw": 2.5, "chest_yaw": 2.0, "hip_roll": 1.5, "chest_roll": 1.0, "neck_pitch": 5.0, "head_pitch": -4.0, "nod": 2.0, "tail_yaw": 5.0, "tail_pitch": 2.5, "belly_m": 0.006, "ear": 3.0}
+    },
+    "run": {
+      "doc": "Ağır tırıs: çapraz çift, kısa havada kalış; L ve v kinds.json'un trot satırı.",
+      "stride_m": 1.19, "speed_mps": 2.5, "samples": 32, "duty": 0.38, "lift_m": 0.07,
+      "phases": {"HindL": 0.0, "FrontR": 0.0, "HindR": 0.5, "FrontL": 0.5},
+      "stance_shift": {"front": 0.0, "hind": 0.0},
+      "stance_give": {"front": 0.0, "hind": 5.0},
+      "roll_off": {"front": 30.0, "hind": 26.0},
+      "swing_peak": {"front": 55.0, "hind": 46.0},
+      "flex": {"front": 58.0, "hind": 32.0},
+      "body": {"crouch_m": 0.016, "bob_m": 0.016, "sway_m": 0.004, "hip_yaw": 2.0, "chest_yaw": -2.0, "hip_roll": 2.0, "chest_roll": -2.0, "neck_pitch": 12.0, "head_pitch": -9.0, "nod": 2.5, "tail_yaw": 5.0, "tail_pitch": 8.0, "belly_m": 0.012, "ear": 8.0}
+    }
+  },
+
+  "far": {"triangles": 1300, "keep_below": 0.30, "keep_factor": 1.0, "wool_smooth": 10, "patch_texels": 1.5, "samples": 24}
+}

@@ -1,0 +1,1562 @@
+{
+	"meta": {
+		"v": 1,
+		"tool": "tools/proto_fixtures/survival.mjs",
+		"proto": ["src/game/needs.js", "src/data/difficulty.js"],
+		"proto_sha": {
+			"src/game/needs.js": "c83cd4dcc42f73b8d14526fe23ce1e97210fce19",
+			"src/data/difficulty.js": "d64b64e0ea6f717446010ed68dca89e94b7eff04"
+		},
+		"kind": "sim",
+		"tol": 0.000001,
+		"note": "economy.md §5.3, time.md §10.5: Tokluk oyun dakikasıyla düşer (uyanık 5/sa × foodK; dinlenme ×0,5, uyku ×0,25, Son Gece ×1,2; Kurutma Sırığı fullnessDecay). Senaryoların eşya tablosu fikstürün items alanıdır. eat'in kalitesi prototipte {quality} seçeneğidir, Godot'da konumlu argümandır. bands: o işlemde yayılan need:band olayları (Godot'da band_changed)."
+	},
+	"constants": {
+		"FULLNESS": {
+			"max": 100,
+			"start": 60,
+			"perHour": 5,
+			"rest": 0.5,
+			"sleep": 0.25,
+			"lastNight": 1.2,
+			"sated": 75,
+			"hungry": 25
+		},
+		"QUALITY_K": {
+			"1": 0.75,
+			"2": 1,
+			"3": 1.3
+		},
+		"BAND_EFFECTS": {
+			"sated": {
+				"staRegen": 1.15
+			},
+			"ok": {},
+			"hungry": {
+				"staRegen": 0.6,
+				"run": 0.95,
+				"windExempt": 7
+			},
+			"spent": {
+				"staRegen": 0.6,
+				"run": 0.95,
+				"windExempt": 7,
+				"hpRegen": 0.5,
+				"runCost": 1.25
+			}
+		}
+	},
+	"items": {
+		"meal": {
+			"food": {
+				"fullness": 35
+			}
+		},
+		"stew": {
+			"food": {
+				"fullness": 55,
+				"buff": {
+					"sec": 360,
+					"grip": 1,
+					"staRegen": 1.2
+				}
+			}
+		},
+		"spit_meat": {
+			"food": {
+				"fullness": 30,
+				"buff": {
+					"sec": 180,
+					"grip": 1
+				}
+			}
+		},
+		"ember_fish": {
+			"food": {
+				"fullness": 25
+			}
+		},
+		"meat": {
+			"food": {
+				"fullness": 12
+			}
+		},
+		"burnt": {
+			"food": {
+				"fullness": 5
+			}
+		},
+		"millet": {
+			"food": {
+				"fullness": 4
+			}
+		},
+		"qurt": {
+			"food": {
+				"fullness": 12
+			}
+		},
+		"stone": {}
+	},
+	"cases": [
+		{
+			"id": "bandOf/-1",
+			"fn": "bandOf",
+			"in": [-1],
+			"out": "spent"
+		},
+		{
+			"id": "bandOf/0",
+			"fn": "bandOf",
+			"in": [0],
+			"out": "spent"
+		},
+		{
+			"id": "bandOf/1e-10",
+			"fn": "bandOf",
+			"in": [1e-10],
+			"out": "spent"
+		},
+		{
+			"id": "bandOf/1e-9",
+			"fn": "bandOf",
+			"in": [1e-9],
+			"out": "spent"
+		},
+		{
+			"id": "bandOf/2e-9",
+			"fn": "bandOf",
+			"in": [2e-9],
+			"out": "hungry"
+		},
+		{
+			"id": "bandOf/0.01",
+			"fn": "bandOf",
+			"in": [0.01],
+			"out": "hungry"
+		},
+		{
+			"id": "bandOf/24.999",
+			"fn": "bandOf",
+			"in": [24.999],
+			"out": "hungry"
+		},
+		{
+			"id": "bandOf/25",
+			"fn": "bandOf",
+			"in": [25],
+			"out": "ok"
+		},
+		{
+			"id": "bandOf/25.001",
+			"fn": "bandOf",
+			"in": [25.001],
+			"out": "ok"
+		},
+		{
+			"id": "bandOf/50",
+			"fn": "bandOf",
+			"in": [50],
+			"out": "ok"
+		},
+		{
+			"id": "bandOf/74.99",
+			"fn": "bandOf",
+			"in": [74.99],
+			"out": "ok"
+		},
+		{
+			"id": "bandOf/75",
+			"fn": "bandOf",
+			"in": [75],
+			"out": "sated"
+		},
+		{
+			"id": "bandOf/99",
+			"fn": "bandOf",
+			"in": [99],
+			"out": "sated"
+		},
+		{
+			"id": "bandOf/100",
+			"fn": "bandOf",
+			"in": [100],
+			"out": "sated"
+		},
+		{
+			"id": "bandOf/140",
+			"fn": "bandOf",
+			"in": [140],
+			"out": "sated"
+		},
+		{
+			"id": "foodK/story",
+			"fn": "foodK",
+			"in": ["story"],
+			"out": 0.7
+		},
+		{
+			"id": "foodK/normal",
+			"fn": "foodK",
+			"in": ["normal"],
+			"out": 1
+		},
+		{
+			"id": "foodK/hard",
+			"fn": "foodK",
+			"in": ["hard"],
+			"out": 1.15
+		},
+		{
+			"id": "foodK/nope",
+			"fn": "foodK",
+			"in": ["nope"],
+			"out": 1
+		},
+		{
+			"id": "foodK/null",
+			"fn": "foodK",
+			"in": [null],
+			"out": 1
+		},
+		{
+			"id": "foodK/row/{\"fullness\":0.5}",
+			"fn": "foodK",
+			"in": [
+				{
+					"fullness": 0.5
+				}
+			],
+			"out": 0.5
+		},
+		{
+			"id": "foodK/row/{\"foodK\":2,\"fullness\":3}",
+			"fn": "foodK",
+			"in": [
+				{
+					"foodK": 2,
+					"fullness": 3
+				}
+			],
+			"out": 2
+		},
+		{
+			"id": "foodK/row/{}",
+			"fn": "foodK",
+			"in": [
+				{}
+			],
+			"out": 1
+		},
+		{
+			"id": "rate/story/{}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{},
+				null
+			],
+			"out": 0.05833333333333333
+		},
+		{
+			"id": "rate/story/{}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.049583333333333326
+		},
+		{
+			"id": "rate/story/{\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"rest": true
+				},
+				null
+			],
+			"out": 0.029166666666666664
+		},
+		{
+			"id": "rate/story/{\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.024791666666666663
+		},
+		{
+			"id": "rate/story/{\"sleep\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"sleep": true
+				},
+				null
+			],
+			"out": 0.014583333333333332
+		},
+		{
+			"id": "rate/story/{\"sleep\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"sleep": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.012395833333333332
+		},
+		{
+			"id": "rate/story/{\"sleep\":true,\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				null
+			],
+			"out": 0.014583333333333332
+		},
+		{
+			"id": "rate/story/{\"sleep\":true,\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.012395833333333332
+		},
+		{
+			"id": "rate/story/{\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.06999999999999999
+		},
+		{
+			"id": "rate/story/{\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.05949999999999999
+		},
+		{
+			"id": "rate/story/{\"rest\":true,\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.029166666666666664
+		},
+		{
+			"id": "rate/story/{\"rest\":true,\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"story",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.024791666666666663
+		},
+		{
+			"id": "rate/normal/{}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{},
+				null
+			],
+			"out": 0.08333333333333333
+		},
+		{
+			"id": "rate/normal/{}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.07083333333333333
+		},
+		{
+			"id": "rate/normal/{\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"rest": true
+				},
+				null
+			],
+			"out": 0.041666666666666664
+		},
+		{
+			"id": "rate/normal/{\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.035416666666666666
+		},
+		{
+			"id": "rate/normal/{\"sleep\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"sleep": true
+				},
+				null
+			],
+			"out": 0.020833333333333332
+		},
+		{
+			"id": "rate/normal/{\"sleep\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"sleep": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.017708333333333333
+		},
+		{
+			"id": "rate/normal/{\"sleep\":true,\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				null
+			],
+			"out": 0.020833333333333332
+		},
+		{
+			"id": "rate/normal/{\"sleep\":true,\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.017708333333333333
+		},
+		{
+			"id": "rate/normal/{\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.09999999999999999
+		},
+		{
+			"id": "rate/normal/{\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.08499999999999999
+		},
+		{
+			"id": "rate/normal/{\"rest\":true,\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.041666666666666664
+		},
+		{
+			"id": "rate/normal/{\"rest\":true,\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"normal",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.035416666666666666
+		},
+		{
+			"id": "rate/hard/{}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{},
+				null
+			],
+			"out": 0.09583333333333333
+		},
+		{
+			"id": "rate/hard/{}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.08145833333333333
+		},
+		{
+			"id": "rate/hard/{\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"rest": true
+				},
+				null
+			],
+			"out": 0.04791666666666666
+		},
+		{
+			"id": "rate/hard/{\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.040729166666666664
+		},
+		{
+			"id": "rate/hard/{\"sleep\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"sleep": true
+				},
+				null
+			],
+			"out": 0.02395833333333333
+		},
+		{
+			"id": "rate/hard/{\"sleep\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"sleep": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.020364583333333332
+		},
+		{
+			"id": "rate/hard/{\"sleep\":true,\"rest\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				null
+			],
+			"out": 0.02395833333333333
+		},
+		{
+			"id": "rate/hard/{\"sleep\":true,\"rest\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"sleep": true,
+					"rest": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.020364583333333332
+		},
+		{
+			"id": "rate/hard/{\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.11499999999999998
+		},
+		{
+			"id": "rate/hard/{\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.09774999999999998
+		},
+		{
+			"id": "rate/hard/{\"rest\":true,\"lastNight\":true}/plain",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				null
+			],
+			"out": 0.04791666666666666
+		},
+		{
+			"id": "rate/hard/{\"rest\":true,\"lastNight\":true}/decay",
+			"fn": "rate",
+			"in": [
+				"hard",
+				{
+					"rest": true,
+					"lastNight": true
+				},
+				{
+					"fullnessDecay": 0.85
+				}
+			],
+			"out": 0.040729166666666664
+		},
+		{
+			"id": "script/day_normal",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal"
+				},
+				[
+					["update", 60],
+					["update", 960],
+					["eat", "meal", 2],
+					["eat", "meal", 3],
+					[
+						"update",
+						480,
+						{
+							"sleep": true
+						}
+					],
+					["eat", "stew", 1],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok"
+				},
+				{
+					"op": ["update", 60],
+					"ret": 55,
+					"fullness": 55,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["update", 960],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": [
+						["need:band", "spent"]
+					]
+				},
+				{
+					"op": ["eat", "meal", 2],
+					"ret": 35,
+					"fullness": 35,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["eat", "meal", 3],
+					"ret": 46,
+					"fullness": 81,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": [
+						"update",
+						480,
+						{
+							"sleep": true
+						}
+					],
+					"ret": 71,
+					"fullness": 71,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["eat", "stew", 1],
+					"ret": 29,
+					"fullness": 100,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 100
+					},
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/day_story",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "story"
+				},
+				[
+					["update", 600],
+					[
+						"update",
+						240,
+						{
+							"rest": true
+						}
+					],
+					[
+						"update",
+						480,
+						{
+							"sleep": true
+						}
+					],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok"
+				},
+				{
+					"op": ["update", 600],
+					"ret": 25,
+					"fullness": 25,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": [
+						"update",
+						240,
+						{
+							"rest": true
+						}
+					],
+					"ret": 18,
+					"fullness": 18,
+					"band": "hungry",
+					"bands": [
+						["need:band", "hungry"]
+					]
+				},
+				{
+					"op": [
+						"update",
+						480,
+						{
+							"sleep": true
+						}
+					],
+					"ret": 11,
+					"fullness": 11,
+					"band": "hungry",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 11
+					},
+					"fullness": 11,
+					"band": "hungry",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/day_hard",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "hard",
+					"fullness": 80
+				},
+				[
+					["update", 30],
+					["update", 333.3],
+					["update", 0.25],
+					["update", 1e-7],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 80,
+					"band": "sated"
+				},
+				{
+					"op": ["update", 30],
+					"ret": 77.125,
+					"fullness": 77.125,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["update", 333.3],
+					"ret": 45.18375,
+					"fullness": 45.18375,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["update", 0.25],
+					"ret": 45.159792,
+					"fullness": 45.159792,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["update", 1e-7],
+					"ret": 45.159792,
+					"fullness": 45.159792,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 45.16
+					},
+					"fullness": 45.159792,
+					"band": "ok",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/last_night",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal",
+					"fullness": 95,
+					"lastNight": true
+				},
+				[
+					["update", 130],
+					["update", 630],
+					[
+						"update",
+						60,
+						{
+							"lastNight": false
+						}
+					],
+					[
+						"update",
+						60,
+						{
+							"sleep": true
+						}
+					],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 95,
+					"band": "sated"
+				},
+				{
+					"op": ["update", 130],
+					"ret": 82,
+					"fullness": 82,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["update", 630],
+					"ret": 19,
+					"fullness": 19,
+					"band": "hungry",
+					"bands": [
+						["need:band", "hungry"]
+					]
+				},
+				{
+					"op": [
+						"update",
+						60,
+						{
+							"lastNight": false
+						}
+					],
+					"ret": 14,
+					"fullness": 14,
+					"band": "hungry",
+					"bands": []
+				},
+				{
+					"op": [
+						"update",
+						60,
+						{
+							"sleep": true
+						}
+					],
+					"ret": 12.75,
+					"fullness": 12.75,
+					"band": "hungry",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 12.75
+					},
+					"fullness": 12.75,
+					"band": "hungry",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/bands_cross",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal",
+					"fullness": 76
+				},
+				[
+					["update", 12],
+					["update", 12.0001],
+					["update", 600],
+					["update", 299.9],
+					["update", 1],
+					["update", 5],
+					["eat", "burnt", 2],
+					["add", 70],
+					["add", -0.5],
+					["add", 0],
+					["add", 1000],
+					["add", -1000],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 76,
+					"band": "sated"
+				},
+				{
+					"op": ["update", 12],
+					"ret": 75,
+					"fullness": 75,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["update", 12.0001],
+					"ret": 73.999992,
+					"fullness": 73.999992,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["update", 600],
+					"ret": 23.999992,
+					"fullness": 23.999992,
+					"band": "hungry",
+					"bands": [
+						["need:band", "hungry"]
+					]
+				},
+				{
+					"op": ["update", 299.9],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": [
+						["need:band", "spent"]
+					]
+				},
+				{
+					"op": ["update", 1],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["update", 5],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["eat", "burnt", 2],
+					"ret": 5,
+					"fullness": 5,
+					"band": "hungry",
+					"bands": [
+						["need:band", "hungry"]
+					]
+				},
+				{
+					"op": ["add", 70],
+					"ret": 70,
+					"fullness": 75,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": ["add", -0.5],
+					"ret": -0.5,
+					"fullness": 74.5,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["add", 0],
+					"ret": 0,
+					"fullness": 74.5,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["add", 1000],
+					"ret": 25.5,
+					"fullness": 100,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": ["add", -1000],
+					"ret": -100,
+					"fullness": 0,
+					"band": "spent",
+					"bands": [
+						["need:band", "spent"]
+					]
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 0
+					},
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/quality_and_mods",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal",
+					"fullness": 10,
+					"mods": {
+						"mealFull": 1.5,
+						"fullnessDecay": 0.85
+					}
+				},
+				[
+					["eat", "meal", 2],
+					["eat", "meal", 3],
+					["eat", "meal", 1],
+					["update", 120],
+					["eat", "spit_meat", 3],
+					["eat", "spit_meat", 7],
+					["eat", "stone", 3],
+					["eat", "nope", 2],
+					["eat", "meal+", 2],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 10,
+					"band": "hungry"
+				},
+				{
+					"op": ["eat", "meal", 2],
+					"ret": 53,
+					"fullness": 63,
+					"band": "ok",
+					"bands": [
+						["need:band", "ok"]
+					]
+				},
+				{
+					"op": ["eat", "meal", 3],
+					"ret": 37,
+					"fullness": 100,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": ["eat", "meal", 1],
+					"ret": 0,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["update", 120],
+					"ret": 91.5,
+					"fullness": 91.5,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["eat", "spit_meat", 3],
+					"ret": 8.5,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["eat", "spit_meat", 7],
+					"ret": 0,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["eat", "stone", 3],
+					"ret": 0,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["eat", "nope", 2],
+					"ret": 0,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["eat", "meal+", 2],
+					"ret": 0,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 100
+					},
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/disabled",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal",
+					"enabled": false
+				},
+				[
+					["update", 600],
+					["eat", "meal", 2],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok"
+				},
+				{
+					"op": ["update", 600],
+					"ret": 60,
+					"fullness": 60,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["eat", "meal", 2],
+					"ret": 35,
+					"fullness": 95,
+					"band": "sated",
+					"bands": [
+						["need:band", "sated"]
+					]
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 95
+					},
+					"fullness": 95,
+					"band": "sated",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/spent_stays",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal",
+					"fullness": 0
+				},
+				[
+					["update", 60],
+					["eat", "millet", 2],
+					["update", 47.99],
+					["update", 0.02],
+					["update", 10],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 0,
+					"band": "spent"
+				},
+				{
+					"op": ["update", 60],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["eat", "millet", 2],
+					"ret": 4,
+					"fullness": 4,
+					"band": "hungry",
+					"bands": [
+						["need:band", "hungry"]
+					]
+				},
+				{
+					"op": ["update", 47.99],
+					"ret": 0.000833,
+					"fullness": 0.000833,
+					"band": "hungry",
+					"bands": []
+				},
+				{
+					"op": ["update", 0.02],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": [
+						["need:band", "spent"]
+					]
+				},
+				{
+					"op": ["update", 10],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 0
+					},
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				}
+			]
+		},
+		{
+			"id": "script/json",
+			"fn": "script",
+			"in": [
+				{
+					"diff": "normal"
+				},
+				[
+					[
+						"fromJSON",
+						{
+							"fullness": 42.4567
+						}
+					],
+					["toJSON"],
+					[
+						"fromJSON",
+						{
+							"fullness": "x"
+						}
+					],
+					["fromJSON", null],
+					[
+						"fromJSON",
+						{
+							"fullness": 140
+						}
+					],
+					[
+						"fromJSON",
+						{
+							"fullness": -3
+						}
+					],
+					["toJSON"],
+					["update", 1.37],
+					["toJSON"]
+				]
+			],
+			"out": [
+				{
+					"op": ["new"],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok"
+				},
+				{
+					"op": [
+						"fromJSON",
+						{
+							"fullness": 42.4567
+						}
+					],
+					"ret": null,
+					"fullness": 42.4567,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 42.46
+					},
+					"fullness": 42.4567,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": [
+						"fromJSON",
+						{
+							"fullness": "x"
+						}
+					],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": ["fromJSON", null],
+					"ret": null,
+					"fullness": 60,
+					"band": "ok",
+					"bands": []
+				},
+				{
+					"op": [
+						"fromJSON",
+						{
+							"fullness": 140
+						}
+					],
+					"ret": null,
+					"fullness": 100,
+					"band": "sated",
+					"bands": []
+				},
+				{
+					"op": [
+						"fromJSON",
+						{
+							"fullness": -3
+						}
+					],
+					"ret": null,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 0
+					},
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["update", 1.37],
+					"ret": 0,
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				},
+				{
+					"op": ["toJSON"],
+					"ret": {
+						"fullness": 0
+					},
+					"fullness": 0,
+					"band": "spent",
+					"bands": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "bell_step",
+  "kind": "sfx",
+  "instrument": "bell",
+  "seconds": 1.2,
+  "seed": 2349,
+  "rate": 32000,
+  "loop": false,
+  "source": "code",
+  "note": "Rehinenin ayak çanı (audio.md §2 «Çan», §4 «Ayak»): küçük tunç çan, tokmak bir kez vurur (scripts/audio/synth/bell.gd). Köprü 2'de bileğe bağlanırken ve adımda; I. Perde'nin açılışı ve ayak sesi aynı dosyayı kullanır. Kulak onayı bekler."
+}

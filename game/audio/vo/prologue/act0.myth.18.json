@@ -1,0 +1,13 @@
+{
+	"id": "act0.myth.18",
+	"take": 0,
+	"seed": 3402813822,
+	"hash": "8080e879e718",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 0.619,
+	"block": {"id": "block:act0.myth.3..act0.myth.25", "t0": 88.599, "t1": 89.218},
+	"words": [
+		{"w": "Eight.", "t0": 0.05, "t1": 0.459}
+	]
+}

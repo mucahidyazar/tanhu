@@ -1,0 +1,28 @@
+{
+  "id": "winter_night_hujia",
+  "kind": "music",
+  "instrument": "hujia",
+  "rows": [
+    [
+      0,
+      12,
+      "A4",
+      0.7
+    ],
+    [
+      12,
+      12,
+      "G4",
+      0.62
+    ]
+  ],
+  "tempo": 58,
+  "bars": 2,
+  "mode": "e_phrygian",
+  "seed": 5841,
+  "rate": 44100,
+  "loop": false,
+  "gain_db": -3.0,
+  "note": "winter_night: uzak hucia, A G (seyrek). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

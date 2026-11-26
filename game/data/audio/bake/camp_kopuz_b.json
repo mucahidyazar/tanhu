@@ -1,0 +1,17 @@
+{
+  "id": "camp_kopuz_b",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "tempo": 52,
+  "bars": 2,
+  "mode": "d_dorian",
+  "density": 0.55,
+  "phrase": "B",
+  "position": "upper",
+  "seed": 5213,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "camp: hafif kopuz (motor 0,55), cümle B; düşüş A G F D üst konumda (A4 G4 F4 D4). Kamp bankası (data/audio/banks/camp.json); kulak onayı bekler (Karar Bekleyenler), onaya dek menü ElevenLabs parçasını çalar."
+}

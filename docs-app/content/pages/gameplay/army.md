@@ -1,0 +1,301 @@
+---
+title: Ordu
+order: 70
+status: tasarim
+summary: 'Birlik iki sayı taşır, unvandaki atlı ve ıslığa uyan atlı; II. Perde''de Teoman 10.000 atlı verir, ıslığa uyan 10''dan 1.000''e büyür, yoldaş partisi Mete''nin onluğudur ve yoldaş subay olabilir; ordugâh yerleşimden ayrıdır, toplu savaşta Mete''ye en yakın 100 atlı gerçek okla atar (K47, K70, K77).'
+sources:
+  - docs/design/decisions.md
+  - docs/design/army.md
+  - docs/design/companions.md
+  - docs/design/story.md
+  - docs/design/act1.md
+  - docs/design/progression.md
+  - docs/design/settlement.md
+  - docs/design/economy.md
+  - docs/design/structures.md
+  - docs/design/survival.md
+  - docs/design/godot.md
+  - docs/design/d3/oyun-durumu.md
+---
+
+## Özü
+
+I. Perde'de ordu oynanmaz: [Mete](/encyclopedia/mete) rehinedir, yanında köpek [Ku](/encyclopedia/ku) ve kaçışta en çok 10 firari vardır. II. Perde'de [Teoman](/encyclopedia/teoman) ona on bin atlı verir, ama o atlılar Teoman'ındır: ölçülen sayı ıslığa uyan atlıdır ve 10'dan başlar. Tarihin özü ıslıklı oktur: ok neyi gösterirse herkes ona atar. Buyruk azdır, Mete'nin yanında en çok 100 atlı gezer, gerisi haritada birimdir. Yoldaş partisi Mete'nin kendi onluğudur; yoldaş onbaşı, yüzbaşı ya da binbaşı olabilir. Ordu yerleşimden ayrı bir ordugâhta yaşar.
+
+> [!NOT]
+> «Mete belli bir act'den sonra serbest gezim moduna çıktığında kendi ordusunu, kampını ve köyünü, sonrasında hanlığını kurabilecek; yerleşim yeri ve ordu kampı ayrı olacak»
+
+![Teoman: on bin atlıyı veren Tanhu](/media/docs/media/ui/portraits/teoman.webp)
+
+## Ölçek: perde perde
+
+Ölçek kesindir ([K47](/docs/source/design/decisions#k47)), tarihler [story.md](/docs/source/design/story)'dendir. Birlik iki sayı taşır: unvan (tarihin sayısı) ve ıslığa uyan atlı. Tümen 1.000 kayıt tutmaz, alt birlikler gerekince açılır; 10.000 atlı benzetilmez.
+
+| Perde | Seviye | Tarih, yer | Unvan | Islığa uyan | Yanında gezen | Ordugâh (yerleşik atlı) | Sahne kitlesi |
+|---|---|---|---|---|---|---|---|
+| I | 1–5 | 2–7 Aralık MÖ 210, Kışlak; Gün VI kaçış | 0 | İlk onluk, ≤10 | 10 | Yok | Yok |
+| II | 6–8 | 1–15 Haziran 209, Islık Alanı; 1 Haziran Pay, 14 Haziran av | 10.000 | 10 → 100 → 1.000 | 10 → 30 → 100 | Onluk Ateşi → Yüzlük Kampı (10 → 100) | Tümen, Bakış'tan kart |
+| III | 9–11 | 1 Eylül–1 Ekim 208; 16 Eylül Dailin, 26 Eylül şafak Tunghu baskını | 10.000 | 3.000 | 100 | Binlik (200; Dailin'de 1.000) | Binlik ×3 |
+| IV | 12–14 | 1 Haziran 205–22 Eylül 203; Hexi, Lung-çeng, Ordos | 3 tümen | 10.000 | 100 | Binlik (400) | Tümen |
+| V | 15–17 | 20 Kasım–1 Aralık 201, Mayi, Baideng | 300.000+ | 30.000 | 100 | Kışın dağınık, %10 bekçi; sefer ordugâhı | 400.000 atlı, 10.000 kart |
+| VI | 18–20 | 1 Haziran 198–9 Eylül 174 | 24 tümen başı | Tümü | 100 | Tümen (600) | Törende kart ve kitle |
+
+- **Yanında gezen** atlı seviyeyle büyür: 6. seviyede 10, 7.'de 30, 8.'den 100. Önce ıslığa uyanlardan seçilir; ıslığa uymayan atlı izler ama ıslıkta atmaz. Godot'da 100 atlı ≤4 tam ve ≤96 sade atlıyla çizilir, gerisi kart ([K63](/docs/source/design/decisions#k63)).
+- **Neden 100.** Varsayılan kamera düz zeminde oyuncunun ≈13 m arkasından ≈223 m önüne görür, ama 139 m'nin ötesi 28 pikselin altındadır: yakın 100'ün dışı zaten kart kademesidir. Kalan birlik haritadadır; Haber Atlısı becerisiyle buyruk alır, Tümen Çağrısı ile 6 oyun saatinde Menzil'e gelir.
+- **Perde arası.** III'ün 3.000'i, IV'ün 10.000'i ve V'in 30.000'i perde açılışında yazılır: perde arasında talim sürer, Akan Kronik sayıyı açılış sayısına getirir.
+
+**II. Perde: ıslığa uyan nasıl büyür.** Sayı yalnız Mete'nin talimiyle artar; kapılar görev sırasıdır.
+
+| Islığa uyan | Ne zamana dek | Görev |
+|---|---|---|
+| 10 | 2–3 Haziran 209 | Islık Ordugâhı: onluğun iki çadırı, Talim Alanı, ilk talim; [Dulongçi](/encyclopedia/dulongchi) on bini getirir, Ağabey katılır |
+| 100 | 10 Haziran | Sevdiği'ne dek; Yüzlük Kampı Oba'yla gelir (4 Haziran'dan) |
+| 1.000 | 13 Haziran | Tanhu'nun Atı'na dek; 14 Haziran avında ıslığa uyanların hepsi atar |
+
+Disiplin hedefi sınamalar boyunca 15 → 40 → 55 → 85 → 90'dır. Taban talimle (tur 90 sn, kazanç `+6 × (1 − disiplin / 100)`) bu yol ≈35 tur, ≈53 gerçek dakikadır; Islık Talimi becerisiyle (tur 60 sn, kazanç ×1,5) ≈23 tur, ≈23 dakika. Test salvosu (+4) ve ret edenin kestirilmesi (+15) yolu kısaltır.
+
+Doğrulanacak: olay değerleri ve talim ekonomisi II'nin görev verisi yazılırken bu kapılara ayarlanır ([Yol Haritası](/roadmap#item-squad-drill)); önkoşulu Barfield 1981 ve Di Cosmo 2002 okumasıdır ([Yol Haritası](/roadmap#item-army-reading)).
+
+## I. Perde: ilk onluk
+
+| Zaman | Olay | Birlik |
+|---|---|---|
+| Gün II, Sürü Okulu | Ku ilk takipçidir: Gel (`Z`), Kal (`X`), Bak (`G`) | Ku Gün II–V; Son Gece Mene'nin yanında kalır |
+| Görev süresince | Görev yoldaşı: [Uldın](/encyclopedia/uldin), [Berik](/encyclopedia/berik) ya da Yuan; izler, Dur ve İzle alır, savaşmaz | Ku'nun yanında en çok bir kişi; Kızıl Kazık'ı geçemez |
+| Son Gece, Çukur | Uldın'ın yolu («Boğazlayalım.»): 9 firari, Korku +2, alarm 6 dk erken. Hereka'nın yolu («Üçer üçer.»): 6 firari, Kut +1, sessiz | Tayınını tuttuysan tavan −2; Kut ≥4 ise firari ilk çağrıda gelir |
+| Kara Boran | Firariler Geçit'te kama olur; Çığırtkan 300 m'deki herkesi döndürür | Her çağrı refleks +1: kurtardıkça eğitirsin; 40 m'den uzaklaşan kaybolur |
+| Gün VI, Kemik Boğazı | İkinci ok: bütün oklar aynı taşa; Mete sayar, «Bir... dokuz.» | İlk onluk, en çok 10; kimse yoksa tek başına atar |
+
+Firariler en çok 10 kart olarak parti şeridinde görünür; adı bilinmeyen firari portresiz keçe siluettir ([K73](/docs/source/design/decisions#k73)). Uldın ve Berik I'de de Düşüş zarı atmaz, çünkü II'nin çekirdek yoldaşlarıdır ([K74](/docs/source/design/decisions#k74)). I. Perde'de buyruk yalnız Z, X ve G'dir.
+
+## Birlik, tümen, makam
+
+Kademeler: Onluk (什, 10, başı Onbaşı), Yüzlük (百, 100, Yüzbaşı), Binlik (千, 1.000, Binbaşı), Tümen (萬騎, unvanı 10.000, gerçek atlısı birkaç bin ile 10.000 arası, Tümen Beyi). Üst makamlar: Tanhu, Sol ve Sağ Bilge Kral (sol veliahttır), Sol ve Sağ Luli Kral, Büyük Komutan, Büyük Buyrukçu, Büyük Danghu; Gudu birlik sürmez, yönetime yardım eder. Sol doğu, sağ batıdır. Büyük makamlar soydan geçer: Huyan, Lan, sonra Xubu. Atama Mete'nindir: aynı soydan baş seçmek Sadakat'e dokunmaz, dışarıdan −6 yazar; Baş Seçme becerisi bedeli kaldırır.
+
+**Shiji 110'un kuralları.** «On bin atlının başına koydu» (令將萬騎): II'nin açılışı. «Islıklı okun vurduğuna topluca atmayanın başı kesilir» (鳴鏑所射而不悉射者，斬之): ıslık ve ret. «Binbaşı, yüzbaşı, onbaşı» (千長、百長、什長): atama oyuncunundur. «Baş ya da esir getirene bir kâse» (斬首虜賜一卮酒): kâse ve ganimet payı. «Kaçmaktan utanmaz» (不羞遁走): çekilmek moral düşürmez. «Kuralları hafiftir» (其約束輕): az buyruk. Tam tablo [army.md §1](/docs/source/design/army#1-tarih-shiji-110)'dedir. Kaynağın söylemedikleri kurgu tercihidir, Destan Kitabı'nda işaretlenir: Shiji onluk düzenini Mete'nin icadı demez, «tümen» sözcüğü Shiji'de geçmez (sözcük 萬騎'dir), 24 başın dökümü yoktur, 10.000, 300.000 ve 400.000 Han kaynağının sayılarıdır.
+
+## Mete'nin onluğu: yoldaşlar ve erler
+
+Yoldaş partisi Mete'nin onluğudur ([K70](/docs/source/design/decisions#k70)), oyuncu adı «Mete'nin Onluğu». On yuva vardır, Mete ortadaki komutan yerindedir: Mete'yle 11 kişi. Sınır kesindir; on birinci katılımda «Kim kalsın?» kartı açılır.
+
+- **Kim.** Yuvaları çekirdek yoldaş, konuk ve adlı er paylaşır. Kadro 16 kişidir: 12 çekirdek (Uldın, Berik, [Luhun](/encyclopedia/luhun), Mijia, Dangyu, Loufan okçusu, Kozı, Kunduz, Zang Yan, [Jiyu](/encyclopedia/jiyu), Zhang Sheng, Tuidang) ve 4 konuk (Han Xin, Wang Huang, Xi Huqian, Bujiu) ([K71](/docs/source/design/decisions#k71)). Hayvan (Ku, Karabaş, doğan, kartal) yuva tutmaz. «Er ile doldur» açıkken boş yuvayı onluğun ordugâhtaki erleri doldurur; kapalıyken ve gizlilik bölgesinde boş kalır.
+- **Baş.** Partiden bir yoldaş baş seçilir: onluğun disiplini +5, başın huyu onluğa geçer, Mete yurda girince düzeni o tutar. Baş değişimi çatışan ikililerde kıskançlık tetikler.
+- **Moral ve onay.** Moral onluğundur: moral <15 iken adlı er dağılır, çekirdek yoldaş dağılmaz, Mete'nin 25 m gerisine çekilir. Yoldaşın kendi Sadakat'i yoktur, onayı (0–10) vardır; aynı olay birliğe Sadakat, yoldaşa onay yazar, iki kez sayılmaz ([K72](/docs/source/design/decisions#k72)).
+- **Öğün** ([K88](/docs/source/design/decisions#k88)). Partideki yoldaş onluğun erzakından günde 1 öğün yer (07:00 ve 18:00'de yarımşar); görevdeki yoldaş yerleşimde ambardan, ordugâhta birliğin erzakından aynı öğünü yer.
+
+**Beş düzen.** Yuva aralığı atlıda yan 3,2 m, sıra 4,2 m'dir; kama, saf ve hilal yayada ×0,55 sıkışır.
+
+| Düzen | Ne zaman | En × derinlik | Etki | Açılış |
+|---|---|---|---|---|
+| Kama | Atlı, açık arazide kendiliğinden | 9,6 × 16,8 m | Kolay dönüş (1,2 rad/sn), en sık | El dili sonrası |
+| Saf | Atlı | 28,8 m, tek sıra | Salvo saçılımı −%20, yavaş dönüş (0,7 rad/sn) | Saf becerisi |
+| Hilal | Atlı | 27,2 × 7,5 m | İşaret çevresine ±15° yayılım, yavaş dönüş | Hilal becerisi |
+| Gevşek | Yaya; yerleşim, ordugâh ve kampta kendiliğinden | İki yay, 150°: içte 2,4 m'de 4, dışta 4,2 m'de 6 yuva | En yakın iki yuva 1,8 m; yoldaş Mete'ye ya da 8 m içindeki ateşe, tezgâha bakar | Beceri istemez |
+| Kol | 6 m'den dar geçitte kendiliğinden | Tek sıra: yaya 1,8 m aralık (18 m), atlı 4,2 m (42 m) | Mete'nin izinden gider; gizli kolda 1,5 m, en çok 3 kişi | Beceri istemez |
+
+- **Düzen buyruğu** (`B`) II'de açılır, kipe göre döner ([K88](/docs/source/design/decisions#k88)): yayada gevşek → kama → kol, atlıda kama → saf → hilal. Saf ve hilal becerileriyle döngüye girer, o güne dek atlı döngü yalnız kamadır. Seçim o kip için akılda kalır; dar geçidin kolu her zaman işler, 3 sn boyunca 8 m'den geniş zemin olunca önceki düzene dönülür.
+- **Mete kamanın tepesinde değil, üçüncü sıradadır.** Godot kamerasında Mete orta sıradayken onluğun 10/10'u kadrajdadır. K98'in uzak kadrajında (28 m, 38°) kadrajın alt kenarı oyuncunun ≈10 m arkasındadır: Mete tepedeyken 12,6 m'deki dört atlı ve 16,8 m'deki sancak dışarıda kalır, 5/10 (eskiden 9/10); dörtnal açılınca C sırasındaki Mete'nin ardında sancak kenara dayanır. Kamera parti için uzaklaşmaz, 28 m'de kalır; kadraj dışındaki yoldaşı ekran kenarındaki kartı gösterir ([K73](/docs/source/design/decisions#k73)).
+- **Yuva ataması.** Önce rol: baş öndeki yuvada, savaşmayanlar (Dangyu, Zhang Sheng, Wang Huang) kamanın arkasında, okçular hilalin boynuzlarında; kalan yuvalar onay sırasıyla dolar. Düzen değişiminde yollar kesişmez.
+
+Doğrulanacak: kamanın dönen kamerayla kadraj ölçümü I. Perde'nin takipçi işinde ([Yol Haritası](/roadmap#item-follower-core)); gevşek ve kol düzeninin ve yetişme eşiklerinin oynanış sınaması II'nin partisinde ([Yol Haritası](/roadmap#item-party-tuning)).
+
+![Uldın: ilk onluğun onbaşısı, II'den çekirdek yoldaş](/media/docs/media/ui/portraits/uldin.webp)
+
+## Yoldaşın subaylığı
+
+Çekirdek yoldaş ordugâhta Birlik Kartı'ndan subay yapılır ([K70](/docs/source/design/decisions#k70)). Atama ertesi Tan'da işler, bedeli atama kuralıdır: aynı soydan 0, dışarıdan Sadakat −6, Baş Seçme becerisiyle 0. Konuk ve Jiyu subay olmaz: Jiyu VI-a'da Sol Bilge Kral'dır, makamı hikâyenindir.
+
+| Makam | Perde | Koşul | Etki |
+|---|---|---|---|
+| Onbaşı | II'den | Onay ≥3 | Onluğun Sadakat'i `+2 × (onay − 5)`; yoldaşın huyu birliğe geçer |
+| Yüzbaşı | III'ten | Onay ≥6 | Yüzlük'e aynı Sadakat kuralı; disiplin +3 |
+| Binbaşı | IV'ten | Onay ≥9; aynı anda en çok 2 yoldaş | Binlik'e aynı Sadakat kuralı; moral tabanı +5 |
+
+- Subay olan yoldaş partiden çıkar, birliğin başı olur. Onayı değişmez; büyük hikâye seçimleri ona «duyulan» olarak yarım (×0,5) gelir. Birliği Mete'nin yanında savaşırsa yoldaş birliğin başında görünür.
+- **Geri çağırma.** Ordugâhta Birlik Kartı'ndan ya da Defter > Yoldaşlar'dan; ertesi Tan'da partiye döner, birliğine bedelsiz bir adsız baş kurulur. Başka yerden çağrılırsa haberci gider, atlas günü kadar sürer.
+- **Dönüşsüz subaylık.** Kişisel görevin son adımı subaylıksa geri çağrılmaz, Defter «Subay» yazar: Uldın VI-a'da Çukur'dan kurtulanların Yüzlük'ünün yüzbaşısı, Luhun VI-a'da Jiyu'nun onluğunun onbaşısı olur. Loufan okçusu VI-a'da Loufan sancağına subay olabilir.
+- **Görevlendir.** Subaylıktan ayrı iki ordu işi vardır. Ordugâh kâhyası (onay ≥6) Mete yokken ordugâhı yönetir: Azıkçı boş dönmez, 10 atlıya 1 ateş yanar, İş Kolu sırayla gider, Sadakat günde +0,1 artar (tavan 70), Gece Akını'nın savunmasına +2 yazar. Nöbetçi (savaşan çekirdek) akının savunmasında 3 nöbetçi sayılır, Gece Akını'nda at hattında durur. Yerleşimin Kâhya'sı [Lan Hatun](/encyclopedia/lan-hatun) ve [Yimo](/encyclopedia/yimo)'dur: yoldaş yerleşimin değil ordugâhın kâhyası olur.
+
+## Toplantılar (K56)
+
+Lung-çeng 5. ayın, Dailin 8. ayın dolunayıdır ([K56](/docs/source/design/decisions#k56)); yıl başındaki Kış Toplantısı oynanmaz, Akan Kronik işler.
+
+| Toplantı | Oynanan günler | Etkisi |
+|---|---|---|
+| Lung-çeng | IV: 17 Haziran 205 ve 25 Haziran 203 (Loufan ve Baiyang katılır); VI: 2 Haziran 198 ve 4 Haziran 176 | Katılan baş Sadakat +5, antlar; Beşinci Ay Sunusu moral +5, Kut +1 |
+| [Dailin](/encyclopedia/dailin) Sayımı | III 16 Eylül 208 (seferberlik), IV 22 Eylül 203 (Ordos'ta, son görev), VI 9 Eylül 174 (son sayım) | Gerçek atlı, yedek at, besi ve ıslığa uyan yeniden sayılır; Mete sayar |
+| Avlu Toplantısı | Zaferden sonra perde başına bir: III, IV ve V'te Baideng'den sonra | Atama, görev |
+
+Söğüt Turu: sayımın başında söğüt dalı dikilir, atlılar üç tur atar (yarıçap ≈27 m, ≈510 m, dörtnalda ≈60 sn); bitiren her baş Sadakat +1 alır, kazanan yoktur.
+
+## Eksenler
+
+| Eksen | Etkisi |
+|---|---|
+| Sadakat | Buyruğa uyma; gün sonu <25 iken gerçek atlı −%4, <10 iken −%12 (firar) |
+| Moral | Atış hızı `(1 / 2,4 sn) × (0,7 + 0,003 × moral)`; <30 tepki +0,4 sn; <15 dağılır. Dağılmak yok olmak değildir: sancağa ≤40 m'de toplanır |
+| Disiplin | Tepki süresi `0,25 + 0,9 × (1 − disiplin / 100) + uzaklık / 340` sn; ≥34 atış geri alınamaz |
+| Yorgunluk | Hız `× (1 − yorgunluk / 250)`; dörtnalda +1/dk, dinlenmede −4/dk; saat atlamasında oyun saati başına −10 |
+
+Başlangıç: ilk onlukta Sadakat `30 + 6 × ort(onay) + 2 × Kut − 2 × Korku` (10–90), moral 60, disiplin `10 + 8 × refleks` (10–60); Mete'nin tümeninde 35, 55, 15. Kut ≥14'te firar yoktur ve moral tabanı 40'tır; Korku ≥8'de birlik menzildeki ilk düşmana buyruksuz atar, Korku ≥14'te moral tabanı 30'dur.
+
+| Olay | Sadakat | Moral | Disiplin | Kut, Korku |
+|---|---|---|---|---|
+| Talim turu (90 sn, yalnız Talim Alanı'nda) | 0 | +2 | `+6 × (1 − d / 100)` | |
+| Test salvosu | +2 | +3 | +4 | |
+| Ret eden kestirilir (ekran dışı) / bağışlanır | −6 / +3 | −10 / +2 | +15 / −8 | Korku +1 / |
+| Ganimet paylaşılır / alıkonur | +8 / −10 | +6 / −4 | 0 | / Korku +1 |
+| Düşen getirilir / bırakılır | +6 / −4 | +4 / −6 | 0 | Kut +1 / |
+| Toy (şölen) | +4 | +12 | 0 | Kut +1, perdede bir |
+| Tam tayın / yarım / aç gün | +1 / −1 / −4 | +2 / −2 / −8 | 0 | |
+| Islak gece (yağmur, sağanak, kar, dolu, tipi) | 0 | `−2 × (1 − barınak payı)` | 0 | Üşüme değil ıslaklık ([K1](/docs/source/design/decisions#k1)) |
+
+Dolunayda moral tavanı +8, eksilen ayda saldırıda −6: Shiji'nin «ay doluyken saldırır, eksilirken çekilir» kuralı. Mete yokken Baş Talimi disiplini günde +0,4 artırır (tavan 60), ıslığa uyan sayıyı artırmaz. Kut ve Korku eşikleri [Seviye ve Gelişim](/docs/gameplay/progression) sayfasındadır.
+
+## Buyruklar
+
+Temel buyruklar beceri değildir; ek buyruklar Buyruk dalının becerileriyle açılır. Bütün tuşlar yeniden atanır ([K39](/docs/source/design/decisions#k39)).
+
+| Buyruk | Tuş | Oyun kolu | Ne yapar | Açılış |
+|---|---|---|---|---|
+| İzle (Ku'ya: Gel) | `Z` | D-pad ↑ | Yuvaya döner, izler; akındaysa çeker, moral düşmez | El dili, I |
+| Kal | `X` | D-pad ↓ | Yerinde durur | El dili, I |
+| Bak (Ku'ya özel) | `G`, kısa | D-pad ← | Köpek burnunu indirir, en taze izde 20 m önden yürür | El dili, I |
+| Çağrı (Çığırtkan) | I. Perde'de `Q`; II'den Çubuk 6 | RB | 300 m içindeki herkesi sese getirir ([K82](/docs/source/design/decisions#k82)) | I |
+| Akın | `V`, fare noktası | D-pad → | Nokta ya da 60 m içindeki en yakın düşman; yay menzilinde atar, ≤3 m'de vurur; liderden en çok 120 m | II |
+| Islık | `R` basılı, bırak | RT | Ok neyi gösterirse ona atılır | İlk Islıklı Ok, II |
+| Düzen | `B`, döngü | LB | Kipe göre döner | II ([K88](/docs/source/design/decisions#k88)) |
+| Geri Çekil | Shift + `Z` | Halka | Savaşı bırakır, Mete'nin 25 m gerisine çekilir; moral düşmez | II |
+| Burayı Tut | `X` 0,4 sn basılı | Halka | 40 m içindeki noktada düzen kurar, saldırana karşılık verir | II |
+| Topla, Avla, İz Sür, Gizlen | `7`, `8`, `9`, `0` | Halka | Yoldaşın toplama, av, iz ve siper işleri | II |
+| Sahte Kaçış, Taşı | Çubuk | Çubuk | Moralsiz dağılma; düşeni taşıma | Becerileriyle |
+
+Buyruk seçili yoldaşlara gider (F1–F10, H hepsi, Shift ile ekle); seçim yoksa bütün partiye. Buyruk Halkası `N` basılı, bilgi Tab basılıdır. II'den `Q` hızlı silahtır (yay ve yakın silah arasında): Çığırtkan bu yüzden Çubuk'un 6. yuvasına geçer. Buyruk dalı 17 beceridir, her birini bir insan öğretir: Uldın, Mene, Hereka, Ardokşa, Atşo ve Farnak'ın dersleri; o kişinin dersi alınmadıysa beceriyi yedek usta Dulongçi öğretir ([army.md §10](/docs/source/design/army#10-beceri-agaci-buyruk-command)).
+
+## Islıklı okun işareti
+
+Arayüz uyarmaz, hedef adı yazmaz. `R` basılıyken fare noktasında 3 m'lik halka görünür; bırakınca ok 38 m/sn uçar, 300 m'den duyulur. Her atlı tepki süresinden sonra yayını çeker; zar yüklemeyle değişmez. Yalnız ıslığa uyan atlı zar atar, öteki bakar kalır. Yeniden ıslık 3 sn'dir; sadak bitince atlı atmaz.
+
+```
+uyma = 0,55 + (disiplin − yasak) / 60 + (sadakat − 50) / 250      (0,02 ile 1 arasında)
+```
+
+Yasak işaretin türüne göredir: yer, av ve düşman 0 (行獵鳥獸), yapı 5, kendi atı 35 (善馬), silah arkadaşı 45, can yakını 55 (愛妻), Tanhu'nun atı 60 (單于善馬), Tanhu 70 (頭曼).
+
+| Sınama | Gün (MÖ 209) | Disiplin | Sadakat | Yasak | Uyma | Shiji |
+|---|---|---|---|---|---|---|
+| İlk av, Teoman'ın adamları (Islık Yasası) | 6 Haziran | 15 | 35 | 0 | 0,74 | Atmayanlar kesilir |
+| Kendi Atı | 8 Haziran | 40 | 50 | 35 | 0,63 | Kimi atamadı |
+| Sevdiği (Yançi) | 10 Haziran | 55 | 45 | 55 | 0,53 | Kimi korktu |
+| Tanhu'nun Atı | 13 Haziran | 85 | 50 | 60 | 0,97 | Hepsi attı |
+| Av (Teoman) | 14 Haziran | 90 | 50 | 70 | 0,88; sahne betikli | Hepsi ıslığın ardından |
+
+- **Ret.** Atmayan atlı kararı Mete'ye getirir: kestir ya da bağışla. Beceri değil sahnedir. II'de üç ret kararı vardır: ilk av, kendi atı ve sevdiği; üçüncüsü Luhun'undur («Yavrusu var.»). Kestirirse Luhun ekran dışı ölür, bağışlarsa Yüzlük'te kalır, VI'da onbaşıdır. Baş kesme ekran dışıdır, sonrası görünür: boş eyer, yere bırakılan yay.
+- **Betik dışında.** Kendi atı, can yakını ve Tanhu korumalıdır: oklar 3 m kısa düşer, Korku +1. Partideki kişi (çekirdek yoldaş, konuk, Jiyu, adlı er) da korumalıdır ([K88](/docs/source/design/decisions#k88)): oklar 3 m kısa düşer, Korku +1, hedef gösterilen yoldaşın onayı −1. Parti dışındaki silah arkadaşına atış serbesttir, Korku +2, kan görünmez.
+- **Yoldaş ıslıkta.** Okçu yoldaş da aynı zarı atar: Sadakat'i `30 + 6 × onay`'dır, disiplini onluğunkidir, yasak tablosu aynıdır. Yoldaş ıslığa uyan sayıya girmez.
+- **Hava.** Yan rüzgâr salvoda yayılmayı artırır, ıslak kiriş hasarı düşürür; atlı okçu rüzgârın %70'ini düzeltir.
+
+## Erzak
+
+Birim öğündür: 1 öğün = 0,1 Yük. Atlı günde 1 öğün yer, 07:00 ve 18:00'de yarımşar. Tümende 1 birim 100 kişi-gündür. Aç birlik ölmez, moral kaybeder: kurtuluş av ve akındır.
+
+| Kalem | Tüketim | Yoksa |
+|---|---|---|
+| Yiyecek | Atlı başına 1 öğün/gün | Yarım ya da aç gün olayı |
+| Yem | At başına 1 Yem Bağı/gün kışın, Alaşan ve Gobi'de; otlakta 0 | At −0,5 m/sn, besi −2/gün |
+| Ok | Sadak 24; salvoda 1'er; %60 toplanır | Atlı sancağa çekilir |
+| Yedek at | Hedef atlı başına 0,5 | Yol 60 yerine 40 km/gün, yorgunluk kazancı ×1,3 |
+| Yakacak | Onluk kış gecesi 4 odun ya da 6 tezek | Moral −4/gece |
+
+Onluğu oyuncu kalem kalem besler. Yüzlükte Erzak Kolu çıkar: 10 kişi 6 oyun saatinde 24 odun, ya da 8 et ve avın öteki malı (2 deri, 1 boynuz, 4 kemik, 4 sinir, 1 iç yağı), ya da 40 ot getirir. Binlik ve tümende öğün toplatılmaz: oyuncunun işi kol atmak ve yol açmaktır. Kışın otlaksız onluk günde 61 Yük ister (10 öğün 1 Yük, 30 atın yemi 60 Yük): kış seferi Menzil'e ya da akına bağlıdır.
+
+## Ordugâh (K23)
+
+Ana ordugâh Islık Alanı'ndadır, yerleşim Mete'nin Payı'ndadır: iki ayrı iç harita, iki ayrı ambar, arada 30 km gösterim (atla ve arabayla 1, öküzle 2 gün). Kural ve sayıların sahibi [settlement.md §10](/docs/source/design/settlement#10-ordugah)'dur; yapılar [Ordugâh ve Kervan](/docs/settlement/war-camp-caravans) sayfasındadır.
+
+| Kademe | Yerleşimle | Yerleşik atlı | Çadır (5'er) | Eklenen |
+|---|---|---|---|---|
+| Onluk Ateşi | Ocak | ≤10 | 2 | Talim Alanı, 1 ateş, Sancak Direği |
+| Yüzlük Kampı | Oba | ≤100 | 20 | Buyruk Yurdu, Erzak Ambarı, Silahlık, 10 ateş |
+| Binlik Ordugâhı | Boy Yurdu, Toy Yeri | ≤200, ≤400 (toplantıda 1.000) | 80 | Okçu Yurdu, Otacı Yurdu, 2 Gözcü Kulesi, Gözcü Konakları |
+| Tümen Ordugâhı | Tanhu Avlusu | ≤600 (toplantıda 3.000–10.000) | 120 | Sancak ovası |
+
+- **Yerleşik atlı** Erzak Ambarı'ndan beslenen çekirdektir; tümenin geri kalanı ailesiyledir, talime ve toplantıya kendi çadırı ve 3 günlük azığıyla gelir. Yerleşik atlı da kendi çadırıyla gelir (Çadır Yükü, 5 atlıya bir).
+- **Ordu Payı.** Yerleşik atlının öğününün düz %10'u yerleşimden gelir (Onluk 1, Yüzlük 10, Binlik 20 ya da 40, Tümen 60 öğün/gün). Ocak'ta kervan yoktur: onluktan bir Azıkçı iki günde bir Tan'da 2 öğün alır, ambarda yoksa boş döner, moral −1 ([K54](/docs/source/design/decisions#k54)). Kervan Oba'yla açılır.
+- **Kış.** 16 Kasım–15 Mart ordugâh kendiliğinden dağılır: atlının %90'ı hanesine döner, %10'luk bekçi at hattında kalır, Ordu Payı ×0,1. Oyuncu buyruğu değildir: Gobi'de kış otlağı yoktur.
+- **Sefer ordugâhı.** Çadırlar arabada Çadır Yükü'dür; her onluk 2 çadırını kendi kurar. Süre [K50](/docs/source/design/decisions#k50)'nin eğrisidir: çadır 1, 2, 4 elle 9,0, 6,8, 3,8 gerçek dk; onluklar paralel kurduğu için tümenin konağı da ≈4 gerçek dk sürer. Araba halkası ambar olur. Sökme kurmanın 0,35'idir: sağlam çadır 1 Çadır Yükü olur (16 Yük, ≈76 İD), eksik ya da hasarlı çadır ayaktaki adımların ham malının yarısını verir ([K46](/docs/source/design/decisions#k46)). Bırakılan ordugâh 10 gün sonra kaybolur. İçinde uyku güvenlidir.
+- **Barınak payı** `çadır × 5 / atlı`'dır, en çok 1. Barınak ≥%90, tam tayın ve ateş Sadakat'i günde +0,3 artırır, tavan 70.
+
+## Gece Akını (K55)
+
+Kullanıcının isteğiyle akın küçüktür, kolay def edilir, seyrektir ([K55](/docs/source/design/decisions#k55)). Yalnız III ve IV'te, yalnız dolunay penceresinde (ay ≥%97, ayda ≈3 gece) gelir; ordugâha perde başına en çok 1 akın. Hedef yalnız at hattıdır: ambar, ok ve çadır etkilenmez. Toplantı günü akın yazılmaz (Dailin 16 Eylül 208, Lung-çeng 17 Haziran 205 ve 25 Haziran 203); akın pencerenin ilk gecesine düşer.
+
+| Perde | Akıncı | Güç: yerleşim / ordugâh | Pencere | Akın gecesi |
+|---|---|---|---|---|
+| III | Tunghu atlıları | 6 / 4; Tunghu toprağı kazanılınca (26 Eylül 208) 0 | 15–17 Eylül 208 | 15 Eylül (16'sı Dailin) |
+| IV | Yüeçi, Loufan, Baiyang | 10 / 6; Yüeçi sürülünce (17 Haziran 205) 6 / 4; Loufan ve Baiyang katılınca (25 Haziran 203) 0 | 16–18 Haziran 205; 24–26 Haziran 203 | 16 Haziran 205; 24 Haziran 203 |
+| V | Han sınır birliği | 16 / yok (kış); Baideng'den sonra 8 / yok | 27–29 Kasım 201 kuşatmaya düşer | Perdeden sonra 27 Aralık 201, yalnız yerleşime |
+
+- **Başarı** `R / (R + D)`'dir; savunma `D = nöbetçi × (1 + 0,5 × kule) + garnizon`, nöbetçi ordugâhtaki atlının onda biridir. Zar kaydın tohumundandır. Yüzlük Kampı'nda başarı R 4'te %3,5, R 6'da %5,2; Binlik'te %0,8–2,4. Birlik seferdeyken kalan bekçi Onluk'ta %25–35'tir: ordugâhı boş bırakmanın bedeli budur. Akın, savunması küçük olan yere gider, eşitse yerleşime.
+- **Uyarı** üç kanaldan gelir: boru, kısa bildirim, atlas işareti. Gözcü Konağı ≈44 sn, Gözcü Kulesi ≈33 sn, köpek ≈20 sn önce duyurur. Pencere açılırken Kâhya: «Ay doluyor. Atları içeri alın.»
+- **Sonuç.** Mete ordugâhtaysa püskürtme ≤6 atlıyla küçük bir dövüştür: 3 akıncı düşünce ya da 45 sn sonra dağılırlar; birlik moral +2, Sadakat +1. Uzaktaysa kart gelir, moral +1. Akın başarılıysa her akıncı bir at götürür, 60 sn içinde çağrıyla yakalanan döner, moral −2. Def edilen akın yerleşime Gönül +1 verir; düşen akıncıların ganimeti tablonun ×0,6'sıdır.
+- **Yoldaş görevde.** Nöbetçi yoldaş savunmada 3 nöbetçi sayılır, kâhya yoldaş +2 yazar. Bekçi Onluk'ta bir nöbetçi yoldaş savunmayı 11–12'den 14–18'e çıkarır: R 4'te başarı %25–27'den %18–22'ye iner.
+
+## Ordunun kişileri (K47)
+
+Kişiler [story.md](/docs/source/design/story)'dendir ([K47](/docs/source/design/decisions#k47)); tam liste [army.md §3.9](/docs/source/design/army#3-9-ordunun-kisileri-k47)'dadır.
+
+| Kişi | Ordudaki yeri | Perde |
+|---|---|---|
+| Dulongçi | Eski Binbaşı: Teoman'ın binbaşısı, altmışında; on bini getirir, sınavı «Önce sen dizil.»; V→VI Kroniği'nde ölür | II–V |
+| Uldın | İlk onluğun onbaşısı; II'den çekirdek yoldaş, onluğun başı adayı, Islık Talimi ve Saf'ın ustası | I–VI |
+| Berik | İlk onluğun eri; II'de ya da IV'te Kışlak'ta katılan çekirdek yoldaş | I–VI |
+| [Ağabey](/encyclopedia/older-brother) | Tanhu'nun atlısı; II'de Islık Ordugâhı'na katılır, adlı er olarak partiye girebilir | II |
+| Luhun | Yüzlük'e girer; çekirdek yoldaş; üçüncü ret kararı onundur | II–VI |
+| [Guşi](/encyclopedia/gushi), [Şulü](/encyclopedia/shulu), [Yudan](/encyclopedia/yudan) | Keşif Eri (III'te Gözcü Konakları'nın başı), Seyis (kışın besi +1/gün), Yaycı (ıslıklı oku oyar, III'ten Okçu Yurdu'nun ustası) | II–VI |
+| [Moyan](/encyclopedia/moyan) | Ambarcı: akında kap kaybı ×0,75. Rol önce [Tola](/encyclopedia/tola)'nındır: I'de Tola yaşadıysa Ambarcı odur | II–VI |
+| Lan Hatun, Yimo | Yerleşimin Kâhyası: Lan Hatun II–IV, Yimo V'ten | II–VI |
+| [Dangyu](/encyclopedia/dangyu) | Ocak kamı ve otacı; savaşmayan çekirdek yoldaş; Otacı Yurdu'nda ustayken yaralı günde %20 iyileşir | IV–VI |
+| Jiyu | Sol Bilge Kral, veliaht; partideyken onluğun moral tabanı +10; ayrılmaz, subay olmaz | VI |
+
+## Toplu savaş (K47)
+
+Yakın kavga gerçektir, uzaktaki sayıdır ([K47](/docs/source/design/decisions#k47)): Mete'ye en yakın 100 atlı (iki yan birlikte) gerçek okla atar ve gerçek vuruşla düşer; geri kalanı oran formülüyle kayıp verir. Kadrajda kimse sebepsiz yok olmaz, Mete'yi yalnız yakın kümenin gerçek oku vurur, adlı kişi uzak kümede oran kaybından düşmez. Gece Akını ve küçük çatışmalar bu kurala girmez.
+
+| Sahne | Tarih | Ne |
+|---|---|---|
+| Tunghu baskını | 26 Eylül 208, şafak | Ay %23: eksilen ay cezası işler; Tunghu Nöbeti'nin sonucu zorluğu değiştirir |
+| Batı Yolu | 17 Haziran 205, Hey Irmağı | Yüeçi sürülür, yok edilmez |
+| Sahte kaçış | 24 Kasım 201, Pingcheng yolu | Dağılma moralsizdir, Han kuzeye çekilir |
+| Baideng | 25 Kasım–1 Aralık 201 | Kuşatma: 400.000 atlı 10.000 kart; dört renk at; bir köşe açılır |
+
+Oran formülü saniyede `kayıp = atan uzak atlı × (1 / 2,4 sn) × (0,7 + 0,003 × moral) × 0,12 × (12 / 50) × çarpanlar`'dır; 12 / 50 Hun okunun hasarı ve Hun atlısının canıdır. Tam moralde atlı başına saniyede 0,012 kayıp eder: 100 atlı saniyede ≈1,2 atlı düşürür. Çarpanlar: saf düzen ×1,25, ıslak kiriş, yan rüzgâr, gizliliğin sonucu (tam bilgi ×0,8, yarım ×1, yok ×1,2), pusuda ilk çarpışma ×1,5, Dört Yel kuşatmasında kuşatılan moral −50 ve 20 sn kaçamaz. Birlik başlangıç gücünün her %5'ini yitirdikçe moral −6 düşer, <15'te dağılır; 6 sn tehdit görmezse sancağa toplanır. Örnek: 100'e 100, ikisi de 60 moralde, ≈49 sn'de iki yan da ≈38 atlı yitirir ve dağılır. Savaştan sonra alanı tutan yanın düşenlerinin yarısı yaralı döner.
+
+Doğrulanacak: formülün gerçek okla ±%10 denkliği (100'e 100, 20 tohum, 30., 60. ve 90. saniye), moralin ve dağılmanın ilk değerleri, kalabalık satırının bütçesi ve aynı kaydın aynı savaşı vermesi ([Yol Haritası](/roadmap#item-army)).
+
+```varlik
+crowd_hun_rider, tent_ten, training_ground, banner_pole, horse_line, supply_depot, arrow_whistle, status_morale, status_loyalty, status_drill, status_supply
+```
+
+> [!DURUM]
+> Oyunda yok. Godot'da takipçi, düzen, Ku, birlik, buyruk, ıslık, ordugâh, akın ve toplu savaş yoktur; ana kampta yalnız ahırın yanındaki iki at durur ([d3/oyun-durumu.md](/docs/source/design/d3/game-state)). Prototipte denendi: 10 atlılık takipçi ve kama düzeni (yuva izleme, yol merdiveni, kadraj ölçümü); Godot'a taşınmadı.
+
+## Yol haritası
+
+**Kalabalığın kademeleri (2026-11-09, [crowd-tiers](/roadmap#item-crowd-tiers)).** İlk kez Kışlak'ın halkıyla oyunda: yakındaki adlı kişiler tam kişidir (en çok 16, adlı önce), kalabalık 80 pikselin altında ve 28 pikselin üstünde tek çizimlik kukla (bacaklar, kollar ve baş köşe gölgelendiricisinde canlanır; üç başlık biçimi aynı ağda), kukla tavanı dolunca kaba kukla, 28 pikselin altında kart (8 yön × 8 kare, açılışta pişer). Kademe ekran boyuyla seçilir, kamera ya da çözünürlük değişince doğru kalır. Kışlak'ın pazarında katmanın payı pozda en çok 10 çizim ve 0,24M üçgendir: iç harita satırının çok altında ([army.md §7](/docs/source/design/army#7-cizim)). Atlı kukla ve kitle (T4) ordunun fazlarındadır.
+
+Ordu işi üç fazdadır ([K77](/docs/source/design/decisions#k77)): takipçi, kama ve kalabalık I. Perde'nin hikâye sistemlerinde ([follower-core](/roadmap#item-follower-core)); talim, ıslık ve birlik II'nin yerleşim fazında ([squad-drill](/roadmap#item-squad-drill), [war-camp](/roadmap#item-war-camp), [army-reading](/roadmap#item-army-reading)); toplu savaş ve Gece Akını III'ün ordu fazında ([army](/roadmap#item-army), [raids](/roadmap#item-raids)). Yoldaşın subaylığı ve buyrukları II'nin yoldaş partisi fazındadır.
+
+```ilerleme
+act-2-p2
+act-2-p3
+act-3-p1
+```
+
+## Kaynaklar
+
+- [army.md §0](/docs/source/design/army#0-kararlar), [§1](/docs/source/design/army#1-tarih-shiji-110), [§1.3](/docs/source/design/army#1-3-takvim), [§2](/docs/source/design/army#2-olcek), [§3.2](/docs/source/design/army#3-2-officerrec-ve-huy), [§3.4](/docs/source/design/army#3-4-eksenler), [§3.5](/docs/source/design/army#3-5-olaylar), [§3.6](/docs/source/design/army#3-6-erzak), [§3.7](/docs/source/design/army#3-7-ordugah-the-army-camp-k23), [§3.8](/docs/source/design/army#3-8-gece-akini-night-raid-k55), [§3.9](/docs/source/design/army#3-9-ordunun-kisileri-k47), [§4.1](/docs/source/design/army#4-1-bes-duzen-10-yuva), [§4.3](/docs/source/design/army#4-3-kadraj-olcumu), [§5.8](/docs/source/design/army#5-8-toplu-savas-mass-battle-k47), [§6](/docs/source/design/army#6-buyruklar), [§10](/docs/source/design/army#10-beceri-agaci-buyruk-command), [§11](/docs/source/design/army#11-simdi-ve-sonra), [§13](/docs/source/design/army#13-dogrulama-durumu), [§14](/docs/source/design/army#14-kaynaklar)
+- [companions.md §3](/docs/source/design/companions#3-parti-kurallari), [§3.4](/docs/source/design/companions#3-4-orduya-subay), [§5.1](/docs/source/design/companions#5-1-buyruklar), [§5.2](/docs/source/design/companions#5-2-duzenler); [settlement.md §6.5](/docs/source/design/settlement#6-5-yoldas-gorevlendirme-k70), [§10](/docs/source/design/settlement#10-ordugah)
+- [act1.md §8.7](/docs/source/design/act1#8-7-gece-isleri-night-errands), [§8.10](/docs/source/design/act1#8-10-ses-the-sound), [§9.7](/docs/source/design/act1#9-7-takipci-altyapisi), [§10](/docs/source/design/act1#10-kovalamaca-kara-boran-black-blizzard); [story.md §11.1](/docs/source/design/story#11-1-ii-perde-ok-neyi-gosterirse-where-the-arrow-points); [progression.md §4.10](/docs/source/design/progression#4-10-soz-word-word-14-beceri-ve-buyruk-command-command-17-beceri), [§11](/docs/source/design/progression#11-birlik)
+- [decisions.md](/docs/source/design/decisions): [K1](/docs/source/design/decisions#k1), [K39](/docs/source/design/decisions#k39), [K46](/docs/source/design/decisions#k46), [K47](/docs/source/design/decisions#k47), [K50](/docs/source/design/decisions#k50), [K54](/docs/source/design/decisions#k54), [K55](/docs/source/design/decisions#k55), [K56](/docs/source/design/decisions#k56), [K63](/docs/source/design/decisions#k63), [K70](/docs/source/design/decisions#k70), [K71](/docs/source/design/decisions#k71), [K72](/docs/source/design/decisions#k72), [K73](/docs/source/design/decisions#k73), [K74](/docs/source/design/decisions#k74), [K77](/docs/source/design/decisions#k77), [K82](/docs/source/design/decisions#k82), [K88](/docs/source/design/decisions#k88)
+- [Yoldaşlar](/docs/gameplay/companions), [Dövüş](/docs/gameplay/combat), [Seviye ve Gelişim](/docs/gameplay/progression), [Kamera ve Kontroller](/docs/gameplay/camera-controls), [Tek Gecelik Kamp](/docs/gameplay/overnight-camp), [Ordugâh ve Kervan](/docs/settlement/war-camp-caravans), [II. Perde](/docs/story/act-2), [Tarih ve Kaynaklar](/docs/story/history-sources)

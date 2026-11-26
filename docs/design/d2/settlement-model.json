@@ -1,0 +1,3577 @@
+{
+ "meta": {
+  "v": 3,
+  "doc": "docs/design/settlement.md",
+  "date": "2026-11-04",
+  "tool": "tools/econ-sim.mjs (K24) bu dosyayı econ-model.json ile birlikte okur",
+  "note": "Ad, kademe, görünüm, kapasite, bakım, önkoşul ve kurallar yerleşim alanının (K23). labourWd K21, bom K24 kopyasıdır; labourSrc/bomSrc \"proposal\" olanlar bu alanın önerisiydi ve sahibi kazanır; 2026-11-04 (E6) bu öneriler labour-model.json v3 settlement bloğuna ve econ-model.json v3 structures'a aynı sayılarla girdi, alanlar kaynağı yazar. v2 (baş tasarımcı, d2/core.md §4): Ocak tavanı 6, Oba kapısı konutlu hane, olaylı dalgalar ve perde başına Çekim tavanı, perde günleri (K25), Kronik açılış tabanları, beklenen hazır yük, düz %10 Ordu Payı, ordugâhın kış dağılması, tek baskın kuralı, kervan fx.cartLock/fx.cartK, hava tepkileri fx'ten, sky_pole 12 taş (K24), Sancak Direği 10 m. v2.1 (2026-11-03, doğrulama turu): armağana yün, külçe ve azık; gelen hanenin azığı ve kırkımı; hikâye hanelerine 5 şafak; court_gathering; Göçer herdCapK 1,2; Surlu tarla ve kule kolu; Demirci Ocağı hurdayla; garnizon; Okçu Yurdu ordugâhta Binlik'te. v3 (2026-11-04, üçüncü tur; decisions.md K31–K65): unvan «Tanhu», «hanlık» yalnız belge içi alan adı, usta adı Dülger (K34); kişiler story.md §14 (K37, K43); iki tür gelen hane, kesirli tür sayacı, İsteyen Hane kartı ve kafile (K53, bozkir-ekonomi.md öneri 12, fauna.md §2.3); Ağaç Atölyesi Oba'da (K52); sur parçası 16 odun (K52); darı takvimi ve Kronik'in tarla adımı (K54); Ocak'ta Azıkçı (K54); ay pencereli akın, perde tavanı, R tablosu, Ambarcı ×0,75, ordugâhın Gece Akını (K55); Dailin ve Lung-çeng günleri, Söğüt Turu (K56); padKinds ve homeKinds, Araba kartı ve Araba Yeri (K57); perde son görevle biter, Akan Kronik (K42); yurt eğrisi (K50); yurt boyları ve iç düzenler, design → layout, Otağ pedi 11,9 (K51); kabuk (K48); yük hayvanları ve Kuşhane (K65). yurt_small ve beg_otag buildings'tedir (econ-model.json v3'te var); Kuşhane (mews) econ-model.json structures'a girene dek newBuildings'tedir: econ-sim buildings'teki her türü orada arar.",
+  "e6": "2026-11-04, E6 (decisions.md K48, K49, K50, K55, K56, K79–K81, K88): raids.strengthEnds.IV sırası (Yüeçi 17 Haziran 205'te sürülür 6 / 4, Loufan ve Baiyang 25 Haziran 203'te katılır 0; K33'ün takvimi, story.md §2); raids.noRaidOn.dayN'e 3.436 (IV'ün Lung-çeng toplantısı); raids.expectedActLoss.ivOrderK55 (hesap); court.gatherings.muster_longcheng.played IV'te 25 Haziran 203, VI'da 2 Haziran 198 ve 4 Haziran 176, 17 Haziran 205 Gök Dağı eteğinde sunu; dailin_count.ordosCount (IV, a4_dailin); steward.crew (K80, Kâhya'nın şantiye eli); buildings.barter_ground.vendor (K81); caravans.raid.shareOfEvents.VI 0 (VI'da akıncı yok, heqin); buildings.rampart.note güncel; † türlerin labourSrc/bomSrc v3 kaynağı; hh_story notunda Ambarcı Tola koşulu (story.md §14.1)."
+ },
+ "assumptions": {
+  "actGameDays": {
+   "II": 12,
+   "III": 12,
+   "IV": 14,
+   "V": 12,
+   "VI": 16,
+   "spread": 0.3,
+   "src": "K25",
+   "note": "K42: yalnız tasarım ölçüsüdür, oyunda okunmaz; perde son ana görevle biter, sayaç yoktur"
+  },
+  "kutKorkuExample": {
+   "T1": [
+    6,
+    2
+   ],
+   "T2": [
+    6,
+    2
+   ],
+   "T3": [
+    10,
+    4
+   ],
+   "T4": [
+    14,
+    6
+   ],
+   "T5": [
+    18,
+    8
+   ]
+  },
+  "actStartDayN": {
+   "II": 1222,
+   "III": 1679,
+   "IV": 2682,
+   "V": 4314,
+   "VI": 5237,
+   "home": 1171,
+   "src": "K25, time.md §2"
+  },
+  "actNames": {
+   "II": {
+    "tr": "Ok Neyi Gösterirse",
+    "en": "Where the Arrow Points"
+   },
+   "III": {
+    "tr": "Boş Toprak",
+    "en": "The Empty Land"
+   },
+   "IV": {
+    "tr": "Borç",
+    "en": "The Debt"
+   },
+   "V": {
+    "tr": "Dört Renk",
+    "en": "Four Colours"
+   },
+   "VI": {
+    "tr": "Sayım",
+    "en": "The Count"
+   },
+   "src": "K32"
+  },
+  "actSpanDayN": {
+   "II": [
+    1222,
+    1236
+   ],
+   "III": [
+    1679,
+    1709
+   ],
+   "IV": [
+    2682,
+    3525
+   ],
+   "V": [
+    4314,
+    4325
+   ],
+   "VI": [
+    5237,
+    14097
+   ],
+   "src": "story.md §11 (perdenin oynanan tarihleri)"
+  },
+  "actEnd": "son ana görev; Son Görev Kapısı kartı; sonra Serbest Dolaşım ve «Kronik'e bırak» (K42)"
+ },
+ "tiers": {
+  "T1": {
+   "id": "ocak",
+   "tr": "Ocak",
+   "en": "Hearth",
+   "act": 2,
+   "cap": 6,
+   "pullBase": 0.25,
+   "households": 3,
+   "need": [
+    "quest:mq2_own_hearth.done"
+   ],
+   "opens": [
+    "yurt_small",
+    "yurt",
+    "tent",
+    "hut",
+    "pen",
+    "fence",
+    "horse_line",
+    "rack",
+    "grain_pit",
+    "felt_yard",
+    "banner_pole",
+    "lantern_post"
+   ],
+   "compose": {
+    "yurt": 3,
+    "tent": 2,
+    "pen": 1,
+    "horse_line": 1,
+    "rack": 1,
+    "felt_yard": 1,
+    "grain_pit": 1
+   },
+   "lockedCards": [
+    "wood_shop",
+    "cart"
+   ],
+   "note": "K52: wood_shop Oba'da açılır, kartı Ocak'ta kademe kilidiyle görünür («Oba'da açılır.» / «Opens with the Clan Camp.»); T1'de atölye yok, tündük pazarcıdan iki günde bir. K54: Ocak'ta kervan yok, Ordu Payı'nı Azıkçı alır. K57: Teoman'ın cart_felt'i listede başlar, Araba kartı kilitlidir."
+  },
+  "T2": {
+   "id": "oba",
+   "tr": "Oba",
+   "en": "Clan Camp",
+   "act": 2,
+   "cap": 12,
+   "pullBase": 0.4,
+   "households": 10,
+   "need": [
+    "households_housed>=5",
+    "households_in_yurt>=3",
+    "felt_yard",
+    "pen",
+    "horse_line",
+    "grain_pit",
+    "foodDays>=10"
+   ],
+   "opens": [
+    "wood_shop",
+    "stable",
+    "store_yurt",
+    "shed",
+    "tannery",
+    "smithy",
+    "kiln",
+    "cart_felt"
+   ],
+   "compose": {
+    "yurt": 7,
+    "stable": 1,
+    "pen": 1,
+    "store_yurt": 1,
+    "tannery": 1,
+    "wood_shop": 1,
+    "smithy": 1,
+    "kiln": 1,
+    "shed": 1,
+    "cart_felt": 1
+   },
+   "note": "Kervan, zanaat ataması, seferberlik ve Kâhya'nın tent_kit keep_to:2 emri (K53) bu kademede açılır; Küçük Yurt Oba kapısında yurt sayılır (K51)."
+  },
+  "T3": {
+   "id": "boy_yurdu",
+   "tr": "Boy Yurdu",
+   "en": "Lineage Seat",
+   "act": 3,
+   "cap": 25,
+   "pullBase": 0.6,
+   "households": 22,
+   "need": [
+    "act>=3",
+    "households>=10",
+    "stable",
+    "store_yurt",
+    "smithy",
+    "wood_shop",
+    "shed"
+   ],
+   "opens": [
+    "otag",
+    "envoy_yurt",
+    "sky_pole",
+    "gathering_ground",
+    "granary",
+    "fletchery",
+    "watch_tower",
+    "barter_ground",
+    "outpost",
+    "cart_high",
+    "mews"
+   ],
+   "compose": {
+    "yurt": 12,
+    "otag": 1,
+    "envoy_yurt": 1,
+    "sky_pole": 1,
+    "pen": 2,
+    "stable": 1,
+    "granary": 1,
+    "fletchery": 1,
+    "gathering_ground": 1,
+    "cart_high": 2,
+    "watch_tower": 2,
+    "barter_ground": 1,
+    "outpost": 2
+   },
+   "note": "mews (Kuşhane) act>=4 ister: kuşçu Sungur IV'te gelir (fauna.md §5.2)."
+  },
+  "T4": {
+   "id": "toy_yeri",
+   "tr": "Toy Yeri",
+   "en": "Gathering Seat",
+   "act": 4,
+   "cap": 50,
+   "pullBase": 0.9,
+   "households": 45,
+   "need": [
+    "act>=4",
+    "households>=22",
+    "otag",
+    "envoy_yurt",
+    "sky_pole",
+    "gathering_ground",
+    "granary",
+    "watch_tower>=1",
+    "gonulAvg>=50"
+   ],
+   "opens": [
+    "treasury",
+    "well",
+    "healer_yurt",
+    "cart_war",
+    "beg_otag"
+   ],
+   "compose": {
+    "yurt": 23,
+    "treasury": 1,
+    "healer_yurt": 1,
+    "pen": 4,
+    "stable": 2,
+    "store_yurt": 2,
+    "granary": 1,
+    "shed": 2,
+    "well": 2,
+    "watch_tower": 2,
+    "cart_war": 2,
+    "smithy": 1,
+    "lantern_post": 6
+   }
+  },
+  "T5": {
+   "id": "tanhu_avlusu",
+   "tr": "Tanhu Avlusu",
+   "en": "The Tanhu's Court",
+   "act": 5,
+   "cap": 90,
+   "pullBase": 1.2,
+   "households": 80,
+   "need": [
+    "act>=5",
+    "households>=45",
+    "treasury",
+    "well>=1",
+    "gonulAvg>=55",
+    "path!=null"
+   ],
+   "paths": {
+    "walled": {
+     "tr": "Surlu Avlu",
+     "en": "Walled Court",
+     "opens": [
+      "rampart",
+      "rampart_gate",
+      "pit_house",
+      "field",
+      "granary_tower"
+     ],
+     "compose": {
+      "yurt": 23,
+      "pit_house": 12,
+      "rampart": 40,
+      "rampart_gate": 2,
+      "field": 6,
+      "granary_tower": 3,
+      "store_yurt": 2,
+      "smithy": 1,
+      "kiln": 1,
+      "watch_tower": 4,
+      "well": 2
+     },
+     "effects": {
+      "raidSuccessK": 0.5,
+      "craftK": 1.1,
+      "defectorGonul": 10,
+      "fieldMilletPerSeason": 500,
+      "fieldSeasonWorkIG": 1,
+      "granaryTowerPreserveLoss": 0.5,
+      "fieldSow": "10–31 Mayıs",
+      "fieldHarvest": "1–20 Eylül",
+      "fieldWorkIG": {
+       "sow": 0.5,
+       "harvest": 0.5
+      },
+      "fieldBy": "Kâhya; kart çıkmaz",
+      "fieldFirstHarvestAct": "VI",
+      "winterCoverV": 0.91,
+      "winterCoverWithFieldAndTower": 1.02,
+      "winterCoverNote": "Surlu 20 Kasım 201'den sonra seçilir: V'in kışı tarlasız, kule güz artığını görmemiştir; %102 VI'dan itibaren (K54)",
+      "raidCropLoss": {
+       "months": "Haziran–Eylül",
+       "share": 0.3,
+       "src": "SJ 110 候秋孰，以騎馳蹂而稼穡; sayı kurgu (K54)"
+      },
+      "rampartWood": 16,
+      "woodK": 1.4,
+      "buildK": 1.7,
+      "rawYukK": 1.19,
+      "tierDays": 8.1,
+      "costSrc": "K52 (bozkir-ekonomi.md öneri 10)"
+     }
+    },
+    "moving": {
+     "tr": "Göçer Avlu",
+     "en": "Moving Court",
+     "opens": [
+      "wagon_felt"
+     ],
+     "compose": {
+      "yurt": 35,
+      "wagon_felt": 6,
+      "horse_line": 4,
+      "pen": 4,
+      "shed": 2,
+      "granary": 1,
+      "store_yurt": 2,
+      "smithy": 1,
+      "kiln": 1,
+      "watch_tower": 2,
+      "well": 2
+     },
+     "effects": {
+      "herdRaidLossK": 0.6,
+      "herdCapK": 1.2,
+      "armyShareK": 1.1,
+      "steppeGonul": 5,
+      "raidStoreLoss": 1,
+      "field": false,
+      "fieldNote": "darı pazardan (K54)",
+      "winterCoverV": 0.9,
+      "feltK": 1.6,
+      "ropeK": 1.5,
+      "ironK": 2,
+      "tierDays": 7.8,
+      "costSrc": "K52"
+     }
+    }
+   }
+  }
+ },
+ "buildings": {
+  "yurt_small": {
+   "tr": "Küçük Yurt",
+   "en": "Small Yurt",
+   "cat": "home",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "s",
+   "layout": "ev",
+   "scale": 0.7,
+   "footprint": {
+    "r": 4.9,
+    "pad": 5.95
+   },
+   "houses": 1,
+   "hp": 216,
+   "crewMax": 6,
+   "upkeep": {
+    "felt": 0.5,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 0.4,
+   "labourSrc": "K50 (taban 24 dk)",
+   "bom": {
+    "stone": 4,
+    "door_frame": 1,
+    "kerege_set_s": 1,
+    "uuk_set_s": 1,
+    "yurt_crown": 1,
+    "pole": 1,
+    "chiy": 1,
+    "felt": 3,
+    "rope": 3,
+    "ember": 1
+   },
+   "bomSrc": "K24 (econ-model.json, K51)",
+   "kit": {
+    "id": "yurt_kit_s",
+    "yuk": 38,
+    "worth": 158
+   },
+   "note": "Oba kapısında yurt sayılır; ham mal farkı +18 İS; keçe tonu ×0,78"
+  },
+  "yurt": {
+   "tr": "Yurt",
+   "en": "Yurt",
+   "cat": "home",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "ev",
+   "footprint": {
+    "r": 7.05,
+    "pad": 8.5
+   },
+   "houses": 1,
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "ember": 1
+   },
+   "bomSrc": "K24",
+   "sizeName": {
+    "tr": "Hane Yurdu",
+    "en": "Household Yurt"
+   },
+   "hp": 420,
+   "crewMax": 8,
+   "layoutNote": "K51: hane yurdu artık otaci ya da bolmeli çekmez"
+  },
+  "otag": {
+   "tr": "Otağ",
+   "en": "Great Yurt",
+   "cat": "great",
+   "plot": "core",
+   "tier": 3,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "hero",
+   "size": "l",
+   "layout": "otag",
+   "scale": 1.4,
+   "footprint": {
+    "r": 9.9,
+    "pad": 11.9
+   },
+   "houses": 1,
+   "upkeep": {
+    "felt_white": 2,
+    "rope": 2,
+    "dye": 1,
+    "wd": 0.1
+   },
+   "labourWd": 2.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 10,
+    "door_frame": 1,
+    "kerege_set": 2,
+    "uuk_set": 2,
+    "crown_great": 1,
+    "pole": 4,
+    "chiy": 2,
+    "felt_white": 12,
+    "rope": 14,
+    "dye": 2,
+    "ember": 1
+   },
+   "bomSrc": "K24",
+   "prereq": [
+    "act>=3"
+   ],
+   "note": "Avluda: Tanhu Otağı / The Tanhu's Great Yurt; kapı doğuya. Gündüz Divan Düzeni (otag: oturak kuzeye bakar, bu odada camYaw = π), «Toy Ver» gecesi Şölen Düzeni (han). Ped 8,5 × 1,4 = 11,9 (K51).",
+   "hp": 843,
+   "crewMax": 12,
+   "crewK": 8,
+   "layoutNight": "han"
+  },
+  "beg_otag": {
+   "tr": "Bey Otağı",
+   "en": "Lord's Great Yurt",
+   "cat": "great",
+   "plot": "dwell",
+   "tier": 4,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "l",
+   "layout": "otag",
+   "layoutNight": "han",
+   "scale": 1.4,
+   "footprint": {
+    "r": 9.9,
+    "pad": 11.9
+   },
+   "houses": 1,
+   "hp": 843,
+   "crewMax": 12,
+   "crewK": 8,
+   "zoneMax": 3,
+   "upkeep": {
+    "felt_white": 2,
+    "rope": 2,
+    "dye": 1,
+    "wd": 0.1
+   },
+   "labourWd": 2.5,
+   "labourSrc": "K50 (taban 150 dk)",
+   "bom": {
+    "stone": 10,
+    "door_frame": 1,
+    "kerege_set": 2,
+    "uuk_set": 2,
+    "crown_great": 1,
+    "pole": 4,
+    "chiy": 2,
+    "felt_white": 12,
+    "rope": 14,
+    "dye": 2,
+    "ember": 1
+   },
+   "bomSrc": "K24 (econ-model.json, K51)",
+   "kit": {
+    "id": "otag_kit",
+    "yuk": 109,
+    "worth": 516
+   },
+   "note": "Beylerin büyük yurdu (K51); bey hanesi Otağ Yükü'yle gelir ve kendisi kurar (K53); core dışında, dwell parselinde; Divan Tanhu Otağı'ndadır; ≤34k üçgen (cadir-otag.md öneri 11, 19)"
+  },
+  "tent": {
+   "tr": "Çadır",
+   "en": "Tent",
+   "cat": "small",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "tent",
+   "footprint": {
+    "r": 2.6
+   },
+   "houses": 0.5,
+   "upkeep": {
+    "felt": 1,
+    "wd": 0.02
+   },
+   "labourWd": 0.15,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 2,
+    "pole": 2,
+    "rope": 4,
+    "felt": 3
+   },
+   "bomSrc": "K24",
+   "note": "Ordugâhta 5 er",
+   "dismantle": {
+    "into": "tent_kit",
+    "labourK": 0.35,
+    "id": 76,
+    "src": "K46"
+   }
+  },
+  "hut": {
+   "tr": "Kamış Kulübe",
+   "en": "Reed Hut",
+   "cat": "small",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "hut",
+   "footprint": {
+    "r": 2.8
+   },
+   "houses": 0.5,
+   "upkeep": {
+    "reed": 2
+   },
+   "labourWd": 0.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 4,
+    "rope": 4,
+    "reed": 18
+   },
+   "bomSrc": "K24"
+  },
+  "pit_house": {
+   "tr": "Yarı Gömük Ev",
+   "en": "Pit House",
+   "cat": "great",
+   "plot": "dwell",
+   "tier": 5,
+   "place": "hold",
+   "def": "mound",
+   "preset": "pit_house",
+   "footprint": {
+    "w": 7,
+    "d": 7
+   },
+   "houses": 1,
+   "upkeep": {
+    "reed": 2,
+    "clay": 1
+   },
+   "labourWd": 2,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 4,
+    "tag:wood": 16,
+    "clay": 6,
+    "reed": 10,
+    "felt": 2
+   },
+   "bomSrc": "K24",
+   "prereq": [
+    "path==walled"
+   ]
+  },
+  "envoy_yurt": {
+   "tr": "Elçi Yurdu",
+   "en": "Envoy Yurt",
+   "cat": "home",
+   "plot": "core",
+   "tier": 3,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "konuk",
+   "footprint": {
+    "r": 7.05
+   },
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "ember": 1,
+    "felt_white": 2,
+    "dye": 1
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "prereq": [
+    "otag"
+   ],
+   "note": "Konuk Düzeni (K51)"
+  },
+  "healer_yurt": {
+   "tr": "Otacı Yurdu",
+   "en": "Healer's Yurt",
+   "cat": "home",
+   "plot": "dwell",
+   "tier": 4,
+   "place": "hold",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "otaci",
+   "footprint": {
+    "r": 7.05
+   },
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "ember": 1,
+    "herb_wormwood": 4
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "8 yaralı, iyileşme ×2; ordugâhta kademe 3"
+  },
+  "pen": {
+   "tr": "Ağıl",
+   "en": "Pen",
+   "cat": "line",
+   "plot": "pen",
+   "tier": 1,
+   "place": "hold",
+   "def": "pen",
+   "footprint": {
+    "line": 40
+   },
+   "herd": {
+    "small": 90,
+    "cattle": 15
+   },
+   "upkeep": {
+    "branch": 6
+   },
+   "labourWd": 0.32,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 10,
+    "branch": 72,
+    "rope": 1
+   },
+   "bomSrc": "K24"
+  },
+  "fence": {
+   "tr": "Çit",
+   "en": "Fence",
+   "cat": "line",
+   "plot": "pen",
+   "tier": 1,
+   "place": "hold",
+   "def": "fence",
+   "footprint": {
+    "line": 10
+   },
+   "upkeep": {
+    "tag:wood": 1
+   },
+   "labourWd": 0.075,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 6,
+    "rope": 2
+   },
+   "bomSrc": "K24"
+  },
+  "horse_line": {
+   "tr": "At Hattı",
+   "en": "Horse Line",
+   "cat": "line",
+   "plot": "pen",
+   "tier": 1,
+   "place": "both",
+   "def": "fence",
+   "preset": "picket",
+   "footprint": {
+    "line": 20
+   },
+   "herd": {
+    "horse": 20
+   },
+   "upkeep": {
+    "rope": 1
+   },
+   "labourWd": 0.08,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 6,
+    "rope": 4
+   },
+   "bomSrc": "K24"
+  },
+  "stable": {
+   "tr": "Ahır",
+   "en": "Stable",
+   "cat": "work",
+   "plot": "pen",
+   "tier": 2,
+   "place": "hold",
+   "def": "stable",
+   "footprint": {
+    "w": 10.8,
+    "d": 6.6
+   },
+   "herd": {
+    "horse": 8
+   },
+   "station": "stable",
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 1.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 4,
+    "tag:wood": 18,
+    "rope": 4,
+    "reed": 10,
+    "felt": 3
+   },
+   "bomSrc": "K24"
+  },
+  "rack": {
+   "tr": "Kurutma Sırığı",
+   "en": "Drying Rack",
+   "cat": "small",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "rack",
+   "footprint": {
+    "w": 2,
+    "d": 1.4
+   },
+   "station": "drying_rack",
+   "labourWd": 0.002,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 4,
+    "rope": 2
+   },
+   "bomSrc": "K24"
+  },
+  "grain_pit": {
+   "tr": "Ambar Çukuru",
+   "en": "Grain Pit",
+   "cat": "store",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "mound",
+   "preset": "pit",
+   "footprint": {
+    "r": 1.4
+   },
+   "capYuk": 120,
+   "labourWd": 0.3,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 2,
+    "felt": 2,
+    "hide": 1,
+    "clay": 2
+   },
+   "bomSrc": "K24",
+   "note": "Baskında yarı yarıya bulunmaz, yanmaz (K24 d2/economy.md §5.1)"
+  },
+  "store_yurt": {
+   "tr": "Ambar Yurdu",
+   "en": "Store Yurt",
+   "cat": "store",
+   "plot": "dwell",
+   "tier": 2,
+   "place": "both",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "ambar",
+   "footprint": {
+    "r": 7.05
+   },
+   "capYuk": 400,
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6
+   },
+   "bomSrc": "K24",
+   "note": "Yük Düzeni (ambar, K51)"
+  },
+  "shed": {
+   "tr": "Sundurma",
+   "en": "Shed",
+   "cat": "store",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "shed",
+   "preset": "open",
+   "footprint": {
+    "w": 8,
+    "d": 8
+   },
+   "capYuk": 500,
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 0.6,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 7,
+    "rope": 4,
+    "branch": 6,
+    "reed": 8
+   },
+   "bomSrc": "K24",
+   "note": "Yalnız tag:bulk ve tag:forage"
+  },
+  "granary": {
+   "tr": "Tahıl Ambarı",
+   "en": "Granary",
+   "cat": "store",
+   "plot": "work",
+   "tier": 3,
+   "place": "hold",
+   "def": "granary",
+   "footprint": {
+    "w": 8,
+    "d": 8
+   },
+   "capYuk": 600,
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 0.8,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 7,
+    "rope": 4,
+    "branch": 6,
+    "reed": 8,
+    "clay": 4
+   },
+   "bomSrc": "K24"
+  },
+  "granary_tower": {
+   "tr": "Tahıl Kulesi",
+   "en": "Grain Tower",
+   "cat": "store",
+   "plot": "work",
+   "tier": 5,
+   "place": "hold",
+   "def": "tower",
+   "preset": "granary",
+   "footprint": {
+    "w": 7,
+    "d": 7,
+    "h": 9
+   },
+   "capYuk": 800,
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 2,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "tag:wood": 24,
+    "rope": 6,
+    "reed": 10,
+    "clay": 4
+   },
+   "bomSrc": "K24",
+   "prereq": [
+    "path==walled"
+   ],
+   "note": "Baskında kayıp %10 (K24 d2/economy.md §5.1)"
+  },
+  "treasury": {
+   "tr": "Hazine",
+   "en": "Treasury",
+   "cat": "store",
+   "plot": "core",
+   "tier": 4,
+   "place": "hold",
+   "def": "shed",
+   "preset": "walled",
+   "footprint": {
+    "w": 8,
+    "d": 6
+   },
+   "capYuk": 120,
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 1.2,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "stone": 8,
+    "tag:wood": 16,
+    "rope": 4,
+    "felt": 2,
+    "clay": 2,
+    "bronze_bar": 1
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "Yalnız tag:valuable; kabuk (cowrie) da burada durur. Baskında %30, kabuk dahil; 30 m içinde Gözcü Kulesi ×0,5; Mete'nin kesesi Hazine değildir (K48)"
+  },
+  "felt_yard": {
+   "tr": "Keçe Avlusu",
+   "en": "Felting Yard",
+   "cat": "work",
+   "plot": "work",
+   "tier": 1,
+   "place": "hold",
+   "def": "yard",
+   "preset": "felt_yard",
+   "footprint": {
+    "w": 14,
+    "d": 10
+   },
+   "station": "felt_yard",
+   "upkeep": {
+    "reed": 2,
+    "rope": 1
+   },
+   "labourWd": 0.5,
+   "labourSrc": "K21",
+   "bom": {
+    "chiy": 1,
+    "tag:wood": 4,
+    "rope": 4,
+    "felt": 2
+   },
+   "bomSrc": "K24"
+  },
+  "tannery": {
+   "tr": "Sepi Yeri",
+   "en": "Tannery",
+   "cat": "work",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "yard",
+   "preset": "tannery",
+   "footprint": {
+    "w": 10,
+    "d": 8
+   },
+   "station": "tannery",
+   "upkeep": {
+    "reed": 2,
+    "rope": 1
+   },
+   "labourWd": 0.4,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 6,
+    "rope": 4,
+    "stone": 2,
+    "pot": 1,
+    "reed": 4
+   },
+   "bomSrc": "K24",
+   "prereq": [
+    "water<=100"
+   ]
+  },
+  "wood_shop": {
+   "tr": "Ağaç Atölyesi",
+   "en": "Woodshop",
+   "cat": "work",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "shed",
+   "preset": "open",
+   "footprint": {
+    "w": 12,
+    "d": 8
+   },
+   "station": "wood_shop",
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 0.8,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 12,
+    "rope": 4,
+    "iron_bar": 1,
+    "reed": 8
+   },
+   "bomSrc": "K24",
+   "note": "K52: Oba'da açılır; kartı Ocak'ta kademe kilidiyle görünür; dülger Ruodi atölyeyi Oba açılınca kurar. Yanında Araba Yeri (K57)."
+  },
+  "smithy": {
+   "tr": "Demirci Ocağı",
+   "en": "Smithy",
+   "cat": "work",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "mound",
+   "preset": "smithy",
+   "footprint": {
+    "w": 8,
+    "d": 6
+   },
+   "station": "smithy",
+   "upkeep": {
+    "clay": 2
+   },
+   "labourWd": 1.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 8,
+    "clay": 6,
+    "leather": 2,
+    "tag:wood": 6,
+    "iron_bar": 1,
+    "reed": 6
+   },
+   "bomSrc": "K24",
+   "bomAlt": {
+    "replace": {
+     "iron_bar": 1
+    },
+    "with": {
+     "iron_scrap": 4
+    },
+    "note": "körük demiri: ilk ocak hurdayla kurulabilir (V1)"
+   }
+  },
+  "kiln": {
+   "tr": "Fırın",
+   "en": "Kiln",
+   "cat": "work",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "mound",
+   "preset": "kiln",
+   "footprint": {
+    "r": 2.5
+   },
+   "station": "kiln",
+   "upkeep": {
+    "clay": 2
+   },
+   "labourWd": 0.6,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "clay": 8
+   },
+   "bomSrc": "K24"
+  },
+  "fletchery": {
+   "tr": "Okçu Yurdu",
+   "en": "Fletcher's Yurt",
+   "cat": "work",
+   "plot": "work",
+   "tier": 3,
+   "place": "both",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "silah",
+   "footprint": {
+    "r": 7.05
+   },
+   "station": "fletchery",
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1.2,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "tag:wood": 4
+   },
+   "bomSrc": "K24",
+   "note": "Ordugâhta Binlik (yaycı III'te gelir; doğrulama V1)"
+  },
+  "field": {
+   "tr": "Darı Tarlası",
+   "en": "Millet Field",
+   "cat": "line",
+   "plot": "field",
+   "tier": 5,
+   "place": "hold",
+   "def": "field",
+   "footprint": {
+    "w": 50,
+    "d": 40
+   },
+   "labourWd": 0.5,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 2,
+    "branch": 10
+   },
+   "bomSrc": "K24",
+   "prereq": [
+    "path==walled"
+   ],
+   "yield": {
+    "millet": 500,
+    "per": "season",
+    "toStore": "granary, kayıpsız"
+   },
+   "seasonWorkIG": 1,
+   "sow": "10–31 Mayıs",
+   "harvest": "1–20 Eylül",
+   "seasonWork": {
+    "spring": 0.5,
+    "autumn": 0.5
+   },
+   "workBy": "steward",
+   "firstHarvestAct": "VI",
+   "look": {
+    "1 Haziran 198": "yeşil",
+    "13 Şubat 192": "karlı ve boş",
+    "4 Haziran 176": "yeşil",
+    "9 Eylül 174": "sarı"
+   },
+   "fieldSrc": "K54"
+  },
+  "well": {
+   "tr": "Kuyu",
+   "en": "Well",
+   "cat": "work",
+   "plot": "dwell",
+   "tier": 4,
+   "place": "hold",
+   "def": "ring",
+   "preset": "well",
+   "footprint": {
+    "r": 1.5
+   },
+   "upkeep": {
+    "rope": 1
+   },
+   "labourWd": 1,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "tag:wood": 4,
+    "rope": 2,
+    "skin_bag": 1
+   },
+   "bomSrc": "K24",
+   "note": "hs_lee yerleşiminde kademe 2; 150 m su kuralı"
+  },
+  "gathering_ground": {
+   "tr": "Toy Alanı",
+   "en": "Gathering Ground",
+   "cat": "work",
+   "plot": "core",
+   "tier": 3,
+   "place": "hold",
+   "def": "ring",
+   "preset": "gathering",
+   "footprint": {
+    "r": 18
+   },
+   "upkeep": {
+    "felt": 1
+   },
+   "labourWd": 0.4,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 8,
+    "tag:wood": 12,
+    "felt": 4,
+    "dye": 2
+   },
+   "bomSrc": "K24"
+  },
+  "sky_pole": {
+   "tr": "Gök Direği",
+   "en": "Sky Pole",
+   "cat": "small",
+   "plot": "sacred",
+   "tier": 3,
+   "place": "hold",
+   "def": "ring",
+   "preset": "sky_pole",
+   "footprint": {
+    "r": 4,
+    "h": 12
+   },
+   "upkeep": {
+    "felt": 1
+   },
+   "labourWd": 0.6,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "stone": 12,
+    "tag:wood": 2,
+    "felt": 2,
+    "dye": 1,
+    "rope": 2
+   },
+   "bomSrc": "K24",
+   "new": true,
+   "prereq": [
+    "otag"
+   ]
+  },
+  "banner_pole": {
+   "tr": "Sancak Direği",
+   "en": "Banner Pole",
+   "cat": "small",
+   "plot": "core",
+   "tier": 1,
+   "place": "both",
+   "def": "post",
+   "preset": "banner",
+   "footprint": {
+    "r": 0.5,
+    "h": 10
+   },
+   "upkeep": {
+    "felt": 0.25
+   },
+   "labourWd": 0.0278,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "tag:wood": 2,
+    "felt": 1,
+    "dye": 1,
+    "rope": 2
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "yıldırım adayı: ≈9 m içindeki yurtları korur (weather.md §8.7); 40 İD, iki el"
+  },
+  "lantern_post": {
+   "tr": "Fener Direği",
+   "en": "Lantern Post",
+   "cat": "small",
+   "plot": "dwell",
+   "tier": 1,
+   "place": "hold",
+   "def": "post",
+   "preset": "lantern",
+   "footprint": {
+    "r": 0.5
+   },
+   "labourWd": 0.007,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "tag:wood": 1,
+    "rope": 1,
+    "lamp_oil": 1
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "8 m gece ışığı; 3 gecede 1 lamp_oil"
+  },
+  "barter_ground": {
+   "tr": "Takas Yeri",
+   "en": "Barter Ground",
+   "cat": "work",
+   "plot": "work",
+   "tier": 3,
+   "place": "hold",
+   "def": "yard",
+   "preset": "barter",
+   "footprint": {
+    "w": 16,
+    "d": 12
+   },
+   "labourWd": 0.5,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "tag:wood": 8,
+    "felt": 4,
+    "rope": 4
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "Hun gezgini kabuğu tam alır (cowrieK 1), üstü verir, kesesi şafakta 30 kabuğa dolar (K48)",
+   "vendor": {
+    "id": "vendor_barter_ground",
+    "kind": "hun",
+    "acts": [
+     "III",
+     "IV",
+     "V"
+    ],
+    "everyDays": {
+     "III": 3,
+     "IV": 2,
+     "V": 3
+    },
+    "dawnStock": {
+     "salt": 4,
+     "lamp_oil": 6,
+     "sinew": 6,
+     "glue": 6,
+     "birch_bark": 10,
+     "bronze_scrap": 2
+    },
+    "stockWorth": 120,
+    "stockWorthSum": "32 + 18 + 24 + 12 + 10 + 24",
+    "wants": [
+     "felt",
+     "wool",
+     "hide",
+     "horn",
+     "qurt",
+     "dried_meat",
+     "fur_*"
+    ],
+    "sellsWants": false,
+    "cowrieK": 1,
+    "change": true,
+    "purse": 30,
+    "purseRule": "şafak stoğunun Kıymet'inin dörtte biri: 120 ÷ 4 = 30 kabuk (economy.md §9.5, K48)",
+    "note": "Stok III–V'te gereken ve pazarcıda olmayan küçük maldır: Kandil Yağı, yay için sinir ve tutkal, tündük ve kap için huş kabuğu, temren ve kabuk için tunç hurda; tuz pazarcıyla ortak tek maldır. Satıcının sahibi economy.md §9.5 ve econ-model.json vendors'tır; burada yerleşimin okuduğu yüzü",
+    "src": "K81"
+   }
+  },
+  "watch_tower": {
+   "tr": "Gözcü Kulesi",
+   "en": "Watchtower",
+   "cat": "work",
+   "plot": "edge",
+   "tier": 3,
+   "place": "both",
+   "def": "tower",
+   "footprint": {
+    "r": 2.4,
+    "h": 7
+   },
+   "upkeep": {
+    "tag:wood": 2,
+    "reed": 2,
+    "wd": 0.05
+   },
+   "labourWd": 1.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 4,
+    "tag:wood": 20,
+    "rope": 4,
+    "hide": 2
+   },
+   "bomSrc": "K24"
+  },
+  "outpost": {
+   "tr": "Gözcü Konağı",
+   "en": "Watch Post",
+   "cat": "small",
+   "plot": "edge",
+   "tier": 3,
+   "place": "both",
+   "def": "tent+tower",
+   "preset": "low",
+   "footprint": {
+    "w": 8,
+    "d": 6
+   },
+   "labourWd": 0.4,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "tag:wood": 8,
+    "pole": 2,
+    "rope": 4,
+    "felt": 3
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "note": "甌脫; görüş 400 m"
+  },
+  "rampart": {
+   "tr": "Sur ve Hendek",
+   "en": "Rampart and Ditch",
+   "cat": "line",
+   "plot": "wall",
+   "tier": 5,
+   "place": "hold",
+   "def": "mound",
+   "preset": "rampart",
+   "footprint": {
+    "line": 10,
+    "band": 4
+   },
+   "upkeep": {
+    "wd": 0.02
+   },
+   "labourWd": 0.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 2,
+    "tag:wood": 16,
+    "branch": 10
+   },
+   "bomSrc": "K52",
+   "prereq": [
+    "path==walled"
+   ],
+   "note": "K52: odun 4 → 16; 40 parça 640 odun; econ-model.json v3 structures.rampart da tag:wood 16'dır (eski «econ-model güncellenene dek eski odunla sayar» notu kalktı)"
+  },
+  "rampart_gate": {
+   "tr": "Sur Kapısı",
+   "en": "Rampart Gate",
+   "cat": "work",
+   "plot": "wall",
+   "tier": 5,
+   "place": "hold",
+   "def": "tower",
+   "preset": "gate",
+   "footprint": {
+    "w": 6,
+    "d": 6
+   },
+   "labourWd": 1.5,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "stone": 6,
+    "tag:wood": 24,
+    "rope": 4,
+    "iron_bar": 2
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "prereq": [
+    "path==walled"
+   ]
+  },
+  "cmd_yurt": {
+   "tr": "Buyruk Yurdu",
+   "en": "Command Yurt",
+   "cat": "home",
+   "plot": "camp",
+   "tier": 2,
+   "place": "camp",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "silah",
+   "footprint": {
+    "r": 7.05
+   },
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "ember": 1
+   },
+   "bomSrc": "K24"
+  },
+  "training_ground": {
+   "tr": "Talim Alanı",
+   "en": "Training Ground",
+   "cat": "work",
+   "plot": "drill",
+   "tier": 1,
+   "place": "camp",
+   "def": "yard",
+   "preset": "training",
+   "footprint": {
+    "w": 60,
+    "d": 30
+   },
+   "labourWd": 0.6,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 8,
+    "straw": 4,
+    "hide": 4,
+    "rope": 2
+   },
+   "bomSrc": "K24"
+  },
+  "supply_depot": {
+   "tr": "Erzak Ambarı",
+   "en": "Supply Depot",
+   "cat": "store",
+   "plot": "camp",
+   "tier": 2,
+   "place": "camp",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "ambar",
+   "footprint": {
+    "r": 7.05,
+    "platform": [
+     6,
+     4
+    ]
+   },
+   "capYuk": 600,
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1.5,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 8,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "tag:wood": 8
+   },
+   "bomSrc": "K24",
+   "note": "Yük Düzeni (ambar) + seki (K51)"
+  },
+  "armoury": {
+   "tr": "Silahlık",
+   "en": "Armoury",
+   "cat": "store",
+   "plot": "camp",
+   "tier": 2,
+   "place": "camp",
+   "def": "yurt",
+   "preset": "winter",
+   "size": "m",
+   "layout": "silah",
+   "footprint": {
+    "r": 7.05
+   },
+   "capYuk": 200,
+   "upkeep": {
+    "felt": 1,
+    "rope": 1,
+    "wd": 0.05
+   },
+   "labourWd": 1.2,
+   "labourSrc": "K21",
+   "bom": {
+    "stone": 6,
+    "door_frame": 1,
+    "kerege_set": 1,
+    "rope": 6,
+    "yurt_crown": 1,
+    "pole": 2,
+    "uuk_set": 1,
+    "chiy": 1,
+    "felt": 6,
+    "tag:wood": 6
+   },
+   "bomSrc": "K24"
+  },
+  "palisade": {
+   "tr": "Çit Halkası",
+   "en": "Palisade",
+   "cat": "line",
+   "plot": "camp",
+   "tier": 3,
+   "place": "camp",
+   "def": "fence",
+   "preset": "stockade",
+   "footprint": {
+    "line": 10
+   },
+   "upkeep": {
+    "tag:wood": 1
+   },
+   "labourWd": 0.1,
+   "labourSrc": "K21",
+   "bom": {
+    "tag:wood": 8,
+    "rope": 1
+   },
+   "bomSrc": "K24"
+  },
+  "cart_felt": {
+   "tr": "Keçe Araba",
+   "en": "Felt Cart",
+   "cat": "vehicle",
+   "plot": "work",
+   "tier": 2,
+   "place": "hold",
+   "def": "cart",
+   "capYuk": 60,
+   "labourWd": 0.4,
+   "labourSrc": "K21",
+   "bom": {
+    "wheel_pair": 1,
+    "tag:wood": 10,
+    "felt": 4,
+    "iron_bar": 2,
+    "rope": 2
+   },
+   "bomSrc": "K24",
+   "pull": {
+    "horse": 1
+   },
+   "card": "cart",
+   "yard": "cart_yard"
+  },
+  "cart_high": {
+   "tr": "Yüksek Teker",
+   "en": "High-Wheeled Cart",
+   "cat": "vehicle",
+   "plot": "work",
+   "tier": 3,
+   "place": "hold",
+   "def": "cart",
+   "capYuk": 80,
+   "labourWd": 0.6,
+   "labourSrc": "K21",
+   "bom": {
+    "wheel_pair": 1,
+    "tag:wood": 14,
+    "felt": 6,
+    "iron_bar": 4,
+    "rope": 2
+   },
+   "bomSrc": "K24",
+   "pull": {
+    "horse": 2
+   },
+   "card": "cart",
+   "yard": "cart_yard"
+  },
+  "cart_war": {
+   "tr": "Ordu Arabası",
+   "en": "Army Wagon",
+   "cat": "vehicle",
+   "plot": "work",
+   "tier": 4,
+   "place": "hold",
+   "def": "cart",
+   "capYuk": 140,
+   "labourWd": 1,
+   "labourSrc": "K21",
+   "bom": {
+    "wheel_pair": 2,
+    "tag:wood": 20,
+    "felt": 8,
+    "iron_bar": 6,
+    "rope": 4
+   },
+   "bomSrc": "K24",
+   "pull": {
+    "horse": 4
+   },
+   "card": "cart",
+   "yard": "cart_yard"
+  },
+  "wagon_felt": {
+   "tr": "Keçe Göç Arabası",
+   "en": "Felt House Wagon",
+   "cat": "vehicle",
+   "plot": "work",
+   "tier": 5,
+   "place": "hold",
+   "def": "cart",
+   "preset": "wagon4w",
+   "capYuk": 120,
+   "labourWd": 1.2,
+   "labourSrc": "labour-model.json v3 settlement (K21, K50; † bu alanın önerisiydi)",
+   "bom": {
+    "wheel_pair": 2,
+    "tag:wood": 24,
+    "felt": 10,
+    "iron_bar": 4,
+    "rope": 6
+   },
+   "bomSrc": "econ-model.json v3 structures (K24; † bu alanın önerisiydi)",
+   "new": true,
+   "prereq": [
+    "path==moving"
+   ],
+   "pull": {
+    "cattle": 4
+   },
+   "card": "cart",
+   "yard": "cart_yard"
+  }
+ },
+ "placement": {
+  "slopeMaxDeg": {
+   "pad": 6,
+   "wood_yard": 9,
+   "line_segment": 15,
+   "tent_qiang": 12
+  },
+  "padKinds": [
+   "yurt_small",
+   "yurt",
+   "otag",
+   "beg_otag",
+   "envoy_yurt",
+   "healer_yurt",
+   "store_yurt",
+   "cmd_yurt",
+   "fletchery",
+   "armoury",
+   "supply_depot",
+   "pit_house"
+  ],
+  "padKindsHold": [
+   "tent",
+   "hut"
+  ],
+  "homeKinds": [
+   "yurt_small",
+   "yurt",
+   "otag",
+   "beg_otag",
+   "tent",
+   "hut",
+   "pit_house"
+  ],
+  "homeKindsMoving": [
+   "wagon_felt"
+  ],
+  "notInPlanMode": [
+   "tent_qiang"
+  ],
+  "kindsSrc": "K57: padKinds eğim ≤6° (bütün yurt gövdeleri ve çukur ev; yerleşimde tent, hut); homeKinds su ≤150 m, taşkın uyarısı, Gönül (içinde hane yatanlar; Göçer Avlu'da wagon_felt)",
+  "waterMaxM": 150,
+  "waterPenaltyGonulPerDay": -0.3,
+  "fireGapHardM": 4,
+  "fireGapWarnM": 8,
+  "downwind": {
+   "kinds": [
+    "smithy",
+    "kiln",
+    "tannery"
+   ],
+   "minDwellM": 40,
+   "arcDeg": 60,
+   "gonulPerDay": -0.2
+  },
+  "door": {
+   "yurtDeg": 120,
+   "yurtTolDeg": 45,
+   "otagDeg": 90,
+   "otagTolDeg": 10,
+   "tunghuDeg": 90,
+   "tunghuTolDeg": 10
+  },
+  "roadClearM": 3,
+  "connectivity": "hearth, her kapı ve iki zon kapısı tek bileşen",
+  "limits": {
+   "records": 160,
+   "live": 48,
+   "lineRecords": "polyline",
+   "note": "çit, ağıl, at hattı, sur, çit halkası çoklu çizgi ve parça sayısıyla tek kayıt"
+  },
+  "plots": {
+   "core": [
+    0,
+    40
+   ],
+   "dwell": [
+    40,
+    200
+   ],
+   "work": [
+    100,
+    280
+   ],
+   "pen": [
+    150,
+    400
+   ],
+   "edge": "zon kenarına ≤60 m"
+  },
+  "slopeNote": "pad: normal.y ≥ 0,9945; ped ölçekle büyür, sınır üç boyda da 6° (r 9,9'da ≈1,04 m, r 4,9'da ≈0,51 m). tent_qiang Plan Kipi'nde yoktur, yazarın koyduğu yerde ≤12°, yokuş yeğlenir (K57)",
+  "cartYard": {
+   "plot": "work",
+   "maxFromWoodShopM": 30,
+   "pad": [
+    6,
+    12
+   ],
+   "isStructure": false,
+   "src": "K57"
+  }
+ },
+ "households": {
+  "size": {
+   "adult": 2,
+   "youth": 1,
+   "elder": 1,
+   "child": 1
+  },
+  "rationsPerDay": 4.3,
+  "weight": 2.75,
+  "herdersPer": 0.647,
+  "roles": {
+   "adult": "hand",
+   "youth": "apprentice",
+   "elder": "craft_only",
+   "child": "none"
+  },
+  "pull": {
+   "formula": "base(tier) × (1 + 0.03·kut + 0.015·korku) × foodK × roomK × gonulK × warK",
+   "foodK": {
+    ">=15": 1,
+    "5-15": 0.5,
+    "<5": 0
+   },
+   "gonulK": {
+    ">=70": 1.25,
+    "<40": 0.5
+   },
+   "warK": 0.5,
+   "arriveDays": [
+    0.5,
+    1.5
+   ],
+   "perActMax": {
+    "II": 3,
+    "III": 4,
+    "IV": 6,
+    "V": 8,
+    "VI": 10
+   },
+   "presentOnly": "önceki gün Mete yerleşimde ya da ordugâhta ≥1 oyun saati uyanık",
+   "warKWhen": "akın penceresi açık ve yerleşime perde tavanı dolmamış (K55)",
+   "freeRoamKeepsActCap": true
+  },
+  "sources": {
+   "hh_story": {
+    "act": 2,
+    "n": 3,
+    "origin": [
+     "xiongnu",
+     "fugitive"
+    ],
+    "kit": 0,
+    "tent": 0,
+    "ask": 1,
+    "herdLu": 4,
+    "gonul": 70,
+    "brings": [
+     "cr_carpenter"
+    ],
+    "note": "Üç hane: onluk eri Şiuşun'un ailesi, dülger Ruodi'nin hanesi (cr_carpenter), Lan Hatun'un hanesi (Kâhya II–IV; Moyan bu hanededir, Ambarcı önce Tola'dır: tola_lives ise Tola, değilse Moyan; story.md §14.1). İsteyen Hane kartını öğretir (sq2_first_yurts); «Bekleyin»de gitmez (story.md §11.1, K37, K53)"
+   },
+   "hh_saved": {
+    "act": 2,
+    "n": [
+     0,
+     2
+    ],
+    "origin": "fugitive",
+    "kit": 0,
+    "tent": 0,
+    "ask": 1,
+    "herdLu": 0,
+    "gonul": 65
+   },
+   "pull": {
+    "kit": 0.6,
+    "tent": 0.25,
+    "ask": 0.15,
+    "herdLu": 18,
+    "gonul": "clamp(50 + 2·kut − korku, 25, 80)"
+   },
+   "court_move": {
+    "act": 3,
+    "n": 8,
+    "origin": "xiongnu",
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 45
+   },
+   "gift": {
+    "act": 4,
+    "n": [
+     2,
+     4
+    ],
+    "delayDays": 3,
+    "costWorth": 200,
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 60,
+    "maxLineages": 3,
+    "silkBoltWorthK": 1.5
+   },
+   "choose": {
+    "share": "clamp(0.15 + 0.02·kut + 0.015·korku, 0.1, 0.6)",
+    "fearShare": "korku / (kut + korku + 1)",
+    "kit": 0.3,
+    "tent": 0.4,
+    "ask": 0.3,
+    "herdK": 0.5,
+    "gonul": 40,
+    "gonulFear": 30,
+    "perAct": {
+     "III": [
+      2,
+      6
+     ],
+     "IV": [
+      3,
+      6
+     ],
+     "V": [
+      4,
+      8
+     ]
+    }
+   },
+   "refugees": {
+    "n": [
+     1,
+     2
+    ],
+    "kit": 0,
+    "tent": 0.5,
+    "ask": 0.5,
+    "herdLu": 0,
+    "gonul": 70,
+    "cost": {
+     "@ration": 2
+    }
+   },
+   "defectors": {
+    "act": 5,
+    "n": [
+     6,
+     12
+    ],
+    "origin": "han",
+    "kit": 0,
+    "tent": 0,
+    "ask": 1,
+    "herdLu": 0,
+    "gonul": 50,
+    "brings": [
+     "cr_earth",
+     "farming"
+    ],
+    "askOption": "pit_house"
+   },
+   "heqin": {
+    "act": 5,
+    "n": [
+     1,
+     2
+    ],
+    "origin": "han",
+    "gonul": 50,
+    "kit": 0,
+    "tent": 0,
+    "ask": 1
+   },
+   "oba_wave": {
+    "act": 2,
+    "quest": "mq2_oba",
+    "n": 4,
+    "origin": "xiongnu",
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 55,
+    "brings": [
+     "cr_smith"
+    ],
+    "note": "Demirci Dutu (story.md §14.2)"
+   },
+   "loufan_baiyang": {
+    "act": 4,
+    "n": [
+     6,
+     10
+    ],
+    "origin": "ordos",
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 50
+   },
+   "court_gathering": {
+    "act": 5,
+    "n": [
+     8,
+     12
+    ],
+    "origin": "xiongnu",
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 55,
+    "calendar": false,
+    "after": "baideng",
+    "note": "Takvimsiz Avlu Toplantısı; Kış Toplantısı (1. ay) Kronik'in içindedir (V16)",
+    "beyHousehold": "otag_kit"
+   },
+   "kurultay": {
+    "act": 6,
+    "n": [
+     2,
+     4
+    ],
+    "origin": "xiongnu",
+    "kit": 1,
+    "tent": 0,
+    "ask": 0,
+    "herdLu": 18,
+    "gonul": 60,
+    "beyHousehold": "otag_kit"
+   }
+  },
+  "gonul": {
+   "foodOk": 0.3,
+   "foodLow": -1,
+   "famine": -3,
+   "tentAfter3d": -0.5,
+   "water": -0.3,
+   "smoke": -0.2,
+   "toy": 6,
+   "musterWinter": 5,
+   "bootyShare": [
+    2,
+    5
+   ],
+   "raid": -6,
+   "harshJudgement": -3,
+   "meteVisit10d": 1,
+   "levyAfter10d": -0.2,
+   "idleChores": 0.05,
+   "nightWork": -0.2,
+   "effects": {
+    "<25": "leave candidate",
+    "<40": 0.85,
+    ">=70": 1.1
+   },
+   "raidRepelled": 1,
+   "toyWithCowrie": 8,
+   "fifthMonthOffering": 3
+  },
+  "leave": {
+   "gonulBelow25": 0.03,
+   "famineExtra": 0.05,
+   "korku14kutBelow4": 2,
+   "kutAtLeast14": "famine only",
+   "dismantleWd": 0.35,
+   "storyGraceDawns": 5,
+   "storySources": [
+    "hh_story",
+    "oba_wave"
+   ]
+  },
+  "levy": {
+   "perHousehold": 1,
+   "weightLoss": 1,
+   "gonulAfter10d": -0.2
+  },
+  "armyDetailPerTier": {
+   "T1": 5,
+   "T2": 15,
+   "T3": 20,
+   "T4": 30,
+   "T5": 50
+  },
+  "openingFloor": {
+   "III": 10,
+   "IV": 22,
+   "V": 45,
+   "VI": 80,
+   "src": "K25 Kronik"
+  },
+  "expectedKits": {
+   "T1": 1,
+   "T2": 6,
+   "T3": 12,
+   "T4": 22,
+   "T5": 17,
+   "note": "kademe süresince gelen hazır yurt yükü (beklenen): dalgalar × kit payı + Çekim tavanı × 0,6; T1 Teoman'ın armağanı (Mete'nin yurdu)"
+  },
+  "gift_teoman": {
+   "act": 2,
+   "kit": 1,
+   "cart": "cart_felt",
+   "herd": {
+    "sheep": 60,
+    "goat": 10,
+    "horse": 16,
+    "cattle": 4
+   },
+   "herdLu": 30.2,
+   "wool": 60,
+   "iron_bar": 6,
+   "provisions": {
+    "millet": 400,
+    "dried_meat": 30,
+    "rations": 217,
+    "daysOfT1": 15.6
+   },
+   "carriers": {
+    "cart_felt": "yurt_kit 59/60 Yük",
+    "packHorses": 3,
+    "packYuk": 85,
+    "packHorseYuk": 30
+   },
+   "src": "d2/core.md §4.2 (doğrulama V1, V2)",
+   "purseCowrie": 24,
+   "purseNote": "Mete'nin kesesi (economy bloğu), yerleşimin ambarı değil (K48)"
+  },
+  "nightShift": {
+   "construction": {
+    "gonul": 0,
+    "torchPerDarkHours": 4
+   },
+   "production": {
+    "gonulPerNight": -0.2
+   }
+  },
+  "elder": {
+   "site": true,
+   "lead": true,
+   "herd": false,
+   "guard": false,
+   "src": "K21"
+  },
+  "arrival": {
+   "provisionDays": 5,
+   "rationsPerHousehold": 22,
+   "woolClipShare": 0.5,
+   "woolPerHouseholdSummer": 18,
+   "src": "d2/core.md §4.4 (V1, V2)",
+   "brings": "çadır, yurt yükü ya da yalnız azık (K53; d2/core.md §4.4'ün cümlesi değişti)",
+   "selfRaise": {
+    "hands": 3,
+    "minutes": 33.75,
+    "src": "K50"
+   }
+  },
+  "kindRule": {
+   "rule": "kesirli sayaç, rastgele yok (K53, bozkir-ekonomi.md öneri 12): her gelen hanede kaynağın kit / tent / ask payı üç sayaca eklenir, en büyük sayacın türü gelir ve o sayaçtan 1 düşer; eşitlikte kit, sonra tent",
+   "styleCarried": "gelen yurt ve çadır kendi milletinin görünüşünü taşır: III tunghu, IV yuezhi, loufan, baiyang, V han (K51)"
+  },
+  "expectedKinds": {
+   "kit": {
+    "II": 5.8,
+    "III": 11.6,
+    "IV": 22,
+    "V": 16.6,
+    "VI": 9
+   },
+   "tent": {
+    "II": 0.8,
+    "III": 3.4,
+    "IV": 3.3,
+    "V": 4.4,
+    "VI": 2.5
+   },
+   "ask": {
+    "II": 4,
+    "III": 2.5,
+    "IV": 2.2,
+    "V": 13.5,
+    "VI": 1.5
+   },
+   "note": "perde başına beklenen; II yurtlusuna Mete'nin yurdu ayrıca eklenir; expectedKits ve kademe günleri değişmez; V'in isteyeni Surlu'nun 12 yarı gömük evine denk",
+   "src": "bozkir-ekonomi.md öneri 12"
+  },
+  "asking": {
+   "card": {
+    "tr": "{n} hane barınak istiyor.",
+    "en": "{n} households ask for shelter."
+   },
+   "options": {
+    "tent": {
+     "tr": "Çadır ver",
+     "en": "Give a tent",
+     "cost": {
+      "tent_kit": 1
+     },
+     "gonulStart": 8,
+     "note": "hane konutta sayılır, çadır kuralı sürer"
+    },
+    "yurt": {
+     "tr": "Yurt ver",
+     "en": "Give a yurt",
+     "cost": {
+      "yurt_kit": 1
+     },
+     "gonulStart": 15
+    },
+    "pit_house": {
+     "tr": "Yarı gömük ev kur",
+     "en": "Raise a pit house",
+     "path": "walled",
+     "site": true,
+     "gonulStart": 10,
+     "note": "kurulana dek çadırda"
+    },
+    "wait": {
+     "tr": "Bekleyin",
+     "en": "Wait",
+     "gonulPerDay": -1,
+     "leaveAfterDays": 3,
+     "storyStays": true
+    }
+   },
+   "stewardOrder": {
+    "tent_kit": "keep_to:2",
+    "fromTier": "T2",
+    "note": "ambarda varsa Kâhya kendiliğinden verir, kart çıkmaz"
+   },
+   "firstCard": "hh_story (sq2_first_yurts); T1 bileşimindeki 2 çadır bunlar içindir",
+   "src": "K53"
+  },
+  "caravan": {
+   "load": {
+    "kit": 70,
+    "tent": 27,
+    "ask": 2.2,
+    "beyKit": 109,
+    "note": "ev + 18 yün (≈9 Yük) + 5 günlük azık (2,2 Yük)"
+   },
+   "animals": {
+    "kit_horse": {
+     "pack_horse": 3
+    },
+    "kit_camel": {
+     "pack_camel": 1,
+     "pack_horse": 1,
+     "every": "iki hanede bir"
+    },
+    "kit_gobi_ordos_hexi": {
+     "pack_camel": 2
+    },
+    "kit_cart": {
+     "cart_felt": 1,
+     "fromAct": "IV",
+     "share": 0.3
+    },
+    "ciang": {
+     "yak": 3
+    },
+    "bey": {
+     "pack_camel": 2,
+     "pack_horse": 1,
+     "or": {
+      "cart_war": 1
+     }
+    },
+    "tent": {
+     "pack_horse": 1
+    },
+    "ask": "yaya ya da tek at"
+   },
+   "joinHerd": true,
+   "unloadSec": 8,
+   "src": "fauna.md §2.3, K53"
+  },
+  "people": {
+   "steward": {
+    "II-IV": "Lan Hatun",
+    "V-VI": "Yimo"
+   },
+   "cr_carpenter": "Ruodi",
+   "cr_smith": "Dutu",
+   "m_quarter": "Moyan (önce Tola, tola_lives)",
+   "m_groom": "Şulü",
+   "cr_bowyer": "Yudan",
+   "m_custom": "Tuçi",
+   "cr_healer": "Dangyu",
+   "m_falconer": "Sungur",
+   "qianzhang_old": "Dulongçi",
+   "first_ten_rider": "Şiuşun",
+   "src": "story.md §14 (K37, K43)"
+  }
+ },
+ "steward": {
+  "order": [
+   "herd",
+   "guard",
+   "food>=15d",
+   "fodder(hayDays)",
+   "fuel>=10d",
+   "build",
+   "craft",
+   "haul"
+  ],
+  "guardPer": {
+   "peace": 8,
+   "war": 4,
+   "warActs": [
+    "III",
+    "IV",
+    "V"
+   ],
+   "warNote": "savaş mevsimi: yerleşime R > 0 olan perde (K55)"
+  },
+  "faces": {
+   "II-IV": "Lan Hatun",
+   "V-VI": "Yimo",
+   "src": "K43"
+  },
+  "spendsCowrie": false,
+  "fieldWork": true,
+  "tentKitKeepTo": 2,
+  "raidWarning": {
+   "tr": "Ay doluyor. Atları içeri alın.",
+   "en": "The moon is filling. Bring the horses in."
+  },
+  "crew": {
+   "rule": "fill_to_crewMax",
+   "tr": "el tavanına dek doldur, sonra sıradakine",
+   "caps": {
+    "yurt_small": 6,
+    "yurtlike": 8,
+    "otag": 12,
+    "beg_otag": 12,
+    "coefMax": 8,
+    "src": "labour-model.json v3 (settlement, defs, sizes); structures.md §2.4"
+   },
+   "overflow": "9.–12. eller malı ambardan taşır (Otağ, Bey Otağı)",
+   "next": "artan eller öncelik sırasındaki sonraki şantiyeye gider",
+   "playerLock": "şantiye başına + / −; oyuncu tek elli şantiyeleri çoğaltabilir",
+   "perHand": {
+    "3": 0.59,
+    "4": 0.59,
+    "6": 0.7,
+    "8": 0.94,
+    "src": "labour-model.json v3 crew.perHand"
+   },
+   "replaces": "econ-model.json params.typicalCrew (4): yalnız 2026-11-04 koşusunun girdisi olarak durur, econ-sim Kâhya kuralını benzetince silinir (Yol Haritası: econ-sim-run)",
+   "singleSiteDays": {
+    "T1": 0.9,
+    "T2": 2.9,
+    "T3": 5.3,
+    "T4": 8.6,
+    "T5_walled": 18.8,
+    "T5_moving": 10.6
+   },
+   "handDays": {
+    "T1": 5.4,
+    "T2": 17.7,
+    "T3": 33.6,
+    "T4": 51.7,
+    "T5_walled": 116,
+    "T5_moving": 66.4
+   },
+   "daysNote": "tiers.compose × labour-model.json v3 el tavanları; gün = İG ÷ k(el), el-gün = İG × el ÷ k(el), k(W) = (4/3)^(min(W, 8) − 1), şantiye günü k(W) × 24 İS (law.build.siteDay). Eski «4 el, tek şantiye eşdeğeri» K21 eff(4) = 3,44 ile 1,3 / 4,1 / 7,6 / 12,2 / 26,5 / 16,0 gündü; K50 k(4) = 2,37 ile 1,9 / 6,0 / 11,0 / 17,7 / 38,4 / 23,2 gün olurdu. Kademe günü econ-sim'in Kâhya kuralıyla koşusundan basılır (Yol Haritası: econ-sim-run)",
+   "src": "K80 (settlement.md §4.2, §6.2); aynı kural labour-model.json v3 law.stewardCrew"
+  }
+ },
+ "camps": {
+  "tiers": [
+   {
+    "id": "camp_onluk",
+    "tr": "Onluk Ateşi",
+    "en": "The Ten's Fire",
+    "withTier": "T1",
+    "residents": 10,
+    "tents": 2,
+    "lines": 1,
+    "buildings": [
+     "training_ground"
+    ]
+   },
+   {
+    "id": "camp_yuzluk",
+    "tr": "Yüzlük Kampı",
+    "en": "The Hundred's Camp",
+    "withTier": "T2",
+    "residents": 100,
+    "tents": 20,
+    "lines": 5,
+    "buildings": [
+     "cmd_yurt",
+     "supply_depot",
+     "armoury"
+    ]
+   },
+   {
+    "id": "camp_binlik",
+    "tr": "Binlik Ordugâhı",
+    "en": "The Thousand's Encampment",
+    "withTier": [
+     "T3",
+     "T4"
+    ],
+    "residents": [
+     200,
+     400
+    ],
+    "muster": 1000,
+    "tents": 80,
+    "lines": 20,
+    "buildings": [
+     "fletchery",
+     "cmd_yurt×10",
+     "healer_yurt",
+     "watch_tower×2",
+     "outpost"
+    ]
+   },
+   {
+    "id": "camp_tumen",
+    "tr": "Tümen Ordugâhı",
+    "en": "The Tumen Encampment",
+    "withTier": "T5",
+    "residents": 600,
+    "muster": [
+     3000,
+     10000
+    ],
+    "tents": 120,
+    "lines": 30
+   }
+  ],
+  "ridersPerTent": 5,
+  "firePer": 10,
+  "effects": {
+   "wetNightMorale": -2,
+   "fireMoralePerDay": 1,
+   "comfortLoyaltyPerDay": 0.3,
+   "comfortLoyaltyCap": 70,
+   "officerDrillPerDay": 0.4,
+   "officerDrillCap": 60,
+   "thunderScatter": {
+    "lined": 0.002,
+    "unlined": 0.02
+   },
+   "healerRecover": 0.15,
+   "baseRecover": 0.07,
+   "groomHorseFat": 1
+  },
+  "musterDaysMax": 3,
+  "note": "Yerleşik atlı K24 armyRations × 10 (d2/economy.md §7.3); toplantıda gelenler kendi çadırı ve 3 günlük azığıyla gelir",
+  "winter": {
+   "dispersal": 0.9,
+   "guardShare": 0.1,
+   "hayPerLineHorseDay": {
+    "fodder": 1,
+    "yuk": 2
+   },
+   "src": "d2/core.md §4.6",
+   "armyShareK": 0.1,
+   "automatic": true
+  },
+  "armyShare": {
+   "flat": 0.1,
+   "perTier": {
+    "T1": 1,
+    "T2": 10,
+    "T3": 20,
+    "T4": 40,
+    "T5": 60
+   },
+   "movingK": 1.1,
+   "musterBringsOwn": 3
+  },
+  "ridersBringTents": true
+ },
+ "caravans": {
+  "route": "r_whistle_ordu",
+  "from": "own_seat",
+  "to": "own_camp",
+  "every": 2,
+  "armyShare": 0.1,
+  "armySharePerTier": {
+   "T1": 1,
+   "T2": 10,
+   "T3": 20,
+   "T4": 40,
+   "T5": 60
+  },
+  "raid": {
+   "model": "travel.md §9.6 yol olayı: sefer başına %25, en çok 1; ev_raid payı",
+   "shareOfEvents": {
+    "II": 0,
+    "III": 0.3,
+    "IV": 0.2,
+    "V": 0.35,
+    "VI": 0
+   },
+   "repel": {
+    "none": 0,
+    "onluk": 0.6,
+    "yuzluk": 0.9
+   },
+   "outpostK": 0.25,
+   "lossUnprotected": 0.5,
+   "cartBroken": 1,
+   "shareNote": "VI 0 (2026-11-04, E6.4): kervan akını yol olayıdır, K55'in ay penceresine bağlı değildir, ama akıncısı settlement.md §15.4'ün perde satırıdır; VI'da akıncı yoktur (heqin; K55'te VI R 0, story.md §11.5). Eski 0,1'in akıncısı yoktu. Sefer başına: III ≈%7,5, IV %5, V ≈%8,75"
+  },
+  "roadCustom": {
+   "refugees": [
+    "share",
+    "pass"
+   ],
+   "wolves": [
+    "fire",
+    "drive"
+   ]
+  },
+  "weather": {
+   "lock": "fx.cartLock (weather.md §8.10)",
+   "waitHours": 6,
+   "then": "ertesi Tan",
+   "duration": "yol günü ÷ ortalama fx.cartK"
+  },
+  "arrows": {
+   "formula": "max(0, (newRiders × 24 + riders × 12 × 0.4 × battles − riders × 2 × days) / trips)",
+   "expectedPerTrip": {
+    "II": [
+     150,
+     350
+    ],
+    "III": [
+     250,
+     600
+    ],
+    "IV": [
+     250,
+     600
+    ],
+    "V": [
+     300,
+     600
+    ],
+    "VI": [
+     300,
+     600
+    ]
+   },
+   "featherPer": 5
+  },
+  "fromTier": "T2",
+  "rationRider": {
+   "tier": "T1",
+   "tr": "Azıkçı",
+   "en": "Ration Rider",
+   "every": 2,
+   "at": "dawn",
+   "rations": 2,
+   "yuk": 0.2,
+   "emptyMorale": -1,
+   "noCart": true,
+   "noDriver": true,
+   "noEscort": true,
+   "noOrder": true,
+   "noRoadEvent": true,
+   "ledgerLine": {
+    "tr": "Onluğun azığını bir atlı alır.",
+    "en": "A rider fetches the Ten's rations."
+   },
+   "note": "Ordu Payı değişmez (1 öğün/gün; economy.md §8.5 o satırda sütun «Azıkçı»); Teoman'ın arabası Mete'nindir, Ocak'ta kervana gitmez",
+   "src": "K54"
+  },
+  "vehicles": {
+   "cart_felt": 60,
+   "cart_high": 80,
+   "cart_war": 140,
+   "wagon_felt": 120,
+   "cart_ox": 60,
+   "pack_horse": 30,
+   "pack_camel": 60,
+   "pack_donkey": 20,
+   "pack_mule": 35,
+   "note": "Yük; pack_camel 30 → 60 (K65); bir keçe araba yerine bir deve konabilir: aynı 60 Yük, yolsuz, yavaş",
+   "src": "travel.md §3.2, fauna.md §2.2"
+  }
+ },
+ "raids": {
+  "rule": "K55: akın yalnız ay penceresinde; eski gün aralığı (8, 14, 12 günde bir) kalktı",
+  "moonGate": 0.97,
+  "moonGateNote": "moon_illum(day_n + 0,5) ≥ 0,97, ayda ≈3 gün (SJ 110 月盛壯則攻戰); ay time.md §2 formülünden",
+  "windows": {
+   "III": [
+    [
+     1693,
+     1695
+    ]
+   ],
+   "IV": [
+    [
+     2697,
+     2699
+    ],
+    [
+     3435,
+     3437
+    ]
+   ],
+   "V": [
+    [
+     4321,
+     4323
+    ]
+   ],
+   "V_after": [
+    [
+     4351,
+     4353
+    ]
+   ],
+   "note": "III 15–17 Eylül 208; IV 16–18 Haziran 205 ve 24–26 Haziran 203; V 27–29 Kasım 201 kuşatmaya düşer, akın yazılmaz; V bittikten sonra Serbest Dolaşım 27–29 Aralık 201. II'nin 1.222–1.223'ü açıktır ama R 0",
+   "src": "time.md §2 formülüyle betikte (2026-11-04); bozkir-ekonomi.md öneri 8"
+  },
+  "noRaidOn": {
+   "gatherings": [
+    "dailin",
+    "longcheng"
+   ],
+   "dayN": [
+    1694,
+    2698,
+    3436
+   ],
+   "note": "toplantı günü akın yazılmaz; akın pencerenin öteki gecesine düşer. 1.694 Dailin (16 Eylül 208), 2.698 Lung-çeng (17 Haziran 205), 3.436 Lung-çeng (25 Haziran 203; K55, K56, E6.4). VI'nın toplantı günleri (5.238, 13.270, 14.097) akınsız perdededir (R 0); IV'ün Ordos Dailin'i (3.525) akın penceresinin dışındadır"
+  },
+  "perActMax": {
+   "II": 0,
+   "III": 2,
+   "IV": 2,
+   "V": 1,
+   "VI": 0,
+   "note": "yerleşime perde tavanı; V'in tavanı perde bittikten sonra Serbest Dolaşım'da işler; Serbest Dolaşım bitmiş perdenin R'sini ve tavanını taşır; Kronik akın işlemez"
+  },
+  "expectedPerAct": {
+   "III": 1,
+   "IV": [
+    1,
+    2
+   ],
+   "V": 0,
+   "src": "oynanan takvimle (bozkir-ekonomi.md öneri 9)"
+  },
+  "perActDays": {
+   "II": null,
+   "III": 6,
+   "IV": 7,
+   "V": 12,
+   "VI": null
+  },
+  "_perActDaysNote": "K55 ile kalktı. Oyun okumaz. Prototipin tools/econ-sim.mjs'i kod değişene dek bu alanı okur (akın sayısı = actGameDays / perActDays; perActDays doluysa savaş perdesi): değerler actGameDays / perActMax'tan türetildi, sim perde başına en kötü akın sayısını sınar. Sim perActMax'ı okuyunca kalkar.",
+  "warActs": [
+   "III",
+   "IV",
+   "V"
+  ],
+  "defence": "guards × (1 + 0.5 × towers) + garrison",
+  "success": "R / (R + D)",
+  "target": "pencerede D'si küçük yer (yerleşim ya da ana ordugâh); eşitse yerleşim (HS 49 卒少則入)",
+  "seeded": "sonuç kaydın tohumundan çıkar: rastgele çekiliş yok, aynı kayıt aynı akını verir",
+  "walledK": 0.5,
+  "movingHerdLossK": 0.6,
+  "herdLossMax": 0.1,
+  "containerLoss": {
+   "store_yurt": 0.3,
+   "granary": 0.3,
+   "shed": 0.3,
+   "granary_tower": 0.1,
+   "grain_pit": {
+    "found": 0.5,
+    "loss": 0.3,
+    "accepts": [
+     "food",
+     "grain"
+    ]
+   },
+   "treasury": 0.3,
+   "treasuryTowerK": 0.5,
+   "hayShedFire": 1,
+   "treasuryIncludesCowrie": true
+  },
+  "storeLossK": {
+   "walled": 0.5,
+   "moving": 1,
+   "note": "beklenen ambar kaybı çarpanı: Surlu başarıyı ×0,5 yapar, Göçer ambara ×1"
+  },
+  "quartermasterK": 0.75,
+  "quartermasterNote": "Ambarcı (m_quarter) kap kaybını ×0,75 yapar, başarıya dokunmaz; Hazine, ot sundurması yangını ve sürü kaybı dışında; K24'ün ≤%10 sınaması Ambarcısız",
+  "strength": {
+   "II": 0,
+   "III": 6,
+   "IV": 10,
+   "V": 16,
+   "VI": 0,
+   "note": "R, yerleşim (K55)"
+  },
+  "strengthCamp": {
+   "II": 0,
+   "III": 4,
+   "IV": 6,
+   "V": null,
+   "VI": 0,
+   "rule": "⌈R × 0,6⌉; V'te ordugâh kışın dağınık"
+  },
+  "strengthEnds": {
+   "III": {
+    "donghu_land_won": 0
+   },
+   "IV": {
+    "yuezhi_driven": {
+     "hold": 6,
+     "camp": 4,
+     "date": "17 Haziran 205",
+     "dayN": 2698,
+     "quest": "mq4_west_road"
+    },
+    "ordos_joined": {
+     "hold": 0,
+     "camp": 0,
+     "date": "25 Haziran 203",
+     "dayN": 3436,
+     "quest": "mq4_longcheng",
+     "who": "Loufan ve Baiyang"
+    }
+   },
+   "V": {
+    "after_baideng": 8
+   }
+  },
+  "strengthEndsNote": "K55 (E6.4): sıra K33'ün takvimidir (story.md §2, Shiji 110 既歸，西擊走月氏，南并樓煩、白羊河南王): önce Yüeçi sürülür, sonra Loufan ve Baiyang katılır. Eski sıra (ordos_joined 6 / 4, yuezhi_driven 0) 24–26 Haziran 203 penceresini akınsız bırakıyordu. IV'ün akın geceleri: 16 Haziran 205 R 10 / 6; 18 Haziran 205 ve 24 Haziran 203 R 6 / 4; 26 Haziran 203 R 0. Anahtar sırası olayların sırasıdır: yuezhi_driven, sonra ordos_joined.",
+  "raiders": {
+   "III": "Tunghu atlıları",
+   "IV": "Yüeçi; Loufan, Baiyang",
+   "V": "Han sınır birliği"
+  },
+  "repelled": {
+   "gonul": 1,
+   "lootK": 0.6,
+   "lootDecision": "share",
+   "src": "K49, K55"
+  },
+  "fieldDamage": {
+   "months": "Haziran–Eylül",
+   "autumnCropLoss": 0.3,
+   "src": "K54"
+  },
+  "warning": {
+   "channels": [
+    "horn",
+    "toast",
+    "atlas"
+   ],
+   "secondsBefore": {
+    "outpost": 44,
+    "watch_tower": 33,
+    "dog": 20
+   },
+   "rule": "görüş ÷ at hızı (≈9 m/sn)",
+   "steward": {
+    "tr": "Ay doluyor. Atları içeri alın.",
+    "en": "The moon is filling. Bring the horses in."
+   }
+  },
+  "camp": {
+   "id": "camp_raid",
+   "tr": "Gece Akını",
+   "en": "Night Raid",
+   "acts": [
+    "III",
+    "IV"
+   ],
+   "perActMax": 1,
+   "campK": 0.6,
+   "target": "horse_line",
+   "guardsPerRiders": 10,
+   "towers": [
+    "watch_tower",
+    "outpost"
+   ],
+   "garrison": "ordugâhtaki atlı",
+   "emptyCampGuard": "Onluk",
+   "successExamples": {
+    "yuzluk_R6": 0.052,
+    "binlik200_R6": 0.024,
+    "binlik400_R6": 0.012,
+    "guardTen": [
+     0.25,
+     0.35
+    ]
+   },
+   "fight": {
+    "maxRiders": 6,
+    "breakAfterFallen": 3,
+    "breakAfterSec": 45
+   },
+   "repelled": {
+    "present": {
+     "morale": 2,
+     "loyalty": 1
+    },
+    "away": {
+     "morale": 1
+    }
+   },
+   "success": {
+    "horsesPerRaider": 1,
+    "recallSec": 60,
+    "recall": "horse_call",
+    "morale": -2
+   },
+   "cards": {
+    "repelled": {
+     "tr": "Gece akıncılar at hattına geldi. Nöbet püskürttü.",
+     "en": "Riders came for the horse line in the night. The watch drove them off."
+    },
+    "success": {
+     "tr": "Bekçiler yetişemedi: {n} at gitti.",
+     "en": "The watch came too late: {n} horses are gone."
+    }
+   },
+   "exclude": [
+    "field_camp"
+   ],
+   "src": "K55, bozkir-ekonomi.md öneri 8"
+  },
+  "containerLossSrc": "d2/core.md §4.8 (tek kural)",
+  "garrison": "zondaki İş Kolu erleri (households.armyDetailPerTier) + Mete zondaysa birliğinin gücü",
+  "expectedActLoss": {
+   "perRaid": {
+    "III": 0.039,
+    "IV": 0.034,
+    "V": {
+     "walled": 0.013,
+     "moving": 0.028
+    }
+   },
+   "perRaidQuartermaster": {
+    "III": 0.03,
+    "IV": 0.026,
+    "V": {
+     "walled": 0.01,
+     "moving": 0.021
+    }
+   },
+   "unguardedPerRaid": {
+    "III": 0.105,
+    "IV": 0.068,
+    "V": {
+     "walled": 0.021,
+     "moving": 0.048
+    }
+   },
+   "actWorstCase": {
+    "III": 0.079,
+    "IV": 0.069,
+    "V": {
+     "walled": 0.013,
+     "moving": 0.028
+    }
+   },
+   "D": {
+    "III": 26,
+    "IV": 50.9,
+    "V": {
+     "walled": 112.5,
+     "moving": 104.7
+    }
+   },
+   "note": "kayıp = başarı × %30 × 0,7; perde en kötüsü = tek akın × perActMax; garnizonsuz hedefe sayılmaz (V6)",
+   "src": "bozkir-ekonomi.md öneri 9; D econ-sim (2026-11-04)",
+   "ivOrderK55": {
+    "perRaidAfterYuezhi": 0.022,
+    "perRaidAfterYuezhiQuartermaster": 0.017,
+    "actWorstCase": 0.057,
+    "actWorstCaseQuartermaster": 0.042,
+    "note": "K55'in düzelen sırasıyla (E6.4) IV'ün ikinci akını Yüeçi sürüldükten sonra R 6 ile gelir: 6 / (6 + 50,9) = %10,5 başarı, kayıp %2,2; tavanla en kötü perde 16 Haziran 205 (R 10) + bir R 6 akını = %3,4 + %2,2 = %5,7. actWorstCase.IV (0,069) iki akını R 10 sayan 2026-11-04 koşusudur; econ-sim yeni sırayla koşunca (Yol Haritası: econ-sim-run) bu blok yeniden basılır",
+    "src": "hesap (settlement.md §15.4, 2026-11-04 E6)"
+   }
+  }
+ },
+ "court": {
+  "gatherings": {
+   "court_gathering": {
+    "place": "tanhu_ordu",
+    "cost": {
+     "@ration_per_household": 2,
+     "@ration_per_bey": 3,
+     "kumis": 20
+    },
+    "days": 3,
+    "gonul": 5,
+    "pullK": [
+     1.2,
+     10
+    ],
+    "calendar": false,
+    "trigger": "Divan, zaferden sonra; perde başına bir",
+    "winterMuster": "Kronik; oynanan güne düşse de sahne açmaz, sonraki Kronik'te toplu işlenir (K42)"
+   },
+   "muster_longcheng": {
+    "place": "longcheng",
+    "cost": {
+     "@ration": 200,
+     "horse": 10,
+     "worth": 200
+    },
+    "gonul": 3,
+    "rule": "5. ayın dolunayı (K56)",
+    "played": {
+     "IV": [
+      {
+       "dayN": 2698,
+       "date": "17 Haziran 205",
+       "kind": "offering",
+       "place": "hexi_ash, Gök Dağı eteği",
+       "quest": "mq4_west_road",
+       "note": "Lung-çeng günü; Mete Hexi'dedir, Yüeçi batıya sürülür: Lung-çeng'de toplantı ve armağan kervanı yoktur, Beşinci Ay Sunusu (court.fifthMonthOffering)"
+      },
+      {
+       "dayN": 3436,
+       "date": "25 Haziran 203",
+       "kind": "muster",
+       "place": "longcheng",
+       "quest": "mq4_longcheng",
+       "note": "büyük toplantı ve armağan kervanı; Loufan ve Baiyang katılır"
+      }
+     ],
+     "VI": [
+      {
+       "dayN": 5238,
+       "date": "2 Haziran 198",
+       "kind": "muster",
+       "place": "longcheng",
+       "quest": "mq6_longcheng",
+       "note": "Beşinci Ay Sunusu"
+      },
+      {
+       "dayN": 13270,
+       "date": "4 Haziran 176",
+       "kind": "muster",
+       "place": "longcheng",
+       "quest": [
+        "mq6_letter_176",
+        "mq6_kunmo"
+       ]
+      }
+     ],
+     "note": "K56 (E6.4): Lung-çeng günü IV'te iki, VI'da iki kez oynanır (K33'ün takvimi, story.md §2, §11.3, §11.5). Eski played (IV 17 Haziran 205, VI 2 Haziran 198) o gün Mete'nin Hexi'de olduğunu ve 203 ile 176'nın toplantılarını düşürüyordu. Godot kilidi longcheng_day(205) == 2698 değişmez"
+    },
+    "first": "30 Haziran 209, Kronik",
+    "calendar": {
+     "godot": "GameCalendar.longcheng_day(year_bc)",
+     "lock": {
+      "205": 2698
+     }
+    }
+   },
+   "dailin_count": {
+    "place": "dailin_ground",
+    "effect": "census",
+    "rule": "8. ayın dolunayı (K56; Fu Qian 秋社八月中)",
+    "played": {
+     "III": {
+      "dayN": 1694,
+      "date": "16 Eylül 208",
+      "quest": "mq3_dailin",
+      "note": "perdenin doruğu: üçüncü istek, seferberlik"
+     },
+     "VI": {
+      "dayN": 14097,
+      "date": "9 Eylül 174",
+      "quest": "mq6_last_dailin",
+      "note": "son sayım; Mete sayım sürerken ölür"
+     }
+    },
+    "otherYears": "Kronik satırı; ilk Dailin 27 Eylül 209",
+    "card": {
+     "tr": "Sayım Çetelesi",
+     "en": "The Count Tally",
+     "src": "K62"
+    },
+    "willowRound": {
+     "laps": 3,
+     "r": 27,
+     "m": 510,
+     "gallopMs": 8.58,
+     "sec": 60,
+     "loyaltyPerHead": 1,
+     "winner": false,
+     "src": "K56; üç tur Xianbei kaydı, Hun için çıkarım"
+    },
+    "weatherLock": [
+     "a3_dailin",
+     "a6_dailin"
+    ],
+    "calendar": {
+     "godot": "GameCalendar.dailin_day(year_bc)",
+     "lock": {
+      "174": 14097,
+      "208": 1694
+     }
+    },
+    "ordosCount": {
+     "act": "IV",
+     "dayN": 3525,
+     "date": "22 Eylül 203",
+     "place": "ordos",
+     "quest": "mq4_dailin_ordos",
+     "weatherLock": "a4_dailin",
+     "note": "IV'ün son görevi (K43): Mete'nin doğduğu otlakta, babasının Dailin yerinde bir kezlik sayım; yerleşimin dailin_count sahnesi değildir. Dailin üç kez oynanır: yerleşimde III ve VI, IV'te Ordos'ta (K56, E6.4)"
+    }
+   }
+  },
+  "dawnBow": {
+   "morale": 2,
+   "gonul": 0.5,
+   "perDay": 1
+  },
+  "omen": {
+   "perAct": 1,
+   "kut": 1,
+   "korku": 1
+  },
+  "caseEveryDays": 15,
+  "fifthMonthOffering": {
+   "acts": [
+    "IV",
+    "VI"
+   ],
+   "perAct": 1,
+   "cost": {
+    "horse": 1,
+    "kumis": 2
+   },
+   "gonul": 3,
+   "morale": 5,
+   "kut": 1,
+   "place": "IV Gök Dağı eteği, VI Lung-çeng ve Gök Direği",
+   "src": "K35, mitoloji.md öneri 15"
+  },
+  "kamOmen": {
+   "perAct": 1,
+   "options": {
+    "listen": {
+     "tr": "Dinle",
+     "en": "Listen"
+    },
+    "silence": {
+     "tr": "Sustur",
+     "en": "Silence"
+    }
+   },
+   "src": "K35"
+  },
+  "ashPayment": {
+   "when": "debt_erlik=ash",
+   "newHearthsPer": 5,
+   "hearthsOut": -1,
+   "perActMax": 2,
+   "floor": 0,
+   "src": "K35"
+  },
+  "theft": {
+   "options": [
+    "take_goods",
+    "atonement",
+    "pardon",
+    "banish"
+   ],
+   "atonement": {
+    "stolenK": 2,
+    "orCowrie": true,
+    "src": "K48, bozkir-ekonomi.md öneri 13"
+   }
+  },
+  "toy": {
+   "gonul": 6,
+   "cowriePerHousehold": 1,
+   "gonulWithCowrie": 8,
+   "src": "K48"
+  },
+  "treasury": {
+   "cowrie": true,
+   "raidLoss": 0.3,
+   "towerK": 0.5,
+   "metePurseSafe": true,
+   "noTierGateCowrie": true,
+   "chronicleTouchesCowrie": false,
+   "src": "K48"
+  },
+  "kurultay": {
+   "date": "3–4 Haziran 198",
+   "quest": "mq6_kurultay",
+   "note": "Hazine dağıtımı oy toplar; Jiyu Sol Bilge Kral olur; son karar değildir (story.md §11.5)"
+  }
+ },
+ "weather": {
+  "snow_crust": {
+   "pasture": 0.3,
+   "days": [
+    5,
+    10
+   ],
+   "herdLossNoFodder": 0.02,
+   "horseFat": -2,
+   "src": "weather.md §5.9 (sıra kuralı), d2/weather-model.json"
+  },
+  "fog": {
+   "guardVision": 0.5,
+   "wolfLoss": 1.5
+  },
+  "hail": {
+   "field": {
+    "small": 0.1,
+    "large": 0.3,
+    "per": "hail_burst"
+   },
+   "tentTear": 0.1,
+   "lambLoss": 0.005,
+   "src": "weather:hail { size, minutes }"
+  },
+  "gale": {
+   "trigger": "fx.galeDamage (ortalama ≥16 ya da bora >20 m/sn)",
+   "spread": "R = 10 + manager.wind (weather.md §8.6)",
+   "untiedTentStageDrop": 0.25,
+   "untiedRackSpill": 0.2,
+   "tieDown": "kalıcı; hane işaretle bağlar",
+   "hayLoss": 0.05
+  },
+  "downpour": {
+   "floodSiteDamage": 20
+  },
+  "deepSnow": {
+   "src": "fx.deepSnow, d2/weather-model.json deepSnowShare",
+   "fodder": "deep"
+  }
+ },
+ "places": {
+  "own_seat": {
+   "tr": "Yurt",
+   "en": "Hold",
+   "zone": "tanhu_ordu"
+  },
+  "own_camp": {
+   "tr": "Ana Ordugâh",
+   "en": "Home Encampment",
+   "zone": "whistle_field"
+  },
+  "field_camp": {
+   "tr": "Sefer Ordugâhı",
+   "en": "Field Camp",
+   "zone": "campSites"
+  },
+  "winter_camp": {
+   "tr": "Kışlak",
+   "en": "Winter Camp",
+   "zone": "hexi_winter",
+   "note": "I. Perde"
+  }
+ },
+ "clusters": {
+  "c_birch_hill": {
+   "kind": "node_birch",
+   "n": 40,
+   "at": [
+    -250,
+    -460
+   ],
+   "r": 60,
+   "yield": "≈120 kütük + kabuk",
+   "note": "tündük başına 2 huş"
+  }
+ },
+ "hearthSites": {
+  "hs_terrace": {
+   "at": [
+    -80,
+    -100
+   ],
+   "waterM": 38,
+   "gateW": 631,
+   "gateE": 819,
+   "sacredM": 502
+  },
+  "hs_bend": {
+   "at": [
+    170,
+    10
+   ],
+   "waterM": 44,
+   "gateW": 901,
+   "gateE": 547,
+   "sacredM": 761
+  },
+  "hs_lee": {
+   "at": [
+    -330,
+    -380
+   ],
+   "waterM": 165,
+   "gateW": 379,
+   "gateE": 1164,
+   "sacredM": 127
+  },
+  "src": "settlement.md §3.2 (dere çizgisinden betikle, 2026-11-03)",
+  "measure": {
+   "how": "Godot tools/bake_map.gd, NavigationServer3D.map_get_path (gerçek yol ağı)",
+   "where": "Yol Haritası /roadmap#act-2-p2",
+   "src": "K57"
+  },
+  "name": "Üç Ocak Yeri: Anohin'in üç ocak taşı (K57)"
+ },
+ "newBuildings": {
+  "_note": "fauna.md §5.2'nin yeni türü (mews). Prototipin tools/econ-sim.mjs'i buildings'teki her türü econ-model.json structures'ta arar; bu tür orada yokken buildings'e yazılırsa model hatası verir. Ekonomi alanı structures'a ekleyince buildings'e taşınır. yurt_small ve beg_otag ekonomi modeline girdi, buildings'tedir.",
+  "mews": {
+   "tr": "Kuşhane",
+   "en": "Mews",
+   "cat": "small",
+   "plot": "pen",
+   "tier": 3,
+   "place": "hold",
+   "def": "pen",
+   "preset": "mews",
+   "footprint": {
+    "w": 4,
+    "d": 3
+   },
+   "upkeep": {
+    "felt": 1
+   },
+   "upkeepSrc": "proposal",
+   "labourWd": 0.12,
+   "labourSrc": "fauna.md §5.2",
+   "bom": {
+    "tag:wood": 6,
+    "rope": 2,
+    "felt": 2,
+    "hide": 1
+   },
+   "bomSrc": "fauna.md §5.2",
+   "prereq": [
+    "act>=4"
+   ],
+   "yield": {
+    "fur_fox": 0.25,
+    "hide_small": 0.5,
+    "per": "gün, güz ve kış, 1 kuşçuyla",
+    "IS": 0.5
+   },
+   "new": true,
+   "note": "Doğan (IV) ve kartalın (V) yeri; kuşçu Sungur (m_falconer, sq_first_bird); yiyeceğe etkisi yok, K24 kışı değişmez"
+  }
+ },
+ "plan": {
+  "categories": [
+   "dwell",
+   "herd",
+   "store",
+   "work",
+   "court",
+   "defence",
+   "camp"
+  ],
+  "categoriesTr": [
+   "Konut",
+   "Sürü",
+   "Ambar",
+   "Atölye",
+   "Avlu",
+   "Savunma",
+   "Ordugâh"
+  ],
+  "noEighthCategory": true,
+  "cartCard": {
+   "id": "cart",
+   "tr": "Araba",
+   "en": "Cart",
+   "category": "work",
+   "kinds": [
+    "cart_felt",
+    "cart_high",
+    "cart_war",
+    "wagon_felt"
+   ],
+   "kindTier": {
+    "cart_felt": "T2",
+    "cart_high": "T3",
+    "cart_war": "T4",
+    "wagon_felt": "T5.moving"
+   },
+   "select": "◂ ▸ (Q / E nesneyi döndürür)",
+   "locks": {
+    "noWoodShop": {
+     "tr": "Önce Ağaç Atölyesi.",
+     "en": "Build a Woodshop first."
+    },
+    "noCarpenter": {
+     "tr": "Dülger yok.",
+     "en": "You have no carpenter."
+    }
+   },
+   "shows": [
+    "yük",
+    "çeken",
+    "yol ve kar hızı",
+    "malzeme",
+    "emek (Araba Yeri eğriyle, teker çifti tezgâhta)",
+    "Boşta {n} · Kervanda {m}"
+   ],
+   "idleLine": {
+    "tr": "Boşta {n} · Kervanda {m}",
+    "en": "Idle {n} · With the caravan {m}"
+   },
+   "wheelPair": {
+    "recipe": "rc_wheel_pair",
+    "IS": 10,
+    "who": "master",
+    "law": "eff"
+   },
+   "raise": "K50 inşaat eğrisi",
+   "repair": {
+    "tr": "Onar",
+    "en": "Repair"
+   },
+   "dismantle": 0.5,
+   "noChariotYao": "V'te armağan, yapılmaz",
+   "src": "K57, bozkir-ekonomi.md öneri 11"
+  },
+  "lockedCardLine": {
+   "wood_shop": {
+    "tr": "Oba'da açılır.",
+    "en": "Opens with the Clan Camp."
+   }
+  },
+  "wheelOpensMap": false,
+  "src": "K40, K52, K57"
+ },
+ "chronicle": {
+  "rule": "K42: perde son görevle biter, sayaç yok; Akan Kronik",
+  "finalGate": {
+   "tr": "Bu yol perdeyi kapatır. Sonra {y} yıl geçer.",
+   "en": "This road closes the act. Then {y} years will pass.",
+   "buttons": [
+    "Yola Çık",
+    "Daha Değil"
+   ],
+   "clockStops": true
+  },
+  "leave": {
+   "tr": "Kronik'e bırak",
+   "en": "Leave it to the Chronicle"
+  },
+  "seconds": "clamp(mevsim × 5 sn, 30, 90)",
+  "secondsByGap": {
+   "II-III": 30,
+   "III-IV": 54,
+   "IV-V": 89,
+   "V-VI": 50
+  },
+  "skippable": true,
+  "fastHoldE": 4,
+  "decisionsMax": 2,
+  "decisionAutoSec": 10,
+  "target": "max(K25 tarihi, bugün + 30 gün)",
+  "budgetMsPerSeason": 150,
+  "steps": [
+   "tarih",
+   "yıllar (rolloverYears)",
+   "tarla",
+   "hane tabanı ve toplantılar",
+   "kış stoğu",
+   "kervan ve şantiye",
+   "kart"
+  ],
+  "fieldStep": {
+   "when": "court_path = walled ve ≥1 field",
+   "perYear": true,
+   "writes": "yalnız son hasat: min(500 × tarla, boş tahıl yeri)",
+   "noWeather": true,
+   "noRaids": true,
+   "line": {
+    "tr": "Tarlalar {n} darı verdi.",
+    "en": "The fields gave {n} measures of millet."
+   },
+   "src": "K54"
+  },
+  "tribute": {
+   "fromAct": "III",
+   "hidePerYear": 20,
+   "src": "K65; HHS 90 歲輸牛馬羊皮"
+  },
+  "cowrie": "dokunmaz (K48)",
+  "raids": false,
+  "winterMuster": "toplu işlenir, oynanan güne düşse de sahne açmaz (K42)",
+  "card": {
+   "tr": "{y} yıl geçti. {h} hane, {s} baş sürü; ambar kışa {p}.",
+   "en": "{y} years have passed. {h} households, {s} head of stock; the stores stand at {p} for winter."
+  },
+  "godot": "GameClock.skip_to(day_n, minute, &\"chronicle\")"
+ }
+}

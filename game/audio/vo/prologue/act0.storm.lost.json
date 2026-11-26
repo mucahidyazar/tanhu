@@ -1,0 +1,16 @@
+{
+	"id": "act0.storm.lost",
+	"take": 0,
+	"seed": 953037307,
+	"hash": "38ce31fb0981",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 1.76,
+	"words": [
+		{"w": "I", "t0": 0.0, "t1": 0.16},
+		{"w": "can't", "t0": 0.24, "t1": 0.56},
+		{"w": "see", "t0": 0.62, "t1": 0.8},
+		{"w": "the", "t0": 0.84, "t1": 0.96},
+		{"w": "stake!", "t0": 1.067, "t1": 1.76}
+	]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "winter_day_meter",
+  "kind": "music",
+  "instrument": "meter",
+  "bell_hz": 520,
+  "tempo": 72,
+  "bars": 2,
+  "seed": 7231,
+  "rate": 32000,
+  "loop": false,
+  "note": "winter_day: çan ve çentik ölçü başında (act1.md §14: «Çan ve çentik ölçüyü tutar»). Kışlak bankası (data/audio/banks/kislak.json; I. Perde'nin rengi data/music/act_1.tres: E Frigyen, kerbez, kopuz kaçış gecesine dek yok; K59); kodla basılır, kredi yok; kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

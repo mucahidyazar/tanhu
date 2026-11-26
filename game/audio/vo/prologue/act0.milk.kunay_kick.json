@@ -1,0 +1,18 @@
+{
+	"id": "act0.milk.kunay_kick",
+	"take": 0,
+	"seed": 1676237092,
+	"hash": "63e959246d70",
+	"model": "eleven_v3",
+	"voice": "9XELrPIyVsbmAjCB3Bwh",
+	"seconds": 4.08,
+	"words": [
+		{"w": "He", "t0": 0.0, "t1": 0.24},
+		{"w": "kicked", "t0": 0.297, "t1": 0.64},
+		{"w": "all", "t0": 0.72, "t1": 0.96},
+		{"w": "morning.", "t0": 1.03, "t1": 1.6},
+		{"w": "Soon,", "t0": 1.824, "t1": 2.88},
+		{"w": "Saruk", "t0": 2.94, "t1": 3.28},
+		{"w": "says.", "t0": 3.376, "t1": 4.08}
+	]
+}

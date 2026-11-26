@@ -1,0 +1,64 @@
+{
+  "id": "bone_hum",
+  "kind": "ambience",
+  "instrument": "wind",
+  "seconds": 12.0,
+  "fold": 2.0,
+  "seed": 4531,
+  "rate": 22050,
+  "loop": true,
+  "top_hz": 3000,
+  "rms": 0.1,
+  "bands": [
+    {
+      "f": 420.0,
+      "q": 18.0,
+      "sweep": [
+        405.0,
+        440.0
+      ],
+      "gain": [
+        0.35,
+        1.0
+      ],
+      "points": 7
+    },
+    {
+      "f": 1060.0,
+      "q": 14.0,
+      "sweep": [
+        1030.0,
+        1090.0
+      ],
+      "gain": [
+        0.1,
+        0.45
+      ],
+      "points": 7
+    },
+    {
+      "f": 640.0,
+      "q": 12.0,
+      "sweep": [
+        620.0,
+        660.0
+      ],
+      "gain": [
+        0.05,
+        0.3
+      ],
+      "points": 5
+    },
+    {
+      "f": 230.0,
+      "q": 1.0,
+      "gain": [
+        0.1,
+        0.25
+      ],
+      "points": 5
+    }
+  ],
+  "note": "Yol Kemiği uğultusu (audio.md §4 «Hayvan ve dünya» bone_hum: gürültü + bant geçiren, rüzgâra bağlı, 3B; act1.md §4: onarılan direk 120 m'den duyulur): delikli kemiğin dar bantlı ıslığı ve gövdesi. Kara Boran'dan önce kazancı yükselir (işaret kanalı). Kodla basılır (scripts/audio/synth/), 22,05 kHz mono QOA, ileri döngü; kazancı MapSoundscape verir (data/audio/profiles/kislak.json); kulak onayı bekler (Yol Haritası kislak-ambience).",
+  "source": "code"
+}

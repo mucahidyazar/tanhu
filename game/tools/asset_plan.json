@@ -1,0 +1,1160 @@
+{
+  "_aciklama": "Tanhu 3D varlık planı. Konsept görselleri gpt-image-2 (tools/imagegen/gen.sh) ile assets/_concepts/<id>.png olarak üretilir, sonra tools/meshy_pipeline.py ile Meshy'de 3B'ye çevrilir; oyun kopyasını tools/glb_prepare.py yazar. Stil kaynağı: assets/_reference/style_mete.png ve style_camp.png. Satır alanları: route (routes'tan: üretim yolu; meshy_pipeline.py yalnız meshy yolunu üretir), credit_class (credit_classes'tan, K66: Meshy kredisinin sınıfı, meshy-7.1, 4K geometri, 8K doku; kişinin animations'ı ayrıca clip × adet), texture_class (texture_classes'tan: oyun dokusunun boyu ve VRAM biçimi, godot.md §6.3), input_image (isteğe bağlı Meshy girdisi; yoksa kişide character_input.image, ötekilerde assets/_concepts/<id>.png), encyclopedia_id (isteğe bağlı: kişinin ansiklopedi kimliği id'den başkaysa). Yollar game/ klasörüne göredir.",
+  "meshy_defaults": {
+    "ai_model": "meshy-7.1",
+    "should_texture": true,
+    "texture_resolution": "8k",
+    "geometry_resolution": "4k",
+    "should_remesh": true,
+    "topology": "triangle",
+    "image_enhancement": false,
+    "enable_pbr": false,
+    "multi_view_thumbnails": true,
+    "target_formats": [
+      "glb"
+    ]
+  },
+  "credit_costs": {
+    "model": 40,
+    "rig": 5,
+    "animation_per_action": 3
+  },
+  "credit_classes": {
+    "static": 40,
+    "human": 45,
+    "clip": 3,
+    "animal": 40,
+    "small_t25": 20,
+    "variant": 15,
+    "none": 0
+  },
+  "routes": {
+    "programatik": "Kodla çizilir (Procedural3D, MeshKit, AtwKit, TreeKit); kredi yok",
+    "meshy": "Meshy görselden 3B (meshy_pipeline.py); kredi credit_class'tan",
+    "blender": "Blender MCP betiği (tools/blender/); kredi yok",
+    "tripo": "Tripo: tekil, insan olmayan yaratığın rigi; Tripo kredisi ayrıca",
+    "2d": "Yalnız 2B görsel (gpt-image-2); kredi yok",
+    "free": "Ücretsiz kanaldan indirilen varlık (K89; CC0 öncelikli, assets/_free/LICENSES.md); kredi yok"
+  },
+  "texture_classes": {
+    "hero": {
+      "size": 2048,
+      "format": "bc7"
+    },
+    "named": {
+      "size": 1024,
+      "format": "bc7"
+    },
+    "mount": {
+      "size": 1024,
+      "format": "bc7"
+    },
+    "structure": {
+      "size": 2048,
+      "format": "bc1"
+    },
+    "prop": {
+      "size": 1024,
+      "format": "bc1"
+    },
+    "small": {
+      "size": 512,
+      "format": "bc1"
+    }
+  },
+  "style_suffix": "Same hand-painted anime, Ghibli-like painterly art style, colours and level of detail as the reference images (Central Asian Hun nomads, 3rd century BC steppe). Single subject only, centered, the whole subject visible with a small margin, plain flat light grey background, soft even studio lighting, no ground shadow, no ground plane, no grass, no text, no frame.",
+  "character_suffix": "Full body, standing straight, seen from the front, symmetrical T-pose: both arms stretched out horizontally to the sides at shoulder height, palms facing down, fingers together, legs straight and slightly apart, nothing held in the hands, clothing does not cover the arms or hands.",
+  "character_suffix_a_pose": "Full body, standing straight, seen from the front, symmetrical A-pose: both arms held out diagonally downward about 40 degrees away from the body, relaxed open hands with fingers together, feet slightly apart, nothing held in the hands, clothing does not cover the arms or hands.",
+  "character_input": {
+    "_aciklama": "K85: yeni kişinin Meshy girdisi art'tan türeyen T-poz görselidir (kollar omuz hizasında yana açık, avuçlar aşağı, önden, düz açık gri zemin). {encyclopedia_id} satırın encyclopedia_id'si, yoksa id'deki alt çizgiler tireye çevrilir. Satırda input_image varsa o kullanılır: var olan altı kişi A-poz konseptten T bağlamayla üretildi ve değişmez. Uzun kaftanlı sınıf T-pozda bozulursa o sınıfa A-poz görsel üretilir (character_suffix_a_pose; Yol Haritası asset-route-trials).",
+    "pose_mode": "t-pose",
+    "image": "../docs/assets/encyclopedia/{encyclopedia_id}/pose.png"
+  },
+  "assets": [
+    {
+      "id": "mete",
+      "kind": "character",
+      "dir": "assets/characters/mete",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/mete.png",
+      "height_m": 1.82,
+      "polycount": 60000,
+      "animations": [
+        244,
+        363
+      ],
+      "refs": [
+        "style_mete"
+      ],
+      "prompt": "(done) Mete, a young Hun warrior archer: top-knot with long braids, goatee, red fur-trimmed cape with gold brooch, dark lamellar armor over beige tunic with red Greek-key borders, red sash with bronze belt plates, leather bracers, dark trousers, tall brown boots."
+    },
+    {
+      "id": "hero_f",
+      "kind": "character",
+      "dir": "assets/characters/hero_f",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/hero_f.png",
+      "height_m": 1.68,
+      "polycount": 60000,
+      "animations": [
+        243
+      ],
+      "refs": [
+        "style_mete",
+        "style_camp"
+      ],
+      "prompt": "A young Hun woman warrior archer of about twenty, heroic and kind, the female counterpart of the warrior in the reference: long dark hair in two thick braids with small bronze beads, a red felt headband, a crimson felt riding coat with a fur-trimmed collar and red Greek-key borders over a beige tunic, a dark leather lamellar vest, a red sash with round bronze belt plates, leather bracers, dark trousers and tall brown leather boots."
+    },
+    {
+      "id": "mother",
+      "kind": "character",
+      "dir": "assets/characters/mother",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/mother.png",
+      "height_m": 1.65,
+      "polycount": 50000,
+      "animations": [
+        363
+      ],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "prompt": "A Hun mother in her thirties with a warm kind face, long black hair in two braids under a small embroidered felt cap, wearing a long red felt robe with white fur trim at the collar and cuffs and ornate cream-and-red embroidered borders over a long cream dress, a woven belt, soft felt boots."
+    },
+    {
+      "id": "child",
+      "kind": "character",
+      "dir": "assets/characters/child",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/child.png",
+      "height_m": 1.2,
+      "polycount": 40000,
+      "animations": [
+        363
+      ],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "prompt": "A cheerful Hun girl of about seven years with a round face, two short dark braids, a cream felt tunic with red embroidered borders, a small red vest with fur trim, dark trousers and little felt boots. Child proportions."
+    },
+    {
+      "id": "father",
+      "kind": "character",
+      "dir": "assets/characters/father",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/father.png",
+      "height_m": 1.84,
+      "polycount": 50000,
+      "animations": [
+        363
+      ],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "prompt": "A strong Hun man in his forties with a full dark beard and a top-knot of dark hair, warm friendly eyes, wearing a brown leather coat with a thick fur collar and fur cuffs over a dark tunic with red borders, a wide leather belt with bronze plates, dark trousers and tall leather boots."
+    },
+    {
+      "id": "elder",
+      "kind": "character",
+      "dir": "assets/characters/elder",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/elder.png",
+      "height_m": 1.7,
+      "polycount": 50000,
+      "animations": [
+        363
+      ],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "prompt": "An old Hun storyteller in his seventies with a long white beard and moustache, kind smiling eyes, a white felt kalpak hat with a white feather, a long dark blue-grey robe with silver-grey fur trim and woven geometric borders, a leather belt, soft leather boots."
+    },
+    {
+      "id": "horse_brown",
+      "kind": "animal",
+      "dir": "assets/animals/horse_brown",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "size_m": 2.3,
+      "polycount": 50000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A sturdy steppe horse with a chestnut-brown coat, dark mane and tail, a simple Hun wooden saddle on a red saddle blanket with geometric patterns, and a leather bridle with small bronze ornaments. Standing calmly with all four legs straight, seen from a three-quarter side view."
+    },
+    {
+      "id": "horse_white",
+      "kind": "animal",
+      "dir": "assets/animals/horse_white",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "size_m": 2.3,
+      "polycount": 50000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A sturdy steppe horse with a white-grey coat, a light grey mane and tail, a simple Hun wooden saddle on a blue-and-cream saddle blanket with geometric patterns, and a leather bridle with small bronze ornaments. Standing calmly with all four legs straight, seen from a three-quarter side view."
+    },
+    {
+      "id": "yurt",
+      "kind": "structure",
+      "dir": "assets/structures/yurt",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "structure",
+      "size_m": 6.2,
+      "polycount": 50000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A Central Asian nomad felt yurt: cream off-white felt walls and a low dome roof, a bold dark-brown geometric ornament band around the upper wall, roof ropes tied in a crossing pattern, a wooden crown ring at the top, a carved and painted wooden door frame with an open wooden door showing a dark interior, a few darker felt patches. Seen from a three-quarter front view, standing alone."
+    },
+    {
+      "id": "stable",
+      "kind": "structure",
+      "dir": "assets/structures/stable",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "structure",
+      "size_m": 6.0,
+      "polycount": 45000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "An open wooden horse shelter for two horses: four thick rough log posts, a sloping roof of wooden planks and shingles, a wooden hitching rail along the front, low rustic fence rails on the sides, a small hay pile inside and a hanging oil lantern. No horses. Seen from a three-quarter front view."
+    },
+    {
+      "id": "campfire",
+      "kind": "prop",
+      "dir": "assets/props/campfire",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.6,
+      "polycount": 25000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A campfire ring made of rounded grey stones with crossed split logs and glowing orange embers in the center, but no flames and no smoke. Seen from a high three-quarter view."
+    },
+    {
+      "id": "barrel",
+      "kind": "prop",
+      "dir": "assets/props/barrel",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 0.95,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A sturdy wooden barrel with dark iron bands and slightly worn wood, with a wooden lid. Seen from a three-quarter view."
+    },
+    {
+      "id": "bucket",
+      "kind": "prop",
+      "dir": "assets/props/bucket",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "small",
+      "size_m": 0.45,
+      "polycount": 12000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A small wooden water bucket made of staves with iron bands and a rope handle. Seen from a three-quarter view."
+    },
+    {
+      "id": "crate",
+      "kind": "prop",
+      "dir": "assets/props/crate",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 0.9,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A rustic wooden supply crate with a tied burlap grain sack sitting on top. Seen from a three-quarter view."
+    },
+    {
+      "id": "firewood",
+      "kind": "prop",
+      "dir": "assets/props/firewood",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.4,
+      "polycount": 25000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A neatly stacked pile of split firewood logs next to a round chopping block with an axe stuck in it. Seen from a three-quarter view."
+    },
+    {
+      "id": "cauldron",
+      "kind": "prop",
+      "dir": "assets/props/cauldron",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.4,
+      "polycount": 20000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A black iron cooking cauldron hanging from a tripod of three wooden poles tied together with rope at the top. Seen from a three-quarter view."
+    },
+    {
+      "id": "stool",
+      "kind": "prop",
+      "dir": "assets/props/stool",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "small",
+      "size_m": 0.5,
+      "polycount": 10000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A low round wooden stool with three short legs and a red woven felt cushion with a geometric pattern. Seen from a three-quarter view."
+    },
+    {
+      "id": "saddlebags",
+      "kind": "prop",
+      "dir": "assets/props/saddlebags",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 0.9,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A pair of leather saddle bags joined by a wide strap, decorated with woven red and cream geometric patterns and bronze buckles, lying draped on the ground. Seen from a three-quarter view."
+    },
+    {
+      "id": "weapon_rack",
+      "kind": "prop",
+      "dir": "assets/props/weapon_rack",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 2.0,
+      "polycount": 25000,
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "prompt": "A rustic wooden weapon rack holding three upright spears with iron heads, with a round wooden shield painted with a red Hun sun emblem leaning against it. Seen from a three-quarter view."
+    },
+    {
+      "id": "fence",
+      "kind": "prop",
+      "dir": "assets/props/fence",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 2.2,
+      "polycount": 12000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A short section of rustic wooden fence: three rough wooden posts joined by two horizontal rails tied with rope, about two meters long. Seen from a three-quarter view."
+    },
+    {
+      "id": "boulder_a",
+      "kind": "nature",
+      "dir": "assets/nature/boulder_a",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 2.2,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A large rounded grey granite boulder with soft weathered shapes, covered on top with patches of green moss and small pale lichens. Seen from a three-quarter view."
+    },
+    {
+      "id": "boulder_b",
+      "kind": "nature",
+      "dir": "assets/nature/boulder_b",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.4,
+      "polycount": 12000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "Two smaller weathered grey rocks lying side by side, flat-topped, with green moss patches and small lichens. Seen from a three-quarter view."
+    },
+    {
+      "id": "pine_a",
+      "kind": "nature",
+      "dir": "assets/nature/pine_a",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 8.0,
+      "polycount": 20000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A tall dark green spruce tree with dense layered drooping branches and a straight brown trunk, painterly and slightly stylised. Seen from the side, the whole tree visible."
+    },
+    {
+      "id": "pine_b",
+      "kind": "nature",
+      "dir": "assets/nature/pine_b",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 4.0,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A young small spruce tree with full dark green layered branches, slightly stylised and painterly. Seen from the side, the whole tree visible."
+    },
+    {
+      "id": "dombra",
+      "kind": "prop",
+      "dir": "assets/props/dombra",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.0,
+      "polycount": 12000,
+      "refs": [
+        "style_camp"
+      ],
+      "prompt": "A Turkic dombra: a two-stringed long-necked wooden lute with a pear-shaped body, warm honey-brown wood, carved geometric ornaments and a dark wooden tuning head. Standing upright, seen from the front."
+    },
+    {
+      "id": "bow",
+      "kind": "prop",
+      "dir": "assets/props/bow",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "size_m": 1.3,
+      "polycount": 10000,
+      "refs": [
+        "style_mete"
+      ],
+      "prompt": "A Hun composite recurve bow made of wood, horn and sinew, strung, with leather grip wraps and pale bone tips, exactly like the bow in the reference image. Shown alone, upright, seen from the front."
+    },
+    {
+      "id": "teoman",
+      "kind": "character",
+      "dir": "assets/characters/teoman",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/teoman.png",
+      "height_m": 1.84,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "Teoman, the Xiongnu Tanhu at about thirty: broad strong build, full dark beard, dark hair under a round fur cap, a long dark-red wool riding coat with gold-ochre borders and a fur collar, a wide leather belt with gold animal-style plaques, dark trousers, tall leather boots."
+    },
+    {
+      "id": "lan_hatun",
+      "kind": "character",
+      "dir": "assets/characters/lan_hatun",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/lan_hatun.png",
+      "height_m": 1.58,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "Lady Lan, a young Xiongnu noblewoman of eighteen of the Lan clan: calm oval face, long black hair in two braids under a small felt cap with a red band, a long cream felt robe with deep red borders and a white fur collar, a woven belt with small bronze discs, soft felt boots."
+    },
+    {
+      "id": "older_brother",
+      "kind": "character",
+      "dir": "assets/characters/older_brother",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/older_brother.png",
+      "height_m": 1.75,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "The older brother, a young Xiongnu rider of about twenty in the Tanhu's guard: lively face, hair in a topknot with braids, a short brown leather coat over a red-bordered tunic, a wide belt with bronze plaques, dark trousers, tall leather boots."
+    },
+    {
+      "id": "hereka",
+      "kind": "character",
+      "dir": "assets/characters/hereka",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "../docs/assets/encyclopedia/hereka/pose.png",
+      "height_m": 1.6,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "Hereka at sixty-three, the toothless midwife of the Hollow: long white hair under a rust-red head band, deeply lined face, a worn brown felt robe with rust borders, felt boots."
+    },
+    {
+      "id": "counter",
+      "kind": "character",
+      "dir": "assets/characters/counter",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "../docs/assets/encyclopedia/counter/pose.png",
+      "height_m": 1.65,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "The counter, an old Xiongnu tally keeper: thin white beard, a thin grey braid, a long grey felt coat, a bundle of notched counting sticks hanging from his belt, felt boots."
+    },
+    {
+      "id": "crowd_hun_man",
+      "kind": "character",
+      "dir": "assets/characters/crowd_hun_man",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/crowd_hun_man.png",
+      "height_m": 1.72,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A Xiongnu herdsman in his thirties: weathered face, short beard, hair in a topknot, a knee-length brown felt coat with a darker border, a plain leather belt with a small knife sheath, dark wool trousers, soft felt boots."
+    },
+    {
+      "id": "crowd_hun_woman",
+      "kind": "character",
+      "dir": "assets/characters/crowd_hun_woman",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/crowd_hun_woman.png",
+      "height_m": 1.62,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A Xiongnu herding woman in her thirties: braided black hair under a small felt cap, a long dun felt robe with a red border, a woven belt, felt boots."
+    },
+    {
+      "id": "crowd_hun_rider",
+      "kind": "character",
+      "dir": "assets/characters/crowd_hun_rider",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/crowd_hun_rider.png",
+      "height_m": 1.74,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A Xiongnu rider of the Tanhu's ten: lean young face, topknot, a short brown leather coat over a red-bordered tunic, a hide lamellar vest, a wide belt with bronze plaques, dark trousers, tall leather boots."
+    },
+    {
+      "id": "kopuz",
+      "kind": "prop",
+      "dir": "assets/props/kopuz",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "input_image": "assets/_concepts/kopuz.png",
+      "polycount": 20000,
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A three-stringed kopuz lute: a long fretless neck, a pear-shaped carved wooden body with the lower two thirds of its face covered in stretched rawhide, three gut strings and a plain peg head without a horse head.",
+      "_not": "Meshy ağında dört tel izi var, K60 üç tel ister: oyun kopyası glb_prepare'den önce tools/kopuz_three_strings.py'den geçer (kredisiz; ham dosya değişmez, kayıt assets/props/kopuz/strings.json)."
+    },
+    {
+      "id": "cradle",
+      "kind": "prop",
+      "dir": "assets/props/cradle",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "input_image": "assets/_concepts/cradle.png",
+      "polycount": 30000,
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A Xiongnu wooden cradle: a carved and painted wooden frame with felt bedding and leather straps, a small bow and arrow hung on its arch.",
+      "_not": "Oyun kopyası gövdedir: kemerindeki yay, sadak ve ipler cradle_bow satırına ayrıldı (tools/glb_split_region.py). Yeniden üretim cradle_bow satırının _not'unda."
+    },
+    {
+      "id": "cradle_bow",
+      "kind": "prop",
+      "dir": "assets/props/cradle_bow",
+      "route": "programatik",
+      "credit_class": "none",
+      "texture_class": "prop",
+      "_not": "Kredi yok: Meshy üretimi değil, cradle'ın ham ağından kesilen parça (yay, sadak, ipler; kesim kaydı assets/props/cradle_bow/split.json). Köşeler cradle.glb ile aynı model uzayındadır: asılı yeri bu koordinatlardır. Üretim: python3 tools/glb_split_region.py assets/_meshy_raw/cradle/cradle.glb <yay.glb> <gövde.glb> --box=-0.62,0.04,-0.47,0.50,0.668,0.47 --rule=any --seed=-0.12,0.37,0.0 --report=assets/props/cradle_bow/split.json; sonra iki çıktıya tools/glb_prepare.py (assets/props/cradle_bow/cradle_bow.glb, assets/props/cradle/cradle.glb)."
+    },
+    {
+      "id": "swaddled_baby",
+      "kind": "prop",
+      "dir": "assets/props/swaddled_baby",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "small",
+      "input_image": "assets/_concepts/swaddled_baby.png",
+      "polycount": 20000,
+      "generated_via": "meshy MCP, 2026-11-05 (E7.6: kullanıcı onayı «Evet, üret»)",
+      "prompt": "A newborn wrapped tightly in a cream felt swaddle bound with a woven red band."
+    },
+    {
+      "id": "hereka_young",
+      "kind": "character",
+      "dir": "assets/characters/hereka_young",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "input_image": "assets/_concepts/hereka_young.png",
+      "height_m": 1.62,
+      "polycount": 50000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "generated_via": "meshy API, 2026-11-05 (E7.9: kullanıcı onayı «Konseptten ayrı model (Önerilen)», 45 kredi)",
+      "_not": "Önce Hereka'nın ağına Retexture denendi (E7.7): yalnız metinle ve konsept görseli stil kaynağıyla iki kez (15+15 kredi); ikisinde de yüz soluk, maske gibi çıktı (ham dosyalar _meshy_raw/hereka_young/hereka_young_retex_v1/v2.glb). Kendi modeli konseptten üretildi.",
+      "prompt": "Hereka, a Xiongnu midwife of thirty-nine: strong capable hands, long dark hair under a rust-red head band, a brown felt robe with rust borders and rolled sleeves, a belt with a small knife sheath and a herb pouch, felt boots."
+    },
+    {
+      "id": "mete_child",
+      "kind": "character",
+      "dir": "assets/characters/mete_child",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/mete_child.png",
+      "height_m": 1.1,
+      "polycount": 40000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-07 (E14: kullanıcı onayı «Yançi ve Luhun da, 178»)",
+      "prompt": "Mete as a five-year-old Xiongnu boy: round sun-browned face, dark hair in a short topknot with two small braids, a little cream felt coat with a red border and a fur collar, dark trousers and felt boots. Child proportions."
+    },
+    {
+      "id": "yanchi_child",
+      "kind": "character",
+      "dir": "assets/characters/yanchi_child",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/yanchi_child.png",
+      "height_m": 1.08,
+      "polycount": 40000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-07 (E14)",
+      "prompt": "Yanchi as a five-year-old Xiongnu girl: lively grin, two short black braids tied with red cord, a small ochre felt coat with a red border, felt boots. Child proportions."
+    },
+    {
+      "id": "luhun_child",
+      "kind": "character",
+      "dir": "assets/characters/luhun_child",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "input_image": "assets/_concepts/luhun_child.png",
+      "height_m": 1.15,
+      "polycount": 40000,
+      "animations": [],
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-07 (E14)",
+      "prompt": "Luhun as a six-year-old Xiongnu boy: gentle shy face, short hair, a grey-blue felt coat with a sheepskin collar, felt boots. Child proportions."
+    },
+    {
+      "id": "sheep",
+      "kind": "animal",
+      "dir": "assets/animals/sheep",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/sheep.png",
+      "size_m": 1.25,
+      "polycount": 30000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-07 (E14)",
+      "prompt": "A fat-tailed steppe sheep: cream wool in thick masses, dark face and legs, a heavy fat tail and small curled horns. Standing calmly with all four legs straight."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "polycount": 40000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E17: kullanıcı onayı «Dördü de, 180 (Önerilen)»)",
+      "id": "yanchi",
+      "dir": "assets/characters/yanchi",
+      "input_image": "../docs/assets/encyclopedia/yanchi/pose.png",
+      "height_m": 1.6,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Yanchi at twenty-one, Mete's beloved wife: a young Xiongnu woman with two long black braids, an ochre felt coat with red borders, a sheepskin collar and felt boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 40000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E17: kullanıcı onayı «Dördü de, 180 (Önerilen)»)",
+      "id": "eskam",
+      "dir": "assets/characters/eskam",
+      "input_image": "../docs/assets/encyclopedia/eskam/pose.png",
+      "height_m": 1.66,
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "elder"
+      },
+      "prompt": "Eskam, an elderly Xiongnu envoy: grey beard, fur hat, a heavy dark winter coat with brocade trim, a sash and a travelling bag."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "polycount": 40000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E17: kullanıcı onayı «Dördü de, 180 (Önerilen)»)",
+      "id": "huyan_hatun",
+      "dir": "assets/characters/huyan_hatun",
+      "input_image": "../docs/assets/encyclopedia/huyan-hatun/pose.png",
+      "height_m": 1.62,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Huyan Hatun, Teoman's young favourite wife: an elegant Xiongnu noblewoman in a rich red winter coat with fur trim and gold ornaments."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "hero",
+      "polycount": 40000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E17: kullanıcı onayı «Dördü de, 180 (Önerilen)»)",
+      "id": "gutu",
+      "dir": "assets/characters/gutu",
+      "input_image": "../docs/assets/encyclopedia/gutu/pose.png",
+      "height_m": 0.8,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "child"
+      },
+      "prompt": "Gutu, a Xiongnu toddler of about one year: round cheeks, a small padded felt coat and a fur cap. Toddler proportions."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "amaga",
+      "dir": "assets/characters/amaga",
+      "input_image": "../docs/assets/encyclopedia/amaga/pose.png",
+      "height_m": 1.68,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Amaga, the Yuezhi head of the winter camp, a widow of fifty-eight: dry stern face, long grey hair under a dark-red crown-shaped felt hat, a long wine-red felt robe with gold-ochre borders and a fur-lined over-robe, a belt with small gold plaques, felt boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "farnak",
+      "dir": "assets/characters/farnak",
+      "input_image": "../docs/assets/encyclopedia/farnak/pose.png",
+      "height_m": 1.86,
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "prompt": "Farnak, a Yuezhi horse archer of twenty-five: laughing eyes, stubble, a pointed Saka-style ochre felt hood with red trim, a short dark-red coat with gold-ochre borders under a fur-trimmed leather vest, dark trousers, tall boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "nanay",
+      "dir": "assets/characters/nanay",
+      "input_image": "../docs/assets/encyclopedia/nanay/pose.png",
+      "height_m": 1.63,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Nanay, a Yuezhi felt maker of twenty-three: wry mouth, long dark hair under a dark-red veil cap with a cream veil, a long ochre felt robe with red borders, a leather pouch with needles at the belt, felt boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "ardoksha",
+      "dir": "assets/characters/ardoksha",
+      "input_image": "../docs/assets/encyclopedia/ardoksha/pose.png",
+      "height_m": 1.6,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Ardoksha, the Yuezhi keeper of the stores, a heavy-set woman of fifty-two: counting eyes, a dark-red head band, an ochre-brown felt robe with dark-red borders, a wide leather belt with tally cords, felt boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "kantu",
+      "dir": "assets/characters/kantu",
+      "input_image": "../docs/assets/encyclopedia/kantu/pose.png",
+      "height_m": 1.6,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Kantu, an old Yuezhi carter woman of sixty-one: grey hair under a brown fur hat, a lined loud face, a brown felt coat with dark borders under a fur-lined leather vest, fur boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "mene",
+      "dir": "assets/characters/mene",
+      "input_image": "../docs/assets/encyclopedia/mene/pose.png",
+      "height_m": 1.3,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "child"
+      },
+      "prompt": "Mene, a deaf Yuezhi shepherd girl of nine: bright attentive eyes, long hair under a red head band, a short yellow-ochre felt coat with a red border, a dark-red fur-trimmed vest, fur boots. Child proportions."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "palak",
+      "dir": "assets/characters/palak",
+      "input_image": "../docs/assets/encyclopedia/palak/pose.png",
+      "height_m": 1.8,
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "prompt": "Palak, the Yuezhi chief of the watch aged forty-seven: full beard, weathered face, a round fur cap, a dark-red coat with ochre borders under a brown leather lamellar vest, a scabbard belt, tall boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "atsho",
+      "dir": "assets/characters/atsho",
+      "input_image": "../docs/assets/encyclopedia/atsho/pose.png",
+      "height_m": 1.64,
+      "clip_donors": {
+        "idle": "hero_f",
+        "sit": "mother"
+      },
+      "prompt": "Atsho, the Yuezhi fire keeper, a woman of thirty-four: soft hoarse face, hair under a tall dark felt cap, a long cream felt robe with gold-ochre borders, soot on her hands, felt boots."
+    },
+    {
+      "kind": "character",
+      "route": "meshy",
+      "credit_class": "human",
+      "texture_class": "named",
+      "polycount": 28000,
+      "animations": [],
+      "refs": [
+        "style_camp",
+        "style_mete"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Dokuzu da, 405 (Önerilen)»)",
+      "id": "kujul",
+      "dir": "assets/characters/kujul",
+      "input_image": "../docs/assets/encyclopedia/kujul/pose.png",
+      "height_m": 1.75,
+      "clip_donors": {
+        "idle": "mete",
+        "sit": "father"
+      },
+      "prompt": "Kujul, the master smith of Iron Tooth aged forty-nine: dark weathered skin, topknot and full beard, a dark leather apron over a charcoal-grey coat with rust borders, a fur-lined dark vest, a rust headband, heavy boots."
+    },
+    {
+      "id": "camel",
+      "kind": "animal",
+      "dir": "assets/animals/camel",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/camel.png",
+      "size_m": 3.0,
+      "polycount": 19000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; yol denemesi)",
+      "prompt": "A Bactrian camel with two tall humps, shaggy brown winter wool on the neck and humps, long legs and a calm proud head. Seen from the side, standing calmly with all four legs straight and apart; no saddle, harness or load."
+    },
+    {
+      "id": "cart_felt",
+      "kind": "prop",
+      "dir": "assets/props/cart_felt",
+      "route": "meshy",
+      "credit_class": "static",
+      "texture_class": "prop",
+      "input_image": "assets/_concepts/cart_felt.png",
+      "size_m": 2.6,
+      "polycount": 20000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; yol denemesi)",
+      "prompt": "The body of a Xiongnu two-wheeled felt cart without its wheels: a wooden cart bed with low plank rails, a round axle beam with bare axle ends, a hooped felt roof in cream with red felt bands over the back two thirds, two long shafts. The wheels are drawn in code (they turn)."
+    },
+    {
+      "id": "dog",
+      "kind": "animal",
+      "dir": "assets/animals/dog",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/dog.png",
+      "size_m": 1.1,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; deve ve araba denemeleri tuttu)",
+      "prompt": "A wolf-like Xiongnu herding dog about 0.68 m at the shoulder: thick grey-tan coat, pricked ears, a curled bushy tail and a laika-type head."
+    },
+    {
+      "id": "deer",
+      "kind": "animal",
+      "dir": "assets/animals/deer",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/deer.png",
+      "size_m": 2.3,
+      "polycount": 19000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; deve ve araba denemeleri tuttu)",
+      "prompt": "An Altai maral stag: a large red-brown deer with a pale rump, heavy branching antlers and a thick neck mane."
+    },
+    {
+      "id": "wolf",
+      "kind": "animal",
+      "dir": "assets/animals/wolf",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/wolf.png",
+      "size_m": 1.5,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; deve ve araba denemeleri tuttu)",
+      "prompt": "A steppe wolf: thick grey and tawny winter coat, long legs, a narrow muzzle and a bushy tail."
+    },
+    {
+      "id": "gazelle",
+      "kind": "animal",
+      "dir": "assets/animals/gazelle",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/gazelle.png",
+      "size_m": 1.2,
+      "polycount": 15000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; deve ve araba denemeleri tuttu)",
+      "prompt": "A goitered gazelle: sandy fawn back, white belly and rump, slim legs, lyre-shaped black horns and a swollen throat."
+    },
+    {
+      "id": "cattle",
+      "kind": "animal",
+      "dir": "assets/animals/cattle",
+      "route": "meshy",
+      "credit_class": "animal",
+      "texture_class": "mount",
+      "input_image": "assets/_concepts/cattle.png",
+      "size_m": 2.2,
+      "polycount": 19000,
+      "refs": [
+        "style_camp"
+      ],
+      "generated_via": "meshy API, 2026-11-08 (E19: kullanıcı onayı «Denemeler, sonra altısı: 320 (Önerilen)»; deve ve araba denemeleri tuttu)",
+      "prompt": "A small hardy steppe ox: reddish-brown coat, short wide horns, a strong neck and sturdy legs."
+    }
+  ]
+}

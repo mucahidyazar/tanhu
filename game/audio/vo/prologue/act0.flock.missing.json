@@ -1,0 +1,13 @@
+{
+	"id": "act0.flock.missing",
+	"take": 0,
+	"seed": 2197607048,
+	"hash": "82fcd2880cd0",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.2,
+	"words": [
+		{"w": "One's", "t0": 0.0, "t1": 0.24},
+		{"w": "missing!", "t0": 0.31, "t1": 1.2}
+	]
+}

@@ -1,0 +1,94 @@
+[gd_scene format=3]
+
+[sub_resource type="GDScript" id="GDScript_dombra"]
+script/source = "extends Node3D
+## Geliştirme sahnesi: oturan yaşlı ozanın kucağındaki dombranın yerleşim adayları yan yana (soldan sağa).
+## İlk aday scenes/world/camp_npcs.tscn'deki şu anki yerleşimdir; diğerleri karşılaştırma içindir. Her aday:
+## dombranın taban noktası (B), sapın yönü (D) ve gövde yüzünün yaklaşık yönü (N); hepsi karakterin \"ateşe bakan\"
+## yerel uzayında (+Z = ateşe doğru, +X = karakterin solu). Dombranın tabanı düğümün yerindedir, sapı +Y'dedir.
+## Argümanlar: --pose=x,y,z,yaw,pitch ve --fov=derece (kamera).
+## Örnek (önden, adaylar 1.6 m arayla x = -2.4, -0.8, 0.8, 2.4):
+##   tools/capture.sh /tmp/dombra.png 90 --scene=res://scenes/dev/characters_dombra.tscn --pose=-2.4,0.85,1.45,0,-14 --fov=40
+
+const NPC_SCENE := preload(\"res://scenes/world/camp_npcs.tscn\")
+const SPACING := 1.6
+## Karşılaştırma adayları: [B, D, N]. İlki eski yerleşimdir (gövde sağ ön kolun kürk yenine giriyordu).
+const ALTERNATIVES := [
+	[Vector3(-0.33, 0.2, 0.3), Vector3(0.866, 0.483, -0.129), Vector3(0.0, 0.259, 0.966)],
+	[Vector3(-0.193, 0.246, 0.42), Vector3(0.84, 0.54, 0.0), Vector3(0.0, 0.4, 0.92)],
+	[Vector3(-0.2, 0.26, 0.3), Vector3(0.82, 0.57, 0.05), Vector3(0.0, 0.3, 0.95)],
+]
+
+@onready var _camera := $Camera as Camera3D
+
+
+func _ready() -> void:
+	var capture := get_node_or_null(^\"/root/DevCapture\")
+	if capture:
+		capture.pose_requested.connect(func(pos: Vector3, yaw: float, pitch: float) -> void:
+			_camera.global_transform = Transform3D(Basis.from_euler(Vector3(deg_to_rad(pitch), deg_to_rad(yaw), 0.0)), pos))
+		capture.fov_requested.connect(func(fov_deg: float) -> void: _camera.fov = fov_deg)
+	var candidates := _candidates()
+	for i in candidates.size():
+		var avatar := CharacterAvatar.new()
+		avatar.model_override = \"elder\"
+		avatar.start_pose = &\"sit\"
+		avatar.position = Vector3((i - (candidates.size() - 1) * 0.5) * SPACING, 0.0, 0.0)
+		add_child(avatar)
+		var prop := MeshyProp.new()
+		prop.model_id = \"dombra\"
+		prop.transform = candidates[i]
+		avatar.add_child(prop)
+
+
+## Şu anki yerleşim (camp_npcs.tscn) ve karşılaştırma adayları.
+func _candidates() -> Array[Transform3D]:
+	var npcs := NPC_SCENE.instantiate()
+	var result: Array[Transform3D] = [(npcs.get_node(^\"Elder/Dombra\") as Node3D).transform]
+	npcs.free()
+	for c in ALTERNATIVES:
+		result.append(holding_transform(c[0], c[1], c[2]))
+	return result
+
+
+## Taban noktası, sap yönü ve yaklaşık yüz yönünden dombranın dönüşümü (sap = +Y, yüz = +Z).
+static func holding_transform(base: Vector3, neck: Vector3, face: Vector3) -> Transform3D:
+	var y := neck.normalized()
+	var z := (face - y * face.dot(y)).normalized()
+	var x := y.cross(z)
+	return Transform3D(Basis(x, y, z), base)
+"
+
+[sub_resource type="Environment" id="Environment_dombra"]
+background_mode = 1
+background_color = Color(0.3, 0.38, 0.5, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.64, 0.75, 1)
+ambient_light_energy = 0.8
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(16, 8)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.3, 0.42, 0.22, 1)
+
+[node name="CharactersDombra" type="Node3D"]
+script = SubResource("GDScript_dombra")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dombra")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 4, 0)
+light_color = Color(1, 0.95, 0.88, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("Material_ground")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.97815, 0.20791, 0, -0.20791, 0.97815, 0, 1.1, 4.4)
+fov = 40.0

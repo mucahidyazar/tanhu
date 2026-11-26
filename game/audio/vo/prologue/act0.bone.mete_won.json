@@ -1,0 +1,15 @@
+{
+	"id": "act0.bone.mete_won",
+	"take": 0,
+	"seed": 3729653996,
+	"hash": "de4e00ece8b2",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.52,
+	"words": [
+		{"w": "He", "t0": 0.0, "t1": 0.08},
+		{"w": "made", "t0": 0.16, "t1": 0.48},
+		{"w": "the", "t0": 0.52, "t1": 0.64},
+		{"w": "post!", "t0": 0.784, "t1": 1.52}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"id": "act0.child.bark.hit.luhun_child.1",
+	"take": 0,
+	"seed": 3391792543,
+	"hash": "ca2aa59fbe95",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.04,
+	"words": [
+		{"w": "It's", "t0": 0.0, "t1": 0.24},
+		{"w": "down!", "t0": 0.32, "t1": 1.04}
+	]
+}

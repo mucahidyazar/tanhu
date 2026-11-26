@@ -1,0 +1,106 @@
+{
+  "id": "ordos",
+  "version": 1,
+  "note": "childhood_ordos dünyasının müzik bankası (audio.md §3 «Yeni Oyun ve Önsöz», childhood; K59, K61, K68): Önsöz'ün doğumu ve Çocukluk «Koyun Sırtında». birth: doğumun alçak dronu (D2, D Dorian 52) ve note katmanında tek uzun nota (hucia A4): 12. satır bitince açılır, 5 sn'de söner; katman −80 dB'te bekler. birth_motif: motifin bütünü kopuzla (D↗A, A G F D; oyunda ilk kez), 3:22,5'te birth'ten ölçü beklemeden başa geçilir (immediate, start; eski klip söner), motif dosyanın başındadır; dronu −80 dB'ten çizelgeyle yükselir (kara sessizlikten sonra ağlama dronsuz duyulur). childhood: majör pentatonik (kök F) 72, kopuz hızlanır (motor 0,7), kaval cümleleri; davul ve koro yok; Önsöz'ün son 10 sn'sinde (geçiş) başlar. Çizelge data/cine/prologue_birth.json bu sayılarla yazılır, test_prologue_birth.gd ikisini birlikte sınar. birth ve birth_motif audio.md §3'ün 22 durumundan değildir: DuckTable onları kampın gündelik kısmasıyla (−6 / −3) kısar; anlatı kısması (−3 / −3) için DuckTable'a eklenmeleri ana oturumun kararıdır. Kodla basılan müzik kulak onayı bekler (Karar Bekleyenler).",
+  "menu_source": "elevenlabs",
+  "transition": {
+    "from": "next_bar",
+    "to": "start",
+    "fade": "cross",
+    "beats": 2
+  },
+  "transitions": [
+    {
+      "from_clip": "birth",
+      "to_clip": "birth_motif",
+      "from": "immediate",
+      "to": "start",
+      "fade": "out",
+      "beats": 1
+    }
+  ],
+  "clips": [
+    {
+      "name": "birth",
+      "tempo": 52,
+      "mode": "d_dorian",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "birth_drone",
+          "db": -9
+        },
+        {
+          "name": "note",
+          "file": "birth_note",
+          "db": -80
+        }
+      ]
+    },
+    {
+      "name": "birth_motif",
+      "tempo": 52,
+      "mode": "d_dorian",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "birth_drone",
+          "db": -80
+        },
+        {
+          "name": "motif",
+          "file": "birth_motif",
+          "db": -1
+        }
+      ]
+    },
+    {
+      "name": "childhood",
+      "tempo": 72,
+      "mode": "major_pent",
+      "layers": [
+        {
+          "name": "drone",
+          "file": "childhood_drone",
+          "db": -8
+        },
+        {
+          "name": "kopuz",
+          "group": "lead",
+          "db": -1,
+          "phrases": [
+            {
+              "file": "childhood_kopuz_a",
+              "copies": 3
+            },
+            {
+              "file": "childhood_kopuz_b",
+              "copies": 2
+            },
+            {
+              "file": "childhood_rest",
+              "copies": 1,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "name": "kaval",
+          "group": "add",
+          "db": -9,
+          "phrases": [
+            {
+              "file": "childhood_kaval_a",
+              "copies": 1
+            },
+            {
+              "file": "childhood_rest",
+              "copies": 3,
+              "rest": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

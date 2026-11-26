@@ -1,0 +1,17 @@
+{
+	"id": "act0.child.bark.flush.luhun_child.1",
+	"take": 0,
+	"seed": 2873631464,
+	"hash": "ab4822e8e399",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 3.12,
+	"words": [
+		{"w": "Slowly.", "t0": 0.0, "t1": 0.64},
+		{"w": "It", "t0": 1.147, "t1": 2.16},
+		{"w": "can", "t0": 2.2, "t1": 2.32},
+		{"w": "hear", "t0": 2.352, "t1": 2.48},
+		{"w": "your", "t0": 2.512, "t1": 2.64},
+		{"w": "feet.", "t0": 2.72, "t1": 3.12}
+	]
+}

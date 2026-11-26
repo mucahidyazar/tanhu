@@ -1,0 +1,13 @@
+{
+  "id": "post_knock",
+  "kind": "sfx",
+  "instrument": "knock",
+  "seconds": 0.6,
+  "seed": 5207,
+  "rate": 22050,
+  "loop": false,
+  "body_hz": 180,
+  "body_s": 0.09,
+  "source": "code",
+  "note": "Menzil Direği'ne vuruş (travel.md §14 «Ses»: tahta tokmak, 180 Hz sönümlü sinüs + kısa gürültü; act1.md §4): iple asılı tokmak direğe iki kez vurur, tok-tok (scripts/audio/synth/knock.gd). Oyuncu direğe E basınca RelayPosts.knock çalar (3B, 60 m'de söner); bağlı direğin kemik uğultusu ayrıdır (bone_hum). Kulak onayı bekler."
+}

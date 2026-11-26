@@ -1,0 +1,22 @@
+{
+  "id": "crane_call",
+  "kind": "sfx",
+  "instrument": "crane",
+  "role": "recording",
+  "file": "assets/_free/sound/crane_call_2/Gerves.ogg",
+  "start": 6.8,
+  "seconds": 6.5,
+  "highpass": 320,
+  "lowpass": 5200,
+  "notches": [
+    7171,
+    7429
+  ],
+  "rms": 0.065,
+  "fade_out": 0.6,
+  "seed": 2345,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "Uzakta turnalar (Önsöz 3:18,3–3:36,9; audio.md §4 «Önsöz ekleri»: dar biçimlendirici ≈1 kHz, sert atak, çatlak; sürü 8–12 çalış, gökte hareketli kaynak). Kaynak ücretsiz kayıttır (crane_call_2: Wikimedia Commons «Gervės», Hugo.arg, CC0): 6,8–13,3 sn, yüksek geçiren 320 Hz, 7,2 ve 7,4 kHz'deki sabit çizgiler çentikle temizlenir. Çeşidi crane_call_v1 (crane_call_1); kodla basılan sürü (scripts/audio/synth/crane.gd) karşılaştırma adayıdır: audio/gen/_wav/crane_call_code.wav (birth_crane_code.json). CraneFlock gökte hareketli kaynaktan çalar. Kulak onayı bekler."
+}

@@ -1,0 +1,1116 @@
+{
+  "id": "horse",
+  "doc": "Kampın iki atının sayıları (tools/blender/quadruped_rig.py; kuzey bozkırının tıknaz atı, Meshy ağı eyerli ve gemlidir). Ortak sayılar burada, models bölümünde her ağın kendine özgü noktaları: doru (horse_brown) ve kır (horse_white) at aynı iskelet ve klipleri taşır, eklemler ve noktalar ağından ölçülür. normalize bölümü ham Meshy biriminde, ötekiler oyun metresindedir; boy burundan kuyruk ucuna 2,3 m (Horse.MODEL_LENGTH, oran korunur). Oyun uzayı: y yukarı, +z ileri, +x hayvanın solu. Açılar derece: +pitch burun aşağı (+x ekseni), +yaw sola (+y), +roll sol yan yukarı (+z). Bacak zinciri: omuz ya da kalça eklemi, dirsek ya da stifle, diz ya da hock, bilek (fetlock) ve toynak. Kuyruk beş kemik kılın boyunca iner, yele üç kemik boyun sırtındadır (dalga kliptedir). Klipler: idle, graze, walk, trot, gallop (çapraz dörtnal, sağ öncü), jump (sıçrama: bir kez oynar, havadaki yay oyunun kodudur); adım boyu fauna.md §10'un equid planından, omuz oranıyla (L dörtnal 4,29 × 1,33 / 1,45 ≈ 3,9 m).",
+  "texture_class": "mount",
+  "import_fps": 60,
+  "models": {
+    "horse_brown": {
+      "source": "assets/_meshy_raw/horse_brown/horse_brown.glb",
+      "output_dir": "assets/animals/horse_brown",
+      "weights": {
+        "mane": {
+          "dark_lum": [
+            0.12,
+            0.2
+          ],
+          "dark_reach": 0.32
+        }
+      }
+    },
+    "horse_white": {
+      "source": "assets/_meshy_raw/horse_white/horse_white.glb",
+      "output_dir": "assets/animals/horse_white",
+      "skeleton": {
+        "head": [
+          0,
+          1.64,
+          0.87
+        ],
+        "nose": [
+          0,
+          1.29,
+          1.19
+        ],
+        "ears": {
+          "L": {
+            "base": [
+              0.07,
+              1.7,
+              0.92
+            ],
+            "tip": [
+              0.09,
+              1.78,
+              0.97
+            ]
+          },
+          "R": {
+            "base": [
+              -0.07,
+              1.7,
+              0.92
+            ],
+            "tip": [
+              -0.09,
+              1.78,
+              0.97
+            ]
+          }
+        },
+        "tail": [
+          [
+            0,
+            1.23,
+            -0.69
+          ],
+          [
+            0,
+            1.1,
+            -0.79
+          ],
+          [
+            0,
+            0.84,
+            -0.85
+          ],
+          [
+            0,
+            0.58,
+            -0.89
+          ],
+          [
+            0,
+            0.34,
+            -0.95
+          ],
+          [
+            0,
+            0.13,
+            -1.04
+          ]
+        ],
+        "mane": {
+          "points": [
+            [
+              0,
+              1.42,
+              0.34
+            ],
+            [
+              0,
+              1.53,
+              0.5
+            ],
+            [
+              0,
+              1.64,
+              0.7
+            ],
+            [
+              0,
+              1.71,
+              0.86
+            ]
+          ]
+        }
+      },
+      "weights": {
+        "head": {
+          "center": [
+            0,
+            1.49,
+            1.03
+          ]
+        }
+      },
+      "saddle": {
+        "z": -0.04
+      }
+    }
+  },
+  "normalize": {
+    "torso_z": [
+      -0.45,
+      0.3
+    ],
+    "torso_min_height": 0.8,
+    "shoulder_z": 0.25,
+    "shoulder_probe": 0.06,
+    "uniform_length_m": 2.3
+  },
+  "skeleton": {
+    "hips": [
+      0,
+      1.06,
+      -0.45
+    ],
+    "spine": [
+      0,
+      1.03,
+      -0.05
+    ],
+    "chest": [
+      0,
+      1.05,
+      0.3
+    ],
+    "belly": [
+      0,
+      0.86,
+      -0.05
+    ],
+    "neck": [
+      [
+        0,
+        1.18,
+        0.46
+      ],
+      [
+        0,
+        1.34,
+        0.6
+      ],
+      [
+        0,
+        1.5,
+        0.73
+      ]
+    ],
+    "head": [
+      0,
+      1.61,
+      0.84
+    ],
+    "nose": [
+      0,
+      1.27,
+      1.15
+    ],
+    "ears": {
+      "L": {
+        "base": [
+          0.07,
+          1.69,
+          0.87
+        ],
+        "tip": [
+          0.09,
+          1.77,
+          0.91
+        ]
+      },
+      "R": {
+        "base": [
+          -0.07,
+          1.69,
+          0.87
+        ],
+        "tip": [
+          -0.09,
+          1.77,
+          0.91
+        ]
+      }
+    },
+    "tail": [
+      [
+        0,
+        1.22,
+        -0.69
+      ],
+      [
+        0,
+        1.08,
+        -0.8
+      ],
+      [
+        0,
+        0.84,
+        -0.86
+      ],
+      [
+        0,
+        0.58,
+        -0.91
+      ],
+      [
+        0,
+        0.34,
+        -0.97
+      ],
+      [
+        0,
+        0.12,
+        -1.05
+      ]
+    ],
+    "mane": {
+      "points": [
+        [
+          0,
+          1.4,
+          0.34
+        ],
+        [
+          0,
+          1.5,
+          0.5
+        ],
+        [
+          0,
+          1.61,
+          0.68
+        ],
+        [
+          0,
+          1.68,
+          0.84
+        ]
+      ],
+      "parents": [
+        "Neck1",
+        "Neck2",
+        "Neck3"
+      ]
+    },
+    "legs": {
+      "front": {
+        "parent": "Chest",
+        "fetlock_y": 0.15,
+        "low_y": 0.45,
+        "mid": {
+          "y": 0.78,
+          "dz": -0.03
+        },
+        "top": {
+          "y": 1.02,
+          "dz": 0.14,
+          "x_factor": 0.85
+        },
+        "track_top_y": 0.5,
+        "track_radius": 0.09
+      },
+      "hind": {
+        "parent": "Hips",
+        "fetlock_y": 0.15,
+        "low_y": 0.48,
+        "mid": {
+          "y": 0.83,
+          "dz": 0.22
+        },
+        "top": {
+          "y": 1.08,
+          "dz": 0.12,
+          "x_factor": 0.75
+        },
+        "track_top_y": 0.52,
+        "track_radius": 0.09
+      }
+    }
+  },
+  "weights": {
+    "dark_lum": [
+      0.0,
+      0.01
+    ],
+    "body_blend": {
+      "hips_spine": [
+        -0.42,
+        -0.15
+      ],
+      "spine_chest": [
+        0.08,
+        0.32
+      ]
+    },
+    "belly": {
+      "y": [
+        0.92,
+        0.74
+      ],
+      "z": [
+        -0.4,
+        -0.25,
+        0.12,
+        0.28
+      ],
+      "share": 0.5
+    },
+    "tail": {
+      "point": [
+        0,
+        1.2,
+        -0.7
+      ],
+      "normal": [
+        0,
+        0.2,
+        -1.0
+      ],
+      "blend": [
+        -0.02,
+        0.04
+      ],
+      "smooth": 6,
+      "chain": 0.3
+    },
+    "neck": {
+      "point": [
+        0,
+        1.18,
+        0.5
+      ],
+      "normal": [
+        0,
+        0.7,
+        0.72
+      ],
+      "blend": [
+        -0.06,
+        0.1
+      ],
+      "smooth": 12,
+      "exclude_box": [
+        [
+          -0.45,
+          1.08,
+          -0.45
+        ],
+        [
+          0.45,
+          1.65,
+          0.28
+        ]
+      ],
+      "exclude_margin": 0.04
+    },
+    "mane": {
+      "reach": [
+        0.1,
+        0.3
+      ],
+      "smooth": 6,
+      "share": 0.7,
+      "chain": 0.35
+    },
+    "head": {
+      "center": [
+        0,
+        1.47,
+        1.0
+      ],
+      "radii": [
+        0.13,
+        0.15,
+        0.3
+      ],
+      "pitch_deg": 54.0,
+      "reach": 0.42,
+      "collar": [
+        1.0,
+        1.35
+      ],
+      "smooth": 4
+    },
+    "ear": {
+      "radius": 0.05,
+      "start": -0.005,
+      "full": 0.03
+    },
+    "leg": {
+      "tube": "chain",
+      "tube_radius": 0.12,
+      "tube_radius_top": 0.16,
+      "hem_y": {
+        "front": 0.95,
+        "hind": 0.92
+      },
+      "hem_fade": 0.07,
+      "skin_smooth": 8,
+      "wool_near": 0.08,
+      "wool_far": 0.2,
+      "wool_top": {
+        "front": 0.9,
+        "hind": 0.9
+      },
+      "wool_share": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "wool_smooth": 8,
+      "blend": {
+        "hoof": 0.02,
+        "low": 0.04,
+        "mid": 0.06
+      }
+    }
+  },
+  "saddle": {
+    "z": -0.03,
+    "probe": [
+      0.05,
+      0.05
+    ],
+    "sink": 0.01,
+    "bone": "Spine"
+  },
+  "gait": {
+    "symmetry": 0.7
+  },
+  "clips": {
+    "idle": {
+      "length_s": 8.0,
+      "rate": 30,
+      "swish_deg": 12.0,
+      "tail_share": [
+        0.35,
+        0.35,
+        0.3,
+        0.25,
+        0.2
+      ],
+      "tail_lag_s": 0.06,
+      "mane_breeze_deg": 2.0
+    },
+    "graze": {
+      "length_s": 10.0,
+      "rate": 30,
+      "mouth_y": 0.25,
+      "head_pitch": 30.0,
+      "neck_split": [
+        0.75,
+        0.15,
+        0.1
+      ],
+      "chest_pitch": 5.0,
+      "spine_pitch": 2.0,
+      "swish_deg": 10.0,
+      "tail_share": [
+        0.35,
+        0.35,
+        0.3,
+        0.25,
+        0.2
+      ],
+      "mane_breeze_deg": 1.5
+    },
+    "walk": {
+      "doc": "Dört vuruşlu yan sıralı adım (fauna.md §10): sol arka, sol ön, sağ arka, sağ ön; at adımda başını iki kez sallar.",
+      "stride_m": 1.5,
+      "speed_mps": 1.6,
+      "samples": 60,
+      "duty": 0.6,
+      "lift_m": 0.07,
+      "phases": {
+        "HindL": 0.0,
+        "FrontL": 0.25,
+        "HindR": 0.5,
+        "FrontR": 0.75
+      },
+      "stance_shift": {
+        "front": 0.0,
+        "hind": 0.0
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 4.0
+      },
+      "roll_off": {
+        "front": 30.0,
+        "hind": 26.0
+      },
+      "swing_peak": {
+        "front": 60.0,
+        "hind": 45.0
+      },
+      "flex": {
+        "front": 70.0,
+        "hind": 40.0
+      },
+      "body": {
+        "crouch_m": 0.06,
+        "bob_m": 0.01,
+        "sway_m": 0.008,
+        "hip_yaw": 2.5,
+        "chest_yaw": 2.0,
+        "hip_roll": 2.0,
+        "chest_roll": 1.5,
+        "neck_pitch": 4.0,
+        "head_pitch": -2.0,
+        "nod": 4.0,
+        "tail_yaw": 4.0,
+        "tail_pitch": 2.0,
+        "belly_m": 0.006,
+        "ear": 4.0,
+        "tail_share": [
+          0.35,
+          0.3,
+          0.3,
+          0.25,
+          0.2
+        ],
+        "tail_yaw_lag": [
+          0.18,
+          0.26,
+          0.34,
+          0.42,
+          0.5
+        ],
+        "tail_pitch_lag": [
+          0.28,
+          0.4,
+          0.52,
+          0.64,
+          0.76
+        ],
+        "mane_wave_deg": 2.0,
+        "mane_cycles": 2,
+        "mane_lag": 0.1
+      }
+    },
+    "trot": {
+      "doc": "Tırıs: çapraz çift, kısa havada kalış.",
+      "stride_m": 2.3,
+      "speed_mps": 4.0,
+      "samples": 40,
+      "duty": 0.36,
+      "lift_m": 0.12,
+      "phases": {
+        "HindL": 0.0,
+        "FrontR": 0.0,
+        "HindR": 0.5,
+        "FrontL": 0.5
+      },
+      "stance_shift": {
+        "front": 0.02,
+        "hind": -0.03
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 5.0
+      },
+      "roll_off": {
+        "front": 32.0,
+        "hind": 28.0
+      },
+      "swing_peak": {
+        "front": 70.0,
+        "hind": 55.0
+      },
+      "flex": {
+        "front": 85.0,
+        "hind": 50.0
+      },
+      "body": {
+        "crouch_m": 0.075,
+        "bob_m": 0.025,
+        "sway_m": 0.006,
+        "hip_yaw": 1.5,
+        "chest_yaw": -1.5,
+        "hip_roll": 2.5,
+        "chest_roll": -2.5,
+        "neck_pitch": 6.0,
+        "head_pitch": -4.0,
+        "nod": 2.0,
+        "tail_yaw": 5.0,
+        "tail_pitch": 6.0,
+        "belly_m": 0.012,
+        "ear": 5.0,
+        "tail_share": [
+          0.35,
+          0.3,
+          0.3,
+          0.25,
+          0.2
+        ],
+        "tail_yaw_lag": [
+          0.18,
+          0.26,
+          0.34,
+          0.42,
+          0.5
+        ],
+        "tail_pitch_lag": [
+          0.28,
+          0.4,
+          0.52,
+          0.64,
+          0.76
+        ],
+        "tail_lift": [
+          -8.0,
+          -3.0,
+          -2.0,
+          0.0,
+          0.0
+        ],
+        "mane_wave_deg": 5.0,
+        "mane_cycles": 2,
+        "mane_lag": 0.1
+      }
+    },
+    "gallop": {
+      "doc": "Çapraz dörtnal, sağ öncü: sol arka, sağ arka, sol ön, sağ ön, sonra havada kalış. Gövde adımda bir kez öne arkaya yatar ve iner kalkar, boyun pompalar, kuyruk kalkıp arkaya akar, yele dalgalanır.",
+      "stride_m": 3.9,
+      "speed_mps": 10.5,
+      "samples": 36,
+      "duty": 0.24,
+      "lift_m": 0.2,
+      "phases": {
+        "HindL": 0.0,
+        "HindR": 0.1,
+        "FrontL": 0.38,
+        "FrontR": 0.5
+      },
+      "stance_shift": {
+        "front": 0.0,
+        "hind": -0.06
+      },
+      "stance_give": {
+        "front": 0.0,
+        "hind": 6.0
+      },
+      "roll_off": {
+        "front": 35.0,
+        "hind": 30.0
+      },
+      "swing_peak": {
+        "front": 80.0,
+        "hind": 65.0
+      },
+      "flex": {
+        "front": 95.0,
+        "hind": 60.0
+      },
+      "body": {
+        "crouch_m": 0.09,
+        "bob_m": 0.0,
+        "sway_m": 0.004,
+        "hip_yaw": 1.0,
+        "chest_yaw": 1.0,
+        "hip_roll": 1.0,
+        "chest_roll": 1.0,
+        "neck_pitch": 10.0,
+        "head_pitch": -6.0,
+        "nod": 0.0,
+        "tail_yaw": 3.0,
+        "tail_pitch": 8.0,
+        "belly_m": 0.015,
+        "ear": 3.0,
+        "rock_deg": 5.0,
+        "rock_phase": 0.55,
+        "bob1_m": 0.03,
+        "bob1_phase": 0.82,
+        "spine_flex_deg": 3.0,
+        "neck_pump_deg": 7.0,
+        "pump_lag": 0.08,
+        "tail_share": [
+          0.35,
+          0.3,
+          0.3,
+          0.25,
+          0.2
+        ],
+        "tail_yaw_lag": [
+          0.18,
+          0.26,
+          0.34,
+          0.42,
+          0.5
+        ],
+        "tail_pitch_lag": [
+          0.1,
+          0.2,
+          0.3,
+          0.4,
+          0.5
+        ],
+        "tail_pitch_cycles": 1,
+        "tail_lift": [
+          -25.0,
+          -10.0,
+          -8.0,
+          -6.0,
+          -5.0
+        ],
+        "mane_wave_deg": 9.0,
+        "mane_cycles": 1,
+        "mane_lag": 0.12,
+        "mane_lift_deg": -3.0
+      }
+    },
+    "jump": {
+      "doc": "Sıçrama (binici Boşluk'a basınca; PlayerController.jump → RideableHorse.leap). Bir kez oynar, yerindedir ve gövdenin havadaki yayını taşımaz: uçuş oyunda koddur (yükseklik ve havada kalış hıza göre, data/fauna/mounts.json horse.jump). Zamanlar saniye: lift ön toynakların kalkışı (sol ön lead_s önce), run_start koşarak sıçramanın başladığı an (ön bacaklar kalkmış), takeoff arka toynakların kalkışı, touchdown ön inişi (öncü sağ ön; sol ön lead_s sonra), hind_down arka inişi. ground_mps: itişte arka, inişte ön toynağın geri kayma hızı (oyun bu evreleri bu hıza göre oynatır, ayak yerde kaymaz). body: kalçanın ve omzun (ön bacak kökü) yüksekliği (m, dinlenmeye göre; gövdenin yatışı ikisinin farkından), hips_z ağırlığın öne arkaya kayışı, arch_deg sırtın kamburu (artı burun aşağı), roll_deg yana yatış. front, hind: toplanmış bacağın toynağı (bacak kökünden, gövdenin ekseninde: drop aşağı, back geri, fwd ileri; x dinlenmedekinin katı), toynağın yatışı ve alt eklemin bükümü (derece), kalkış ve açılış süreleri (sn), itişte toynağın dikilişi, inişte bükülüş. neck, head: boyun ve başın eğimi (derece, artı burun aşağı); ears kulakların öne yatışı; tail_lift, mane_lift kuyruğun ve yelenin kalkışı (eksi yukarı).",
+      "length_s": 1.4,
+      "rate": 60,
+      "loop": false,
+      "times": {
+        "lift": 0.18,
+        "run_start": 0.24,
+        "takeoff": 0.38,
+        "touchdown": 0.88,
+        "hind_down": 1.02
+      },
+      "lead_s": 0.03,
+      "ground_mps": 2.0,
+      "body": {
+        "hips_y": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.1,
+            -0.05
+          ],
+          [
+            0.18,
+            -0.09
+          ],
+          [
+            0.28,
+            -0.07
+          ],
+          [
+            0.38,
+            0.0
+          ],
+          [
+            0.5,
+            0.08
+          ],
+          [
+            0.63,
+            0.15
+          ],
+          [
+            0.76,
+            0.2
+          ],
+          [
+            0.88,
+            0.2
+          ],
+          [
+            0.95,
+            0.09
+          ],
+          [
+            1.02,
+            0.0
+          ],
+          [
+            1.1,
+            -0.06
+          ],
+          [
+            1.22,
+            -0.025
+          ],
+          [
+            1.4,
+            0.0
+          ]
+        ],
+        "shoulder_y": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.1,
+            -0.04
+          ],
+          [
+            0.18,
+            -0.02
+          ],
+          [
+            0.28,
+            0.16
+          ],
+          [
+            0.38,
+            0.3
+          ],
+          [
+            0.5,
+            0.28
+          ],
+          [
+            0.63,
+            0.16
+          ],
+          [
+            0.76,
+            0.04
+          ],
+          [
+            0.88,
+            -0.02
+          ],
+          [
+            0.95,
+            -0.07
+          ],
+          [
+            1.02,
+            -0.06
+          ],
+          [
+            1.1,
+            -0.03
+          ],
+          [
+            1.22,
+            0.0
+          ],
+          [
+            1.4,
+            0.0
+          ]
+        ],
+        "hips_z": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.18,
+            -0.04
+          ],
+          [
+            0.38,
+            0.02
+          ],
+          [
+            0.88,
+            0.0
+          ],
+          [
+            1.4,
+            0.0
+          ]
+        ],
+        "arch_deg": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.38,
+            -2.0
+          ],
+          [
+            0.63,
+            4.0
+          ],
+          [
+            0.88,
+            2.0
+          ],
+          [
+            1.1,
+            0.0
+          ],
+          [
+            1.4,
+            0.0
+          ]
+        ],
+        "roll_deg": 1.5
+      },
+      "front": {
+        "tuck_drop": 0.5,
+        "tuck_back": 0.12,
+        "tuck_x": 0.85,
+        "tuck_pitch": 115.0,
+        "tuck_flex": 110.0,
+        "rise_s": 0.2,
+        "reach_s": 0.22,
+        "reach_over_m": 0.15,
+        "roll_off": 30.0,
+        "land_pitch": -8.0,
+        "land_give": 10.0
+      },
+      "hind": {
+        "tuck_drop": 0.62,
+        "tuck_fwd": 0.12,
+        "tuck_x": 0.9,
+        "tuck_pitch": 75.0,
+        "tuck_flex": 65.0,
+        "rise_s": 0.24,
+        "reach_s": 0.2,
+        "push_roll": 40.0,
+        "roll_s": 0.12,
+        "crouch_flex": 18.0,
+        "land_give": 12.0,
+        "give_s": 0.3
+      },
+      "neck": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.12,
+          8.0
+        ],
+        [
+          0.24,
+          7.0
+        ],
+        [
+          0.38,
+          12.0
+        ],
+        [
+          0.55,
+          18.0
+        ],
+        [
+          0.7,
+          18.0
+        ],
+        [
+          0.88,
+          6.0
+        ],
+        [
+          0.98,
+          -8.0
+        ],
+        [
+          1.12,
+          -4.0
+        ],
+        [
+          1.4,
+          0.0
+        ]
+      ],
+      "neck_split": [
+        0.5,
+        0.3,
+        0.2
+      ],
+      "head": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.12,
+          4.0
+        ],
+        [
+          0.38,
+          0.0
+        ],
+        [
+          0.6,
+          4.0
+        ],
+        [
+          0.88,
+          -2.0
+        ],
+        [
+          1.0,
+          -6.0
+        ],
+        [
+          1.4,
+          0.0
+        ]
+      ],
+      "ears": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.15,
+          10.0
+        ],
+        [
+          0.9,
+          10.0
+        ],
+        [
+          1.2,
+          0.0
+        ],
+        [
+          1.4,
+          0.0
+        ]
+      ],
+      "tail_lift": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          -15.0
+        ],
+        [
+          0.42,
+          -42.0
+        ],
+        [
+          0.7,
+          -48.0
+        ],
+        [
+          0.9,
+          -34.0
+        ],
+        [
+          1.05,
+          -12.0
+        ],
+        [
+          1.4,
+          0.0
+        ]
+      ],
+      "tail_share": [
+        1.0,
+        0.3,
+        0.28,
+        0.24,
+        0.2
+      ],
+      "tail_wave_deg": 6.0,
+      "mane_lift": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.38,
+          -2.0
+        ],
+        [
+          0.6,
+          -7.0
+        ],
+        [
+          0.9,
+          -4.0
+        ],
+        [
+          1.2,
+          0.0
+        ],
+        [
+          1.4,
+          0.0
+        ]
+      ],
+      "mane_wave_deg": 6.0
+    }
+  }
+}

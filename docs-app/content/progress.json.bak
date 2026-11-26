@@ -1,0 +1,1290 @@
+{
+  "updated": "2026-11-04T10:45:00.000Z",
+  "acts": [
+    {
+      "id": "foundation",
+      "title": "Temel",
+      "summary": "Tanhu 3'ten gelen altyapı: menü, oluşturucu, kayıt, ayarlar, Destan Kitabı, gece kampı, kamera, boyalı görünüm, ses, testler ve üretim hatları. Her perde bunun üstüne kurulur."
+    },
+    {
+      "id": "prologue",
+      "title": "Önsöz: Kopuz Söyler",
+      "page": "/docs/story/prologue",
+      "summary": "Ozan kopuzuyla mitolojiyi anlatır, anlatı Mete'nin doğumuna varır; sinema oluşturucuya ve oyunun açılışına bağlanır."
+    },
+    {
+      "id": "childhood",
+      "title": "Çocukluk: Koyun Sırtında",
+      "page": "/docs/story/childhood",
+      "summary": "Mete'nin çocukluğundan kısa, oynanan bir sahne."
+    },
+    {
+      "id": "act-1",
+      "title": "I. Perde: Çan",
+      "page": "/docs/story/act-1",
+      "summary": "Rehine Mete Yüeçi kışlağında: altı gün, Son Gece, kaçış, Kara Boran kovalamacası ve Ev sahnesi. Oyunun çekirdek sistemleri bu perdede kurulur."
+    },
+    {
+      "id": "act-2",
+      "title": "II. Perde: Ok Neyi Gösterirse",
+      "page": "/docs/story/act-2",
+      "summary": "Açık dünya açılır: atlas ve yolculuk, kendi ocağı, yerleşim, para, tek gecelik kamp ve küçük baskınlar."
+    },
+    {
+      "id": "act-3",
+      "title": "III. Perde: Boş Toprak",
+      "page": "/docs/story/act-3",
+      "summary": "Ordu, talim ve toplu savaş bu perdede gelir."
+    },
+    {
+      "id": "act-4",
+      "title": "IV. Perde: Borç",
+      "page": "/docs/story/act-4",
+      "summary": "Perdenin hikâyesi ve getirdiği sistemler."
+    },
+    {
+      "id": "act-5",
+      "title": "V. Perde: Dört Renk",
+      "page": "/docs/story/act-5",
+      "summary": "Perdenin hikâyesi ve getirdiği sistemler."
+    },
+    {
+      "id": "act-6",
+      "title": "VI. Perde: Sayım",
+      "page": "/docs/story/act-6",
+      "summary": "Perdenin hikâyesi ve getirdiği sistemler."
+    },
+    {
+      "id": "epilogue",
+      "title": "Sonsöz: Kopuz Susar",
+      "page": "/docs/story/epilogue",
+      "summary": "Ozanın son sözü; oyunun kapanışı."
+    },
+    {
+      "id": "release",
+      "title": "Yayın",
+      "summary": "Performans, oyun kolu, İngilizce arayüz, erişilebilirlik ve dışa aktarma. Perdelerle birlikte sürer, sonda kapanır."
+    }
+  ],
+  "phases": [
+    {
+      "id": "foundation-p1",
+      "act": "foundation",
+      "title": "Proje ve üretim araçları"
+    },
+    {
+      "id": "foundation-p2",
+      "act": "foundation",
+      "title": "Arayüz ve kayıt"
+    },
+    {
+      "id": "foundation-p3",
+      "act": "foundation",
+      "title": "Kamp, vadi ve görünüm"
+    },
+    {
+      "id": "foundation-p4",
+      "act": "foundation",
+      "title": "Oynanış çekirdeği"
+    },
+    {
+      "id": "prologue-p1",
+      "act": "prologue",
+      "title": "Metin ve ses"
+    },
+    {
+      "id": "prologue-p2",
+      "act": "prologue",
+      "title": "Sinema"
+    },
+    {
+      "id": "childhood-p1",
+      "act": "childhood",
+      "title": "Çocukluk sahnesi"
+    },
+    {
+      "id": "act-1-p1",
+      "act": "act-1",
+      "title": "Oyuncu ve dünya çekirdeği",
+      "summary": "Mete'nin oynanması ve bütün perdelerin kullanacağı temel sistemler."
+    },
+    {
+      "id": "act-1-p2",
+      "act": "act-1",
+      "title": "Kışlak",
+      "summary": "I. Perde'nin vadisi: Yüeçi kışlağı, yapıları, kişileri ve hayvanları."
+    },
+    {
+      "id": "act-1-p3",
+      "act": "act-1",
+      "title": "Hikâye sistemleri"
+    },
+    {
+      "id": "act-1-p4",
+      "act": "act-1",
+      "title": "Dikey dilim",
+      "summary": "Gün I'in ilk 15 dakikası ve Tipi oynanır; sonraki fazların kapsamı buna göre kesinleşir."
+    },
+    {
+      "id": "act-1-p5",
+      "act": "act-1",
+      "title": "Günler ve kaçış"
+    },
+    {
+      "id": "act-1-p6",
+      "act": "act-1",
+      "title": "Perde sonu",
+      "summary": "Perde son görevle biter; ardından Akan Kronik ve Serbest Dolaşım."
+    },
+    {
+      "id": "act-2-p1",
+      "act": "act-2",
+      "title": "Harita ve yolculuk"
+    },
+    {
+      "id": "act-2-p2",
+      "act": "act-2",
+      "title": "Yerleşim ve ekonomi"
+    },
+    {
+      "id": "act-2-p3",
+      "act": "act-2",
+      "title": "Hikâye"
+    },
+    {
+      "id": "act-3-p1",
+      "act": "act-3",
+      "title": "Ordu"
+    },
+    {
+      "id": "act-3-p2",
+      "act": "act-3",
+      "title": "Hikâye"
+    },
+    {
+      "id": "act-4-p1",
+      "act": "act-4",
+      "title": "Hanlık merkezi"
+    },
+    {
+      "id": "act-4-p2",
+      "act": "act-4",
+      "title": "Hikâye"
+    },
+    {
+      "id": "act-5-p1",
+      "act": "act-5",
+      "title": "Hikâye"
+    },
+    {
+      "id": "act-6-p1",
+      "act": "act-6",
+      "title": "Hikâye"
+    },
+    {
+      "id": "epilogue-p1",
+      "act": "epilogue",
+      "title": "Sonsöz"
+    },
+    {
+      "id": "release-p1",
+      "act": "release",
+      "title": "Cilalama ve yayın"
+    }
+  ],
+  "items": [
+    {
+      "id": "project-layout",
+      "phase": "foundation-p1",
+      "title": "Proje adı Tanhu, klasör düzeni game/ docs/ docs-app/",
+      "area": "Proje",
+      "status": "bitti",
+      "paths": [
+        "project.godot",
+        "README.md"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "Tanhu 3 → Tanhu; eski Tanhu önce Tanhu 1, sonra kullanıcı eliyle Tanhu 2D oldu"
+        }
+      ]
+    },
+    {
+      "id": "tests",
+      "phase": "foundation-p1",
+      "title": "Birim testleri ve başsız test koşucusu",
+      "area": "Sistem",
+      "status": "bitti",
+      "paths": [
+        "tests/run_tests.gd",
+        "tools/run_tests.sh",
+        "docs/testler.md"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "meshy-pipeline",
+      "phase": "foundation-p1",
+      "title": "Görselden 3B üretim hattı (gpt-image-2 ve Meshy)",
+      "area": "Varlık",
+      "status": "bitti",
+      "paths": [
+        "tools/meshy_pipeline.py",
+        "tools/meshy_dispatch.py",
+        "tools/asset_plan.json",
+        "tools/prepare_character.py",
+        "tools/glb_prepare.py"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "meshy-7.1, 8K doku, 4K geometri"
+        }
+      ]
+    },
+    {
+      "id": "voice-pipeline",
+      "phase": "foundation-p1",
+      "title": "ElevenLabs ses üretim aracı",
+      "area": "Ses",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/voice-over"
+      ],
+      "paths": [
+        "tools/elevenlabs_audio.sh"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "main-menu",
+      "phase": "foundation-p2",
+      "title": "Açılış sözü ve ana menü",
+      "area": "Arayüz",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ],
+      "paths": [
+        "scripts/ui/epigraph.gd",
+        "scenes/ui/main_menu.tscn",
+        "scripts/ui/main_menu.gd",
+        "scripts/ui/knot_button.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "Tanhu 3'te vardı"
+        }
+      ]
+    },
+    {
+      "id": "character-creator",
+      "phase": "foundation-p2",
+      "title": "Karakter oluşturma ekranı",
+      "area": "Arayüz",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ],
+      "paths": [
+        "scenes/ui/character_creator.tscn",
+        "scripts/ui/character_creator.gd",
+        "scripts/character/character_options.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "Tanhu 3'te vardı"
+        }
+      ]
+    },
+    {
+      "id": "save-slots",
+      "phase": "foundation-p2",
+      "title": "Kayıt yuvaları ve otomatik kayıt",
+      "area": "Sistem",
+      "status": "bitti",
+      "paths": [
+        "scripts/save/save_system.gd",
+        "scripts/save/save_data.gd",
+        "scripts/save/journey.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "10 yuva ve otomatik kayıt"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "phase": "foundation-p2",
+      "title": "Ayarlar ve tuşlar",
+      "area": "Arayüz",
+      "status": "bitti",
+      "design": [
+        "/docs/gameplay/camera-controls"
+      ],
+      "paths": [
+        "scripts/settings/game_settings.gd",
+        "scripts/ui/settings_panel.gd",
+        "scripts/ui/controls_page.gd",
+        "scripts/core/input_setup.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "Kamera dönüş hızı ve fare hassasiyeti ayarı var"
+        }
+      ]
+    },
+    {
+      "id": "epic-book",
+      "phase": "foundation-p2",
+      "title": "Destan Kitabı",
+      "area": "Arayüz",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ],
+      "paths": [
+        "scripts/ui/destan_kitabi.gd",
+        "data/destan.json",
+        "data/kisiler.json",
+        "data/taslar.json"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "pause-menu",
+      "phase": "foundation-p2",
+      "title": "Duraklatma kitabı",
+      "area": "Arayüz",
+      "status": "bitti",
+      "paths": [
+        "scripts/ui/pause_menu.gd",
+        "scripts/ui/game_menu.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "night-camp",
+      "phase": "foundation-p3",
+      "title": "Gece kampı: yurtlar, ateş, ahır, atlar, ateş başındakiler",
+      "area": "Dünya",
+      "status": "bitti",
+      "design": [
+        "/docs/world/regions"
+      ],
+      "paths": [
+        "scenes/world/world.tscn",
+        "scripts/camp/yurt.gd",
+        "scripts/camp/campfire.gd",
+        "scripts/camp/stable.gd",
+        "scenes/world/camp_npcs.tscn"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "valley",
+      "phase": "foundation-p3",
+      "title": "Vadi: arazi, çayır, orman, göl, dağlar, patikalar",
+      "area": "Dünya",
+      "status": "bitti",
+      "paths": [
+        "scripts/world/terrain.gd",
+        "scripts/world/meadow.gd",
+        "scripts/world/forest.gd",
+        "scripts/world/water.gd",
+        "scripts/world/mountains.gd",
+        "scripts/world/path_network.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "camp-models",
+      "phase": "foundation-p3",
+      "title": "Kampın modelleri: 6 karakter, 2 at, 2 yapı, 12 eşya, 4 doğa nesnesi",
+      "area": "Varlık",
+      "status": "bitti",
+      "paths": [
+        "assets/characters/mete",
+        "assets/characters/elder",
+        "assets/animals/horse_brown",
+        "assets/structures/yurt",
+        "assets/props/campfire",
+        "assets/nature/pine_a"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "painterly-look",
+      "phase": "foundation-p3",
+      "title": "Boyalı görünüm ve renk tonu",
+      "area": "Görsel",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/visual-language"
+      ],
+      "paths": [
+        "scenes/ui/painterly_overlay.tscn",
+        "scripts/ui/painterly_overlay.gd",
+        "scripts/world/color_grade.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "audio-core",
+      "phase": "foundation-p3",
+      "title": "Ses yöneticisi, menü müziği, ortam ve arayüz sesleri",
+      "area": "Ses",
+      "status": "bitti",
+      "design": [
+        "/docs/presentation/sound-music"
+      ],
+      "paths": [
+        "scripts/audio/audio_manager.gd",
+        "default_bus_layout.tres"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "free-roam",
+      "phase": "foundation-p4",
+      "title": "Serbest Gez: yürüme ve koşma",
+      "area": "Oynanış",
+      "status": "bitti",
+      "design": [
+        "/docs/gameplay/open-world-quests"
+      ],
+      "paths": [
+        "scripts/player/player_controller.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude"
+        }
+      ]
+    },
+    {
+      "id": "follow-camera",
+      "phase": "foundation-p4",
+      "title": "Takip kamerası: döndürme, 6–40 m yakınlaştırma, engel saydamlaşması",
+      "area": "Oynanış",
+      "status": "bitti",
+      "design": [
+        "/docs/gameplay/camera-controls"
+      ],
+      "paths": [
+        "scripts/player/follow_camera.gd"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T10:45:00.000Z",
+          "status": "bitti",
+          "by": "Claude",
+          "note": "Q/E ve sağ tıkla döner; eğim 23,35°'de sabit"
+        }
+      ]
+    },
+    {
+      "id": "prologue-script",
+      "phase": "prologue-p1",
+      "title": "Önsöz metni: ozanın mit anlatısı ve Mete'nin doğumu",
+      "area": "Hikâye",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/prologue",
+        "/docs/story/spine"
+      ]
+    },
+    {
+      "id": "kopuz-song",
+      "phase": "prologue-p1",
+      "title": "Ozanın kopuzlu şarkısı (ElevenLabs Eleven Music)",
+      "area": "Ses",
+      "status": "yapilacak",
+      "design": [
+        "/docs/presentation/voice-over"
+      ]
+    },
+    {
+      "id": "narrator-voice",
+      "phase": "prologue-p1",
+      "title": "Anlatıcı satırları (İngilizce seslendirme, altyazı TR ve EN)",
+      "area": "Ses",
+      "status": "yapilacak",
+      "design": [
+        "/docs/presentation/voice-over"
+      ]
+    },
+    {
+      "id": "opening-cinematic",
+      "phase": "prologue-p2",
+      "title": "Giriş sineması: ozan yakın planı, mit görüntüleri, gök, doğum",
+      "area": "Sinema",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/prologue"
+      ]
+    },
+    {
+      "id": "kopuz-model",
+      "phase": "prologue-p2",
+      "title": "Ozanın kopuzu: model, çalış animasyonu ve oyun metni (bugün elinde iki telli dombra var)",
+      "area": "Varlık",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/cast"
+      ],
+      "paths": [
+        "assets/props/dombra"
+      ],
+      "note": "Model değişince metin de değişir: data/kisiler.json ve data/destan.json «Dombıra» der, «iki teli» der; kopuz üç tellidir. tests/unit/test_destan_kitabi.gd «Dombıra» arar."
+    },
+    {
+      "id": "cinematic-to-creator",
+      "phase": "prologue-p2",
+      "title": "Sinemadan oluşturucuya ve I. Perde'nin açılışına geçiş",
+      "area": "Akış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/prologue"
+      ]
+    },
+    {
+      "id": "childhood-scene",
+      "phase": "childhood-p1",
+      "title": "Çocukluk sahnesi: Koyun Sırtında",
+      "area": "Hikâye",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/spine"
+      ]
+    },
+    {
+      "id": "mete-playable",
+      "phase": "act-1-p1",
+      "title": "Mete'nin oynanması: model, klipler, rehine kılığı",
+      "area": "Oyuncu",
+      "status": "suruyor",
+      "design": [
+        "/docs/story/cast"
+      ],
+      "paths": [
+        "assets/characters/mete",
+        "scripts/character/character_avatar.gd"
+      ],
+      "note": "Model ve yürüme, koşma klipleri var; rehine kılığı ve pelerin rengi yok"
+    },
+    {
+      "id": "camera-pitch",
+      "phase": "act-1-p1",
+      "title": "Kamera eğimi, varsayılana dönüş ve kadraj dışı tehdit işareti",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/camera-controls"
+      ],
+      "paths": [
+        "scripts/player/follow_camera.gd"
+      ]
+    },
+    {
+      "id": "levels-skills",
+      "phase": "act-1-p1",
+      "title": "Seviye (20), statlar ve beceriler",
+      "area": "Gelişim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/progression"
+      ]
+    },
+    {
+      "id": "inventory",
+      "phase": "act-1-p1",
+      "title": "Envanter, Yük, heybe, terki ve kaplar",
+      "area": "Ekonomi",
+      "status": "yapilacak",
+      "design": [
+        "/docs/economy/inventory-load"
+      ]
+    },
+    {
+      "id": "gathering",
+      "phase": "act-1-p1",
+      "title": "Toplama: ağaç, taş, ot, tezek, maden",
+      "area": "Ekonomi",
+      "status": "yapilacak",
+      "design": [
+        "/docs/economy/gathering"
+      ]
+    },
+    {
+      "id": "crafting",
+      "phase": "act-1-p1",
+      "title": "Zanaat ve tezgâhlar",
+      "area": "Ekonomi",
+      "status": "yapilacak",
+      "design": [
+        "/docs/economy/crafting"
+      ]
+    },
+    {
+      "id": "fire-hunting",
+      "phase": "act-1-p1",
+      "title": "Kamp ateşi, pişirme ve av",
+      "area": "Hayatta kalma",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/fire-cooking-hunting"
+      ]
+    },
+    {
+      "id": "hunger-wounds",
+      "phase": "act-1-p1",
+      "title": "Tokluk, Yara ve Düşüş",
+      "area": "Hayatta kalma",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/combat"
+      ]
+    },
+    {
+      "id": "clock-calendar",
+      "phase": "act-1-p1",
+      "title": "Saat ve takvim: 1 gün 60 gerçek dakika, gerçek tarih",
+      "area": "Zaman",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/time-calendar"
+      ]
+    },
+    {
+      "id": "sun-light",
+      "phase": "act-1-p1",
+      "title": "Gerçek güneş ve ay, ışık durakları, gece",
+      "area": "Zaman",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/time-calendar",
+        "/docs/presentation/visual-language"
+      ]
+    },
+    {
+      "id": "weather",
+      "phase": "act-1-p1",
+      "title": "Hava: 17 tür, cepheler, şimşek, ekran yağışı",
+      "area": "Dünya",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/weather"
+      ]
+    },
+    {
+      "id": "labour-law",
+      "phase": "act-1-p1",
+      "title": "Emek yasası: her ek el süreyi 0,75 ile çarpar",
+      "area": "Yapı",
+      "status": "yapilacak",
+      "design": [
+        "/docs/buildings/construction-labour"
+      ]
+    },
+    {
+      "id": "wait-sleep",
+      "phase": "act-1-p1",
+      "title": "Bekle, Uyu, Dinlen",
+      "area": "Zaman",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/time-calendar"
+      ]
+    },
+    {
+      "id": "riding",
+      "phase": "act-1-p1",
+      "title": "Binicilik: at, eyer, dörtnal, binek yükü",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/combat",
+        "/docs/economy/inventory-load"
+      ],
+      "paths": [
+        "scripts/camp/horse.gd"
+      ]
+    },
+    {
+      "id": "winter-camp-terrain",
+      "phase": "act-1-p2",
+      "title": "Kışlak arazisi, kar ve bölgeler",
+      "area": "Dünya",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/regions"
+      ]
+    },
+    {
+      "id": "yurt-variants",
+      "phase": "act-1-p2",
+      "title": "Yurtlar: üç boy, milletlere göre dış görünüş, iç düzenler",
+      "area": "Yapı",
+      "status": "yapilacak",
+      "design": [
+        "/docs/buildings/yurts"
+      ],
+      "paths": [
+        "assets/structures/yurt"
+      ]
+    },
+    {
+      "id": "staged-building",
+      "phase": "act-1-p2",
+      "title": "Aşamalı kurulum ve hasarla geri düşme",
+      "area": "Yapı",
+      "status": "yapilacak",
+      "design": [
+        "/docs/buildings/construction-labour",
+        "/docs/buildings/damage-repair"
+      ]
+    },
+    {
+      "id": "building-catalog",
+      "phase": "act-1-p2",
+      "title": "Öteki yapılar: ahır, ağıl, ambar, atölyeler",
+      "area": "Yapı",
+      "status": "yapilacak",
+      "design": [
+        "/docs/buildings/catalog"
+      ]
+    },
+    {
+      "id": "npc-schedules",
+      "phase": "act-1-p2",
+      "title": "Kişilerin günlük programı",
+      "area": "Dünya",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1"
+      ]
+    },
+    {
+      "id": "roads-relays",
+      "phase": "act-1-p2",
+      "title": "Yol ağı, Menzil ve araba",
+      "area": "Dünya",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/travel"
+      ]
+    },
+    {
+      "id": "animals",
+      "phase": "act-1-p2",
+      "title": "Hayvanlar: sürüler, yaban hayvanı, köpek, kuşlar",
+      "area": "Dünya",
+      "status": "yapilacak",
+      "design": [
+        "/docs/economy/gathering"
+      ]
+    },
+    {
+      "id": "quests",
+      "phase": "act-1-p3",
+      "title": "Görev ve günlük",
+      "area": "Hikâye",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/open-world-quests"
+      ]
+    },
+    {
+      "id": "dialogue",
+      "phase": "act-1-p3",
+      "title": "Diyalog, seçim ve portreler",
+      "area": "Hikâye",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/cast"
+      ]
+    },
+    {
+      "id": "conditions-effects",
+      "phase": "act-1-p3",
+      "title": "Koşul ve etki dili, bayraklar",
+      "area": "Sistem",
+      "status": "yapilacak",
+      "design": [
+        "/docs/development/architecture"
+      ]
+    },
+    {
+      "id": "axes",
+      "phase": "act-1-p3",
+      "title": "Güven, Kut ve Korku",
+      "area": "Gelişim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/progression",
+        "/docs/story/act-1"
+      ]
+    },
+    {
+      "id": "stealth-bell",
+      "phase": "act-1-p3",
+      "title": "Gizlilik, çan ve Üç Zemin",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/combat"
+      ]
+    },
+    {
+      "id": "sentries",
+      "phase": "act-1-p3",
+      "title": "Nöbetçiler ve algı",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/combat"
+      ]
+    },
+    {
+      "id": "combat",
+      "phase": "act-1-p3",
+      "title": "Dövüş: yay, sapan, bıçak, atlı dövüş",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/combat"
+      ]
+    },
+    {
+      "id": "chase",
+      "phase": "act-1-p3",
+      "title": "Kovalamaca: Kara Boran",
+      "area": "Oynanış",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1-days"
+      ]
+    },
+    {
+      "id": "ledger",
+      "phase": "act-1-p3",
+      "title": "Defter: künye, beceriler, çeteleler, adlar",
+      "area": "Arayüz",
+      "status": "yapilacak",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ]
+    },
+    {
+      "id": "vertical-slice",
+      "phase": "act-1-p4",
+      "title": "Dikey dilim: Gün I'in ilk 15 dakikası ve Tipi",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1"
+      ]
+    },
+    {
+      "id": "days-1-5",
+      "phase": "act-1-p5",
+      "title": "Gün I–V",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1-days"
+      ]
+    },
+    {
+      "id": "last-night",
+      "phase": "act-1-p5",
+      "title": "Son Gece ve kaçış",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1-days"
+      ]
+    },
+    {
+      "id": "day-6",
+      "phase": "act-1-p5",
+      "title": "Gün VI: Kara Boran ve İlk Islıklı Ok",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1-days"
+      ]
+    },
+    {
+      "id": "act-1-side-quests",
+      "phase": "act-1-p5",
+      "title": "I. Perde'nin yan görevleri",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/act-1-days"
+      ]
+    },
+    {
+      "id": "difficulty",
+      "phase": "act-1-p5",
+      "title": "Zorluk: Hikâye, Normal, Zor",
+      "area": "Gelişim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/progression"
+      ]
+    },
+    {
+      "id": "act-1-audio",
+      "phase": "act-1-p5",
+      "title": "I. Perde seslendirmesi ve müziği",
+      "area": "Ses",
+      "status": "yapilacak",
+      "design": [
+        "/docs/presentation/voice-over",
+        "/docs/presentation/sound-music"
+      ]
+    },
+    {
+      "id": "home-scene",
+      "phase": "act-1-p6",
+      "title": "Ev sahnesi ve perde kartı",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "chronicle",
+      "phase": "act-1-p6",
+      "title": "Akan Kronik: perde arası yıllar",
+      "area": "Zaman",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/time-calendar"
+      ]
+    },
+    {
+      "id": "atlas",
+      "phase": "act-2-p1",
+      "title": "Atlas: 75.000 km², gerçek coğrafya, açılan adlar",
+      "area": "Harita",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/map"
+      ]
+    },
+    {
+      "id": "interior-maps",
+      "phase": "act-2-p1",
+      "title": "İç haritalar ve yükleme",
+      "area": "Harita",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/map"
+      ]
+    },
+    {
+      "id": "map-zoom",
+      "phase": "act-2-p1",
+      "title": "Haritada yakınlaşınca oyuna geçiş (M'siz)",
+      "area": "Harita",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/map"
+      ]
+    },
+    {
+      "id": "long-road",
+      "phase": "act-2-p1",
+      "title": "Uzak Yol, Yol Kartı ve yol olayları",
+      "area": "Yolculuk",
+      "status": "yapilacak",
+      "design": [
+        "/docs/world/travel"
+      ]
+    },
+    {
+      "id": "settlement",
+      "phase": "act-2-p2",
+      "title": "Yerleşim: Ocak ve Oba",
+      "area": "Yerleşim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/encampment"
+      ]
+    },
+    {
+      "id": "plan-mode",
+      "phase": "act-2-p2",
+      "title": "Plan Kipi",
+      "area": "Yerleşim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/plan-mode"
+      ]
+    },
+    {
+      "id": "households",
+      "phase": "act-2-p2",
+      "title": "Haneler, Gönül ve Kâhya",
+      "area": "Yerleşim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/households"
+      ]
+    },
+    {
+      "id": "war-camp",
+      "phase": "act-2-p2",
+      "title": "Ordugâh, kervan ve Ordu Payı",
+      "area": "Ordu",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/war-camp-caravans"
+      ]
+    },
+    {
+      "id": "currency",
+      "phase": "act-2-p2",
+      "title": "Para birimi ve satıcılar",
+      "area": "Ekonomi",
+      "status": "yapilacak",
+      "design": [
+        "/docs/economy/money-traders"
+      ]
+    },
+    {
+      "id": "overnight-camp",
+      "phase": "act-2-p2",
+      "title": "Tek gecelik kamp: ateş ve küçük çadır",
+      "area": "Hayatta kalma",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/overnight-camp"
+      ]
+    },
+    {
+      "id": "raids",
+      "phase": "act-2-p2",
+      "title": "Küçük baskınlar ve savunma",
+      "area": "Yerleşim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/court"
+      ]
+    },
+    {
+      "id": "act-2-story",
+      "phase": "act-2-p3",
+      "title": "II. Perde: Ok Neyi Gösterirse",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "army",
+      "phase": "act-3-p1",
+      "title": "Ordu, talim ve toplu savaş",
+      "area": "Ordu",
+      "status": "yapilacak",
+      "design": [
+        "/docs/gameplay/army"
+      ]
+    },
+    {
+      "id": "act-3-story",
+      "phase": "act-3-p2",
+      "title": "III. Perde: Boş Toprak",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "court",
+      "phase": "act-4-p1",
+      "title": "Hanlık merkezi: Divan, toplantılar, Hazine",
+      "area": "Yerleşim",
+      "status": "yapilacak",
+      "design": [
+        "/docs/settlement/court"
+      ]
+    },
+    {
+      "id": "act-4-story",
+      "phase": "act-4-p2",
+      "title": "IV. Perde: Borç",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "act-5-story",
+      "phase": "act-5-p1",
+      "title": "V. Perde: Dört Renk",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "act-6-story",
+      "phase": "act-6-p1",
+      "title": "VI. Perde: Sayım",
+      "area": "Perde",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "epilogue-scene",
+      "phase": "epilogue-p1",
+      "title": "Sonsöz: Kopuz Susar",
+      "area": "Hikâye",
+      "status": "yapilacak",
+      "design": [
+        "/docs/story/chronicle"
+      ]
+    },
+    {
+      "id": "performance",
+      "phase": "release-p1",
+      "title": "Performans bütçesi ve ölçüm",
+      "area": "Teknik",
+      "status": "yapilacak",
+      "design": [
+        "/docs/development/architecture"
+      ]
+    },
+    {
+      "id": "gamepad",
+      "phase": "release-p1",
+      "title": "Oyun kolu ve tuş atama",
+      "area": "Arayüz",
+      "status": "suruyor",
+      "design": [
+        "/docs/gameplay/camera-controls"
+      ],
+      "paths": [
+        "scripts/core/input_setup.gd"
+      ],
+      "note": "Menüde ve kitapta oyun kolu var; oyun içi atama yok"
+    },
+    {
+      "id": "english-ui",
+      "phase": "release-p1",
+      "title": "İngilizce arayüz",
+      "area": "Arayüz",
+      "status": "yapilacak",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "phase": "release-p1",
+      "title": "Erişilebilirlik: altyazı, renk, arayüz ölçeği",
+      "area": "Arayüz",
+      "status": "suruyor",
+      "design": [
+        "/docs/presentation/ui-menus"
+      ],
+      "paths": [
+        "scripts/ui/settings_panel.gd"
+      ],
+      "note": "Arayüz ölçeği var"
+    },
+    {
+      "id": "export",
+      "phase": "release-p1",
+      "title": "Dışa aktarma ve kurulum",
+      "area": "Teknik",
+      "status": "yapilacak"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.stone_mine",
+	"take": 0,
+	"seed": 3254801898,
+	"hash": "c20055ea9478",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 1.6,
+	"words": [
+		{"w": "I'll", "t0": 0.0, "t1": 0.16},
+		{"w": "give", "t0": 0.192, "t1": 0.32},
+		{"w": "this", "t0": 0.368, "t1": 0.56},
+		{"w": "to", "t0": 0.587, "t1": 0.64},
+		{"w": "my", "t0": 0.72, "t1": 0.88},
+		{"w": "mother.", "t0": 0.937, "t1": 1.6}
+	]
+}

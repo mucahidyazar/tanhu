@@ -1,0 +1,18 @@
+{
+	"id": "act0.child.gate_call",
+	"take": 0,
+	"seed": 489532819,
+	"hash": "1d2dad93b8f0",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 2.64,
+	"words": [
+		{"w": "Hurry!", "t0": 0.0, "t1": 0.88},
+		{"w": "You", "t0": 0.98, "t1": 1.28},
+		{"w": "have", "t0": 1.328, "t1": 1.52},
+		{"w": "to", "t0": 1.547, "t1": 1.6},
+		{"w": "open", "t0": 1.648, "t1": 1.84},
+		{"w": "the", "t0": 1.86, "t1": 1.92},
+		{"w": "gate.", "t0": 2.0, "t1": 2.64}
+	]
+}

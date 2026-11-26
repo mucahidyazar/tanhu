@@ -1,0 +1,15 @@
+{
+	"id": "act0.bone.breath",
+	"take": 0,
+	"seed": 232740944,
+	"hash": "0ddf5850c5bb",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 1.6,
+	"words": [
+		{"w": "Wait…", "t0": 0.0, "t1": 0.64},
+		{"w": "I", "t0": 0.68, "t1": 0.72},
+		{"w": "can't", "t0": 0.76, "t1": 0.96},
+		{"w": "breathe…", "t0": 1.02, "t1": 1.6}
+	]
+}

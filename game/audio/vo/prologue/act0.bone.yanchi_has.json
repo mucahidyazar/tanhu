@@ -1,0 +1,17 @@
+{
+	"id": "act0.bone.yanchi_has",
+	"take": 0,
+	"seed": 1357039894,
+	"hash": "50e2c916e860",
+	"model": "eleven_v3",
+	"voice": "nDJIICjR9zfJExIFeSCN",
+	"seconds": 2.16,
+	"words": [
+		{"w": "I've", "t0": 0.0, "t1": 0.24},
+		{"w": "got", "t0": 0.3, "t1": 0.48},
+		{"w": "it!", "t0": 0.56, "t1": 0.8},
+		{"w": "I've", "t0": 1.0, "t1": 1.36},
+		{"w": "got", "t0": 1.44, "t1": 1.68},
+		{"w": "it!", "t0": 1.787, "t1": 2.16}
+	]
+}

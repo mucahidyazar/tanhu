@@ -1,0 +1,17 @@
+{
+	"id": "act0.tally.news",
+	"take": 0,
+	"seed": 3736032375,
+	"hash": "deaf5477a56b",
+	"model": "eleven_v3",
+	"voice": "tJHJUEHzOkMoPmJJ5jo2",
+	"seconds": 2.08,
+	"words": [
+		{"w": "The", "t0": 0.0, "t1": 0.08},
+		{"w": "count's", "t0": 0.133, "t1": 0.56},
+		{"w": "the", "t0": 0.58, "t1": 0.64},
+		{"w": "day", "t0": 0.7, "t1": 0.88},
+		{"w": "after", "t0": 0.933, "t1": 1.2},
+		{"w": "tomorrow!", "t0": 1.262, "t1": 2.08}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"id": "act0.flock.home_count",
+	"take": 0,
+	"seed": 1888118862,
+	"hash": "708a684efd1e",
+	"model": "eleven_v3",
+	"voice": "LI283TzJcIwSKqsXiH7u",
+	"seconds": 3.36,
+	"words": [
+		{"w": "Forty", "t0": 0.0, "t1": 0.4},
+		{"w": "went", "t0": 0.464, "t1": 0.72},
+		{"w": "out,", "t0": 0.82, "t1": 1.52},
+		{"w": "forty", "t0": 1.613, "t1": 2.08},
+		{"w": "came", "t0": 2.16, "t1": 2.48},
+		{"w": "back.", "t0": 2.592, "t1": 3.36}
+	]
+}

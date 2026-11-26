@@ -1,0 +1,17 @@
+{
+	"id": "act0.bone.tease",
+	"take": 0,
+	"seed": 2721628629,
+	"hash": "a238c1d53705",
+	"model": "eleven_v3",
+	"voice": "Xb3zeLrTi6F4ziIcXdwk",
+	"seconds": 1.84,
+	"words": [
+		{"w": "You're", "t0": 0.0, "t1": 0.24},
+		{"w": "slower", "t0": 0.297, "t1": 0.64},
+		{"w": "than", "t0": 0.672, "t1": 0.8},
+		{"w": "the", "t0": 0.82, "t1": 0.88},
+		{"w": "old", "t0": 0.94, "t1": 1.12},
+		{"w": "sheep!", "t0": 1.2, "t1": 1.84}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"id": "act0.lambs.four",
+	"take": 0,
+	"seed": 431665603,
+	"hash": "19bab1c3a978",
+	"model": "eleven_v3",
+	"voice": "DJpgP3rIDYoqtCH3IzV6",
+	"seconds": 2.64,
+	"words": [
+		{"w": "Four.", "t0": 0.0, "t1": 0.56},
+		{"w": "All", "t0": 0.74, "t1": 1.28},
+		{"w": "of", "t0": 1.333, "t1": 1.44},
+		{"w": "them", "t0": 1.504, "t1": 1.76},
+		{"w": "alive.", "t0": 1.893, "t1": 2.64}
+	]
+}

@@ -1,0 +1,37 @@
+{
+	"version": 1,
+	"source": "economy.md §6.7–§6.8; d2/econ-model.json stations, masters (K24); tools/export_recipes.py",
+	"doc": "On bir tezgâh ve zanaatçı rolleri (Workshop ve Craft okur). Modelin alanları (ad, crewMax, slots, act, structure, open, note; rolde tier, craft, via, path, act) tools/export_recipes.py ile yenilenir. crewMax tezgâhın el sınırıdır (K21 eff(W); K50'nin T(n)'i yalnız inşaatta, sökümde ve onarımdadır); slots bekleme (kür) yuvası; open açık hava tezgâhı (emeği havanın çarpanını alır: Keçe Avlusu keçe adımınınkini); dry açık hava yuvası kurur: kurutma çarpanıyla ilerler, çisenti, yağmur ve sağanakta durur (§6.7 kural 4; Fırın açıktır ama kömür yakmak kurutma değildir). Rolde name oyuncu adı, station rolün tezgâhı, speedK ve speedFor Aşçı'nın toplu yemeği; usta işini ve İnce İş'i yalnız Usta derecesi yapar (Çırak yapamaz, §6.8). kujul I. Perde'nin adlı ustasıdır (Kujul'un Körüğü). Işıklı atölye karanlığın her 4 oyun saatinde 1 meşale yakar (data/structures/labour.json law.night.torchDarkHours); ilk kez yapılan tarifin XP'si Progression'ın «recipe» kaynağıdır; fineK İnce İş'in emeği; dryByType havanın fx.dryK'sı yokken türün kurutma çarpanı (economy.md §6.13).",
+	"fineK": 1.5,
+	"dryByType": {"clear": 1, "cloud": 0.9, "overcast": 0.6, "fog": 0.3, "drizzle": 0, "rain": 0, "downpour": 0, "thunderstorm": 0, "dry_storm": 1.3, "hail": 0, "wind": 1.3, "gale": 1.3, "sleet": 0, "snow": 0.3, "heavy_snow": 0.3, "blizzard": 0.3, "kara_boran": 0.3, "dust_storm": 0.5},
+	"stations": {
+		"hand": {"name": {"tr": "El", "en": "Hand"}, "crewMax": 1, "slots": 0, "act": 1},
+		"hearth": {"name": {"tr": "Ocak", "en": "Hearth"}, "crewMax": 2, "slots": 0, "act": 1},
+		"felt_yard": {"name": {"tr": "Keçe Avlusu", "en": "Felting Yard"}, "crewMax": 6, "slots": 2, "act": 1, "structure": "felt_yard", "open": true, "dry": true},
+		"tannery": {"name": {"tr": "Sepi Yeri", "en": "Tannery"}, "crewMax": 3, "slots": 4, "act": 2, "structure": "tannery", "open": true, "dry": true},
+		"wood_shop": {"name": {"tr": "Ağaç Atölyesi", "en": "Woodshop"}, "crewMax": 3, "slots": 2, "act": 2, "structure": "wood_shop"},
+		"smithy": {"name": {"tr": "Demirci Ocağı", "en": "Smithy"}, "crewMax": 3, "slots": 1, "act": 1, "structure": "smithy", "note": "I. Perde: Kujul'un Körüğü"},
+		"kiln": {"name": {"tr": "Fırın", "en": "Kiln"}, "crewMax": 2, "slots": 1, "act": 2, "structure": "kiln", "open": true},
+		"fletchery": {"name": {"tr": "Okçu Yurdu", "en": "Fletcher's Yurt"}, "crewMax": 3, "slots": 4, "act": 3, "structure": "fletchery", "note": "Yaycıyla III'te; II'de ok elle yapılır (economy.md §6.7, doğrulama V1)"},
+		"kitchen": {"name": {"tr": "Kazan Ocağı", "en": "Cauldron Hearth"}, "crewMax": 3, "slots": 2, "act": 2, "note": "Kazanlı herhangi bir yurt ocağı; yapı değil"},
+		"stable": {"name": {"tr": "Ahır", "en": "Stable"}, "crewMax": 2, "slots": 0, "act": 1, "structure": "stable"},
+		"drying_rack": {"name": {"tr": "Kurutma Sırığı", "en": "Drying Rack"}, "crewMax": 1, "slots": 6, "act": 1, "structure": "rack", "open": true, "dry": true}
+	},
+	"roles": {
+		"cr_felter": {"tier": "T1", "craft": "home", "via": "her hane", "name": {"tr": "Keçeci", "en": "Felt-maker"}, "station": "felt_yard"},
+		"cr_carpenter": {"tier": "T1", "craft": "wood", "via": "hh_story, dülger hanesi", "name": {"tr": "Dülger", "en": "Carpenter"}, "station": "wood_shop"},
+		"cr_tanner": {"tier": "T2", "craft": "home", "via": "hane", "name": {"tr": "Sepici", "en": "Tanner"}, "station": "tannery"},
+		"cr_cook": {"tier": "T2", "craft": "home", "via": "hane", "name": {"tr": "Aşçı", "en": "Cook"}, "station": "kitchen", "speedK": 1.25, "speedFor": ["rc_meal_batch", "rc_cauldron_meat", "rc_kumis_batch"]},
+		"cr_smith": {"tier": "T2", "craft": "earth", "via": "oba_wave", "name": {"tr": "Demirci", "en": "Smith"}, "station": "smithy"},
+		"cr_bowyer": {"tier": "T3", "craft": "wood", "name": {"tr": "Yaycı", "en": "Bowyer"}, "station": "fletchery"},
+		"cr_cartwright": {"tier": "T3", "craft": "wood", "name": {"tr": "Arabacı", "en": "Cartwright"}, "station": "wood_shop"},
+		"cr_saddler": {"tier": "T4", "craft": "home", "name": {"tr": "Saraç", "en": "Saddler"}, "station": "tannery"},
+		"cr_healer": {"tier": "T4", "name": {"tr": "Otacı", "en": "Healer"}, "station": null},
+		"cr_earth": {"tier": "T5", "craft": "earth", "via": "defectors (Han Xin'in beyleri)", "path": "walled", "name": {"tr": "Toprak Ustası", "en": "Earth Builder"}, "station": null},
+		"kujul": {"craft": "earth", "via": "I. Perde, Kışlak", "act": 1, "name": {"tr": "Kujul", "en": "Kujul"}, "station": "smithy", "named": true}
+	},
+	"messages": {
+		"apprentice": {"tr": "Çırak", "en": "Apprentice"},
+		"master": {"tr": "Usta", "en": "Master"}
+	}
+}

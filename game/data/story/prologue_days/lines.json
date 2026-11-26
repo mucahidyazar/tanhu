@@ -1,0 +1,588 @@
+{
+	"id": "prologue_days_lines",
+	"doc": "Önsöz'ün oynanan günlerinin sözleri (E21, K110). Kaynak docs/design/d3/e21-lines.json; eşitleme python3 tools/sync_prologue_lines.py. Elle değiştirilmez.",
+	"speakers": {
+		"mother": {
+			"tr": "Ana",
+			"en": "Mother"
+		},
+		"father": {
+			"tr": "Baba",
+			"en": "Father"
+		},
+		"bard": {
+			"tr": "Ozan",
+			"en": "The bard"
+		},
+		"older_brother": {
+			"tr": "Ağabey",
+			"en": "Older brother"
+		},
+		"saruk": {
+			"tr": "Saruk Ebe",
+			"en": "Saruk Ebe"
+		},
+		"boru": {
+			"tr": "Börü",
+			"en": "Boru"
+		},
+		"kunay": {
+			"tr": "Künay",
+			"en": "Kunay"
+		},
+		"tonga": {
+			"tr": "Tonga",
+			"en": "Tonga"
+		},
+		"folk_man": {
+			"tr": "Kayın Obalı",
+			"en": "A man of Birch Camp"
+		},
+		"folk_woman": {
+			"tr": "Kayın Obalı",
+			"en": "A woman of Birch Camp"
+		}
+	},
+	"lines": [
+		{
+			"id": "act0.milk.wake",
+			"speaker": "mother",
+			"tr": "Kalk kızım. Saruk Ebe'nin sabası aç kaldı.",
+			"en": "Up, my girl. Saruk Ebe's churn has gone hungry."
+		},
+		{
+			"id": "act0.milk.task",
+			"speaker": "mother",
+			"tr": "İki tulum kısrak sütü. Kayın Obası'na sen götüreceksin. Dereyi yavaş geç.",
+			"en": "Two skins of mare's milk. You're taking them to Birch Camp. Go slowly over the stream."
+		},
+		{
+			"id": "act0.milk.arrive",
+			"speaker": "saruk",
+			"tr": "Hah, sütüm geldi. Dök bakalım sabaya.",
+			"en": "Ah, my milk is here. Pour it into the churn, then."
+		},
+		{
+			"id": "act0.milk.full",
+			"speaker": "saruk",
+			"tr": "Tek damla dökmemişsin.",
+			"en": "Not a single drop spilled."
+		},
+		{
+			"id": "act0.milk.spilt",
+			"speaker": "saruk",
+			"tr": "Yarısı yolda kalmış. Olsun, yine kımız olur.",
+			"en": "Half of it stayed on the road. Never mind. It'll still be kumis."
+		},
+		{
+			"id": "act0.milk.churn",
+			"speaker": "saruk",
+			"tr": "Kımız bin kez çalkalanır. Sen yirmisini çalkala, gerisini ben sayarım.",
+			"en": "Kumis is churned a thousand times. You churn twenty. I'll count the rest."
+		},
+		{
+			"id": "act0.milk.churn_done",
+			"speaker": "saruk",
+			"tr": "Yirmi. Kolun sağlam.",
+			"en": "Twenty. You've a strong arm."
+		},
+		{
+			"id": "act0.milk.boru",
+			"speaker": "boru",
+			"tr": "Kızdan pehlivan olmaz.",
+			"en": "Girls don't make wrestlers."
+		},
+		{
+			"id": "act0.milk.saruk_reply",
+			"speaker": "saruk",
+			"tr": "Bebek gelince toy olur. Orada görürüz.",
+			"en": "When the baby comes, there'll be a feast. We'll see then."
+		},
+		{
+			"id": "act0.milk.home",
+			"speaker": "mother",
+			"tr": "Ellerin süt kokuyor. Güzel.",
+			"en": "Your hands smell of milk. Good."
+		},
+		{
+			"id": "act0.storm.baba",
+			"speaker": "father",
+			"tr": "Tipi geliyor. Ağabeyinle atlara gidiyoruz.",
+			"en": "A blizzard's coming. Your brother and I are going to the horses."
+		},
+		{
+			"id": "act0.storm.boru",
+			"speaker": "boru",
+			"tr": "Ocağımız söndü! Ablam doğuruyor, ebem köz istiyor!",
+			"en": "Our fire's gone out! My sister's having the baby, and Grandma needs embers!"
+		},
+		{
+			"id": "act0.storm.ana",
+			"speaker": "mother",
+			"tr": "Köz kabını al. Kazıkları say: on ikincide dereye inersin.",
+			"en": "Take the ember pot. Count the stakes. At the twelfth, you go down to the stream."
+		},
+		{
+			"id": "act0.storm.ana_hand",
+			"speaker": "mother",
+			"tr": "Börü'yü yanından ayırma.",
+			"en": "Keep Boru by your side."
+		},
+		{
+			"id": "act0.storm.lost",
+			"speaker": "boru",
+			"tr": "Kazığı göremiyorum!",
+			"en": "I can't see the stake!"
+		},
+		{
+			"id": "act0.storm.wolf",
+			"speaker": "boru",
+			"tr": "Kurt mu o? Ateşin yanına gelmez, değil mi?",
+			"en": "Is that a wolf? It won't come near the fire, will it?"
+		},
+		{
+			"id": "act0.storm.arrive",
+			"speaker": "saruk",
+			"tr": "Köz! Getir buraya, çabuk.",
+			"en": "Embers! Bring them here, quick."
+		},
+		{
+			"id": "act0.storm.lit",
+			"speaker": "saruk",
+			"tr": "Işık döndü. Şimdi çıkın, kapıda bekleyin.",
+			"en": "The light's back. Now out, both of you. Wait by the door."
+		},
+		{
+			"id": "act0.storm.count",
+			"speaker": "saruk",
+			"tr": "Bir eklendi.",
+			"en": "One more."
+		},
+		{
+			"id": "act0.storm.boru_ask",
+			"speaker": "boru",
+			"tr": "Oğlan mı, kız mı?",
+			"en": "Is it a boy or a girl?"
+		},
+		{
+			"id": "act0.storm.saruk_answer",
+			"speaker": "saruk",
+			"tr": "Can. Gerisi sabaha.",
+			"en": "A life. The rest can wait till morning."
+		},
+		{
+			"id": "act0.storm.tonga",
+			"speaker": "tonga",
+			"tr": "Ateşi kim getirdi?",
+			"en": "Who brought the fire?"
+		},
+		{
+			"id": "act0.storm.saruk_tonga",
+			"speaker": "saruk",
+			"tr": "Göl Obası'nın kızı.",
+			"en": "The girl from Lake Camp."
+		},
+		{
+			"id": "act0.lambs.ana",
+			"speaker": "mother",
+			"tr": "Koyunlar gece açıkta doğurdu. Kuzuları bul, yurda getir. Sesinden bulursun.",
+			"en": "The ewes lambed out in the open last night. Find the lambs and bring them inside. Follow their voices."
+		},
+		{
+			"id": "act0.lambs.one",
+			"speaker": "mother",
+			"tr": "Bir.",
+			"en": "One."
+		},
+		{
+			"id": "act0.lambs.two",
+			"speaker": "mother",
+			"tr": "İki.",
+			"en": "Two."
+		},
+		{
+			"id": "act0.lambs.three",
+			"speaker": "mother",
+			"tr": "Üç.",
+			"en": "Three."
+		},
+		{
+			"id": "act0.lambs.four",
+			"speaker": "mother",
+			"tr": "Dört. Hepsi sağ.",
+			"en": "Four. All of them alive."
+		},
+		{
+			"id": "act0.lambs.weak",
+			"speaker": "mother",
+			"tr": "Bu donmuş. Ocağın yanına koy, ağzına ilk sütü damlat.",
+			"en": "This one's frozen through. Set it by the fire and drip the first milk into its mouth."
+		},
+		{
+			"id": "act0.lambs.bard",
+			"speaker": "bard",
+			"tr": "Tipi gecesi doğan iyi yaşar. Künay'ın oğlu da öyle olsun.",
+			"en": "What's born on a blizzard night lives well. May Kunay's son do the same."
+		},
+		{
+			"id": "act0.feast.ana",
+			"speaker": "mother",
+			"tr": "Kayın Obası'nda şilde var. Yeni doğanın ilk gecelerinde ocak sönmez, gülüşme eksik olmaz.",
+			"en": "There's a watch-night at Birch Camp. In a newborn's first nights the fire never dies, and the laughing never stops."
+		},
+		{
+			"id": "act0.feast.baba",
+			"speaker": "father",
+			"tr": "Gidelim. Işığın dışında oturan gürültüyü sevmez.",
+			"en": "Let's go. The one who sits outside the light can't stand noise."
+		},
+		{
+			"id": "act0.feast.saruk",
+			"speaker": "saruk",
+			"tr": "Gel kız. Bu kımız senin getirdiğin sütten. İki elinle al.",
+			"en": "Come here, girl. This kumis is from the milk you brought. Take it with both hands."
+		},
+		{
+			"id": "act0.feast.sour",
+			"speaker": "saruk",
+			"tr": "Ekşi mi? İlk kımız ekşi olur.",
+			"en": "Sour? The first kumis always is."
+		},
+		{
+			"id": "act0.feast.kunay",
+			"speaker": "kunay",
+			"tr": "Ateşi sen getirdin. Oğlum seni bilsin.",
+			"en": "You brought the fire. Let my son know you."
+		},
+		{
+			"id": "act0.feast.tonga_bow",
+			"speaker": "tonga",
+			"tr": "Küçük yay beşikte durur. Büyüyünce kendisi gerer.",
+			"en": "The little bow stays on the cradle. When he's grown, he'll string it himself."
+		},
+		{
+			"id": "act0.feast.bark_1",
+			"speaker": "folk_man",
+			"tr": "Gülün! Şilde gecesi sessiz olmaz.",
+			"en": "Laugh! A watch-night is never quiet."
+		},
+		{
+			"id": "act0.feast.bark_2",
+			"speaker": "folk_woman",
+			"tr": "Ocağa bir dal daha!",
+			"en": "Another branch on the fire!"
+		},
+		{
+			"id": "act0.wrestle.dare",
+			"speaker": "boru",
+			"tr": "Kızdan pehlivan olmaz dedim. Gel de göster.",
+			"en": "I said girls don't make wrestlers. Come and show me."
+		},
+		{
+			"id": "act0.wrestle.rules",
+			"speaker": "tonga",
+			"tr": "Kuşak bırakılmaz. Sırtı yere değen yenilir.",
+			"en": "Nobody lets go of the belt. Whoever's back touches the ground loses."
+		},
+		{
+			"id": "act0.wrestle.start",
+			"speaker": "tonga",
+			"tr": "Tutun!",
+			"en": "Grip!"
+		},
+		{
+			"id": "act0.wrestle.again",
+			"speaker": "boru",
+			"tr": "Bir daha!",
+			"en": "Again!"
+		},
+		{
+			"id": "act0.wrestle.win",
+			"speaker": "boru",
+			"tr": "Ebem haklıymış.",
+			"en": "Grandma was right."
+		},
+		{
+			"id": "act0.wrestle.saruk",
+			"speaker": "saruk",
+			"tr": "Düşen kalkar, kalkan güler.",
+			"en": "Who falls gets up. Who gets up, laughs."
+		},
+		{
+			"id": "act0.wrestle.home",
+			"speaker": "mother",
+			"tr": "Yarın ocağı sen kur. Ozan uzun söyleyecek.",
+			"en": "Tomorrow you build the fire. The bard means to sing a long one."
+		},
+		{
+			"id": "act0.hearth.bard",
+			"speaker": "bard",
+			"tr": "Bu gece uzun bir şey söyleyeceğim. Ateşi sen kur; tipi ocak taşlarını çatlattı.",
+			"en": "Tonight I'll sing something long. You build the fire. The blizzard cracked the hearthstones."
+		},
+		{
+			"id": "act0.hearth.wood",
+			"speaker": "father",
+			"tr": "Kuru dal orman kıyısında. Yaş odun yalnız duman eder.",
+			"en": "There's dry wood at the edge of the forest. Green wood only smokes."
+		},
+		{
+			"id": "act0.hearth.stone",
+			"speaker": "older_brother",
+			"tr": "Derede taş çok. Büyüğünü kır, üçünü getir.",
+			"en": "The stream's full of stones. Break a big one and bring three."
+		},
+		{
+			"id": "act0.hearth.three",
+			"speaker": "bard",
+			"tr": "Üç taş. Hep üç.",
+			"en": "Three stones. Always three."
+		},
+		{
+			"id": "act0.hearth.strike",
+			"speaker": "bard",
+			"tr": "Al. Ak taşı kara taşa vur.",
+			"en": "Here. Strike the white stone on the black."
+		},
+		{
+			"id": "act0.hearth.lit",
+			"speaker": "mother",
+			"tr": "Tuttu. Besle onu.",
+			"en": "It's caught. Feed it."
+		},
+		{
+			"id": "act0.hearth.grow",
+			"speaker": "father",
+			"tr": "Işık bize de yetişti.",
+			"en": "The light's reached us."
+		},
+		{
+			"id": "act0.hearth.full",
+			"speaker": "bard",
+			"tr": "Şimdi oldu.",
+			"en": "Now it's ready."
+		},
+		{
+			"id": "act0.milk.why",
+			"speaker": "mother",
+			"tr": "Künay'ın vakti yakın. Kımız ona güç verir; Saruk bekliyor.",
+			"en": "Kunay's time is near. Kumis gives her strength, and Saruk is waiting."
+		},
+		{
+			"id": "act0.milk.ana_call",
+			"speaker": "mother",
+			"tr": "Saruk'a selam söyle. Künay'a da sevgimi götür.",
+			"en": "Give Saruk my greetings. And take my love to Kunay."
+		},
+		{
+			"id": "act0.milk.road_man",
+			"speaker": "folk_man",
+			"tr": "Sırık senden büyük, kızım. Yavaş git.",
+			"en": "That yoke's bigger than you, girl. Go slowly."
+		},
+		{
+			"id": "act0.milk.greet",
+			"speaker": "folk_woman",
+			"tr": "Göl Obası'nın kızı geldi! Saruk, sütün geldi!",
+			"en": "The girl from Lake Camp is here! Saruk, your milk is here!"
+		},
+		{
+			"id": "act0.milk.kunay_door",
+			"speaker": "kunay",
+			"tr": "Gel, soluklan. O sırık ağırdır.",
+			"en": "Come, catch your breath. That yoke is heavy."
+		},
+		{
+			"id": "act0.milk.kunay_kick",
+			"speaker": "kunay",
+			"tr": "Bu sabah çok tekmeledi. Yakında, diyor Saruk.",
+			"en": "He kicked all morning. Soon, Saruk says."
+		},
+		{
+			"id": "act0.milk.saruk_kunay",
+			"speaker": "saruk",
+			"tr": "Bu kımız şildeye yetişir. Künay'ın gücü bununla döner.",
+			"en": "This will be ready in time for the watch-night. It'll bring Kunay's strength back."
+		},
+		{
+			"id": "act0.storm.dusk",
+			"speaker": "mother",
+			"tr": "Rüzgâr döndü. Bu gece tipi var.",
+			"en": "The wind's turned. There'll be a blizzard tonight."
+		},
+		{
+			"id": "act0.storm.bard_door",
+			"speaker": "bard",
+			"tr": "Kapıyı sıkı bağla. Tipi kapının yerini bilir.",
+			"en": "Tie the door tight. A blizzard knows where the door is."
+		},
+		{
+			"id": "act0.storm.boru_stakes",
+			"speaker": "boru",
+			"tr": "Ebem der ki tipide yolu yalnız kazıklar bilir.",
+			"en": "Grandma says in a blizzard only the stakes know the road."
+		},
+		{
+			"id": "act0.storm.boru_six",
+			"speaker": "boru",
+			"tr": "Altı. Yarısı geçti.",
+			"en": "Six. We're halfway."
+		},
+		{
+			"id": "act0.storm.boru_scared",
+			"speaker": "boru",
+			"tr": "Ablam bağırıyordu. Korkuyorum.",
+			"en": "My sister was crying out. I'm scared."
+		},
+		{
+			"id": "act0.storm.boru_silent",
+			"speaker": "boru",
+			"tr": "Sen hiç konuşmuyorsun, değil mi? Olsun.",
+			"en": "You never talk, do you? That's all right."
+		},
+		{
+			"id": "act0.storm.boru_twelve",
+			"speaker": "boru",
+			"tr": "On iki! Dere şurada!",
+			"en": "Twelve! The stream's right there!"
+		},
+		{
+			"id": "act0.storm.door_1",
+			"speaker": "boru",
+			"tr": "Ebem der ki doğum gecesi ışık sönerse kapıda biri bekler.",
+			"en": "Grandma says if the light goes out on a birth night, someone waits at the door."
+		},
+		{
+			"id": "act0.storm.door_2",
+			"speaker": "boru",
+			"tr": "Ama ışık yandı. Sen yaktın.",
+			"en": "But the light's on now. You lit it."
+		},
+		{
+			"id": "act0.lambs.morning",
+			"speaker": "mother",
+			"tr": "Kalk, kar yağmış. Tipi gitti, kuzular geldi.",
+			"en": "Up. It snowed. The blizzard's gone, and the lambs have come."
+		},
+		{
+			"id": "act0.lambs.brother",
+			"speaker": "older_brother",
+			"tr": "Atlar tamam. Kır kısrak da taylamış.",
+			"en": "The horses are all here. And the grey mare's foaled."
+		},
+		{
+			"id": "act0.lambs.carry",
+			"speaker": "mother",
+			"tr": "Kucağına al, anası ardından gelir.",
+			"en": "Pick it up. Its mother will follow."
+		},
+		{
+			"id": "act0.lambs.last",
+			"speaker": "mother",
+			"tr": "Biri daha meliyor. Dere tarafında.",
+			"en": "There's one more bleating, down by the stream."
+		},
+		{
+			"id": "act0.lambs.kopuz",
+			"speaker": "bard",
+			"tr": "Kopuzun teli de üşüdü. Akşama ısınır.",
+			"en": "The kopuz strings are cold too. They'll be warm by evening."
+		},
+		{
+			"id": "act0.feast.gift",
+			"speaker": "mother",
+			"tr": "Al, bu keçe kundağı Künay'a sen ver.",
+			"en": "Here. You give this felt swaddle to Kunay."
+		},
+		{
+			"id": "act0.feast.walk",
+			"speaker": "mother",
+			"tr": "Şildeye giden eli boş gitmez.",
+			"en": "Nobody goes to a watch-night empty-handed."
+		},
+		{
+			"id": "act0.feast.libation",
+			"speaker": "saruk",
+			"tr": "Önce Gök'e, sonra Yer'e, sonra ocağa.",
+			"en": "First to the Sky, then to the Earth, then to the hearth."
+		},
+		{
+			"id": "act0.feast.kunay_gift",
+			"speaker": "kunay",
+			"tr": "Ananın elinden mi? Daha ılık.",
+			"en": "From your mother's hands? It's still warm."
+		},
+		{
+			"id": "act0.feast.old_man",
+			"speaker": "folk_man",
+			"tr": "Bu gece kimse uyumaz. Uyuyan şildeyi kaçırır.",
+			"en": "Nobody sleeps tonight. Whoever sleeps misses the watch-night."
+		},
+		{
+			"id": "act0.feast.song",
+			"speaker": "folk_woman",
+			"tr": "Hadi, bir türkü daha! Bebek dinliyor.",
+			"en": "Come on, another song! The baby's listening."
+		},
+		{
+			"id": "act0.feast.baba_tonga",
+			"speaker": "father",
+			"tr": "Tonga, oğlun uzun yaşasın.",
+			"en": "Tonga, long life to your son."
+		},
+		{
+			"id": "act0.feast.tonga_thanks",
+			"speaker": "tonga",
+			"tr": "Ateşi getiren sendin. Bu ocakta yerin var.",
+			"en": "You were the one who brought the fire. There's a place for you at this hearth."
+		},
+		{
+			"id": "act0.wrestle.ring",
+			"speaker": "folk_man",
+			"tr": "Halka açılsın! Göl Obası'nın kızı Börü'ye karşı!",
+			"en": "Make a ring! The girl from Lake Camp against Boru!"
+		},
+		{
+			"id": "act0.wrestle.tip",
+			"speaker": "tonga",
+			"tr": "Ağırlığını ayağına ver. İttiğinde çekil.",
+			"en": "Keep your weight in your feet. When he pushes, give way."
+		},
+		{
+			"id": "act0.wrestle.eagle",
+			"speaker": "tonga",
+			"tr": "Kazanan kartal gibi açar kollarını. Hadi.",
+			"en": "The winner spreads her arms like an eagle. Go on."
+		},
+		{
+			"id": "act0.wrestle.boru_after",
+			"speaker": "boru",
+			"tr": "Yarın yine güreşelim.",
+			"en": "Let's wrestle again tomorrow."
+		},
+		{
+			"id": "act0.hearth.ana",
+			"speaker": "mother",
+			"tr": "Bu gece ozanın gecesi. Herkes ateşin başında olacak.",
+			"en": "Tonight is the bard's night. Everyone will be at the fire."
+		},
+		{
+			"id": "act0.hearth.why_three",
+			"speaker": "bard",
+			"tr": "Neden üç, biliyor musun? Bu gece anlatacağım.",
+			"en": "Do you know why three? I'll tell it tonight."
+		},
+		{
+			"id": "act0.hearth.wood_done",
+			"speaker": "older_brother",
+			"tr": "Bu kadar odunla sabaha dek yanar.",
+			"en": "With this much wood it'll burn till morning."
+		},
+		{
+			"id": "act0.hearth.sit",
+			"speaker": "mother",
+			"tr": "Gel, yanıma otur.",
+			"en": "Come, sit by me."
+		}
+	]
+}

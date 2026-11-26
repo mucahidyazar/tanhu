@@ -1,0 +1,51 @@
+{
+	"id": "testmap_light",
+	"doc": "Deneme haritasının ışığı (godot.md §4.9; K76'nın açılış saati): 11 Nisan, öğleden sonra 14:46 (dakika 886,2), 44°K, doy 101: güneş ≈39° yüksekte, güneybatıda; bahar bozkırı, açık gök, az bulut. Saat (GameClock; Yol Haritası sun-light, game-clock) haritaya bağlanınca bu örnek açılış örneğidir, SkyRig.feed_clock onun yerini alır. Renkler Çocukluk'un gün ortası örneğinden (childhood_ordos/light.json late) bahara çevrildi; ilk ayardır, göz onayı bekler. Panorama Ordos'unkidir: yalnız ortam ve yansımaya karışır.",
+	"lat": 44.0,
+	"doy": 101,
+	"samples": {
+		"afternoon": {
+			"doc": "14:46: güneş güneybatıda ≈39°, gölgeler orta boy; ışık hafif sıcak, ortam serin mavi.",
+			"lat": 44.0,
+			"doy": 101,
+			"minute": 886.2,
+			"light_color": [1.0, 0.94, 0.84],
+			"light_energy": 1.38,
+			"light_shadow": true,
+			"ambient_color": [0.64, 0.71, 0.84],
+			"ambient_energy": 0.5,
+			"ambient_sky": 0.5,
+			"exposure": 1.0,
+			"glint": "sun",
+			"sky": {
+				"zenith": [0.15, 0.35, 0.72],
+				"mid": [0.34, 0.56, 0.86],
+				"horizon": [0.78, 0.84, 0.88],
+				"ground": [0.32, 0.31, 0.22],
+				"sun_color": [1.0, 0.95, 0.84],
+				"sun_energy": 6.0,
+				"sun_disc_size": 0.011,
+				"sun_glow_color": [1.0, 0.92, 0.78],
+				"sun_glow_strength": 0.42,
+				"sun_glow_spread": 2.0,
+				"sun_glow_height": 1.0,
+				"moon_energy": 0.0,
+				"moon_glow_strength": 0.0,
+				"star_brightness": 0.0,
+				"cloud_coverage": 0.3,
+				"cloud_softness": 0.16,
+				"cloud_opacity": 0.75,
+				"cloud_lit_color": [1.0, 0.98, 0.94],
+				"cloud_shadow_color": [0.68, 0.74, 0.86],
+				"cloud_rim_color": [1.0, 0.97, 0.9],
+				"cloud_light_from_sun": 1.0,
+				"ambient_panorama": "res://assets/_free/hdri/qwantani_sunrise_puresky/qwantani_sunrise_puresky_2k.hdr",
+				"ambient_panorama_mix": 0.35,
+				"ambient_panorama_energy": 0.46,
+				"ambient_panorama_offset": 0.344,
+				"ambient_panorama_clamp": 6.0
+			},
+			"fog": {"color": [0.8, 0.84, 0.86], "density": 0.00055, "sky_affect": 0.0}
+		}
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"id": "lambs",
+	"title": {"tr": "Kuzular", "en": "The Lambs"},
+	"doc": "Önsöz «Kuzular» (9 Nisan MÖ 209 sabahı, Göl Obası; K110; story.md §3; e21-atmosphere.md «Kuzular»; Ö2). Tipi gecesi açıkta doğan dört kuzu obanın güney yamacında, her biri anasının yanında: meleme konumludur (≈30 m'den duyulur), kardaki iz yurdun kapısından anaya gider; kuzu kucağa alınır (E, yalnız yürüme), anası ardından gelir; yurdun kapısında Ana sayar. Dördüncü kuzu dere tarafındadır ve donmuştur: yurdun ocağının yanına konur, ağzına üç damla ilk süt damlatılır. Adımın türü lambs_find (scripts/story/steps/lambs_find.gd; LambFlock, LambsView). Yerler: üç kuzu obanın güney ve doğu kıyısında, yamacın başına doğru (kapıdan 33–36 m); donmuş olan yokuşun başında, yolun dere tarafında (road_descent'in yanı; kapıdan ≈53 m). Yamacın kendisi (lamb_slope) yokuşun dolambaçlı yolundan iner, kuzu taşımayı ≈6 dk'ya uzatıyordu; [x, z] metre.",
+	"clock": {"start": "07:20", "seconds_per_minute": 2.5},
+	"player": {"at": "gol_family_bed", "pose": "sleep", "yaw_deg": 0},
+	"family_yurt": "open",
+	"weather": {"type": "clear", "snow": 1.0, "mist": 0.35},
+	"music": "mus_prologue_day",
+	"beds": [{"id": "amb_snow_morning", "at": "gol_center", "radius": 70}],
+	"cast": {
+		"mother": {"at": "gol_family_door", "face": "gol_fire", "work": "stand"},
+		"bard": {"at": "gol_bard_door", "face": "gol_fire", "work": "kopuz"},
+		"father": {"at": "gol_felt", "face": "gol_fire", "work": "felt"},
+		"older_brother": {"at": "gol_horse_line", "face": "gol_milking", "work": "stand"}
+	},
+	"steps": [
+		{"id": "wake", "kind": "wake", "line": "act0.lambs.morning", "by": "mother",
+			"objective": {"tr": "Uyan", "en": "Wake up"}},
+		{"id": "door", "kind": "reach", "target": "gol_family_door", "radius": 2.6,
+			"objective": {"tr": "Dışarı çık", "en": "Step outside"}, "hint": {"tr": "Ana kapıda.", "en": "Mother is at the door."},
+			"on_done": [{"line": "act0.lambs.ana"}]},
+		{"id": "find", "kind": "lambs_find",
+			"objective": {"tr": "Kuzuları bul", "en": "Find the lambs"},
+			"home": "gol_family_door", "yurt": "gol_family_yurt", "seed": 90409,
+			"lambs": [
+				{"at": [14.0, 28.0], "ewe": [14.9, 28.5]},
+				{"at": [-20.0, 26.0], "ewe": [-20.8, 25.2]},
+				{"at": [25.0, 20.0], "ewe": [25.8, 20.6]},
+				{"at": [-7.4, 50.2], "ewe": [-6.6, 49.4], "frozen": true}
+			],
+			"brother_walk": [[11.0, -9.0], [3.0, -4.0]],
+			"melt": {"snow": 0.72, "seconds": 220.0},
+			"steam": [["Camp/YurtLeft", 0.3], ["Camp/YurtRight", 0.22]]}
+	]
+}

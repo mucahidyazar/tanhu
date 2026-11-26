@@ -1,0 +1,11 @@
+{
+  "id": "tengri_rest",
+  "kind": "music",
+  "instrument": "rest",
+  "tempo": 48,
+  "bars": 2,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "48'de iki ölçülük boş cümle (gök panosu)."
+}

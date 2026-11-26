@@ -1,0 +1,23 @@
+{
+  "id": "kopuz_control_d",
+  "kind": "wav",
+  "instrument": "kopuz",
+  "role": "motor",
+  "tempo": 52,
+  "bars": 12,
+  "mode": "d_dorian",
+  "density": 1.0,
+  "phrases": [
+    "open",
+    "A",
+    "B",
+    "A2",
+    "A",
+    "open"
+  ],
+  "position": "lower",
+  "seed": 7501,
+  "rate": 44100,
+  "source": "code",
+  "note": "Şarkı ölçüsünün (song-measure, K75) denetim kopuzu: D Dorian, kambarkan, alt konum (sözün oktavı), her sekizlikte vuruş; 12 ölçü ≈27,7 sn (şarkının planı). Ara WAV'dır, oyuna girmez: audio/gen/_wav/kopuz_control_d.wav."
+}

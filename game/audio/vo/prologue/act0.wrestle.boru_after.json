@@ -1,0 +1,15 @@
+{
+	"id": "act0.wrestle.boru_after",
+	"take": 0,
+	"seed": 1748236466,
+	"hash": "6833f8b23ae4",
+	"model": "eleven_v3",
+	"voice": "loY1uopAz31XyhAEhNSa",
+	"seconds": 1.84,
+	"words": [
+		{"w": "Let's", "t0": 0.0, "t1": 0.24},
+		{"w": "wrestle", "t0": 0.293, "t1": 0.64},
+		{"w": "again", "t0": 0.693, "t1": 0.96},
+		{"w": "tomorrow.", "t0": 1.04, "t1": 1.84}
+	]
+}

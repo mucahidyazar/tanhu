@@ -1,0 +1,80 @@
+---
+title: Notlarım
+order: 30
+summary: 'Yazdığın notlar, yazıldığı gibi; her maddenin hangi kararla bağlandığı, bugünkü tasarımın ne dediği ve hangi sayfada anlatıldığı.'
+sources:
+  - docs/design/d3/register.md
+  - docs/design/decisions.md
+---
+
+## Ham metin
+
+Bu metin 2026-11-04'te yazıldı, kelimesi kelimesine burada duruyor.
+
+> [!NOT]
+> Tanhu - Diablo tarzı kamera bakış açısı olacak ve kamerayı döndürebileceğim istediğim açılara - Act ler olacak - Metenin hayatını anlatacak - Ilk basta Ozan sazını çaldığında mitolojik bir hikaye anlatacak burası tamamen sinematik olacak, erlik ve diğer tanrılar hakkında ve sonra Metenin doğumuna gelecek anlatı - Bebekliğinden başlayacak hikayeleştirmeye - 20 level sınırı olacak - Dünya büyüklüğü 1500km2 - Hava durumları olacak - Farklı çadır çeşitliliği olacak, farklı iç design ve 3 farklı büyüklük olacak yurtlar için - Özelliklerinden birisi haritayı açtığımızda mouse ile uzaklaştırıp yakınlaşabileceğiz, çok yakınlaşınca Diablo tarzı görünüme geçeceğiz ve oynamaya devam edeceğiz yani M ye basıp çıkmamıza tekrar gerek kalmayacak - Yerleşim yeri sistemimiz olacak, obamızı büyütüp kağanlığımızın hanlığımızın merkezi haline getirebileceğiz - 1 gün 60dk olacak, 1 çadır 1 kişi tarafından 60 dakikada kurulabilecek, 2 kişi kurarsa 45, 3 kişi kurarsa 33.75 yani her bir kişi 25% hızlandıracak - Oyun Metenin tutsaklığından itibaren açık dünya olacak ve gta rdr Witcher Diablo tarzı görevlere giderek senaryoyu ilerleteceğiz - Hikaye gerçek tarih zamanı içinde gerçek zamanlı akacak, tarih sürekli akacak - Tabi yerleşim yeri veya askeri kamp kurmadan önce act 1 deki tutsaklık perdesini bitirmemiz gerekecek yani act 1 den önce bazı şeylerin kısıtlı olması lazım, act 1 bittikten sonra daha özgür bir açık dünya olacak - küçük tek gecelik kamplar kurabileceğiz, kamp ateşi ve küçük tek gecelik çadırlarla (kamp ateşi ve çadır için malzeme ile kurulacak) o yüzden oyunda malzeme ve envanter sistemide olması gerekiyor yine yurtlar, yerleşim yerindeki diğer gerekli birimler malzemeler ile kurulacak, malzemeler açık dünyada savaşlarla, ağaç kesere, avlanarak eti toplacanak, yine bir para birimi ve bu parayı harcayacak satıcılar etc olacak
+
+## Madde madde
+
+«Karara bağlandı»: notun bu turda bir karara bağlandı, tasarım notuna uyduruldu. «Uyuşuyor»: tasarım zaten notunla aynı yöndeydi. Çelişen ya da karar bekleyen madde kalmadı; her kararın gerekçesi K numarasının bağındadır. Godot'da bugün ne olduğu ilgili sayfanın «Oyunda şu an» kutusundadır.
+
+| Notun | Durum | Bugünkü tasarım | Nerede |
+|---|---|---|---|
+| Diablo tarzı kamera, istediğim açıya döndürme | Karara bağlandı ([K39](/docs/source/design/decisions#k39)) | Varsayılan Diablo kadrajı, uzak ve yüksek (eğim 38°, görüş 36°, 28 m, kuzey; [K98](/docs/source/design/decisions#k98)); 360° dönüş, eğim 15–60°, 14–40 m yakınlaştırma; `/` varsayılana döndürür | [Kamera ve Kontroller](/docs/gameplay/camera-controls) |
+| Act'ler olacak | Karara bağlandı ([K32](/docs/source/design/decisions#k32)) | Dokuz bölüm: Önsöz «Kopuz Söyler», Çocukluk «Koyun Sırtında», I «Çan», II «Ok Neyi Gösterirse», III «Boş Toprak», IV «Borç», V «Dört Renk», VI «Sayım», Sonsöz «Kopuz Susar»; her birinin sayfası var | [Hikâye Omurgası](/docs/story/spine) |
+| Mete'nin hayatını anlatacak | Uyuşuyor | Doğumdan (27 Eylül MÖ 234) ölüme (9 Eylül MÖ 174) bütün hayat, kesin tarihlerle ([K33](/docs/source/design/decisions#k33)) | [Hikâye Omurgası](/docs/story/spine) |
+| Ozan sazını çalar, Erlik ve tanrılar hakkında mitolojik anlatı, tamamen sinematik, sonra Mete'nin doğumu | Karara bağlandı ([K36](/docs/source/design/decisions#k36), [K68](/docs/source/design/decisions#k68)) | Önsöz tamamen sinemadır: kamera geri çekilir, ozan kopuzla iki dize söyler, sessizlik ve kararma, keçe panolarda mit, ayrı sahnede doğum; 3 dk 47 sn. Saz kopuzdur ([K60](/docs/source/design/decisions#k60)) | [Önsöz](/docs/story/prologue) |
+| Bebekliğinden başlayan hikâye | Karara bağlandı ([K36](/docs/source/design/decisions#k36)) | Hikâye doğumla başlar; ilk denetim beş yaşındaki Mete'yle Çocukluk'tadır (22 Eylül MÖ 228, ≈6 dk) | [Çocukluk](/docs/story/childhood) |
+| 20 seviye sınırı | Uyuşuyor | Tavanlar I 5, II 8, III 11, IV 14, V 17, VI 20 ([K43](/docs/source/design/decisions#k43)) | [Seviye ve Gelişim](/docs/gameplay/progression) |
+| Dünya 1.500 km² | Karara bağlandı ([K40](/docs/source/design/decisions#k40)) | 75.000 km² (cevap 14); harita yürünmez, oynanan yerler iç haritalardır | [Harita ve Ölçek](/docs/world/map) |
+| Hava durumları | Uyuşuyor | 17 tür ve hikâyenin Kara Boran'ı (K22); Godot'da henüz yok | [Hava](/docs/world/weather) |
+| Çadır çeşitliliği, farklı iç tasarım | Karara bağlandı ([K51](/docs/source/design/decisions#k51)) | Dış görünüş millete göre (Hun, Yüeçi, Usun, Tunghu, Dingling, Loufan, Baiyang; Çiang ve Han çadırı; Saka araba evi), iç eşya düzene göre | [Yurtlar ve Çadırlar](/docs/buildings/yurts) |
+| Yurtlar için 3 büyüklük | Karara bağlandı ([K51](/docs/source/design/decisions#k51)) | Küçük Yurt ×0,7, Hane Yurdu ×1, Otağ ×1,4 | [Yurtlar ve Çadırlar](/docs/buildings/yurts) |
+| Haritada yakınlaşınca Diablo görünümüne geçip oynamaya devam, M'ye gerek kalmadan | Karara bağlandı ([K40](/docs/source/design/decisions#k40)) | Yüklü iç haritada en yakın düzeyde harita kapanır, kamera oyun kamerasına karışır, oyun sürer; başka yere yakınlaşma 6 birimde durur, Yol Kartı açılır | [Harita ve Ölçek](/docs/world/map) |
+| Yerleşim sistemi, obadan kağanlığın, hanlığın merkezine | Karara bağlandı ([K34](/docs/source/design/decisions#k34)) | Beş kademe: Ocak, Oba, Boy Yurdu, Toy Yeri, Tanhu Avlusu; oyuncuya unvan «Tanhu», merkez «Tanhu Avlusu» (cevap 35) | [Obadan Hanlığa](/docs/settlement/encampment) |
+| 1 gün 60 dakika | Uyuşuyor | 1 oyun günü 60 gerçek dk; gerçek tarihli takvim bu hızla akar (K20, [K67](/docs/source/design/decisions#k67)) | [Zaman ve Takvim](/docs/world/time-calendar) |
+| 1 çadır 1 kişiyle 60 dakika | Karara bağlandı ([K50](/docs/source/design/decisions#k50)) | Hane Yurdu tek elle 60 dk; notundaki «çadır» yurt diye okundu, küçük çadır ayrı yapıdır ([K34](/docs/source/design/decisions#k34)) | [İnşa ve Emek](/docs/buildings/construction-labour) |
+| 2 kişi 45, 3 kişi 33,75 dakika, her kişi %25 hızlandırır | Karara bağlandı ([K50](/docs/source/design/decisions#k50)) | `T(n) = taban × 0,75^(n−1)`, en çok 8 el: 60, 45, 33,75 … 8,0 dk; camp3'ün saatleri buna göre ([K83](/docs/source/design/decisions#k83)) | [İnşa ve Emek](/docs/buildings/construction-labour) |
+| Tutsaklıktan itibaren açık dünya, GTA, RDR, Witcher, Diablo tarzı görevler | Karara bağlandı ([K43](/docs/source/design/decisions#k43)) | I. Perde kısıtlıdır; II'den açık dünya, görevlere gidilir: ana zincir, yan görev aileleri, keşif durakları; perde son görevle biter | [Açık Dünya ve Görevler](/docs/gameplay/open-world-quests) |
+| Hikâye gerçek tarih içinde gerçek zamanlı ve sürekli akar | Karara bağlandı ([K67](/docs/source/design/decisions#k67), [K42](/docs/source/design/decisions#k42)) | Takvim tek sayaçtır ve geri gitmez; perde arası yıllar Akan Kronik'le ay ay akar | [Zaman ve Takvim](/docs/world/time-calendar) |
+| I. Perde bitmeden yerleşim ve askerî kamp yok, sonrası daha özgür | Uyuşuyor | Rehinelikte yerleşim ve ordugâh yoktur; II'de Köz Kabı'yla Ocak kurulur (K23, [K43](/docs/source/design/decisions#k43)) | [Açık Dünya ve Görevler](/docs/gameplay/open-world-quests) |
+| Tek gecelik kamp: malzemeyle kamp ateşi ve küçük çadır | Karara bağlandı ([K46](/docs/source/design/decisions#k46)) | Gecelik Çadır ve döşek, toplam 5 Yük, tek başına 108 sn; II'den açılır | [Tek Gecelik Kamp](/docs/gameplay/overnight-camp) |
+| Malzeme ve envanter sistemi | Uyuşuyor | Tek malzeme sınıflaması, Yük ve kaplar (K24); Godot'da henüz yok | [Envanter ve Yük](/docs/economy/inventory-load) |
+| Yurtlar ve yerleşim birimleri malzemeyle kurulur | Uyuşuyor | Her yapının malzemesi ve emeği vardır (K21, K24) | [Yapı Kataloğu](/docs/buildings/catalog) |
+| Malzeme savaştan, ağaç kesmekten, avdan gelir | Karara bağlandı ([K49](/docs/source/design/decisions#k49)) | Ağaç ve av her perdede; savaş ganimeti I. Perde'den sonra, düşmanın türüne göre belli, rastgele düşme yok | [Toplama ve Kaynaklar](/docs/economy/gathering) |
+| Para birimi ve parayı harcayacak satıcılar | Karara bağlandı ([K48](/docs/source/design/decisions#k48)) | Kabuk: 1 kabuk = 4 Kıymet = 1 Aş; I. Perde'de takas, II'den kabuk; Hun satıcısı üstü verir | [Para ve Satıcılar](/docs/economy/money-traders) |
+
+## Notun oyuna ne zaman girer
+
+Godot'daki oyunun bugünkü hâli [d3/oyun-durumu.md](/docs/source/design/d3/game-state)'dedir; her işin fazı ve durumu [Yol Haritası](/roadmap)'ndadır.
+
+| Notun | Godot'da bugün | Yol Haritası |
+|---|---|---|
+| Diablo kamerası, döndürme | Var: takip kamerası (38°, 36°, 28 m), Q/E ve sağ tıkla dönüş, 14–40 m; eğim oyuncuya açık değil | [camera-pitch](/roadmap#item-camera-pitch), [act-1-p1](/roadmap#act-1-p1) |
+| Act'ler, Mete'nin hayatı | Önsöz oyunda; Çocukluk ve perdeler henüz yok | Dokuz bölümün her biri bir perde: [Önsöz](/roadmap#prologue), [Çocukluk](/roadmap#childhood), [I](/roadmap#act-1), [II](/roadmap#act-2), [III](/roadmap#act-3), [IV](/roadmap#act-4), [V](/roadmap#act-5), [VI](/roadmap#act-6), [Sonsöz](/roadmap#epilogue) |
+| Ozanın mit anlatısı ve doğum | Var: Önsöz'ün mit sineması ve doğum sahnesi; kulak ve göz onayı [Karar Bekleyenler](/docs/general/pending-decisions)'de | [opening-cinematic](/roadmap#item-opening-cinematic), [prologue-p4](/roadmap#prologue-p4) |
+| Bebeklikten başlayan hikâye | Yok | [childhood-scene](/roadmap#item-childhood-scene), [childhood-p2](/roadmap#childhood-p2) |
+| 20 seviye | Yok | [levels-skills](/roadmap#item-levels-skills), [act-1-p1](/roadmap#act-1-p1) |
+| 75.000 km² dünya | Yok: atlas yok, prototipte denendi | [atlas](/roadmap#item-atlas), [act-2-p1](/roadmap#act-2-p1) |
+| Hava durumları | Yok, prototipte denendi | [weather](/roadmap#item-weather), [act-1-p1](/roadmap#act-1-p1) |
+| Çadır çeşitliliği, 3 büyüklük | Kampta iki keçe yurt var, çeşit ve boy yok | [yurt-variants](/roadmap#item-yurt-variants), [act-1-p2](/roadmap#act-1-p2) |
+| Haritadan oyuna M'siz geçiş | Yok | [map-zoom](/roadmap#item-map-zoom), [act-2-p1](/roadmap#act-2-p1) |
+| Yerleşim, obadan Tanhu Avlusu'na | Yok | [settlement](/roadmap#item-settlement), [act-2-p2](/roadmap#act-2-p2) |
+| 1 gün 60 dakika, akan takvim | Yok: gece sabittir; saat prototipte denendi | [clock-calendar](/roadmap#item-clock-calendar), [act-1-p1](/roadmap#act-1-p1); perde arası [chronicle](/roadmap#item-chronicle) |
+| Yurt süresi (60 / 45 / 33,75) | Yok, emek yasası prototipte denendi | [labour-law](/roadmap#item-labour-law), [act-1-p1](/roadmap#act-1-p1) |
+| Açık dünya ve görevler | Yok | [quests](/roadmap#item-quests) ([act-1-p3](/roadmap#act-1-p3)), [open-world-quests](/roadmap#item-open-world-quests) ([act-2-p4](/roadmap#act-2-p4)) |
+| Tek gecelik kamp | Yok | [overnight-camp](/roadmap#item-overnight-camp), [act-2-p2](/roadmap#act-2-p2) |
+| Malzeme, envanter, malzemeyle kurulan yapılar | Yok; yapı aşamaları prototipte denendi | [inventory](/roadmap#item-inventory), [gathering](/roadmap#item-gathering) ([act-1-p1](/roadmap#act-1-p1)), [staged-building](/roadmap#item-staged-building) ([act-1-p2](/roadmap#act-1-p2)) |
+| Para birimi ve satıcılar | Yok | Takas [barter](/roadmap#item-barter) ([act-1-p3](/roadmap#act-1-p3)), kabuk ve satıcılar [currency](/roadmap#item-currency) ([act-2-p2](/roadmap#act-2-p2)) |
+
+## Çelişki sanılan iki çift
+
+Site iki not çiftini çelişki diye göstermişti. İkisinin de çelişki olmadığını söyledin; tasarım sözüne uydu.
+
+**1 gün 60 dakika ve sürekli akan tarih (E4.1).** Cevabın: «bu ikisi celiski degil 1 gun 60dk olacak ve gercek tarih dedigim takvim bu kural ile akacak ve gunduz gece buna gore calsiacak». Karar [K67](/docs/source/design/decisions#k67): 1 oyun günü 24 oyun saati, 60 gerçek dakikadır; oyunun tek saati gerçek tarihli takvimdir, MÖ yılı, ay ve gün olarak yazılır; gündüz, gece, ay evresi ve mevsim aynı saatten okunur. Ayrıntı: [Zaman ve Takvim](/docs/world/time-calendar).
+
+**Ozanın mit anlatısı ve bebeklik (E4.2).** Cevabın Yeni Oyun'un sırasını verdi: kamera ozana yaklaşmaz, 2–3 kat geri çekilir; kamp, gök ve dağlar aynı karede görünür; ozanın kopuzu duyulur ve sözünü söyler; kısa sessizlik, kararma; mitolojik sinema ve anlatıcı; sonra ayrı bir sahnede Mete'nin doğumu. Karar [K68](/docs/source/design/decisions#k68): Önsöz üç sahnedir (geri çekilme ve şarkı, mit sineması, doğum), hikâye bebeklikten başlar, ardından Çocukluk gelir. Ayrıntı: [Önsöz](/docs/story/prologue).
+
+## Sonraki notların
+
+Bu turda yazdığın öteki mesajlar (67 cevap, E1–E6) kelimesi kelimesine [d3/register.md](/docs/source/design/d3/register)'dedir; neyin nereye gittiği [Araştırma ve Tasarım Turu](/docs/general/design-round)'ndadır. Sayfalarda **Not al** ile yazdığın notlar [Notlar](/notes) sayfasında birikir; bu sayfa da orada «Yazdığın notlar» görünümünde açılır. Senin seçimini bekleyenler [Karar Bekleyenler](/docs/general/pending-decisions)'dedir.

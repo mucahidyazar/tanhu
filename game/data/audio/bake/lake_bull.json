@@ -1,0 +1,11 @@
+{
+  "id": "lake_bull",
+  "kind": "sfx",
+  "instrument": "lake_bull",
+  "seconds": 3.0,
+  "seed": 3517,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "Göl boğası (weather.md §10.2, K35): göllü dünyada gök gürültülü fırtınadan ya da fırtına cephesinden 1 sa önce, far_rain kanalında bir kez. Kodla basılır; kulak onayı bekler (Yol Haritası weather). İnandırıcı olmazsa ElevenLabs efekt ucundan tek dosya, kredisi önce sorulur (K61)."
+}

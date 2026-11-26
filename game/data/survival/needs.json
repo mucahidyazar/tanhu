@@ -1,0 +1,42 @@
+{
+	"version": 1,
+	"doc": "Tokluk, Yara ve Düşüş (economy.md §5.1–§5.3, §5.6; survival.md §2.7, §3; progression.md §3, §8.5; time.md §7.4, §10.5; act1.md §9.2; K1, K35, K45). Needs, Wounds ve Survival okur (scripts/sim/survival/). Tokluk 0–100: uyanıkken per_hour / oyun saati, ateş başında dinlenirken rest, uykuda sleep, Son Gece last_night; hepsi × zorluğun fullness'ı (data/character/difficulty.json: Hikâye 0,7, Normal 1, Zor 1,15) ve Kurutma Sırığı becerisinin fullnessDecay'i. Açlık öldürmez ve oyunu durdurmaz (economy.md §5.1); Serbest Gez'de Tokluk yoktur. Bantlar: sated ≥75 dolum ×1,15; hungry <25 dolum ×0,6 (Soluk ≥7 muaf), koşu ×0,95; spent 0 ek olarak Can dolumu ×0,5, koşu gideri ×1,25. Yara: sınır zorluğun woundLimit'idir (5, 3, 2); Can 0'da Yara +1, Can hp_after_zero'ya döner, invulnerable_s dokunulmaz; açık yara başına stamina wound_sta, koşu wound_run, Can dolumu wound_hp_regen; ateş başında rest_min dinlenme Tokluk ≥ rest_fullness ise Yara −1, rest_every_min'de bir; ≥ sleep_min uyku bütün yaraları kapatır. Yara sınırı dolunca Düşüş (Umay Eşiği): kısa kararma, son barınakta uyanış, saat skip_min ilerler (bir bekleyişi geçmez), zorluğun fallCost'u kadar erzak eksik (Kut ≥ kut_free ya da Geyik Muskası almaz), Hikâye'de 0, öteki zorluklarda 1 yarayla uyanılır; başucunda küçük ok ve yay durur; ilk Düşüş kartı tek söz yazar: «Umay.» Süreli yemek etkisi en çok buff_max tanedir, yenisi en eskisini siler.",
+	"fullness": {"max": 100.0, "start": 60.0, "per_hour": 5.0, "rest": 0.5, "sleep": 0.25, "last_night": 1.2, "sated": 75.0, "hungry": 25.0},
+	"quality_k": {"1": 0.75, "2": 1.0, "3": 1.3},
+	"bands": {
+		"sated": {"staRegen": 1.15, "name": {"tr": "Tok", "en": "Sated"}},
+		"ok": {},
+		"hungry": {"staRegen": 0.6, "run": 0.95, "windExempt": 7, "name": {"tr": "Aç", "en": "Hungry"}},
+		"spent": {"staRegen": 0.6, "run": 0.95, "windExempt": 7, "hpRegen": 0.5, "runCost": 1.25, "name": {"tr": "Bitkin", "en": "Spent"}}
+	},
+	"wounds": {
+		"limit": {"story": 5, "normal": 3, "hard": 2},
+		"hp_after_zero": 0.5,
+		"invulnerable_s": 1.0,
+		"wound_sta": 8.0,
+		"wound_run": 0.03,
+		"wound_hp_regen": 0.25,
+		"rest_min": 120.0,
+		"rest_every_min": 360.0,
+		"rest_fullness": 25.0,
+		"sleep_min": 240.0
+	},
+	"fall": {
+		"skip_min": 120.0,
+		"kut_free": 5,
+		"free_items": ["deer_amulet"],
+		"wake_wounds": {"story": 0, "normal": 1, "hard": 1},
+		"card": {"tr": "Umay.", "en": "Umay."},
+		"woke": {"tr": "Kendine geldin. Başucunda küçük bir ok ve yay duruyor.", "en": "You come to. A small bow and arrow lie by your head."},
+		"lost": {"tr": "Erzaktan {item} eksik.", "en": "From your provisions, {item} is gone."}
+	},
+	"buff_max": 2,
+	"text": {
+		"fullness": {"tr": "Tokluk", "en": "Fullness"},
+		"wounds": {"tr": "Yara", "en": "Wounds"},
+		"hungry_warn": {"tr": "Karnın acıktı: soluğun yavaş dolar.", "en": "You are hungry: your breath comes back slowly."},
+		"spent_warn": {"tr": "Bitkinsin: bir şey ye.", "en": "You are spent: eat something."},
+		"wound": {"tr": "Yaralandın.", "en": "You are wounded."},
+		"healed": {"tr": "Bir yara kapandı.", "en": "A wound closes."}
+	}
+}

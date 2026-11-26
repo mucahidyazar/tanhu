@@ -1,0 +1,34 @@
+{
+	"flags": {
+		"ahir_ziyaret": true,
+		"ates_basi": true,
+		"cocuk_gezinti": true,
+		"gol_yamaci": true,
+		"ilk_gezinti": true,
+		"kaya_kumesi": true,
+		"yosunlu_kaya": true
+	},
+	"game": "tanhu3",
+	"place": "cayir",
+	"play_time": 50.1161330899471,
+	"position": [
+		6.71493244171143,
+		-0.0216347873210907,
+		-18.5266399383545
+	],
+	"profile": {
+		"beard": 0,
+		"body_type": 0,
+		"eye_color": 0,
+		"eyes": 0,
+		"hair_color": 0,
+		"hairstyle": 0,
+		"moustache": 0,
+		"skin": 0
+	},
+	"save_no": 0,
+	"saved_at": "2026-11-08T05:22:14",
+	"saved_unix": 1794104534.84983,
+	"version": 1,
+	"yaw": -13.0030463818508
+}

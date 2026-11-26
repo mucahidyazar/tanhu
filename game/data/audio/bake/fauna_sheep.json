@@ -1,0 +1,215 @@
+{
+  "id": "sheep",
+  "kind": "sfx",
+  "dir": "fauna",
+  "instrument": "beast",
+  "seconds": 0.95,
+  "rate": 22050,
+  "seed": 7121,
+  "loop": false,
+  "source": "code",
+  "note": "Koyun meleme (ses-tasarimi.md §7.2: f 280–320 Hz, 13 Hz titrek). Kuzu aynı tamponu 1,35 perdeyle çalar (lamb). Ak Otlak'ın sürüsü; Önsöz'ün doğum sahnesi kendi ücretsiz kaydını (audio/sfx/gen/sheep.wav) çalmayı sürdürür. Kodla basılır (scripts/audio/synth/beast.gd; kaynak-süzgeç), kredi yok; kulak onayı bekler (Yol Haritası fauna-sound-bank).",
+  "variants": [
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              288
+            ],
+            [
+              0.08800000000000001,
+              325.43999999999994
+            ],
+            [
+              0.6240000000000001,
+              279.36
+            ],
+            [
+              0.8,
+              259.2
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              1
+            ],
+            [
+              0.48,
+              0.8
+            ],
+            [
+              0.8,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              800,
+              4,
+              1
+            ],
+            [
+              1700,
+              6,
+              0.5
+            ],
+            [
+              2800,
+              7,
+              0.15
+            ]
+          ],
+          "vib": 60,
+          "vib_rate": 13,
+          "jitter": 10,
+          "breath": 0.15,
+          "trem": 0.3,
+          "trem_rate": 13
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              302
+            ],
+            [
+              0.0946,
+              341.26
+            ],
+            [
+              0.6708000000000001,
+              292.94
+            ],
+            [
+              0.86,
+              271.8
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              1
+            ],
+            [
+              0.516,
+              0.8
+            ],
+            [
+              0.86,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              800,
+              4,
+              1
+            ],
+            [
+              1700,
+              6,
+              0.5
+            ],
+            [
+              2800,
+              7,
+              0.15
+            ]
+          ],
+          "vib": 60,
+          "vib_rate": 12.5,
+          "jitter": 10,
+          "breath": 0.15,
+          "trem": 0.32,
+          "trem_rate": 12.5
+        }
+      ]
+    },
+    {
+      "calls": [
+        {
+          "t": 0.0,
+          "type": "saw",
+          "f0": [
+            [
+              0,
+              318
+            ],
+            [
+              0.0814,
+              359.34
+            ],
+            [
+              0.5772,
+              308.46
+            ],
+            [
+              0.74,
+              286.2
+            ]
+          ],
+          "amp": [
+            [
+              0,
+              0
+            ],
+            [
+              0.05,
+              1
+            ],
+            [
+              0.444,
+              0.8
+            ],
+            [
+              0.74,
+              0
+            ]
+          ],
+          "formants": [
+            [
+              800,
+              4,
+              1
+            ],
+            [
+              1700,
+              6,
+              0.5
+            ],
+            [
+              2800,
+              7,
+              0.15
+            ]
+          ],
+          "vib": 60,
+          "vib_rate": 13.5,
+          "jitter": 10,
+          "breath": 0.15,
+          "trem": 0.28,
+          "trem_rate": 13.5
+        }
+      ]
+    }
+  ]
+}

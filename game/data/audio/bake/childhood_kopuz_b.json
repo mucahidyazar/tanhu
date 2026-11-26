@@ -1,0 +1,30 @@
+{
+  "id": "childhood_kopuz_b",
+  "kind": "music",
+  "instrument": "kopuz",
+  "role": "motor",
+  "tempo": 72,
+  "bars": 2,
+  "mode": "major_pent",
+  "density": 0.7,
+  "position": "upper",
+  "melody": [
+    "F4",
+    "F4",
+    "G4",
+    "A4",
+    "C5",
+    "C5",
+    "D5",
+    "C5",
+    "A4",
+    "G4",
+    "F4",
+    "F4"
+  ],
+  "seed": 7221,
+  "rate": 44100,
+  "loop": false,
+  "source": "code",
+  "note": "childhood: kopuz (motor 0,7), cümle B: köke (F) iner. Kulak onayı bekler."
+}

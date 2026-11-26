@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/character/character_avatar.gd" id="1_avatar"]
+[ext_resource type="Script" path="res://scripts/world/meshy_prop.gd" id="2_prop"]
+[ext_resource type="Script" path="res://scripts/camp/kopuz.gd" id="3_kopuz"]
+[ext_resource type="Script" path="res://scripts/world/camp_npcs.gd" id="9_npcs_root"]
+
+[node name="CampNpcs" type="Node3D"]
+script = ExtResource("9_npcs_root")
+
+[node name="Mother" type="Node3D" parent="."]
+transform = Transform3D(0.4109538, 0, 0.9116562, 0, 1, 0, -0.9116562, 0, 0.4109538, -1.93, 0, -0.87)
+script = ExtResource("1_avatar")
+model_override = "mother"
+start_pose = &"sit"
+auto_face = true
+
+[node name="Child" type="Node3D" parent="."]
+transform = Transform3D(0.2963992, 0, 0.9550641, 0, 1, 0, -0.9550641, 0, 0.2963992, -1.45, 0, -0.45)
+script = ExtResource("1_avatar")
+model_override = "child"
+start_pose = &"sit"
+auto_face = true
+
+[node name="Father" type="Node3D" parent="."]
+transform = Transform3D(0.88089293, 0, 0.4733156, 0, 1, 0, -0.4733156, 0, 0.88089293, -0.828, 0, -1.542)
+script = ExtResource("1_avatar")
+model_override = "father"
+start_pose = &"sit"
+auto_face = true
+
+[node name="OlderBrother" type="Node3D" parent="."]
+transform = Transform3D(0.8330054, 0, -0.5532648, 0, 1, 0, 0.5532648, 0, 0.8330054, 0.985, 0, -1.482)
+script = ExtResource("1_avatar")
+model_override = "older_brother"
+start_pose = &"sit"
+auto_face = true
+
+[node name="Bow" type="Node3D" parent="OlderBrother"]
+transform = Transform3D(0.9902681, 0.1391731, 0, 0, 0, 1, 0.1391731, -0.9902681, 0, 0.42, 0.045, 0.5)
+script = ExtResource("2_prop")
+model_id = "bow"
+target_size = 1.3
+
+[node name="Elder" type="Node3D" parent="."]
+transform = Transform3D(0.26658604, 0, -0.9638111, 0, 1, 0, 0.9638111, 0, 0.26658604, 2.35, 0, -0.65)
+script = ExtResource("1_avatar")
+model_override = "elder"
+start_pose = &"sit"
+auto_face = true
+
+[node name="Kopuz" type="Node3D" parent="Elder"]
+transform = Transform3D(0.5867914, 0.7990019, -0.1314224, -0.7588429, 0.5992514, 0.2550593, 0.2825479, -0.04993762, 0.9579525, -0.164, 0.242, 0.39)
+script = ExtResource("3_kopuz")
+play_transform = Transform3D(0.712596, 0.699396, -0.055244, -0.688333, 0.712203, 0.137713, 0.135661, -0.060108, 0.98893, -0.17, 0.27, 0.27)

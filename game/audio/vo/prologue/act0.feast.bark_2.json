@@ -1,0 +1,16 @@
+{
+	"id": "act0.feast.bark_2",
+	"take": 0,
+	"seed": 4285227286,
+	"hash": "ff6b611640fd",
+	"model": "eleven_v3",
+	"voice": "JXFyLOwtCuySmwGGzqHN",
+	"seconds": 2.0,
+	"words": [
+		{"w": "Another", "t0": 0.0, "t1": 0.48},
+		{"w": "branch", "t0": 0.549, "t1": 0.96},
+		{"w": "on", "t0": 1.013, "t1": 1.12},
+		{"w": "the", "t0": 1.14, "t1": 1.2},
+		{"w": "fire!", "t0": 1.328, "t1": 2.0}
+	]
+}

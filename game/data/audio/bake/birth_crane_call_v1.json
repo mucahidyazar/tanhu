@@ -1,0 +1,22 @@
+{
+  "id": "crane_call_v1",
+  "kind": "sfx",
+  "instrument": "crane",
+  "role": "recording",
+  "file": "assets/_free/sound/crane_call_1/Grus_grus.ogg",
+  "start": 0.5,
+  "seconds": 6.5,
+  "highpass": 320,
+  "lowpass": 3400,
+  "notches": [
+    3898,
+    7827
+  ],
+  "rms": 0.08,
+  "fade_out": 0.6,
+  "seed": 2346,
+  "rate": 22050,
+  "loop": false,
+  "source": "code",
+  "note": "crane_call'un ikinci çeşidi (AudioManager.sfx_variants: crane_call_v1): ücretsiz kayıt crane_call_1 (Wikimedia Commons «Grus grus», V. P. Volkov, CC0; uçan 22 turnalık sürü), 0,5–7,0 sn. Kayıttaki sabit tonlu çizgiler (≈3,9 ve 7,8 kHz) çentik ve 3,4 kHz alçak geçirenle temizlenir. Kulak onayı bekler."
+}

@@ -1,0 +1,119 @@
+[gd_resource type="Theme" format=3]
+
+[sub_resource type="SystemFont" id="SystemFont_title"]
+font_names = PackedStringArray("Cinzel", "Trajan Pro", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Georgia", "serif")
+
+[sub_resource type="FontVariation" id="FontVariation_title"]
+base_font = SubResource("SystemFont_title")
+spacing_glyph = 40
+
+[sub_resource type="SystemFont" id="SystemFont_body"]
+font_names = PackedStringArray("Palatino", "Palatino Linotype", "Book Antiqua", "Georgia", "serif")
+
+[sub_resource type="FontVariation" id="FontVariation_button"]
+base_font = SubResource("SystemFont_body")
+spacing_glyph = 1
+
+[sub_resource type="FontVariation" id="FontVariation_caps"]
+base_font = SubResource("SystemFont_body")
+spacing_glyph = 2
+
+; İtalik ve kalın biçimler FontVariation ile (eğme / kalınlaştırma) verilir: SystemFont'un
+; font_italic / font_weight seçimi macOS'taki .ttc yazı tiplerinde (Palatino) sessizce normale düşer.
+[sub_resource type="FontVariation" id="FontVariation_italic"]
+base_font = SubResource("SystemFont_body")
+variation_transform = Transform2D(1, 0.18, 0, 1, 0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_bold"]
+base_font = SubResource("SystemFont_body")
+variation_embolden = 0.6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_button"]
+content_margin_left = 22.0
+content_margin_top = 6.0
+content_margin_right = 22.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_none"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_toast"]
+content_margin_left = 40.0
+content_margin_top = 12.0
+content_margin_right = 40.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hud"]
+content_margin_left = 34.0
+content_margin_top = 14.0
+content_margin_right = 38.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_key"]
+content_margin_left = 8.0
+content_margin_top = 1.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.949, 0.918, 0.847, 0.92)
+border_width_bottom = 2
+border_color = Color(0.7, 0.63, 0.52, 0.95)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+default_font = SubResource("SystemFont_body")
+default_font_size = 20
+Button/colors/font_color = Color(0.949, 0.918, 0.847, 1)
+Button/colors/font_disabled_color = Color(0.949, 0.918, 0.847, 0.4)
+Button/colors/font_focus_color = Color(0.949, 0.918, 0.847, 1)
+Button/colors/font_hover_color = Color(0.949, 0.918, 0.847, 1)
+Button/colors/font_hover_pressed_color = Color(0.949, 0.918, 0.847, 1)
+Button/colors/font_pressed_color = Color(0.949, 0.918, 0.847, 1)
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 25
+Button/fonts/font = SubResource("FontVariation_button")
+Button/styles/disabled = SubResource("StyleBoxEmpty_button")
+Button/styles/focus = SubResource("StyleBoxEmpty_none")
+Button/styles/hover = SubResource("StyleBoxEmpty_button")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_button")
+Button/styles/normal = SubResource("StyleBoxEmpty_button")
+Button/styles/pressed = SubResource("StyleBoxEmpty_button")
+BrushButtonSmall/base_type = &"Button"
+BrushButtonSmall/font_sizes/font_size = 20
+HudAction/base_type = &"Label"
+HudAction/colors/font_color = Color(0.949, 0.918, 0.847, 0.92)
+HudAction/font_sizes/font_size = 17
+HudKey/base_type = &"Label"
+HudKey/colors/font_color = Color(0.06, 0.08, 0.17, 1)
+HudKey/font_sizes/font_size = 14
+HudKey/fonts/font = SubResource("FontVariation_bold")
+HudKey/styles/normal = SubResource("StyleBoxFlat_key")
+HudPanel/base_type = &"PanelContainer"
+HudPanel/styles/panel = SubResource("StyleBoxEmpty_hud")
+HudSeparator/base_type = &"Label"
+HudSeparator/colors/font_color = Color(0.949, 0.918, 0.847, 0.35)
+HudSeparator/font_sizes/font_size = 17
+Label/colors/font_color = Color(0.949, 0.918, 0.847, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/font_sizes/font_size = 20
+Label/fonts/font = SubResource("SystemFont_body")
+Label/styles/normal = SubResource("StyleBoxEmpty_none")
+MenuHint/base_type = &"Label"
+MenuHint/colors/font_color = Color(0.949, 0.918, 0.847, 0.72)
+MenuHint/font_sizes/font_size = 16
+MenuHint/fonts/font = SubResource("FontVariation_italic")
+MenuTitle/base_type = &"Label"
+MenuTitle/colors/font_color = Color(0.949, 0.918, 0.847, 1)
+MenuTitle/font_sizes/font_size = 76
+MenuTitle/fonts/font = SubResource("FontVariation_title")
+MenuToast/base_type = &"PanelContainer"
+MenuToast/styles/panel = SubResource("StyleBoxEmpty_toast")
+MenuToastLabel/base_type = &"Label"
+MenuToastLabel/colors/font_color = Color(0.949, 0.918, 0.847, 1)
+MenuToastLabel/font_sizes/font_size = 21
+MenuToastLabel/fonts/font = SubResource("FontVariation_button")
+MenuVersion/base_type = &"Label"
+MenuVersion/colors/font_color = Color(0.949, 0.918, 0.847, 0.62)
+MenuVersion/font_sizes/font_size = 15
+MenuVersion/fonts/font = SubResource("FontVariation_caps")

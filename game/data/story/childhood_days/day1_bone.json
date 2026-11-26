@@ -1,0 +1,444 @@
+{
+	"id": "day1_bone",
+	"version": 1,
+	"doc": "Çocukluk «Ak Kemik» (E21, K110; story.md §5 «İki yeni gün»; docs/design/d3/e21-childhood-api.md, e21-atmosphere.md «Ak Kemik»): 20 Eylül MÖ 228 akşamı, dolunay doğarken; «Çobanlık»ın aynı akşamıdır (childhood_days.json'da card false: kısa kararma, kart yok). ChildhoodScene bu dosyayı düz sırayla oynatır; adımların türleri scripts/story/steps/'dadır (bone_call, bone_play: Ç2; sleep: Ç1). bone_call: obanın akşamı (ocak dumanı, kapıdan sızan ateş ışığı, ağılda diz çökmüş sağan kadın, kapısının yanında bakan Lan Hatun (kapının önünde değil: oyuncu yatmaya girer), ovada Dailin'e gelen boyların ateşleri: fires), Yançi çağırır, Mete aya bakar, Lan Hatun uyarır, çocuklar bağlama direğine (bone_post) koşar; oyuncu direğe varınca Luhun kuralı söyler. Müzik susar (music_quiet): gece yalnız amb_moon_night (cırcır böcekleri, uzak köpek, uzak ateşler). bone_play: üç el (BoneRules, BoneBrain; bone_play.gd): atan kemiği direğin önünden karanlık çayıra (bone_field) fırlatır, 25–45 m, her elde başka yere; kemik ay ışığında yalnız yakında ışıldar; bulan direğe koşar, ötekiler kovalar; 1 m'ye yaklaşan yakalar ve kemiği alır, yakalanan 2 sn durur; direğe varan eli kazanır, sonraki eli o atar (oyuncu: direğin yanında E'yi basılı tutup bırakır, atış kameranın baktığı yöne gider). Çocukların hızı oyuncunun koşusunu aşmaz (K105), kovalanan çocuk 2 sn'de bir kısa duraksar; ceza yoktur, oyuncu hep yenilse de üç elde biter. Sözler olaylara bağlıdır (lines: found, tagged, won, again, tease), sesler sfx'tir (ChildhoodAtmos; dosya yoksa yer tutucu). Bitişte saat görünür biçimde 20:05'e akar (ay yükselir), çocuklar yurtlarına yürür. bone_sleep (Ç1'in sleep türü): Lan Hatun kapıdan çağırır («Ay yükseldi.»), yurtta yatağa E, kararma, sıradaki günün kartı (21 Eylül). Mete en az bir el kazandıysa child_bone_won yazılır. Satırların metni docs/design/d3/e21-lines.json'dan eşitlenir (act0.bone.*; elle değiştirilmez).",
+	"title": {
+		"tr": "Ak Kemik",
+		"en": "White Bone"
+	},
+	"date": {
+		"tr": "20 Eylül MÖ 228 · Ordos",
+		"en": "20 September 228 BC · Ordos"
+	},
+	"day_n": -5602,
+	"clock": {
+		"start": "18:28",
+		"seconds_per_minute": 2.5
+	},
+	"flags": {
+		"done": "child_bone"
+	},
+	"bow_from": "none",
+	"music": {},
+	"ambience": {},
+	"atmos": {
+		"beds": [
+			{
+				"id": "amb_moon_night",
+				"db": -11.0
+			}
+		]
+	},
+	"player": {
+		"yaw_deg": 90.0,
+		"seated": false
+	},
+	"vo_prefix": "act0.bone.",
+	"speakers": {
+		"lan_hatun": {
+			"tr": "Lan Hatun",
+			"en": "Lan Hatun"
+		},
+		"luhun_child": {
+			"tr": "Luhun",
+			"en": "Luhun"
+		},
+		"yanchi_child": {
+			"tr": "Yançi",
+			"en": "Yanchi"
+		},
+		"mete_child": {
+			"tr": "Mete",
+			"en": "Mete"
+		}
+	},
+	"lines": {
+		"call": {
+			"speaker": "yanchi_child",
+			"tr": "Ay doğuyor! Ak kemik oynayalım!",
+			"en": "The moon's coming up! Let's play white bone!"
+		},
+		"rules": {
+			"speaker": "luhun_child",
+			"tr": "Ben atarım. Bulan direğe koşar, ötekiler yakalar.",
+			"en": "I'll throw it. Whoever finds it runs for the post, and the others try to catch them."
+		},
+		"throw": {
+			"speaker": "luhun_child",
+			"tr": "Ak kemik, ay ışığında yat!",
+			"en": "White bone, lie in the moonlight!"
+		},
+		"mete_has": {
+			"speaker": "yanchi_child",
+			"tr": "Onda! Yakala!",
+			"en": "He's got it! Catch him!"
+		},
+		"yanchi_has": {
+			"speaker": "yanchi_child",
+			"tr": "Bende! Bende!",
+			"en": "I've got it! I've got it!"
+		},
+		"luhun_has": {
+			"speaker": "luhun_child",
+			"tr": "Benim!",
+			"en": "It's mine!"
+		},
+		"tagged": {
+			"speaker": "luhun_child",
+			"tr": "Tuttun! Al, koş!",
+			"en": "You got me! Take it, run!"
+		},
+		"mete_won": {
+			"speaker": "yanchi_child",
+			"tr": "Direğe vardı!",
+			"en": "He made the post!"
+		},
+		"other_won": {
+			"speaker": "luhun_child",
+			"tr": "Ben vardım!",
+			"en": "I made it!"
+		},
+		"end": {
+			"speaker": "lan_hatun",
+			"tr": "Ay yükseldi. Yatın artık; yarın biri Hereka'ya gidecek.",
+			"en": "The moon's high. Bed now. Tomorrow someone is going to Hereka."
+		},
+		"lan_watch": {
+			"speaker": "lan_hatun",
+			"tr": "Uzaklaşmayın. Ay ışığı kemiği gösterir, kurdu da.",
+			"en": "Don't wander off. Moonlight shows the bone, and it shows the wolf too."
+		},
+		"breath": {
+			"speaker": "yanchi_child",
+			"tr": "Dur… soluğum kesildi…",
+			"en": "Wait… I can't breathe…"
+		},
+		"tease": {
+			"speaker": "luhun_child",
+			"tr": "Yaşlı koyundan da yavaşsın!",
+			"en": "You're slower than the old sheep!"
+		},
+		"again": {
+			"speaker": "yanchi_child",
+			"tr": "Bir el daha! Bu kez ben atarım.",
+			"en": "Another round! I'm throwing this time."
+		},
+		"moon": {
+			"speaker": "mete_child",
+			"tr": "Babam şimdi aya eğiliyor.",
+			"en": "My father's bowing to the moon now."
+		},
+		"yanchi_won": {
+			"speaker": "yanchi_child",
+			"tr": "İlk ben vardım! Ben!",
+			"en": "I got there first! Me!"
+		}
+	},
+	"barks": {
+		"cooldown": 45.0
+	},
+	"actors": {
+		"lan_hatun": {
+			"start": "lan_stand",
+			"face": "bone_post",
+			"solid": true
+		},
+		"lan_woman_a": {
+			"start": [
+				11.5,
+				29.2
+			],
+			"face": [
+				10.6,
+				30.6
+			],
+			"solid": true
+		},
+		"yanchi_child": {
+			"start": [
+				26.6,
+				21.8
+			],
+			"face": "bone_post",
+			"gesture": [
+				[
+					"RightArm",
+					"lateral",
+					-128.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-24.0
+				]
+			]
+		},
+		"luhun_child": {
+			"start": [
+				28.4,
+				23.2
+			],
+			"face": "bone_post",
+			"gesture": [
+				[
+					"RightArm",
+					"lateral",
+					-132.0
+				],
+				[
+					"RightForeArm",
+					"lateral",
+					-26.0
+				]
+			]
+		}
+	},
+	"steps": [
+		{
+			"id": "bone_call",
+			"kind": "bone_call",
+			"clock": "18:28",
+			"objective": {
+				"tr": "Bağlama direğine git",
+				"en": "Go to the hitching post"
+			},
+			"hint": {
+				"tr": "Yançi ile Luhun direğin yanında; dolunay doğuda doğuyor.",
+				"en": "Yanchi and Luhun are at the post; the full moon is rising in the east."
+			},
+			"say": [
+				{
+					"line": "call",
+					"at": 1.0
+				}
+			],
+			"post": "bone_post",
+			"field": "bone_field",
+			"spots": {
+				"yanchi_child": [
+					16.2,
+					6.1
+				],
+				"luhun_child": [
+					16.4,
+					2.2
+				]
+			},
+			"run_speed": 3.0,
+			"near": 4.0,
+			"rules_after": 6.0,
+			"moon_at": 3.4,
+			"watch_at": 3.6,
+			"lines": {
+				"moon": "moon",
+				"watch": "lan_watch",
+				"rules": "rules"
+			},
+			"milker": {
+				"actor": "lan_woman_a",
+				"clip": "ground_kneel_heels",
+				"face": [
+					10.6,
+					30.6
+				]
+			},
+			"watcher": {
+				"actor": "lan_hatun",
+				"face": "bone_post"
+			},
+			"music_quiet": true,
+			"fires": [
+				[
+					84.0,
+					-6.0
+				],
+				[
+					92.0,
+					12.0
+				],
+				[
+					86.0,
+					41.0
+				],
+				[
+					70.0,
+					56.0
+				],
+				[
+					102.0,
+					-24.0
+				],
+				[
+					62.0,
+					-42.0
+				],
+				[
+					-44.0,
+					48.0
+				],
+				[
+					-58.0,
+					-30.0
+				]
+			]
+		},
+		{
+			"id": "bone_play",
+			"kind": "bone_play",
+			"clock": "18:31",
+			"objective": {
+				"tr": "Ak kemiği bul",
+				"en": "Find the white bone"
+			},
+			"hint": {
+				"tr": "Kemik ay ışığında parlar, ama yalnız yakından görünür.",
+				"en": "The bone shines in the moonlight, but only up close."
+			},
+			"post": "bone_post",
+			"field": "bone_field",
+			"field_radius": 30.0,
+			"field_hint_m": 16.0,
+			"first_thrower": "luhun_child",
+			"hands": 3,
+			"spread_deg": 32.0,
+			"seed": 2209,
+			"spots": {
+				"yanchi_child": [
+					16.2,
+					6.1
+				],
+				"luhun_child": [
+					16.4,
+					2.2
+				]
+			},
+			"home": {
+				"yanchi_child": [
+					-19.6,
+					9.8
+				],
+				"luhun_child": [
+					-19.8,
+					7.9
+				]
+			},
+			"lines": {
+				"throw": "throw",
+				"found": {
+					"mete_child": "mete_has",
+					"yanchi_child": "yanchi_has",
+					"luhun_child": "luhun_has"
+				},
+				"tagged": {
+					"luhun_child": "tagged",
+					"yanchi_child": "breath"
+				},
+				"won": {
+					"mete_child": "mete_won",
+					"luhun_child": "other_won",
+					"yanchi_child": "yanchi_won"
+				},
+				"again": "again",
+				"tease": "tease"
+			},
+			"sfx": {
+				"land": "sfx_bone_land",
+				"pant": "sfx_child_pant",
+				"laugh": "sfx_kids_laugh",
+				"slap": "sfx_post_slap"
+			},
+			"objectives": {
+				"throw_luhun_child": {
+					"tr": "Luhun atıyor",
+					"en": "Luhun is throwing"
+				},
+				"throw_yanchi_child": {
+					"tr": "Yançi atıyor",
+					"en": "Yanchi is throwing"
+				},
+				"throw_hint": {
+					"tr": "Kemiğin düştüğü yeri gözle.",
+					"en": "Watch where the bone comes down."
+				},
+				"aim": {
+					"tr": "Kemiği at",
+					"en": "Throw the bone"
+				},
+				"aim_far": {
+					"tr": "Direğe dön",
+					"en": "Go back to the post"
+				},
+				"aim_hint": {
+					"tr": "Kamerayla çayıra dön, E'yi basılı tut: tuttukça uzağa gider, bırakınca atarsın.",
+					"en": "Turn the camera to the meadow and hold E: the longer you hold it, the farther it goes. Release to throw."
+				},
+				"search": {
+					"tr": "Ak kemiği bul",
+					"en": "Find the white bone"
+				},
+				"search_hint": {
+					"tr": "Kemik ay ışığında parlar, ama yalnız yakından görünür.",
+					"en": "The bone shines in the moonlight, but only up close."
+				},
+				"carry": {
+					"tr": "Direğe koş!",
+					"en": "Run for the post!"
+				},
+				"carry_hint": {
+					"tr": "Yakalanmadan bağlama direğine var.",
+					"en": "Reach the hitching post without being caught."
+				},
+				"chase": {
+					"yanchi_child": {
+						"tr": "Yançi'yi yakala",
+						"en": "Catch Yanchi"
+					},
+					"luhun_child": {
+						"tr": "Luhun'u yakala",
+						"en": "Catch Luhun"
+					}
+				},
+				"chase_hint": {
+					"tr": "Kemiği taşıyana yetiş: dokununca kemik senin.",
+					"en": "Catch whoever has the bone: touch them and it's yours."
+				}
+			},
+			"labels": {
+				"hold": {
+					"tr": "Basılı tut: at",
+					"en": "Hold: throw"
+				},
+				"release": {
+					"tr": "Bırak: at",
+					"en": "Release: throw"
+				}
+			},
+			"end_clock": "20:05",
+			"end_hold": 5.5,
+			"won_flag": "child_bone_won",
+			"bot_hold_s": 0.9
+		},
+		{
+			"id": "bone_sleep",
+			"kind": "sleep",
+			"objective": {
+				"tr": "Yurda gir, yat",
+				"en": "Go in and lie down"
+			},
+			"hint": {
+				"tr": "Yatağın yanında E.",
+				"en": "Press E by the bed."
+			},
+			"bed": "lan_bed",
+			"radius": 1.4,
+			"say": [
+				{
+					"line": "end",
+					"at": 0.5
+				}
+			],
+			"fade_s": 1.6,
+			"hold_s": 0.8
+		}
+	]
+}

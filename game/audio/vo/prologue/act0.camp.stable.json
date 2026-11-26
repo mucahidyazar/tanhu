@@ -1,0 +1,17 @@
+{
+	"id": "act0.camp.stable",
+	"take": 0,
+	"seed": 1478816252,
+	"hash": "5824f1fc01c7",
+	"model": "eleven_v3",
+	"voice": "FWipwLM0YqCuwisLprpU",
+	"seconds": 2.56,
+	"words": [
+		{"w": "Don't", "t0": 0.0, "t1": 0.24},
+		{"w": "walk", "t0": 0.288, "t1": 0.48},
+		{"w": "behind", "t0": 0.537, "t1": 0.88},
+		{"w": "Doru.", "t0": 0.96, "t1": 1.36},
+		{"w": "He", "t0": 1.547, "t1": 1.92},
+		{"w": "kicks.", "t0": 2.0, "t1": 2.56}
+	]
+}

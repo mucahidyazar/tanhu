@@ -1,0 +1,19 @@
+{
+	"id": "act0.myth.13",
+	"take": 0,
+	"seed": 3402813822,
+	"hash": "6df9595f86ad",
+	"model": "eleven_v3",
+	"voice": "BNgbHR0DNeZixGQVzloa",
+	"seconds": 5.103,
+	"block": {"id": "block:act0.myth.3..act0.myth.25", "t0": 61.75, "t1": 66.853},
+	"words": [
+		{"w": "Kishi.", "t0": 0.05, "t1": 0.57},
+		{"w": "You", "t0": 1.676, "t1": 1.93},
+		{"w": "are", "t0": 2.01, "t1": 2.25},
+		{"w": "kishi.", "t0": 2.33, "t1": 2.81},
+		{"w": "I", "t0": 3.727, "t1": 4.01},
+		{"w": "am", "t0": 4.117, "t1": 4.33},
+		{"w": "kishi.", "t0": 4.37, "t1": 4.944}
+	]
+}

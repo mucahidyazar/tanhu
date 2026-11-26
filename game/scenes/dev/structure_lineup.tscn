@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/dev/structure_lineup.gd" id="1_lineup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/painterly_overlay.tscn" id="2_paint"]
+
+[node name="StructureLineup" type="Node3D"]
+script = ExtResource("1_lineup")
+
+[node name="PainterlyOverlay" parent="." instance=ExtResource("2_paint")]

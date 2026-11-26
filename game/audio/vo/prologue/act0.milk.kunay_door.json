@@ -1,0 +1,19 @@
+{
+	"id": "act0.milk.kunay_door",
+	"take": 0,
+	"seed": 2375326238,
+	"hash": "8d949a1e1427",
+	"model": "eleven_v3",
+	"voice": "9XELrPIyVsbmAjCB3Bwh",
+	"seconds": 4.0,
+	"words": [
+		{"w": "Come,", "t0": 0.0, "t1": 0.68},
+		{"w": "catch", "t0": 0.74, "t1": 1.04},
+		{"w": "your", "t0": 1.072, "t1": 1.2},
+		{"w": "breath.", "t0": 1.257, "t1": 1.68},
+		{"w": "That", "t0": 1.856, "t1": 2.56},
+		{"w": "yoke", "t0": 2.64, "t1": 3.04},
+		{"w": "is", "t0": 3.147, "t1": 3.36},
+		{"w": "heavy.", "t0": 3.44, "t1": 4.0}
+	]
+}
